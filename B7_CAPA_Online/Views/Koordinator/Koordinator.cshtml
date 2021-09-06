@@ -1,0 +1,452 @@
+﻿
+@{
+    ViewBag.Title = "Koordinator";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*CSS Library*@
+@*<link href="../plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">*@
+
+<div class="content-body">
+
+    <!--Modal-->
+    <div class="modal fade" id="link_Deviation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="input-tahun-deviation" class="col-form-label">Tahun:</label>
+                            <input type="text" class="form-control" id="TxtTahunDeviation">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-tahun-deviation" class="col-form-label">Departemen:</label>
+                            <input type="text" class="form-control" id="TxtDepartemenDeviation">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-tahun-deviation" class="col-form-label">Penyimpangan:</label>
+                            <input type="text" class="form-control" id="TxtKategorinDeviation">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Send message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="link_CCC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="input-tahun-ccc" class="col-form-label">Tahun:</label>
+                            <input type="text" class="form-control" id="TxtTahunCCC">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-departemen-ccc" class="col-form-label">Departemen:</label>
+                            <input class="form-control" id="TxtDepartemenCCC">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-kategori-ccc" class="col-form-label">Kategori Penyimpangan:</label>
+                            <input class="form-control" id="TxtKategoriCCC">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Send message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="link_Oracle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="input-tahun-oracle" class="col-form-label">Tahun:</label>
+                            <input type="text" class="form-control" id="TxtTahunOracle">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-departemen-oracle" class="col-form-label">Departemen:</label>
+                            <input class="form-control" id="TxtDepartemenOracle">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-kategori-oracle" class="col-form-label">Kategori Penyimpangan:</label>
+                            <input class="form-control" id="input-kategoriOracle">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Filter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="link_Renew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Tahun:</label>
+                            <input type="text" class="form-control" id="TxtTahunRenew">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Departemen:</label>
+                            <input class="form-control" id="TxtDepartemenRenew">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Kategori Penyimpangan:</label>
+                            <input class="form-control" id="TxtKategoriRenew">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Filter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row page-titles mx-0">
+        <div class="col p-md-0">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Home</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- row -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Koordinator</h4>
+                        <form>
+                            <div class="row">
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-20">Tanggal</label>
+                                    <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly>
+                                </div>
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-40">Requestor</label>
+                                    <input class="form-control form-control-sm" type="text" id="input_Requestor" readonly>
+                                </div>
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-20">Nomor CAPA</label>
+                                    <input class="form-control form-control-sm" type="text" id="input_NoCAPA" readonly>
+                                </div>
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-40">Departemen</label>
+                                    <input class="form-control form-control-sm" type="text" id="input_Departemen" readonly>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <form>
+                            <div class="row form-group-sm mb-2">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Trigger CAPA<span style="color: red">*</span></label>
+                                    <select class="form-control form-control-sm" id="Trigger_CAPA">
+                                        <option value="Oracle">ATB</option>
+                                        <option value="Oracle">PMTMS</option>
+                                        <option value="CCC">Kembalian Terkait Kualitas</option>
+                                    </select>
+                                </div>                               
+                            </div>
+                            <div class="row form-group" id="Linked_Deviation" hidden>
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Penyimpangan Terkait</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_Deviation">Browse</button>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Generate Link">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group" id="Linked_CCC" hidden>
+                                <div class="col-md-6">
+                                    <label class="m-t-40">Keluhan Pelanggan Terkait</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_CCC">Browse</button>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Generate Link">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group" id="Linked_Oracle" hidden>
+                                <div class="col-md-6">
+                                    <label class="m-t-20">No. QC terkait ATB/PMTMS/FKM</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_Oracle">Browse</button>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Generate Link">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group-sm mb-2">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Lampiran Terkait</label>
+                                    <div class="input-group mb-3">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input">
+                                            <label class="custom-file-label">Choose file</label>
+                                        </div>
+                                    </div>
+                                </div>                               
+                            </div>
+                            <div class="row form-group-sm mb-2">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Kategori</label>
+                                    <select class="form-control form-control-sm" id="Kategori_DDL">
+                                        <option>Option 1</option>
+                                        <option>Option 2</option>
+                                        <option>Option 3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row form-group-sm">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Deskripsi Masalah<span style="color: red">*</span></label>
+                                    <textarea type="text" class="form-control" placeholder="Deskripsi" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <div class="row form-group-sm mb-2">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Lokasi</label>
+                                    <select class="form-control form-control-sm" id="Lokasi_DDL">
+                                        <option>Option 1</option>
+                                        <option>Option 2</option>
+                                        <option>Option 3</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="m-t-20">Area PIC CAPA<span style="color: red">*</span></label>
+                                    <select class="form-control" id="AreaPIC_DDL" disabled>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row form-group-sm mb-4">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Bagian terkait yang perlu melakukan tindakan perbaikan dan atau pencegahan<span style="color: red">*</span></label>
+                                    <div class="input-group">
+                                        <select class="form-control select2" id="Departemen_DDL">
+                                        </select>
+                                        <div class="input-group-append" style="padding-left:10px">
+                                            <button class="btn btn-outline-dark" type="button" id="btn_Add">Add</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="m-t-20">PIC CAPA<span style="color: red">*</span></label>
+                                    <select class="form-control form-control-sm" id="PIC_DDL" disabled>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row form-group-sm" id="List_Departemen" hidden>
+                                <div class="col-md-6">
+                                    <label class="m-t-20">List Departemen Terkait</label>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered zero-configuration">
+                                            <thead>
+                                                <tr>
+                                                    <th>Departemen</th>                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody id="Tbl_Departemen">
+                                                <tr>                 
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                            <div class="row form-group-sm" hidden>
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Nama Vendor</label>
+                                    <input class="form-control form-control-sm" type="text" id="input_Vendor">
+                                    <label class="m-t-40">Nama Personil</label>
+                                    <input class="form-control form-control-sm" type="text" id="input_Personil">
+                                    <label class="m-t-40">Email</label>
+                                    <input class="form-control form-control-sm" type="email" id="input_Email">
+                                </div>
+                            </div>
+                            <div class="row form-group-sm">
+                                <div class="col-md-6 mt-3">
+                                    <button class="btn mb-1 btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- #/ container -->
+</div>
+
+
+@*JQuery Library*@
+@*<script src="../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>*@
+<script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        getDDL();
+        $('#Trigger_CAPA').change(function () {
+            clearHidden();
+            if ($('#Trigger_CAPA').val() == "ORACLE") {
+                $('#Linked_Oracle').prop('hidden', false);
+            } else if ($('#Trigger_CAPA').val() == "CCC") {
+                $('#Linked_CCC').prop('hidden', false);
+            } else {
+                $('#Linked_Deviation').prop('hidden', false);
+            }
+        });
+
+        $('#btn_Add').click(function () {
+            AddDepartemen();
+
+        });
+
+        
+
+
+    });
+
+    function clearHidden() {
+        $('#Linked_Oracle').prop('hidden', true);
+        $('#Linked_CCC').prop('hidden', true);
+        $('#Linked_Deviation').prop('hidden', true);
+        $('#Linked_Renew').prop('hidden', true);
+    }
+
+    function getDDL() {
+        $.ajax({
+            url: 'GetKoordinatorDDL',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log(data);
+                $('#Trigger_CAPA').empty();
+                $('#Kategori_DDL').empty();
+                $('#Lokasi_DDL').empty();
+                $.each(data, function (key, entry) {
+                    if (entry.DDL_TYPE == 'TRIGGER') {
+                        $('#Trigger_CAPA').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
+                    }
+                    if (entry.DDL_TYPE == 'KATEGORI') {
+                        $('#Kategori_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
+                    }
+                    if (entry.DDL_TYPE == 'LOKASI') {
+                        $('#Lokasi_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
+                    }
+                    $('#Trigger_CAPA').select2();
+                    $('#Kategori_DDL').select2();
+                    $('#Lokasi_DDL').select2();
+                })
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
+        $.ajax({
+            url: 'GetDepartments',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log(data);
+                $('#Departemen_DDL').empty();
+                $.each(data, function (key, entry) {
+                    $('#Departemen_DDL').append($('<option></option>').attr('value', entry.SubDept).text(entry.SubDept));                    
+                })
+                $('#Departemen_DDL').select2();
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function AddDepartemen() {
+        dto = {
+            Departemen : $('#Departemen_DDL').val()
+        }
+
+        $.ajax({
+            url: 'AddDepartments',
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify(dto),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log(data);                
+                $('#List_Departemen').prop('hidden', false);
+                $("#Tbl_Departemen").empty();
+                $("#AreaPIC_DDL").empty().prop('disabled', false);
+                $("#PIC_DDL").empty().prop('disabled', false);
+                $('#AreaPIC_DDL').append($('<option></option>').attr('value', '-').text('*Select Area PIC*'));
+                $.each(data, function (key, entry) {
+                    $('#Tbl_Departemen').append($('<tr><td>' + entry.Departemen + '</td></tr>'));
+                    $('#AreaPIC_DDL').append($('<option></option>').attr('value', entry.Departemen).text(entry.Departemen));  
+                })     
+                $('#AreaPIC_DDL').select2();
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
+
+    }
+
+
+
+</script>
+

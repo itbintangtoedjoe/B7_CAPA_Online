@@ -1,0 +1,916 @@
+﻿@using B7_CAPA_Online.Models
+@model DALModel
+@{
+    ViewBag.Title = "CreateCAPA";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var DepartemenObj = Request["data"];
+}
+
+<link href="~/Content/Scripts/plugins/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+<style>
+    @@media (min-width: 768px) {
+  .modal-xl {
+    width: 900%;
+   max-width:1400px;
+  }
+}
+</style>
+
+<div class="content-body">
+
+    <!--Modal-->
+    <div class="modal fade" id="link_Deviation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group col-md-6">
+                            <label for="TxtTahunDeviation" class="col-form-label">Tahun:</label>
+                            <div class="input-group">
+                                <select class="form-control select2" name="TahunDeviation" id="Tahun_DDL" required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="TxtDepartemenDeviation" class="col-form-label">Departemen:</label>
+                            <div class="input-group ">
+                                <select class="form-control select2" id="DepartemenPelapor_DDL" required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="TxtKategoriDeviation" class="col-form-label">Kategori Penyimpangan:</label>
+                            <div class="input-group">
+                                <select class="form-control select2" id="KategoriPenyimpangan_DDL" required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="TxtJenisPenyimpangan" class="col-form-label">Jenis Penyimpangan:</label>
+                            <div class="input-group">
+                                <select class="form-control select2" id="JenisPenyimpangan_DDL" required>
+                                    <option value="Yes">Terencana</option>
+                                    <option value="No">Tidak Terencana</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <button type="button" class="btn btn-primary" id="btn_Search_Deviation">Search</button>
+                        </div>                       
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered zero-configuration" id="Tbl_Deviation">
+                                <thead>
+                                    <tr>
+                                        <th>Action</th>
+                                        <th>No Penyimpangan</th>
+                                        <th>Nama Pelapor</th>
+                                        <th>Kategori Penyimpangan</th>
+                                        <th>Jenis Penyimpangan</th>
+                                        <th>Deskripsi Singkat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="link_CCC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group col-md-6">
+                            <label for="TxtTahunCCC" class="col-form-label">Tahun:</label>
+                            <div class="input-group">
+                                <select class="form-control select2 TahunCCC" name="TahunCCC" id="Tahun_DDL" required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="TxtPlantCCC" class="col-form-label">Plant:</label>
+                            <div class="input-group ">
+                                <select class="form-control select2" id="Plant_DDL" required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="TxtKategoriCCC" class="col-form-label">Jenis Kategori:</label>
+                            <div class="input-group">
+                                <select class="form-control select2" id="JenisKategori_DDL" required>
+                                    <option value="JUSTIFIED">Justified</option>
+                                    <option value="UNJUSTIFIED">Unjustified</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="TxtKeluhanCCC" class="col-form-label">Jenis Keluhan:</label>
+                            <div class="input-group">
+                                <select class="form-control select2" id="JenisKeluhan_DDL" required>
+                                    <option value="Quality">Quality</option>
+                                    <option value="Health">Health</option>
+                                    <option value="Promotion">Promotion</option>                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <button type="button" class="btn btn-primary" id="btn_Search_CCC">Search</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered zero-configuration" id="Tbl_CCC">
+                                <thead>
+                                    <tr>
+                                        <th>Action</th>
+                                        <th>No CCC</th>
+                                        <th>Nama Pelanggan</th>
+                                        <th>Jenis Kategori</th>
+                                        <th>Jenis Keluhan</th>
+                                        <th>Deskripsi Singkat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="link_Oracle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="input-tahun-oracle" class="col-form-label">Tahun:</label>
+                            <input type="text" class="form-control" id="TxtTahunOracle">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-departemen-oracle" class="col-form-label">Departemen:</label>
+                            <input class="form-control" id="TxtDepartemenOracle">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-kategori-oracle" class="col-form-label">Kategori Penyimpangan:</label>
+                            <input class="form-control" id="input-kategoriOracle">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Filter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="link_Renew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Tahun:</label>
+                            <input type="text" class="form-control" id="TxtTahunRenew">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Departemen:</label>
+                            <input class="form-control" id="TxtDepartemenRenew">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Kategori Penyimpangan:</label>
+                            <input class="form-control" id="TxtKategoriRenew">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Filter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row page-titles mx-0">
+        <div class="col p-md-0">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Home</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- row -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Koordinator</h4>
+                        <form>
+                            <div class="row">
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-20">Tanggal</label>
+                                    <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly>
+                                </div>
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-40">Requestor</label>
+                                    <input class="form-control form-control-sm" type="text" id="input_Requestor" readonly>
+                                </div>
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-20">Nomor CAPA</label>
+                                    <input class="form-control form-control-sm" type="text" id="input_NoCAPA" readonly>
+                                </div>
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-40">Departemen</label>
+                                    <input class="form-control form-control-sm" type="text" id="input_Departemen" readonly>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <!--form class="needs-validation"-->
+                        @using (Html.BeginForm("InsertCAPA", "Koordinator", FormMethod.Post, new { enctype = "multipart/form-data", @class = "needs-validation" }))
+                        {
+                            <div class="row form-group-sm mb-2">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Trigger CAPA<span style="color: red">*</span></label>
+                                    <select class="form-control form-control-sm" id="Trigger_CAPA" name="TriggerCAPA" required>
+                                    </select>
+                                    @Html.HiddenFor(m => m.TriggerCAPA)
+                                </div>
+                            </div>
+                            <div class="row form-group" id="Linked_Deviation" hidden>
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Penyimpangan Terkait</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_Deviation">Browse</button>
+                                        </div>
+                                        <input type="text" class="form-control" id="TxtDeviation" name="TxtDeviation">
+                                        <input type="text" class="form-control" name="PenyimpanganTerkait" id="PenyimpanganTekait" value="" hidden>
+                                        @Html.HiddenFor(m => m.PenyimpanganTerkait)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group" id="Linked_CCC" hidden>
+                                <div class="col-md-6">
+                                    <label class="m-t-40">Keluhan Pelanggan Terkait</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_CCC">Browse</button>
+                                        </div>
+                                        <input type="text" class="form-control" id="TxtCCC" name="TxtCCC">
+                                        <input type="text" class="form-control" name="KeluhanTerkait" id="KeluhanTerkait" value="" hidden>
+                                        @Html.HiddenFor(m => m.KeluhanTerkait)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group" id="Linked_Oracle" hidden>
+                                <div class="col-md-6">
+                                    <label class="m-t-20">No. QC terkait ATB/PMTMS/FKM</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_Oracle">Browse</button>
+                                        </div>
+                                        <input type="text" class="form-control" id="TxtOracle" name="TxtOracle">
+                                        <input type="text" class="form-control" name="No_QC_Terkait" value="" hidden>
+                                        @Html.HiddenFor(m => m.No_QC_Terkait)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group-sm mb-2">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Lampiran Terkait</label>
+                                    <div class="input-group mb-3">
+                                        <div class="custom-file">
+                                            <input id="TxtFileInput" type="file" name="LampiranTerkait" class="custom-file-input" multiple required>
+                                            @Html.HiddenFor(m => m.LampiranTerkait)
+                                            <label class="custom-file-label">Choose File</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group-sm mb-2">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Kategori</label>
+                                    <select class="form-control form-control-sm" id="Kategori_DDL" name="KategoriCAPA" required>
+                                        <option>Option 1</option>
+                                        <option>Option 2</option>
+                                        <option>Option 3</option>
+                                    </select>
+                                    @Html.HiddenFor(m => m.KategoriCAPA)
+                                </div>
+                            </div>
+                            <div class="row form-group-sm">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Deskripsi Masalah<span style="color: red">*</span></label>
+                                    <textarea id="TxtDeskripsi" type="text" class="form-control" name="Deskripsi" placeholder="Deskripsi" rows="3" required></textarea>
+                                    @Html.HiddenFor(m => m.Deskripsi)
+                                </div>
+                            </div>
+                            <div class="row form-group-sm mb-2">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Lokasi</label>
+                                    <select class="form-control form-control-sm" id="Lokasi_DDL" name="Lokasi" required>
+                                        <option>Option 1</option>
+                                        <option>Option 2</option>
+                                        <option>Option 3</option>
+                                    </select>
+                                    @Html.HiddenFor(m => m.Lokasi)
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="m-t-20">Area PIC CAPA<span style="color: red">*</span></label>
+                                    <select class="form-control" id="AreaPIC_DDL" name="AreaPIC" required>
+                                    </select>
+                                    @Html.HiddenFor(m => m.AreaPIC)
+                                </div>
+                            </div>
+                            <div class="row form-group-sm mb-4">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Bagian terkait yang perlu melakukan tindakan perbaikan dan atau pencegahan<span style="color: red">*</span></label>
+                                    <div class="input-group">
+                                        <select class="form-control select2" id="Departemen_DDL" required>
+                                        </select>
+
+                                        <div class="input-group-append" style="padding-left:10px">
+                                            <button class="btn btn-outline-dark rounded btn-sm" type="button" id="btn_Add">Add</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="m-t-20">PIC CAPA<span style="color: red">*</span></label>
+                                    <select class="form-control form-control-sm" id="PIC_DDL" name="PIC_CAPA" required>
+                                    </select>
+                                    @Html.HiddenFor(m => m.PIC_CAPA)
+                                </div>
+                            </div>
+                            <div class="row form-group-sm" id="List_Departemen" hidden>
+                                <div class="col-md-6">
+                                    <label class="m-t-20">List Departemen Terkait</label>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered zero-configuration">
+                                            <thead>
+                                                <tr>
+                                                    <th>Departemen</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="Tbl_Departemen">
+                                                <tr>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        @Html.HiddenFor(m => m.DepartemenCollection, new { id = "myObj", value = "" })
+                                        @Html.HiddenFor(m => m.PenyimpanganCollection, new { id = "PenyimpanganNumber", value = "" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row form-group-sm" hidden>
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Nama Vendor</label>
+                                    <input class="form-control form-control-sm" type="text" id="input_Vendor">
+                                    <label class="m-t-40">Nama Personil</label>
+                                    <input class="form-control form-control-sm" type="text" id="input_Personil">
+                                    <label class="m-t-40">Email</label>
+                                    <input class="form-control form-control-sm" type="email" id="input_Email">
+                                </div>
+                            </div>
+                            <div class="row form-group-sm">
+                                <div class="col-md-6 mt-3">
+                                    <button class="btn mb-1 btn-primary" type="submit" id="btn_Submit">Submit</button>
+                                </div>
+                            </div>
+                        }
+                        <!--/form-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- #/ container -->
+</div>
+
+
+@*JQuery Library*@
+@*<script src="../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>*@
+<script src="~/Content/Scripts/plugins/datatables/jquery.dataTables.min.js" defer></script>
+<script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        getDDL();
+        TahunDDL();
+        DeleteDepartemen();
+
+        $('#AreaPIC_DDL').select2();
+        $('#PIC_DDL').select2();
+
+        $('#Trigger_CAPA').change(function () {
+            clearHidden();
+            if ($('#Trigger_CAPA').val() == "ORACLE") {
+                $('#Linked_Oracle').prop('hidden', false);
+            } else if ($('#Trigger_CAPA').val() == "CCC") {
+                $('#Linked_CCC').prop('hidden', false);
+            } else {
+                $('#Linked_Deviation').prop('hidden', false);
+            }
+        });
+
+        $('#btn_Add').click(function () {
+            AddDepartemen();
+
+        });
+
+        $('#Lokasi_DDL').change(function () {
+            var Location;
+
+            if ($('#Lokasi_DDL').val() == 'CKG') {
+                Location = 'Cikarang';
+            } else if ($('#Lokasi_DDL').val() == 'HOF') {
+                Location = 'Pulomas';
+            } else {
+                Location = 'Pulogadung';
+            }
+            dto = {
+                Option: 3,
+                Departemen: $('#AreaPIC_DDL').val(),
+                Lokasi: Location,
+                SP: "[dbo].[SP_SHOW_DDL]"
+            }
+
+            $.ajax({
+                url: 'GetSupervisors',
+                type: 'post',
+                data: JSON.stringify(dto),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    $('#PIC_DDL').empty();
+                    $.each(JSON.parse(data), function (key, entry) {
+                        $('#PIC_DDL').append($('<option></option>').attr('value', entry.EmpName).text(entry.EmpName));
+                    });
+
+                    if ($('#PIC_DDL').val() == null) {
+                        $('#PIC_DDL').append($('<option></option>').attr('value', '').text('None'));
+                    }
+
+                    $('#PIC_DDL').select2();
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+        });
+
+        $('#AreaPIC_DDL').change(function () {
+            var Location;
+            if ($('#Lokasi_DDL').val() == 'CKG') {
+                Location = 'Cikarang';
+            } else if ($('#Lokasi_DDL').val() == 'HOF') {
+                Location = 'Pulomas';
+            } else {
+                Location = 'Pulogadung';
+            }
+            dto = {
+                Option: 3,
+                Departemen: $('#AreaPIC_DDL').val(),
+                Lokasi: Location,
+                SP: "[dbo].[SP_SHOW_DDL]"
+            }
+
+            $.ajax({
+                url: 'GetSupervisors',
+                type: 'post',
+                data: JSON.stringify(dto),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    $('#PIC_DDL').empty();
+                    $.each(JSON.parse(data), function (key, entry) {
+                        $('#PIC_DDL').append($('<option></option>').attr('value', entry.EmpName).text(entry.EmpName));
+                    });
+
+                    if ($('#PIC_DDL').val() == null) {
+                        $('#PIC_DDL').append($('<option></option>').attr('value', '').text('None'));
+                    }
+
+                    $('#PIC_DDL').select2();
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+        });
+
+        $('#btn_Search_Deviation').click(function () {
+            dto = {
+                Option: 4,
+                Departemen: $('#DepartemenPelapor_DDL').val(),
+                Kategori: $('#KategoriPenyimpangan_DDL').val(),
+                JenisPenyimpangan : $('#JenisPenyimpangan_DDL').val(),
+                Tahun: $('#Tahun_DDL').val(),
+                SP: "[dbo].[SP_SHOW_DDL]"
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "GetPenyimpangan",
+                data: JSON.stringify(dto),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {                                 
+                    var table = $('#Tbl_Deviation').DataTable({
+                        "pageLength": 5,
+                        "lengthChange": true,
+                        "searching": false,
+                        "data": JSON.parse(result),
+                        "select": true,
+                        "bDestroy": true,
+                        "scrollCollapse":true,
+                        "columns": [
+                            {
+                                "data": null,
+                                "defaultContent": "<input class='selected' type='checkbox' name='type' onchange=''>"
+                            },
+                            { "data": "DEVIATION_NO" },
+                            { "data": "NAMA_PELOPOR" },
+                            { "data": "DEVIATION_CATEGORY"},
+                            { "data": "DEVIATION_TYPE" },
+                            { "data": "KET_CATEGORY" }
+                        ],
+                        "order": [[1, 'asc']],
+                        "columnDefs": [
+                            {
+                                "targets": 0,
+                                "className": "text-center",
+                                "width" : "1%"
+                            },
+                            {
+                                "targets": 1,
+                                "className": "text-center",
+                                "width": "5%"
+                            },
+                            {
+                                "targets": 2,
+                                "className": "text-center",
+                                "width": "6%"
+                            },
+                            {
+                                "targets": 3,
+                                "className": "text-center",
+                                "width": "6%"
+                            },
+                            {
+                                "targets": 4,
+                                "className": "text-center",
+                                "width": "4%"
+                            },
+                            {
+                                "targets": 5,
+                                "className": "text-left",
+                                "width": "15%"
+                            }
+                        ]
+                    });
+                }
+            });
+        });
+
+        $('#btn_Search_CCC').click(function () {
+            dto = {
+                Option: 7,
+                Plant: $('#Plant_DDL').val(),
+                Kategori: $('#JenisKategori_DDL').val(),
+                JenisKeluhan: $('#JenisKeluhan_DDL').val(),
+                Tahun: $('#Tahun_DDL').val(),
+                SP: "[dbo].[SP_SHOW_DDL]"
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "GetPenyimpangan",
+                data: JSON.stringify(dto),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    var table = $('#Tbl_CCC').DataTable({
+                        "pageLength": 5,
+                        "lengthChange": true,
+                        "searching": false,
+                        "data": JSON.parse(result),
+                        "select": true,
+                        "bDestroy": true,
+                        "scrollCollapse": true,
+                        "columns": [
+                            {
+                                "data": null,
+                                "defaultContent": "<input class='selected' type='checkbox' name='type' onchange=''>"
+                            },
+                            { "data": "No_CCC" },
+                            { "data": "Nama_Plgn" },
+                            { "data": "Kategori" },
+                            { "data": "Keluhan_Plgn" },
+                            { "data": "StatusCCC" }
+                        ],
+                        "order": [[1, 'asc']],
+                        "columnDefs": [
+                            {
+                                "targets": 0,
+                                "className": "text-center",
+                                "width": "1%"
+                            },
+                            {
+                                "targets": 1,
+                                "className": "text-center",
+                                "width": "5%"
+                            },
+                            {
+                                "targets": 2,
+                                "className": "text-center",
+                                "width": "6%"
+                            },
+                            {
+                                "targets": 3,
+                                "className": "text-center",
+                                "width": "6%"
+                            },
+                            {
+                                "targets": 4,
+                                "className": "text-center",
+                                "width": "4%"
+                            },
+                            {
+                                "targets": 5,
+                                "className": "text-left",
+                                "width": "15%"
+                            }
+                        ]
+                    });
+                }
+            });
+        });
+        
+        //checkbox Deviation
+        var data = []; 
+        $(document).on("click", "#Tbl_Deviation input[name='type'][class='selected']", function () {              
+            if ($(this).prop('checked') == true) {
+                var columns = $(this).closest('tr').find('td:eq(1)').text();
+                var id = {};
+                id.PENYIMPANGAN_ID = columns;
+                data.push(id);                
+            }
+            else {                        
+                var columns = $(this).closest('tr').find('td:eq(1)').text();                
+                data.splice(data.findIndex(e => e.PENYIMPANGAN_ID === columns), 1);                
+            }
+            
+            console.log(data);        
+            $('#PenyimpanganNumber').val(JSON.stringify(data));
+            if (data.length == 0)
+                $('#TxtPenyimpangan').val("Tidak ada data terkait yang dipilih.");
+            else {                
+                $('#PenyimpanganTerkait').val("Yes");
+                $('#TxtPenyimpangan').val(data.length + " Data telah dipilih.");         
+            }
+                  
+        });
+
+        $(document).on("click", "#Tbl_CCC input[name='type'][class='selected']", function () {
+            if ($(this).prop('checked') == true) {
+                var columns = $(this).closest('tr').find('td:eq(1)').text();
+                var id = {};
+                id.PENYIMPANGAN_ID = columns;
+                data.push(id);
+            }
+            else {
+                var columns = $(this).closest('tr').find('td:eq(1)').text();
+                data.splice(data.findIndex(e => e.PENYIMPANGAN_ID === columns), 1);
+            }
+           
+            console.log(data);
+            $('#PenyimpanganNumber').val(JSON.stringify(data));
+            if (data.length == 0)
+                $('#TxtCCC').val("Tidak ada data terkait yang dipilih.");
+            else {
+                $('#KeluhanTerkait').val("Yes");
+                $('#TxtCCC').val(data.length + " Data telah dipilih.");
+            }
+        });
+
+    });
+
+    function clearHidden() {
+        $('#Linked_Oracle').prop('hidden', true);
+        $('#Linked_CCC').prop('hidden', true);
+        $('#Linked_Deviation').prop('hidden', true);
+        $('#Linked_Renew').prop('hidden', true);
+    }
+
+    function getDDL() {
+        $.ajax({
+            url: 'GetKoordinatorDDL',
+            type: 'post',
+            data: JSON.stringify({
+                Option: 1,
+                SP: "[dbo].[SP_SHOW_DDL]"
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#Trigger_CAPA').empty();
+                $('#Kategori_DDL').empty();
+                $('#Lokasi_DDL').empty();
+                $('#Trigger_CAPA').empty();
+                $('#Trigger_CAPA').append($('<option></option>').attr('value', '').text('*Pilih*'));
+                $('#Kategori_DDL').append($('<option></option>').attr('value', '').text('*Pilih*'));
+                $('#Lokasi_DDL').append($('<option></option>').attr('value', '').text('*Pilih*'));
+                $.each(JSON.parse(data), function (key, entry) {
+                    if (entry.DDL_TYPE == 'TRIGGER') {
+                        $('#Trigger_CAPA').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
+                    }
+                    if (entry.DDL_TYPE == 'KATEGORI') {
+                        $('#Kategori_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));                        
+                    }
+                    if (entry.DDL_TYPE == 'LOKASI') {
+                        $('#Lokasi_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
+                    }
+                    $('#Trigger_CAPA').select2();
+                    $('#Kategori_DDL').select2();
+                    $('#Lokasi_DDL').select2();
+                })
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
+        $.ajax({
+            url: 'GetDepartments',
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify({
+                Option: 2,
+                SP: "[dbo].[SP_SHOW_DDL]"
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#Departemen_DDL').empty();
+                $('#Departemen_DDL').append($('<option></option>').attr('value', '').text('*Pilih*'));
+                $.each(JSON.parse(data), function (key, entry) {
+                    $('#Departemen_DDL').append($('<option></option>').attr('value', entry.SubDept).text(entry.SubDept));
+                    $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.SubDept).text(entry.SubDept));
+                })
+                $('#Departemen_DDL').select2();
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
+        $.ajax({
+            url: 'GetKategoriPenyimpangan',
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify({
+                Option: 5,
+                SP: "[dbo].[SP_SHOW_DDL]"
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#KategoriPenyimpangan_DDL').empty();
+                //$('#KategoriPenyimpangan_DDL').append($('<option></option>').attr('value', '').text('*Pilih*'));
+                $.each(JSON.parse(data), function (key, entry) {
+                    $('#KategoriPenyimpangan_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));                    
+                })
+                //$('#KategoriPenyimpangan_DDL').select2();
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
+        $.ajax({
+            url: 'GetPlantCCC',
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify({
+                Option: 6,
+                SP: "[dbo].[SP_SHOW_DDL]"
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#Plant_DDL').empty();                
+                $.each(JSON.parse(data), function (key, entry) {
+                    $('#Plant_DDL').append($('<option></option>').attr('value', entry.PlantSC).text(entry.Plant));
+                })                
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
+    }
+
+    function AddDepartemen() {
+        dto = {
+            Departemen: $('#Departemen_DDL').val()
+        }
+
+        $.ajax({
+            url: 'AddDepartments',
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify(dto),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#List_Departemen').prop('hidden', false);
+                $("#Tbl_Departemen").empty();
+                $("#AreaPIC_DDL").empty().prop('disabled', false);
+                $("#PIC_DDL").empty().prop('disabled', false);
+                $('#AreaPIC_DDL').append($('<option></option>').attr('value', '').text('*Select Area PIC*'));
+                $.each(data, function (key, entry) {
+                    $('#Tbl_Departemen').append($('<tr><td>' + entry.Departemen + '</td><td><button type="button" class="form-control-sm delete">Delete</button></td></tr>'));
+                    $('#AreaPIC_DDL').append($('<option></option>').attr('value', entry.Departemen).text(entry.Departemen));
+                    getTableRow();
+                })
+                $('#AreaPIC_DDL').select2();
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function DeleteDepartemen() {
+        $(document).on("click", "#Tbl_Departemen button.delete", function () {
+            var columns = $(this).closest('tr').find('td:eq(0)').text();
+                  
+        });
+    }
+
+    function getTableRow() {
+        var DeptList = new Array();
+        $("#Tbl_Departemen tr").each(function () {
+            var row = $(this);
+            var data = {};
+            data.Departemen = row.find("td").eq(0).html();
+            DeptList.push(data);            
+            $("#myObj").val(JSON.stringify(DeptList));            
+        });
+
+    }
+
+    function TahunDDL() {
+        var years = new Date().getFullYear();
+        for (var i = years; i >= 2018; i--) {
+            $('#Tahun_DDL').append(new Option(i, i));
+            $('.TahunCCC').append(new Option(i, i));
+        }        
+    }
+</script>
+
+

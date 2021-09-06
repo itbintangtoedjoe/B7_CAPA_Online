@@ -1,0 +1,338 @@
+﻿
+@{
+    ViewBag.Title = "HalamanRequest";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <!--Modal-->
+    <div class="modal fade" id="link_Deviation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="input-tahun-deviation" class="col-form-label">Tahun:</label>
+                            <input type="text" class="form-control" id="TxtTahunDeviation">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-tahun-deviation" class="col-form-label">Departemen:</label>
+                            <input type="text" class="form-control" id="TxtDepartemenDeviation">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-tahun-deviation" class="col-form-label">Penyimpangan:</label>
+                            <input type="text" class="form-control" id="TxtKategorinDeviation">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Send message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="link_CCC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="input-tahun-ccc" class="col-form-label">Tahun:</label>
+                            <input type="text" class="form-control" id="TxtTahunCCC">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-departemen-ccc" class="col-form-label">Departemen:</label>
+                            <input class="form-control" id="TxtDepartemenCCC">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-kategori-ccc" class="col-form-label">Kategori Penyimpangan:</label>
+                            <input class="form-control" id="TxtKategoriCCC">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Send message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="link_Oracle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="input-tahun-oracle" class="col-form-label">Tahun:</label>
+                            <input type="text" class="form-control" id="TxtTahunOracle">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-departemen-oracle" class="col-form-label">Departemen:</label>
+                            <input class="form-control" id="TxtDepartemenOracle">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-kategori-oracle" class="col-form-label">Kategori Penyimpangan:</label>
+                            <input class="form-control" id="input-kategoriOracle">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Filter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="link_Renew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Tahun:</label>
+                            <input type="text" class="form-control" id="TxtTahunRenew">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Departemen:</label>
+                            <input class="form-control" id="TxtDepartemenRenew">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Kategori Penyimpangan:</label>
+                            <input class="form-control" id="TxtKategoriRenew">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Filter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row page-titles mx-0">
+        <div class="col p-md-0">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">HalamanRequest</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- row -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Halaman Request</h4>
+                        <form>
+                            <div class="row">
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-20">Tanggal</label>
+                                    <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly>
+                                </div>
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-40">Requestor</label>
+                                    <input class="form-control form-control-sm" type="text" id="input_Requestor" readonly>
+                                </div>
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-20">Nomor CAPA</label>
+                                    <input class="form-control form-control-sm" type="text" id="input_NoCAPA" readonly>
+                                </div>
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-40">Departemen</label>
+                                    <input class="form-control form-control-sm" type="text" id="input_Departemen" readonly>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <form>
+                            <div class="row form-group">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Trigger CAPA<span style="color: red">*</span></label>
+                                    <select class="form-control form-control-sm" id="Trigger_CAPA">
+                                        <option value="Oracle">ATB</option>
+                                        <option value="Oracle">PMTMS</option>
+                                        <option value="CCC">Kembalian Terkait Kualitas</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row form-group" id="Linked_Deviation">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Penyimpangan Terkait</label>
+                                    <div class="input-group mb-3">
+                                        @*<div class="input-group-prepend">
+                                            <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_Deviation">Browse</button>
+                                        </div>*@
+                                        <input type="text" class="form-control" placeholder="Deviation Number" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group" id="Linked_CCC" >
+                                <div class="col-md-6">
+                                    <label class="m-t-40">Keluhan Pelanggan Terkait</label>
+                                    <div class="input-group mb-3">
+                                        @*<div class="input-group-prepend">
+                                            <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_CCC">Browse</button>
+                                        </div>*@
+                                        <input type="text" class="form-control" placeholder="CCC Online Number" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group" id="Linked_Oracle" >
+                                <div class="col-md-6">
+                                    <label class="m-t-20">No. QC terkait ATB/PMTMS/FKM</label>
+                                    <div class="input-group mb-3">
+                                        @*<div class="input-group-prepend">
+                                            <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_Oracle">Browse</button>
+                                        </div>*@
+                                        <input type="text" class="form-control" placeholder="Oracle Number" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group-sm">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Lampiran Terkait</label>
+                                    <div class="input-group mb-3">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input">
+                                            <label class="custom-file-label">Choose file</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group-sm">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Kategori</label>
+                                    <select class="form-control form-control-sm">
+                                        <option>Option 1</option>
+                                        <option>Option 2</option>
+                                        <option>Option 3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row form-group-sm">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Deskripsi Masalah<span style="color: red">*</span></label>
+                                    <textarea type="text" class="form-control" placeholder="Deskripsi" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <div class="row form-group-sm">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Lokasi</label>
+                                    <select class="form-control form-control-sm">
+                                        <option>Option 1</option>
+                                        <option>Option 2</option>
+                                        <option>Option 3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row form-group-sm">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Bagian terkait yang perlu melakukan tindakan perbaikan dan atau pencegahan<span style="color: red">*</span></label>
+                                    <div class="input-group">
+                                        <select class="custom-select">
+                                            <option selected="selected">Choose...</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-dark" type="button">Add</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group-sm">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Area PIC CAPA<span style="color: red">*</span></label>
+                                    <select class="form-control form-control-sm">
+                                        <option>Option 1</option>
+                                        <option>Option 2</option>
+                                        <option>Option 3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row form-group-sm">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">PIC CAPA<span style="color: red">*</span></label>
+                                    <select class="form-control form-control-sm" id="Select_PIC">
+                                        <option>Pilih*</option>
+                                        <option value="Others">Others</option>
+                                        <option value="SPV">SPV</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row form-group-sm" id="Div_Vendor" hidden>
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Nama Vendor</label>
+                                    <input class="form-control form-control-sm" type="text" id="input_Vendor">
+                                    @*<label class="m-t-40">Nama Personil</label>
+                                    <input class="form-control form-control-sm" type="text" id="input_Personil">
+                                    <label class="m-t-40">Email</label>
+                                    <input class="form-control form-control-sm" type="email" id="input_Email">*@
+                                </div>
+                            </div>
+                            <div class="row form-group-sm">
+                                <div class="col-md-6 mt-3">
+                                    <button class="btn mb-1 btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- #/ container -->
+</div>
+
+
+@*JQuery Library*@
+@*<script src="../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>*@
+<script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#Select_PIC').change(function () {
+            $('#Div_Vendor').prop('hidden', true);
+            if ($('#Select_PIC').val() == "Others") {
+                $('#Div_Vendor').prop('hidden', false);
+            }            
+        });
+
+    });
+
+</script>

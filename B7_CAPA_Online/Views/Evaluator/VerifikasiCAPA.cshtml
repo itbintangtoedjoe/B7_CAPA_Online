@@ -1,0 +1,314 @@
+﻿
+@{
+    ViewBag.Title = "VerifikasiCAPA";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <!--Modal-->
+    <div class="modal fade" id="link_Deviation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="input-tahun-deviation" class="col-form-label">Tahun:</label>
+                            <input type="text" class="form-control" id="TxtTahunDeviation">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-tahun-deviation" class="col-form-label">Departemen:</label>
+                            <input type="text" class="form-control" id="TxtDepartemenDeviation">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-tahun-deviation" class="col-form-label">Penyimpangan:</label>
+                            <input type="text" class="form-control" id="TxtKategorinDeviation">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Select</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row page-titles mx-0">
+        <div class="col p-md-0">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Pelaksana CAPA</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- row -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Koordinator CAPA</h4>
+                        <form>
+                            <div class="row">
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-20">Tanggal</label>
+                                    <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly>
+                                </div>
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-40">Evaluator</label>
+                                    <input class="form-control form-control-sm" type="text" id="TxtRequestor" readonly>
+                                </div>
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-20">Nomor CAPA</label>
+                                    <input class="form-control form-control-sm" type="text" id="TxtNoCAPA" readonly>
+                                </div>
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-40">Departemen</label>
+                                    <input class="form-control form-control-sm" type="text" id="TxtDepartemen" readonly>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!--<div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Potential Root Cause Analysis</h4>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered zero-configuration">
+                            <thead>
+                                <tr>
+                                    <th>Aspect</th>
+                                    <th>WHAT ACTUALLY HAPPENED</th>
+                                    <th>WHY</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="Tbl_PRCA">
+                                <tr>-->
+                @*<td>Manusia</td>
+                    <td><input type="text" class="form-control form-control-sm" style="width:100%;" readonly></td>
+                    <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                    <th><button class="form-control-sm">Add</button></th>*@
+                <!--</tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>-->
+
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">CAPA</h4>
+                    <div class="table-responsive">
+                        <table class="table table-bordered zero-configuration">
+                            <thead>
+                                <tr>
+                                    <th>No CAPA</th>
+                                    <th>-</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>CAPA123</td>
+                                    <td>CARPART</td>
+                                    <td>-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Bukti Tindakan Perbaikan</h4>
+                    <div class="table-responsive">
+                        <table class="table table-bordered zero-configuration">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama File</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>File.pdf</td>
+                                    <td>File.jpg</td>
+                                    <td><button class="btn-dark input-group-text center" type="button"><i class="fa fa-download"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td>File.docx</td>
+                                    <td>File.xlxs</td>
+                                    <td><button class="btn-dark input-group-text center" type="button"><i class="fa fa-download"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Bukti Tindakan Pencegahan</h4>
+                    <div class="table-responsive">
+                        <table class="table table-bordered zero-configuration">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama File</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>File.pdf</td>
+                                    <td>File.jpg</td>
+                                    <td><button class="btn-dark input-group-text center" type="button"><i class="fa fa-download"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td>File.docx</td>
+                                    <td>File.xlxs</td>
+                                    <td><button class="btn-dark input-group-text center" type="button"><i class="fa fa-download"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Kajian Resiko</h4>
+                    <div class="table-responsive">
+                        <table class="table table-bordered zero-configuration">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama File</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>File.pdf</td>
+                                    <td>File.jpg</td>
+                                    <td><button class="btn-dark input-group-text center" type="button"><i class="fa fa-download"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td>File.docx</td>
+                                    <td>File.xlxs</td>
+                                    <td><button class="btn-dark input-group-text center" type="button"><i class="fa fa-download"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label class="m-t-40">Rentang monitoring efektivitas tindakan perbaikan/pencegahan</label>
+                            <div class="input-group mb-3">
+                                <textarea type="text" class="form-control" placeholder="Efektivitas" readonly></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-9">
+                            <label class="m-t-40">Apakah terjadi penyimpangan serupa pada rentang waktu yang telah ditetapkan?</label>
+                            <div class="radio input-group">
+                                <div class="col-sm-3">
+                                    <label><input type="radio" name="Potensi" value="true">Ya</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label><input type="radio" name="Potensi" value="false">Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered zero-configuration">
+                            <thead>
+                                <tr>
+                                    <th>No Deviation</th>
+                                    <th>Penyimpangan</th>
+                                    <th>Departemen</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>DEV001</td>
+                                    <td>Penyimpangan terhadap Mesin</td>
+                                    <td>FAITLIA</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-9">
+                            <label class="m-t-40">Apakah terjadi penyimpangan serupa pada rentang waktu yang telah ditetapkan?</label>
+                            <div class="radio input-group">
+                                <div class="col-sm-3">
+                                    <label><input type="radio" name="Potensi" value="true">Ya</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label><input type="radio" name="Potensi" value="false">Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered zero-configuration">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama File</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>File.pdf</td>
+                                    <td>File.jpg</td>
+                                    <td><button class="btn-dark input-group-text center" type="button"><i class="fa fa-download"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td>File.docx</td>
+                                    <td>File.xlxs</td>
+                                    <td><button class="btn-dark input-group-text center" type="button"><i class="fa fa-download"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Verifikasi Efektivitas</h4>
+                    <div class="row form-group">
+                        <div class="col-md-9">
+                            <label class="m-t-40">Apakah Efektif?</label>
+                            <div class="radio input-group">
+                                <div class="col-sm-3">
+                                    <label><input type="radio" name="Potensi" value="true">Ya</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label><input type="radio" name="Potensi" value="false">Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="card-title">Status CAR-PAR</h4>
+                    <div class="container col-lg-2" style="background-color: green; float: left">
+                        <p class="color-white" style="text-align: center" id="status">CLOSED</p>
+                    </div>
+                </div>
+            </div>
+                <!--#/ end of card-->
+            </div>
+            <!-- #/ container -->
+        </div>
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            
+        });
+    </script>
+
