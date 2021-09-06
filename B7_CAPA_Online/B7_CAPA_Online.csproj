@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=1.50.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.0\lib\net45\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -133,11 +136,36 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ApprovalEvaluatorController.cs" />
+    <Compile Include="Controllers\ApprovalKoordinatorController.cs" />
+    <Compile Include="Controllers\AtasanPelaksanaAddCAPAController.cs" />
+    <Compile Include="Controllers\AtasanPelaksanaCancelCAPAController.cs" />
+    <Compile Include="Controllers\AtasanPelaksanaController.cs" />
+    <Compile Include="Controllers\AtasanPelaksanaUpdateCAPAController.cs" />
+    <Compile Include="Controllers\AtasanPICController.cs" />
+    <Compile Include="Controllers\EvaluatorAddCAPAController.cs" />
+    <Compile Include="Controllers\EvaluatorCancelCAPAController.cs" />
+    <Compile Include="Controllers\EvaluatorController.cs" />
+    <Compile Include="Controllers\EvaluatorUpdateCAPAController.cs" />
+    <Compile Include="Controllers\FindCAPAController.cs" />
+    <Compile Include="Controllers\HalamanRequestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KoordinatorController.cs" />
+    <Compile Include="Controllers\ListOutstandingController.cs" />
+    <Compile Include="Controllers\PelaksanaAddCAPAController.cs" />
+    <Compile Include="Controllers\PelaksanaCancelCAPAController.cs" />
+    <Compile Include="Controllers\PelaksanaController.cs" />
+    <Compile Include="Controllers\PelaksanaUpdateCAPAController.cs" />
+    <Compile Include="Controllers\PICController.cs" />
+    <Compile Include="Controllers\ReportCAPAController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AnalisaKondisiModel.cs" />
+    <Compile Include="Models\DALModel.cs" />
+    <Compile Include="Models\ListDepartemenModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripts\DataAccess\DataAccess.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Scripts\js\custom.min.js" />
@@ -5332,10 +5360,41 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Koordinator\Koordinator.cshtml" />
+    <Content Include="Views\HalamanRequest\HalamanRequest.cshtml" />
+    <Content Include="Views\PIC\PICCAPA.cshtml" />
+    <Content Include="Views\Shared\SaverityDDL.cshtml" />
+    <Content Include="Views\AtasanPIC\ApprovalAtasanPIC.cshtml" />
+    <Content Include="Views\AtasanPelaksana\ApprovalAtasanPelaksana.cshtml" />
+    <Content Include="Views\ApprovalKoordinator\ApprovalKoordinator.cshtml" />
+    <Content Include="Views\ApprovalEvaluator\ApprovalEvaluator.cshtml" />
+    <Content Include="Views\Pelaksana\PelaksanaCAPA.cshtml" />
+    <Content Include="Views\PelaksanaCancelCAPA\PelaksanaCancelCAPA.cshtml" />
+    <Content Include="Views\EvaluatorCancelCAPA\EvaluatorCancelCAPA.cshtml" />
+    <Content Include="Views\PelaksanaAddCAPA\PelaksanaAddCAPA.cshtml" />
+    <Content Include="Views\EvaluatorAddCAPA\EvaluatorAddCAPA.cshtml" />
+    <Content Include="Views\PelaksanaUpdateCAPA\PelaksanaUpdateCAPA.cshtml" />
+    <Content Include="Views\EvaluatorUpdateCAPA\EvaluatorUpdateCAPA.cshtml" />
+    <Content Include="Views\ApprovalKoordinator\ApprovalKoordinatorCARPAR.cshtml" />
+    <Content Include="Views\AtasanPelaksana\AtasanPelaksanaAddCAPA.cshtml" />
+    <Content Include="Views\AtasanPelaksana\AtasanPelaksanaCancelCAPA.cshtml" />
+    <Content Include="Views\AtasanPelaksana\AtasanPelaksanaUpdateCAPA.cshtml" />
+    <Content Include="Views\Koordinator\ApprovalKoordinatorCARPAR.cshtml" />
+    <Content Include="Views\Koordinator\ApprovalKoordinator.cshtml" />
+    <Content Include="Views\Koordinator\SubmitCARPAR.cshtml" />
+    <Content Include="Views\Evaluator\VerifikasiCAPA.cshtml" />
+    <Content Include="Views\FindCAPA\FindCAPA.cshtml" />
+    <Content Include="Views\ListOutstanding\ListOutstanding.cshtml" />
+    <Content Include="Views\ReportCAPA\ReportMasterlist.cshtml" />
+    <Content Include="Views\ReportCAPA\ReportLeadtime.cshtml" />
+    <Content Include="Views\Koordinator\CreateCAPA.cshtml" />
+    <Content Include="Views\Evaluator\EvaluatorAddCAPA.cshtml" />
+    <Content Include="Views\Evaluator\EvaluatorCancelCAPA.cshtml" />
+    <Content Include="Views\Evaluator\EvaluatorUpdateCAPA.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Content\Files\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
