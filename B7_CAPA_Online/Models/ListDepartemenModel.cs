@@ -16,8 +16,7 @@ namespace B7_CAPA_Online.Models
 
     partial class ListDepartemen
     {
-        public static DataTable DT = new DataTable(typeof(ListDepartemenModel).Name);
-        
+        public static DataTable DT = new DataTable(typeof(ListDepartemenModel).Name);       
         public DataTable ToDataTable<T>(List<T> items)
         {
             PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
@@ -28,7 +27,6 @@ namespace B7_CAPA_Online.Models
                     DT.Columns.Add(prop.Name);
                 }
             }
-
             foreach (T item in items)
             {
                 var values = new object[Props.Length];
@@ -36,8 +34,30 @@ namespace B7_CAPA_Online.Models
                 {
                     values[i] = Props[i].GetValue(item, null);
                 }
+                for (int i = DT.Rows.Count - 1; i >= 0; i--)
+                {
+                    DataRow dr = DT.Rows[i];
+                    if (dr["Departemen"].ToString() == values[0].ToString())
+                    {
+                        return DT;
+                    }
+                }
                 DT.Rows.Add(values);
             }
+            return DT;
+        }
+
+        public DataTable DeleteRows(string departemen)
+        {
+            for (int i = DT.Rows.Count - 1; i >= 0; i--)
+            {
+                DataRow dr = DT.Rows[i];
+                if (dr["Departemen"].ToString() == departemen)
+                {
+                    dr.Delete();
+                }                   
+            }
+            DT.AcceptChanges();
             return DT;
         }
 

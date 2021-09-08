@@ -61,7 +61,6 @@ namespace B7_CAPA_Online.Controllers
         }
         #endregion
 
-
         #region Populate
         public ActionResult GetKoordinatorDDL(DALModel Model)
         {
@@ -101,13 +100,42 @@ namespace B7_CAPA_Online.Controllers
         }
 
         public ActionResult AddDepartments(ListDepartemenModel Model)
+        {            
+            try
+            {
+                int count = 0;
+                Dictionary<string, object> row;
+                List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+                List<ListDepartemenModel> newList = new List<ListDepartemenModel>();
+                newList.Add(Model);
+                var list = new ListDepartemen();
+                var result = list.ToDataTable<ListDepartemenModel>(newList);
+                foreach (DataRow dr in result.Rows)
+                {
+                    row = new Dictionary<string, object>();
+                    foreach (DataColumn col in result.Columns)
+                    {
+                        row.Add(col.ColumnName, dr[col]);
+                    }
+                    rows.Add(row);
+                }
+                return Json(rows);
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+           
+        }
+        public ActionResult DeleteDepartments(ListDepartemenModel Model)
         {
             Dictionary<string, object> row;
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
             List<ListDepartemenModel> newList = new List<ListDepartemenModel>();
             newList.Add(Model);
+            string department = Convert.ToString(Model.Departemen);
             var list = new ListDepartemen();
-            var result = list.ToDataTable<ListDepartemenModel>(newList);
+            var result = list.DeleteRows(department);
             foreach (DataRow dr in result.Rows)
             {
                 row = new Dictionary<string, object>();
@@ -117,7 +145,6 @@ namespace B7_CAPA_Online.Controllers
                 }
                 rows.Add(row);
             }
-           
             return Json(rows);
         }
 
