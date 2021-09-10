@@ -37,6 +37,15 @@ namespace B7_CAPA_Online.Models
                 {
                     values[i] = Props[i].GetValue(item, null);
                 }
+
+                for (int i = DT.Rows.Count - 1; i >= 0; i--)
+                {
+                    DataRow dr = DT.Rows[i];
+                    if (dr["WAH"].ToString() == values[2].ToString())
+                    {
+                        return DT;
+                    }
+                }
                 DT.Rows.Add(values);
             }
             return DT;

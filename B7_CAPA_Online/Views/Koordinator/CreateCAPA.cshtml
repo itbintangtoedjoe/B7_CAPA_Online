@@ -727,10 +727,10 @@
             }                        
             $('#PenyimpanganNumber').val(JSON.stringify(data));
             if (data.length == 0)
-                $('#TxtPenyimpangan').val("Tidak ada data terkait yang dipilih.");
+                $('#TxtDeviation').val("Tidak ada data terkait yang dipilih.");
             else {                
                 $('#PenyimpanganTerkait').val("Yes");
-                $('#TxtPenyimpangan').val(data.length + " Data telah dipilih.");         
+                $('#TxtDeviation').val(data.length + " Data telah dipilih.");         
             }
                   
         });
@@ -753,6 +753,7 @@
                 $('#KeluhanTerkait').val("Yes");
                 $('#TxtCCC').val(data.length + " Data telah dipilih.");
             }
+            conso
         });
 
     });

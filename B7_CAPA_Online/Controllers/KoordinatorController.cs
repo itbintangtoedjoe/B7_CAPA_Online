@@ -98,7 +98,6 @@ namespace B7_CAPA_Online.Controllers
             return Json(Result = DAL.GetDataPrint(Model));
 
         }
-
         public ActionResult AddDepartments(ListDepartemenModel Model)
         {            
             try
@@ -245,7 +244,7 @@ namespace B7_CAPA_Online.Controllers
                 string filePath = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
                 Model.LampiranTerkait = filePath;
                 Model.SP = "[dbo].[SP_CAPA_ID]";
-                file.SaveAs(filePath);
+                //file.SaveAs(filePath);
             }
             string jsonObj = string.Join(",", Model.DepartemenCollection.ToArray());            
             dynamic deptList = JsonConvert.DeserializeObject<List<Dept>>(jsonObj);
@@ -278,7 +277,7 @@ namespace B7_CAPA_Online.Controllers
                     dt_penyimpangan.Rows.Add(rowstype);
                 }
             }
-            DAL.InsertData(Model, dt, dt_penyimpangan);
+            //DAL.InsertData(Model, dt, dt_penyimpangan);
             return Json("test");
         }
         #endregion

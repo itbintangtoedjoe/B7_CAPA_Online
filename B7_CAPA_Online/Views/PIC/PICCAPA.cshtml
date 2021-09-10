@@ -101,9 +101,9 @@
                                 <tbody id="Tbl_PRCA">
                                     <tr>
                                         @*<td>Manusia</td>
-                                <td><input type="text" class="form-control form-control-sm" style="width:100%;" readonly></td>
-                                <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                <th><button class="form-control-sm">Add</button></th>*@
+                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;" readonly></td>
+                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                        <th><button class="form-control-sm">Add</button></th>*@
                                     </tr>
                                 </tbody>
                             </table>
@@ -113,18 +113,17 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Potential Root Cause Analysis</h4>
+                        <h4 class="card-title">Why</h4>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered zero-configuration">
                                 <thead>
-                                    <tr>
-                                        <th>Aspect</th>
+                                    <tr>                                        
                                         <th>WHAT ACTUALLY HAPPENED</th>
                                         <th>WHY</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody id="Tbl_PRCA">
+                                <tbody id="Tbl_Why">
                                     <tr>
                                         @*<td>Manusia</td>
                                 <td><input type="text" class="form-control form-control-sm" style="width:100%;" readonly></td>
@@ -389,6 +388,7 @@
         });
 
         $('#btn_AddKondisi').click(function () {
+            var valid = false;
             dto = {
                 Aspect: $('#Select_AspectKondisi').val(),
                 WSBH: $('#TxtWSBH').val(),
@@ -396,34 +396,70 @@
                 Status: $('#TxtStatus').val()
             }
 
-            $.ajax({
-                url: 'AddKondisi',
-                type: 'post',
-                data: JSON.stringify(dto),
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-
-                success: function (data) {
-                    console.log(data);
-                    $('#Div_PRCA').prop("hidden", false);
-                    var trHTML = '';
-                    var trav = 0;
-                    var Count = data.length;
-                    for (trav = 0; trav < Count; trav++) {
-                        trHTML += '<tr>' +
-                            '<td>' + data[trav].Aspect + '</td>' +
-                            '<td><input type="text" value="' + data[trav].WAH + '" class="form-control form-control-sm" style="width:100%;" readonly ></td>' +
-                            '<td><input type="text" class="form-control form-control-sm Why" style="width:100%;"></td>' +
-                            '<th><button class="form-control-sm addWhy" >Add</button></th>' +
-                            '</tr>';
-                    }
-                    $("#Tbl_PRCA").empty();
-                    $("#Tbl_PRCA").append(trHTML);
-                },
-                error: function (ex) {
-                    alert(JSON.stringify(ex));
+            $.each(dto, function (key, value) {
+                if (value == '') {
+                    return valid = false;                   
+                } else {
+                    valid = true;
                 }
             });
+
+            if (valid) {
+                $.ajax({
+                    url: 'AddKondisi',
+                    type: 'post',
+                    data: JSON.stringify(dto),
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (data) {
+                        console.log(data);
+                        $('#Div_PRCA').prop("hidden", false);
+                        var trHTML = '';
+                        var trav = 0;
+                        var Count = data.length;
+                        for (trav = 0; trav < Count; trav++) {
+                            trHTML += '<tr>' +
+                                '<td>' + data[trav].Aspect + '</td>' +
+                                '<td><input type="text" value="' + data[trav].WAH + '" class="form-control form-control-sm WAH" style="width:100%;" readonly ></td>' +
+                                '<td><input type="text" name="why" class="form-control form-control-sm Why" style="width:100%;"></td>' +
+                                '<th><button class="form-control-sm addWhy" >Add</button></th>' +
+                                '</tr>';
+                        }
+                        $("#Tbl_PRCA").empty();
+                        $("#Tbl_PRCA").append(trHTML);
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                });
+            } else {
+                Swal.fire(
+                    'Maaf',
+                    'Input tidak boleh kosong.',
+                    'warning'
+                )
+            }
+        });
+
+        //Add Why Click Listener
+        var List = new Array();
+        $(document).on("click", "#Tbl_PRCA button.addWhy", function () {                      
+            var row = $("#Tbl_PRCA tr");
+            var data = {};
+            data.Why = row.find("td:eq(2) input[type='text']").val();
+            data.WAH = row.find("td:eq(1) input[type='text']").val();
+            List.push(data);
+            console.log(List);                
+            $('#Tbl_Why').empty();
+            $.each(List, function (key, entry) {
+                var trHTML = '<tr>' +
+                    '<td>' + entry.WAH + '</td>' +
+                    '<td>' + entry.Why + '</td>' +
+                    '<th><button class="form-control-sm deleteWhy">Delete</button></th>' +
+                    '</tr>';     
+                $('#Tbl_Why').append(trHTML); 
+            });                      
         });
     });
 </script>
