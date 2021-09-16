@@ -24,7 +24,7 @@ namespace B7_CAPA_Online.Models
         public string PenyimpanganTerkait { get; set; }
         public string KeluhanTerkait { get; set; }
         public string No_QC_Terkait { get; set; }
-        public string LampiranTerkait { get; set; }
+        public List<Lampiran> LampiranTerkait { get; set; }
         public string KategoriCAPA { get; set; }
         public string Deskripsi { get; set; }
         public string AreaPIC { get; set; }
@@ -41,5 +41,10 @@ namespace B7_CAPA_Online.Models
     public partial class Penyimpangan
     {
         public string PENYIMPANGAN_ID { get; set; }
+    }
+
+    public partial class Lampiran
+    {
+        public string LAMPIRAN_TERKAIT { get; set; }
     }
 }

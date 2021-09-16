@@ -101,8 +101,7 @@ namespace B7_CAPA_Online.Controllers
         public ActionResult AddDepartments(ListDepartemenModel Model)
         {            
             try
-            {
-                int count = 0;
+            {                
                 Dictionary<string, object> row;
                 List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
                 List<ListDepartemenModel> newList = new List<ListDepartemenModel>();
@@ -242,9 +241,9 @@ namespace B7_CAPA_Online.Controllers
                 System.IO.Stream fileContent = file.InputStream;
                 //string filePath = Path.Combine("@"\\kalbox-b7.bintang7.com\Intranetportal\Intranet Attachment\HRCostUpload\", Path.GetFileName(file.FileName));
                 string filePath = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
-                Model.LampiranTerkait = filePath;
+                Model.LampiranTerkait.Add(new Lampiran { LAMPIRAN_TERKAIT = filePath });               
                 Model.SP = "[dbo].[SP_CAPA_ID]";
-                //file.SaveAs(filePath);
+                file.SaveAs(filePath);
             }
             string jsonObj = string.Join(",", Model.DepartemenCollection.ToArray());            
             dynamic deptList = JsonConvert.DeserializeObject<List<Dept>>(jsonObj);
@@ -252,33 +251,35 @@ namespace B7_CAPA_Online.Controllers
             string penyimpanganObj = string.Join(",", Model.PenyimpanganCollection.ToArray());
             dynamic penyimpanganList = JsonConvert.DeserializeObject<List<Penyimpangan>>(penyimpanganObj);
 
-            DataTable dt = new DataTable();            
-            dt.Columns.Add("DEPARTEMEN");
-            foreach (var str in deptList)
-            {
-                var val = str.GetType()
-                .GetProperty("Departemen")
-                .GetValue(str);
-                DataRow rowstype = dt.NewRow();
-                rowstype["DEPARTEMEN"] = val;
-                dt.Rows.Add(rowstype);
-            }
-            DataTable dt_penyimpangan = new DataTable();
+            var Departemen_DT = CreateDT<Dept>(deptList, "DEPARTEMEN", "Departemen");
+            var Penyimpangan_DT = new DataTable();
             if (penyimpanganList != null)
-            {               
-                dt_penyimpangan.Columns.Add("PENYIMPANGAN_ID");
-                foreach (var str in penyimpanganList)
+            {
+                Penyimpangan_DT = CreateDT<Penyimpangan>(penyimpanganList, "PENYIMPANGAN_ID", "PENYIMPANGAN_ID");
+            }
+            var Path_DT = CreateDT<Lampiran>(Model.LampiranTerkait, "LAMPIRAN_TERKAIT", "LAMPIRAN_TERKAIT");
+            // Method Insert Data
+            DAL.InsertData(Model, Departemen_DT, Penyimpangan_DT, Path_DT);
+            return Json("test");
+        }
+
+        public DataTable CreateDT<T>(List<T> items, string columns, string propName)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add(columns);
+            foreach (var str in items)
+            {
+                if(str != null)
                 {
                     var val = str.GetType()
-                    .GetProperty("PENYIMPANGAN_ID")
+                    .GetProperty(propName)
                     .GetValue(str);
-                    DataRow rowstype = dt_penyimpangan.NewRow();
-                    rowstype["PENYIMPANGAN_ID"] = val;
-                    dt_penyimpangan.Rows.Add(rowstype);
-                }
+                    DataRow rowstype = dt.NewRow();
+                    rowstype[columns] = val;
+                    dt.Rows.Add(rowstype);
+                }                
             }
-            //DAL.InsertData(Model, dt, dt_penyimpangan);
-            return Json("test");
+            return dt;
         }
         #endregion
     }

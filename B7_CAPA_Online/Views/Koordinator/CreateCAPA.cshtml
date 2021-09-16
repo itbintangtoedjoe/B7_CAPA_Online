@@ -163,7 +163,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="link_Oracle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    @*<div class="modal fade" id="link_Oracle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -194,7 +194,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
     <div class="modal fade" id="link_Vendor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -288,7 +288,7 @@
                                             <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_Deviation">Browse</button>
                                         </div>
                                         <input type="text" class="form-control" id="TxtDeviation" name="TxtDeviation">
-                                        <input type="text" class="form-control" name="PenyimpanganTerkait" id="PenyimpanganTekait" value="" hidden>
+                                        <input type="text" class="form-control" name="PenyimpanganTerkait" id="PenyimpanganTerkait" value="" hidden>
                                         @Html.HiddenFor(m => m.PenyimpanganTerkait)
                                     </div>
                                 </div>
@@ -458,6 +458,7 @@
 
         $('#AreaPIC_DDL').select2();
         $('#PIC_DDL').select2();
+        $('#Departemen_DDL').select2().append();
 
         $('#Trigger_CAPA').change(function () {
             clearHidden();
@@ -481,7 +482,7 @@
             if ($('#Lokasi_DDL').val() == 'CKG') {
                 Location = 'Cikarang';
             } else if ($('#Lokasi_DDL').val() == 'HOF') {
-                Location = 'Pulomas';
+                Location = 'Head Office';
             } else {
                 Location = 'Pulogadung';
             }
@@ -493,27 +494,52 @@
             }
 
             $.ajax({
-                url: 'GetSupervisors',
+                url: 'GetDepartments',
                 type: 'post',
-                data: JSON.stringify(dto),
                 dataType: 'json',
+                data: JSON.stringify({
+                    Option: 2,
+                    Lokasi: Location,
+                    SP: "[dbo].[SP_SHOW_DDL]"
+                }),
                 contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    $('#PIC_DDL').empty();
+                success: function (data) {                    
+                    $('#Departemen_DDL').empty();
+                    $('#Departemen_DDL').append($('<option></option>').attr('value', '').text('*Pilih*'));
                     $.each(JSON.parse(data), function (key, entry) {
-                        $('#PIC_DDL').append($('<option></option>').attr('value', entry.EmpName).text(entry.EmpName));
-                    });
-
-                    if ($('#PIC_DDL').val() == null) {
-                        $('#PIC_DDL').append($('<option></option>').attr('value', '').text('None'));
-                    }
-
-                    $('#PIC_DDL').select2();
+                        $('#Departemen_DDL').append($('<option></option>').attr('value', entry.SubDept).text(entry.SubDept));
+                        $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.SubDept).text(entry.SubDept));
+                    })
+                    $('#Departemen_DDL').append($('<option></option>').attr('value', 'Others').text('Others'));
+                    $('#Departemen_DDL').select2();
                 },
                 error: function (ex) {
                     alert(JSON.stringify(ex));
                 }
             });
+
+            //$.ajax({
+            //    url: 'GetSupervisors',
+            //    type: 'post',
+            //    data: JSON.stringify(dto),
+            //    dataType: 'json',
+            //    contentType: 'application/json; charset=utf-8',
+            //    success: function (data) {
+            //        $('#PIC_DDL').empty();
+            //        $.each(JSON.parse(data), function (key, entry) {
+            //            $('#PIC_DDL').append($('<option></option>').attr('value', entry.EmpName).text(entry.EmpName));
+            //        });
+
+            //        if ($('#PIC_DDL').val() == null) {
+            //            $('#PIC_DDL').append($('<option></option>').attr('value', '').text('None'));
+            //        }
+
+            //        $('#PIC_DDL').select2();
+            //    },
+            //    error: function (ex) {
+            //        alert(JSON.stringify(ex));
+            //    }
+            //});
         });
 
         $('#AreaPIC_DDL').change(function () {
@@ -523,7 +549,7 @@
             if ($('#Lokasi_DDL').val() == 'CKG') {
                 Location = 'Cikarang';
             } else if ($('#Lokasi_DDL').val() == 'HOF') {
-                Location = 'Pulomas';
+                Location = 'Head Office';
             } else {
                 Location = 'Pulogadung';
             }
@@ -574,18 +600,18 @@
                 SP: "[dbo].[SP_SHOW_DDL]"
             }
 
-            $.ajax({
+            $.ajax({                
                 type: "POST",
                 url: "GetPenyimpangan",
                 data: JSON.stringify(dto),
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                success: function (result) {                                 
+                success: function (data) {                    
                     var table = $('#Tbl_Deviation').DataTable({
                         "pageLength": 5,
                         "lengthChange": true,
                         "searching": false,
-                        "data": JSON.parse(result),
+                        "data": JSON.parse(data),
                         "select": true,
                         "bDestroy": true,
                         "scrollCollapse":true,
@@ -752,8 +778,7 @@
             else {
                 $('#KeluhanTerkait').val("Yes");
                 $('#TxtCCC').val(data.length + " Data telah dipilih.");
-            }
-            conso
+            }           
         });
 
     });
@@ -808,19 +833,15 @@
             type: 'post',
             dataType: 'json',
             data: JSON.stringify({
-                Option: 2,
+                Option: 8,
                 SP: "[dbo].[SP_SHOW_DDL]"
             }),
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                $('#Departemen_DDL').empty();
-                $('#Departemen_DDL').append($('<option></option>').attr('value', '').text('*Pilih*'));
-                $.each(JSON.parse(data), function (key, entry) {
-                    $('#Departemen_DDL').append($('<option></option>').attr('value', entry.SubDept).text(entry.SubDept));
+                $('#DepartemenPelapor_DDL').empty();
+                $.each(JSON.parse(data), function (key, entry) {        
                     $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.SubDept).text(entry.SubDept));
                 })
-                $('#Departemen_DDL').append($('<option></option>').attr('value', 'Others').text('Others'));
-                $('#Departemen_DDL').select2();
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -958,7 +979,6 @@
             DeptList.push(data);            
             $("#myObj").val(JSON.stringify(DeptList));            
         });
-
     }
 
     function TahunDDL() {

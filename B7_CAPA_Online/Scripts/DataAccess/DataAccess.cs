@@ -42,7 +42,7 @@ namespace B7_CAPA_Online.Scripts.DataAccess
             return result;
         }
 
-        public string InsertData(DALModel Model, DataTable dt, DataTable dt_penyimpangan)
+        public string InsertData(DALModel Model, DataTable DepartemenDT, DataTable PenyimpanganDT, DataTable PathDT)
         {
             string result;
             using (IDbConnection db = new SqlConnection(dbDFIS.ConnectionString))
@@ -52,14 +52,14 @@ namespace B7_CAPA_Online.Scripts.DataAccess
                                 {
                                     KategoriCAPA = Model.KategoriCAPA,
                                     Lokasi = Model.Lokasi,
-                                    Departemen = dt,
-                                    Penyimpangan = dt_penyimpangan,
+                                    Departemen = DepartemenDT,
+                                    Penyimpangan = PenyimpanganDT,
                                     AreaPIC = Model.AreaPIC,
                                     Deskripsi = Model.Deskripsi,
                                     TriggerCAPA = Model.TriggerCAPA,
                                     PenyimpanganTerkait = Model.PenyimpanganTerkait,
                                     KeluhanTerkait = Model.KeluhanTerkait,
-                                    LampiranTerkait = Model.LampiranTerkait,
+                                    LampiranTerkait = PathDT,
                                     No_QC_Terkait = Model.No_QC_Terkait,
                                     PIC_CAPA = Model.PIC_CAPA
 
