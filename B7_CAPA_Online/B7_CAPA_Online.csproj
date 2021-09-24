@@ -156,6 +156,7 @@
     <Compile Include="Controllers\PelaksanaCancelCAPAController.cs" />
     <Compile Include="Controllers\PelaksanaController.cs" />
     <Compile Include="Controllers\PelaksanaUpdateCAPAController.cs" />
+    <Compile Include="Controllers\PendingTaskController.cs" />
     <Compile Include="Controllers\PICController.cs" />
     <Compile Include="Controllers\ReportCAPAController.cs" />
     <Compile Include="Global.asax.cs">
@@ -163,7 +164,9 @@
     </Compile>
     <Compile Include="Models\AnalisaKondisiModel.cs" />
     <Compile Include="Models\DALModel.cs" />
+    <Compile Include="Models\FindCAPAModel.cs" />
     <Compile Include="Models\ListDepartemenModel.cs" />
+    <Compile Include="Models\PendingTaskModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripts\DataAccess\DataAccess.cs" />
   </ItemGroup>
@@ -5362,7 +5365,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Koordinator\Koordinator.cshtml" />
     <Content Include="Views\HalamanRequest\HalamanRequest.cshtml" />
-    <Content Include="Views\PIC\PICCAPA.cshtml" />
     <Content Include="Views\Shared\SaverityDDL.cshtml" />
     <Content Include="Views\AtasanPIC\ApprovalAtasanPIC.cshtml" />
     <Content Include="Views\AtasanPelaksana\ApprovalAtasanPelaksana.cshtml" />
@@ -5391,6 +5393,8 @@
     <Content Include="Views\Evaluator\EvaluatorAddCAPA.cshtml" />
     <Content Include="Views\Evaluator\EvaluatorCancelCAPA.cshtml" />
     <Content Include="Views\Evaluator\EvaluatorUpdateCAPA.cshtml" />
+    <Content Include="Views\PendingTask\TaskList.cshtml" />
+    <Content Include="Views\PIC\FormCAPA.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -19,12 +19,13 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
-        public ActionResult PICCAPA()
+        public ActionResult FormCAPA()
         {
             var list = new ListKondisi();
             list.ClearDT();
             return View();
         }
+
 
         public ActionResult AddKondisi(AnalisaKondisiModel Model)
         {

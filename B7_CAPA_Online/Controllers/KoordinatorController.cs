@@ -9,9 +9,11 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using System.Web.UI;
 
 namespace B7_CAPA_Online.Controllers
 {
@@ -56,7 +58,7 @@ namespace B7_CAPA_Online.Controllers
         public ActionResult CreateCAPA()
         {
             var list = new ListDepartemen();
-            list.ClearDT();
+            list.ClearDT();           
             return View();
         }
         #endregion
@@ -74,13 +76,11 @@ namespace B7_CAPA_Online.Controllers
             string Result = DAL.GetDataPrint(Model);           
             return Json(Result);
         }
-
         public ActionResult GetKategoriPenyimpangan(DALModel Model)
         {
             string Result = DAL.GetDataPrint(Model);
             return Json(Result);
         }
-
         public ActionResult GetPlantCCC(DALModel Model)
         {
             string Result = DAL.GetDataPrint(Model);
@@ -91,7 +91,6 @@ namespace B7_CAPA_Online.Controllers
             string Result;
             return Json(Result = DAL.GetDataPrint(Model));
         }
-
         public JsonResult GetSupervisors(DALModel Model)
         {
             string Result;
@@ -144,6 +143,48 @@ namespace B7_CAPA_Online.Controllers
                 rows.Add(row);
             }
             return Json(rows);
+        }
+        public ActionResult GetCAPA(DALModel Model){
+            FindCAPAModel findModel = new FindCAPAModel();
+            string Result;
+            int Count = 0;
+            List<ListDepartemenModel> arrListDept = new List<ListDepartemenModel>();
+            var list = new ListDepartemen();
+            string[] attr = { "DEPARTEMEN", "PENYIMPANGAN", "FILE_PATH" };           
+            Result = DAL.GetDataPrint(Model);            
+            var CAPA = JsonConvert.DeserializeObject<List<FindCAPAModel>>(Result);
+            foreach(var str in CAPA)
+            {                
+                foreach (string prop in attr){
+                    var val = str.GetType()
+                    .GetProperty(prop)
+                    .GetValue(str);
+                    string[] value = val.ToString().Split(',');
+                    List<string> newList = new List<string>();
+                    foreach (string temp in value)
+                    {                        
+                        newList.Add(temp.Trim());
+                        arrListDept.Add(new ListDepartemenModel { Departemen = temp.Trim()});                        
+                    }
+                    switch(Count)
+                    {
+                        case 0:
+                            var deptTable = list.ToDataTable<ListDepartemenModel>(arrListDept);
+                            string JSONString = string.Empty;
+                            JSONString = JsonConvert.SerializeObject(deptTable);
+                            str.DEPTLIST = JSONString;                                
+                            break;
+                        case 1: 
+                            str.PENYIMPANGANLIST = newList;
+                            break;
+                        case 2: 
+                            str.FILELIST = newList;
+                            break;
+                    }
+                    Count++;
+                }                 
+            }
+            return Json(CAPA);
         }
 
         //public JsonResult GetDepartments()
@@ -229,7 +270,6 @@ namespace B7_CAPA_Online.Controllers
         //}        
         #endregion  
 
-
         #region Execute
         public ActionResult InsertCAPA(DALModel Model)
         {                     
@@ -243,13 +283,13 @@ namespace B7_CAPA_Online.Controllers
                 string filePath = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
                 Model.LampiranTerkait.Add(new Lampiran { LAMPIRAN_TERKAIT = filePath });               
                 Model.SP = "[dbo].[SP_CAPA_ID]";
-                file.SaveAs(filePath);
+                //file.SaveAs(filePath);
             }
             string jsonObj = string.Join(",", Model.DepartemenCollection.ToArray());            
             dynamic deptList = JsonConvert.DeserializeObject<List<Dept>>(jsonObj);
 
             string penyimpanganObj = string.Join(",", Model.PenyimpanganCollection.ToArray());
-            dynamic penyimpanganList = JsonConvert.DeserializeObject<List<Penyimpangan>>(penyimpanganObj);
+            dynamic penyimpanganList = JsonConvert.DeserializeObject<List<Penyimpangan>>(penyimpanganObj);            
 
             var Departemen_DT = CreateDT<Dept>(deptList, "DEPARTEMEN", "Departemen");
             var Penyimpangan_DT = new DataTable();
@@ -259,10 +299,9 @@ namespace B7_CAPA_Online.Controllers
             }
             var Path_DT = CreateDT<Lampiran>(Model.LampiranTerkait, "LAMPIRAN_TERKAIT", "LAMPIRAN_TERKAIT");
             // Method Insert Data
-            DAL.InsertData(Model, Departemen_DT, Penyimpangan_DT, Path_DT);
-            return Json("test");
+            //DAL.InsertData(Model, Departemen_DT, Penyimpangan_DT, Path_DT);            
+            return RedirectToAction("TaskList", "PendingTask", new { success = "succeed" });
         }
-
         public DataTable CreateDT<T>(List<T> items, string columns, string propName)
         {
             DataTable dt = new DataTable();

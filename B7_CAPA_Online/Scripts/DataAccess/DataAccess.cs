@@ -30,8 +30,8 @@ namespace B7_CAPA_Online.Scripts.DataAccess
                                     JenisPenyimpangan = Model.JenisPenyimpangan,
                                     JenisKeluhan = Model.JenisKeluhan,
                                     Kategori = Model.Kategori,
-
-
+                                    NO_CAPA = Model.NO_CAPA,
+                                    REG_ID = Model.REG_ID
                                 },
                                 commandType: CommandType.StoredProcedure).ToList();
 

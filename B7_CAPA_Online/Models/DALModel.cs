@@ -9,6 +9,8 @@ namespace B7_CAPA_Online.Models
     {
         public int Option { get; set; }
         public string Departemen { get; set; }
+        public string NO_CAPA { get; set; }
+        public string REG_ID { get; set; }
         public string Plant { get; set; }
         public string JenisKeluhan { get; set; }
         public string Lokasi { get; set; }
