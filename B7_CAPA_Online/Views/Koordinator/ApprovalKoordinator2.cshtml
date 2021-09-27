@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "ApprovalKoordinator2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content-body">
+    <br />
+    <div class="card">
+        <div class="card-body">
+            <form>
+                <div class="row">
+                    <button type="button" class="btn btn-primary" id="btn_Submit_QA" style="margin-left:15px;">SUBMIT TO QA MANAGER</button>
+
+                    <button type="button" class="btn btn-primary" id="btn_Submit_QS" style="margin-left:15px;">SUBMIT TO QS MANAGER</button>
+
+                    <button type="button" class="btn btn-primary" id="btn_Reject" style="margin-left:100px;">Reject</button>
+
+                    <button type="button" class="btn btn-primary" id="btn_Cancel" style="margin-left:15px;">Cancel</button>
+                </div>
+                <br />
+                <div class="row">
+                    <button type="button" class="btn btn-primary" id="btn_Submit_PJOT" style="margin-left:15px;">SUBMIT TO PJOT</button>
+
+                    <button type="button" class="btn btn-primary" id="btn_Submit_QC" style="margin-left:70px;">SUBMIT TO QC MANAGER</button>
+                </div>
+                <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="m-t-20">Alasan Reject</label>
+                            <textarea type="text" class="form-control" placeholder="Alasan"></textarea>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="m-t-20">Due Date</label>
+                            <input type="date" class="form-control" id="DueDate" value="" />
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+    <div class="form-group col-md-1">
+        <button type="button" class="btn btn-primary" id="btn_Request_Page">Request Page</button>
+    </div>
+    <div id="InvestigasiPenyimpangan">
+        @Html.Partial("InvestigasiPenyimpangan")
+    </div>
+    <div id="PenentuanTindakanPerbaikan">
+        @Html.Partial("PenentuanTindakanPerbaikan")
+    </div>
+    <div id="PenentuanTindakanPencegahan">
+        @Html.Partial("PenentuanTindakanPencegahan")
+    </div>
+    <div id="KajianRisiko">
+        @Html.Partial("KajianRisiko")
+    </div>
+    <div id="LinkDetail">
+        @Html.Partial("LinkDetail")
+    </div>
+</div>

@@ -45,6 +45,11 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
+        public ActionResult ApprovalKoordinator2()
+        {
+            return View();
+        }
+
         public ActionResult ApprovalKoordinatorCARPAR()
         {
             return View();
@@ -60,6 +65,30 @@ namespace B7_CAPA_Online.Controllers
             var list = new ListDepartemen();
             list.ClearDT();           
             return View();
+        }
+
+
+        public ActionResult PenentuanTindakanPerbaikan()
+        {
+            return PartialView();
+        }
+        public ActionResult PenentuanTindakanPencegahan()
+        {
+            return PartialView();
+        }
+        public ActionResult InvestigasiPenyimpangan()
+        {
+            return PartialView();
+        }
+
+        public ActionResult KajianRisiko()
+        {
+            return PartialView();
+        }
+
+        public ActionResult LinkDetail()
+        {
+            return PartialView();
         }
         #endregion
 

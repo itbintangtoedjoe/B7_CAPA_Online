@@ -5395,6 +5395,12 @@
     <Content Include="Views\Evaluator\EvaluatorUpdateCAPA.cshtml" />
     <Content Include="Views\PendingTask\TaskList.cshtml" />
     <Content Include="Views\PIC\FormCAPA.cshtml" />
+    <Content Include="Views\Koordinator\ApprovalKoordinator2.cshtml" />
+    <Content Include="Views\Koordinator\PenentuanTindakanPerbaikan.cshtml" />
+    <Content Include="Views\Koordinator\PenentuanTindakanPencegahan.cshtml" />
+    <Content Include="Views\Koordinator\InvestigasiPenyimpangan.cshtml" />
+    <Content Include="Views\Koordinator\KajianRisiko.cshtml" />
+    <Content Include="Views\Koordinator\LinkDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
