@@ -34,7 +34,7 @@
     <div class="card-body">
         <h4 class="card-title">Potential Root Cause Analysis</h4>
         <div class="table-responsive">
-            <table class="table table-bordered zero-configuration">
+            <table class="table table-bordered zero-configuration" id="tblPRCA">
                 <thead>
                     <tr>
                         <th>Aspect</th>
@@ -44,20 +44,72 @@
                     </tr>
                 </thead>
                 <tbody id="Tbl_PRCA">
-                    <tr>
-                        <td>Manusia</td>
-                        <td>Example</td>
-                        <td>WhyExample</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td>Mesin</td>
-                        <td>Example</td>
-                        <td>WhyExample</td>
-                        <td>1</td>
-                    </tr>
+                    
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+
+<script>
+    $(document).ready(function () {
+        //GetRoot();
+    });
+
+    function GetRoot()
+    {
+        $.ajax({
+            type: "POST",
+            url: "GetRoot?NoCapa=CPA/SIA/HOF/MK/0921/009",
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var result = JSON.parse(data);
+                var count = result.count;
+                var thead = '';
+                var k = 0;
+                for (var i = 0; i < result.count; i++) {
+                    var k = i + 1;
+                    thead += '<th> Why' + " (" + '' + k + '+")"  </th>'
+                }
+                var column = [
+                    { "data": "WAHType_FK" },
+                    { "data": "WAHDESC" },
+                    { "data": "WhyDescription" }
+                ]
+
+               
+
+                var table = $('#tblPRCA').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": false,
+                    "searching": false,
+                    "data": JSON.parse(data),
+                    "destroy": true,
+                    "columns": [
+                        { "data": "WAHType_FK" },
+                        { "data": "AppsID_FK" },
+                        { "data": "FieldName" },
+                        { "data": "ValueField" },
+                        
+                        
+                    ],
+                    "render": function (data, type, row, meta) {
+                        return '<a href="' + data + '">Download</a>';
+                    },
+                    "order": [[0, 'asc']],
+                });
+                table.on('order.dt search.dt', function () {
+                    table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+                }).draw();
+            }
+        });
+    }
+
+    
+
+
+</script>

@@ -1,5 +1,6 @@
 ﻿using B7_CAPA_Online.Models;
 using B7_CAPA_Online.Scripts.DataAccess;
+using Dapper;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -86,7 +87,7 @@ namespace B7_CAPA_Online.Controllers
             return PartialView();
         }
 
-        public ActionResult LinkDetail()
+        public ActionResult TriggerCAPA()
         {
             return PartialView();
         }
@@ -126,6 +127,34 @@ namespace B7_CAPA_Online.Controllers
             return Json(Result = DAL.GetDataPrint(Model));
 
         }
+
+        public ActionResult GetEvaluator(string departemen)
+        {
+            var dictionary = new Dictionary<string, object>
+            {
+                {"Departemen", departemen}
+            };
+            var spname = "SP_SHOW_EVALUATOR_DDL";
+
+            var parameters = new DynamicParameters(dictionary);
+            return Json(DAL.StoredProcedure(parameters, spname));
+
+        }
+
+
+        public ActionResult GetRoot(string NoCapa)
+        {
+            var dictionary = new Dictionary<string, object>
+            {
+                {"NoCapa", NoCapa}
+            }; 
+            var spname = "SP_SHOW_ROOT";
+
+            var parameters = new DynamicParameters(dictionary);
+            return Json(DAL.StoredProcedure(parameters, spname));
+
+        }
+
         public ActionResult AddDepartments(ListDepartemenModel Model)
         {            
             try

@@ -7,34 +7,37 @@
     <br />
     <div class="card">
         <div class="card-body">
-            <form>
-                <div class="row">
-                    <button type="button" class="btn btn-primary" id="btn_Submit_QA" style="margin-left:15px;">SUBMIT TO QA MANAGER</button>
-
-                    <button type="button" class="btn btn-primary" id="btn_Submit_QS" style="margin-left:15px;">SUBMIT TO QS MANAGER</button>
-
-                    <button type="button" class="btn btn-primary" id="btn_Reject" style="margin-left:100px;">Reject</button>
-
+            <label for="TxtKategoriCCC" class="col-form-label">Evaluator:</label>
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <div class="input-group">
+                        <select class="form-control select2" id="Evaluator_DDL" required>
+                            <option value=""></option>
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-primary" id="btn_Submit_Evaluator" style="margin-left:15px;">Submit To Evaluator</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary" id="btn_Reject" style="margin-left:100px; background-color:red;">Reject</button>
+                </div>
+                <div class="col-md-1">
                     <button type="button" class="btn btn-primary" id="btn_Cancel" style="margin-left:15px;">Cancel</button>
                 </div>
-                <br />
-                <div class="row">
-                    <button type="button" class="btn btn-primary" id="btn_Submit_PJOT" style="margin-left:15px;">SUBMIT TO PJOT</button>
-
-                    <button type="button" class="btn btn-primary" id="btn_Submit_QC" style="margin-left:70px;">SUBMIT TO QC MANAGER</button>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="m-t-20">Alasan Reject / Cancel</label>
+                    <textarea type="text" class="form-control" placeholder="Alasan"></textarea>
                 </div>
-                <br />
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label class="m-t-20">Alasan Reject</label>
-                            <textarea type="text" class="form-control" placeholder="Alasan"></textarea>
-                        </div>
-                        <div class="col-md-2">
-                            <label class="m-t-20">Due Date</label>
-                            <input type="date" class="form-control" id="DueDate" value="" />
-                        </div>
-                    </div>
-            </form>
+                <div class="col-md-2">
+                    <label class="m-t-20">Due Date</label>
+                    <input type="date" class="form-control" id="DueDate" value="" />
+                </div>
+            </div>
         </div>
     </div>
     <div class="form-group col-md-1">
@@ -52,7 +55,43 @@
     <div id="KajianRisiko">
         @Html.Partial("KajianRisiko")
     </div>
-    <div id="LinkDetail">
-        @Html.Partial("LinkDetail")
-    </div>
+    @Html.Partial("TriggerCAPA")
 </div>
+
+<script>
+
+    $(document).ready(function () {
+        GetEvaluator();
+    });
+
+    function GetEvaluator() {
+        $.ajax({
+            url: "GetEvaluator?departemen=Quality Control",
+            type: "post",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                var count = result.length;
+                var trhtml = '';
+                var trav = 0;
+
+                trhtml += '<option disabled selected hidden class="dropdown-header">--Please Select--</option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                        trhtml += '<Option value = "' + result[trav].EmpID + '" > ' + result[trav].EmpName;
+                    }
+                }
+                $("#Evaluator_DDL").empty();
+                $("#Evaluator_DDL").append(trhtml);
+                $("#Evaluator_DDL").select2();
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+    }
+
+
+</script>

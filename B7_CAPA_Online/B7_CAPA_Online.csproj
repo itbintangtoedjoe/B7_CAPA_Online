@@ -5400,7 +5400,7 @@
     <Content Include="Views\Koordinator\PenentuanTindakanPencegahan.cshtml" />
     <Content Include="Views\Koordinator\InvestigasiPenyimpangan.cshtml" />
     <Content Include="Views\Koordinator\KajianRisiko.cshtml" />
-    <Content Include="Views\Koordinator\LinkDetail.cshtml" />
+    <Content Include="Views\Koordinator\TriggerCAPA.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
