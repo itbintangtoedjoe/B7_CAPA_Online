@@ -107,7 +107,8 @@
             });
             console.log(taskList);
 
-            window.open("/Koordinator/CreateCAPA?CAPA=" + taskList[1].NO_CAPA + "&REG=" + taskList[0].REG_ID);
+            //window.open("/Koordinator/CreateCAPA?CAPA=" + taskList[1].NO_CAPA + "&REG=" + taskList[0].REG_ID); //RequestPage
+            window.open("/PIC/FormCAPA?CAPA=" + taskList[1].NO_CAPA); //FromCAPA
         });
     });
 </script>

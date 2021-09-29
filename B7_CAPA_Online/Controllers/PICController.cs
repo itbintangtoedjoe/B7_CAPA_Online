@@ -1,4 +1,5 @@
 ﻿using B7_CAPA_Online.Models;
+using B7_CAPA_Online.Scripts.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,13 +13,14 @@ namespace B7_CAPA_Online.Controllers
     public class PICController : Controller
     {
         public static DataTable DT = new DataTable();
-        // GET: PIC
-        //DataTable DT = new DataTable();
+        // GET: PIC               
+        DataAccess DAL = new DataAccess();
+
+        #region View
         public ActionResult Index()
         {
             return View();
         }
-
         public ActionResult FormCAPA()
         {
             var list = new ListKondisi();
@@ -26,7 +28,17 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
+        #endregion
 
+        #region Populate
+        public ActionResult GetDataPIC(AnalisaKondisiModel Model)
+        {
+            string Result = DAL.GetDataFormPIC(Model);
+            return Json(Result);
+        }
+        #endregion
+
+        #region Execute
         public ActionResult AddKondisi(AnalisaKondisiModel Model)
         {
             Dictionary<string, object> row;
@@ -34,23 +46,22 @@ namespace B7_CAPA_Online.Controllers
             List<AnalisaKondisiModel> newList = new List<AnalisaKondisiModel>();
             newList.Add(Model);
             var list = new ListKondisi();
-            var result = list.ToDataTable<AnalisaKondisiModel>(newList);                    
-            foreach (DataRow dr in result.Rows)
-            {
-                row = new Dictionary<string, object>();
-                foreach (DataColumn col in result.Columns)
-                {
-                    row.Add(col.ColumnName, dr[col]);                   
-                }
-                rows.Add(row);
-            }
-            return Json(rows);
-        }
+            //var result = list.ToDataTable<AnalisaKondisiModel>(newList); // Insert to DataTable
+            string Return = DAL.InsertFormHeader(Model); // Insert to WAHHeader 
 
-        //public ActionResult AddPartial()
-        //{            
-        //    return PartialView("SaverityDDL");
-        //}
+            //foreach (DataRow dr in result.Rows)
+            //{
+            //    row = new Dictionary<string, object>();
+            //    foreach (DataColumn col in result.Columns)
+            //    {
+            //        row.Add(col.ColumnName, dr[col]);                   
+            //    }
+            //    rows.Add(row);
+            //}
+            return Json(Return);
+        }
+        #endregion
+
 
     }
 }

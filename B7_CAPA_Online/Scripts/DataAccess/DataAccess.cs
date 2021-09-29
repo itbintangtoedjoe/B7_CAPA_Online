@@ -73,6 +73,57 @@ namespace B7_CAPA_Online.Scripts.DataAccess
             return result;
         }
 
+        public string InsertFormHeader(AnalisaKondisiModel Model)
+        {
+            string result;
+            using (IDbConnection db = new SqlConnection(dbDFIS.ConnectionString))
+            {
+                var GetPrintedData = db.Query<dynamic>(Model.SP,
+                                new
+                                {
+                                    Option = Model.Option,
+                                    NO_CAPA = Model.NO_CAPA,
+                                    Aspect = Model.Aspect,
+                                    WSBH = Model.WSBH,
+                                    WAH = Model.WAH,
+                                    Status = Model.Status,
+                                    isParent = Model.isParent,
+                                    WHY = Model.WHY
+                                },
+                                commandType: CommandType.StoredProcedure).ToList();
+
+                var json = JsonConvert.SerializeObject(GetPrintedData, Formatting.Indented);
+                result = json;
+            }
+
+            return result;
+        }
+
+        public string GetDataFormPIC(AnalisaKondisiModel Model)
+        {
+            string result;
+            using (IDbConnection db = new SqlConnection(dbDFIS.ConnectionString))
+            {
+                var GetPrintedData = db.Query<dynamic>(Model.SP,
+                                new
+                                {
+                                    Option = Model.Option,
+                                    NO_CAPA = Model.NO_CAPA,
+                                    Aspect = Model.Aspect,
+                                    WSBH = Model.WSBH,
+                                    WAH = Model.WAH,
+                                    Status = Model.Status,
+                                    isParent = Model.isParent,
+                                    WHY = Model.WHY
+                                },
+                                commandType: CommandType.StoredProcedure).ToList();
+
+                var json = JsonConvert.SerializeObject(GetPrintedData, Formatting.Indented);
+                result = json;
+            }
+
+            return result;
+        }
     }
 
     //internal string GetDataPrint(int v1, char v2, char v3, char v4)
