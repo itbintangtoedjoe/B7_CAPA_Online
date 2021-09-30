@@ -11,6 +11,7 @@ namespace B7_CAPA_Online.Controllers
         // GET: ApprovalEvaluator
         public ActionResult Index()
         {
+            string halo = "";
             return View();
         }
 
