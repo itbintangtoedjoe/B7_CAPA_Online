@@ -9,14 +9,11 @@
     }
 </style>
 
-<div class="modal fade" id="link_CCC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+<div class="modal fade" id="link_CCC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  >
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 <form>
@@ -77,7 +74,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn_Close_CCC">Close</button>
             </div>
         </div>
     </div>
@@ -87,9 +84,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 <form>
@@ -147,7 +141,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn_Close_Deviaton">Close</button>
             </div>
         </div>
     </div>
@@ -216,6 +210,102 @@
         $('#btn_Add').click(function () {
             AddDepartemen();
             $('#VendorDiv').prop('hidden', true);
+        });
+        $('#btn_Close_CCC').click(function () {
+            
+            var Jsonobj = [];
+            var status = false;
+            var table = $('#Tbl_CCC').DataTable()
+            //$('#checkboxes').find(':checkbox[name^="qcol2"]').each(function () {
+            //    $(this).prop("checked", ($.inArray($(this).val(), myarray) != -1));
+            //    //alert(myjson);
+            //});
+
+            for (var i = 1; i <= table.data().count(); i++) {
+                var row = $("TR").eq(i);
+                var PenyimpanganID = $("TD", row).eq(1).html();
+                var Description = $("TD", row).eq(3).html();
+                var creator = "";
+                // Mengecheck Checkbox apakah sudah di checklist
+                if ($("TD", row).eq(0).find("input[type='checkbox']").prop('checked')) {
+                    item = {};
+                    item["NoCapa"] = "CPA/SIA/HOF/MK/0921/009";
+                    item["PenyimpanganID"] = PenyimpanganID;
+                    item["Description"] = Description;
+                    item["Creator"] = creator;
+                    Jsonobj.push(item);
+                    console.log(Jsonobj);
+                    status = true;
+                }
+            }
+            if (status == true) {
+                var dto = {
+                    Penyimpangan: Jsonobj
+                }
+                $.ajax({
+                    url: 'InsertAddAbleDeviation',
+                    type: 'post',
+                    dataType: 'json',
+                    data: JSON.stringify(dto),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        Swal.fire("Success!", "Transaction berhasil di Insert", "success");
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                });
+
+            }
+
+        });
+
+        $('#btn_Close_Deviation').click(function () {
+            var Jsonobj = [];
+            var status = false;
+            var table = $('#Tbl_Deviation').DataTable()
+            //$('#checkboxes').find(':checkbox[name^="qcol2"]').each(function () {
+            //    $(this).prop("checked", ($.inArray($(this).val(), myarray) != -1));
+            //    //alert(myjson);
+            //});
+
+            for (var i = 1; i <= table.data().count(); i++) {
+                var row = $("TR").eq(i);
+                var PenyimpanganID = $("TD", row).eq(1).html();
+                var Description = $("TD", row).eq(3).html();
+                var creator = "";
+                // Mengecheck Checkbox apakah sudah di checklist
+                if ($("TD", row).eq(0).find("input[type='checkbox']").prop('checked')) {
+                    item = {};
+                    item["NoCapa"] = "CPA/SIA/HOF/MK/0921/009";
+                    item["PenyimpanganID"] = PenyimpanganID;
+                    item["Description"] = Description;
+                    item["Creator"] = creator;
+                    Jsonobj.push(item);
+                    console.log(Jsonobj);
+                    status = true;
+                }
+            }
+            if (status == true) {
+                var dto = {
+                    Penyimpangan: Jsonobj
+                }
+                $.ajax({
+                    url: 'InsertAddAbleDeviation',
+                    type: 'post',
+                    dataType: 'json',
+                    data: JSON.stringify(dto),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        Swal.fire("Success!", "Transaction berhasil di Insert", "success");
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                });
+
+            }
+        
         });
 
         $('#Lokasi_DDL').change(function () {
@@ -335,14 +425,13 @@
 
         $('#btn_Search_Deviation').click(function () {
             dto = {
-                Option: 4,
-                Departemen: $('#DepartemenPelapor_DDL').val(),
-                Kategori: $('#KategoriPenyimpangan_DDL').val(),
-                JenisPenyimpangan: $('#JenisPenyimpangan_DDL').val(),
-                Tahun: $('#Tahun_DDL').val(),
-                SP: "[dbo].[SP_SHOW_DDL]"
+                Option: 1,
+                NoCapa: "CPA/SIA/HOF/MK/0921/009",
+                Departemen: $('#DepartemenPelapor_DDL').value(),
+                JenisPenyimpangan: $('#JenisPenyimpangan_DDL').value(),
+                Kategori: $('#KategoriPenyimpangan_DDL').value(),
+                Tahun: $('#Tahun_DDL_Deviaton').value()
             }
-
             $.ajax({
                 type: "POST",
                 url: "GetPenyimpangan",
@@ -409,12 +498,12 @@
 
         $('#btn_Search_CCC').click(function () {
             dto = {
-                Option: 7,
-                Plant: $('#Plant_DDL').val(),
-                Kategori: $('#JenisKategori_DDL').val(),
-                JenisKeluhan: $('#JenisKeluhan_DDL').val(),
-                Tahun: $('#Tahun_DDL').val(),
-                SP: "[dbo].[SP_SHOW_DDL]"
+                Option: 2,
+                NoCapa: "CPA/SIA/HOF/MK/0921/009",
+                JenisKeluhan: $('#JenisKeluhan_DDL').value(),
+                Tahun: $('#Tahun_DDL').value(),
+                Plant: $('#Plant_DDL').value(),
+                Kategori: $('#JenisKategori_DDL').value()
             }
 
             $.ajax({

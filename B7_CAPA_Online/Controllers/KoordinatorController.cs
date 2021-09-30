@@ -15,6 +15,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.UI;
+using static B7_CAPA_Online.Models.KoordinatorModel;
 
 namespace B7_CAPA_Online.Controllers
 {
@@ -154,7 +155,52 @@ namespace B7_CAPA_Online.Controllers
             return Json(DAL.StoredProcedure(parameters, spname));
 
         }
+        public ActionResult InsertAddAbleDeviation(InsertPenyimpangan Model)
+        {
+            var pjg = Model.Penyimpangan.Count;
+            DataTable dt = new DataTable();
+            dt.Columns.Add("NoCapa");
+            dt.Columns.Add("PenyimpanganID");
+            dt.Columns.Add("Description");
+            dt.Columns.Add("Creator");
+            int trav;
+            for (trav = 0; trav < pjg; trav++)
+            {
+                DataRow rowstype = dt.NewRow();
+                rowstype["NoCapa"] = Model.Penyimpangan[trav].NoCapa;
+                rowstype["PenyimpanganID"] = Model.Penyimpangan[trav].PenyimpanganID;
+                rowstype["Description"] = Model.Penyimpangan[trav].Description;
+                rowstype["Creator"] = Model.Penyimpangan[trav].Creator;
+                dt.Rows.Add(rowstype);
+            }
+            var parameters = new DynamicParameters();
+            parameters.Add("InsertPenyimpangan", dt.AsTableValuedParameter("[dbo].[InsertPenyimpangan]"));
 
+            var spname = "SP_SHOW_ADDABLE_DEVIATION";
+
+            return Json(DAL.StoredProcedure(parameters, spname));
+
+        }
+        public ActionResult ShowAddAbleDeviation(ShowDeviation Model)
+        {
+            var dictionary = new Dictionary<string, object>
+            {
+                {"Option",Model.Option },
+                {"NoCapa", Model.NoCapa},
+                {"JenisPenyimpangan",Model.JenisPenyimpangan },
+                {"Kategori",Model.Kategori },
+                {"Departemen",Model.Departemen },
+                {"JenisKeluhan",Model.JenisKeluhan },
+                {"Plant",Model.Plant},
+                {"Tahun",Model.Tahun}
+
+            };
+            var spname = "[dbo].[SP_SHOW_ADDABLE_DEVIATION]";
+
+            var parameters = new DynamicParameters(dictionary);
+            return Json(DAL.StoredProcedure(parameters, spname));
+
+        }
         public ActionResult AddDepartments(ListDepartemenModel Model)
         {            
             try

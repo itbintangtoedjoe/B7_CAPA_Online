@@ -165,6 +165,7 @@
     <Compile Include="Models\AnalisaKondisiModel.cs" />
     <Compile Include="Models\DALModel.cs" />
     <Compile Include="Models\FindCAPAModel.cs" />
+    <Compile Include="Models\KoordinatorModel.cs" />
     <Compile Include="Models\ListDepartemenModel.cs" />
     <Compile Include="Models\PendingTaskModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
