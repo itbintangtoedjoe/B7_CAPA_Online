@@ -60,6 +60,12 @@ namespace B7_CAPA_Online.Controllers
             //}
             return Json(Return);
         }
+
+        public ActionResult AddWhy(AnalisaKondisiModel Model)
+        {
+            string Return = DAL.InsertFormDetail(Model);
+            return Json(Return);
+        }
         #endregion
 
 

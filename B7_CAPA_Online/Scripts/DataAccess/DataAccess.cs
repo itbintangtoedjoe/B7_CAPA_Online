@@ -88,6 +88,7 @@ namespace B7_CAPA_Online.Scripts.DataAccess
                                     WAH = Model.WAH,
                                     Status = Model.Status,
                                     isParent = Model.isParent,
+                                    WHY_Parent = Model.WHY_Parent,
                                     WHY = Model.WHY
                                 },
                                 commandType: CommandType.StoredProcedure).ToList();
@@ -114,6 +115,34 @@ namespace B7_CAPA_Online.Scripts.DataAccess
                                     WAH = Model.WAH,
                                     Status = Model.Status,
                                     isParent = Model.isParent,
+                                    WHY_Parent = Model.WHY_Parent,
+                                    WHY = Model.WHY
+                                },
+                                commandType: CommandType.StoredProcedure).ToList();
+
+                var json = JsonConvert.SerializeObject(GetPrintedData, Formatting.Indented);
+                result = json;
+            }
+
+            return result;
+        }
+
+        public string InsertFormDetail(AnalisaKondisiModel Model)
+        {
+            string result;
+            using (IDbConnection db = new SqlConnection(dbDFIS.ConnectionString))
+            {
+                var GetPrintedData = db.Query<dynamic>(Model.SP,
+                                new
+                                {
+                                    Option = Model.Option,
+                                    NO_CAPA = Model.NO_CAPA,
+                                    Aspect = Model.Aspect,
+                                    WSBH = Model.WSBH,
+                                    WAH = Model.WAH,
+                                    Status = Model.Status,
+                                    isParent = Model.isParent,
+                                    WHY_Parent = Model.WHY_Parent,
                                     WHY = Model.WHY
                                 },
                                 commandType: CommandType.StoredProcedure).ToList();

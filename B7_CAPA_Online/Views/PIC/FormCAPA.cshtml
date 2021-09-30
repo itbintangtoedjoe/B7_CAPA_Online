@@ -106,6 +106,7 @@
                                         <th>WHAT SHOULD BE HAPPENED</th>
                                         <th>WHAT ACTUALLY HAPPENED</th>
                                         <th style="text-align: center">OK/NOK</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="Tbl_Analisa">
@@ -156,26 +157,25 @@
                             <div class="row form-group-sm mb-2">
                                 <div class="col-md-6">
                                     <label class="m-t-20">Parent?<span style="color: red; visibility: hidden">**</span></label>
-                                    <input class="checkbox" type="checkbox" value="Parent" />
+                                    <input class="checkbox" type="checkbox" value="Yes" id="isParent" />
                                 </div>
                             </div>
-                            <div class="row form-group-sm mb-2">
+                            <div class="row form-group-sm mb-2" id="Div_WhyParent">
                                 <div class="col-md-6">
                                     <label class="m-t-20">Why Parent<span style="color: red">*</span></label>
-                                    <select class="form-control form-control-sm" id="WhyParent_DDL" name="WhyParent_DDL" required>
+                                    <select class="form-control form-control-sm" id="WhyParent_DDL" name="WhyParent_DDL">
                                     </select>
                                 </div>
                             </div>
                             <div class="row form-group-sm mb-2">
                                 <div class="col-md-6">
                                     <label class="m-t-20">Why<span style="color: red">*</span></label>
-                                    <select class="form-control form-control-sm" id="Why_DDL" name="WhyParent_DDL" required>
-                                    </select>
+                                    <input class="form-control" type="text" id="TxtWhy" />
                                 </div>
                             </div>
                             <div class="row form-group-sm mb-2">
                                 <div class="col-md-6">
-                                    <button class="form-control-sm" id="btn_AddWhy">Add</button>
+                                    <button class="form-control-sm" type="button" id="btn_AddWhy">Add</button>
                                 </div>
                             </div>
                         </form>
@@ -451,22 +451,68 @@
 
 @*JQuery Library*@
 @*<script src="../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
-  <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>*@
+    <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>*@
 <script src="~/Content/Scripts/plugins/datatables/jquery.dataTables.min.js" defer></script>
 <script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>
 
 <script>
     function populatePotentialRootCauseDDL(data) {
-        $.each(data, function (key, value) {            
+        $('#Aspect_DDL').append(new Option("*Pilih*", "-"));
+        $.each(data, function (key, value) {
             if (Object.keys(value)[2] == "WAHType") {
                 if ($("#Aspect_DDL option:contains(" + value.WAHType + ")").val() != value.WAHType) {
                     $('#Aspect_DDL').append(new Option(value.WAHType, value.WAHType));
                 }
             }
-            if (Object.keys(value)[4] == "WAHDesc")
-                $('#WAH_DDL').append(new Option(value.WAHDesc, value.WAHDesc));
+
+            //if (Object.keys(value)[4] == "WAHDesc")
+            //    $('#WAH_DDL').append(new Option(value.WAHDesc, value.WAHDesc));
+        });
+
+        $('#Aspect_DDL').change(function () {
+            getWAH(data);
         });
     }
+
+    function getWAH(data) {
+        $('#WAH_DDL').empty();
+        $('#WAH_DDL').append(new Option("*Pilih*", "-"));
+        var aspect = $('#Aspect_DDL').val();
+        $.each(data, function (key, value) {
+            if (Object.keys(value)[2] == "WAHType") {
+                if (aspect == value.WAHType) {
+                    $('#WAH_DDL').append(new Option(value.WAHDesc, value.WAHDesc));
+                }
+            }
+        });
+
+        $('#WAH_DDL').change(function () {
+            $('#WhyParent_DDL').empty();
+            $.ajax({
+                url: 'GetDataPIC',
+                type: 'post',
+                data: JSON.stringify({
+                    Option: 4,
+                    NO_CAPA: $('#input_NoCAPA').val(),
+                    WAH: $('#WAH_DDL').val(),
+                    Aspect: aspect,
+                    SP: "[dbo].[SP_FORM_CAPA]"
+                }),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    console.log(data);
+                    $.each(JSON.parse(data), function (key, value) {
+                        $('#WhyParent_DDL').append(new Option(value.WhyDescription, value.WhyDescription));
+                    });
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+        });
+    }
+
     function getTable() {
         //Jquery untuk panggil datasource datatable
         $('#Aspect_DDL').empty();
@@ -499,9 +545,19 @@
                         { "data": "WAHType" },
                         { "data": "WSBHDesc" },
                         { "data": "WAHDesc" },
-                        { "data": "WAHStatus" }
+                        { "data": "WAHStatus" },
+                        {
+                            "data": null,
+                            "defaultContent": "<span><a href='#' data-toggle='tooltip' data-placement='top' title='Edit'><i class='fa fa-pencil color-muted m-r-5'></i> </a><a href='#' data-toggle='tooltip' data-placement='top' title='Close'><i class='fa fa-close color-danger'></i></a></span>"
+                        }
                     ],
-                    "order": [[1, 'asc']]
+                    "order": [[1, 'asc']],
+                    "columnDefs": [
+                        {
+                            "targets": 5,
+                            "className": "text-center"
+                        }
+                    ]
                 });
                 //Indexing Number of Rows
                 t.on('order.dt search.dt', function () {
@@ -510,33 +566,53 @@
                     });
                 }).draw();
 
-                populatePotentialRootCauseDDL(JSON.parse(data)); // Fill Potential Root Cause Options Dropdownlist 
+                populatePotentialRootCauseDDL(JSON.parse(data)); // Fill Potential Root Cause Options Dropdownlist
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
             }
-        });        
+        });
     }
 
     $(document).ready(function () {
         getTable();
 
+        $("#isParent").change(function () {
+            if ($("#isParent").prop('checked') == true) {
+                $("#Div_WhyParent").prop('hidden', true);
+                return;
+            }
+            $("#Div_WhyParent").prop('hidden', false);
+        });
+        
+
         $('#btn_AddWhy').click(function () {
+            dto = {
+                Option: 3,
+                NO_CAPA: $('#input_NoCAPA').val(),
+                Aspect: $('#Aspect_DDL').val(),
+                WAH: $('#WAH_DDL').val(),
+                isParent: ($("#isParent[type='checkbox']:checked").val() == "Yes") ? (1) : (0),
+                WHY_Parent: $('#WhyParent_DDL').val(),
+                WHY: $('#TxtWhy').val(),
+                SP: "[dbo].[SP_FORM_CAPA]"
+            }
+
             $.ajax({
-                url: '',
+                url: 'AddWhy',
                 type: 'post',
                 data: JSON.stringify(dto),
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    // LANJUT .............. DISINI
+
                 },
                 error: function (ex) {
                     alert(JSON.stringify(ex));
                 }
             });
         });
-        
+
         $('#btn_AddKondisi').click(function () {
             var valid = false;
             dto = {
@@ -568,16 +644,16 @@
                     success: function (data) {
                         if (data == 'VALID') {
                             Swal.fire(
-                                'Maaf',
-                                'Input tidak boleh kosong.',
-                                'warning'
+                                'Success',
+                                'Data berhasil di-input.',
+                                'success'
                             ).then((result) => {
                                 if (result.value) {
-                                    getTable();                                    
+                                    getTable();
                                 }
                             })
-                        }                                                                   
-                        //$.each(data, function (key, value) {                            
+                        }
+                        //$.each(data, function (key, value) {
                         //    if (Object.keys(value)[3] == "Aspect") {
                         //        if ($("#Aspect_DDL option:contains(" + value.Aspect + ")").val() != value.Aspect) {
                         //            $('#Aspect_DDL').append(new Option(value.Aspect, value.Aspect));
@@ -601,23 +677,23 @@
         });
 
         //Add Why Click Listener
-        var List = new Array();
-        $(document).on("click", "#Tbl_PRCA button.addWhy", function () {
-            var row = $("#Tbl_PRCA tr");
-            var data = {};
-            data.Why = row.find("td:eq(2) input[type='text']").val();
-            data.WAH = row.find("td:eq(1) input[type='text']").val();
-            List.push(data);
-            console.log(List);
-            $('#Tbl_Why').empty();
-            $.each(List, function (key, entry) {
-                var trHTML = '<tr>' +
-                    '<td>' + entry.WAH + '</td>' +
-                    '<td>' + entry.Why + '</td>' +
-                    '<th><button class="form-control-sm deleteWhy">Delete</button></th>' +
-                    '</tr>';
-                $('#Tbl_Why').append(trHTML);
-            });
-        });
+        //var List = new Array();
+        //$(document).on("click", "#Tbl_PRCA button.addWhy", function () {
+        //    var row = $("#Tbl_PRCA tr");
+        //    var data = {};
+        //    data.Why = row.find("td:eq(2) input[type='text']").val();
+        //    data.WAH = row.find("td:eq(1) input[type='text']").val();
+        //    List.push(data);
+        //    console.log(List);
+        //    $('#Tbl_Why').empty();
+        //    $.each(List, function (key, entry) {
+        //        var trHTML = '<tr>' +
+        //            '<td>' + entry.WAH + '</td>' +
+        //            '<td>' + entry.Why + '</td>' +
+        //            '<th><button class="form-control-sm deleteWhy">Delete</button></th>' +
+        //            '</tr>';
+        //        $('#Tbl_Why').append(trHTML);
+        //    });
+        //});
     });
 </script>

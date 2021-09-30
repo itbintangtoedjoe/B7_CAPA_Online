@@ -19,7 +19,8 @@ namespace B7_CAPA_Online.Models
         public string WAH { get; set; }
         public string Status { get; set; }
         public string SP { get; set; }
-        public int isParent { get; set; }        
+        public int isParent { get; set; }      
+        public string WHY_Parent { get; set; }
         public string WHY { get; set; }
     }
     partial class ListKondisi
