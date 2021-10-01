@@ -436,7 +436,6 @@
                                         <td>PIC</td>
                                         <td>Due Date</td>
                                         <td><button class="form-control-sm">Add</button></td>
-
                                     </tr>
                                 </tbody>
                             </table>
@@ -548,7 +547,7 @@
                         { "data": "WAHStatus" },
                         {
                             "data": null,
-                            "defaultContent": "<span><a href='#' data-toggle='tooltip' data-placement='top' title='Edit'><i class='fa fa-pencil color-muted m-r-5'></i> </a><a href='#' data-toggle='tooltip' data-placement='top' title='Close'><i class='fa fa-close color-danger'></i></a></span>"
+                            "defaultContent": "<span><a class='delete' href='' onclick='return false;' data-toggle='tooltip' data-placement='top' title='Close'><i class='fa fa-close color-danger'></i></a></span>"
                         }
                     ],
                     "order": [[1, 'asc']],
@@ -584,7 +583,7 @@
             }
             $("#Div_WhyParent").prop('hidden', false);
         });
-        
+
 
         $('#btn_AddWhy').click(function () {
             dto = {
@@ -674,6 +673,42 @@
                     'warning'
                 )
             }
+        });
+       
+        $(document).on("click", "#Tbl_Analisa a.delete", function () {    
+            var temp = [];                
+            var columns = $(this).closest('tr').find('td');
+            $.each(columns, function (i, item) {                 
+                var obj = {};
+                obj.name = item.innerHTML;                
+                temp.push(obj);
+                //console.log(i + item.innerHTML);
+                //console.log(arr[i]);
+            });
+
+            var dto = {
+                Option: 5,
+                No_CAPA: $('#input_NoCAPA').val(),
+                WAH: temp[3].name,
+                WSBH: temp[2].name,
+                Aspect: temp[1].name,
+                SP: "[dbo].[SP_FORM_CAPA]"
+            }            
+
+            $.ajax({
+                url: 'DeleteKondisi',
+                type: 'post',
+                dataType: 'json',
+                data: JSON.stringify(dto),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    getTable();
+                    return true;
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
         });
 
         //Add Why Click Listener

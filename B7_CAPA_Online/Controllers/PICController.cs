@@ -47,7 +47,7 @@ namespace B7_CAPA_Online.Controllers
             newList.Add(Model);
             var list = new ListKondisi();
             //var result = list.ToDataTable<AnalisaKondisiModel>(newList); // Insert to DataTable
-            string Return = DAL.InsertFormHeader(Model); // Insert to WAHHeader 
+            string Return = DAL.ExecuteFormPIC(Model); // Insert to WAHHeader 
 
             //foreach (DataRow dr in result.Rows)
             //{
@@ -63,7 +63,13 @@ namespace B7_CAPA_Online.Controllers
 
         public ActionResult AddWhy(AnalisaKondisiModel Model)
         {
-            string Return = DAL.InsertFormDetail(Model);
+            string Return = DAL.ExecuteFormPIC(Model);
+            return Json(Return);
+        }
+
+        public ActionResult DeleteKondisi(AnalisaKondisiModel Model)
+        {
+            string Return = DAL.ExecuteFormPIC(Model);
             return Json(Return);
         }
         #endregion
