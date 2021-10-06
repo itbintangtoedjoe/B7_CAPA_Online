@@ -35,5 +35,10 @@ namespace B7_CAPA_Online.Models
             public string Plant { get; set; }
             public string Tahun { get; set; }
         }
+        public class RejectAttribute
+        {
+            public string NoCAPa { get; set; }
+            public string RejectReason { get; set; }
+        }
     }
 }

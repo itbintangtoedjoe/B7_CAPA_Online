@@ -5402,6 +5402,7 @@
     <Content Include="Views\Koordinator\InvestigasiPenyimpangan.cshtml" />
     <Content Include="Views\Koordinator\KajianRisiko.cshtml" />
     <Content Include="Views\Koordinator\TriggerCAPA.cshtml" />
+    <Content Include="Views\Koordinator\RequestCAPA.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

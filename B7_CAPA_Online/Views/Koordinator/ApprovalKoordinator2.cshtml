@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <label class="m-t-20">Alasan Reject / Cancel</label>
-                    <textarea type="text" class="form-control" placeholder="Alasan"></textarea>
+                    <textarea type="text" class="form-control" placeholder="Alasan" id="Alasan"></textarea>
                 </div>
                 <div class="col-md-2">
                     <label class="m-t-20">Due Date</label>
@@ -40,8 +40,11 @@
             </div>
         </div>
     </div>
-    <div class="form-group col-md-1">
-        <button type="button" class="btn btn-primary" id="btn_Request_Page">Request Page</button>
+    <div class="form-group col-md-2">
+        <input type="button" class="btn btn-primary" id="btn_Request_Page" value="Show Request Page"/>
+    </div>
+    <div id="Request_Page" hidden="hidden">
+        @Html.Partial("RequestCAPA")
     </div>
     <div id="InvestigasiPenyimpangan">
         @Html.Partial("InvestigasiPenyimpangan")
@@ -62,6 +65,22 @@
 
     $(document).ready(function () {
         GetEvaluator();
+        $('#btn_Reject').click(function () {
+
+            RejectKoor2();
+        });
+
+        $('#btn_Request_Page').click(function () {
+
+            if ($('#btn_Request_Page').val() == "Show Request Page") {
+                $('#Request_Page').removeAttr("hidden");
+                $('#btn_Request_Page').val("Hide Request Page")
+            }
+            else {
+                $('#Request_Page').attr("hidden", true);
+                $('#btn_Request_Page').val("Show Request Page")
+            }
+        });
     });
 
     function GetEvaluator() {
@@ -92,6 +111,24 @@
             }
         });
     }
-
+    function RejectKoor2() {
+        var dto = {
+            NoCAPA: "CPA/SIA/HOF/MK/0921/009",
+            RejectReason: $('#Alasan').val(),
+        }
+        $.ajax({
+            url: "RejectKoor2",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                Swal.fire("Success!", "Reject Berhasil", "success");
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+    }
 
 </script>

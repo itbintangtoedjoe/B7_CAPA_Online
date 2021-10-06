@@ -2,9 +2,9 @@
     <div class="card-body">
         <h4 class="card-title">Analisa Kondisi</h4>
         <div class="table-responsive">
-            <table class="table table-bordered zero-configuration">
+            <table class="table table-bordered zero-configuration" id="tblAnalisaKondisi">
                 <thead>
-                    <tr>
+                    <tr>   
                         <th>Aspect</th>
                         <th>WHAT SHOULD BE HAPPENED</th>
                         <th>WHAT ACTUALLY HAPPENED</th>
@@ -12,18 +12,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Manusia</td>
-                        <td>Example</td>
-                        <td>Example</td>
-                        <td>OK</td>
-                    </tr>
-                    <tr>
-                        <td>Mesin</td>
-                        <td>Example</td>
-                        <td>Example</td>
-                        <td>NOK</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -55,6 +43,7 @@
 <script>
     $(document).ready(function () {
         //GetRoot();
+        GetAnalisaKondisi();
     });
 
     function GetRoot()
@@ -105,7 +94,33 @@
             }
         });
     }
+    function GetAnalisaKondisi() {
+        $.ajax({
+            type: "POST",
+            url: "GetAnalisa?NoCapa=CPA/SIA/HOF/MK/0921/009",
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var table = $('#tblAnalisaKondisi').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": false,
+                    "searching": false,
+                    "data": JSON.parse(data),
+                    "destroy": true,
+                    "columns": [
+                        { "data": "WAHType" },
+                        { "data": "WSBHDesc" },
+                        { "data": "WAHDesc" },
+                        { "data": "WAHStatus" },
 
+
+                    ],
+                    "order": [[0, 'asc']],
+                });
+               
+            }
+        });
+    }
     
 
 

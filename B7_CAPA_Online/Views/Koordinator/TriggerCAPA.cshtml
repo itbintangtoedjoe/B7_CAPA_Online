@@ -9,7 +9,7 @@
     }
 </style>
 
-<div class="modal fade" id="link_CCC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  >
+<div class="modal fade" id="link_CCC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -120,28 +120,27 @@
                     <div class="form-group col-md-6">
                         <button type="button" class="btn btn-primary" id="btn_Search_Deviation">Search</button>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered zero-configuration" id="Tbl_Deviation">
-                            <thead>
-                                <tr>
-                                    <th>Action</th>
-                                    <th>No Penyimpangan</th>
-                                    <th>Nama Pelapor</th>
-                                    <th>Kategori Penyimpangan</th>
-                                    <th>Jenis Penyimpangan</th>
-                                    <th>Deskripsi Singkat</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+
+                    <table id="tblDeviation" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>No Penyimpangan</th>
+                                <th>Nama Pelapor</th>
+                                <th>Kategori Penyimpangan</th>
+                                <th>Jenis Penyimpangan</th>
+                                <th>Deskripsi Singkat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            </tr>
+                        </tbody>
+                    </table>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn_Close_Deviaton">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn_Close_Deviaton">Close</button>
             </div>
         </div>
     </div>
@@ -211,30 +210,26 @@
             AddDepartemen();
             $('#VendorDiv').prop('hidden', true);
         });
+
         $('#btn_Close_CCC').click(function () {
-            
+
             var Jsonobj = [];
             var status = false;
-            var table = $('#Tbl_CCC').DataTable()
-            //$('#checkboxes').find(':checkbox[name^="qcol2"]').each(function () {
-            //    $(this).prop("checked", ($.inArray($(this).val(), myarray) != -1));
-            //    //alert(myjson);
-            //});
-
+            var table = $('#Tbl_CCC').DataTable();
             for (var i = 1; i <= table.data().count(); i++) {
-                var row = $("TR").eq(i);
+
+                var row = $("#Tbl_CCC tr").eq(i);
                 var PenyimpanganID = $("TD", row).eq(1).html();
-                var Description = $("TD", row).eq(3).html();
                 var creator = "";
                 // Mengecheck Checkbox apakah sudah di checklist
                 if ($("TD", row).eq(0).find("input[type='checkbox']").prop('checked')) {
-                    item = {};
+                    var item = {};
                     item["NoCapa"] = "CPA/SIA/HOF/MK/0921/009";
                     item["PenyimpanganID"] = PenyimpanganID;
-                    item["Description"] = Description;
+                    item["Description"] = "CCC";
                     item["Creator"] = creator;
                     Jsonobj.push(item);
-                    console.log(Jsonobj);
+                    console.log(item);
                     status = true;
                 }
             }
@@ -260,29 +255,25 @@
 
         });
 
-        $('#btn_Close_Deviation').click(function () {
+        $('#btn_Close_Deviaton').click(function () {
             var Jsonobj = [];
             var status = false;
-            var table = $('#Tbl_Deviation').DataTable()
-            //$('#checkboxes').find(':checkbox[name^="qcol2"]').each(function () {
-            //    $(this).prop("checked", ($.inArray($(this).val(), myarray) != -1));
-            //    //alert(myjson);
-            //});
-
+            var table = $('#tblDeviation').DataTable();
             for (var i = 1; i <= table.data().count(); i++) {
-                var row = $("TR").eq(i);
+
+                var row = $("#tblDeviation tr").eq(i);
                 var PenyimpanganID = $("TD", row).eq(1).html();
-                var Description = $("TD", row).eq(3).html();
                 var creator = "";
                 // Mengecheck Checkbox apakah sudah di checklist
                 if ($("TD", row).eq(0).find("input[type='checkbox']").prop('checked')) {
-                    item = {};
+                   var item = {};
+
                     item["NoCapa"] = "CPA/SIA/HOF/MK/0921/009";
                     item["PenyimpanganID"] = PenyimpanganID;
-                    item["Description"] = Description;
+                    item["Description"] = "DEVIATION";
                     item["Creator"] = creator;
                     Jsonobj.push(item);
-                    console.log(Jsonobj);
+                    console.log(item);
                     status = true;
                 }
             }
@@ -305,7 +296,7 @@
                 });
 
             }
-        
+
         });
 
         $('#Lokasi_DDL').change(function () {
@@ -427,30 +418,31 @@
             dto = {
                 Option: 1,
                 NoCapa: "CPA/SIA/HOF/MK/0921/009",
-                Departemen: $('#DepartemenPelapor_DDL').value(),
-                JenisPenyimpangan: $('#JenisPenyimpangan_DDL').value(),
-                Kategori: $('#KategoriPenyimpangan_DDL').value(),
-                Tahun: $('#Tahun_DDL_Deviaton').value()
+                Departemen: $('#DepartemenPelapor_DDL').val(),
+                JenisPenyimpangan: $('#JenisPenyimpangan_DDL').val(),
+                Kategori: $('#KategoriPenyimpangan_DDL').val(),
+                Tahun: $('#Tahun_DDL_Deviaton').val()
             }
             $.ajax({
                 type: "POST",
-                url: "GetPenyimpangan",
+                url: "ShowAddAbleDeviation",
                 data: JSON.stringify(dto),
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    var table = $('#Tbl_Deviation').DataTable({
+                    console.log(data);
+                    var table = $('#tblDeviation').DataTable({
                         "pageLength": 5,
                         "lengthChange": true,
                         "searching": false,
                         "data": JSON.parse(data),
                         "select": true,
-                        "bDestroy": true,
                         "scrollCollapse": true,
+                        "destroy": true,
                         "columns": [
                             {
                                 "data": null,
-                                "defaultContent": "<input class='selected' type='checkbox' name='type' onchange=''>"
+                                "defaultContent": "<input type='checkbox'/>"
                             },
                             { "data": "DEVIATION_NO" },
                             { "data": "NAMA_PELOPOR" },
@@ -459,35 +451,35 @@
                             { "data": "KET_CATEGORY" }
                         ],
                         "order": [[1, 'asc']],
-                        "columnDefs": [
+                        "columndefs": [
                             {
                                 "targets": 0,
-                                "className": "text-center",
+                                "classname": "text-center",
                                 "width": "1%"
                             },
                             {
                                 "targets": 1,
-                                "className": "text-center",
+                                "classname": "text-center",
                                 "width": "5%"
                             },
                             {
                                 "targets": 2,
-                                "className": "text-center",
+                                "classname": "text-center",
                                 "width": "6%"
                             },
                             {
                                 "targets": 3,
-                                "className": "text-center",
+                                "classname": "text-center",
                                 "width": "6%"
                             },
                             {
                                 "targets": 4,
-                                "className": "text-center",
+                                "classname": "text-center",
                                 "width": "4%"
                             },
                             {
                                 "targets": 5,
-                                "className": "text-left",
+                                "classname": "text-left",
                                 "width": "15%"
                             }
                         ]
@@ -497,18 +489,19 @@
         });
 
         $('#btn_Search_CCC').click(function () {
+
             dto = {
                 Option: 2,
                 NoCapa: "CPA/SIA/HOF/MK/0921/009",
-                JenisKeluhan: $('#JenisKeluhan_DDL').value(),
-                Tahun: $('#Tahun_DDL').value(),
-                Plant: $('#Plant_DDL').value(),
-                Kategori: $('#JenisKategori_DDL').value()
+                JenisKeluhan: $('#JenisKeluhan_DDL').val(),
+                Tahun: $('#Tahun_DDL').val(),
+                Plant: $('#Plant_DDL').val(),
+                Kategori: $('#JenisKategori_DDL').val()
             }
 
             $.ajax({
                 type: "POST",
-                url: "GetPenyimpangan",
+                url: "ShowAddAbleDeviation",
                 data: JSON.stringify(dto),
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
@@ -613,14 +606,15 @@
             }
         });
 
-        if (@Request.QueryString.Count > 1) {
+
+     if (@Request.QueryString.Count > 1) {
             $.ajax({
                 url: 'GetCAPA',
                 type: 'post',
                 data: JSON.stringify({
                     Option: 10,
-                    NO_CAPA: $('#input_NoCAPA').val(),
-                    REG_ID: $('#input_REG_ID').val(),
+                    NO_CAPA: $('#QS_CAPA').val(),
+                    REG_ID: $('#QS_REG').val(),
                     SP: "[dbo].[SP_SHOW_DDL]"
                 }),
                 dataType: 'json',
@@ -628,11 +622,16 @@
                 success: function (data) {
                     //console.log(data[0]);
                     console.log(data);
-
+                    alert(data[0].KATEGORI_CAPA);
+                    var trhtml = "";
                     var kategori = $("#Kategori_DDL option:contains(" + data[0].KATEGORI_CAPA + ")").val();
                     var lokasi = $("#Lokasi_DDL option:contains(" + data[0].LOKASI_CAPA + ")").val();
 
-                    $('#Trigger_CAPA').val(data[0].TRIGGER_CAPA).trigger("change");
+                    trhtml += '<Option value = "' + data[0].TRIGGER_CAPA + '" > ' + data[0].TRIGGER_CAPA;
+                    $("#Static_Trigger_CAPA").empty();
+                    $("#Static_Trigger_CAPA").append(trhtml);
+                    $("#Static_Trigger_CAPA").select2();
+                    $('#Static_Trigger_CAPA').val(data[0].TRIGGER_CAPA);
                     $('#Kategori_DDL').val(data[0].KATEGORI_CAPA).trigger("change");
                     $('#TxtDeskripsi').val(data[0].DESKRIPSI_MASALAH).trigger("change");
                     $("#Kategori_DDL").val(kategori).trigger("change");

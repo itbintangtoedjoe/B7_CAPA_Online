@@ -92,6 +92,13 @@ namespace B7_CAPA_Online.Controllers
         {
             return PartialView();
         }
+
+        public ActionResult RequestCAPA()
+        {
+            var list = new ListDepartemen();
+            list.ClearDT();
+            return PartialView();
+        }
         #endregion
 
         #region Populate
@@ -155,6 +162,27 @@ namespace B7_CAPA_Online.Controllers
             return Json(DAL.StoredProcedure(parameters, spname));
 
         }
+
+        public ActionResult GetAnalisa(string NoCapa)
+        {
+            var dictionary = new Dictionary<string, object>
+            {
+                {"NoCapa", NoCapa}
+            };
+            var spname = "SP_SHOW_ANALISA&ROOT";
+
+            var parameters = new DynamicParameters(dictionary);
+            return Json(DAL.StoredProcedure(parameters, spname));
+
+        }
+        public ActionResult RejectKoor2(RejectAttribute Model)
+        {
+            var spname = "SP_REJECT_KOOR2";
+
+            var parameters = new DynamicParameters(Model);
+            return Json(DAL.StoredProcedure(parameters, spname));
+
+        }
         public ActionResult InsertAddAbleDeviation(InsertPenyimpangan Model)
         {
             var pjg = Model.Penyimpangan.Count;
@@ -176,7 +204,7 @@ namespace B7_CAPA_Online.Controllers
             var parameters = new DynamicParameters();
             parameters.Add("InsertPenyimpangan", dt.AsTableValuedParameter("[dbo].[InsertPenyimpangan]"));
 
-            var spname = "SP_SHOW_ADDABLE_DEVIATION";
+            var spname = "SP_Insert_Penyimpangan";
 
             return Json(DAL.StoredProcedure(parameters, spname));
 
@@ -189,7 +217,7 @@ namespace B7_CAPA_Online.Controllers
                 {"NoCapa", Model.NoCapa},
                 {"JenisPenyimpangan",Model.JenisPenyimpangan },
                 {"Kategori",Model.Kategori },
-                {"Departemen",Model.Departemen },
+                {"Departemen","IT" },
                 {"JenisKeluhan",Model.JenisKeluhan },
                 {"Plant",Model.Plant},
                 {"Tahun",Model.Tahun}
