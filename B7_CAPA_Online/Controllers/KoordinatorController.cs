@@ -150,13 +150,15 @@ namespace B7_CAPA_Online.Controllers
         }
 
 
-        public ActionResult GetRoot(string NoCapa)
+        public ActionResult GetRoot(string NoCapa,string Type)
         {
             var dictionary = new Dictionary<string, object>
             {
-                {"NoCapa", NoCapa}
+                {"NoCapa", NoCapa},
+                {"Option", 2 },
+                {"Type",Type }
             }; 
-            var spname = "SP_SHOW_ROOT";
+            var spname = "SP_SHOW_ANALISA&ROOT";
 
             var parameters = new DynamicParameters(dictionary);
             return Json(DAL.StoredProcedure(parameters, spname));
@@ -167,7 +169,8 @@ namespace B7_CAPA_Online.Controllers
         {
             var dictionary = new Dictionary<string, object>
             {
-                {"NoCapa", NoCapa}
+                {"NoCapa", NoCapa},
+                {"Option", 1 }
             };
             var spname = "SP_SHOW_ANALISA&ROOT";
 

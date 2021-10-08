@@ -1,24 +1,15 @@
 ﻿
 @{
-    ViewBag.Title = "ApprovalKoordinator2";
+    ViewBag.Title = "EvaluatorAddCAPA";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="content-body">
     <br />
     <div class="card">
         <div class="card-body">
-            <label for="TxtKategoriCCC" class="col-form-label">Evaluator:</label>
             <div class="row">
-                <div class="form-group col-md-2">
-                    <div class="input-group">
-                        <select class="form-control select2" id="Evaluator_DDL" required>
-                            <option value=""></option>
-                            <option value=""></option>
-                        </select>
-                    </div>
-                </div>
                 <div class="col-md-1">
-                    <button type="button" class="btn btn-primary" id="btn_Submit_Evaluator" style="margin-left:15px;">Submit To Evaluator</button>
+                    <button type="button" class="btn btn-primary" id="btn_Approve" style="margin-left:15px;">Approve</button>
                 </div>
                 <div class="col-md-2">
                     <button type="button" class="btn btn-primary" id="btn_Reject" style="margin-left:100px; background-color:red;">Reject</button>
@@ -40,24 +31,23 @@
         </div>
     </div>
     <div class="form-group col-md-2">
-        <input type="button" class="btn btn-primary" id="btn_Request_Page" value="Show Request Page"/>
+        <input type="button" class="btn btn-primary" id="btn_Request_Page" value="Show Request Page" />
     </div>
     <div id="Request_Page" hidden="hidden">
-        @Html.Partial("RequestCAPA")
+        @Html.Partial("../Koordinator/RequestCAPA")
     </div>
     <div id="InvestigasiPenyimpangan">
-        @Html.Partial("InvestigasiPenyimpangan")
+        @Html.Partial("../Koordinator/InvestigasiPenyimpangan")
     </div>
     <div id="PenentuanTindakanPerbaikan">
-        @Html.Partial("PenentuanTindakanPerbaikan")
+        @Html.Partial("../Koordinator/PenentuanTindakanPerbaikan")
     </div>
     <div id="PenentuanTindakanPencegahan">
-        @Html.Partial("PenentuanTindakanPencegahan")
+        @Html.Partial("../Koordinator/PenentuanTindakanPencegahan")
     </div>
     <div id="KajianRisiko">
-        @Html.Partial("KajianRisiko")
+        @Html.Partial("../Koordinator/KajianRisiko")
     </div>
-    @Html.Partial("TriggerCAPA")
 </div>
 
 <script>
@@ -133,6 +123,7 @@
                 }
             });
         }
+
     }
 
 </script>

@@ -40,5 +40,17 @@ namespace B7_CAPA_Online.Models
             public string NoCAPa { get; set; }
             public string RejectReason { get; set; }
         }
+
+        public class Root
+        {
+            public List<RootAttribute> RootCause { get; set; }
+        }
+        public class RootAttribute
+        {
+            public string key { get; set; }
+            public string parent { get; set; }
+            public string type { get; set; }
+            public string desc { get; set; }
+        }
     }
 }

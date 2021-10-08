@@ -24,7 +24,7 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
-        public ActionResult EvaluatorAddCAPA()
+        public ActionResult Evaluator()
         {
             return View();
         }

@@ -5391,7 +5391,7 @@
     <Content Include="Views\ReportCAPA\ReportMasterlist.cshtml" />
     <Content Include="Views\ReportCAPA\ReportLeadtime.cshtml" />
     <Content Include="Views\Koordinator\CreateCAPA.cshtml" />
-    <Content Include="Views\Evaluator\EvaluatorAddCAPA.cshtml" />
+    <Content Include="Views\Evaluator\Evaluator.cshtml" />
     <Content Include="Views\Evaluator\EvaluatorCancelCAPA.cshtml" />
     <Content Include="Views\Evaluator\EvaluatorUpdateCAPA.cshtml" />
     <Content Include="Views\PendingTask\TaskList.cshtml" />

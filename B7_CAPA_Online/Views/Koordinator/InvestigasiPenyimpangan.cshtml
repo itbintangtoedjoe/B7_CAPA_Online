@@ -1,10 +1,11 @@
-﻿<div class="card">
+﻿<script src="https://unpkg.com/gojs/release/go-debug.js" defer></script>
+<div class="card">
     <div class="card-body">
         <h4 class="card-title">Analisa Kondisi</h4>
         <div class="table-responsive">
             <table class="table table-bordered zero-configuration" id="tblAnalisaKondisi">
                 <thead>
-                    <tr>   
+                    <tr>
                         <th>Aspect</th>
                         <th>WHAT SHOULD BE HAPPENED</th>
                         <th>WHAT ACTUALLY HAPPENED</th>
@@ -17,87 +18,273 @@
         </div>
     </div>
 </div>
+<div>
+    <input type="button" class="btn btn-primary" id="ShowDiag" data-toggle="modal" data-target="#Modal_Diag" data-backdrop="static" value="Show Diagram"/>
+</div>
+<div class="modal fade" id="Modal_Diag" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+            </div>
+            <div class="modal-body">
+                <div id="DiagManusia"
+                     style="width:100%; height:300px; background-color: #DAE4E4;"></div>
+                <br />
 
-<div class="card" id="Div_PRCA">
-    <div class="card-body">
-        <h4 class="card-title">Potential Root Cause Analysis</h4>
-        <div class="table-responsive">
-            <table class="table table-bordered zero-configuration" id="tblPRCA">
-                <thead>
-                    <tr>
-                        <th>Aspect</th>
-                        <th>WHAT ACTUALLY HAPPENED</th>
-                        <th>WHY</th>
-                        <th>Index</th>
-                    </tr>
-                </thead>
-                <tbody id="Tbl_PRCA">
-                    
-                </tbody>
-            </table>
+                <div id="DiagMaterial"
+                     style="width:100%; height:300px; background-color: #DAE4E4;"></div>
+                <br />
+                <div id="DiagLingkungan"
+                     style="width:100%; height:300px; background-color: #DAE4E4;"></div>
+                <br />
+
+                <div id="DiagMesin"
+                     style="width:100%; height:300px; background-color: #DAE4E4;"></div>
+                <br />
+
+                <div id="DiagMetode"
+                     style="width:100%; height:300px; background-color: #DAE4E4;"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn_Close_Diag">Close</button>
+            </div>
         </div>
     </div>
 </div>
-
-
 <script>
     $(document).ready(function () {
-        //GetRoot();
+        GetRootManusia();
+        GetRootMaterial();
+        GetRootLingkungan();
+        GetRootMesin();
+        GetRootMetode();
         GetAnalisaKondisi();
+        $('#ShowDiag').click(function () {
+            $('#Modal_Diag').attr("hidden", false);
+        });
     });
 
-    function GetRoot()
-    {
+    function GetRootManusia() {
+
         $.ajax({
             type: "POST",
-            url: "GetRoot?NoCapa=CPA/SIA/HOF/MK/0921/009",
+            url: "../Koordinator/GetRoot?NoCapa=CPA/SIA/HOF/MK/0921/009&Type=Manusia",
+            dataType: 'json',
+            async: true,
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var result = JSON.parse(data);
+                var $ = go.GraphObject.make;
+
+                var myDiagram =
+                    $(go.Diagram, "DiagManusia", 
+                        {
+                            "undoManager.isEnabled": true,
+                            contentAlignment: go.Spot.Center,
+                            layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
+                                { angle: 90, layerSpacing: 35 })
+                        });
+
+
+                myDiagram.nodeTemplate =
+                    $(go.Node, "Horizontal",
+                        { background: "#44CCFF", locationSpot: go.Spot.Center},
+                        $(go.TextBlock, "Default Text",
+                            {
+                                margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                verticalAlignment: go.Spot.Center
+                            },
+                            new go.Binding("text", "type")),
+                        $(go.TextBlock, "Default Text",
+                            {
+                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                verticalAlignment: go.Spot.Center
+                            },
+                            new go.Binding("text", "desc"))
+                    );
+
+                myDiagram.model = new go.TreeModel(result);
+            }
+        });
+    }
+    function GetRootMaterial() {
+
+        $.ajax({
+            type: "POST",
+            url: "../Koordinator/GetRoot?NoCapa=CPA/SIA/HOF/MK/0921/009&Type=Material/Produk",
+            async: true,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 var result = JSON.parse(data);
-                var count = result.count;
-                var thead = '';
-                var k = 0;
+                var $ = go.GraphObject.make;
 
-                var column = [
-                    { "data": "WAHType_FK" },
-                    { "data": "WAHDESC" },
-                    { "data": "WhyDescription" }
-                ]
+                var myDiagram =
+                    $(go.Diagram, "DiagMaterial",
+                        {
+                            "undoManager.isEnabled": true,
+                            contentAlignment: go.Spot.Center,
+                            layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
+                                { angle: 90, layerSpacing: 35 })
 
-               
+                        });
 
-                var table = $('#tblPRCA').DataTable({
-                    "pageLength": 5,
-                    "lengthChange": false,
-                    "searching": false,
-                    "data": JSON.parse(data),
-                    "destroy": true,
-                    "columns": [
-                        { "data": "WAHType_FK" },
-                        { "data": "AppsID_FK" },
-                        { "data": "FieldName" },
-                        { "data": "ValueField" },
-                        
-                        
-                    ],
-                    "render": function (data, type, row, meta) {
-                        return '<a href="' + data + '">Download</a>';
-                    },
-                    "order": [[0, 'asc']],
-                });
-                table.on('order.dt search.dt', function () {
-                    table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
-                        cell.innerHTML = i + 1;
-                    });
-                }).draw();
+
+                myDiagram.nodeTemplate =
+                    $(go.Node, "Horizontal",
+                        { background: "#44CCFF" },
+                        $(go.TextBlock, "Default Text",
+                            {
+                                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                verticalAlignment: go.Spot.Center
+                            },
+                            new go.Binding("text", "type")),
+                        $(go.TextBlock, "Default Text",
+                            {
+                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                verticalAlignment: go.Spot.Center
+                            },
+                            new go.Binding("text", "desc"))
+                    );
+
+                myDiagram.model = new go.TreeModel(result);
+            }
+        });
+    }
+    function GetRootLingkungan() {
+
+        $.ajax({
+            type: "POST",
+            url: "../Koordinator/GetRoot?NoCapa=CPA/SIA/HOF/MK/0921/009&Type=Lingkungan",
+            dataType: 'json',
+            async: true,
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var result = JSON.parse(data);
+                var $ = go.GraphObject.make;
+
+                var myDiagram =
+                    $(go.Diagram, "DiagLingkungan",
+                        {
+                            "undoManager.isEnabled": true,
+                            contentAlignment: go.Spot.Center,
+                            layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
+                                { angle: 90, layerSpacing: 35 })
+                        });
+
+
+                myDiagram.nodeTemplate =
+                    $(go.Node, "Horizontal",
+                        { background: "#44CCFF" },
+                        $(go.TextBlock, "Default Text",
+                            {
+                                margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                verticalAlignment: go.Spot.Center
+                            },
+                            new go.Binding("text", "type")),
+                        $(go.TextBlock, "Default Text",
+                            {
+                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                verticalAlignment: go.Spot.Center
+                            },
+                            new go.Binding("text", "desc"))
+                    );
+
+                myDiagram.model = new go.TreeModel(result);
+            }
+        });
+    }
+    function GetRootMesin() {
+
+        $.ajax({
+            type: "POST",
+            url: "../Koordinator/GetRoot?NoCapa=CPA/SIA/HOF/MK/0921/009&Type=Mesin",
+            dataType: 'json',
+            async: true,
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var result = JSON.parse(data);
+                var $ = go.GraphObject.make;
+
+                var myDiagram =
+                    $(go.Diagram, "DiagMesin",
+                        {
+                            "undoManager.isEnabled": true,
+                            contentAlignment: go.Spot.Center,
+                            layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
+                                { angle: 90, layerSpacing: 35 })
+                        });
+
+
+                myDiagram.nodeTemplate =
+                    $(go.Node, "Horizontal",
+                        { background: "#44CCFF" },
+                        $(go.TextBlock, "Default Text",
+                            {
+                                margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                verticalAlignment: go.Spot.Center
+                            },
+                            new go.Binding("text", "type")),
+                        $(go.TextBlock, "Default Text",
+                            {
+                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                verticalAlignment: go.Spot.Center
+                            },
+                            new go.Binding("text", "desc"))
+                    );
+
+                myDiagram.model = new go.TreeModel(result);
+            }
+        });
+    }
+    function GetRootMetode() {
+
+        $.ajax({
+            type: "POST",
+            url: "../Koordinator/GetRoot?NoCapa=CPA/SIA/HOF/MK/0921/009&Type=Metode",
+            dataType: 'json',
+            async: true,
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var result = JSON.parse(data);
+                var $ = go.GraphObject.make;
+
+                var myDiagram =
+                    $(go.Diagram, "DiagMetode",
+                        {
+                            "undoManager.isEnabled": true,
+                            contentAlignment: go.Spot.Center,
+                            layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
+                                { angle: 90, layerSpacing: 35 })
+                        });
+
+
+                myDiagram.nodeTemplate =
+                    $(go.Node, "Horizontal",
+                        { background: "#44CCFF" },
+                        $(go.TextBlock, "Default Text",
+                            {
+                                margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                verticalAlignment: go.Spot.Center
+                            },
+                            new go.Binding("text", "type")),
+                        $(go.TextBlock, "Default Text",
+                            {
+                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                verticalAlignment: go.Spot.Center
+                            },
+                            new go.Binding("text", "desc"))
+                    );
+
+                myDiagram.model = new go.TreeModel(result);
             }
         });
     }
     function GetAnalisaKondisi() {
         $.ajax({
             type: "POST",
-            url: "GetAnalisa?NoCapa=CPA/SIA/HOF/MK/0921/009",
+            url: "../Koordinator/GetAnalisa?NoCapa=CPA/SIA/HOF/MK/0921/009",
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
@@ -117,11 +304,11 @@
                     ],
                     "order": [[0, 'asc']],
                 });
-               
+
             }
         });
     }
-    
+
 
 
 </script>
