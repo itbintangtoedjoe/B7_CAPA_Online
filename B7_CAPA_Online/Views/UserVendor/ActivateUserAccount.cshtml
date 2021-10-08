@@ -1,0 +1,220 @@
+﻿@{
+    @*Layout = "~/Views/Shared/_EmptyLayout.cshtml";*@
+    Layout = null;
+    ViewBag.Title = "Aktivasi Akun CAPA B7";
+}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    @*<link rel="shortcut icon" href="~/Template/icons/tara.png" />*@
+    <title>CAPA</title>
+
+    <!-- Favicon icon -->
+    @*<link rel="icon" type="image/png" sizes="16x16" href="~/Template/images/favicon.png">*@
+    <!-- Pignose Calender -->
+    <link href="~/Template/plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
+    <link href="~/Template/plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
+    <!-- Chartist -->
+    <link rel="stylesheet" href="~/Template/plugins/chartist/css/chartist.min.css">
+    @*<link rel="stylesheet" href="~/Template/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">*@
+
+    <!--data table-->
+    <link href="~/Template/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+    <!--sweetalert-->
+    <link href="~/Content/sweetalert.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
+
+    <!-- Custom Stylesheet -->
+    <link href="~/Content/Styles/css/style.css" rel="stylesheet">
+    <link href="~/Template/css/custom.css" rel="stylesheet">
+</head>
+
+<body style="margin:30px;">
+    <div class="margin-all-20">
+        <h3>Aktivasi Akun CAPA B7</h3>
+
+        @using (Html.BeginForm("ActivateUserAccount", "UserVendor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @*@Html.AntiForgeryToken()*@
+            <div class="card">
+                <div class="card-body">
+                    @*<div class="form-validation">*@
+                    <h4>Akun User: @ViewBag.ActiveUser.UserVendorName</h4>
+                    <div>
+                        <form id="form-upload" enctype="multipart/form-data" action="@Url.Action("SaveNewPassword", "User")" method="POST">
+                            <div class="form-group row align-items-center">
+                                <label class="col-lg-2 col-form-label right-aligned" for="kategori">
+                                    Set Password Akun<span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-10">
+                                    <input type="password" class="form-control input-default" id="password" name="password">
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-lg-2 col-form-label right-aligned" for="kategori">
+                                    Confirm Password <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-10">
+                                    <input type="password" class="form-control input-default" id="confirmPassword" name="confirmPassword">
+                                </div>
+                            </div>
+                            <div class="form-group-row align-items-center">
+                                <div class="col-lg-10 col-lg-offset-2">
+                                    <button type="submit" class="btn btn-primary" id="aktifkanAkun">AKTIFKAN AKUN</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="footer">
+        <div class="copyright">
+            <p>Copyright &copy; 2021 PT Bintang Toedjoe</p>
+        </div>
+    </div>
+</body>
+
+<script src="~/Content/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>*@
+
+@Scripts.Render("~/bundles/jquery")
+<script>
+    function closeTab() {
+        window.top.close();
+    }
+    $('#aktifkanAkun').click(function (e) {
+        e.preventDefault(); // stop the standard form submission
+
+        var id = "@ViewBag.ActiveUser.ID";
+        var password = $.trim($("#password").val());
+        var confirmPassword = $.trim($("#confirmPassword").val());
+
+        var form_data = {
+            "ID": id, "Password": password
+        };
+
+        if (password == "" || confirmPassword == "") {
+            swal({
+                title: 'Semua field harus terisi!',
+                type:'error',
+                timer: 1000,
+                showConfirmButton: false
+            }).then(
+                function () { },
+                // handling the promise rejection
+                function (dismiss) {
+                    @*if (dismiss === 'timer') {
+                        console.log('I was closed by the timer')
+                    }*@
+                }
+            )
+            @*swal("Semua field harus terisi!", {
+                icon: "error",
+                buttons: false,
+                timer: 1000,
+            });*@
+        }
+        else if (password.length < 8) {
+            swal({
+                title: 'Password harus memiliki minimal 8 karakter!',
+                type: 'error',
+                timer: 1000,
+                showConfirmButton: false
+            }).then(
+                function () { },
+                function (dismiss) {
+                }
+            )
+            @*swal("Password harus memiliki minimal 8 karakter!", {
+                icon: "error",
+                buttons: false,
+                timer: 1000,
+            });*@
+        }
+        else if (password != confirmPassword)
+        {
+            swal({
+                title: 'Kedua password harus sama!',
+                type: 'error',
+                timer: 1000,
+                showConfirmButton: false
+            }).then(
+                function () { },
+                function (dismiss) {
+                }
+            )
+            @*swal("Kedua password harus sama!", {
+                icon: "error",
+                buttons: false,
+                timer: 1000,
+            });*@
+        }
+        else {
+            $.ajax({
+                url: "SaveNewPassword",
+                type: "POST",
+                data: JSON.stringify(form_data),
+                contentType: "application/json",
+                processData: false,
+                dataType: 'json',
+                success: function (data) {
+                    if (data == "1") {
+                        swal({
+                            title: 'Berhasil',
+                            text:'Akun Anda berhasil diaktivasi',
+                            type: 'success',
+                            timer: 1000,
+                            showConfirmButton: false
+                        }).then(
+                            function () {
+                            },
+                            function (dismiss) {
+                                window.location = "https://i.pinimg.com/originals/b9/88/b7/b988b7c3e84e1f83ef9447157831b460.gif";
+                            }
+                        )
+                        @*swal({
+                            title: "Berhasil",
+                            text: "Password Anda berhasil diubah",
+                            type: "success",
+                            buttons: false,
+                            timer: 1000,
+                        }).then(() => {
+                            window.location = "@Url.Action("Login", "Authentication")";
+                        })*@
+                    }
+                    else {
+                        swal({
+                            title: 'Gagal',
+                            text:data,
+                            type: 'error',
+                            timer: 1000,
+                            showConfirmButton: false
+                        }).then(
+                            function () { },
+                            function (dismiss) {
+                            }
+                        )
+                        @*swal({
+                            title: "Gagal",
+                            text: data,
+                            icon: "error",
+                            buttons: false,
+                            timer: 1000,
+                        }).then(() => {
+                            window.close();
+                        })*@
+                    }
+                },
+                error: function (xhr, error, status) {
+                    console.log(error, status);
+                }
+            });
+        }
+    });
+</script>

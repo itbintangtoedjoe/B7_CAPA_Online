@@ -1,0 +1,162 @@
+﻿
+@{
+    ViewBag.Title = "Create User Vendor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("CreateUserVendor", "Vendor", FormMethod.Get, new { enctype = "multipart/form-data" }))
+{
+    <div class="content-body">
+        <div class="row page-titles mx-0">
+            <div class="col p-md-0">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Create User Vendor</a></li>
+                </ol>
+            </div>
+        </div>
+        <!-- row -->
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Create Vendor</h4>
+                            <div class="card-body">
+                                <form id="form-upload" enctype="multipart/form-data" action="@Url.Action("SaveUserVendor", "UserVendor")" method="POST">
+
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-lg-2 col-form-label right-aligned">
+                                            Nama User <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-lg-10">
+                                            <input type="text" class="form-control input-default" id="nama_user" name="nama_user" placeholder="Masukkan nama user..">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-lg-2 col-form-label right-aligned" for="tipe_vendor">
+                                            Vendor <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-lg-6">
+                                            <select class="form-control" id="id_vendor" name="id_vendor">
+                                                <option value="" disabled selected>Pilih Vendor</option>
+                                                @foreach (var vendor in ViewBag.AllVendors)
+                                                {
+                                                    <option value="@vendor.ID">@vendor.VendorName</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-3 no-padding">
+                                            <label class="col-form-label link-label"><a href="@Url.Action("CreateVendor", "Vendor")" target="_blank">Tambah vendor +</a></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-lg-2 col-form-label right-aligned">
+                                            Email <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-lg-10">
+                                            <input type="email" class="form-control input-default" id="email" name="email" placeholder="Masukkan email..">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-lg-2 col-form-label right-aligned">
+                                            Username <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-lg-10">
+                                            <input type="text" class="form-control input-default" id="username" name="username" placeholder="Masukkan username..">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-lg-2 col-form-label right-aligned">
+                                            Superior
+                                        </label>
+                                        <div class="col-lg-6">
+                                            <select class="form-control" id="superior" name="superior">
+                                                <option value="" disabled selected>Pilih Superior</option>
+                                                @foreach (var userVendor in ViewBag.AllUserVendors)
+                                                {
+                                                    <option value="@userVendor.UserID">@userVendor.UserVendorName</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group-row align-items-center">
+                                        <div class="col-lg-10">
+                                            <button type="submit" class="btn btn-primary" style="width:100px" id="simpan">Simpan</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #/ container -->
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $('#create').click(function (e) {
+            window.location = "Vendor/CreateVendor";
+        })
+        $('#superior').select2();
+    });
+
+
+    $('#simpan').click(function (e) {
+        e.preventDefault();
+
+        var nama_user = $.trim($("#nama_user").val());
+        var id_vendor = $("#id_vendor").val();
+        var email = $.trim($("#email").val());
+        var username = $("#username").val();
+        var id_superior = $("#superior").val();
+
+        if (nama_user == "" || id_vendor==null || email == "" || username == "") {
+            swal({
+                title: "Semua field wajib terisi!",
+                type: "error",
+                buttons: false,
+                timer: 1000,
+            });
+        }
+        else {
+            var form_data = {
+                "UserVendorName": nama_user,
+                "VendorData.ID": id_vendor,
+                "Username": username,
+                "Email": email,
+                "SuperiorID": id_superior
+            };
+
+            $.ajax({
+                url: "SaveUserVendor",
+                type: "POST",
+                data: JSON.stringify(form_data),
+                contentType: "application/json",
+                processData: false,
+                dataType: 'json',
+                success: function (data) {
+                    swal({
+                        title: "Berhasil",
+                        text: "Email untuk aktivasi akun sudah dikirim ke email terdaftar",
+                        icon: "success",
+                        buttons: false,
+                        timer: 1000,
+                    }).then(() => {
+                        location.reload();
+                    })
+                },
+                error: function (xhr, error, status) {
+                    console.log(error, status);
+                }
+            });
+        }
+    });
+</script>

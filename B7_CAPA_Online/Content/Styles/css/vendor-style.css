@@ -1,0 +1,8 @@
+﻿.right-aligned{
+    text-align: right;
+}
+
+.btn-add{
+	position: absolute;
+	top:6rem;
+	margin-left:2rem;
