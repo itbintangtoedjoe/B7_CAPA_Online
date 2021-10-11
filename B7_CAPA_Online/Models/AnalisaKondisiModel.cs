@@ -9,12 +9,30 @@ namespace B7_CAPA_Online.Models
 {
     public class AnalisaKondisiModel
     {
+        public int No { get; set; }
+        public int Option { get; set; }
+        public string NO_CAPA { get; set; }
         public string Aspect { get; set; }
         //What Should Be Happened = WSBH
         public string WSBH { get; set; }
         // What Actually Happened
         public string WAH { get; set; }
         public string Status { get; set; }
+        public string SP { get; set; }
+        public int isParent { get; set; }      
+        public string WHY_Parent { get; set; }
+        public string WHY { get; set; }
+        public string Tindakan { get; set; }
+        public string Pelaksana { get; set; }
+        public int LineNumber { get; set; }
+        public string NamaPersonil { get; set; }
+        public string Email { get; set; }
+        public string DueDate { get; set; }
+        public string Is_AreaLain { get; set; }
+        public int WhyID { get; set; }
+        public int WhyParentID { get; set; }
+        public string RootCause { get; set; }
+
     }
     partial class ListKondisi
     {
@@ -38,15 +56,15 @@ namespace B7_CAPA_Online.Models
                     values[i] = Props[i].GetValue(item, null);
                 }
 
-                for (int i = DT.Rows.Count - 1; i >= 0; i--)
-                {
-                    DataRow dr = DT.Rows[i];
-                    if (dr["Aspect"].ToString() == values[0].ToString())
-                    {
-                        if (dr["WAH"].ToString().Equals(values[2].ToString()))
-                            return DT;                        
-                    }
-                }
+                //for (int i = DT.Rows.Count - 1; i >= 0; i--)
+                //{
+                //    DataRow dr = DT.Rows[i];
+                //    if (dr["Aspect"].ToString() == values[0].ToString())
+                //    {
+                //        if (dr["WAH"].ToString().Equals(values[2].ToString()))
+                //            return DT;
+                //    }
+                //}
                 DT.Rows.Add(values);
             }
             return DT;
