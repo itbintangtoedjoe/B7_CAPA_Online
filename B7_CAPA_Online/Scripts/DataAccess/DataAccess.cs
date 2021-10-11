@@ -105,7 +105,22 @@ namespace B7_CAPA_Online.Scripts.DataAccess
             return result;
         }
 
-     
+        public string StoredProcedure(DynamicParameters parameters, String Spname)
+        {
+            string result;
+
+            using (IDbConnection db = new SqlConnection(dbDFIS.ConnectionString))
+            {
+                var StoredProcedure = db.Query<dynamic>(Spname, parameters,
+                                commandType: CommandType.StoredProcedure).ToList();
+
+                var json = JsonConvert.SerializeObject(StoredProcedure, Formatting.Indented);
+                result = json;
+            }
+
+            return result;
+        }
+
     }
 
     //internal string GetDataPrint(int v1, char v2, char v3, char v4)
