@@ -22,18 +22,18 @@
                                 </div>
                             </div>
                             @*<div class="row form-group" id="Linked_Deviation" hidden>
-                <div class="col-md-6">
-                    <label class="m-t-20">Penyimpangan Terkait</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_Deviation">Browse</button>
-                        </div>
-                        <input type="text" class="form-control" id="TxtDeviation" name="TxtDeviation">
-                        <input type="text" class="form-control" name="PenyimpanganTerkait" id="PenyimpanganTerkait" value="" hidden>
-                        @Html.HiddenFor(m => m.PenyimpanganTerkait)
-                    </div>
-                </div>
-            </div>*@
+                                    <div class="col-md-6">
+                                        <label class="m-t-20">Penyimpangan Terkait</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_Deviation">Browse</button>
+                                            </div>
+                                            <input type="text" class="form-control" id="TxtDeviation" name="TxtDeviation">
+                                            <input type="text" class="form-control" name="PenyimpanganTerkait" id="PenyimpanganTerkait" value="" hidden>
+                                            @Html.HiddenFor(m => m.PenyimpanganTerkait)
+                                        </div>
+                                    </div>
+                                </div>*@
                             <div class="row form-group-sm" id="List_Penyimpangan">
                                 <div class="col-md-6">
                                     <label class="m-t-20"><b>List Penyimpangan</b></label>
@@ -81,17 +81,17 @@
                                 </div>
                             </div>
                             @*<div class="row form-group-sm mb-2">
-                <div class="col-md-6">
-                    <label class="m-t-20">Lampiran Terkait</label>
-                    <div class="input-group mb-3">
-                        <div class="custom-file">
-                            <input id="TxtFileInput" type="file" name="LampiranTerkait" class="custom-file-input" multiple required>
-                            @Html.HiddenFor(m => m.LampiranTerkait)
-                            <label class="custom-file-label">Choose File</label>
-                        </div>
-                    </div>
-                </div>
-            </div>*@
+                                    <div class="col-md-6">
+                                        <label class="m-t-20">Lampiran Terkait</label>
+                                        <div class="input-group mb-3">
+                                            <div class="custom-file">
+                                                <input id="TxtFileInput" type="file" name="LampiranTerkait" class="custom-file-input" multiple required>
+                                                @Html.HiddenFor(m => m.LampiranTerkait)
+                                                <label class="custom-file-label">Choose File</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>*@
                             <div class="row form-group-sm" id="List_Lampiran">
                                 <div class="col-md-6">
                                     <label class="m-t-20"><b>List Lampiran:</b></label>
@@ -114,7 +114,7 @@
                             <div class="row form-group-sm mb-2">
                                 <div class="col-md-6">
                                     <label class="m-t-20"><b>Kategori:</b></label>
-                                    <select class="form-control form-control-sm" id="Kategori_DDL" name="KategoriCAPA" required disabled>
+                                    <select class="form-control form-control-sm" id="Request_Kategori_DDL" name="KategoriCAPA" required disabled>
                                         <option>Option 1</option>
                                         <option>Option 2</option>
                                         <option>Option 3</option>
@@ -133,20 +133,20 @@
                             <hr />
                             <div class="row form-group-sm mb-2">
                                 @*<div class="col-md-6">
-                    <label class="m-t-20"><b>Lokasi:</b></label>
-                    <select class="form-control form-control-sm" id="Lokasi_DDL" name="Lokasi" required disabled>
-                        <option>Option 1</option>
-                        <option>Option 2</option>
-                        <option>Option 3</option>
-                    </select>
-                    @Html.HiddenFor(m => m.Lokasi)
-                </div>*@
+                                        <label class="m-t-20"><b>Lokasi:</b></label>
+                                        <select class="form-control form-control-sm" id="Lokasi_DDL" name="Lokasi" required disabled>
+                                            <option>Option 1</option>
+                                            <option>Option 2</option>
+                                            <option>Option 3</option>
+                                        </select>
+                                        @Html.HiddenFor(m => m.Lokasi)
+                                    </div>*@
                                 @*<div class="col-md-4">
-                    <label class="m-t-20"><b>Area PIC CAPA:</b></label>
-                    <select class="form-control" id="AreaPIC_DDL" name="AreaPIC" required disabled>
-                    </select>
-                    @Html.HiddenFor(m => m.AreaPIC)
-                </div>*@
+                                        <label class="m-t-20"><b>Area PIC CAPA:</b></label>
+                                        <select class="form-control" id="AreaPIC_DDL" name="AreaPIC" required disabled>
+                                        </select>
+                                        @Html.HiddenFor(m => m.AreaPIC)
+                                    </div>*@
                             </div>
                             <div class="row form-group-sm mb-4">
                                 <div class="col-md-6">
@@ -163,7 +163,7 @@
                                 @*<hr />*@
                                 <div class="col-md-4">
                                     <label class="m-t-20"><b>Lokasi:</b></label>
-                                    <select class="form-control form-control-sm" id="Lokasi_DDL" name="Lokasi" required disabled>
+                                    <select class="form-control form-control-sm" id="Request_Lokasi_DDL" name="Lokasi" required disabled>
                                         <option>Option 1</option>
                                         <option>Option 2</option>
                                         <option>Option 3</option>
@@ -186,32 +186,30 @@
                                 </div>
                             </div>
                             <hr />
-                            <div class="row form-group-sm" id="List_Departemen">
-                                <div class="col-md-12" >
-                                    <div class="row">
-                                        <label class="m-t-20"><b>List Departemen Terkait:</b></label>
-                                    </div>
-                                    <div class="row" >
-                                            <table class="table table-striped table-bordered " id="Table_Departemen" style="width:100%;">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Departemen</th>
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="Tbl_Departemen">
-                                                    <tr>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-
-                                    </div>
-                                    
+                            <div class="row " id="List_Departemen">
+                                <div class="row form-group-sm mb-4">
+                                    <label class="m-t-20" style="margin-left:35px;"><b>List Departemen Terkait:</b></label>
                                 </div>
+                                <div class="row">
+                                    <table class="table table-striped table-bordered " id="Table_Departemen" style="width:100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Departemen</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="Tbl_Departemen">
+                                            <tr>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
                                 @*<hr />*@
                             </div>
-                            <hr />
-                            <div class="col-md-12" id="VendorDiv" hidden>
+                            <!--<hr />
+                            <div class="col-md-2" id="VendorDiv" hidden>
                                 <label class="m-t-40"><b>Data Vendor</b></label>
                                 <div class="input-group mb-3 ">
                                     <div class="input-group-prepend">
@@ -220,27 +218,27 @@
                                     <input type="text" class="form-control" id="TxtVendor" name="TxtVendor">
                                     <input type="text" class="form-control" name="Vendor" id="Vendor" value="" hidden>
                                 </div>
-                            </div>
+                            </div>-->
 
                             @*<div class="row form-group-sm">
-                <div class="col-md-6">
-                    <label class="m-t-20">Nama Vendor</label>
-                    <input class="form-control form-control-sm" type="text" id="input_Vendor">
-                    <label class="m-t-40">Nama Personil</label>
-                    <input class="form-control form-control-sm" type="text" id="input_Personil">
-                    <label class="m-t-40">Email</label>
-                    <input class="form-control form-control-sm" type="email" id="input_Email">
-                </div>
-            </div>*@
+                                    <div class="col-md-6">
+                                        <label class="m-t-20">Nama Vendor</label>
+                                        <input class="form-control form-control-sm" type="text" id="input_Vendor">
+                                        <label class="m-t-40">Nama Personil</label>
+                                        <input class="form-control form-control-sm" type="text" id="input_Personil">
+                                        <label class="m-t-40">Email</label>
+                                        <input class="form-control form-control-sm" type="email" id="input_Email">
+                                    </div>
+                                </div>*@
                             @*<div class="row form-group-sm">
-                <div class="col-md-6 mt-1">
-                    <input class="btn mb-1 btn-primary" type="submit" id="btn_Submit" onclick="validateInput();" />
-                </div>
-            </div>*@
+                                    <div class="col-md-6 mt-1">
+                                        <input class="btn mb-1 btn-primary" type="submit" id="btn_Submit" onclick="validateInput();" />
+                                    </div>
+                                </div>*@
                         }
                         <!--/form-->
                     </div>
-                    </div>
+                </div>
                 <input type="text" value="@Request.QueryString["CAPA"].ToString()" id="QS_CAPA" hidden />
                 <input type="text" value="@Request.QueryString["REG"].ToString()" id="QS_REG" hidden />
             }
@@ -270,18 +268,31 @@
                     //console.log(data[0]);
                     console.log(data);
                     var trhtml = "";
-                    var kategori = $("#Kategori_DDL option:contains(" + data[0].KATEGORI_CAPA + ")").val();
-                    var lokasi = $("#Lokasi_DDL option:contains(" + data[0].LOKASI_CAPA + ")").val();
+                    var kategori = "";
+                    var lokasi =""
+                    //var kategori = $("#Request_Kategori_DDL option:contains(" + data[0].KATEGORI_CAPA + ")").val();
+                    //var lokasi = $("#Request_Lokasi_DDL option:contains(" + data[0].LOKASI_CAPA + ")").val();
 
                     trhtml += '<Option value = "' + data[0].TRIGGER_CAPA + '" > ' + data[0].TRIGGER_CAPA;
+
+                    kategori += '<Option value = "' + data[0].KATEGORI_CAPA + '" > ' + data[0].KATEGORI_CAPA;
+                    lokasi += '<Option value = "' + data[0].LOKASI_CAPA + '" > ' + data[0].LOKASI_CAPA;
                     $("#Static_Trigger_CAPA").empty();
                     $("#Static_Trigger_CAPA").append(trhtml);
                     $("#Static_Trigger_CAPA").select2();
                     $('#Static_Trigger_CAPA').val(data[0].TRIGGER_CAPA);
-                    $('#Kategori_DDL').val(data[0].KATEGORI_CAPA).trigger("change");
+
+                    $("#Request_Kategori_DDL").empty();
+                    $("#Request_Kategori_DDL").append(kategori);
+                    $("#Request_Kategori_DDL").select2();
+                    $('#Request_Kategori_DDL').val(data[0].KATEGORI_CAPA);
+
+                    $("#Request_Lokasi_DDL").empty();
+                    $("#Request_Lokasi_DDL").append(lokasi);
+                    $("#Request_Lokasi_DDL").select2();
+                    $('#Request_Lokasi_DDL').val(data[0].LOKASI_CAPA);
+
                     $('#TxtDeskripsi').val(data[0].DESKRIPSI_MASALAH).trigger("change");
-                    $("#Kategori_DDL").val(kategori).trigger("change");
-                    $("#Lokasi_DDL").val(lokasi).trigger("change");
                     $.each(JSON.parse(data[0].DEPTLIST), function (key, value) {
                         $("#AreaPIC_DDL").append(new Option(value.Departemen.trim(), value.Departemen.trim()));
                     });
