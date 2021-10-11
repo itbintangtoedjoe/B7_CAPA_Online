@@ -73,24 +73,13 @@ namespace B7_CAPA_Online.Scripts.DataAccess
             return result;
         }
 
-        public string ExecuteFormPIC(AnalisaKondisiModel Model)
+        public string ExecuteFormPIC(AnalisaKondisiModel Model, Dictionary<string, object> dictionary)
         {
             string result;
             using (IDbConnection db = new SqlConnection(dbDFIS.ConnectionString))
             {
                 var GetPrintedData = db.Query<dynamic>(Model.SP,
-                                new
-                                {
-                                    Option = Model.Option,
-                                    NO_CAPA = Model.NO_CAPA,
-                                    Aspect = Model.Aspect,
-                                    WSBH = Model.WSBH,
-                                    WAH = Model.WAH,
-                                    Status = Model.Status,
-                                    isParent = Model.isParent,
-                                    WHY_Parent = Model.WHY_Parent,
-                                    WHY = Model.WHY
-                                },
+                                new DynamicParameters(dictionary),
                                 commandType: CommandType.StoredProcedure).ToList();
 
                 var json = JsonConvert.SerializeObject(GetPrintedData, Formatting.Indented);
@@ -100,24 +89,13 @@ namespace B7_CAPA_Online.Scripts.DataAccess
             return result;
         }
 
-        public string GetDataFormPIC(AnalisaKondisiModel Model)
+        public string GetDataFormPIC(AnalisaKondisiModel Model, Dictionary<string, object> dictionary)
         {
             string result;
             using (IDbConnection db = new SqlConnection(dbDFIS.ConnectionString))
             {
                 var GetPrintedData = db.Query<dynamic>(Model.SP,
-                                new
-                                {
-                                    Option = Model.Option,
-                                    NO_CAPA = Model.NO_CAPA,
-                                    Aspect = Model.Aspect,
-                                    WSBH = Model.WSBH,
-                                    WAH = Model.WAH,
-                                    Status = Model.Status,
-                                    isParent = Model.isParent,
-                                    WHY_Parent = Model.WHY_Parent,
-                                    WHY = Model.WHY
-                                },
+                                new DynamicParameters(dictionary),
                                 commandType: CommandType.StoredProcedure).ToList();
 
                 var json = JsonConvert.SerializeObject(GetPrintedData, Formatting.Indented);
@@ -127,32 +105,7 @@ namespace B7_CAPA_Online.Scripts.DataAccess
             return result;
         }
 
-    //    public string InsertFormDetail(AnalisaKondisiModel Model)
-    //    {
-    //        string result;
-    //        using (IDbConnection db = new SqlConnection(dbDFIS.ConnectionString))
-    //        {
-    //            var GetPrintedData = db.Query<dynamic>(Model.SP,
-    //                            new
-    //                            {
-    //                                Option = Model.Option,
-    //                                NO_CAPA = Model.NO_CAPA,
-    //                                Aspect = Model.Aspect,
-    //                                WSBH = Model.WSBH,
-    //                                WAH = Model.WAH,
-    //                                Status = Model.Status,
-    //                                isParent = Model.isParent,
-    //                                WHY_Parent = Model.WHY_Parent,
-    //                                WHY = Model.WHY
-    //                            },
-    //                            commandType: CommandType.StoredProcedure).ToList();
-
-    //            var json = JsonConvert.SerializeObject(GetPrintedData, Formatting.Indented);
-    //            result = json;
-    //        }
-
-    //        return result;
-    //    }
+     
     }
 
     //internal string GetDataPrint(int v1, char v2, char v3, char v4)

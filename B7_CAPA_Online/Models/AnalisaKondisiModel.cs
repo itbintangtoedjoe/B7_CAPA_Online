@@ -22,6 +22,17 @@ namespace B7_CAPA_Online.Models
         public int isParent { get; set; }      
         public string WHY_Parent { get; set; }
         public string WHY { get; set; }
+        public string Tindakan { get; set; }
+        public string Pelaksana { get; set; }
+        public int LineNumber { get; set; }
+        public string NamaPersonil { get; set; }
+        public string Email { get; set; }
+        public string DueDate { get; set; }
+        public string Is_AreaLain { get; set; }
+        public int WhyID { get; set; }
+        public int WhyParentID { get; set; }
+        public string RootCause { get; set; }
+
     }
     partial class ListKondisi
     {

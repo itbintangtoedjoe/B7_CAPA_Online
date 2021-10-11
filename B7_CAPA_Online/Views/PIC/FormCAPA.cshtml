@@ -216,13 +216,14 @@
                                 <div class="row form-group-sm">
                                     <div class="col-md-6">
                                         <label class="m-t-20">Root Cause</label>
-                                        <textarea type="text" class="form-control" placeholder="create otomatis Why terakhir dari halaman PIC CAPA Page 1"></textarea>
+                                        <select id="RootCause_DDL" class="form-control">
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row form-group-sm">
                                     <div class="col-md-6">
                                         <label class="m-t-20">Tindakan Perbaikan<span style="color: red">*</span></label>
-                                        <textarea type="text" class="form-control" placeholder="Deskripsi"></textarea>
+                                        <textarea type="text" class="form-control" placeholder="Deskripsi" id="TxtDeskripsiPerbaikan"></textarea>
                                     </div>
                                     <div class="form-group mb-2 col-sm-3">
                                         <label class="m-t-20">Due Date</label>
@@ -233,43 +234,45 @@
                                     <div class="col-md-6">
                                         <label class="m-t-40">Pelaksana Tindakan Perbaikan</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" id="TxtPelaksanaPerbaikan">
                                         </div>
                                     </div>
-                                    <div class="col-md-4" style="text-align: center">
-                                        <label class="m-t-40" style="visibility:hidden">_</label>
-                                        <div class="input-group mb-3">
-                                            <button type="button" class="btn mb-1 btn-primary ">Add</button>
-                                            <button type="button" class="btn mb-1 btn-primary ">Browse</button>
-                                        </div>
-                                    </div>
+                                    @*<div class="col-md-4" style="text-align: center">
+                                            <label class="m-t-40" style="visibility:hidden">_</label>
+                                            <div class="input-group mb-3">
+                                                <button type="button" class="btn mb-1 btn-primary ">Add</button>
+                                                <button type="button" class="btn mb-1 btn-primary ">Browse</button>
+                                            </div>
+                                        </div>*@
                                     <div class="col-md-3">
                                         <label class="m-t-40">Nama Personil</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="m-t-40">Alamat Email</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 mb-3">
-                                        <label class="m-t-40" style="visibility: hidden">_</label>
-                                        <div class="input-group">
-                                            <button type="button" class="btn mb-1 btn-primary ">Tambahkan Tindakan Perbaikan</button>
+                                            <input type="text" class="form-control" id="TxtNamaPersonil">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                        <label class="m-t-40">Alamat Email</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="TxtEmailPelaksana">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
                                         <label class="m-t-40">Apakah ada proses / area lain yang berpotensi sama ?</label>
                                         <div class="radio input-group">
                                             <div class="col-sm-3">
-                                                <label><input type="radio" name="Potensi">Ya</label>
+                                                <label><input type="radio" value="Yes" name="Potensi">Ya</label>
                                             </div>
                                             <div class="col-sm-3">
-                                                <label><input type="radio" name="Potensi">Tidak</label>
+                                                <label><input type="radio" value="No" name="Potensi">Tidak</label>
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 mb-3">
+                                        <label class="m-t-40" style="visibility: hidden">_</label>
+                                        <div class="input-group">
+                                            <button type="button" id="btn_AddPerbaikan" class="btn mb-1 btn-primary ">Tambahkan Tindakan Perbaikan</button>
                                         </div>
                                     </div>
 
@@ -286,14 +289,15 @@
                             <form>
                                 <div class="row form-group-sm">
                                     <div class="col-md-6">
-                                        <label class="m-t-20">Root Cause</label>
-                                        <textarea type="text" class="form-control" placeholder="create otomatis Why terakhir dari halaman PIC CAPA Page 1"></textarea>
+                                        <label class="m-t-20">Area / Proses lain yang Berpotensi</label>
+                                        <select id="AreaLain_DDL" class="form-control">
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row form-group-sm">
                                     <div class="col-md-6">
-                                        <label class="m-t-20">Tindakan Perbaikan<span style="color: red">*</span></label>
-                                        <textarea type="text" class="form-control" placeholder="Deskripsi"></textarea>
+                                        <label class="m-t-20">Tindakan Pencegahan<span style="color: red">*</span></label>
+                                        <textarea type="text" class="form-control" id="TxtDeskripsiPencegahan" placeholder="Deskripsi"></textarea>
                                     </div>
                                     <div class="form-group mb-2 col-sm-3">
                                         <label class="m-t-20">Due Date</label>
@@ -302,30 +306,33 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-md-6">
-                                        <label class="m-t-40">Pelaksana Tindakan Perbaikan</label>
+                                        <label class="m-t-40">Pelaksana Tindakan Pencegahan</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" id="TxtPelaksanaPencegahan">
                                         </div>
                                     </div>
-                                    <div class="col-md-4" style="text-align: center">
-                                        <label class="m-t-40" style="visibility:hidden">_</label>
-                                        <div class="input-group mb-3">
-                                            <button type="button" class="btn mb-1 btn-primary ">Add</button>
-                                            <button type="button" class="btn mb-1 btn-primary ">Browse</button>
-                                        </div>
-                                    </div>
+
                                     <div class="col-md-3">
                                         <label class="m-t-40">Nama Personil</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" id="TxtNamaPersonilPencegahan">
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+
+                                    <div class="col-md-6">
                                         <label class="m-t-40">Alamat Email</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="TxtEmailPencegahan">
                                         </div>
                                     </div>
+
+                                    <div class="col-md-12 mb-3">
+                                        <label class="m-t-40" style="visibility: hidden">_</label>
+                                        <div class="input-group">
+                                            <button type="button" id="btn_AddPencegahan" class="btn mb-1 btn-primary ">Tambahkan Tindakan Pencegahan</button>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </form>
                         </div>
@@ -566,6 +573,8 @@
                 }).draw();
 
                 populatePotentialRootCauseDDL(JSON.parse(data)); // Fill Potential Root Cause Options Dropdownlist
+
+
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -573,8 +582,150 @@
         });
     }
 
+    function retrieveData() {        
+        $.ajax({
+            url: 'GetDataPIC',
+            type: 'post',
+            data: JSON.stringify({
+                Option: 6,
+                NO_CAPA: $('#input_NoCAPA').val(),
+                SP: "[dbo].[SP_FORM_CAPA]"
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (rootcause) {
+
+                $.each(JSON.parse(rootcause), function (key, value) {
+                    $('#RootCause_DDL').append(new Option(value.WhyDesc, value.WhyDesc));
+                });
+
+
+                $('#btn_AddPerbaikan').click(function () {
+                    var obj = JSON.parse(rootcause);
+                    console.log(obj);
+                    $.each(obj, function (key, value) {
+                        if (value.WhyDesc == $('#RootCause_DDL').val()) {
+                            return dto = {
+                                Option: 7,
+                                NO_CAPA: $('#input_NoCAPA').val(),
+                                Aspect: value.Aspect,
+                                WhyID: value.WhyID,
+                                WhyParentID: value.ParentID,
+                                RootCause: value.WhyDesc,
+                                Tindakan: $('#TxtDeskripsiPerbaikan').val(),
+                                Pelaksana: $('#TxtPelaksanaPerbaikan').val(),
+                                DueDate: $('#date-format').val(),                                
+                                NamaPersonil: $('#TxtNamaPersonil').val(),
+                                Email: $('#TxtEmailPelaksana').val(),
+                                Is_AreaLain: $('input[name="Potensi"]:checked').val(),
+                                SP: "[dbo].[SP_FORM_CAPA]"
+                            }
+                        }
+                    });
+                    console.log(dto);
+                    addTindakan(dto);
+                });
+
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function retrieveData2() {        
+        $.ajax({
+            url: 'GetDataPIC',
+            type: 'post',
+            data: JSON.stringify({
+                Option: 8,
+                NO_CAPA: $('#input_NoCAPA').val(),
+                SP: "[dbo].[SP_FORM_CAPA]"
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (area_lain) {
+                $.each(JSON.parse(area_lain), function (key, value) {
+                    $('#AreaLain_DDL').append(new Option(value.WhyDesc, value.WhyDesc));
+                });
+
+                $('#btn_AddPencegahan').click(function () {
+                    var obj = JSON.parse(area_lain);
+                    console.log(obj);
+                    $.each(obj, function (key, value) {
+                        if (value.WhyDesc == $('#AreaLain_DDL').val()) {
+                            return dto = {
+                                Option: 9,
+                                NO_CAPA: $('#input_NoCAPA').val(),
+                                Aspect: value.WAHType_FK,
+                                WhyID: value.WhyID,
+                                WhyParentID: value.WhyParentID,
+                                RootCause: value.WhyDesc,
+                                Tindakan: $('#TxtDeskripsiPencegahan').val(),
+                                Pelaksana: $('#TxtPelaksanaPencegahan').val(),
+                                DueDate: $('#date-format').val(),                                
+                                NamaPersonil: $('#TxtNamaPersonilPencegahan').val(),
+                                Email: $('#TxtEmailPencegahan').val(),                                
+                                SP: "[dbo].[SP_FORM_CAPA]"
+                            }
+                        }
+                    });
+                    console.log(dto);
+                    addTindakan(dto);
+                });
+
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function addTindakan(dto) {
+        var valid = false;
+        $.each(dto, function (key, value) {
+            if (value == '') {
+                return valid = false;
+            } else {
+                valid = true;
+            }
+        });
+
+        if (valid) {
+            $.ajax({
+                url: 'AddTindakan',
+                type: 'post',
+                data: JSON.stringify(dto),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (data) {
+                    console.log(data);
+                    if (data.Status_Inserted == 'VALID') {
+                        Swal.fire(
+                            'Success',
+                            'Tindakan Perbaikan berhasil di-input.',
+                            'success'
+                        )
+                    }
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+        } else {
+            Swal.fire(
+                'Maaf',
+                'Input tidak boleh kosong.',
+                'warning'
+            )
+        }
+    }
+
     $(document).ready(function () {
         getTable();
+        retrieveData();
+        retrieveData2();
 
         $("#isParent").change(function () {
             if ($("#isParent").prop('checked') == true) {
@@ -583,7 +734,6 @@
             }
             $("#Div_WhyParent").prop('hidden', false);
         });
-
 
         $('#btn_AddWhy').click(function () {
             dto = {
@@ -674,13 +824,13 @@
                 )
             }
         });
-       
-        $(document).on("click", "#Tbl_Analisa a.delete", function () {    
-            var temp = [];                
+
+        $(document).on("click", "#Tbl_Analisa a.delete", function () {
+            var temp = [];
             var columns = $(this).closest('tr').find('td');
-            $.each(columns, function (i, item) {                 
+            $.each(columns, function (i, item) {
                 var obj = {};
-                obj.name = item.innerHTML;                
+                obj.name = item.innerHTML;
                 temp.push(obj);
                 //console.log(i + item.innerHTML);
                 //console.log(arr[i]);
@@ -693,7 +843,7 @@
                 WSBH: temp[2].name,
                 Aspect: temp[1].name,
                 SP: "[dbo].[SP_FORM_CAPA]"
-            }            
+            }
 
             $.ajax({
                 url: 'DeleteKondisi',
@@ -710,6 +860,27 @@
                 }
             });
         });
+
+        var countYes = 0;
+        var countNo = 0;
+        $('input[name="Potensi"]').click(function () {
+            if ($('input[name="Potensi"]:checked').val() == 'Yes') {
+                countNo = 0;
+                countYes++;
+            } else {
+                countYes = 0;
+                countNo++;
+            }
+            if (countYes == 2 || countNo == 2) {
+                countYes = 0;
+                countNo = 0;
+                $('input[name="Potensi"]').prop("checked", false);
+            }
+
+        });
+
+
+
 
         //Add Why Click Listener
         //var List = new Array();
