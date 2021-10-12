@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewBag.Title = "EvaluatorAddCAPA";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content-body">
+    <br />
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-primary" id="btn_Approve" style="margin-left:15px;">Approve</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary" id="btn_Reject" style="margin-left:100px; background-color:red;">Reject</button>
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-primary" id="btn_Cancel" style="margin-left:15px;">Cancel</button>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="m-t-20">Alasan Reject / Cancel</label>
+                    <textarea type="text" class="form-control" placeholder="Alasan" id="Alasan"></textarea>
+                </div>
+                <div class="col-md-2">
+                    <label class="m-t-20">@DateTime.Now</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-md-2">
+        <input type="button" class="btn btn-primary" id="btn_Request_Page" value="Show Request Page" />
+    </div>
+    <div id="Request_Page" hidden="hidden">
+        @Html.Partial("../Koordinator/RequestCAPA")
+    </div>
+    <div id="InvestigasiPenyimpangan">
+        @Html.Partial("../Koordinator/InvestigasiPenyimpangan")
+    </div>
+    <div id="PenentuanTindakanPerbaikan">
+        @Html.Partial("../Koordinator/PenentuanTindakanPerbaikan")
+    </div>
+    <div id="PenentuanTindakanPencegahan">
+        @Html.Partial("../Koordinator/PenentuanTindakanPencegahan")
+    </div>
+    <div id="KajianRisiko">
+        @Html.Partial("../Koordinator/KajianRisiko")
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        GetEvaluator();
+        $('#btn_Reject').click(function () {
+
+            RejectKoor2();
+        });
+
+        $('#btn_Request_Page').click(function () {
+
+            if ($('#btn_Request_Page').val() == "Show Request Page") {
+                $('#Request_Page').removeAttr("hidden");
+                $('#btn_Request_Page').val("Hide Request Page")
+            }
+            else {
+                $('#Request_Page').attr("hidden", true);
+                $('#btn_Request_Page').val("Show Request Page")
+            }
+        });
+    });
+
+    function GetEvaluator() {
+        $.ajax({
+            url: "GetEvaluator?departemen=Quality Control",
+            type: "post",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                var count = result.length;
+                var trhtml = '';
+                var trav = 0;
+
+                trhtml += '<option disabled selected hidden class="dropdown-header">--Please Select--</option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                        trhtml += '<Option value = "' + result[trav].EmpID + '" > ' + result[trav].EmpName;
+                    }
+                }
+                $("#Evaluator_DDL").empty();
+                $("#Evaluator_DDL").append(trhtml);
+                $("#Evaluator_DDL").select2();
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+    }
+    function RejectKoor2() {
+        if ($('#Alasan').val().trim() == "" || $('#Alasan').val() == undefined) {
+            Swal.fire("Error!", "Alasan Reject harus diisi", "error");
+        }
+        else {
+            var dto = {
+                NoCAPA: "CPA/SIA/HOF/MK/0921/009",
+                RejectReason: $('#Alasan').val(),
+            }
+            $.ajax({
+                url: "../Koordinator/RejectKoor2",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    Swal.fire("Success!", "Reject Berhasil", "success");
+                },
+                error: function (errormessage) {
+                    $('#divLoading').attr("hidden", true);
+                }
+            });
+        }
+
+    }
+
+</script>

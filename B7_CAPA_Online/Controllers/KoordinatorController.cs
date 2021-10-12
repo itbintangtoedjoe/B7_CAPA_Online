@@ -1,5 +1,6 @@
 ﻿using B7_CAPA_Online.Models;
 using B7_CAPA_Online.Scripts.DataAccess;
+using Dapper;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -14,6 +15,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.UI;
+using static B7_CAPA_Online.Models.KoordinatorModel;
 
 namespace B7_CAPA_Online.Controllers
 {
@@ -45,6 +47,11 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
+        public ActionResult ApprovalKoordinator2()
+        {
+            return View();
+        }
+
         public ActionResult ApprovalKoordinatorCARPAR()
         {
             return View();
@@ -60,6 +67,37 @@ namespace B7_CAPA_Online.Controllers
             var list = new ListDepartemen();
             list.ClearDT();           
             return View();
+        }
+
+
+        public ActionResult PenentuanTindakanPerbaikan()
+        {
+            return PartialView();
+        }
+        public ActionResult PenentuanTindakanPencegahan()
+        {
+            return PartialView();
+        }
+        public ActionResult InvestigasiPenyimpangan()
+        {
+            return PartialView();
+        }
+
+        public ActionResult KajianRisiko()
+        {
+            return PartialView();
+        }
+
+        public ActionResult TriggerCAPA()
+        {
+            return PartialView();
+        }
+
+        public ActionResult RequestCAPA()
+        {
+            var list = new ListDepartemen();
+            list.ClearDT();
+            return PartialView();
         }
         #endregion
 
@@ -95,6 +133,103 @@ namespace B7_CAPA_Online.Controllers
         {
             string Result;
             return Json(Result = DAL.GetDataPrint(Model));
+
+        }
+
+        public ActionResult GetEvaluator(string departemen)
+        {
+            var dictionary = new Dictionary<string, object>
+            {
+                {"Departemen", departemen}
+            };
+            var spname = "SP_SHOW_EVALUATOR_DDL";
+
+            var parameters = new DynamicParameters(dictionary);
+            return Json(DAL.StoredProcedure(parameters, spname));
+
+        }
+
+
+        public ActionResult GetRoot(string NoCapa,string Type)
+        {
+            var dictionary = new Dictionary<string, object>
+            {
+                {"NoCapa", NoCapa},
+                {"Option", 2 },
+                {"Type",Type }
+            }; 
+            var spname = "SP_SHOW_ANALISA&ROOT";
+
+            var parameters = new DynamicParameters(dictionary);
+            return Json(DAL.StoredProcedure(parameters, spname));
+
+        }
+
+        public ActionResult GetAnalisa(string NoCapa)
+        {
+            var dictionary = new Dictionary<string, object>
+            {
+                {"NoCapa", NoCapa},
+                {"Option", 1 }
+            };
+            var spname = "SP_SHOW_ANALISA&ROOT";
+
+            var parameters = new DynamicParameters(dictionary);
+            return Json(DAL.StoredProcedure(parameters, spname));
+
+        }
+        public ActionResult RejectKoor2(RejectAttribute Model)
+        {
+            var spname = "SP_REJECT_KOOR2";
+
+            var parameters = new DynamicParameters(Model);
+            return Json(DAL.StoredProcedure(parameters, spname));
+
+        }
+        public ActionResult InsertAddAbleDeviation(InsertPenyimpangan Model)
+        {
+            var pjg = Model.Penyimpangan.Count;
+            DataTable dt = new DataTable();
+            dt.Columns.Add("NoCapa");
+            dt.Columns.Add("PenyimpanganID");
+            dt.Columns.Add("Description");
+            dt.Columns.Add("Creator");
+            int trav;
+            for (trav = 0; trav < pjg; trav++)
+            {
+                DataRow rowstype = dt.NewRow();
+                rowstype["NoCapa"] = Model.Penyimpangan[trav].NoCapa;
+                rowstype["PenyimpanganID"] = Model.Penyimpangan[trav].PenyimpanganID;
+                rowstype["Description"] = Model.Penyimpangan[trav].Description;
+                rowstype["Creator"] = Model.Penyimpangan[trav].Creator;
+                dt.Rows.Add(rowstype);
+            }
+            var parameters = new DynamicParameters();
+            parameters.Add("InsertPenyimpangan", dt.AsTableValuedParameter("[dbo].[InsertPenyimpangan]"));
+
+            var spname = "SP_Insert_Penyimpangan";
+
+            return Json(DAL.StoredProcedure(parameters, spname));
+
+        }
+        public ActionResult ShowAddAbleDeviation(ShowDeviation Model)
+        {
+            var dictionary = new Dictionary<string, object>
+            {
+                {"Option",Model.Option },
+                {"NoCapa", Model.NoCapa},
+                {"JenisPenyimpangan",Model.JenisPenyimpangan },
+                {"Kategori",Model.Kategori },
+                {"Departemen","IT" },
+                {"JenisKeluhan",Model.JenisKeluhan },
+                {"Plant",Model.Plant},
+                {"Tahun",Model.Tahun}
+
+            };
+            var spname = "[dbo].[SP_SHOW_ADDABLE_DEVIATION]";
+
+            var parameters = new DynamicParameters(dictionary);
+            return Json(DAL.StoredProcedure(parameters, spname));
 
         }
         public ActionResult AddDepartments(ListDepartemenModel Model)
