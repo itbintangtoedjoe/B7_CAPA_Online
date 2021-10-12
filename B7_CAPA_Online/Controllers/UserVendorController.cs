@@ -80,7 +80,8 @@ namespace B7_CAPA_Online.Controllers
         public ActionResult Index()
         {
             List<UserVendor> allUserVendors = GetAllUserVendors();
-            ViewBag.AllUserVendors = allUserVendors;
+            List<UserVendor> activeUserVendors = allUserVendors.Where(u => u.IsActive == 1).ToList();
+            ViewBag.AllUserVendors = activeUserVendors;
             return View();
         }
 
@@ -88,10 +89,10 @@ namespace B7_CAPA_Online.Controllers
         {
             VendorController vendorController = new VendorController();
             List<Vendor> allVendors = vendorController.GetAllVendors();
-            List<UserVendor> allUserVendors = GetAllUserVendors();
+            //List<UserVendor> allUserVendors = GetAllUserVendors();
 
             ViewBag.AllVendors = allVendors;
-            ViewBag.AllUserVendors = allUserVendors;
+            //ViewBag.AllUserVendors = allUserVendors;
             return View();
         }
 
@@ -205,7 +206,7 @@ namespace B7_CAPA_Online.Controllers
                 cmd.Parameters.AddWithValue("@vendor_id", userVendor.VendorData.ID);
                 cmd.Parameters.AddWithValue("@username", userVendor.Username);
                 cmd.Parameters.AddWithValue("@email", userVendor.Email);
-                cmd.Parameters.AddWithValue("@superior_id", idSuperior);
+                //cmd.Parameters.AddWithValue("@superior_id", idSuperior);
                 cmd.Parameters.AddWithValue("@created_by", "Default User");
                 cmd.Parameters.AddWithValue("@updated_by", "Default User");
                 conn.Open();
@@ -246,6 +247,68 @@ namespace B7_CAPA_Online.Controllers
 
                     return Json("error, check log");
                 }
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
+
+        public ActionResult FindUserVendorById(UserVendor userVendor)
+        {
+            List<UserVendor> allUserVendors = GetAllUserVendors();
+            UserVendor userFound = allUserVendors.Find(v => v.ID == userVendor.ID);
+            UserVendor notFound = new UserVendor();
+            notFound.UserVendorName = "not found";
+            if (userFound == null)
+            {
+                return Json(notFound);
+            }
+            return Json(userFound);
+        }
+
+        public ActionResult UpdateUserVendor(UserVendor userVendor)
+        {
+            //Session["nik_active"].ToString()
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("UPDATE USER_VENDORS SET user_vendor_name = @user_vendor_name, username=@username, email=@email, updated_by=@updated_by, last_updated_on=@last_updated_on WHERE RecordID = @id", conn))
+                {
+                    cmd.Parameters.AddWithValue("id", userVendor.ID);
+                    cmd.Parameters.AddWithValue("user_vendor_name", userVendor.UserVendorName);
+                    cmd.Parameters.AddWithValue("username", userVendor.Username);
+                    cmd.Parameters.AddWithValue("email", userVendor.Email);
+                    //use session
+                    cmd.Parameters.AddWithValue("updated_by", "Default User");
+                    cmd.Parameters.AddWithValue("last_updated_on", DateTime.Now);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+                return Json("success");
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
+
+        public ActionResult DeleteUserVendor(string userID)
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("UPDATE USER_VENDORS SET is_active = 0, updated_by=@updated_by, last_updated_on=@last_updated_on WHERE RecordID = @id", conn))
+                {
+                    cmd.Parameters.AddWithValue("id", userID);
+                    //use session
+                    cmd.Parameters.AddWithValue("updated_by", "Default User");
+                    cmd.Parameters.AddWithValue("last_updated_on", DateTime.Now);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+                //}
+                return RedirectToAction("Index");
             }
             catch (Exception e)
             {

@@ -6,15 +6,10 @@ using System.Web.Mvc;
 
 namespace B7_CAPA_Online.Controllers
 {
-    public class ApprovalEvaluatorController : Controller
+    public class LoginController : Controller
     {
-        // GET: ApprovalEvaluator
+        // GET: Login
         public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult ApprovalEvaluator()
         {
             return View();
         }

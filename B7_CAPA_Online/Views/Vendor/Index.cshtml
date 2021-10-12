@@ -4,10 +4,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("Index", "Vendor", FormMethod.Get, new { enctype = "multipart/form-data" }))
-{ 
+<button class="btn btn-primary btn-add" id="create">Create New Vendor</button>
+@*@using (Html.BeginForm("Index", "Vendor", FormMethod.Get, new { enctype = "multipart/form-data" }))*@
+{
     <div class="content-body">
-        <button class="btn btn-primary btn-add" id="create">Create New Vendor</button>
         <div class="row page-titles mx-0">
             <div class="col p-md-0">
                 <ol class="breadcrumb">
@@ -34,26 +34,26 @@
                                                 <th>Tipe</th>
                                                 <th>Atasan</th>
                                                 @*<th>Created By</th>
-                                                <th>Creation Date</th>
-                                                <th>Updated By</th>*@
+                                                    <th>Creation Date</th>
+                                                    <th>Updated By</th>*@
                                                 <th>Last Updated on</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach (var vendor in ViewBag.AllVendors)
                                             {
-                                            <tr>
-                                                <td><button class="btn btn-primary">Edit</button></td>
-                                                <td>@vendor.VendorName</td>
-                                                <td>@vendor.VendorType</td>
-                                                <td>@vendor.SuperiorGroupName</td>
-                                                @*<td>@vendor.CreatedBy</td>
-                                                <td>@vendor.CreationDate.ToString("dd MMM yyyy HH:mm")</td>
-                                                <td>@vendor.UpdatedBy</td>*@
-                                                <td>@vendor.LastUpdatedOn.ToString("dd MMM yyyy HH:mm")</td>
-                                                @*<td><a href="@Url.Action("Details", "Vendor", new { namaRole = @vendor})" class="link-label">@vendor.nama_vendor</a></td>
-        <td class="center-align"><a href="@Url.Action("EditRoleName", "Vendor", new { namaRole = @vendor})" class="link-label"><i class="icon-note"></i></a></td>*@
-                                            </tr>
+                                                <tr>
+                                                    <td><button class="btn btn-primary" onclick="Edit(@vendor.ID)">Edit</button><button class="btn btn-danger" onclick="Delete(@vendor.ID)">Delete</button></td>
+                                                    <td>@vendor.VendorName</td>
+                                                    <td>@vendor.VendorType</td>
+                                                    <td>@vendor.SuperiorGroupName</td>
+                                                    @*<td>@vendor.CreatedBy</td>
+                                                        <td>@vendor.CreationDate.ToString("dd MMM yyyy HH:mm")</td>
+                                                        <td>@vendor.UpdatedBy</td>*@
+                                                    <td>@vendor.LastUpdatedOn.ToString("dd MMM yyyy HH:mm")</td>
+                                                    @*<td><a href="@Url.Action("Details", "Vendor", new { namaRole = @vendor})" class="link-label">@vendor.nama_vendor</a></td>
+                                                        <td class="center-align"><a href="@Url.Action("EditRoleName", "Vendor", new { namaRole = @vendor})" class="link-label"><i class="icon-note"></i></a></td>*@
+                                                </tr>
                                             }
                                         </tbody>
                                     </table>
@@ -68,11 +68,45 @@
     </div>
 }
 
-<script>
+    <script>
     $(document).ready(function () {
         $('#create').click(function (e) {
             window.location.href = '@Url.Action("CreateVendor","Vendor")';
         })
         $('#table_vendor').DataTable();
     });
-</script>
+
+    function Edit(id) {
+        var link = "@Html.Raw(@Url.Action("CreateVendor", "Vendor", new { vendorID = "param1"}))";
+        link = link.replace("param1", id);
+        window.open(link, '_self');
+    }
+
+    function Delete(id) {
+        swal({
+            title: "Anda yakin menghapus vendor terpilih?",
+            icon: "warning",
+            buttons: ["Tidak", "Ya"],
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                var link = "@Url.Action("DeleteVendor", "Vendor", new { vendorID = "param1" })";
+                link = link.replace("param1", id);
+                console.log(link);
+                swal("Data vendor berhasil dihapus", {
+                    icon: "success",
+                    buttons: false,
+                    timer: 1000,
+                }).then(() => {
+                    window.location = link;
+                });
+            }
+        });
+
+    @*var link = "@Html.Raw(@Url.Action("DeleteVendor", "Vendor", new { vendorID = "param1",}))";
+    link = link.replace("param1", id);
+    window.open(link, '_self');*@
+
+    }
+    </script>

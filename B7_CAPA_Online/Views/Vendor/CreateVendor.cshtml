@@ -22,7 +22,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Create Vendor</h4>
+                            <h4 class="card-title" id="page-title">Create Vendor</h4>
                             <div class="card-body">
                                 <form id="form-upload" enctype="multipart/form-data" action="@Url.Action("SaveVendor", "Vendor")" method="POST">
 
@@ -75,8 +75,47 @@
             window.location = "Vendor/CreateVendor";
         })
         $('#tipe_vendor').select2();
+        GetVendorInfo();
     });
 
+    //function untuk ambil semua query string
+    function getQueryStrings() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
+    function GetVendorInfo() {
+        var vendorID = getQueryStrings()["vendorID"];
+        if (vendorID != null && vendorID != undefined) {
+            $('#page-title').text("Edit Data Vendor");
+
+            //get user data
+            var dto = {
+                id:vendorID
+            }
+            $.ajax({
+                url: "FindVendorById",
+                type: "post",
+                async: false,
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    $('#nama_vendor').val(data.VendorName);
+                    $("#tipe_vendor").select2().val(data.TypeID).trigger("change");
+                }, error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+
+        }
+    }
 
     $('#simpan').click(function (e) {
         e.preventDefault();
@@ -93,33 +132,78 @@
             });
         }
         else {
-            var form_data = {
-                "VendorName": nama_vendor,
-                "TypeID": tipe_vendor
-            };
+            //ambil id vendor lemparan
+            var vendorID = getQueryStrings()["vendorID"];
 
-            $.ajax({
-                url: "SaveVendor",
-                type: "POST",
-                data: JSON.stringify(form_data),
-                contentType: "application/json",
-                processData: false,
-                dataType: 'json',
-                success: function (data) {
-                    swal({
-                        title: "Berhasil",
-                        text: "Data vendor berhasil ditambahkan",
-                        icon: "success",
-                        buttons: false,
-                        timer: 1000,
-                    }).then(() => {
-                        location.reload();
-                    })
-                },
-                error: function (xhr, error, status) {
-                    console.log(error, status);
-                }
-            });
+            //halaman edit (ada lemparan id vendor)
+            if (vendorID != null && vendorID != undefined) {
+                var form_data = {
+                    "ID": vendorID,
+                    "VendorName": nama_vendor,
+                    "TypeID": tipe_vendor
+                };
+                $.ajax({
+                    url: "UpdateVendor",
+                    type: "POST",
+                    data: JSON.stringify(form_data),
+                    contentType: "application/json",
+                    processData: false,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data == "success") {
+                            swal({
+                                title: "Berhasil",
+                                text: "Data vendor berhasil diubah",
+                                icon: "success",
+                                buttons: false,
+                                timer: 1000,
+                            }).then(() => {
+                                window.location.href = '@Url.Action("Index", "Vendor")';
+                            })
+                        } else {
+                            swal({
+                                title: "Gagal",
+                                text: data,
+                                icon: "erorr",
+                                buttons: false,
+                                timer: 2000,
+                            })
+                        }
+                    },
+                    error: function (xhr, error, status) {
+                        console.log(error, status);
+                    }
+                });
+            }
+            //halaman create (tidak ada lemparan id vendor)
+            else {
+                var form_data = {
+                    "VendorName": nama_vendor,
+                    "TypeID": tipe_vendor
+                };
+                $.ajax({
+                    url: "SaveVendor",
+                    type: "POST",
+                    data: JSON.stringify(form_data),
+                    contentType: "application/json",
+                    processData: false,
+                    dataType: 'json',
+                    success: function (data) {
+                        swal({
+                            title: "Berhasil",
+                            text: "Data vendor berhasil ditambahkan",
+                            icon: "success",
+                            buttons: false,
+                            timer: 1000,
+                        }).then(() => {
+                            location.reload();
+                        })
+                    },
+                    error: function (xhr, error, status) {
+                        console.log(error, status);
+                    }
+                });
+            }
         }
     });
 </script>

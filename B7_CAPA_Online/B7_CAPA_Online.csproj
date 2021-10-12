@@ -152,6 +152,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KoordinatorController.cs" />
     <Compile Include="Controllers\ListOutstandingController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PelaksanaAddCAPAController.cs" />
     <Compile Include="Controllers\PelaksanaCancelCAPAController.cs" />
     <Compile Include="Controllers\PelaksanaController.cs" />
@@ -5407,6 +5408,7 @@
     <Content Include="Views\UserVendor\Index.cshtml" />
     <Content Include="Views\UserVendor\CreateUserVendor.cshtml" />
     <Content Include="Views\UserVendor\ActivateUserAccount.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

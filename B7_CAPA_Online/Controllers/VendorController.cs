@@ -56,10 +56,24 @@ namespace B7_CAPA_Online.Controllers
             }
         }
 
+        public ActionResult FindVendorById(Vendor vendor)
+        {
+            List<Vendor> allVendors = GetAllVendors();
+            Vendor vendorFound = allVendors.Find(v => v.ID == vendor.ID);
+            Vendor notFound = new Vendor();
+            notFound.VendorName = "not found";
+            if (vendorFound == null)
+            {
+                return Json(notFound);
+            }
+            return Json(vendorFound);
+        }
+
         public ActionResult Index()
         {
             List<Vendor> allVendors = GetAllVendors();
-            ViewBag.AllVendors = allVendors;
+            List<Vendor> activeVendors = allVendors.Where(v => v.IsActive == 1).ToList();
+            ViewBag.AllVendors = activeVendors;
             return View();
         }
 
@@ -107,6 +121,9 @@ namespace B7_CAPA_Online.Controllers
         {
             List<VendorType> allVendorTypes = GetAllVendorTypes();
             ViewBag.AllVendorTypes = allVendorTypes;
+
+            //Vendor vendorFound = FindVendorById(vendorID);
+            //ViewBag.VendorInfo = vendorFound;
             return View();
             //if (Session["nama_user"] != null)
             //{
@@ -126,6 +143,7 @@ namespace B7_CAPA_Online.Controllers
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@vendor_name", vendor.VendorName);
                 cmd.Parameters.AddWithValue("@type_id", vendor.TypeID);
+                //use session
                 cmd.Parameters.AddWithValue("@created_by", "Default User");
                 cmd.Parameters.AddWithValue("@updated_by", "Default User");
                 conn.Open();
@@ -134,6 +152,49 @@ namespace B7_CAPA_Online.Controllers
                 //}
                 var result = 1;
                 return Json(result);
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
+
+        public ActionResult UpdateVendor(Vendor vendor)
+        {
+            //Session["nik_active"].ToString()
+            try
+            {
+                SqlCommand cmd = new SqlCommand("sp_update_vendor", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id", vendor.ID);
+                cmd.Parameters.AddWithValue("@vendor_name", vendor.VendorName);
+                cmd.Parameters.AddWithValue("@type_id", vendor.TypeID);
+                //use session
+                cmd.Parameters.AddWithValue("@updated_by", "Default User");
+                conn.Open();
+                cmd.ExecuteNonQuery();
+                conn.Close();
+                return Json("success");
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
+
+        public ActionResult DeleteVendor(string vendorID)
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("UPDATE VENDORS SET is_active = 0 WHERE RecordID = @id", conn))
+                {
+                    cmd.Parameters.AddWithValue("id", vendorID);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+                //}
+                return RedirectToAction("Index");
             }
             catch (Exception e)
             {
