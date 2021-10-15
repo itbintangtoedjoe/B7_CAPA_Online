@@ -11,6 +11,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="~/Content/Styles/images/favicon.png">
     <!-- Custom Stylesheet -->
     <link href="~/Content/Styles/css/style.css" rel="stylesheet" />
+    <link href="~/Content/Styles/css/capa-style.css" rel="stylesheet" />
     <link href="~/Content/Styles/css/vendor-style.css" rel="stylesheet" />
 
     <!-- CSS Date Picker -->
@@ -103,7 +104,7 @@
                     <ul class="clearfix">
                         <li class="icons dropdown d-none d-md-flex">
                             <a href="javascript:void(0)" class="log-user" data-toggle="dropdown">
-                                Selamat datang,  <h5 id="UserLoginXd"></h5>
+                                Selamat datang, <h5 id="UserLoginXd" style="color:white"></h5>
                             </a>
                         </li>
                         <li class="icons dropdown">
@@ -135,6 +136,7 @@
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
                     <li class="nav-label">Dashboard</li>
+                    <li>@Html.ActionLink("Pending Task", "TaskList", "PendingTask", null, null)</li>
                     <li class="nav-label">VENDOR</li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="true">
@@ -255,6 +257,10 @@
     <script>hljs.initHighlightingOnLoad();</script>
 
     <script>
+        $(document).ready(function () {
+            var usernameAktif = '@Request.RequestContext.HttpContext.Session["Username"]';
+            $('#UserLoginXd').text(usernameAktif);
+        });
         (function ($) {
             "use strict"
 

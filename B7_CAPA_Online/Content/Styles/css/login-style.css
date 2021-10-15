@@ -1,4 +1,4 @@
-/*
+
 Template Name: Highdmin - Responsive Bootstrap 4 Admin Dashboard
 Author: CoderThemes
 Email: coderthemes@gmail.com
@@ -57,6 +57,10 @@ File: Main Css File
 /* ===========
    Menu
  =============*/
+
+/*tambahan*/
+/*tambahan*/
+
 .container-fluid {
   max-width: 95%;
 }
@@ -1556,7 +1560,7 @@ code {
 .card-box {
   padding: 20px;
   border-radius: 3px;
-  margin-bottom: 30px;
+  margin:3rem;
   background-color: #ffffff;
 }
 
@@ -6160,4 +6164,4 @@ h3.timeline-title {
     margin-left: 0;
   }
 }
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=style.css.map 
