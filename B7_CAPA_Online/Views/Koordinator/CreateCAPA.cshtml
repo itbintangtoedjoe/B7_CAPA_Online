@@ -592,7 +592,10 @@
                                         <label class="m-t-20">PIC CAPA<span style="color: red">*</span></label>
                                         <select class="form-control form-control-sm" id="PIC_DDL" name="PIC_CAPA" required>
                                         </select>
+                                        <input class="form-control form-control-sm" type="text" id="PIC_ID" name="PIC_ID" hidden/>                                        
                                         @Html.HiddenFor(m => m.PIC_CAPA)
+                                        @Html.HiddenFor(m => m.PIC_ID)
+
                                     </div>
                                 </div>
                                 <div class="row form-group-sm" id="List_Departemen" hidden>
@@ -779,10 +782,21 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
+                    console.log(data);
                     $('#PIC_DDL').empty();
+                    $('#PIC_DDL').append(new Option('*Pilih*',''));
                     if ($('#AreaPIC_DDL').val() != 'Others') {
                         $.each(JSON.parse(data), function (key, entry) {
                             $('#PIC_DDL').append(new Option(entry.EmpName, entry.EmpName));
+                        });
+
+                        $('#PIC_DDL').change(function () {
+                            var PIC_Name = $('#PIC_DDL').val();
+                            $.each(JSON.parse(data), function (key, entry) {
+                                if (PIC_Name == entry.EmpName) {
+                                    return $('#PIC_ID').val(entry.EmpId);
+                                }                                    
+                            });
                         });
                     } else {
                         $('#VendorDiv').prop('hidden', false);
@@ -801,7 +815,7 @@
                 }
             });
             //_callback();
-        });
+        });     
 
         $('#btn_Search_Deviation').click(function () {
             dto = {

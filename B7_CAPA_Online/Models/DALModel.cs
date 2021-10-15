@@ -30,7 +30,8 @@ namespace B7_CAPA_Online.Models
         public string KategoriCAPA { get; set; }
         public string Deskripsi { get; set; }
         public string AreaPIC { get; set; }
-        public string PIC_CAPA { get; set; }        
+        public string PIC_CAPA { get; set; }   
+        public string PIC_ID { get; set; }
         public List<string> DepartemenCollection { get; set; }
         public List<string> PenyimpanganCollection { get; set; }
     }
