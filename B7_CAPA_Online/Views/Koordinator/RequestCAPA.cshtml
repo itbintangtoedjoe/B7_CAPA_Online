@@ -1,252 +1,258 @@
-﻿@using B7_CAPA_Online.Models
+﻿
+@{
+    ViewBag.Title = "ApprovalKoordinator2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using B7_CAPA_Online.Models
 @model DALModel
-<div class="card">
-    <div class="card-body">
-        <!--form class="needs-validation"-->
-        @using (Html.BeginForm("InsertCAPA", "Koordinator", FormMethod.Post, new { enctype = "multipart/form-data", @class = "needs-validation" }))
-        {
-            if (!string.IsNullOrEmpty(Request.QueryString["CAPA"]))
+<div class="content-body">
+    <div class="card">
+        <div class="card-body">
+            <!--form class="needs-validation"-->
+            @using (Html.BeginForm("InsertCAPA", "Koordinator", FormMethod.Post, new { enctype = "multipart/form-data", @class = "needs-validation" }))
             {
-                <div class="card">
-                    <div class="card-body">
-                        <!--form class="needs-validation"-->
-                        @using (Html.BeginForm("InsertCAPA", "Koordinator", FormMethod.Post, new { enctype = "multipart/form-data", @class = "needs-validation" }))
-                        {
-                            <div class="row form-group-sm mb-2">
-                                <div class="col-md-6">
-                                    <label class="m-t-20"><b>Trigger CAPA:</b></label>
-                                    <select class="form-control form-control-sm" id="Static_Trigger_CAPA" name="TriggerCAPA" required disabled>
-                                    </select>
-                                    @Html.HiddenFor(m => m.TriggerCAPA)
-                                    <hr />
-                                </div>
-                            </div>
-                            @*<div class="row form-group" id="Linked_Deviation" hidden>
+                if (!string.IsNullOrEmpty(Request.QueryString["CAPA"]))
+                {
+                    <div class="card">
+                        <div class="card-body">
+                            <!--form class="needs-validation"-->
+                            @using (Html.BeginForm("InsertCAPA", "Koordinator", FormMethod.Post, new { enctype = "multipart/form-data", @class = "needs-validation" }))
+                            {
+                                <div class="row form-group-sm mb-2">
                                     <div class="col-md-6">
-                                        <label class="m-t-20">Penyimpangan Terkait</label>
+                                        <label class="m-t-20"><b>Trigger CAPA:</b></label>
+                                        <select class="form-control form-control-sm" id="Static_Trigger_CAPA" name="TriggerCAPA" required disabled>
+                                        </select>
+                                        @Html.HiddenFor(m => m.TriggerCAPA)
+                                        <hr />
+                                    </div>
+                                </div>
+                                @*<div class="row form-group" id="Linked_Deviation" hidden>
+                                        <div class="col-md-6">
+                                            <label class="m-t-20">Penyimpangan Terkait</label>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_Deviation">Browse</button>
+                                                </div>
+                                                <input type="text" class="form-control" id="TxtDeviation" name="TxtDeviation">
+                                                <input type="text" class="form-control" name="PenyimpanganTerkait" id="PenyimpanganTerkait" value="" hidden>
+                                                @Html.HiddenFor(m => m.PenyimpanganTerkait)
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                <div class="row form-group-sm" id="List_Penyimpangan">
+                                    <div class="col-md-6">
+                                        <label class="m-t-20"><b>List Penyimpangan</b></label>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered zero-configuration" id="Tbl_Penyimpangan">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Penyimpangan</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row form-group" id="Linked_CCC" hidden>
+                                    <div class="col-md-6">
+                                        <label class="m-t-40"><b>Keluhan Pelanggan Terkait:</b></label>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
-                                                <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_Deviation">Browse</button>
+                                                <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_CCC">Browse</button>
                                             </div>
-                                            <input type="text" class="form-control" id="TxtDeviation" name="TxtDeviation">
-                                            <input type="text" class="form-control" name="PenyimpanganTerkait" id="PenyimpanganTerkait" value="" hidden>
-                                            @Html.HiddenFor(m => m.PenyimpanganTerkait)
+                                            <input type="text" class="form-control" id="TxtCCC" name="TxtCCC">
+                                            <input type="text" class="form-control" name="KeluhanTerkait" id="KeluhanTerkait" value="" hidden>
+                                            @Html.HiddenFor(m => m.KeluhanTerkait)
                                         </div>
                                     </div>
-                                </div>*@
-                            <div class="row form-group-sm" id="List_Penyimpangan">
-                                <div class="col-md-6">
-                                    <label class="m-t-20"><b>List Penyimpangan</b></label>
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-bordered zero-configuration" id="Tbl_Penyimpangan">
-                                            <thead>
-                                                <tr>
-                                                    <th>Penyimpangan</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
                                 </div>
-                            </div>
-                            <hr />
-                            <div class="row form-group" id="Linked_CCC" hidden>
-                                <div class="col-md-6">
-                                    <label class="m-t-40"><b>Keluhan Pelanggan Terkait:</b></label>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_CCC">Browse</button>
-                                        </div>
-                                        <input type="text" class="form-control" id="TxtCCC" name="TxtCCC">
-                                        <input type="text" class="form-control" name="KeluhanTerkait" id="KeluhanTerkait" value="" hidden>
-                                        @Html.HiddenFor(m => m.KeluhanTerkait)
-                                    </div>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="row form-group" id="Linked_Oracle" hidden>
-                                <div class="col-md-6">
-                                    <label class="m-t-20"><b>No. QC terkait ATB/PMTMS/FKM</b></label>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_Oracle">Browse</button>
-                                        </div>
-                                        <input type="text" class="form-control" id="TxtOracle" name="TxtOracle">
-                                        <input type="text" class="form-control" name="No_QC_Terkait" value="" hidden>
-                                        @Html.HiddenFor(m => m.No_QC_Terkait)
-                                    </div>
-                                </div>
-                            </div>
-                            @*<div class="row form-group-sm mb-2">
+                                <hr />
+                                <div class="row form-group" id="Linked_Oracle" hidden>
                                     <div class="col-md-6">
-                                        <label class="m-t-20">Lampiran Terkait</label>
+                                        <label class="m-t-20"><b>No. QC terkait ATB/PMTMS/FKM</b></label>
                                         <div class="input-group mb-3">
-                                            <div class="custom-file">
-                                                <input id="TxtFileInput" type="file" name="LampiranTerkait" class="custom-file-input" multiple required>
-                                                @Html.HiddenFor(m => m.LampiranTerkait)
-                                                <label class="custom-file-label">Choose File</label>
+                                            <div class="input-group-prepend">
+                                                <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_Oracle">Browse</button>
                                             </div>
+                                            <input type="text" class="form-control" id="TxtOracle" name="TxtOracle">
+                                            <input type="text" class="form-control" name="No_QC_Terkait" value="" hidden>
+                                            @Html.HiddenFor(m => m.No_QC_Terkait)
                                         </div>
                                     </div>
-                                </div>*@
-                            <div class="row form-group-sm" id="List_Lampiran">
-                                <div class="col-md-6">
-                                    <label class="m-t-20"><b>List Lampiran:</b></label>
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-bordered zero-configuration" id="Tbl_Lampiran">
-                                            <thead>
-                                                <tr>
-                                                    <th>Lampiran</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                </div>
+                                @*<div class="row form-group-sm mb-2">
+                                        <div class="col-md-6">
+                                            <label class="m-t-20">Lampiran Terkait</label>
+                                            <div class="input-group mb-3">
+                                                <div class="custom-file">
+                                                    <input id="TxtFileInput" type="file" name="LampiranTerkait" class="custom-file-input" multiple required>
+                                                    @Html.HiddenFor(m => m.LampiranTerkait)
+                                                    <label class="custom-file-label">Choose File</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                <div class="row form-group-sm" id="List_Lampiran">
+                                    <div class="col-md-6">
+                                        <label class="m-t-20"><b>List Lampiran:</b></label>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered zero-configuration" id="Tbl_Lampiran">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Lampiran</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <hr />
-                            <div class="row form-group-sm mb-2">
-                                <div class="col-md-6">
-                                    <label class="m-t-20"><b>Kategori:</b></label>
-                                    <select class="form-control form-control-sm" id="Request_Kategori_DDL" name="KategoriCAPA" required disabled>
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
-                                    </select>
-                                    @Html.HiddenFor(m => m.KategoriCAPA)
+                                <hr />
+                                <div class="row form-group-sm mb-2">
+                                    <div class="col-md-6">
+                                        <label class="m-t-20"><b>Kategori:</b></label>
+                                        <select class="form-control form-control-sm" id="Request_Kategori_DDL" name="KategoriCAPA" required disabled>
+                                            <option>Option 1</option>
+                                            <option>Option 2</option>
+                                            <option>Option 3</option>
+                                        </select>
+                                        @Html.HiddenFor(m => m.KategoriCAPA)
+                                    </div>
                                 </div>
-                            </div>
-                            <hr />
-                            <div class="row form-group-sm">
-                                <div class="col-md-6">
-                                    <label class="m-t-20"><b>Deskripsi Masalah:</b></label>
-                                    <textarea id="TxtDeskripsi" type="text" class="form-control" name="Deskripsi" placeholder="Deskripsi" rows="3" required readonly></textarea>
-                                    @Html.HiddenFor(m => m.Deskripsi)
+                                <hr />
+                                <div class="row form-group-sm">
+                                    <div class="col-md-6">
+                                        <label class="m-t-20"><b>Deskripsi Masalah:</b></label>
+                                        <textarea id="TxtDeskripsi" type="text" class="form-control" name="Deskripsi" placeholder="Deskripsi" rows="3" required readonly></textarea>
+                                        @Html.HiddenFor(m => m.Deskripsi)
+                                    </div>
                                 </div>
-                            </div>
-                            <hr />
-                            <div class="row form-group-sm mb-2">
-                                @*<div class="col-md-6">
+                                <hr />
+                                <div class="row form-group-sm mb-2">
+                                    @*<div class="col-md-6">
+                                            <label class="m-t-20"><b>Lokasi:</b></label>
+                                            <select class="form-control form-control-sm" id="Lokasi_DDL" name="Lokasi" required disabled>
+                                                <option>Option 1</option>
+                                                <option>Option 2</option>
+                                                <option>Option 3</option>
+                                            </select>
+                                            @Html.HiddenFor(m => m.Lokasi)
+                                        </div>*@
+                                    @*<div class="col-md-4">
+                                            <label class="m-t-20"><b>Area PIC CAPA:</b></label>
+                                            <select class="form-control" id="AreaPIC_DDL" name="AreaPIC" required disabled>
+                                            </select>
+                                            @Html.HiddenFor(m => m.AreaPIC)
+                                        </div>*@
+                                </div>
+                                <div class="row form-group-sm mb-4">
+                                    <div class="col-md-6">
+                                        <label class="m-t-20"><b>Bagian terkait yang perlu melakukan tindakan perbaikan dan atau pencegahan:</b></label>
+                                        <div class="input-group" hidden>
+                                            <select class="form-control select2" id="Departemen_DDL" required>
+                                            </select>
+                                            <div class="input-group-append" style="padding-left:10px">
+                                                <button class="btn btn-outline-dark rounded btn-sm" type="button" id="btn_Add">Add</button>
+                                            </div>
+                                        </div>
+                                        <label>@ViewBag.Message</label>
+                                    </div>
+                                    @*<hr />*@
+                                    <div class="col-md-4">
                                         <label class="m-t-20"><b>Lokasi:</b></label>
-                                        <select class="form-control form-control-sm" id="Lokasi_DDL" name="Lokasi" required disabled>
+                                        <select class="form-control form-control-sm" id="Request_Lokasi_DDL" name="Lokasi" required disabled>
                                             <option>Option 1</option>
                                             <option>Option 2</option>
                                             <option>Option 3</option>
                                         </select>
                                         @Html.HiddenFor(m => m.Lokasi)
-                                    </div>*@
-                                @*<div class="col-md-4">
+                                    </div>
+                                </div>
+                                <div class="row form-group-sm mb-4">
+                                    <div class="col-md-6">
+                                        <label class="m-t-20"><b>PIC CAPA:</b><span style="color: red">*</span></label>
+                                        <select class="form-control form-control-sm" id="PIC_DDL" name="PIC_CAPA" required disabled>
+                                        </select>
+                                        @Html.HiddenFor(m => m.PIC_CAPA)
+                                    </div>
+                                    <div class="col-md-4">
                                         <label class="m-t-20"><b>Area PIC CAPA:</b></label>
                                         <select class="form-control" id="AreaPIC_DDL" name="AreaPIC" required disabled>
                                         </select>
                                         @Html.HiddenFor(m => m.AreaPIC)
-                                    </div>*@
-                            </div>
-                            <div class="row form-group-sm mb-4">
-                                <div class="col-md-6">
-                                    <label class="m-t-20"><b>Bagian terkait yang perlu melakukan tindakan perbaikan dan atau pencegahan:</b></label>
-                                    <div class="input-group" hidden>
-                                        <select class="form-control select2" id="Departemen_DDL" required>
-                                        </select>
-                                        <div class="input-group-append" style="padding-left:10px">
-                                            <button class="btn btn-outline-dark rounded btn-sm" type="button" id="btn_Add">Add</button>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row " id="List_Departemen">
+                                    <div class="row form-group-sm mb-4">
+                                        <label class="m-t-20" style="margin-left:35px;"><b>List Departemen Terkait:</b></label>
+                                    </div>
+                                    <div class="row">
+                                        <table class="table table-striped table-bordered " id="Table_Departemen" style="width:100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Departemen</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody id="Tbl_Departemen">
+                                                <tr>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+
+                                    @*<hr />*@
+                                </div>
+                                <!--<hr />
+                                <div class="col-md-2" id="VendorDiv" hidden>
+                                    <label class="m-t-40"><b>Data Vendor</b></label>
+                                    <div class="input-group mb-3 ">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-outline-dark btn-sm" type="button" data-toggle="modal" data-target="#link_Vendor">Browse</button>
                                         </div>
+                                        <input type="text" class="form-control" id="TxtVendor" name="TxtVendor">
+                                        <input type="text" class="form-control" name="Vendor" id="Vendor" value="" hidden>
                                     </div>
-                                    <label>@ViewBag.Message</label>
-                                </div>
-                                @*<hr />*@
-                                <div class="col-md-4">
-                                    <label class="m-t-20"><b>Lokasi:</b></label>
-                                    <select class="form-control form-control-sm" id="Request_Lokasi_DDL" name="Lokasi" required disabled>
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
-                                    </select>
-                                    @Html.HiddenFor(m => m.Lokasi)
-                                </div>
-                            </div>
-                            <div class="row form-group-sm mb-4">
-                                <div class="col-md-6">
-                                    <label class="m-t-20"><b>PIC CAPA:</b><span style="color: red">*</span></label>
-                                    <select class="form-control form-control-sm" id="PIC_DDL" name="PIC_CAPA" required disabled>
-                                    </select>
-                                    @Html.HiddenFor(m => m.PIC_CAPA)
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="m-t-20"><b>Area PIC CAPA:</b></label>
-                                    <select class="form-control" id="AreaPIC_DDL" name="AreaPIC" required disabled>
-                                    </select>
-                                    @Html.HiddenFor(m => m.AreaPIC)
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="row " id="List_Departemen">
-                                <div class="row form-group-sm mb-4">
-                                    <label class="m-t-20" style="margin-left:35px;"><b>List Departemen Terkait:</b></label>
-                                </div>
-                                <div class="row">
-                                    <table class="table table-striped table-bordered " id="Table_Departemen" style="width:100%;">
-                                        <thead>
-                                            <tr>
-                                                <th>Departemen</th>
+                                </div>-->
 
-                                            </tr>
-                                        </thead>
-                                        <tbody id="Tbl_Departemen">
-                                            <tr>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-                                </div>
-
-                                @*<hr />*@
-                            </div>
-                            <!--<hr />
-                            <div class="col-md-2" id="VendorDiv" hidden>
-                                <label class="m-t-40"><b>Data Vendor</b></label>
-                                <div class="input-group mb-3 ">
-                                    <div class="input-group-prepend">
-                                        <button class="btn btn-outline-dark btn-sm" type="button" data-toggle="modal" data-target="#link_Vendor">Browse</button>
-                                    </div>
-                                    <input type="text" class="form-control" id="TxtVendor" name="TxtVendor">
-                                    <input type="text" class="form-control" name="Vendor" id="Vendor" value="" hidden>
-                                </div>
-                            </div>-->
-
-                            @*<div class="row form-group-sm">
-                                    <div class="col-md-6">
-                                        <label class="m-t-20">Nama Vendor</label>
-                                        <input class="form-control form-control-sm" type="text" id="input_Vendor">
-                                        <label class="m-t-40">Nama Personil</label>
-                                        <input class="form-control form-control-sm" type="text" id="input_Personil">
-                                        <label class="m-t-40">Email</label>
-                                        <input class="form-control form-control-sm" type="email" id="input_Email">
-                                    </div>
-                                </div>*@
-                            @*<div class="row form-group-sm">
-                                    <div class="col-md-6 mt-1">
-                                        <input class="btn mb-1 btn-primary" type="submit" id="btn_Submit" onclick="validateInput();" />
-                                    </div>
-                                </div>*@
-                        }
-                        <!--/form-->
+                                @*<div class="row form-group-sm">
+                                        <div class="col-md-6">
+                                            <label class="m-t-20">Nama Vendor</label>
+                                            <input class="form-control form-control-sm" type="text" id="input_Vendor">
+                                            <label class="m-t-40">Nama Personil</label>
+                                            <input class="form-control form-control-sm" type="text" id="input_Personil">
+                                            <label class="m-t-40">Email</label>
+                                            <input class="form-control form-control-sm" type="email" id="input_Email">
+                                        </div>
+                                    </div>*@
+                                @*<div class="row form-group-sm">
+                                        <div class="col-md-6 mt-1">
+                                            <input class="btn mb-1 btn-primary" type="submit" id="btn_Submit" onclick="validateInput();" />
+                                        </div>
+                                    </div>*@
+                            }
+                            <!--/form-->
+                        </div>
                     </div>
-                </div>
-                <input type="text" value="@Request.QueryString["CAPA"].ToString()" id="QS_CAPA" hidden />
-                <input type="text" value="@Request.QueryString["REG"].ToString()" id="QS_REG" hidden />
+                    <input type="text" value="@Request.QueryString["CAPA"].ToString()" id="QS_CAPA" hidden />
+                    <input type="text" value="@Request.QueryString["REG"].ToString()" id="QS_REG" hidden />
+                }
             }
-        }
-        <!--/form-->
+            <!--/form-->
+        </div>
     </div>
 </div>
-
 
 <script>
 
@@ -277,20 +283,20 @@
 
                     kategori += '<Option value = "' + data[0].KATEGORI_CAPA + '" > ' + data[0].KATEGORI_CAPA;
                     lokasi += '<Option value = "' + data[0].LOKASI_CAPA + '" > ' + data[0].LOKASI_CAPA;
-                    $("#Static_Trigger_CAPA").empty();
-                    $("#Static_Trigger_CAPA").append(trhtml);
-                    $("#Static_Trigger_CAPA").select2();
-                    $('#Static_Trigger_CAPA').val(data[0].TRIGGER_CAPA);
+                    $("#Trigger_CAPA").empty();
+                    $("#Trigger_CAPA").append(trhtml);
+                    $("#Trigger_CAPA").select2();
+                    $('#Trigger_CAPA').val(data[0].TRIGGER_CAPA);
 
-                    $("#Request_Kategori_DDL").empty();
-                    $("#Request_Kategori_DDL").append(kategori);
-                    $("#Request_Kategori_DDL").select2();
-                    $('#Request_Kategori_DDL').val(data[0].KATEGORI_CAPA);
+                    $("#Kategori_DDL").empty();
+                    $("#Kategori_DDL").append(kategori);
+                    $("#Kategori_DDL").select2();
+                    $('#Kategori_DDL').val(data[0].KATEGORI_CAPA);
 
-                    $("#Request_Lokasi_DDL").empty();
-                    $("#Request_Lokasi_DDL").append(lokasi);
-                    $("#Request_Lokasi_DDL").select2();
-                    $('#Request_Lokasi_DDL').val(data[0].LOKASI_CAPA);
+                    $("#Lokasi_DDL").empty();
+                    $("#Lokasi_DDL").append(lokasi);
+                    $("#Lokasi_DDL").select2();
+                    $('#Lokasi_DDL').val(data[0].LOKASI_CAPA);
 
                     $('#TxtDeskripsi').val(data[0].DESKRIPSI_MASALAH).trigger("change");
                     $.each(JSON.parse(data[0].DEPTLIST), function (key, value) {

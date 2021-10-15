@@ -5,29 +5,64 @@
             <form>
                 <div class="row form-group-sm">
                     <div class="col-md-6">
-                        <label class="m-t-20">Hasil Tindakan Perbaikan yang Sudah Dilakukan</label>
-                        <textarea type="text" class="form-control" placeholder="Deskripsi" readonly></textarea>
+                        <label class="m-t-20">Root Cause</label>
+                        <textarea type="text" class="form-control" placeholder="create otomatis Why terakhir dari halaman PIC CAPA Page 1" disabled></textarea>
+                    </div>
+                </div>
+                <div class="row form-group-sm">
+                    <div class="col-md-6">
+                        <label class="m-t-20">Tindakan Perbaikan<span style="color: red">*</span></label>
+                        <textarea type="text" class="form-control" placeholder="Deskripsi" disabled></textarea>
                     </div>
                     <div class="form-group mb-2 col-sm-3">
-                        <label class="m-t-20">Pelaksana Tindakan Perbaikan</label>
-                        <input type="text" class="form-control form-control-sm" readonly>
+                        <label class="m-t-20">Due Date</label>
+                        <input type="date" id="date-format" class="form-control form-control-sm" disabled>
                     </div>
-                    <div class="form-group mb-2 col-sm-3">
-                        <label class="m-t-20">Superior</label>
-                        <input type="text" class="form-control form-control-sm" readonly>
-                    </div>
-                    <div class="col-md-6 mb-2">
-                        <label class="m-t-20">Upload Bukti Tindakan Perbaikan</label>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <label class="m-t-40">Pelaksana Tindakan Perbaikan</label>
                         <div class="input-group mb-3">
-                            <div class="custom-file">
-                                <label class="custom-file-label">Choose file</label>
-                                <input type="file" class="custom-file-input" disabled>
+                            <input type="text" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="text-align: center">
+                        <label class="m-t-40" style="visibility:hidden">_</label>
+                        <div class="input-group mb-3">
+                            <button type="button" class="btn mb-1 btn-primary " disabled>Add</button>
+                            <button type="button" class="btn mb-1 btn-primary " disabled style="margin-left:15px;">Browse</button>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="m-t-40">Nama Personil</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="m-t-40">Alamat Email</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label class="m-t-40" style="visibility: hidden">_</label>
+                        <div class="input-group">
+                            <button type="button" class="btn mb-1 btn-primary " disabled>Tambahkan Tindakan Perbaikan</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="m-t-40">Apakah ada proses / area lain yang berpotensi sama ?</label>
+                        <div class="radio input-group">
+                            <div class="col-sm-3">
+                                <label><input type="radio" name="Potensi" disabled>Ya</label>
                             </div>
-                            <div class="input-group-append">
-                                <button class="btn-dark input-group-text center" type="button">View<span style="visibility:hidden">..</span><i class="fa fa-eye color-success"></i></button>
+                            <div class="col-sm-3">
+                                <label><input type="radio" name="Potensi" disabled>Tidak</label>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </form>
         </div>
