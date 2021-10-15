@@ -27,15 +27,17 @@
                                 <thead>
                                     <tr>
                                         <th>Action</th>
+                                        <th></th>
                                         <th>REG_ID</th>
                                         <th>No_CAPA</th>
-                                        <th>Trigger CAPA</th>
+                                        @*<th>Trigger CAPA</th>*@
                                         <th>Kategori CAPA</th>
                                         <th>Deskripsi</th>
                                         <th>Area PIC</th>
-                                        <th>PIC CAPA</th>
-                                        <th>Reject Reason</th>
+                                        @*<th>PIC CAPA</th>
+        <th>Alasan Penolakan</th>*@
                                         <th>Status</th>
+                                        <th>Detail Status</th>
                                     </tr>
                                 </thead>
                                 <tbody id="Tbl_TaskList">
@@ -66,9 +68,9 @@
             contentType: 'application/json; charset=utf-8',
             success: function (result) {
                 var table = $('#Tbl_PendingTask').DataTable({
-                    "pageLength": 5,
+                    "pageLength": 10,
                     "lengthChange": true,
-                    "searching": false,
+                    "searching": true,
                     "data": JSON.parse(result),
                     "select": true,
                     "bDestroy": true,
@@ -76,20 +78,62 @@
                     "columns": [
                         {
                             "data": null,
-                            "defaultContent": "<button class='btn' type='button' name='view'>View</button>"
+                            "defaultContent": "<button class='btn' type='button' name='view'>View CAPA</button>"
                         },
-                        { "data": "REG_ID" },
+                        {
+                            "className": 'details-control',
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": ''
+                        },
+                        { "data": "REG_ID"},
                         { "data": "NO_CAPA" },
-                        { "data": "TRIGGER_CAPA" },
+                        @*{ "data": "TRIGGER_CAPA" },*@
                         { "data": "KATEGORI_CAPA" },
                         { "data": "DESKRIPSI_MASALAH" },
                         { "data": "AREA_PIC" },
-                        { "data": "PIC_CAPA" },
-                        { "data": "REJECT_REASON" },
-                        { "data": "STATUS_ID" }
+                        @*{ "data": "PIC_CAPA" },
+                        { "data": "REJECT_REASON" },*@
+                        { "data": "STATUS_CAPA" },
+                        { "data": "STATUS_DESKRIPSI" }
                     ],
                     "order": [[1, 'asc']]
                 });
+            }
+        });
+
+        function format(d) {
+            // `d` is the original data object for the row
+            return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+                '<tr>' +
+                '<td>Trigger CAPA:</td>' +
+                '<td>' + d.TRIGGER_CAPA + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>PIC CAPA:</td>' +
+                '<td>' + d.PIC_CAPA + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>Alasan Penolakan:</td>' +
+                '<td>' + d.REJECT_REASON + '</td>' +
+                '</tr>' +
+                '</table>';
+        }
+
+        $('#Tbl_PendingTask tbody').on('click', 'td.details-control', function () {
+            var tr = $(this).closest('tr');
+            var tTable = $('#Tbl_PendingTask').DataTable();
+            var row = tTable.row(tr);
+
+            if (row.child.isShown()) {
+                // This row is already open - close it
+                row.child.hide();
+                tr.removeClass('shown');
+            }
+            else {
+                // Open this row
+                row.child(format(row.data())).show();
+                tr.addClass('shown');
             }
         });
 

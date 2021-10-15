@@ -1,0 +1,168 @@
+﻿using B7_CAPA_Online.Models;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Web;
+using System.Web.Mvc;
+using B7_CAPA_Online.Scripts.DataAccess;
+using Dapper;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+namespace B7_CAPA_Online.Controllers
+{
+    public class LoginController : Controller
+    {
+        [DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = false)]
+        public static extern bool LogonUser(string lpszUsername, string lpszDomain, string lpszPassword, int dwLogonType, int dwLogonProvider, ref IntPtr phToken);
+        [DllImport("kernel32.dll")]
+        public static extern int FormatMessage(int dwFlags, ref IntPtr lpSource, int dwMessageId, int dwLanguageId, ref string lpBuffer, int nSize, ref IntPtr Arguments);
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]
+        public static extern bool CloseHandle(IntPtr handle);
+
+        private readonly SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["MASTERVENDOR"].ToString());
+        DataAccess DAL = new DataAccess();
+
+        // GET: Login
+        public ActionResult Index()
+        {
+            //string decrypted = EncryptionHelper.Decrypt("+NnSWnq/Lh1EfwTSxFxzRmrAwj7YTeawQeHecVIXCRI=");
+            //return Json(decrypted, JsonRequestBehavior.AllowGet);
+
+            Session["LoginStatus"] = "invalid";
+            Session["Username"] = "";
+            return View();
+        }
+
+        public ActionResult FindKaryawan(string username)
+        {
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            var dictionary = new Dictionary<string, object>{
+                { "username", username },
+            };
+            var parameters = new DynamicParameters(dictionary);
+            var result = DAL.StoredProcedure(parameters, "SP_Find_User");
+            return Json(result);
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult LoginExec(LoginData loginData)
+        {
+            IntPtr tokenHandle = new IntPtr(0);
+            string MachineName, username, password, tipeLogin = null;
+            string loginStatus = "0";
+
+            username = loginData.Username;
+            password = loginData.Password;
+            tipeLogin = loginData.TipeLogin;
+
+            //login AD
+            if (tipeLogin == "Karyawan")
+            {
+                try
+                {
+                    //The MachineName property gets the name of your computer.   
+                    MachineName = "ONEKALBE";
+                    const int LOGON32_PROVIDER_DEFAULT = 0;
+                    const int LOGON32_LOGON_INTERACTIVE = 2;
+                    tokenHandle = IntPtr.Zero;
+
+                    //Call the LogonUser function to obtain a handle to an access token.
+                    bool returnValue = LogonUser(username, MachineName, password, LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_DEFAULT, ref tokenHandle);
+
+                    //Session["LoginStatus"] = 1;
+                    //Session["xUser"] = 1;
+
+                    if (returnValue == false)
+                    {
+                        //This function returns the error code that the last unmanaged function returned.
+                        int ret = Marshal.GetLastWin32Error();
+                        if (ret == 1329)
+                        {
+                            loginStatus = "AD invalid";
+                            Session["LoginStatus"] = "AD invalid";
+                        }
+                        else
+                        {
+                            loginStatus = "wrong credentials";
+                            Session["LoginStatus"] = "wrong credentials";
+                        }
+                    }
+                    else
+                    {
+                        loginStatus = "success";
+
+                        //get data user karyawan
+                        var dataKaryawan = FindKaryawan(username);
+                        //var json = new JavaScriptSerializer().Deserialize(dataKaryawan);
+                        //dataKaryawan = JsonConvert.SerializeObject(dataKaryawan);
+                        //var jss = new JavaScriptSerializer();
+                        //Dictionary<string, string> data = jss.Deserialize<Dictionary<string, string>>(dataKaryawan.Data.ToString());
+
+                        if (dataKaryawan != null)
+                        {
+                            Session["LoginStatus"] = "success";
+                            Session["Username"] = username;
+
+                            //string departemen = data["Org_Group_Name"].ToString();
+                            //string lokasi = data["Location"].ToString();
+                        }
+                        else
+                        {
+                            loginStatus = "not found";
+                            Session["LoginStatus"] = "not found";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    loginStatus = "invalid";
+                    Session["LoginStatus"] = "invalid";
+                    Session["LoginErrorMessage"] = ex.Message;
+                }
+            }
+            //cari apakah vendor exists
+            else
+            {
+                //encrypt pw
+                string encryptedPassword = EncryptionHelper.Encrypt(password);
+                string queryString =
+        "SELECT CASE WHEN EXISTS (SELECT * FROM USER_VENDORS WHERE username= @username AND password= @password) THEN 'true' ELSE 'false' END; ";
+                using (conn)
+                {
+                    SqlCommand cmd = new SqlCommand(
+                        queryString, conn);
+                    cmd.Parameters.AddWithValue("username", username);
+                    cmd.Parameters.AddWithValue("password", encryptedPassword);
+                    conn.Open();
+                    string result = cmd.ExecuteScalar().ToString();
+                    if (result == "true")
+                    {
+                        loginStatus = "success";
+                        Session["Username"] = username;
+                        Session["LoginStatus"] = "success";
+                    }
+                    else
+                    {
+                        loginStatus = "wrong credentials";
+                        Session["LoginStatus"] = "wrong credentials";
+                    }
+                    //using (SqlDataReader reader = cmd.ExecuteReader())
+                    //{
+                    //    while (reader.Read())
+                    //    {
+                    //        Console.WriteLine(String.Format("{0}, {1}",
+                    //            reader[0], reader[1]));
+                    //    }
+                    //}
+                }
+            }
+            return Json(loginStatus);
+        }
+    }
+}

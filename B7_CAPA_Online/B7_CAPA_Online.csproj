@@ -153,6 +153,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KoordinatorController.cs" />
     <Compile Include="Controllers\ListOutstandingController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PelaksanaAddCAPAController.cs" />
     <Compile Include="Controllers\PelaksanaCancelCAPAController.cs" />
     <Compile Include="Controllers\PelaksanaController.cs" />
@@ -160,15 +161,22 @@
     <Compile Include="Controllers\PendingTaskController.cs" />
     <Compile Include="Controllers\PICController.cs" />
     <Compile Include="Controllers\ReportCAPAController.cs" />
+    <Compile Include="Controllers\UserVendorController.cs" />
+    <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AnalisaKondisiModel.cs" />
     <Compile Include="Models\DALModel.cs" />
+    <Compile Include="Models\Email.cs" />
+    <Compile Include="Models\EncryptionHelper.cs" />
     <Compile Include="Models\FindCAPAModel.cs" />
     <Compile Include="Models\KoordinatorModel.cs" />
     <Compile Include="Models\ListDepartemenModel.cs" />
     <Compile Include="Models\PendingTaskModel.cs" />
+    <Compile Include="Models\UserVendor.cs" />
+    <Compile Include="Models\Vendor.cs" />
+    <Compile Include="Models\VendorType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripts\DataAccess\DataAccess.cs" />
   </ItemGroup>
@@ -5392,7 +5400,7 @@
     <Content Include="Views\ReportCAPA\ReportMasterlist.cshtml" />
     <Content Include="Views\ReportCAPA\ReportLeadtime.cshtml" />
     <Content Include="Views\Koordinator\CreateCAPA.cshtml" />
-    <Content Include="Views\Evaluator\Evaluator.cshtml" />
+    <Content Include="Views\Evaluator\EvaluatorAddCAPA.cshtml" />
     <Content Include="Views\Evaluator\EvaluatorCancelCAPA.cshtml" />
     <Content Include="Views\Evaluator\EvaluatorUpdateCAPA.cshtml" />
     <Content Include="Views\PendingTask\TaskList.cshtml" />
@@ -5407,6 +5415,12 @@
     <Content Include="Views\Evaluator\CancelCAPA.cshtml" />
     <Content Include="Views\Evaluator\ReviewCAPA.cshtml" />
     <Content Include="Views\Shared\RejectCAPA.cshtml" />
+    <Content Include="Views\Vendor\Index.cshtml" />
+    <Content Include="Views\Vendor\CreateVendor.cshtml" />
+    <Content Include="Views\UserVendor\Index.cshtml" />
+    <Content Include="Views\UserVendor\CreateUserVendor.cshtml" />
+    <Content Include="Views\UserVendor\ActivateUserAccount.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,209 @@
+﻿
+@{
+    ViewBag.Title = "Create Vendor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("CreateVendor", "Vendor", FormMethod.Get, new { enctype = "multipart/form-data" }))
+{
+    <div class="content-body">
+        <div class="row page-titles mx-0">
+            <div class="col p-md-0">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Create Vendor</a></li>
+                </ol>
+            </div>
+        </div>
+        <!-- row -->
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title" id="page-title">Create Vendor</h4>
+                            <div class="card-body">
+                                <form id="form-upload" enctype="multipart/form-data" action="@Url.Action("SaveVendor", "Vendor")" method="POST">
+
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-lg-2 col-form-label right-aligned" for="nama_vendor">
+                                            Nama Vendor <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-lg-10">
+                                            <input type="text" class="form-control input-default" id="nama_vendor" name="nama_vendor" placeholder="Masukkan nama vendor..">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-lg-2 col-form-label right-aligned" for="tipe_vendor">
+                                            Tipe Vendor <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-lg-6">
+                                            <select class="form-control" id="tipe_vendor" name="tipe_vendor">
+                                                <option value="" disabled selected>Pilih Tipe Vendor</option>
+                                                @foreach (var vendor in ViewBag.AllVendorTypes)
+                                                {
+                                                    <option value="@vendor.ID">@vendor.Type</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        @*<div class="col-lg-3 no-padding">
+                                            <label class="col-form-label link-label"><a href="@Url.Action("CreateVendorType", "Vendor")" target="_blank">Tambah tipe vendor +</a></label>
+                                        </div>*@
+                                    </div>
+
+                                    <div class="form-group-row align-items-center">
+                                        <div class="col-lg-10">
+                                            <button type="submit" class="btn btn-primary" style="width:100px" id="simpan">Simpan</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #/ container -->
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $('#create').click(function (e) {
+            window.location = "Vendor/CreateVendor";
+        })
+        $('#tipe_vendor').select2();
+        GetVendorInfo();
+    });
+
+    //function untuk ambil semua query string
+    function getQueryStrings() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
+    function GetVendorInfo() {
+        var vendorID = getQueryStrings()["vendorID"];
+        if (vendorID != null && vendorID != undefined) {
+            $('#page-title').text("Edit Data Vendor");
+
+            //get user data
+            var dto = {
+                id:vendorID
+            }
+            $.ajax({
+                url: "FindVendorById",
+                type: "post",
+                async: false,
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    $('#nama_vendor').val(data.VendorName);
+                    $("#tipe_vendor").select2().val(data.TypeID).trigger("change");
+                }, error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+
+        }
+    }
+
+    $('#simpan').click(function (e) {
+        e.preventDefault();
+
+        var nama_vendor = $.trim($("#nama_vendor").val());
+        var tipe_vendor = $("#tipe_vendor").val();
+
+        if (nama_vendor == "" || tipe_vendor == null) {
+            swal({
+                title: "Semua field wajib terisi!",
+                type: "error",
+                buttons: false,
+                timer: 1000,
+            });
+        }
+        else {
+            //ambil id vendor lemparan
+            var vendorID = getQueryStrings()["vendorID"];
+
+            //halaman edit (ada lemparan id vendor)
+            if (vendorID != null && vendorID != undefined) {
+                var form_data = {
+                    "ID": vendorID,
+                    "VendorName": nama_vendor,
+                    "TypeID": tipe_vendor
+                };
+                $.ajax({
+                    url: "UpdateVendor",
+                    type: "POST",
+                    data: JSON.stringify(form_data),
+                    contentType: "application/json",
+                    processData: false,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data == "success") {
+                            swal({
+                                title: "Berhasil",
+                                text: "Data vendor berhasil diubah",
+                                icon: "success",
+                                buttons: false,
+                                timer: 1000,
+                            }).then(() => {
+                                window.location.href = '@Url.Action("Index", "Vendor")';
+                            })
+                        } else {
+                            swal({
+                                title: "Gagal",
+                                text: data,
+                                icon: "erorr",
+                                buttons: false,
+                                timer: 2000,
+                            })
+                        }
+                    },
+                    error: function (xhr, error, status) {
+                        console.log(error, status);
+                    }
+                });
+            }
+            //halaman create (tidak ada lemparan id vendor)
+            else {
+                var form_data = {
+                    "VendorName": nama_vendor,
+                    "TypeID": tipe_vendor
+                };
+                $.ajax({
+                    url: "SaveVendor",
+                    type: "POST",
+                    data: JSON.stringify(form_data),
+                    contentType: "application/json",
+                    processData: false,
+                    dataType: 'json',
+                    success: function (data) {
+                        swal({
+                            title: "Berhasil",
+                            text: "Data vendor berhasil ditambahkan",
+                            icon: "success",
+                            buttons: false,
+                            timer: 1000,
+                        }).then(() => {
+                            location.reload();
+                        })
+                    },
+                    error: function (xhr, error, status) {
+                        console.log(error, status);
+                    }
+                });
+            }
+        }
+    });
+</script>

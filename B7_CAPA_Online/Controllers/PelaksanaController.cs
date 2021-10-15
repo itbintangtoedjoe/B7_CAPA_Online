@@ -13,8 +13,9 @@ namespace B7_CAPA_Online.Controllers
         {
             return View();
         }
-        public ActionResult PelaksanaCAPA()
+        public ActionResult PelaksanaCAPA(string NoCAPA)
         {
+
             return View();
         }
     }
