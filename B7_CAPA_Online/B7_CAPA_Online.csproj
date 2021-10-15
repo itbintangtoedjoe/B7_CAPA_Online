@@ -143,6 +143,7 @@
     <Compile Include="Controllers\AtasanPelaksanaController.cs" />
     <Compile Include="Controllers\AtasanPelaksanaUpdateCAPAController.cs" />
     <Compile Include="Controllers\AtasanPICController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\EvaluatorAddCAPAController.cs" />
     <Compile Include="Controllers\EvaluatorCancelCAPAController.cs" />
     <Compile Include="Controllers\EvaluatorController.cs" />
@@ -5403,10 +5404,14 @@
     <Content Include="Views\Koordinator\KajianRisiko.cshtml" />
     <Content Include="Views\Koordinator\TriggerCAPA.cshtml" />
     <Content Include="Views\Koordinator\RequestCAPA.cshtml" />
+    <Content Include="Views\Evaluator\CancelCAPA.cshtml" />
+    <Content Include="Views\Evaluator\ReviewCAPA.cshtml" />
+    <Content Include="Views\Shared\RejectCAPA.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Files\" />
+    <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
