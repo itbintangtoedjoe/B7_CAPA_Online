@@ -340,17 +340,17 @@
                                     </div>
                                 </div>
                                 @*<div class="row form-group-sm mb-2">
-                                    <div class="col-md-6">
-                                        <label class="m-t-20">Lampiran Terkait</label>
-                                        <div class="input-group mb-3">
-                                            <div class="custom-file">
-                                                <input id="TxtFileInput" type="file" name="LampiranTerkait" class="custom-file-input" multiple required>
-                                                @Html.HiddenFor(m => m.LampiranTerkait)
-                                                <label class="custom-file-label">Choose File</label>
+                                        <div class="col-md-6">
+                                            <label class="m-t-20">Lampiran Terkait</label>
+                                            <div class="input-group mb-3">
+                                                <div class="custom-file">
+                                                    <input id="TxtFileInput" type="file" name="LampiranTerkait" class="custom-file-input" multiple required>
+                                                    @Html.HiddenFor(m => m.LampiranTerkait)
+                                                    <label class="custom-file-label">Choose File</label>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>*@
+                                    </div>*@
                                 <div class="row form-group-sm" id="List_Lampiran">
                                     <div class="col-md-6">
                                         <label class="m-t-20">List Lampiran</label>
@@ -466,10 +466,10 @@
                                         </div>
                                     </div>*@
                                 @*<div class="row form-group-sm">
-                                    <div class="col-md-6 mt-1">
-                                        <input class="btn mb-1 btn-primary" type="submit" id="btn_Submit" onclick="validateInput();" />
-                                    </div>
-                                </div>*@
+                                        <div class="col-md-6 mt-1">
+                                            <input class="btn mb-1 btn-primary" type="submit" id="btn_Submit" onclick="validateInput();" />
+                                        </div>
+                                    </div>*@
                             }
                             <!--/form-->
                         </div>
@@ -628,15 +628,15 @@
                                 </div>
 
                                 @*<div class="row form-group-sm">
-                                        <div class="col-md-6">
-                                            <label class="m-t-20">Nama Vendor</label>
-                                            <input class="form-control form-control-sm" type="text" id="input_Vendor">
-                                            <label class="m-t-40">Nama Personil</label>
-                                            <input class="form-control form-control-sm" type="text" id="input_Personil">
-                                            <label class="m-t-40">Email</label>
-                                            <input class="form-control form-control-sm" type="email" id="input_Email">
-                                        </div>
-                                </div>*@
+                                            <div class="col-md-6">
+                                                <label class="m-t-20">Nama Vendor</label>
+                                                <input class="form-control form-control-sm" type="text" id="input_Vendor">
+                                                <label class="m-t-40">Nama Personil</label>
+                                                <input class="form-control form-control-sm" type="text" id="input_Personil">
+                                                <label class="m-t-40">Email</label>
+                                                <input class="form-control form-control-sm" type="email" id="input_Email">
+                                            </div>
+                                    </div>*@
                                 <div class="row form-group-sm">
                                     <div class="col-md-6 mt-1">
                                         <input class="btn mb-1 btn-primary" type="submit" id="btn_Submit" onclick="validateInput();" />
@@ -994,7 +994,7 @@
             }
         });
 
-        if (@Request.QueryString.Count > 1) {
+       if (@Request.QueryString.Count > 1) {
             $.ajax({
                 url: 'GetCAPA',
                 type: 'post',
@@ -1010,9 +1010,9 @@
                     //console.log(data[0]);
                     console.log(data);
 
-                    //var kategori = $("#Kategori_DDL option:contains(" + data[0].KATEGORI_CAPA + ")").val();
-                    //var lokasi = $("#Lokasi_DDL option:contains(" + data[0].LOKASI_CAPA + ")").val();
-                    
+                    var kategori = $("#Kategori_DDL option:contains(" + data[0].KATEGORI_CAPA + ")").val();
+                    var lokasi = $("#Lokasi_DDL option:contains(" + data[0].LOKASI_CAPA + ")").val();
+
                     $('#Trigger_CAPA').val(data[0].TRIGGER_CAPA).trigger("change");
                     $('#Kategori_DDL').val(data[0].KATEGORI_CAPA).trigger("change");
                     $('#TxtDeskripsi').val(data[0].DESKRIPSI_MASALAH).trigger("change");

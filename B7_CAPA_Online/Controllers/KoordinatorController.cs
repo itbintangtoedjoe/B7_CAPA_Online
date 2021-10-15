@@ -47,8 +47,9 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
-        public ActionResult ApprovalKoordinator2()
+        public ActionResult ApprovalKoordinator2(string NoCAPA)
         {
+            ViewBag.NoCAPA = NoCAPA;
             return View();
         }
 
@@ -93,11 +94,13 @@ namespace B7_CAPA_Online.Controllers
             return PartialView();
         }
 
-        public ActionResult RequestCAPA()
+        public ActionResult RequestCAPA(string CAPA,string REG)
         {
             var list = new ListDepartemen();
+            ViewBag.NoCAPA = CAPA;
+            ViewBag.REG = REG;
             list.ClearDT();
-            return PartialView();
+            return View();
         }
         #endregion
 
@@ -136,11 +139,14 @@ namespace B7_CAPA_Online.Controllers
 
         }
 
-        public ActionResult GetEvaluator(string departemen)
+        public ActionResult GetEvaluator(string departemen, int Option, string Lokasi,string NoCAPA)
         {
             var dictionary = new Dictionary<string, object>
             {
-                {"Departemen", departemen}
+                {"Departemen", departemen},
+                {"Option",Option },
+                {"Lokasi",Lokasi },
+                {"NoCAPA",NoCAPA }
             };
             var spname = "SP_SHOW_EVALUATOR_DDL";
 
@@ -149,6 +155,12 @@ namespace B7_CAPA_Online.Controllers
 
         }
 
+        public ActionResult DynamicController(DynamicModel Models, string spname)
+        {
+            var parameters = new DynamicParameters(Models.Model);
+            return Json(DAL.StoredProcedure(parameters, spname));
+
+        }
 
         public ActionResult GetRoot(string NoCapa,string Type)
         {

@@ -1,4 +1,13 @@
 ﻿<script src="https://unpkg.com/gojs/release/go-debug.js" defer></script>
+
+<style>
+    @@media (min-width: 768px) {
+        .modal-xl {
+            width: 900%;
+            max-width: 1300px;
+        }
+    }
+</style>
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">Analisa Kondisi</h4>
@@ -18,8 +27,14 @@
         </div>
     </div>
 </div>
-<div class="col-md-1">
-    <input type="button" class="btn btn-primary" id="ShowDiag" data-toggle="modal" data-target="#Modal_Diag" data-backdrop="static" value="Show Diagram"/>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Potential Root Cause </h4>
+        <div class="col-md-1">
+            <input type="button" class="btn btn-primary" id="ShowDiag" data-toggle="modal" data-target="#Modal_Diag" data-backdrop="static" value="Show Diagram" />
+        </div>
+    </div>
 </div>
 <br />
 <div class="modal fade" id="Modal_Diag" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -64,6 +79,10 @@
         $('#ShowDiag').click(function () {
             $('#Modal_Diag').attr("hidden", false);
         });
+
+        $('#ShowAnalisa').click(function () {
+            $('#Modal_Analisa').attr("hidden", false);
+        });
     });
 
     function GetRootManusia() {
@@ -79,7 +98,7 @@
                 var $ = go.GraphObject.make;
 
                 var myDiagram =
-                    $(go.Diagram, "DiagManusia", 
+                    $(go.Diagram, "DiagManusia",
                         {
                             "undoManager.isEnabled": true,
                             contentAlignment: go.Spot.Center,
@@ -90,7 +109,7 @@
 
                 myDiagram.nodeTemplate =
                     $(go.Node, "Horizontal",
-                        { background: "#44CCFF", locationSpot: go.Spot.Center},
+                        { background: "#44CCFF", locationSpot: go.Spot.Center },
                         $(go.TextBlock, "Default Text",
                             {
                                 margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
