@@ -434,7 +434,7 @@ namespace B7_CAPA_Online.Controllers
             }
             var Path_DT = CreateDT<Lampiran>(Model.LampiranTerkait, "LAMPIRAN_TERKAIT", "LAMPIRAN_TERKAIT");
             // Method Insert Data
-            //DAL.InsertData(Model, Departemen_DT, Penyimpangan_DT, Path_DT);            
+            DAL.InsertData(Model, Departemen_DT, Penyimpangan_DT, Path_DT);            
             return RedirectToAction("TaskList", "PendingTask", new { success = "succeed" });
         }
         public DataTable CreateDT<T>(List<T> items, string columns, string propName)
