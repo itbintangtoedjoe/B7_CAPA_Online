@@ -79,6 +79,7 @@
                                         <label for="Severity_DDL" class="col-form-label">Severity</label>
                                         <div class="input-group">
                                             <select class="form-control select2" id="Severity_DDL" required>
+                                                <option>*Pilih*</option>
                                                 <option value="1">1</option>
                                                 <option value="4">4</option>
                                                 <option value="7">7</option>
@@ -90,6 +91,7 @@
                                         <label for="Likelihood_DDL" class="col-form-label">Likelihood</label>
                                         <div class="input-group">
                                             <select class="form-control select2" id="Likelihood_DDL" required>
+                                                <option>*Pilih*</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="4">4</option>
@@ -101,6 +103,7 @@
                                         <label for="Detectability_DDL" class="col-form-label">Detectability</label>
                                         <div class="input-group">
                                             <select class="form-control select2" id="Detectability_DDL" required>
+                                                <option>*Pilih*</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -163,6 +166,7 @@
                                         <label for="Severity2_DDL" class="col-form-label">Severity</label>
                                         <div class="input-group">
                                             <select class="form-control select2" id="Severity2_DDL" required>
+                                                <option>*Pilih*</option>
                                                 <option value="1">1</option>
                                                 <option value="4">4</option>
                                                 <option value="7">7</option>
@@ -175,6 +179,7 @@
                                         <label for="Likelihood2_DDL" class="col-form-label">Likelihood</label>
                                         <div class="input-group">
                                             <select class="form-control select2" id="Likelihood2_DDL" required>
+                                                <option>*Pilih*</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="4">4</option>
@@ -187,6 +192,7 @@
                                         <label for="Detectability2_DDL" class="col-form-label">Detectability</label>
                                         <div class="input-group">
                                             <select class="form-control select2" id="Detectability2_DDL" required>
+                                                <option>*Pilih*</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -225,9 +231,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
+                                <div class="row form-group col-md-12">
+                                    <div class="col-md-4">
+                                        <label for="TxtLainnya" class="col-form-label">Lainnya</label>
+                                        <div class="input-group">
+                                            <textarea type="text" class="form-control" name="TxtLainnya" id="TxtLainnya"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="form-group col-md-6">
-                                    <button type="button" class="btn btn-primary" id="btn_Search_Deviation">Tambahkan</button>
+                                    <button type="button" class="btn btn-primary" id="btn_KajianResiko">Tambahkan</button>
                                 </div>
                             </form>
                         </div>
@@ -597,7 +612,7 @@
                                         <th>Mencegah Potensi Kegagalan Lolos Menimbulkan Dampak</th>
                                         <th>Detectability (D) </th>
                                         <th>RPN (SxLxD)</th>
-                                        <th style="background-color: limegreen">Risk Level</th>
+                                        <th>Risk Level</th>
                                         <th>TARGET</th>
                                         <th>Menghilangkan Potensi Kegagalan/ Penyimpangan</th>
                                         <th>Severity (S)</th>
@@ -606,9 +621,10 @@
                                         <th>PERBAIKAN untuk meningkatkan deteksi potensi kegagalan</th>
                                         <th>Detectability (D)</th>
                                         <th>RPN (SxLxD)</th>
-                                        <th style="background-color: limegreen">Risk Level</th>
+                                        <th>Risk Level</th>
                                         <th>PIC</th>
                                         <th>Due Date</th>
+                                        <th>Lainnya</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -683,7 +699,8 @@
                                         <td>Level Risk Color</td>
                                         <td>PIC</td>
                                         <td>Due Date</td>
-                                        <td><button class="form-control-sm">Add</button></td>
+                                        <td>Lainnya</td>
+                                        <td><button class="form-control-sm">Delete</button></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -756,6 +773,96 @@
                     alert(JSON.stringify(ex));
                 }
             });
+        });
+    }
+
+    function TableKajian() {
+        $.ajax({
+            url: 'GetKajianResiko',
+            type: 'post',
+            data: JSON.stringify({
+                Model: {
+                    NO_CAPA: $('#input_NoCAPA').val(),
+                    Option: 11,                    
+                    Aspect: '',
+                    WSBH: '',
+                    WAH: '',
+                    Status: '',
+                    isParent : '',
+                    WHY_Parent : '',
+                    WHY : '',
+                    Tindakan : '',
+                    Pelaksana : '',
+                    LineNumber : '',
+                    NamaPersonil : '',
+                    Email : '',
+                    DueDate : '',
+                    Is_AreaLain : '',
+                    WhyID : '',
+                    WhyParentID : '',
+                    RootCause : ''
+                }
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#Tbl_KajianResiko').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": true,
+                    "searching": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "bDestroy": true,
+                    "scrollCollapse": true,
+                    "columns": [
+                        { "data": "P_Kegagalan" },
+                        { "data": "Spek" },
+                        { "data": "Dampak" },
+                        { "data": "Severity" },
+                        { "data": "Penyebab" },
+                        { "data": "M_Penyebab" },
+                        { "data": "Likelihood" },
+                        { "data": "M_PKegagalan_LMD" },
+                        { "data": "Detectability" },
+                        { "data": "RPN" },
+                        {
+                            "data": "RiskLevel",
+                            "className":"riskLevel"
+                        },
+                        { "data": "Target" },
+                        { "data": "M_PKegagalan" },
+                        { "data": "Severity2" },
+                        { "data": "P_MPenyebab" },
+                        { "data": "Likelihood2" },
+                        { "data": "P_MDPKegagalan" },
+                        { "data": "Detectability2" },
+                        { "data": "RPN2" },
+                        { "data": "RiskLevel2" },
+                        { "data": "PIC" },
+                        { "data": "DueDate" },
+                        { "data": "Lainnya" },
+                        {
+                            "data": null,
+                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onchange=''>Delete</button> "
+                        },
+                    ],
+                    "order": [[1, 'asc']],
+                    "rowCallback": function (row, data) {
+                        if (data.RiskLevel == "Low") {
+                            $('td.riskLevel', row).css('background', 'limegreen');
+                        } else if (data.RiskLevel == "Medium") {
+                            $('td.riskLevel', row).css('background', 'yellow');
+                        } else if (data.RiskLevel == "High") {
+                            $('td.riskLevel', row).css('background', 'red');
+                        } else if (data.RiskLevel == "Very High") {
+                            $('td.riskLevel', row).css('background', 'black');
+                        }
+                    }
+                });
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
         });
     }
 
@@ -992,11 +1099,71 @@
         });
     }
 
+    function realtimeCalcultion() {
+        var RPN = 0;
+        var RPN2 = 0;
+        var Severity = $('#Severity_DDL').val();
+        var Detectability = $('#Detectability_DDL').val();
+        var Likelihood = $('#Likelihood_DDL').val();
+        var Severity2 = $('#Severity2_DDL').val();
+        var Detectability2 = $('#Detectability2_DDL').val();
+        var Likelihood2 = $('#Likelihood2_DDL').val();
+
+        if (!isNaN(Severity) && !isNaN(Detectability) && !isNaN(Likelihood)) {
+            RPN = Severity * Likelihood * Detectability;
+            $('#TxtRiskLevel').val(riskCalculation(RPN));
+        }
+
+        if (!isNaN(Severity2) && !isNaN(Detectability2) && !isNaN(Likelihood2)) {
+            RPN2 = Severity2 * Likelihood2 * Detectability2;
+            $('#TxtRiskLevel2').val(riskCalculation(RPN2));
+        }
+
+        $('#TxtRPN').val(RPN);
+        $('#TxtRPN2').val(RPN2);
+    }
+
+    function riskCalculation(RPN) {
+        if (RPN <= 35)
+            return "Low";
+        else if (RPN > 35 && RPN <= 80)
+            return "Medium";
+        else if (RPN > 80 && RPN <= 140)
+            return "High";
+        else
+            return "Very High";
+    }
+
     $(document).ready(function () {
+        TableKajian();
         KajianResikoDDL();
         getTable();
         retrieveData();
         retrieveData2();
+
+        $('#Severity_DDL').change(function () {
+            realtimeCalcultion();
+        });
+
+        $('#Likelihood_DDL').change(function () {
+            realtimeCalcultion();
+        });
+
+        $('#Detectability_DDL').change(function () {
+            realtimeCalcultion();
+        });
+
+        $('#Severity2_DDL').change(function () {
+            realtimeCalcultion();
+        });
+
+        $('#Likelihood2_DDL').change(function () {
+            realtimeCalcultion();
+        });
+
+        $('#Detectability2_DDL').change(function () {
+            realtimeCalcultion();
+        });
 
         $("#isParent").change(function () {
             if ($("#isParent").prop('checked') == true) {
@@ -1147,6 +1314,68 @@
                 countNo = 0;
                 $('input[name="Potensi"]').prop("checked", false);
             }
+
+        });
+
+        $('#btn_KajianResiko').click(function () {
+            dto = {
+                Model: {
+                    NO_CAPA: $('#input_NoCAPA').val(),
+                    Tindakan: $('#RootCause_KajianResikoDDL').val(),
+                    P_Kegagalan: $('#TxtPotensiKegagalan').val(),
+                    Spek: $('#TxtSpesifikasi').val(),
+                    Dampak: $('#TxtDampak').val(),
+                    Severity: $('#Severity_DDL').val(),
+                    Penyebab: $('#TxtPenyebabPotensial').val(),
+                    M_Penyebab: $('#TxtMPenyebabPotensial').val(),
+                    Likelihood: $('#Likelihood_DDL').val(),
+                    M_PKegagalan_LMD: $('#TxtMPotensi_KLMD').val(),
+                    Detectability: $('#Detectability_DDL').val(),
+                    RPN: $('#TxtRPN').val(),
+                    RiskLevel: $('#TxtRiskLevel').val(),
+                    Target: $('#Target_DDL').val(),
+                    M_PKegagalan: $('#TxtMPotensi_K').val(),
+                    Severity2: $('#Severity2_DDL').val(),
+                    P_MPenyebab: $('#TxtMPenyebab_P').val(),
+                    Likelihood2: $('#Likelihood2_DDL').val(),
+                    P_MDPKegagalan: $('#TxtDPotensi_K').val(),
+                    Detectability2: $('#Detectability2_DDL').val(),
+                    RPN2: $('#TxtRPN2').val(),
+                    RiskLevel2: $('#TxtRiskLevel2').val(),
+                    PIC: $('#TxtPIC').val(),
+                    DueDate: $('#DueDate_Kajian').val(),
+                    Lainnya: $('#TxtLainnya').val()
+                }
+            }
+
+            $.ajax({
+                url: 'AddKajian',
+                type: 'post',
+                dataType: 'json',
+                data: JSON.stringify(dto),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    console.log(data);
+                    if (data != null) {
+                        Swal.fire(
+                            'Success',
+                            'Data berhasil di-input.',
+                            'success'
+                        ).then((result) => {
+                            if (result.value) {
+                                alert("IM HERE");
+                                //close modal
+                                $('#KajianResikoModal').modal('hide');
+                                // fetch to table
+                                TableKajian();
+                            }
+                        })
+                    }
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
 
         });
 

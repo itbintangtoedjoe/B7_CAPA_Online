@@ -1,5 +1,6 @@
 ﻿using B7_CAPA_Online.Models;
 using B7_CAPA_Online.Scripts.DataAccess;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using static B7_CAPA_Online.Models.KoordinatorModel;
 
 namespace B7_CAPA_Online.Controllers
 {
@@ -56,6 +58,13 @@ namespace B7_CAPA_Online.Controllers
             };
             string Result = DAL.GetDataFormPIC(Model,dictionary);
             return Json(Result);
+        }
+
+        public ActionResult GetKajianResiko(DynamicModel Param)
+        {
+            DynamicParameters parameters = new DynamicParameters(Param.Model);
+            string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_FORM_CAPA]");
+            return Json(Return);
         }
         #endregion
 
@@ -184,6 +193,12 @@ namespace B7_CAPA_Online.Controllers
             string Return = DAL.ExecuteFormPIC(Model,dictionary);
             return Json(Return);
         }
+        public ActionResult AddKajian(DynamicModel Param)
+        {
+            DynamicParameters parameters = new DynamicParameters(Param.Model);
+            string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_INSERT_KAJIAN_RESIKO]");
+            return Json(Return);
+        }      
         #endregion
 
 

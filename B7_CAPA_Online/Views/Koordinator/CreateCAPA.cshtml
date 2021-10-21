@@ -536,7 +536,7 @@
                                             <div class="custom-file">
                                                 <input id="TxtFileInput" type="file" name="LampiranTerkait" class="custom-file-input" multiple required>
                                                 @Html.HiddenFor(m => m.LampiranTerkait)
-                                                <label class="custom-file-label">Choose File</label>
+                                                <label class="custom-file-label"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -768,12 +768,23 @@
             } else {
                 Location = 'Pulogadung';
             }
-            dto = {
-                Option: 3,
-                Departemen: $('#AreaPIC_DDL').val(),
-                Lokasi: Location,
-                SP: "[dbo].[SP_SHOW_DDL]"
+
+            if ($('#AreaPIC_DDL').val() != 'Others') {
+                dto = {
+                    Option: 3,
+                    Departemen: $('#AreaPIC_DDL').val(),
+                    Lokasi: Location,
+                    SP: "[dbo].[SP_SHOW_DDL]"
+                }
+            } else {
+                dto = {
+                    Option: 12,
+                    Departemen: $('#AreaPIC_DDL').val(),
+                    Lokasi: Location,
+                    SP: "[dbo].[SP_SHOW_DDL]"
+                }
             }
+           
 
             $.ajax({
                 url: 'GetSupervisors',
@@ -781,7 +792,7 @@
                 data: JSON.stringify(dto),
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                success: function (data) {
+                success: function (data) {         
                     console.log(data);
                     $('#PIC_DDL').empty();
                     $('#PIC_DDL').append(new Option('*Pilih*',''));
@@ -800,8 +811,9 @@
                         });
                     } else {
                         $('#VendorDiv').prop('hidden', false);
+
                         $.each(JSON.parse(data), function (key, entry) {
-                            $('#PIC_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
+                            $('#PIC_DDL').append($('<option></option>').attr('value', entry.UserName).text(entry.UserVDRName));
                         });
                     }
                     if ($('#PIC_DDL').val() == null) {
@@ -1164,7 +1176,7 @@
             success: function (data) {
                 $('#DepartemenPelapor_DDL').empty();
                 $.each(JSON.parse(data), function (key, entry) {
-                    $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.SubDept).text(entry.SubDept));
+                    $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
                 })
             },
             error: function (ex) {
@@ -1327,6 +1339,13 @@
         });
         $("#AreaPIC_DDL").val(data[0].AREA_PIC).trigger("change");
         _callback();
+    }
+
+    function CountFiles() {
+        $('input[type=file]').change(function () {
+            fileCount = this.files.length;
+            $(this).prev().text(fileCount + 'Selected');
+        })
     }
 </script>
 
