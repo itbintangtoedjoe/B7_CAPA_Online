@@ -113,7 +113,7 @@ namespace B7_CAPA_Online.Controllers
         public ActionResult GetPenyimpangan(DALModel Model)
         {
             //Model.JenisPenyimpangan = "";
-            Model.Departemen = "IT";
+            //Model.Departemen = "IT";
             string Result = DAL.GetDataPrint(Model);           
             return Json(Result);
         }
