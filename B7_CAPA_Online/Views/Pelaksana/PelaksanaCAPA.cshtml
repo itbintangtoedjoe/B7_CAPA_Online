@@ -43,7 +43,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group mb-2 col-sm-3">
-                                    <button class="btn btn-dark">View CAPA</button>
+                                    <button class="btn btn-dark" id="btnViewCAPA" >View CAPA</button>
                                 </div>
                             </div>
                         </form>
@@ -84,24 +84,24 @@
                                 <div class="row form-group-sm">
                                     <div class="col-md-6">
                                         <label class="m-t-20">Tindakan Perbaikan<span style="color: red">*</span></label>
-                                        <textarea type="text" class="form-control" placeholder="Deskripsi"></textarea>
+                                        <textarea type="text" class="form-control" placeholder="Deskripsi" id="txtTindakanPerbaikan" disabled></textarea>
                                     </div>
                                     <div class="form-group mb-2 col-sm-3">
                                         <label class="m-t-20">Due Date</label>
-                                        <input type="date" id="date-format" class="form-control form-control-sm">
+                                        <input type="date" id="dueDate" class="form-control form-control-sm">
                                     </div>
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-md-6">
                                         <label class="m-t-40">Pelaksana Tindakan Perbaikan</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" disabled>
                                         </div>
                                     </div>
                                     <div class="col-sm-3" style="text-align: center">
                                         <label class="m-t-40">Superior</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" disabled>
                                         </div>
                                     </div>
                                     <div class="col-sm-3" style="text-align: center">
@@ -374,7 +374,52 @@
 
 
 <script>
+    var noCAPA = getQueryStrings()["NoCAPA"];
+    //function untuk ambil semua query string
+    function getQueryStrings() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
     $(document).ready(function () {
-     
+        $('#TxtDepartemen').val('@Request.RequestContext.HttpContext.Session["Departemen"]');
+        $('#TxtRequestor').val('@Request.RequestContext.HttpContext.Session["SuperiorName"]');
+        $('#TxtNoCAPA').val(noCAPA);
+        var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
+        FindPerbaikan(noCAPA, nik);
+    });
+
+    function FindPerbaikan(nomorCAPA, nik) {
+        var dto = {
+            Kategori: "Perbaikan",
+            NomorCAPA: nomorCAPA,
+            NIK: nik,
+        }
+        $.ajax({
+            url: "FindCAPADetail",
+            type: "POST",
+            async: false,
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                console.log(data);
+                var result = JSON.parse(data);
+                $('#txtTindakanPerbaikan').val(result[0].Tindakan_Perbaikan);
+                
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    $('#btnViewCAPA').click(function () {
+        window.open("/PIC/FormCAPA?CAPA=" + noCAPA);
     });
 </script>

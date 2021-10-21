@@ -78,7 +78,7 @@
                     "columns": [
                         {
                             "data": null,
-                            "defaultContent": "<button class='btn' type='button' name='view'>View CAPA</button>"
+                            "defaultContent": "<button class='btn' type='button' name='view'>View CAPA</button><button class='btn' type='button' name='pelaksanaView'>Pelaksana</button>"
                         },
                         {
                             "className": 'details-control',
@@ -142,17 +142,35 @@
             var row = $(this).closest("tr");
             var columns = row.find("td");
 
-            $.each(columns, function (i, item) {                
-                var data = {};                
+            $.each(columns, function (i, item) {
+                var data = {};
                 (i == 1) ? (data.REG_ID = item.innerHTML) : ("");
                 (i == 2) ? (data.NO_CAPA = item.innerHTML) : ("");
-                if (!jQuery.isEmptyObject(data))                    
-                    taskList.push(data);   
+                if (!jQuery.isEmptyObject(data))
+                    taskList.push(data);
             });
             console.log(taskList);
 
             //window.open("/Koordinator/CreateCAPA?CAPA=" + taskList[1].NO_CAPA + "&REG=" + taskList[0].REG_ID); //RequestPage
             window.open("/PIC/FormCAPA?CAPA=" + taskList[1].NO_CAPA); //FromCAPA
+        });
+
+        $(document).on("click", "#Tbl_TaskList button[name='pelaksanaView'][class='btn']", function () {
+            var taskList = new Array();
+            var row = $(this).closest("tr");
+            var columns = row.find("td");
+
+            $.each(columns, function (i, item) {
+                var data = {};
+                (i == 2) ? (data.REG_ID = item.innerHTML) : ("");
+                (i == 3) ? (data.NO_CAPA = item.innerHTML) : ("");
+                if (!jQuery.isEmptyObject(data))
+                    taskList.push(data);
+            });
+
+            //window.open("/Koordinator/CreateCAPA?CAPA=" + taskList[1].NO_CAPA + "&REG=" + taskList[0].REG_ID); //RequestPage
+            var nik ='@Request.RequestContext.HttpContext.Session["NIK"]';
+            window.open("/Pelaksana/PelaksanaCAPA?NoCAPA=" + taskList[1].NO_CAPA + "&PelaksanaID=" + nik); //FromCAPA
         });
     });
 </script>

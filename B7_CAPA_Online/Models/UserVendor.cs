@@ -37,6 +37,11 @@ namespace B7_CAPA_Online.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public string TipeLogin { get; set; }
-
+    }
+    public class SPFindDataParams
+    {
+        public string Kategori { get; set; }
+        public string NomorCAPA { get; set; }
+        public string NIK { get; set; }
     }
 }

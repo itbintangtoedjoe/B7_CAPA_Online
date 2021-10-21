@@ -25,7 +25,7 @@ namespace B7_CAPA_Online.Controllers
         public static extern bool CloseHandle(IntPtr handle);
 
         private readonly SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["MASTERVENDOR"].ToString());
-        DataAccess DAL = new DataAccess();
+        readonly DataAccess DAL = new DataAccess();
 
         // GET: Login
         public ActionResult Index()
@@ -34,11 +34,15 @@ namespace B7_CAPA_Online.Controllers
             //return Json(decrypted, JsonRequestBehavior.AllowGet);
 
             Session["LoginStatus"] = "invalid";
+            Session["NIK"] = "";
             Session["Username"] = "";
+            Session["Departemen"] = "";
+            Session["Lokasi"] = "";
+            Session["SuperiorName"] = "";
             return View();
         }
 
-        public ActionResult FindKaryawan(string username)
+        public string FindKaryawan(string username)
         {
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
             var dictionary = new Dictionary<string, object>{
@@ -46,7 +50,7 @@ namespace B7_CAPA_Online.Controllers
             };
             var parameters = new DynamicParameters(dictionary);
             var result = DAL.StoredProcedure(parameters, "SP_Find_User");
-            return Json(result);
+            return result;
         }
 
         [HttpPost]
@@ -98,19 +102,20 @@ namespace B7_CAPA_Online.Controllers
                         loginStatus = "success";
 
                         //get data user karyawan
-                        var dataKaryawan = FindKaryawan(username);
-                        //var json = new JavaScriptSerializer().Deserialize(dataKaryawan);
-                        //dataKaryawan = JsonConvert.SerializeObject(dataKaryawan);
-                        //var jss = new JavaScriptSerializer();
-                        //Dictionary<string, string> data = jss.Deserialize<Dictionary<string, string>>(dataKaryawan.Data.ToString());
+                        //var dataKaryawan = FindKaryawan(username);
+                        JavaScriptSerializer jss = new JavaScriptSerializer();
+                        string dataKaryawan = FindKaryawan(username);
+                        var arrayData = JArray.Parse(dataKaryawan);
+                        dynamic objectKary = jss.Deserialize<dynamic>(dataKaryawan);
 
                         if (dataKaryawan != null)
                         {
                             Session["LoginStatus"] = "success";
+                            Session["NIK"] = objectKary[0]["NIK"];
                             Session["Username"] = username;
-
-                            //string departemen = data["Org_Group_Name"].ToString();
-                            //string lokasi = data["Location"].ToString();
+                            Session["Departemen"] = objectKary[0]["Org_Group_Name"];
+                            Session["Lokasi"] = objectKary[0]["Location"];
+                            Session["SuperiorName"] = objectKary[0]["SuperiorName"];
                         }
                         else
                         {

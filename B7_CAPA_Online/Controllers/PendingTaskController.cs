@@ -11,7 +11,7 @@ namespace B7_CAPA_Online.Controllers
     public class PendingTaskController : Controller
     {
         // GET: PendingTask
-        DataAccess DAL = new DataAccess();
+        readonly DataAccess DAL = new DataAccess();
         public ActionResult Index()
         {
             return View();
