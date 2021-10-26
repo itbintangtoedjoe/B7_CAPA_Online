@@ -1,0 +1,225 @@
+﻿<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Analisa Kondisi</h4>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered zero-configuration">
+                <thead>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>WHAT SHOULD BE HAPPENED</th>
+                        <th>WHAT ACTUALLY HAPPENED</th>
+                        <th style="text-align: center">OK/NOK</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <select class="form-control form-control-sm" id="Select_AspectKondisi">
+                                <option>Manusia</option>
+                                <option>Material/Produk</option>
+                                <option>Metode</option>
+                                <option>Mesin</option>
+                                <option>Lingkungan</option>
+                            </select>
+                        </td>
+                        <td><input type="text" class="form-control form-control-sm" style="width:100%;" id="TxtWSBH"></td>
+                        <td><input type="text" class="form-control form-control-sm" style="width:100%;" id="TxtWAH"></td>
+                        <td>
+                            @*<input type="text" class="form-control form-control-sm" style="width:100%;" id="TxtStatus">*@
+                            <div class="radio" style="text-align: center">
+                                <label class="radio-inline mr-3">
+                                    <input type="radio" name="optradio" value="OK"> OK
+                                </label>
+                                <label class="radio-inline mr-3">
+                                    <input type="radio" name="optradio" value="NOT OK"> NOT OK
+                                </label>
+                            </div>
+                        </td>
+                        <th><button class="form-control-sm" id="btn_AddKondisi">Add</button></th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered zero-configuration" id="Tbl_Kondisi">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Aspect</th>
+                        <th>WHAT SHOULD BE HAPPENED</th>
+                        <th>WHAT ACTUALLY HAPPENED</th>
+                        <th style="text-align: center">OK/NOK</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="Tbl_Analisa">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function getTablePV() {
+        //Jquery untuk panggil datasource datatable
+        $('#Aspect_DDL').empty();
+        $('#WAH_DDL').empty();
+        $('#Tbl_Analisa').empty();
+
+        $.ajax({
+            url: '/PIC/GetDataPIC',
+            type: 'post',
+            data: JSON.stringify({
+                Option: 2,
+                NO_CAPA: $('#input_NoCAPA').val(),
+                SP: "[dbo].[SP_FORM_CAPA]"
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var t = $('#Tbl_Kondisi').DataTable({
+                    "pageLength": 10,
+                    "responsive": true,
+                    "lengthChange": true,
+                    "searching": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "bDestroy": true,
+                    "scrollCollapse": true,
+                    "columns": [
+                        { "data": null },
+                        { "data": "WAHType" },
+                        { "data": "WSBHDesc" },
+                        { "data": "WAHDesc" },
+                        { "data": "WAHStatus" },
+                        {
+                            "data": null,
+                            "defaultContent": "<span><a class='delete' href='' onclick='return false;' data-toggle='tooltip' data-placement='top' title='Close'><i class='fa fa-close color-danger'></i></a></span>"
+                        }
+                    ],
+                    "order": [[1, 'asc']],
+                    "columnDefs": [
+                        {
+                            "targets": 5,
+                            "className": "text-center",
+                            "visible": (!isHide) ? (true) : (false)
+                              
+                        }
+                    ]
+                });
+                //Indexing Number of Rows
+                t.on('order.dt search.dt', function () {
+                    t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+                }).draw();
+
+                populatePotentialRootCauseDDL(JSON.parse(data)); // Fill Potential Root Cause Options Dropdownlist
+
+
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }    
+    var isHide = false;
+    function retrieveDataPV() {
+        $.ajax({
+            url: '/PIC/GetDataPIC',
+            type: 'post',
+            data: JSON.stringify({
+                Option: 6,
+                NO_CAPA: $('#input_NoCAPA').val(),
+                SP: "[dbo].[SP_FORM_CAPA]"
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (rootcause) {
+                $('#RootCause_DDL').empty();
+                $.each(JSON.parse(rootcause), function (key, value) {
+                    $('#RootCause_DDL').append(new Option(value.WhyDesc, value.WhyDesc));
+                });
+
+
+                $('#btn_AddPerbaikan').click(function () {
+                    var obj = JSON.parse(rootcause);
+                    $.each(obj, function (key, value) {
+                        if (value.WhyDesc == $('#RootCause_DDL').val()) {
+                            return dto = {
+                                Option: 7,
+                                NO_CAPA: $('#input_NoCAPA').val(),
+                                Aspect: value.Aspect,
+                                WhyID: value.WhyID,
+                                WhyParentID: value.ParentID,
+                                RootCause: value.WhyDesc,
+                                Tindakan: $('#TxtDeskripsiPerbaikan').val(),
+                                Pelaksana: $('#TxtPelaksanaPerbaikan').val(),
+                                LineNumber: value.LineNumber,
+                                DueDate: $('#duedate_perbaikan').val(),
+                                NamaPersonil: $('#TxtNamaPersonil').val(),
+                                Email: $('#TxtEmailPelaksana').val(),
+                                Is_AreaLain: $('input[name="Potensi"]:checked').val(),
+                                SP: "[dbo].[SP_FORM_CAPA]"
+                            }
+                        }
+                    });
+                    addTindakan(dto);
+                });
+
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+    function retrieveData2PV() {
+        $.ajax({
+            url: '/PIC/GetDataPIC',
+            type: 'post',
+            data: JSON.stringify({
+                Option: 8,
+                NO_CAPA: $('#input_NoCAPA').val(),
+                SP: "[dbo].[SP_FORM_CAPA]"
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (area_lain) {
+                $('#AreaLain_DDL').empty();
+                $.each(JSON.parse(area_lain), function (key, value) {
+                    $('#AreaLain_DDL').append(new Option(value.WhyDesc, value.WhyDesc));
+                });
+
+                $('#btn_AddPencegahan').click(function () {
+                    var obj = JSON.parse(area_lain);
+                    $.each(obj, function (key, value) {
+                        if (value.WhyDesc == $('#AreaLain_DDL').val()) {
+                            return dto = {
+                                Option: 9,
+                                NO_CAPA: $('#input_NoCAPA').val(),
+                                Aspect: value.WAHType_FK,
+                                WhyID: value.WhyID,
+                                WhyParentID: value.WhyParentID,
+                                RootCause: value.WhyDesc,
+                                Tindakan: $('#TxtDeskripsiPencegahan').val(),
+                                Pelaksana: $('#TxtPelaksanaPencegahan').val(),
+                                LineNumber: value.LineNumber,
+                                DueDate: $('#duedate_pencegahan').val(),
+                                NamaPersonil: $('#TxtNamaPersonilPencegahan').val(),
+                                Email: $('#TxtEmailPencegahan').val(),
+                                SP: "[dbo].[SP_FORM_CAPA]"
+                            }
+                        }
+                    });
+                    addTindakan(dto);
+                });
+
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }   
+</script>

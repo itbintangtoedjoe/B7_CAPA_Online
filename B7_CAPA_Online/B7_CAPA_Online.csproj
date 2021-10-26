@@ -5421,6 +5421,12 @@
     <Content Include="Views\UserVendor\CreateUserVendor.cshtml" />
     <Content Include="Views\UserVendor\ActivateUserAccount.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Shared\AnalisaKondisiPV.cshtml" />
+    <Content Include="Views\Shared\PotentialRootCausePV.cshtml" />
+    <Content Include="Views\Shared\TindakanPerbaikanPV.cshtml" />
+    <Content Include="Views\Shared\TindakanPencegahanPV.cshtml" />
+    <Content Include="Views\Shared\KajianResikoPV.cshtml" />
+    <Content Include="Views\Shared\ApprovalPV.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

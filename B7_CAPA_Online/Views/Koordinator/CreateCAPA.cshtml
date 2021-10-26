@@ -252,7 +252,7 @@
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">Requestor</label>
-                                    <input class="form-control form-control-sm" type="text" id="input_Requestor" readonly>
+                                    <input class="form-control form-control-sm" type="text" id="input_Requestor" value="@Request.RequestContext.HttpContext.Session["FullName"]" readonly>
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-20">Nomor CAPA</label>
@@ -261,7 +261,7 @@
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">Departemen</label>
-                                    <input class="form-control form-control-sm" type="text" id="input_Departemen" readonly>
+                                    <input class="form-control form-control-sm" type="text" name="Create_By" id="input_Departemen" value="@Request.RequestContext.HttpContext.Session["Departemen"]" readonly>
                                 </div>
                             </div>
                         </form>
@@ -534,9 +534,9 @@
                                         <label class="m-t-20">Lampiran Terkait</label>
                                         <div class="input-group mb-3">
                                             <div class="custom-file">
-                                                <input id="TxtFileInput" type="file" name="LampiranTerkait" class="custom-file-input" multiple required>
+                                                <input id="TxtFileInput" type="file" name="LampiranTerkait" class="custom-file-input" multiple required">
                                                 @Html.HiddenFor(m => m.LampiranTerkait)
-                                                <label class="custom-file-label"></label>
+                                                <label id="TxtLampiranCount" class="custom-file-label"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -618,16 +618,21 @@
                                             @Html.HiddenFor(m => m.PenyimpanganCollection, new { id = "PenyimpanganNumber", value = "" })
                                         </div>
                                     </div>
+
                                     <div class="col-md-4" id="VendorDiv" hidden>
-                                        <label class="m-t-40">Data Vendor</label>
-                                        <div class="input-group mb-3 ">
-                                            <div class="input-group-prepend">
-                                                <button class="btn btn-outline-dark btn-sm" type="button" data-toggle="modal" data-target="#link_Vendor">Browse</button>
-                                            </div>
-                                            <input type="text" class="form-control" id="TxtVendor" name="TxtVendor">
-                                            <input type="text" class="form-control" name="Vendor" id="Vendor" value="" hidden>
+                                        <label class="m-t-40">Email</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="TxtEmailVendor" name="Email" readonly>
+                                            @Html.HiddenFor(m => m.Email)
+                                            @Html.HiddenFor(m => m.Create_By)
                                         </div>
-                                    </div>
+                                        <label class="m-t-40">PIC</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="TxtPICVendor" name="TxtPICVendor" readonly>
+                                            <input type="text" class="form-control" id="TxtVendorName" name="VDRName" readonly>
+                                            @Html.HiddenFor(m => m.VDRName)
+                                        </div>
+                                    </div>  
                                 </div>
 
                                 @*<div class="row form-group-sm">
@@ -797,6 +802,9 @@
                     $('#PIC_DDL').empty();
                     $('#PIC_DDL').append(new Option('*Pilih*',''));
                     if ($('#AreaPIC_DDL').val() != 'Others') {
+                        $('#VendorDiv').prop('hidden', false);
+                        clearInputEmail();
+                        
                         $.each(JSON.parse(data), function (key, entry) {
                             $('#PIC_DDL').append(new Option(entry.EmpName, entry.EmpName));
                         });
@@ -805,15 +813,30 @@
                             var PIC_Name = $('#PIC_DDL').val();
                             $.each(JSON.parse(data), function (key, entry) {
                                 if (PIC_Name == entry.EmpName) {
-                                    return $('#PIC_ID').val(entry.EmpId);
+                                    $('#TxtEmailVendor').val(entry.Email);
+                                    $('#TxtPICVendor').val(entry.EmpName); 
+                                    $('#PIC_ID').val(entry.EmpId);
+                                    return false;
                                 }                                    
                             });
                         });
                     } else {
                         $('#VendorDiv').prop('hidden', false);
+                        clearInputEmail();
 
                         $.each(JSON.parse(data), function (key, entry) {
                             $('#PIC_DDL').append($('<option></option>').attr('value', entry.UserName).text(entry.UserVDRName));
+                        });
+
+                        $('#PIC_DDL').change(function () {
+                            var PIC_Name = $('#PIC_DDL').val();
+                            $.each(JSON.parse(data), function (key, entry) {                                    
+                                if (PIC_Name == entry.UserName) {           
+                                    $('#TxtEmailVendor').val(entry.email);
+                                    $('#TxtPICVendor').val(entry.UserVDRName);  
+                                    return false;
+                                }
+                            });
                         });
                     }
                     if ($('#PIC_DDL').val() == null) {
@@ -1033,8 +1056,6 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    //console.log(data[0]);
-                    console.log(data);
 
                     var kategori = $("#Kategori_DDL option:contains(" + data[0].KATEGORI_CAPA + ")").val();
                     var lokasi = $("#Lokasi_DDL option:contains(" + data[0].LOKASI_CAPA + ")").val();
@@ -1070,8 +1091,7 @@
                             { "data": "Departemen" }
                         ]
                         //"order": [[1, 'asc']]
-                    });
-                    console.log(JSON.parse(data[0].DEPTLIST));
+                    });            
 
                     //var Counter = 0;
                     //var Trav = 0;
@@ -1093,6 +1113,12 @@
                 }
             });
         }
+
+        $('#TxtFileInput').change(function () {
+            fileCount = this.files.length;
+            var teks = (fileCount != 0) ? (fileCount + " Lampiran telah dipilih.") : ("");
+            $('#TxtLampiranCount').text(teks);            
+        })
     });
 
     function validateInput() {
@@ -1314,7 +1340,7 @@
             data.Departemen = row.find("td").eq(0).html();
             DeptList.push(data);
             $("#myObj").val(JSON.stringify(DeptList));
-        });
+        });        
     }
 
     function TahunDDL() {
@@ -1339,13 +1365,12 @@
         });
         $("#AreaPIC_DDL").val(data[0].AREA_PIC).trigger("change");
         _callback();
-    }
+    }      
 
-    function CountFiles() {
-        $('input[type=file]').change(function () {
-            fileCount = this.files.length;
-            $(this).prev().text(fileCount + 'Selected');
-        })
+    function clearInputEmail() {
+        $('#TxtEmailVendor').val("");
+        $('#TxtPICVendor').val("");
+        $('#PIC_ID').val("");
     }
 </script>
 

@@ -18,6 +18,11 @@ namespace B7_CAPA_Online.Models
         public string JenisPenyimpangan { get; set; }
         public string Kategori { get; set; }
         public string SP { get; set; }
+        //22/10/2021
+        public string Create_By { get; set; }
+        public string Email { get; set; }
+        //25/10/2021
+        public string VDRName { get; set; }
     }
 
     public partial class DALModel

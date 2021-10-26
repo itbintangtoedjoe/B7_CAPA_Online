@@ -198,7 +198,14 @@ namespace B7_CAPA_Online.Controllers
             DynamicParameters parameters = new DynamicParameters(Param.Model);
             string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_INSERT_KAJIAN_RESIKO]");
             return Json(Return);
-        }      
+        }
+        public ActionResult SubmitAtasanPIC(DynamicModel Param)
+        {
+            DynamicParameters parameters = new DynamicParameters(Param.Model);
+            string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_FORM_CAPA]");
+            return Json(Return);
+        }
+
         #endregion
 
 

@@ -30,20 +30,16 @@
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">Atasan PIC</label>
-                                    <input class="form-control form-control-sm" type="text" id="TxtRequestor" readonly>
+                                    <input class="form-control form-control-sm" type="text" id="TxtRequestor" value="@Request.RequestContext.HttpContext.Session["FullName"]" readonly>
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
-                                    <label class="m-t-20">Nomor CAPA</label>
-                                    <input class="form-control form-control-sm" type="text" id="TxtNoCAPA" readonly>
+                                    <label class="m-t-20">Nomor CAPA</label>                                    
+                                    <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["CAPA"]" readonly />
+                                    <input class="form-control form-control-sm" type="text" id="input_REG_ID" value="@Request.QueryString["REG"]" hidden />
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">Departemen</label>
-                                    <input class="form-control form-control-sm" type="text" id="TxtDepartemen" readonly>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group mb-2 col-sm-3">
-                                    <button class="btn btn-dark">Request Page</button>
+                                    <input class="form-control form-control-sm" type="text" id="TxtDepartemen" value="@Request.RequestContext.HttpContext.Session["Departemen"]" readonly>
                                 </div>
                             </div>
                         </form>
@@ -52,352 +48,20 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Approval</h4>
-                        <div class="row">
-                            <div class="form-group mb-2 col-sm-3">
-                                <label class="m-t-20">Status</label>
-                                <select class="form-control" id="Select_Status">
-                                    <option value="Approve">Approve</option>
-                                    <option value="Reject">Reject</option>
-                                    <option value="Cancelled">Cancelled</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row form-group-sm">
-                            <div class="col-md-6">
-                                <label class="m-t-20">Alasan Reject</label>
-                                <textarea type="text" class="form-control" placeholder="Alasan Reject"></textarea>
-                            </div>
-                        </div>
-                        <div class="row form-group-sm mt-4">
-                            <div class="col-md-6">
-                                <button class="btn mb-1 btn-primary">Submit</button>
-                            </div>
-                        </div>
+                        <h4 class="card-title">Request Page</h4>
+                        <button class="btn btn-dark form-control col-sm-2">Request</button>
                     </div>
                 </div>
-
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Analisa Kondisi</h4>
-                        <div class="table-responsive">
-                            <table class="table table-bordered zero-configuration">
-                                <thead>
-                                    <tr>
-                                        <th>Aspect</th>
-                                        <th>WHAT SHOULD BE HAPPENED</th>
-                                        <th>WHAT ACTUALLY HAPPENED</th>
-                                        <th>OK/NOK</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Manusia</td>
-                                        <td>Example</td>
-                                        <td>Example</td>
-                                        <td>OK</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mesin</td>
-                                        <td>Example</td>
-                                        <td>Example</td>
-                                        <td>NOK</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" id="Div_PRCA">
-                    <div class="card-body">
-                        <h4 class="card-title">Potential Root Cause Analysis</h4>
-                        <div class="table-responsive">
-                            <table class="table table-bordered zero-configuration">
-                                <thead>
-                                    <tr>
-                                        <th>Aspect</th>
-                                        <th>WHAT ACTUALLY HAPPENED</th>
-                                        <th>WHY</th>
-                                        <th>Index</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="Tbl_PRCA">
-                                    <tr>
-                                        <td>Manusia</td>
-                                        <td>Example</td>
-                                        <td>WhyExample</td>
-                                        <td>2</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mesin</td>
-                                        <td>Example</td>
-                                        <td>WhyExample</td>
-                                        <td>1</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!--<div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Potential Root Cause Analysis</h4>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered zero-configuration">
-                            <thead>
-                                <tr>
-                                    <th>Aspect</th>
-                                    <th>WHAT ACTUALLY HAPPENED</th>
-                                    <th>WHY</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="Tbl_PRCA">
-                                <tr>-->
-                @*<td>Manusia</td>
-                    <td><input type="text" class="form-control form-control-sm" style="width:100%;" readonly></td>
-                    <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                    <th><button class="form-control-sm">Add</button></th>*@
-                <!--</tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>-->
-
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Penentuan Tindakan Perbaikan</h4>
-                        <div class="table-responsive">
-                            <form>
-                                <div class="row form-group-sm">
-                                    <div class="col-md-6">
-                                        <label class="m-t-20">Root Cause</label>
-                                        <textarea type="text" class="form-control" placeholder="create otomatis Why terakhir dari halaman PIC CAPA Page 1"></textarea>
-                                    </div>
-                                </div>
-                                <div class="row form-group-sm">
-                                    <div class="col-md-6">
-                                        <label class="m-t-20">Tindakan Perbaikan<span style="color: red">*</span></label>
-                                        <textarea type="text" class="form-control" placeholder="Deskripsi"></textarea>
-                                    </div>
-                                    <div class="form-group mb-2 col-sm-3">
-                                        <label class="m-t-20">Due Date</label>
-                                        <input type="date" id="date-format" class="form-control form-control-sm">
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col-md-6">
-                                        <label class="m-t-40">Pelaksana Tindakan Perbaikan</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4" style="text-align: center">
-                                        <label class="m-t-40" style="visibility:hidden">_</label>
-                                        <div class="input-group mb-3">
-                                            <button type="button" class="btn mb-1 btn-primary ">Add</button>
-                                            <button type="button" class="btn mb-1 btn-primary ">Browse</button>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="m-t-40">Nama Personil</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="m-t-40">Alamat Email</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <label class="m-t-40">Apakah ada proses / area lain yang berpotensi sama ?</label>
-                                        <div class="radio input-group">
-                                            <div class="col-sm-3">
-                                                <label><input type="radio" name="Potensi" value="true">Ya</label>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <label><input type="radio" name="Potensi" value="false">Tidak</label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" id="Div_Pencegahan" hidden>
-                    <div class="card-body">
-                        <h4 class="card-title">Penentuan Tindakan Pencegahan</h4>
-                        <div class="table-responsive">
-                            <form>
-                                <div class="row form-group-sm">
-                                    <div class="col-md-6">
-                                        <label class="m-t-20">Root Cause</label>
-                                        <textarea type="text" class="form-control" placeholder="create otomatis Why terakhir dari halaman PIC CAPA Page 1"></textarea>
-                                    </div>
-                                </div>
-                                <div class="row form-group-sm">
-                                    <div class="col-md-6">
-                                        <label class="m-t-20">Tindakan Perbaikan<span style="color: red">*</span></label>
-                                        <textarea type="text" class="form-control" placeholder="Deskripsi"></textarea>
-                                    </div>
-                                    <div class="form-group mb-2 col-sm-3">
-                                        <label class="m-t-20">Due Date</label>
-                                        <input type="date" id="date-format" class="form-control form-control-sm">
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col-md-6">
-                                        <label class="m-t-40">Pelaksana Tindakan Perbaikan</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4" style="text-align: center">
-                                        <label class="m-t-40" style="visibility:hidden">_</label>
-                                        <div class="input-group mb-3">
-                                            <button type="button" class="btn mb-1 btn-primary ">Add</button>
-                                            <button type="button" class="btn mb-1 btn-primary ">Browse</button>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="m-t-40">Nama Personil</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="m-t-40">Alamat Email</label>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Kajian Resiko</h4>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered zero-configuration" id="Tbl_KajianResiko">
-                                <thead>
-                                    <tr>
-                                        <th>Potensi Kegagalan / Penyimpangan yang mungkin terjadi ketika tindakan perbaikan/pencegahan diterapkan</th>
-                                        <th>Spesifikasi / Syarat</th>
-                                        <th>Dampak</th>
-                                        <th>Severity (S)</th>
-                                        <th>Penyebab Potensial</th>
-                                        <th>Mengatasi Penyebab Potensial</th>
-                                        <th>Likelihood (L)</th>
-                                        <th>Mencegah Potensi Kegagalan Lolos Menimbulkan Dampak</th>
-                                        <th>Detectability (D) </th>
-                                        <th>RPN (SxLxD)</th>
-                                        <th style="background-color: limegreen">Risk Level</th>
-                                        <th>TARGET</th>
-                                        <th>Menghilangkan Potensi Kegagalan/ Penyimpangan</th>
-                                        <th>Severity (S)</th>
-                                        <th>PERBAIKAN untuk mengatasi Penyebab Potensial</th>
-                                        <th>Likelihood (L)</th>
-                                        <th>PERBAIKAN untuk meningkatkan deteksi potensi kegagalan</th>
-                                        <th>Detectability (D)</th>
-                                        <th>RPN (SxLxD)</th>
-                                        <th style="background-color: limegreen">Risk Level</th>
-                                        <th>PIC</th>
-                                        <th>Due Date</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="Tbl_PRCA">
-                                    <tr>
-                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                        <td>
-                                            <select id="SaverityDDL" class="form-control">
-                                                <option value="1">1</option>
-                                                <option value="4">4</option>
-                                                <option value="7">7</option>
-                                                <option value="10">10</option>
-                                            </select>
-                                        </td>
-                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                        <td>
-                                            <select id="LikelihoodDDL" class="form-control">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="4">4</option>
-                                                <option value="8">8</option>
-                                            </select>
-                                        </td>
-                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                        <td>
-                                            <select id="DetectabilityDDL" class="form-control">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                            </select>
-                                        </td>
-                                        <td>SxLxD</td>
-                                        <td>Level Risk Color</td>
-                                        <td>
-                                            <select id="DetectabilityDDL" class="form-control">
-                                                <option value="Low">Low</option>
-                                                <option value="Medium">Medium</option>
-                                            </select>
-                                        </td>
-                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                        <td>
-                                            <select id="LikelihoodDDL" class="form-control">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="4">4</option>
-                                                <option value="8">8</option>
-                                            </select>
-                                        </td>
-                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                        <td>
-                                            <select id="DetectabilityDDL" class="form-control">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                            </select>
-                                        </td>
-                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                        <td>
-                                            <select id="DetectabilityDDL" class="form-control">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                            </select>
-                                        </td>
-                                        <td>SxLxD</td>
-                                        <td>Level Risk Color</td>
-                                        <td>PIC</td>
-                                        <td>Due Date</td>
-                                        <td><button class="form-control-sm">Add</button></td>
-
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                </div>
+                
+                @if (!string.IsNullOrEmpty(Request.QueryString["CAPA"]))
+                {
+                    @Html.Partial("ApprovalPV")
+                    @Html.Partial("AnalisaKondisiPV")
+                    @Html.Partial("PotentialRootCausePV")
+                    @Html.Partial("TindakanPerbaikanPV")
+                    @Html.Partial("TindakanPencegahanPV")
+                    @Html.Partial("KajianResikoPV")
+                }
             </div>
         </div>
         <!-- #/ container -->
@@ -406,30 +70,46 @@
 
 
 <script>
-    $(document).ready(function () {
-        var count = 0;
-        $("input[name='Potensi']").click(function () {
-            $("#Div_Pencegahan").prop('hidden', true);
-            if ($("input[name='Potensi']:checked").val() == 'true') {
-                count--;
-                $("#Div_Pencegahan").prop('hidden', false);
-                if (count == 0) {
-                    count--;
-                }
+    function HideDeleteButton() {
+        // variable isHide berada di partial view
+        return isHide = true;
+    }    
+
+    $(document).ready(function () {     
+        //*PV = Partial View
+        TableKajianPV(); // Isi Table kajian resiko
+        KajianResikoDDLPV(); // Dropdown Kajian Resiko
+        getTablePV(); // Isi Table Analisa Kondisi
+        retrieveDataPV(); // Isi Dropdown Rootcause tindakan perbaikan serta function Add
+        retrieveData2PV();// Isi Dropdown AreaLain tindakan pencegahan serta function Add
+        $("#btn_Submit").click(function () {
+            SubmitApprovalPV(); //Submit Approval Atasan PIC
+        });
+         
+
+        //Hidden Delete Action Buttons Table Analisa Kondisi serta Table Kajian Resiko        
+        HideDeleteButton(); // diberi comment jika ingin unhide tombol delete-nya
+
+        //Radio button on/off
+        var countYes = 0;
+        var countNo = 0;
+        $('input[name="Potensi"]').click(function () {
+            if ($('input[name="Potensi"]:checked').val() == 'Yes') {
+                countNo = 0;
+                countYes++;
+            } else {
+                countYes = 0;
+                countNo++;
             }
-            else {
-                count++;
-                if (count == 0) {
-                    count++;
-                }
-            }
-            if (count < -1 || count > 1) {
-                count = 0;
-                $("#Div_Pencegahan").prop('hidden', true);
-                return $("input[name='Potensi']").prop("checked", false);
+            if (countYes == 2 || countNo == 2) {
+                countYes = 0;
+                countNo = 0;
+                $('input[name="Potensi"]').prop("checked", false);
             }
 
         });
+
+
 
     });
 </script>
