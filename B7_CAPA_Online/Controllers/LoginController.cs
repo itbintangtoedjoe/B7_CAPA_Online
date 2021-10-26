@@ -36,6 +36,7 @@ namespace B7_CAPA_Online.Controllers
             Session["LoginStatus"] = "invalid";
             Session["NIK"] = "";
             Session["Username"] = "";
+            Session["NamaUser"] = "";
             Session["Departemen"] = "";
             Session["Lokasi"] = "";
             Session["SuperiorName"] = "";
@@ -113,6 +114,7 @@ namespace B7_CAPA_Online.Controllers
                             Session["LoginStatus"] = "success";
                             Session["NIK"] = objectKary[0]["NIK"];
                             Session["Username"] = username;
+                            Session["NamaUser"] = objectKary[0]["Username"];
                             Session["Departemen"] = objectKary[0]["Org_Group_Name"];
                             Session["Lokasi"] = objectKary[0]["Location"];
                             Session["SuperiorName"] = objectKary[0]["SuperiorName"];
