@@ -32,6 +32,9 @@ namespace B7_CAPA_Online.Models
         public int WhyID { get; set; }
         public int WhyParentID { get; set; }
         public string RootCause { get; set; }
+        public string Create_By { get; set; }
+        //28/10/2021
+        public int RecordID { get; set; }
 
     }
     partial class ListKondisi

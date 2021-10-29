@@ -22,7 +22,8 @@ namespace B7_CAPA_Online.Models
         public string Create_By { get; set; }
         public string Email { get; set; }
         //25/10/2021
-        public string VDRName { get; set; }
+        public string VDRUsername { get; set; }
+
     }
 
     public partial class DALModel
