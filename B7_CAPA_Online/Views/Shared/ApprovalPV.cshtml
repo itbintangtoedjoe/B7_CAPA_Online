@@ -11,7 +11,7 @@
                 </select>
             </div>
         </div>
-        <div class="row form-group-sm">
+        <div class="row form-group-sm" id="Div_AlasanReject" hidden>
             <div class="col-md-6">
                 <label class="m-t-20">Alasan Reject</label>
                 <textarea type="text" class="form-control" id="TxtAlasanReject" placeholder="Alasan Reject"></textarea>
@@ -26,6 +26,26 @@
 </div>
 
 <script>
+    //Alasan Reject Textarea Hide/Unhide
+    $('#Status_DDL').change(function () {
+        var statusVal = $('#Status_DDL').val();
+        if (statusVal == "Approve")
+            $('#Div_AlasanReject').prop('hidden', true);
+        else
+            $('#Div_AlasanReject').prop('hidden', false);
+    });
+
+    //Get status : Accept, Reject or Cancelled.
+    function GetStatus() {
+        var status = $('#Status_DDL').val();
+        if (status == "Approve")
+            return "Approve";
+        else if (status == "Reject")
+            return "Reject";
+        else
+            return "Cancelled";
+    }
+
     //Submit Approval
     function SubmitApprovalPV() {
         $.ajax({
@@ -35,11 +55,10 @@
             data: JSON.stringify({
                 Model: {
                     NO_CAPA: $('#input_NoCAPA').val(),
-                    REG_ID: $('#input_REG_ID').val(),
-                    EmpName: $('#TxtRequestor').val(),                   
-                    Status_DDL: ($('#Status_DDL').val() == "Accept") ? (3) : (2),
+                    Create_By: $('#TxtRequestor').val(),
+                    Status: GetStatus(),
                     Reject_Reason: $('#TxtAlasanReject').val(),
-                    Option: 1 
+                    Option: 1
                 }
             }),
             contentType: 'application/json; charset=utf-8',
@@ -60,7 +79,6 @@
                     'Input tidak boleh kosong.',
                     'warning'
                 )
-                
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
