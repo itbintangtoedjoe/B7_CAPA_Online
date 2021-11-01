@@ -91,12 +91,24 @@
                         <div class="form-group col-md-2">
                             <div class="input-group">
                                 <select class="form-control select2" id="EvalList_DDL" required disabled>
-                                    <option value=""></option>
+                                    <option value="">--Please Select--</option>
                                     <option value=""></option>
                                 </select>
                             </div>
                         </div>
                     </div>
+                    <label for="TxtKategoriCCC" class="col-form-label">Evaluator Utama:</label>
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <div class="input-group">
+                                <select class="form-control select2" id="IsUtama" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0" selected>No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
                     <button type="button" class="btn btn-primary" id="Add_Eval" style="margin-right:45px;">Add Evaluator</button>
 
                 </div>
@@ -110,6 +122,7 @@
                                 <th>EmpName</th>
                                 <th>Plant</th>
                                 <th>Role</th>
+                                <th>Evaluator Utama</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -137,6 +150,7 @@
 
 
     <input type="text" class="btn btn-primary" id="QS_NoCAPA" value="@ViewBag.NoCAPA" hidden />
+    <input type="text" class="btn btn-primary" id="QS_Status" value="@ViewBag.status" hidden />
 
 </div>
 
@@ -147,6 +161,9 @@
         GetDepartemen();
         GetPlant();
         GetEvalTableList();
+        if ($('#QS_Status').val != 4) {
+            disableAll();
+        }
         $('#Eva_Plant_DDL').change(function () {
             if ($('#Eva_Departemen_DDL').val() == undefined || $('#Eva_Departemen_DDL').val().trim() == "") {
                 $('#EvalList_DDL').removeAttr("disabled");
@@ -157,7 +174,7 @@
             }
         });
         $('#Eva_Departemen_DDL').change(function () {
-            if (($('#Eva_Plant_DDL').val() != undefined || $('#Eva_Plant_DDL').val().trim() == "") && ($('#Eva_Departemen_DDL').val() != undefined || $('#Eva_Departemen_DDL').val().trim() == "")) {
+            if ($('#Eva_Plant_DDL').val() != undefined || $('#Eva_Plant_DDL').val().trim() == "") {
                 $('#EvalList_DDL').removeAttr("disabled");
                 GetEvaList();
             }
@@ -169,14 +186,18 @@
 
             AddEvaluator();
         });
+       
+        $('#btn_Submit_Evaluator').click(function () {
 
+            SubmitEvaluator();
+        });
         $('#btn_Reject').click(function () {
 
             Reject();
         });
         $('#btn_Request_Page').click(function () {
 
-            window.open('../Koordinator/CreateCAPA?CAPA=CPA/SIA/HOF/MK/0921/009&REG=CPA/0921/009')
+            window.open('../Koordinator/CreateCAPA?CAPA=' + $('#QS_NoCAPA').val()+'')
         });
         $('#btn_Add_Evaluator').click(function () {
             if ($('#btn_Add_Evaluator').val() == "Cancel") {
@@ -191,10 +212,20 @@
             }
         });
     });
-
+    function disableAll() {
+        GetDisabledEvalTableList();
+        $('#btn_Submit_Evaluator').attr('disabled', true);
+        $('#Add_Eval').attr('disabled', true);
+        $('#IsUtama').attr('disabled', true);
+        $('#btn_Reject').attr('disabled', true);
+        $('#Eva_Departemen_DDL').attr('disabled', true);
+        $('#EvalList_DDL').attr('disabled', true);
+        $('#Eva_Plant_DDL').attr('disabled', true);
+        $('#Trigger_CAPA').attr('disabled', true);
+    } 
     function GetEvaluator() {
         $.ajax({
-            url: "GetEvaluator?departemen=QC&Option=1&Lokasi=PLG",
+            url: "GetEvaluator?departemen=" + $('#Eva_Departemen_DDL').val() + "&Option=1&Lokasi=" + $('#Eva_Plant_DDL').val()+"",
             type: "post",
             dataType: "json",
             contentType: "application/json;charset=utf-8",
@@ -279,7 +310,7 @@
 
     function GetEvaList() {
         var dictlist = {
-            NoCAPA: "CPA/SIA/HOF/MK/0921/009",
+            NoCAPA: $('#QS_NoCAPA').val(),
             Option: 4,
             Lokasi: $('#Eva_Plant_DDL').val(),
             Departemen: $('#Eva_Departemen_DDL').val()
@@ -323,11 +354,12 @@
         else {
 
             var dictlist = {
-                NoCAPA: "CPA/SIA/HOF/MK/0921/009",
+                NoCAPA: $('#QS_NoCAPA').val(),
                 EmpID: $("#EvalList_DDL").val(),
                 Creator: "",
                 Plant: $('#Eva_Plant_DDL').val(),
-                Role: $('#Eva_Departemen_DDL').val()
+                Role: $('#Eva_Departemen_DDL').val(),
+                IsUtama: $('#IsUtama').val(),
             }
             var dto1 = {
                 Model: dictlist
@@ -339,8 +371,14 @@
                 data: JSON.stringify(dto1),
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
-                    GetEvalTableList();
-                    Swal.fire("Success!", "Add Berhasil", "success");
+                    var result = JSON.parse(data);
+                    if (result[0].Stat == "Valid") {
+                        Swal.fire("Success!", "Add Berhasil", "success");
+                        GetEvalTableList();
+                    }
+                    else {
+                        Swal.fire("Error!", "Evaluator Utama sudah Ada", "error");
+                    }
                 },
                 error: function (errormessage) {
                     $('#divLoading').attr("hidden", true);
@@ -350,7 +388,7 @@
     }
     function GetEvalTableList() {
         var dictlist = {
-            NoCAPA: "CPA/SIA/HOF/MK/0921/009",
+            NoCAPA: $('#QS_NoCAPA').val(),
             Option: 5
         }
         var dto1 = {
@@ -376,9 +414,10 @@
                         { "data": "EmpName" },
                         { "data": "PlantFK" },
                         { "data": "Evaluator_RoleFK" },
+                        { "data": "IsUtama" },
                         {
                             "data": null,
-                            "defaultContent": "<input type='button'  class='btn btn-primary' onclick=Delete(this) value='Delete'style='background-color:red;'/>"
+                            "defaultContent": "<input type='button' id='DeleteEval' class='btn btn-primary' onclick=Delete(this) value='Delete'style='background-color:red;'/>"
                         },
                     ],
                     "order": [[1, 'asc']],
@@ -389,6 +428,95 @@
                 $('#divLoading').attr("hidden", true);
             }
         });
+    }
+    function GetDisabledEvalTableList() {
+        var dictlist = {
+            NoCAPA: $('#QS_NoCAPA').val(),
+            Option: 5
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_SHOW_EVALUATOR_DDL",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto1),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var table = $('#Tbl_Eval').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": true,
+                    "searching": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "scrollCollapse": true,
+                    "destroy": true,
+                    "columns": [
+                        { "data": "EMPID" },
+                        { "data": "EmpName" },
+                        { "data": "PlantFK" },
+                        { "data": "Evaluator_RoleFK" },
+                        { "data": "IsUtama" },
+                        {
+                            "data": null,
+                            "defaultContent": "<input type='button' id='DeleteEval' class='btn btn-primary' onclick=Delete(this) value='Delete'style='background-color:red;' disabled/>"
+                        },
+                    ],
+                    "order": [[1, 'asc']],
+
+                });
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+    }
+    function SubmitEvaluator() {
+        var dictlist = {
+            NoCAPA: $('#QS_NoCAPA').val(),
+            Option: 8,
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        var row = $('#Tbl_Eval').DataTable();
+        if (row.data().count() == 0) {
+            Swal.fire("Error!", "Silahkan pilih Evaluator terlebih dahulu!", "error");
+        }
+        else
+        {
+            $.ajax({
+                url: "DynamicController?spname=SP_SHOW_EVALUATOR_DDL",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto1),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var result = JSON.parse(data);
+                    if (result[0].Stat == "Invalid") {
+                        Swal.fire("Error!", "Silahkan pilih Evaluator Utama terlebih dahulu!", "error");
+                    }
+                    else {
+                        Swal.fire("Success!", "Submit Berhasil", "success");
+                        GetDisabledEvalTableList();
+                        $('#btn_Submit_Evaluator').attr('disabled', true);
+                        $('#Add_Eval').attr('disabled', true);
+                        $('#IsUtama').attr('disabled', true);
+                        $('#btn_Reject').attr('disabled', true);
+                        $('#Eva_Departemen_DDL').attr('disabled', true);
+                        $('#EvalList_DDL').attr('disabled', true);
+                        $('#Eva_Plant_DDL').attr('disabled', true);
+                        $('#Trigger_CAPA').attr('disabled', true);
+
+                    }
+                },
+                error: function (errormessage) {
+                    $('#divLoading').attr("hidden", true);
+                }
+            });
+        }
+      
     }
     function Delete(button) {
         Swal.fire({
@@ -405,7 +533,7 @@
                 var row = $(button).closest("TR");
                 var Empid = $("TD", row).eq(0).html();
                 var dictlist = {
-                    NoCAPA: "CPA/SIA/HOF/MK/0921/009",
+                    NoCAPA: $('#QS_NoCAPA').val(),
                     Option: 6,
                     Empid: Empid
                 }
@@ -448,7 +576,7 @@
             if (result.value) {
                 var reject = $('#txtReject').val();
                 var dictlist = {
-                    NoCAPA: "CPA/SIA/HOF/MK/0921/009",
+                    NoCAPA: $('#QS_NoCAPA').val(),
                     Option: 7,
                     RejectReason: reject,
                     Creator: ""
@@ -464,6 +592,15 @@
                         data: JSON.stringify(dto1),
                         contentType: "application/json;charset=utf-8",
                         success: function (data) {
+                            GetDisabledEvalTableList();
+                            $('#btn_Submit_Evaluator').attr('disabled', true);
+                            $('#Add_Eval').attr('disabled', true);
+                            $('#IsUtama').attr('disabled', true);
+                            $('#btn_Reject').attr('disabled', true);
+                            $('#Eva_Departemen_DDL').attr('disabled', true);
+                            $('#EvalList_DDL').attr('disabled', true);
+                            $('#Eva_Plant_DDL').attr('disabled', true);
+                            $('#Trigger_CAPA').attr('disabled', true);
                             Swal.fire(
                                 'Rejected!',
                                 'Reject Berhasil',
@@ -475,6 +612,7 @@
                     });
                 }
                 else {
+
                     Swal.fire(
                         'Error!',
                         'Alasan tidak boleh kosong.',

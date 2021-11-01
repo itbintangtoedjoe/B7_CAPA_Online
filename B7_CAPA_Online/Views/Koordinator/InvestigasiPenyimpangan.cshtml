@@ -89,7 +89,7 @@
 
         $.ajax({
             type: "POST",
-            url: "../Koordinator/GetRoot?NoCapa=CPA/SIA/HOF/MK/0921/009&Type=Manusia",
+            url: "../Koordinator/GetRoot?NoCapa=" + $('#QS_NoCAPA').val()+"&Type=Manusia",
             dataType: 'json',
             async: true,
             contentType: 'application/json; charset=utf-8',
@@ -132,7 +132,7 @@
 
         $.ajax({
             type: "POST",
-            url: "../Koordinator/GetRoot?NoCapa=CPA/SIA/HOF/MK/0921/009&Type=Material/Produk",
+            url: "../Koordinator/GetRoot?NoCapa=" + $('#QS_NoCAPA').val() +"&Type=Material/Produk",
             async: true,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
@@ -176,7 +176,7 @@
 
         $.ajax({
             type: "POST",
-            url: "../Koordinator/GetRoot?NoCapa=CPA/SIA/HOF/MK/0921/009&Type=Lingkungan",
+            url: "../Koordinator/GetRoot?NoCapa=" + $('#QS_NoCAPA').val() +"&Type=Lingkungan",
             dataType: 'json',
             async: true,
             contentType: 'application/json; charset=utf-8',
@@ -219,7 +219,7 @@
 
         $.ajax({
             type: "POST",
-            url: "../Koordinator/GetRoot?NoCapa=CPA/SIA/HOF/MK/0921/009&Type=Mesin",
+            url: "../Koordinator/GetRoot?NoCapa=" + $('#QS_NoCAPA').val() +"&Type=Mesin",
             dataType: 'json',
             async: true,
             contentType: 'application/json; charset=utf-8',
@@ -262,7 +262,7 @@
 
         $.ajax({
             type: "POST",
-            url: "../Koordinator/GetRoot?NoCapa=CPA/SIA/HOF/MK/0921/009&Type=Metode",
+            url: "../Koordinator/GetRoot?NoCapa=" + $('#QS_NoCAPA').val() +"&Type=Metode",
             dataType: 'json',
             async: true,
             contentType: 'application/json; charset=utf-8',
@@ -304,7 +304,7 @@
     function GetAnalisaKondisi() {
         $.ajax({
             type: "POST",
-            url: "../Koordinator/GetAnalisa?NoCapa=CPA/SIA/HOF/MK/0921/009",
+            url: "../Koordinator/GetAnalisa?NoCapa=" + $('#QS_NoCAPA').val() +"",
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
