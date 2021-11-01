@@ -55,5 +55,6 @@ namespace B7_CAPA_Online.Models
     public partial class Lampiran
     {
         public string LAMPIRAN_TERKAIT { get; set; }
+        public string FILE_NAME { get; set; }
     }
 }

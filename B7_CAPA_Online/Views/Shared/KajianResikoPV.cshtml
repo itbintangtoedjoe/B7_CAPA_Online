@@ -129,6 +129,7 @@
 </div>
 
 <script>
+
     function KajianResikoDDLPV() {
         $.ajax({
             url: '/PIC/GetDataPIC',
@@ -262,4 +263,10 @@
             });
         }
     }//d = data 
+
+    $(document).ready(function () {
+        KajianResikoDDLPV();
+        TableKajianPV();
+        var isHide = false;        
+    });
 </script>
