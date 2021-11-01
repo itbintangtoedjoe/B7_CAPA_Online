@@ -224,7 +224,7 @@
                 // Mengecheck Checkbox apakah sudah di checklist
                 if ($("TD", row).eq(0).find("input[type='checkbox']").prop('checked')) {
                     var item = {};
-                    item["NoCapa"] = "CPA/SIA/HOF/MK/0921/009";
+                    item["NoCapa"] = $('#QS_NoCAPA').val();
                     item["PenyimpanganID"] = PenyimpanganID;
                     item["Description"] = "CCC";
                     item["Creator"] = creator;
@@ -268,7 +268,7 @@
                 if ($("TD", row).eq(0).find("input[type='checkbox']").prop('checked')) {
                    var item = {};
 
-                    item["NoCapa"] = "CPA/SIA/HOF/MK/0921/009";
+                    item["NoCapa"] = $('#QS_NoCAPA').val();
                     item["PenyimpanganID"] = PenyimpanganID;
                     item["Description"] = "DEVIATION";
                     item["Creator"] = creator;
@@ -331,7 +331,7 @@
                     $('#Departemen_DDL').append($('<option></option>').attr('value', '').text('*Pilih*'));
                     $.each(JSON.parse(data), function (key, entry) {
                         $('#Departemen_DDL').append($('<option></option>').attr('value', entry.SubDept).text(entry.SubDept));
-                        $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.SubDept).text(entry.SubDept));
+                        $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
                     })
                     $('#Departemen_DDL').append($('<option></option>').attr('value', 'Others').text('Others'));
                     $('#Departemen_DDL').select2();
@@ -417,7 +417,7 @@
         $('#btn_Search_Deviation').click(function () {
             dto = {
                 Option: 1,
-                NoCapa: "CPA/SIA/HOF/MK/0921/009",
+                NoCapa: $('#QS_NoCAPA').val(),
                 Departemen: $('#DepartemenPelapor_DDL').val(),
                 JenisPenyimpangan: $('#JenisPenyimpangan_DDL').val(),
                 Kategori: $('#KategoriPenyimpangan_DDL').val(),
@@ -492,7 +492,7 @@
 
             dto = {
                 Option: 2,
-                NoCapa: "CPA/SIA/HOF/MK/0921/009",
+                NoCapa: $('#QS_NoCAPA').val(),
                 JenisKeluhan: $('#JenisKeluhan_DDL').val(),
                 Tahun: $('#Tahun_DDL').val(),
                 Plant: $('#Plant_DDL').val(),

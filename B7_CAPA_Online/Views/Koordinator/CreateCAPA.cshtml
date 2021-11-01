@@ -256,18 +256,18 @@
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-20">Nomor CAPA</label>
-                                    <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["CAPA"]" readonly />
+                                    <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["NoCAPA"]" readonly />
                                     <input class="form-control form-control-sm" type="text" id="input_REG_ID" value="@Request.QueryString["REG"]" hidden />
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">Departemen</label>
-                                    <input class="form-control form-control-sm" type="text" name="Create_By" id="input_Departemen" value="@Request.RequestContext.HttpContext.Session["Departemen"]" readonly>
+                                    <input class="form-control form-control-sm" type="text" id="input_Departemen" value="@Request.RequestContext.HttpContext.Session["Departemen"]" readonly>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-                @if (!string.IsNullOrEmpty(Request.QueryString["CAPA"]))
+                @if (!string.IsNullOrEmpty(Request.QueryString["NoCAPA"]))
                 {
                     <div class="card">
                         <div class="card-body">
@@ -623,14 +623,15 @@
                                         <label class="m-t-40">Email</label>
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" id="TxtEmailVendor" name="Email" readonly>
+                                            <input class="form-control form-control-sm" type="text" id="input_Requestors" name="Create_By" value="@Request.RequestContext.HttpContext.Session["NIK"]" hidden>
                                             @Html.HiddenFor(m => m.Email)
                                             @Html.HiddenFor(m => m.Create_By)
                                         </div>
                                         <label class="m-t-40">PIC</label>
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" id="TxtPICVendor" name="TxtPICVendor" readonly>
-                                            <input type="text" class="form-control" id="TxtVendorName" name="VDRName" readonly>
-                                            @Html.HiddenFor(m => m.VDRName)
+                                            <input type="text" class="form-control" id="TxtVendorUsername" name="VDRUsername" hidden>
+                                            @Html.HiddenFor(m => m.VDRUsername)
                                         </div>
                                     </div>  
                                 </div>
@@ -825,15 +826,16 @@
                         clearInputEmail();
 
                         $.each(JSON.parse(data), function (key, entry) {
-                            $('#PIC_DDL').append($('<option></option>').attr('value', entry.UserName).text(entry.UserVDRName));
+                            $('#PIC_DDL').append($('<option></option>').attr('value', entry.UserVDRName).text(entry.UserVDRName));
                         });
 
                         $('#PIC_DDL').change(function () {
                             var PIC_Name = $('#PIC_DDL').val();
                             $.each(JSON.parse(data), function (key, entry) {                                    
-                                if (PIC_Name == entry.UserName) {           
+                                if (PIC_Name == entry.UserVDRName) {           
                                     $('#TxtEmailVendor').val(entry.email);
-                                    $('#TxtPICVendor').val(entry.UserVDRName);  
+                                    $('#TxtPICVendor').val(entry.UserVDRName);
+                                    $('#TxtVendorUsername').val(entry.UserName);
                                     return false;
                                 }
                             });

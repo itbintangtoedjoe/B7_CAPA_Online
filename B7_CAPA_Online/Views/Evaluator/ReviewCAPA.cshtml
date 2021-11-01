@@ -33,6 +33,17 @@
                 </form>
             </div>
         </div>
+
+        @if (!string.IsNullOrEmpty(Request.QueryString["CAPA"]))
+        {                    
+            @Html.Partial("AnalisaKondisiPV")
+            @Html.Partial("PotentialRootCausePV")
+            @Html.Partial("TindakanPerbaikanPV")
+            @Html.Partial("TindakanPencegahanPV")
+            @Html.Partial("KajianResikoPV")
+            @Html.Partial("ApprovalPV")
+        }
+
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Koordinator</h4>

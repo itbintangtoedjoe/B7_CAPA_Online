@@ -119,15 +119,17 @@
                 </tbody>
             </table>
         </div>
-        @*<div class="row form-group" style="float: left">
-            <div class="col-md-3">
-                <button type="button" id="btn_Submit" class="btn btn-primary mb-2">Submit</button>
+
+        @*<div class="row form-group-sm mt-4">
+            <div class="col-md-6">
+                <button class="btn mb-1 btn-primary" id="btn_Submit">Submit</button>
             </div>
         </div>*@
     </div>
 </div>
 
 <script>
+
     function KajianResikoDDLPV() {
         $.ajax({
             url: '/PIC/GetDataPIC',
@@ -222,7 +224,7 @@
                         {
                             "data": null,
                             "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onchange=''>Delete</button> ",
-                            "visible" : (!isHide) ? (true) : (false)
+                            "visible": (!isHide) ? (true) : (false)
                         },
                     ],
                     "order": [[1, 'asc']],
@@ -260,5 +262,11 @@
                 color: "#C0C0C0"
             });
         }
-    }
+    }//d = data 
+
+    $(document).ready(function () {
+        KajianResikoDDLPV();
+        TableKajianPV();
+        var isHide = false;        
+    });
 </script>

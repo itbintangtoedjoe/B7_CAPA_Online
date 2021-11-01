@@ -54,13 +54,20 @@ namespace B7_CAPA_Online.Controllers
                 { "Is_AreaLain", Model.Is_AreaLain},
                 { "WhyID", Model.WhyID},
                 { "WhyParentID", Model.WhyParentID},
-                { "RootCause", Model.RootCause}
+                { "RootCause", Model.RootCause},
+                { "Create_By", Model.Create_By},
+                { "RecordID", Model.RecordID}
             };
             string Result = DAL.GetDataFormPIC(Model,dictionary);
             return Json(Result);
         }
-
         public ActionResult GetKajianResiko(DynamicModel Param)
+        {
+            DynamicParameters parameters = new DynamicParameters(Param.Model);
+            string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_FORM_CAPA]");
+            return Json(Return);
+        }
+        public ActionResult CheckStatusCAPA(DynamicModel Param)
         {
             DynamicParameters parameters = new DynamicParameters(Param.Model);
             string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_FORM_CAPA]");
@@ -96,7 +103,9 @@ namespace B7_CAPA_Online.Controllers
                 { "Is_AreaLain", Model.Is_AreaLain},
                 { "WhyID", Model.WhyID},
                 { "WhyParentID", Model.WhyParentID},
-                { "RootCause", Model.RootCause}
+                { "RootCause", Model.RootCause},
+                { "Create_By", Model.Create_By},
+                { "RecordID", Model.RecordID}
             };
             string Return = DAL.ExecuteFormPIC(Model,dictionary); // Insert to WAHHeader 
 
@@ -111,7 +120,6 @@ namespace B7_CAPA_Online.Controllers
             //}
             return Json(Return);
         }
-
         public ActionResult AddWhy(AnalisaKondisiModel Model)
         {
             var dictionary = new Dictionary<string, object>{
@@ -133,12 +141,13 @@ namespace B7_CAPA_Online.Controllers
                 { "Is_AreaLain", Model.Is_AreaLain},
                 { "WhyID", Model.WhyID},
                 { "WhyParentID", Model.WhyParentID},
-                { "RootCause", Model.RootCause}
+                { "RootCause", Model.RootCause},
+                { "Create_By", Model.Create_By},
+                { "RecordID", Model.RecordID}
             };
             string Return = DAL.ExecuteFormPIC(Model,dictionary);
             return Json(Return);
         }
-
         public ActionResult DeleteKondisi(AnalisaKondisiModel Model)
         {
             var dictionary = new Dictionary<string, object>{
@@ -160,12 +169,42 @@ namespace B7_CAPA_Online.Controllers
                 { "Is_AreaLain", Model.Is_AreaLain},
                 { "WhyID", Model.WhyID},
                 { "WhyParentID", Model.WhyParentID},
-                { "RootCause", Model.RootCause}
+                { "RootCause", Model.RootCause},
+                { "Create_By", Model.Create_By},
+                { "RecordID", Model.RecordID}
             };
             string Return = DAL.ExecuteFormPIC(Model,dictionary);
             return Json(Return);
         }
-
+        public ActionResult DeleteKajianResiko(AnalisaKondisiModel Model)
+        {
+            var dictionary = new Dictionary<string, object>{
+                { "Option", Model.Option },
+                { "NO_CAPA",Model.NO_CAPA },
+                { "Aspect", Model.Aspect },
+                { "WSBH" , Model.WSBH },
+                { "WAH" , Model.WAH },
+                { "Status" , Model.Status },
+                { "isParent" , Model.isParent },
+                { "WHY_Parent" , Model.WHY_Parent },
+                { "WHY" , Model.WHY },
+                { "Tindakan", Model.Tindakan},
+                { "Pelaksana", Model.Pelaksana},
+                { "LineNumber", Model.LineNumber},
+                { "NamaPersonil", Model.NamaPersonil},
+                { "Email", Model.Email},
+                { "DueDate", Model.DueDate},
+                { "Is_AreaLain", Model.Is_AreaLain},
+                { "WhyID", Model.WhyID},
+                { "WhyParentID", Model.WhyParentID},
+                { "RootCause", Model.RootCause},
+                { "Create_By", Model.Create_By},
+                { "RecordID", Model.RecordID}
+            };
+            DynamicParameters parameters = new DynamicParameters(dictionary);
+            string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_FORM_CAPA]");
+            return Json(Return);
+        }
         public ActionResult AddTindakan(AnalisaKondisiModel Model)
         {
             var dictionary = new Dictionary<string, object>{
@@ -187,9 +226,11 @@ namespace B7_CAPA_Online.Controllers
                 { "Is_AreaLain", Model.Is_AreaLain},
                 { "WhyID", Model.WhyID},
                 { "WhyParentID", Model.WhyParentID},
-                { "RootCause", Model.RootCause}
+                { "RootCause", Model.RootCause},
+                { "Create_By", Model.Create_By},
+                { "RecordID", Model.RecordID}
             };
-            
+
             string Return = DAL.ExecuteFormPIC(Model,dictionary);
             return Json(Return);
         }
@@ -199,7 +240,7 @@ namespace B7_CAPA_Online.Controllers
             string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_INSERT_KAJIAN_RESIKO]");
             return Json(Return);
         }
-        public ActionResult SubmitAtasanPIC(DynamicModel Param)
+        public ActionResult SubmitToAtasanPIC(DynamicModel Param)
         {
             DynamicParameters parameters = new DynamicParameters(Param.Model);
             string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_FORM_CAPA]");
