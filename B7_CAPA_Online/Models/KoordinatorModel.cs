@@ -43,7 +43,7 @@ namespace B7_CAPA_Online.Models
 
         public class Root
         {
-            public Dictionary<string,RootAttribute> RootCause { get; set; }
+            public Dictionary<string, RootAttribute> RootCause { get; set; }
         }
         public class RootAttribute
         {
@@ -55,8 +55,12 @@ namespace B7_CAPA_Online.Models
 
         public class DynamicModel
         {
-            public Dictionary<string,object> Model{ get; set; }
-        }
+            public Dictionary<string, object> Model { get; set; }
+            public string[] Kolom { get; set; }
+            public string Paramname { get; set; }
+            public string Dtname { get; set; }
 
+        }
+        
     }
 }

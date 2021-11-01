@@ -48,9 +48,11 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
-        public ActionResult ApprovalKoordinator2(string NoCAPA)
+        public ActionResult ApprovalKoordinator2(string NoCAPA,string status)
         {
             ViewBag.NoCAPA = NoCAPA;
+
+            ViewBag.status = status;
             return View();
         }
 
@@ -63,7 +65,12 @@ namespace B7_CAPA_Online.Controllers
         {
             return View();
         }
-
+        public ActionResult Koordinator4(string NoCAPA, string status)
+        {
+            ViewBag.NoCAPA = NoCAPA;
+            ViewBag.status = status;
+            return View();
+        }
         public ActionResult CreateCAPA()
         {
             var list = new ListDepartemen();
@@ -163,6 +170,37 @@ namespace B7_CAPA_Online.Controllers
 
         }
 
+       
+        public ActionResult InsertAttachment(string spname,string NoCapa,string Creator)
+        {            
+            DataTable dt = new DataTable();
+            dt.Columns.Add("FilePath");
+            dt.Columns.Add("FileName");
+            for (int i = 0; i < Request.Files.Count; i++)
+            {
+                HttpPostedFileBase file = Request.Files[i];
+                int fileSize = file.ContentLength;
+                string mimeType = file.ContentType;
+                System.IO.Stream fileContent = file.InputStream;
+                //string filePath = Path.Combine("@"\\kalbox-b7.bintang7.com\Intranetportal\Intranet Attachment\HRCostUpload\", Path.GetFileName(file.FileName));
+                string filePath = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
+                //file.SaveAs(filePath);
+                DataRow rowstype = dt.NewRow();
+                rowstype["FilePath"] = filePath;
+                rowstype["FileName"] = file.FileName;
+                dt.Rows.Add(rowstype);
+            }
+            var dictionary = new Dictionary<string, object>
+            {
+                {"NoCapa", NoCapa},
+                {"Option", 0},
+                {"Creator", Creator}
+            };
+            var parameters = new DynamicParameters(dictionary);
+            parameters.Add("LampiranDataTable", dt.AsTableValuedParameter("LampiranDataTable"));
+            return Json(DAL.StoredProcedure(parameters, spname));
+        }
+
         public ActionResult GetRoot(string NoCapa, string Type)
         {
             var dictionary = new Dictionary<string, object>
@@ -225,6 +263,7 @@ namespace B7_CAPA_Online.Controllers
             return Json(DAL.StoredProcedure(parameters, spname));
 
         }
+
         public ActionResult ShowAddAbleDeviation(ShowDeviation Model)
         {
             var dictionary = new Dictionary<string, object>
@@ -233,7 +272,7 @@ namespace B7_CAPA_Online.Controllers
                 {"NoCapa", Model.NoCapa},
                 {"JenisPenyimpangan",Model.JenisPenyimpangan },
                 {"Kategori",Model.Kategori },
-                {"Departemen","IT" },
+                {"Departemen",Model.Departemen },
                 {"JenisKeluhan",Model.JenisKeluhan },
                 {"Plant",Model.Plant},
                 {"Tahun",Model.Tahun}
@@ -425,6 +464,7 @@ namespace B7_CAPA_Online.Controllers
         {
             for (int i = 0; i < Request.Files.Count; i++)
             {
+
                 HttpPostedFileBase file = Request.Files[i];
                 int fileSize = file.ContentLength;
                 string mimeType = file.ContentType;

@@ -31,9 +31,8 @@
 
     @*datatables*@
     <link href="~/Content/Styles/css/datatables.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css" rel="stylesheet" />
     <!-- JS -->
-
-    <script src="~/Content/Scripts/plugins/datatables/jquery.dataTables.min.js" defer></script>
     <script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>
     <link href="~/Content/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet" />
 
@@ -217,7 +216,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     @*<script src="~/Content/Scripts/plugins/sweetalert/js/sweetalert.init.js"></script>*@
-
+    <script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
 
     <!-- Date Picker Plugin JavaScript -->
     <script src="~/Content/Scripts/plugins/moment/moment.js"></script>
@@ -251,12 +250,13 @@
     <script src="~/Content/Scripts/plugins/toastr/js/toastr.min.js"></script>
     <script src="~/Content/Scripts/plugins/auto-complete/jquery-ui.min.js"></script>
 
-    @*datatables*@
-    <script src="~/Content/Scripts/js/datatables.min.js"></script>
 
     <script src="~/Content/Scripts/plugins/highlightjs/highlight.pack.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
 
+    @*datatables*@
+    <script src="~/Content/Scripts/js/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js" defer></script>
     <script>
         $(document).ready(function () {
             var usernameAktif = '@Request.RequestContext.HttpContext.Session["Username"]';
