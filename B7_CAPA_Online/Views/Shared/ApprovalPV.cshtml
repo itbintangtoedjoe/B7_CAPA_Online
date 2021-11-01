@@ -26,15 +26,6 @@
 </div>
 
 <script>
-    //Alasan Reject Textarea Hide/Unhide
-    $('#Status_DDL').change(function () {
-        var statusVal = $('#Status_DDL').val();
-        if (statusVal == "Approve")
-            $('#Div_AlasanReject').prop('hidden', true);
-        else
-            $('#Div_AlasanReject').prop('hidden', false);
-    });
-
     //Get status : Accept, Reject or Cancelled.
     function GetStatus() {
         var status = $('#Status_DDL').val();
@@ -85,4 +76,19 @@
             }
         });
     }
+
+    $(document).ready(function () {
+        //Alasan Reject Textarea Hide/Unhide
+        $('#Status_DDL').change(function () {
+            var statusVal = $('#Status_DDL').val();
+            if (statusVal == "Approve")
+                $('#Div_AlasanReject').prop('hidden', true);
+            else
+                $('#Div_AlasanReject').prop('hidden', false);
+        });
+        GetStatus();
+        $("#btn_Submit").click(function () {
+            SubmitApprovalPV(); //Submit Approval Atasan PIC
+        });
+    });
 </script>
