@@ -144,8 +144,8 @@
 
             $.each(columns, function (i, item) {
                 var data = {};
-                (i == 1) ? (data.REG_ID = item.innerHTML) : ("");
-                (i == 2) ? (data.NO_CAPA = item.innerHTML) : ("");
+                (i == 2) ? (data.REG_ID = item.innerHTML) : ("");
+                (i == 3) ? (data.NO_CAPA = item.innerHTML) : ("");
                 if (!jQuery.isEmptyObject(data))
                     taskList.push(data);
             });
