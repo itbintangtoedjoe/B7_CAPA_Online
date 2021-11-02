@@ -5427,6 +5427,7 @@
     <Content Include="Views\Shared\TindakanPencegahanPV.cshtml" />
     <Content Include="Views\Shared\KajianResikoPV.cshtml" />
     <Content Include="Views\Shared\ApprovalPV.cshtml" />
+    <Content Include="Views\Pelaksana\PelaksanaTambahPerbaikan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

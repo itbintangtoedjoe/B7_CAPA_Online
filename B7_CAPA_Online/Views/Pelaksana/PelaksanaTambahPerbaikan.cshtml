@@ -1,0 +1,459 @@
+﻿
+@{
+    ViewBag.Title = "TambahTindakan";
+}
+
+
+<div class="content-body">
+    <!--Modal-->
+    <div class="row page-titles mx-0">
+        <div class="col p-md-0">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Pelaksana CAPA</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- row -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Penentuan Tindakan Perbaikan</h4>
+                        <div class="table-responsive">
+                            <form>
+                                <div class="row form-group">
+                                    <div class="col-md-6">
+                                        <label class="m-t-20">Root Cause</label>
+                                        <textarea type="text" class="form-control" id="txtRootCause" readonly></textarea>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-6">
+                                        <label class="m-t-20">Tindakan Perbaikan<span style="color: red">*</span></label>
+                                        <textarea type="text" class="form-control" placeholder="Deskripsi" id="txtTindakanPerbaikan"></textarea>
+                                    </div>
+                                    <div class="form-group mb-2 col-sm-3">
+                                        <label class="m-t-20">Due Date<span style="color: red">*</span></label>
+                                        <input type="date" id="dueDatePerbaikan" class="form-control form-control-sm">
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label class="m-t-40">Apakah ada proses / area lain yang berpotensi sama?<span style="color: red">*</span></label>
+                                        <div class="radio input-group">
+                                            <div class="col-sm-3">
+                                                <label><input type="radio" value="Yes" name="radioPotensi">&nbsp;&nbsp;Ya</label>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label><input type="radio" value="No" name="radioPotensi" checked>&nbsp;&nbsp;Tidak</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="Div_Pencegahan" hidden>
+                    <div class="card-body">
+                        <h4 class="card-title">Penentuan Tindakan Pencegahan</h4>
+                        <div class="table-responsive">
+                            <form>
+                                <div class="row form-group-sm">
+                                    <div class="col-md-6">
+                                        <label class="m-t-20">Area/Proses lain yang berpotensi</label>
+                                        <textarea type="text" class="form-control" id="txtAreaBerpotensi" readonly></textarea>
+                                    </div>
+                                </div>
+                                <div class="row form-group-sm">
+                                    <div class="col-md-6">
+                                        <label class="m-t-20">Tindakan Pencegahan<span style="color: red">*</span></label>
+                                        <textarea type="text" class="form-control" placeholder="Deskripsi" id="txtTindakanPencegahan"></textarea>
+                                    </div>
+                                    <div class="form-group mb-2 col-sm-3">
+                                        <label class="m-t-20">Due Date<span style="color: red">*</span></label>
+                                        <input type="date" id="dueDatePencegahan" class="form-control form-control-sm">
+                                    </div>
+                                </div>
+                            </form>
+                            <br />
+                        </div>
+                    </div>
+                </div>
+                @Html.Partial("KajianResikoPV")
+                <button type="button" class="btn btn-primary" id="btnSimpan">Simpan</button>
+            </div>
+        </div>
+        <!-- #/ container -->
+    </div>
+</div>
+
+<script>
+    var noCAPA = getQueryStrings()["NoCAPA"];
+    var referenceID = getQueryStrings()["ReferenceID"];
+    var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
+    var dataPerbaikan;
+    var newDataPerbaikan;
+    var newKajianResiko=[];
+
+    function getQueryStrings() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
+    $(document).ready(function () {
+        @*$('#TxtDepartemen').val('@Request.RequestContext.HttpContext.Session["Departemen"]');
+        $('#TxtNoCAPA').val(noCAPA);
+        $('#TxtRequestor').val(superiorName);
+        $('#txtPelaksanaPerbaikan').val(namaUser);
+        $('#txtPelaksanaPencegahan').val(namaUser);
+        $('#txtSuperiorPerbaikan').val(superiorName);
+        $('#txtSuperiorPencegahan').val(superiorName);*@
+
+    @*ReloadPage();
+        ResetPage();*@
+
+        getRootCause();
+        populateKajian();
+        $("#TxtPIC").val('Default');
+        $('#RootCause_KajianResikoDDL').prop("disabled", true);
+        $('#tblHeaderTindakan').prop("hidden", true);
+
+        $("input[name='radioPotensi']").change(function () {
+            var berpotensi = $('input[name="radioPotensi"]:checked').val();
+            if (berpotensi == "Yes") {
+                $('#Div_Pencegahan').prop('hidden', false);
+            } else {
+                $('#Div_Pencegahan').prop('hidden', true);
+            }
+        });
+
+        $("#txtTindakanPerbaikan").on('keyup', function (event) {
+            var perb = $("#txtTindakanPerbaikan").val();
+            $("#txtAreaBerpotensi").val(perb);
+            $('#RootCause_KajianResikoDDL').append('<option value="perbaikan" selected="selected">'+perb+'</option>');
+        });
+    });
+
+    function getRootCause() {
+        var dto = {
+            Kategori: "Cari Perbaikan",
+            RecordID:referenceID
+        }
+        $.ajax({
+            url: "FindCAPADetail",
+            type: "POST",
+            async: false,
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                dataPerbaikan = result[0];
+
+                $('#txtRootCause').val(dataPerbaikan.WhyDesc);
+                @*$('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
+
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    $('#Severity_DDL').change(function () {
+        realtimeCalculation();
+    });
+
+    $('#Likelihood_DDL').change(function () {
+        realtimeCalculation();
+    });
+
+    $('#Detectability_DDL').change(function () {
+        realtimeCalculation();
+    });
+
+    $('#Severity2_DDL').change(function () {
+        realtimeCalculation();
+    });
+
+    $('#Likelihood2_DDL').change(function () {
+        realtimeCalculation();
+    });
+
+    $('#Detectability2_DDL').change(function () {
+        realtimeCalculation();
+    });
+
+    function realtimeCalculation() {
+        console.log('masok');
+        var RPN = 0;
+        var RPN2 = 0;
+        var Severity = $('#Severity_DDL').val();
+        var Detectability = $('#Detectability_DDL').val();
+        var Likelihood = $('#Likelihood_DDL').val();
+        var Severity2 = $('#Severity2_DDL').val();
+        var Detectability2 = $('#Detectability2_DDL').val();
+        var Likelihood2 = $('#Likelihood2_DDL').val();
+
+        if (!isNaN(Severity) && !isNaN(Detectability) && !isNaN(Likelihood)) {
+            RPN = Severity * Likelihood * Detectability;
+            $('#TxtRiskLevel').val(riskCalculation(RPN));
+        }
+
+        if (!isNaN(Severity2) && !isNaN(Detectability2) && !isNaN(Likelihood2)) {
+            RPN2 = Severity2 * Likelihood2 * Detectability2;
+            $('#TxtRiskLevel2').val(riskCalculation(RPN2));
+        }
+
+        $('#TxtRPN').val(RPN);
+        $('#TxtRPN2').val(RPN2);
+    }
+
+    function riskCalculation(RPN) {
+        if (RPN <= 35)
+            return "Low";
+        else if (RPN > 35 && RPN <= 80)
+            return "Medium";
+        else if (RPN > 80 && RPN <= 140)
+            return "High";
+        else
+            return "Very High";
+    }
+
+    $('#btn_KajianResiko').click(function (e) {
+        var kajianModel = {
+            Model: {
+                NO_CAPA: noCAPA,
+                Tindakan: $('#RootCause_KajianResikoDDL').val(),
+                P_Kegagalan: $('#TxtPotensiKegagalan').val(),
+                Spek: $('#TxtSpesifikasi').val(),
+                Dampak: $('#TxtDampak').val(),
+                Severity: $('#Severity_DDL').val(),
+                Penyebab: $('#TxtPenyebabPotensial').val(),
+                M_Penyebab: $('#TxtMPenyebabPotensial').val(),
+                Likelihood: $('#Likelihood_DDL').val(),
+                M_PKegagalan_LMD: $('#TxtMPotensi_KLMD').val(),
+                Detectability: $('#Detectability_DDL').val(),
+                RPN: $('#TxtRPN').val(),
+                RiskLevel: $('#TxtRiskLevel').val(),
+                Target: $('#Target_DDL').val(),
+                M_PKegagalan: $('#TxtMPotensi_K').val(),
+                Severity2: $('#Severity2_DDL').val(),
+                P_MPenyebab: $('#TxtMPenyebab_P').val(),
+                Likelihood2: $('#Likelihood2_DDL').val(),
+                P_MDPKegagalan: $('#TxtDPotensi_K').val(),
+                Detectability2: $('#Detectability2_DDL').val(),
+                RPN2: $('#TxtRPN2').val(),
+                RiskLevel2: $('#TxtRiskLevel2').val(),
+                PIC: $('#TxtPIC').val(),
+                DueDate: $('#DueDate_Kajian').val(),
+                Lainnya: $('#TxtLainnya').val(),
+                Tipe: 'Perbaikan',
+                EmpID: nik
+            }
+        };
+        var valid = true;
+        console.log('kajianModel.Model');
+        console.log(kajianModel.Model);
+        $.each(kajianModel.Model, function (key, value) {
+            if (value == '') {
+                if (value == 0)
+                    return valid = true;
+                else
+                    return valid = false;
+            } else {
+                valid = true;
+            }
+        });
+        if (valid) {
+            cleanModalFields();
+            newKajianResiko.push(kajianModel);
+            populateKajian();
+            swal('Kajian risiko berhasil ditambahkan', {
+                icon: "success",
+                buttons: false,
+                timer: 1000,
+            });
+        } else {
+            swal('Semua field wajib terisi', {
+                icon: "warning",
+                buttons: false,
+                timer: 1000,
+            });
+        }
+    })
+
+    function cleanModalFields() {
+        $("#KajianResikoModal :input").val("");
+        $("#TxtPIC").val('Default');
+        $("#Severity_DDL").val("1");
+        $("#Likelihood_DDL").val("1");
+        $("#Detectability_DDL").val("1");
+        $("#Target_DDL").val("Low");
+        $("#Severity2_DDL").val("1");
+        $("#Likelihood2_DDL").val("1");
+        $("#Detectability2_DDL").val("1");
+    }
+
+    function populateKajian() {
+        $('#Tbl_KajianResiko').prop("disabled", true);
+        console.log(newKajianResiko.length);
+        if (newKajianResiko.length > 0) {
+            $('#Tbl_KajianResiko').DataTable({
+                "pageLength": 5,
+                "lengthChange": true,
+                "searching": false,
+                "data": newKajianResiko,
+                "select": true,
+                "bDestroy": true,
+                "scrollCollapse": true,
+                "columns": [
+                    { "data": "Model.P_Kegagalan" },
+                    { "data": "Model.Spek" },
+                    { "data": "Model.Dampak" },
+                    { "data": "Model.Severity" },
+                    { "data": "Model.Penyebab" },
+                    { "data": "Model.M_Penyebab" },
+                    { "data": "Model.Likelihood" },
+                    { "data": "Model.M_PKegagalan_LMD" },
+                    { "data": "Model.Detectability" },
+                    { "data": "Model.RPN" },
+                    {
+                        "data": "Model.RiskLevel",
+                        "className": "riskLevel"
+                    },
+                    { "data": "Model.Target" },
+                    { "data": "Model.M_PKegagalan" },
+                    { "data": "Model.Severity2" },
+                    { "data": "Model.P_MPenyebab" },
+                    { "data": "Model.Likelihood2" },
+                    { "data": "Model.P_MDPKegagalan" },
+                    { "data": "Model.Detectability2" },
+                    { "data": "Model.RPN2" },
+                    {
+                        "data": "Model.RiskLevel2",
+                        "className": "riskLevel2"
+                    },
+                    { "data": "Model.PIC" },
+                    { "data": "Model.DueDate" },
+                    { "data": "Model.Lainnya" },
+                    {
+                        "data": null,
+                        "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onchange=''>Delete</button> "
+                    },
+                ],
+                @*"columnDefs": [
+                    {
+                        "targets": 0,
+                        "visible": false
+                    },
+                    {
+                        "targets": 1,
+                        "visible": false
+                    }
+
+                ],*@
+                "order": [[1, 'asc']],
+                "rowCallback": function (row, data) {
+                    ColoredColumns(row, data.RiskLevel, "riskLevel");
+                    ColoredColumns(row, data.RiskLevel2, "riskLevel2");
+                }
+            });
+        } else {
+
+        }
+    }
+
+    $('#btnSimpan').click(function (e) {
+        var isAreaLain = $('input[name="radioPotensi"]:checked').val();
+        var adaPencegahan = 0;
+        if (isAreaLain == 'Yes') {
+            adaPencegahan = 1;
+        }
+        var referenceID = getQueryStrings()["ReferenceID"];
+        referenceID = referenceID.replace('#', '');
+
+        newDataPerbaikan = {
+            TindakanPerbaikan: $('#txtTindakanPerbaikan').val(),
+            DueDatePerbaikan: $('#dueDatePerbaikan').val(),
+            TindakanPencegahan: $('#txtTindakanPencegahan').val(),
+            DueDatePencegahan: $('#dueDatePencegahan').val(),
+            IsAreaLain: adaPencegahan,
+            KajianResikoList: newKajianResiko,
+            PerbaikanID: referenceID,
+            Updater: nik
+        }
+        console.log(newDataPerbaikan);
+        $.ajax({
+            url: "SimpanPerbaikanBaru",
+            type: "POST",
+            data: JSON.stringify(newDataPerbaikan),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (data) {
+                swal("Penambahan berhasil disimpan", {
+                    icon: "success",
+                    buttons: false,
+                    timer: 1000,
+                });
+                ReloadPage();
+            },
+            error: function (xhr, error, status) {
+                console.log(error, status);
+            }
+        });
+
+        @*var modePerbaikan = $("#modePerbaikan").val();
+        var idPerbaikan = $('#ddlPerbaikan').val();
+        var tindakanPerbaikan = $('#txtTindakanPerbaikan').val();
+        var dueDate = $('#dueDatePerbaikan').val();
+        var hasilPerbaikan = $('#txtHasilPerbaikan').val();
+        var attachmentPerbaikan = $("#uploadAttachmentPerbaikan").val();
+        var pelaksanaID = getQueryStrings()["PelaksanaID"];
+        var status = "Pending Review Koordinator";
+        var kategori = "Perbaikan";
+
+        pelaksanaID = pelaksanaID.replace('#', '');
+        idPerbaikan = parseInt(idPerbaikan);
+        var formData = new FormData();
+        formData.append("Hasil", hasilPerbaikan);
+        formData.append("TindakanID", idPerbaikan);
+        formData.append("Updater", pelaksanaID);
+        formData.append("NomorCAPA", noCAPA);
+        formData.append("Tindakan", tindakanPerbaikan);
+        formData.append("DueDate", dueDate);
+
+        $.ajax({
+            url: "SimpanHasilPelaksanaan",
+            type: "POST",
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            async: false,
+            success: function (data) {
+                swal("Data perbaikan berhasil diupdate!", {
+                    icon: "success",
+                    buttons: false,
+                    timer: 1000,
+                });
+                ReloadPage();
+            },
+            error: function (xhr, error, status) {
+                console.log(error, status);
+            }
+        });*@
+    });
+</script>
