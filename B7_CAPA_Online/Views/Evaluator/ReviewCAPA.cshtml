@@ -34,7 +34,7 @@
             </div>
         </div>
 
-        @if (!string.IsNullOrEmpty(Request.QueryString["CAPA"]))
+        @if (!string.IsNullOrEmpty(Request.QueryString["NoCAPA"]))
         {                    
             @Html.Partial("AnalisaKondisiPV")
             @Html.Partial("PotentialRootCausePV")
