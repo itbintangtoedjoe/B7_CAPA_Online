@@ -684,7 +684,7 @@
             success: function (data) {
                 $('#DepartemenPelapor_DDL').empty();
                 $.each(JSON.parse(data), function (key, entry) {
-                    $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.SubDept).text(entry.SubDept));
+                    $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
                 })
             },
             error: function (ex) {

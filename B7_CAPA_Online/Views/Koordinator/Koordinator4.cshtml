@@ -32,7 +32,7 @@
                     </div>
                     <div class="form-group mb-2 col-sm-3">
                         <label class="m-t-20">Nomor CAPA</label>
-                        <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["CAPA"]" readonly />
+                        <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["NoCAPA"]" readonly />
                         <input class="form-control form-control-sm" type="text" id="input_REG_ID" value="@Request.QueryString["REG"]" hidden />
                     </div>
                     <div class="form-group mb-2 col-sm-3">
@@ -46,6 +46,17 @@
     <div class="card">
         <div class="card-body">
             <form>
+                <label for="TxtKategoriCCC" class="col-form-label">Kajian:</label>
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <div class="input-group">
+                            <select class="form-control select2" id="Kajian" required>
+                                <option value=""></option>
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="form-group mb-2 col-sm-12">
                         <label class="m-t-40">
@@ -54,25 +65,37 @@
                     </div>
                 </div>
                 <div class="row">
-                    <label class="m-t-20" style="margin-left:15px;"> <b>Ya</b> </label>
-                    <input type='radio' id="Devi_Yes" name="Devi_Radio" value="Yes" style="margin-left:15px;" />
-                    <label class="m-t-20" style="margin-left:15px;"> <b>Tidak</b> </label>
-                    <input type='radio' id="Devi_No" name="Devi_Radio" value="no" style="margin-left:15px;" />
+                    <label class="m-t-20" style="margin-left:15px;"> <b>Ya:</b> </label>
+                    <input type='radio' id="Devi_Yes" name="Devi_Radio" value="Yes" style="margin-left: 15px; margin-top: 5px;" />
+                    <label class="m-t-20" style="margin-left:15px;"> <b>Tidak:</b> </label>
+                    <input type='radio' id="Devi_No" name="Devi_Radio" value="no" style="margin-left: 15px; margin-top: 5px;" />
                 </div>
-                <div class="row" id="Deviation" hidden>
-                    <table class="table table-striped table-bordered zero-configuration" id="Tbl_Devi">
-                        <thead>
-                            <tr>
-                                <th>EmpID</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_Deviation" data-backdrop="static" data-keyboard="false">Browse</button>
+
+                <div id="Deviation" hidden>
+                    <div class="col-md-6">
+                        <table class="table table-hover table-bordered zero-configuration" id="Tbl_Devi">
+                            <thead>
+                                <tr>
+                                    <th>No CAPA</th>
+                                    <th>Type</th>
+                                    <th>Lampiran</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_Deviation"
+                                data-backdrop="static" data-keyboard="false">
+                            Browse
+                        </button>
+                    </div>
                 </div>
+
+                <br />
                 <div class="row">
                     <div class="form-group mb-2 col-sm-12">
                         <label class="m-t-40">
@@ -81,31 +104,35 @@
                     </div>
                 </div>
                 <div class="row">
-                    <label class="m-t-20" style="margin-left:15px;"> <b>Ya</b> </label>
-                    <input type='radio' id="CCC_Yes" name="CCC_Radio" value="Yes" style="margin-left:15px;" />
-                    <label class="m-t-20" style="margin-left:15px;"> <b>Tidak</b> </label>
-                    <input type='radio' id="CCC_No" name="CCC_Radio" value="No" style="margin-left:15px;" />
+                    <label class="m-t-20" style="margin-left:15px;"> <b>Ya:</b> </label>
+                    <input type='radio' id="CCC_Yes" name="CCC_Radio" value="Yes" style="margin-left:15px; margin-top:5px;" />
+                    <label class="m-t-20" style="margin-left:15px;"> <b>Tidak:</b> </label>
+                    <input type='radio' id="CCC_No" name="CCC_Radio" value="No" style="margin-left: 15px; margin-top: 5px;" />
                 </div>
-                <div class="row">
-                    <table class="table table-striped table-bordered zero-configuration" id="Tbl_CCC" hidden>
-                        <thead>
-                            <tr>
-                                <th>EmpID</th>
-                                <th>EmpName</th>
-                                <th>Plant</th>
-                                <th>Role</th>
-                                <th>Evaluator Utama</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div><input type="button" id="Browse" /></div>
+                <div hidden id="CCC">
+                    <div class="col-md-6">
+                        <table class="table table-hover table-bordered zero-configuration" id="Tabel_CCC">
+                            <thead>
+                                <tr>
+                                    <th>No CAPA</th>
+                                    <th>Type</th>
+                                    <th>Lampiran</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-outline-dark" type="button" data-toggle="modal"
+                                data-target="#link_CCC" data-backdrop="static" data-keyboard="false">
+                            Browse
+                        </button>
+                    </div>
                 </div>
+                <br />
                 <div class="row">
                     <div class="form-group mb-2 col-sm-12">
                         <label class="m-t-40">
@@ -115,10 +142,10 @@
                 </div>
 
                 <div class="row">
-                    <label class="m-t-20" style="margin-left:15px;"> <b>Ya</b> </label>
-                    <input type='radio' id="File_Yes" name="File_Radio" style="margin-left:15px;" value="Yes" />
-                    <label class="m-t-20" style="margin-left:15px;"> <b>Tidak</b> </label>
-                    <input type='radio' id="File_No" name="File_Radio" style="margin-left:15px;" value="No" />
+                    <label class="m-t-20" style="margin-left:15px;"> <b>Ya:</b> </label>
+                    <input type='radio' id="File_Yes" name="File_Radio" style="margin-left: 15px; margin-top: 5px;" value="Yes" />
+                    <label class="m-t-20" style="margin-left:15px;"> <b>Tidak:</b> </label>
+                    <input type='radio' id="File_No" name="File_Radio" style="margin-left: 15px; margin-top: 5px;" value="No" />
                 </div>
                 <div class="row form-group-sm mb-2" id="Lampiran" hidden>
                     <div class="col-md-6">
@@ -133,7 +160,11 @@
                     </div>
                 </div>
                 <br />
-                <input type="button" class="btn btn-primary" id="Submit" value="Submit" />
+                <input type="button" class="btn btn-primary" id="Submit" value="Submit" disabled />
+
+                <label for="TxtKategoriCCC" class="col-form-label" hidden id="Status1" style="color:red;"><b>Kajian Masih Dalam Evaluasi!</b></label>
+
+                <label for="TxtKategoriCCC" class="col-form-label" hidden id="Status2" style="color:green;"><b>Kajian Sudah di Evaluasi!</b></label>
             </form>
         </div>
     </div>
@@ -142,9 +173,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -205,7 +233,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn_Close_CCC">Close</button>
                 </div>
             </div>
         </div>
@@ -215,9 +243,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -275,7 +300,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn_Close_Deviaton">Close</button>
                 </div>
             </div>
         </div>
@@ -285,21 +310,32 @@
 </div>
 
 <script>
-
+    var chckboxstatus = [];
     $(document).ready(function () {
+        $('#QS_NoCAPA').val("CPA/SIA/HOF/MK/0921/009");
+        if ($('#QS_Status').val() != 8) {
+            //disableAll();
+        }
         getDDL();
         TahunDDL();
+        getKajian();
+        disableAll();
         $('#Tahun_DDL').select2();
         $('#AreaPIC_DDL').select2();
         $('#PIC_DDL').select2();
-        var chckboxstatus = [];
+        $('#Kajian').change(function () {
+            enableall();
+            GetAddedCCC();
+            GetAddedDeviation();
+            ValidateKajian();
+        });
         $('input[name="Devi_Radio"]').change(function () {
             if ($('input[name="Devi_Radio"]:checked').val() == 'Yes') {
-                chckboxstatus[0] = "Yes";
+                chckboxstatus[0] = "1";
                 $('#Deviation').removeAttr('hidden');
             }
             else {
-                chckboxstatus[0] = "No";
+                chckboxstatus[0] = "0";
                 $('#Deviation').attr("hidden", true);
                 $('#link_Deviation').attr("hidden", true);
             }
@@ -309,13 +345,13 @@
         })
         $('input[name="CCC_Radio"]').change(function () {
             if ($('input[name="CCC_Radio"]:checked').val() == 'Yes') {
-                $('#Tbl_CCC').removeAttr('hidden');
+                $('#CCC').removeAttr('hidden');
 
-                chckboxstatus[1] = "Yes";
+                chckboxstatus[1] = "1";
             }
             else {
-                $('#Tbl_CCC').attr("hidden", true);
-                chckboxstatus[1] = "No";
+                $('#CCC').attr("hidden", true);
+                chckboxstatus[1] = "0";
             }
         });
         $('input[name="File_Radio"]').change(function () {
@@ -326,7 +362,7 @@
             }
             else {
                 $('#Lampiran').attr("hidden", true);
-                chckboxstatus[2] = "Yes";
+                chckboxstatus[2] = "No";
             }
         });
 
@@ -340,15 +376,181 @@
             Submit();
 
         });
+        $('#btn_Close_CCC').click(function () {
 
+            var Jsonobj = [];
+            var status = false;
+            var table = $('#Tbl_CCC').DataTable();
+            for (var i = 1; i <= table.data().count(); i++) {
+
+                var row = $("#Tbl_CCC tr").eq(i);
+                var PenyimpanganID = $("TD", row).eq(1).html();
+                var creator = "";
+                // Mengecheck Checkbox apakah sudah di checklist
+                if ($("TD", row).eq(0).find("input[type='checkbox']").prop('checked')) {
+                    var item = {};
+                    item["NoCapa"] = $('#QS_NoCAPA').val();
+                    item["PenyimpanganID"] = PenyimpanganID;
+                    item["Description"] = "CCC";
+                    item["Creator"] = creator;
+                    Jsonobj.push(item);
+                    console.log(item);
+                    status = true;
+                }
+            }
+            if (status == true) {
+                var dto = {
+                    Penyimpangan: Jsonobj
+                }
+                $.ajax({
+                    url: 'InsertAddAbleKoor4?Record=' + $('#Kajian').val() +'',
+                    type: 'post',
+                    dataType: 'json',
+                    data: JSON.stringify(dto),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        GetAddedCCC();
+                        Swal.fire("Success!", "Transaction berhasil di Insert", "success");
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                });
+
+            }
+
+        });
+
+
+        $('#btn_Close_Deviaton').click(function () {
+            var Jsonobj = [];
+            var status = false;
+            var table = $('#Tbl_Deviation').DataTable();
+            for (var i = 1; i <= table.data().count(); i++) {
+
+                var row = $("#Tbl_Deviation tr").eq(i);
+                var PenyimpanganID = $("TD", row).eq(1).html();
+                var creator = "";
+                // Mengecheck Checkbox apakah sudah di checklist
+                if ($("TD", row).eq(0).find("input[type='checkbox']").prop('checked')) {
+                    var item = {};
+
+                    item["NoCapa"] = $('#QS_NoCAPA').val();
+                    item["PenyimpanganID"] = PenyimpanganID;
+                    item["Description"] = "DEVIATION";
+                    item["Creator"] = creator;
+                    Jsonobj.push(item);
+                    console.log(item);
+                    status = true;
+                }
+            }
+            if (status == true) {
+                var dto = {
+                    Penyimpangan: Jsonobj
+                }
+                $.ajax({
+                    url: 'InsertAddAbleKoor4?Record='+$('#Kajian').val()+'',
+                    type: 'post',
+                    dataType: 'json',
+                    data: JSON.stringify(dto),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        GetAddedDeviation();
+                        Swal.fire("Success!", "Transaction berhasil di Insert", "success");
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                });
+
+            }
+
+        });
+
+        $('#btn_Search_CCC').click(function () {
+            dto = {
+                Option: 4,
+                NoCapa: $('#QS_NoCAPA').val(),
+                JenisKeluhan: $('#JenisKeluhan_DDL').val(),
+                Tahun: $('#Tahun_DDL').val(),
+                Plant: $('#Plant_DDL').val(),
+                Kategori: $('#JenisKategori_DDL').val(),
+                Record: $('#Kajian').val(),
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "ShowAddAbleDeviation",
+                data: JSON.stringify(dto),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    var table = $('#Tbl_CCC').DataTable({
+                        "pageLength": 5,
+                        "lengthChange": true,
+                        "searching": false,
+                        "data": JSON.parse(result),
+                        "select": true,
+                        "bDestroy": true,
+                        "scrollCollapse": true,
+                        "columns": [
+                            {
+                                "data": null,
+                                "defaultContent": "<input class='selected' type='checkbox' name='type' onchange=''>"
+                            },
+                            { "data": "No_CCC" },
+                            { "data": "Nama_Plgn" },
+                            { "data": "Kategori" },
+                            { "data": "Keluhan_Plgn" },
+                            { "data": "StatusCCC" }
+                        ],
+                        "order": [[1, 'asc']],
+                        "columnDefs": [
+                            {
+                                "targets": 0,
+                                "className": "text-center",
+                                "width": "1%"
+                            },
+                            {
+                                "targets": 1,
+                                "className": "text-center",
+                                "width": "5%"
+                            },
+                            {
+                                "targets": 2,
+                                "className": "text-center",
+                                "width": "6%"
+                            },
+                            {
+                                "targets": 3,
+                                "className": "text-center",
+                                "width": "6%"
+                            },
+                            {
+                                "targets": 4,
+                                "className": "text-center",
+                                "width": "4%"
+                            },
+                            {
+                                "targets": 5,
+                                "className": "text-left",
+                                "width": "15%"
+                            }
+                        ]
+                    });
+                }
+            });
+        });
         $('#btn_Search_Deviation').click(function () {
             dto = {
-                Option: 1,
-                NoCapa:"CPA/SIA/HOF/MK/0921/009",
+                Option: 3,
+                NoCapa: $('#QS_NoCAPA').val(),
                 Departemen: $('#DepartemenPelapor_DDL').val(),
                 JenisPenyimpangan: $('#JenisPenyimpangan_DDL').val(),
                 Kategori: $('#KategoriPenyimpangan_DDL').val(),
-                Tahun: $('#Tahun_DDL').val()
+                Tahun: $('#Tahun_DDL').val(),
+                Record: $('#Kajian').val(),
+
             }
             $.ajax({
                 type: "POST",
@@ -415,7 +617,177 @@
             });
         });
     });
-   
+
+    function disableAll() {
+        $('input[name="File_Radio"]').attr("disabled", true);
+        $('input[name="CCC_Radio"]').attr("disabled", true);
+        $('input[name="Devi_Radio"]').attr("disabled", true);
+        $('#Submit').attr("disabled", true);
+    }
+    function enableall() {
+        $('input[name="File_Radio"]').removeAttr("disabled");
+        $('input[name="CCC_Radio"]').removeAttr("disabled");
+        $('input[name="Devi_Radio"]').removeAttr("disabled");
+        $('#Submit').removeAttr("disabled");
+    }
+    function getKajian() {
+        var dictlist = {
+            NoCAPA: $('#QS_NoCAPA').val(),
+            Option: 5
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_FORM_KOOR4",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto1),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                var count = result.length;
+                var trhtml = '';
+                var trav = 0;
+
+                trhtml += '<option disabled selected hidden class="dropdown-header">--Please Select--</option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                        trhtml += '<Option value = "' + result[trav].RecordID + '" > ' + result[trav].Tindakan;
+                    }
+                }
+                $("#Kajian").empty();
+                $("#Kajian").append(trhtml);
+                $("#Kajian").select2();
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+    }
+    function ValidateKajian() {
+        var dictlist = {
+            Record: $("#Kajian").val(),
+            Option: 6
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_FORM_KOOR4",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto1),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                console.log(result[0].Stat);
+                if (result[0].Stat == 'Invalid')
+                {
+                    $('#Submit').attr('hidden', true);
+                    $('#Status1').removeAttr('hidden');
+                    $('#Status2').attr('hidden', true);
+
+                }
+                else if (result[0].Stat == 'Complete')
+                {
+                    $('#Submit').attr('hidden', true);
+                    $('#Status1').attr('hidden', true);
+                    $('#Status2').removeAttr('hidden');
+                }
+                else
+                {
+                    $('#Submit').removeAttr('disabled'); 
+                    $('#Submit').removeAttr('hidden');
+                    $('#Status1').attr('hidden', true);
+                    $('#Status2').attr('hidden', true);
+                }
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+    }
+    function GetAddedDeviation() {
+        var dictlist = {
+            NoCAPA: $('#QS_NoCAPA').val(),
+            Option: 3,
+            Record: $('#Kajian').val()
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_FORM_KOOR4",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto1),
+            async: false,
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var table = $('#Tbl_Devi').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": true,
+                    "searching": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "scrollCollapse": true,
+                    "destroy": true,
+                    "columns": [
+                        { "data": "NO_CAPA_FK" },
+                        { "data": "Type" },
+                        { "data": "ValueEvaluasi" }
+                    ],
+                    "order": [[1, 'asc']],
+
+                });
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+
+    }
+    function GetAddedCCC() {
+        var dictlist = {
+            NoCAPA: $('#QS_NoCAPA').val(),
+            Option: 4,
+            Record: $('#Kajian').val()
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_FORM_KOOR4",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto1),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var table = $('#Tabel_CCC').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": true,
+                    "searching": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "scrollCollapse": true,
+                    "destroy": true,
+                    "columns": [
+                        { "data": "NO_CAPA_FK" },
+                        { "data": "Type" },
+                        { "data": "ValueEvaluasi" }
+                    ],
+                    "order": [[1, 'asc']],
+
+                });
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+
+    }
 
     function getDDL() {
         $.ajax({
@@ -518,6 +890,7 @@
         });
 
     }
+
     function TahunDDL() {
         var years = new Date().getFullYear();
         for (var i = years; i >= 2018; i--) {
@@ -525,43 +898,118 @@
             trhtml += '<Option value = "' + i + '" > ' + i;
             $('#Tahun_DDL').append(trhtml);
             $('#Tahun_DDL').select2();
+            $('#Tahun_DDL_CCC').append(trhtml);
+            $('#Tahun_DDL_CCC').select2();
         }
     }
     function Submit() {
-        var formData = new FormData();
-        var totalFiles = document.getElementById("TxtFileInput").files.length;
-        for (var i = 0; i < totalFiles; i++) {
-            var file = document.getElementById("TxtFileInput").files[i];
-            formData.append("TxtFileInput", file);
-            //formData.append("NoCAPA", $('#txtNoCAPA').val());
+        if ($('input[name="Devi_Radio"]:checked').val() != undefined &&
+            $('input[name="CCC_Radio"]:checked').val() != undefined &&
+            $('input[name="File_Radio"]:checked').val() != undefined) {
+            if (chckboxstatus[2] == "Yes") {
+                var formData = new FormData();
+                var totalFiles = document.getElementById("TxtFileInput").files.length;
+                var tableCCC = $('#Tabel_CCC').DataTable();
+                var tableDeviation = $('#Tbl_Devi').DataTable();
+                if ((tableDeviation.data().count() == 0 && chckboxstatus[0] == "1")
+                    || (tableCCC.data().count() == 0 && chckboxstatus[1] == "1")) {
+                    Swal.fire("Error!", "Silahkan Menambahkan CCC atau Deviation terlebih dahulu!", "error");
+
+                }
+                else if (totalFiles == 0 || totalFiles == undefined) {
+                    Swal.fire("Error!", "Silahkan Memilih File Attachment terlebih dahulu!", "error");
+                }
+                else {
+                    for (var i = 0; i < totalFiles; i++) {
+                        var file = document.getElementById("TxtFileInput").files[i];
+                        formData.append("TxtFileInput", file);
+                        //formData.append("NoCAPA", $('#txtNoCAPA').val());
+                    }
+                    $.ajax({
+                        url: "InsertAttachment?NoCapa=" + $('#QS_NoCAPA').val() + "&spname=SP_FORM_KOOR4&Creator=",
+                        type: "post",
+                        data: formData,
+                        dataType: 'json',
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                            var dictlist = {
+                                NoCAPA: $('#QS_NoCAPA').val(),
+                                Option: 2,
+                                StatCCC: chckboxstatus[1],
+                                StatDeviation: chckboxstatus[0],
+                                Record: $('#Kajian').val(),
+                                Creator: "",
+                            }
+                            var dto1 = {
+                                Model: dictlist
+                            }
+                            $.ajax({
+                                url: "DynamicController?spname=SP_FORM_KOOR4&",
+                                type: "post",
+                                data: JSON.stringify(dto1),
+                                dataType: 'json',
+                                contentType: "application/json;charset=utf-8",
+                                success: function (data) {
+
+                                    Swal.fire("Success!", "Submit Berhasil!", "success");
+                                    disableAll();
+                                },
+                                error: function (errormessage) {
+                                    $('#divLoading').attr("hidden", true);
+                                }
+                            });
+                        },
+                        error: function (errormessage) {
+                            $('#divLoading').attr("hidden", true);
+                        }
+                    });
+                }
+            }
+
+            else {
+                var tableCCC = $('#Tabel_CCC').DataTable();
+                var tableDeviation = $('#Tbl_Devi').DataTable();
+                if ((tableDeviation.data().count() == 0 && chckboxstatus[0] == "1")
+                    || (tableCCC.data().count() == 0 && chckboxstatus[1] == "1")) {
+                    Swal.fire("Error!", "Silahkan Menambahkan CCC atau Deviation terlebih dahulu!", "error");
+
+                }
+                else {
+                    var dictlist = {
+                        NoCAPA: $('#QS_NoCAPA').val(),
+                        Option: 2,
+                        StatCCC: chckboxstatus[1],
+                        StatDeviation: chckboxstatus[0],
+                        Record: $('#Kajian').val(),
+                        Creator: "",
+                    }
+                    var dto1 = {
+                        Model: dictlist
+                    }
+                    $.ajax({
+                        url: "DynamicController?spname=SP_FORM_KOOR4&",
+                        type: "post",
+                        data: JSON.stringify(dto1),
+                        dataType: 'json',
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+
+                            Swal.fire("Success!", "Submit Berhasil!", "success");
+                            disableAll();
+                        },
+                        error: function (errormessage) {
+                            $('#divLoading').attr("hidden", true);
+                        }
+                    });
+
+                }
+            }
+        }
+        else {
+            Swal.fire("Error!", "Silahkan Jawab Semua Pertanyaan terlebih dahulu!", "error");
         }
 
-        $.ajax({
-            url: "InsertAttachment?NoCapa=" + $('#QS_NoCAPA').val() + "&spname=SP_Koor4&",
-            type: "post",
-            data: formData,
-            dataType: 'json',
-            contentType: false,
-            processData: false,
-            success: function (data) {
-                $.ajax({
-                    url: "DynamicController?spname=SP_Koor4&",
-                    type: "post",
-                    data: formData,
-                    dataType: 'json',
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
-
-                    },
-                    error: function (errormessage) {
-                        $('#divLoading').attr("hidden", true);
-                    }
-                });
-            },
-            error: function (errormessage) {
-                $('#divLoading').attr("hidden", true);
-            }
-        });
 
     }
 </script>
