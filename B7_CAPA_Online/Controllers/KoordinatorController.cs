@@ -175,8 +175,8 @@ namespace B7_CAPA_Online.Controllers
         public ActionResult InsertAttachment(string spname,string NoCapa,string Creator)
         {            
             DataTable dt = new DataTable();
-            dt.Columns.Add("FilePath");
-            dt.Columns.Add("FileName");
+            dt.Columns.Add("LAMPIRAN_TERKAIT");
+            dt.Columns.Add("FILE_NAME");
             for (int i = 0; i < Request.Files.Count; i++)
             {
                 HttpPostedFileBase file = Request.Files[i];
@@ -187,8 +187,8 @@ namespace B7_CAPA_Online.Controllers
                 string filePath = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
                 //file.SaveAs(filePath);
                 DataRow rowstype = dt.NewRow();
-                rowstype["FilePath"] = filePath;
-                rowstype["FileName"] = file.FileName;
+                rowstype["LAMPIRAN_TERKAIT"] = filePath;
+                rowstype["FILE_NAME"] = file.FileName;
                 dt.Rows.Add(rowstype);
             }
             var dictionary = new Dictionary<string, object>
@@ -198,7 +198,7 @@ namespace B7_CAPA_Online.Controllers
                 {"Creator", Creator}
             };
             var parameters = new DynamicParameters(dictionary);
-            parameters.Add("LampiranDataTable", dt.AsTableValuedParameter("LampiranDataTable"));
+            parameters.Add("LampiranCollection", dt.AsTableValuedParameter("LampiranCollection"));
             return Json(DAL.StoredProcedure(parameters, spname));
         }
 
@@ -260,6 +260,37 @@ namespace B7_CAPA_Online.Controllers
             parameters.Add("InsertPenyimpangan", dt.AsTableValuedParameter("[dbo].[InsertPenyimpangan]"));
 
             var spname = "SP_Insert_Penyimpangan";
+
+            return Json(DAL.StoredProcedure(parameters, spname));
+
+        }
+        public ActionResult InsertAddAbleKoor4(InsertPenyimpangan Model, int Record)
+        {
+            var pjg = Model.Penyimpangan.Count;
+            DataTable dt = new DataTable();
+            dt.Columns.Add("NoCapa");
+            dt.Columns.Add("PenyimpanganID");
+            dt.Columns.Add("Description");
+            dt.Columns.Add("Creator");
+            int trav;
+            for (trav = 0; trav < pjg; trav++)
+            {
+                DataRow rowstype = dt.NewRow();
+                rowstype["NoCapa"] = Model.Penyimpangan[trav].NoCapa;
+                rowstype["PenyimpanganID"] = Model.Penyimpangan[trav].PenyimpanganID;
+                rowstype["Description"] = Model.Penyimpangan[trav].Description;
+                rowstype["Creator"] = Model.Penyimpangan[trav].Creator;
+                dt.Rows.Add(rowstype);
+            }
+            var dictionary = new Dictionary<string, object>
+            {
+                {"Record",Record }
+
+            };
+            var parameters = new DynamicParameters(dictionary);
+            parameters.Add("InsertPenyimpangan", dt.AsTableValuedParameter("[dbo].[InsertPenyimpangan]"));
+            parameters.Add("Option", 1);
+            var spname = "SP_FORM_KOOR4";
 
             return Json(DAL.StoredProcedure(parameters, spname));
 
