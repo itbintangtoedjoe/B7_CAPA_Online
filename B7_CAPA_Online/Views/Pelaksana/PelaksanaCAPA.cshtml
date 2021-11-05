@@ -43,7 +43,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group mb-2 col-sm-3">
-                                    <button class="btn btn-dark">View CAPA</button>
+                                    <button class="btn btn-dark" id="btnViewCAPA" >View CAPA</button>
                                 </div>
                             </div>
                         </form>
@@ -78,86 +78,132 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Penentuan Tindakan Perbaikan</h4>
+                        <h4 class="card-title">Tindakan Perbaikan</h4>
                         <div class="table-responsive">
-                            <form>
-                                <div class="row form-group-sm">
-                                    <div class="col-md-6">
-                                        <label class="m-t-20">Tindakan Perbaikan<span style="color: red">*</span></label>
-                                        <textarea type="text" class="form-control" placeholder="Deskripsi"></textarea>
-                                    </div>
-                                    <div class="form-group mb-2 col-sm-3">
-                                        <label class="m-t-20">Due Date</label>
-                                        <input type="date" id="date-format" class="form-control form-control-sm">
-                                    </div>
-                                </div>
+                            <form id="formPerbaikan">
                                 <div class="row form-group">
                                     <div class="col-md-6">
                                         <label class="m-t-40">Pelaksana Tindakan Perbaikan</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control">
+                                            <input type="text" id="txtPelaksanaPerbaikan" class="form-control" disabled>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3" style="text-align: center">
+                                    <div class="col-sm-3">
                                         <label class="m-t-40">Superior</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control">
+                                            <input type="text" id="txtSuperiorPerbaikan" class="form-control" disabled>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3" style="text-align: center">
+                                </div>
+
+                                @*<div class="row form-group">
+                                    <div class="col-sm-2">
+                                        <button type="button" class="btn btn-primary" id="btnTambahPerbaikan">Tambah Tindakan Perbaikan</button>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label class="m-t-40">Hasil tindakan perbaikan yang Sudah Dilakukan</label>
-                                        <div class="input-group mb-3">
-                                            <textarea type="text" class="form-control" placeholder="Tindakan Perbaikan"></textarea>
-                                        </div>                                       
+                                </div>*@
+                                <hr />
+                                <div class="row form-group">
+                                    <div class="col-sm-6">
+                                        <select class="form-control select2" name="ddlPerbaikan" id="ddlPerbaikan" required>
+                                        </select>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label class="m-t-40" style="visibility:hidden">Hasil tindakan perbaikan yang Sudah Dilakukan</label>
-                                        <div class="input-group mb-3">
-                                            <button type="button" class="btn mb-1 btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
-                                            <div class="dropdown-menu" style="width:auto">
-                                                <a class="dropdown-item" href="#">Ubah Tindakan Perbaikan</a>
-                                                <a class="dropdown-item" href="#">Cancel Tindakan Perbaikan</a>
-                                                <a class="dropdown-item" href="#">Tambah Tindakan Perbaikan</a>
-                                            </div>
+                                    <div class="col-sm-1">
+                                        <button type="button" id="btnPilihPerbaikan" class="btn btn-primary" disabled>Pilih</button>
+                                    </div>
+                                    <div class="col-sm-3" style="text-align:right;margin-top:7px">
+                                        <label id="txtModePerbaikan" class="text-highlight-yellow" hidden>Mode: Edit Tindakan/Due Date</label>
+                                        <input type="hidden" id="modePerbaikan" />
+                                    </div>
+                                    <div class="col-sm-2" style="text-align:right">
+                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="btnActionPerbaikan" disabled>Action</button>
+                                        <div class="dropdown-menu" style="width:auto">
+                                            <a class="dropdown-item" href="#" id="btnEnableUbahPerbaikan">Ubah Tindakan Perbaikan</a>
+                                            <a class="dropdown-item" href="#" id="btnTambahPerbaikan">Tambah Tindakan Perbaikan</a>
+                                            <a class="dropdown-item" href="#">Cancel Tindakan Perbaikan</a>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label id="txtStatusPerbaikan"><strong>Status: Menunggu Input Pelaksana</strong></label>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label class="m-t-20">Root cause</label>
+                                        <textarea type="text" class="form-control"  id="txtRootCausePerbaikan" disabled></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group-sm">
                                     <div class="col-md-6">
-                                        <label class="m-t-20">Upload Bukti Tindakan Perbaikan</label>
+                                        <label class="m-t-20">Tindakan perbaikan<span style="color: red;">*</span></label>
+                                        <textarea type="text" class="form-control" placeholder="Deskripsi" id="txtTindakanPerbaikan" disabled></textarea>
+                                    </div>
+                                    <div class="form-group mb-2 col-sm-3">
+                                        <label class="m-t-20">Due date<span style="color: red">*</span></label>
+                                        <input type="date" id="dueDatePerbaikan" class="form-control form-control-sm" disabled>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row form-group">
+                                    <div class="col-md-6">
+                                        <label class="m-t-40">Hasil tindakan perbaikan yang sudah dilakukan<span style="color: red">*</span></label>
                                         <div class="input-group mb-3">
-                                            <div class="custom-file">
-                                                <label class="custom-file-label">Choose file</label>
-                                                <input type="file" class="custom-file-input">
+                                            <textarea type="text" id="txtHasilPerbaikan" class="form-control" placeholder="Hasil tindakan perbaikan..."></textarea>
+                                        </div>
+                                    </div>
+                                    @*<div class="col-md-6">
+                <label class="m-t-40" style="visibility:hidden">Hasil tindakan perbaikan yang sudah dilakukan</label>
+                <div class="input-group mb-3">
+                    <button type="button" class="btn mb-1 btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
+                    <div class="dropdown-menu" style="width:auto">
+                        <a class="dropdown-item" href="#">Ubah Tindakan Perbaikan</a>
+                        <a class="dropdown-item" href="#">Cancel Tindakan Perbaikan</a>
+                        <a class="dropdown-item" href="#">Tambah Tindakan Perbaikan</a>
+                    </div>
+                </div>
+            </div>*@
+                                    <div class="col-md-6">
+                                        <label class="m-t-20">Upload bukti tindakan perbaikan<span style="color: red">*</span></label>
+                                        <div class="input-group mb-3">
+                                            <div class="custom-file" style="border: 1px solid #dee0df; padding:5px;">
+                                                <input type="file" class="form-control-file" name="UploadAttachment" id="uploadAttachmentPerbaikan" multiple />
                                             </div>
-                                            <div class="input-group-append">
-                                                <button class="btn-dark input-group-text center" type="button">Add<span style="visibility:hidden">..</span><i class="fa fa-plus color-success"></i></button>
-                                            </div>
+                                            @*<div class="input-group-append">
+                        <button id="btnAddAttPerbaikan" class="btn-dark input-group-text center" style="cursor:pointer" type="button">Add<span style="visibility:hidden">..</span><i class="fa fa-plus color-success"></i></button>
+                    </div>*@
+                                            @*<div class="custom-file">
+                        <label class="custom-file-label">Choose file</label>
+                        <input type="file" class="custom-file-input">
+                    </div>
+                    <div class="input-group-append">
+                        <button class="btn-dark input-group-text center" type="button">Add<span style="visibility:hidden">..</span><i class="fa fa-plus color-success"></i></button>
+                    </div>*@
                                         </div>
                                     </div>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered zero-configuration">
+                                    <table class="table table-bordered zero-configuration" id="tblAttachmentPerbaikan">
                                         <thead>
                                             <tr>
-                                                <th>No</th>
                                                 <th>Nama File</th>
-                                                <th>Action</th>
+                                                <th hidden></th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="tbodyAttachmentPerbaikan">
                                             <tr>
-                                                <td>File.pdf</td>
-                                                <td>File.jpg</td>
-                                                <td><button class="btn-dark input-group-text center" type="button"><i class="fa fa-download"></i></button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>File.docx</td>
-                                                <td>File.xlxs</td>
-                                                <td><button class="btn-dark input-group-text center" type="button"><i class="fa fa-download"></i></button></td>
+                                                <td>Belum ada file terpilih</td>
                                             </tr>
                                         </tbody>
                                     </table>
+                                </div>
+                                <br />
+                                <div class="row form-group">
+                                    <div class="col-sm-2">
+                                        <button type="button" class="btn btn-primary" id="btnSimpanPerbaikan">Simpan</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -166,86 +212,118 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Penentuan Tindakan Pencegahan</h4>
+                        <h4 class="card-title">Tindakan Pencegahan</h4>
                         <div class="table-responsive">
                             <form>
-                                <div class="row form-group-sm">
-                                    <div class="col-md-6">
-                                        <label class="m-t-20">Tindakan Pencegahan<span style="color: red">*</span></label>
-                                        <textarea type="text" class="form-control" placeholder="Deskripsi"></textarea>
-                                    </div>
-                                    <div class="form-group mb-2 col-sm-3">
-                                        <label class="m-t-20">Due Date</label>
-                                        <input type="date" id="date-format" class="form-control form-control-sm">
-                                    </div>
-                                </div>
+
                                 <div class="row form-group">
                                     <div class="col-md-6">
                                         <label class="m-t-40">Pelaksana Tindakan Pencegahan</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control">
+                                            <input type="text" id="txtPelaksanaPencegahan" class="form-control" disabled>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3" style="text-align: center">
+                                    <div class="col-sm-3">
                                         <label class="m-t-40">Superior</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control">
+                                            <input type="text" id="txtSuperiorPencegahan" class="form-control" disabled>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3" style="text-align: center">
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-sm-2">
+                                        <button type="button" class="btn btn-primary">Tambah Tindakan Pencegahan</button>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label class="m-t-40">Hasil tindakan pencegahan yang Sudah Dilakukan</label>
-                                        <div class="input-group mb-3">
-                                            <textarea type="text" class="form-control" placeholder="Tindakan Perbaikan"></textarea>
+                                </div>
+                                <hr />
+                                <div class="row form-group">
+                                    <div class="col-sm-6">
+                                        <select class="form-control select2" name="ddlPencegahan" id="ddlPencegahan" required>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <button type="button" id="btnPilihPencegahan" class="btn btn-primary" disabled>Pilih</button>
+                                    </div>
+                                    <div class="col-sm-3" style="text-align:right;margin-top:7px">
+                                        <label id="txtModePencegahan" class="text-highlight-yellow" hidden>Mode: Edit Tindakan/Due Date</label>
+                                        <input type="hidden" id="modePencegahan" />
+                                    </div>
+                                    <div class="col-sm-2" style="text-align:right">
+                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="btnActionPencegahan" disabled>Action</button>
+                                        <div class="dropdown-menu" style="width:auto">
+                                            <a class="dropdown-item" id="btnEnableUbahPencegahan" href="#">Ubah Tindakan Pencegahan</a>
+                                            <a class="dropdown-item" href="#">Cancel Tindakan Pencegahan</a>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div class="row form-group">
                                     <div class="col-md-6">
-                                        <label class="m-t-40" style="visibility:hidden">Hasil tindakan perbaikan yang Sudah Dilakukan</label>
+                                        <label id="txtStatusPencegahan"><strong>Status: Menunggu Input Pelaksana</strong></label>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group-sm">
+                                    <div class="col-md-6">
+                                        <label class="m-t-20">Tindakan pencegahan<span style="color: red">*</span></label>
+                                        <textarea type="text" id="txtTindakanPencegahan" class="form-control" placeholder="Deskripsi" disabled></textarea>
+                                    </div>
+                                    <div class="form-group mb-2 col-sm-3">
+                                        <label class="m-t-20">Due date<span style="color: red;">*</span></label>
+                                        <input type="date" id="dueDatePencegahan" class="form-control form-control-sm" disabled>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-6">
+                                        <label class="m-t-40">Hasil tindakan pencegahan yang sudah dilakukan<span style="color: red;">*</span></label>
                                         <div class="input-group mb-3">
-                                            <button type="button" class="btn mb-1 btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
-                                            <div class="dropdown-menu" style="width:auto">
-                                                <a class="dropdown-item" href="#">Ubah Tindakan Pencegahan</a>
-                                                <a class="dropdown-item" href="#">Cancel Tindakan Pencegahan</a>
-                                                <a class="dropdown-item" href="#">Tambah Tindakan Pencegahan</a>
-                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Hasil tindakan pencegahan..." id="txtHasilPencegahan"></textarea>
                                         </div>
                                     </div>
+                                    @*<div class="col-md-6">
+                <label class="m-t-40" style="visibility:hidden">Hasil tindakan perbaikan yang sudah dilakukan</label>
+                <div class="input-group mb-3">
+                    <button type=   "button" class="btn mb-1 btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
+                    <div class="dropdown-menu" style="width:auto">
+                        <a class="dropdown-item" href="#">Ubah Tindakan Pencegahan</a>
+                        <a class="dropdown-item" href="#">Cancel Tindakan Pencegahan</a>
+                        <a class="dropdown-item" href="#">Tambah Tindakan Pencegahan</a>
+                    </div>
+                </div>
+            </div>*@
                                     <div class="col-md-6">
-                                        <label class="m-t-20">Upload Bukti Tindakan Pencegahan</label>
+                                        <label class="m-t-20">Upload Bukti Tindakan Pencegahan<span style="color: red">*</span></label>
                                         <div class="input-group mb-3">
-                                            <div class="custom-file">
-                                                <label class="custom-file-label">Choose file</label>
-                                                <input type="file" class="custom-file-input">
+                                            <div class="custom-file" style="border: 1px solid #dee0df; padding:5px;">
+                                                <input type="file" class="form-control-file" name="UploadAttachment" id="uploadAttachmentPencegahan" />
                                             </div>
-                                            <div class="input-group-append">
-                                                <button class="btn-dark input-group-text center" type="button">Add<span style="visibility:hidden">..</span><i class="fa fa-plus color-success"></i></button>
-                                            </div>
+                                            @*<div class="input-group-append">
+                        <button id="btnAddAttPerbaikan" class="btn-dark input-group-text center" style="cursor:pointer" type="button">Add<span style="visibility:hidden">..</span><i class="fa fa-plus color-success"></i></button>
+                    </div>*@
                                         </div>
                                     </div>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered zero-configuration">
+                                    <table class="table table-bordered zero-configuration" id="tblAttachmentPencegahan">
                                         <thead>
                                             <tr>
-                                                <th>No</th>
                                                 <th>Nama File</th>
-                                                <th>Action</th>
+                                                <th hidden></th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="tbodyAttachmentPencegahan">
                                             <tr>
-                                                <td>File.pdf</td>
-                                                <td>File.jpg</td>
-                                                <td><button class="btn-dark input-group-text center" type="button"><i class="fa fa-download"></i></button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>File.docx</td>
-                                                <td>File.xlxs</td>
-                                                <td><button class="btn-dark input-group-text center" type="button"><i class="fa fa-download"></i></button></td>
+                                                <td>Belum ada file terpilih</td>
                                             </tr>
                                         </tbody>
                                     </table>
+                                </div>
+                                <br />
+                                <div class="row form-group">
+                                    <div class="col-sm-2">
+                                        <button type="button" class="btn btn-primary" id="btnSimpanPencegahan">Simpan</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -254,7 +332,7 @@
 
                 <div class="card" id="Div_Pencegahan" hidden>
                     <div class="card-body">
-                        <h4 class="card-title">Penentuan Tindakan Pencegahan</h4>
+                        <h4 class="card-title">Tindakan Pencegahan</h4>
                         <div class="table-responsive">
                             <form>
                                 <div class="row form-group-sm">
@@ -306,7 +384,7 @@
                     </div>
                 </div>
 
-                <div class="card">
+                <div class="card" hidden>
                     <div class="card-body">
                         <h4 class="card-title">Kajian Resiko</h4>
                         <div class="table-responsive">
@@ -327,7 +405,7 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-md-6">
-                                        <label class="m-t-20">Upload Bukti Tindakan Pencegahan</label>
+                                        <label class="m-t-20">Upload bukti tindakan pencegahan</label>
                                         <div class="input-group mb-3">
                                             <div class="custom-file">
                                                 <label class="custom-file-label">Choose file</label>
@@ -374,7 +452,778 @@
 
 
 <script>
+    var noCAPA = getQueryStrings()["NoCAPA"];
+    var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
+    var namaUser = '@Request.RequestContext.HttpContext.Session["NamaUser"]';
+    var superiorName = '@Request.RequestContext.HttpContext.Session["SuperiorName"]';
+    var dataPerbaikan, attachmentPerbaikan, dataPencegahan, attachmentPencegahan;
+
+    //function untuk ambil semua query string
+    function getQueryStrings() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
     $(document).ready(function () {
-     
+        $('#TxtDepartemen').val('@Request.RequestContext.HttpContext.Session["Departemen"]');
+        $('#TxtNoCAPA').val(noCAPA);
+        $('#TxtRequestor').val(superiorName);
+        $('#txtPelaksanaPerbaikan').val(namaUser);
+        $('#txtPelaksanaPencegahan').val(namaUser);
+        $('#txtSuperiorPerbaikan').val(superiorName);
+        $('#txtSuperiorPencegahan').val(superiorName);
+
+        ReloadPage();
+        ResetPage();
     });
+
+    function ReloadPage() {
+        ResetPage();
+        FindPerbaikan();
+        PopulateDDLPerbaikan();
+        DisplayPerbaikan();
+        FindPencegahan();
+        PopulateDDLPencegahan();
+        DisplayPencegahan();
+        $("#modePerbaikan").val("Continue");
+        $("#modePencegahan").val("Continue");
+        $('#txtModePerbaikan').attr("hidden", true);
+        $('#txtModePencegahan').attr("hidden", true);
+        $('#btnPilihPerbaikan').text("Pilih");
+        $('#btnPilihPencegahan').text("Pilih");
+        ToggleBtnDeleteAttPerbaikan("Disable");
+        ToggleBtnDeleteAttPencegahan("Disable");
+        $('#btnActionPerbaikan').prop("disabled", true);
+        $('#btnActionPencegahan').prop("disabled", true);
+    }
+
+    $('#btnViewCAPA').click(function () {
+        window.open("/PIC/FormCAPA?CAPA=" + noCAPA);
+    });
+
+    $('#btnTambahPerbaikan').click(function () {
+        var idPerbaikan = $('#ddlPerbaikan').val();
+        window.location.href = '@Url.Action("PelaksanaTambahPerbaikan","Pelaksana")?NoCAPA=' + noCAPA + '&ReferenceID=' + idPerbaikan;
+    });
+
+    @* PERBAIKAN *@
+    function PopulateDDLPerbaikan() {
+        $('#ddlPerbaikan').empty();
+        if (dataPerbaikan.length <= 1) {
+            $('#ddlPerbaikan').prop("disabled", true);
+            $('#btnPilihPerbaikan').prop("disabled", true);
+        }
+        for (i = 0; i < dataPerbaikan.length; i++) {
+            idx = i + 1;
+            dueDate = moment(dataPerbaikan[i].Due_Date);
+            //beri keterangan jika status perbaikan sedang menunggu review
+            @*if (dataPerbaikan[i].Status_Perbaikan.startsWith('Pending Review')) {
+                $('#ddlPerbaikan').append('<option value="' + dataPerbaikan[i].RecordID + '">' + 'Perbaikan ' + idx + ' - in review</option>');
+            }*@
+            if (dataPerbaikan[i].Status_Perbaikan.startsWith('Pending Review')) {
+                @*$('#ddlPerbaikan').append('<option value="' + dataPerbaikan[i].RecordID + '">' + 'Perbaikan ' + idx + ' - ' + dataPerbaikan[i].Status_Perbaikan + '</option>');*@
+                 $('#ddlPerbaikan').append('<option value="' + dataPerbaikan[i].RecordID + '">[In Review] ' + dataPerbaikan[i].Tindakan_Perbaikan + '</option>');
+            }
+            else {
+                $('#ddlPerbaikan').append('<option value="' + dataPerbaikan[i].RecordID + '">' + dataPerbaikan[i].Tindakan_Perbaikan + '</option>');
+            }
+        }
+    }
+
+    function DisplayPerbaikan() {
+        var idPerbaikan = $('#ddlPerbaikan').val();
+        let objPerbaikan = dataPerbaikan.filter(item => item.RecordID == idPerbaikan);
+        var dueDate = moment(objPerbaikan[0].Due_Date);
+        $('#txtTindakanPerbaikan').val(objPerbaikan[0].Tindakan_Perbaikan);
+        $('#dueDatePerbaikan').val(dueDate.format("YYYY-MM-DD"));
+        $('#txtHasilPerbaikan').val(objPerbaikan[0].Hasil_Perbaikan);
+
+        GetPerbaikanAttachments();
+        PopulateTableAttPerbaikan();
+        ToggleBtnDeleteAttPerbaikan("Disable");
+
+        var ddlText = $("#ddlPerbaikan option:selected").text();
+        var status = "Menunggu Input Pelaksana";
+
+        //disable button pilih agar tidak bisa diedit - jika status direview
+        if (ddlText.indexOf('Review') > 0) {
+            $('#btnPilihPerbaikan').prop("disabled", true);
+            status = objPerbaikan[0].Status_Perbaikan;
+        }
+        else {
+            $('#btnPilihPerbaikan').prop("disabled", false);
+        }
+        $('#txtStatusPerbaikan').html('<strong>Status: ' + status + '</strong>');
+        $('#txtRootCausePerbaikan').val(objPerbaikan[0].WhyDesc);
+    }
+
+    function PopulateTableAttPerbaikan() {
+        var fileCount = attachmentPerbaikan.length;
+        var trhtml = '';
+        if (fileCount > 0) {
+            for (i = 0; i < fileCount; i++) {
+                trhtml += '<tr><td><a href="' + attachmentPerbaikan[i].FILE_PATH + '" style="color:blue;text-decoration:underline">' + attachmentPerbaikan[i].FILE_NAME + '</a></td>' +
+                    '<td> <button class="btn-dark input-group-text center" type="button" onclick=" DeleteAttachment(' + attachmentPerbaikan[i].RecordID + ')" id="btnDeletePerbaikan'+i+'" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
+            }
+        } else {
+            trhtml += '<tr><td>Belum ada file terpilih</td></tr>';
+        }
+        $("#tbodyAttachmentPerbaikan").empty();
+        $("#tblAttachmentPerbaikan").append(trhtml);
+    }
+
+    $('#ddlPerbaikan').on('change', function () {
+        DisplayPerbaikan();
+    });
+
+    function FindPerbaikan() {
+        var idPerbaikan = $('#ddlPerbaikan').val();
+        var dto = {
+            Kategori: "Perbaikan",
+            NomorCAPA: noCAPA,
+            NIK: nik,
+            Status:"Active"
+        }
+        $.ajax({
+            url: "FindCAPADetail",
+            type: "POST",
+            async: false,
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                dataPerbaikan = result;
+                @*let obj = result.filter(item => item.RecordID == idPerbaikan);
+                var dueDate = moment(obj[0].Due_Date);
+                $('#txtTindakanPerbaikan').val(obj[0].Tindakan_Perbaikan);
+                $('#dueDatePerbaikan').val(dueDate.format("YYYY-MM-DD"));*@
+
+                @*return result;*@
+                @*var idx, dueDate;
+                for (i = 0; i < result.length; i++) {
+                    idx = i + 1;
+                    dueDate = moment(result[i].Due_Date);
+                    $('#ddlPerbaikan').append('<option value="' + result[i].RecordID + '">' + 'Perbaikan ' + idx + '</option>');
+                    $('#txtTindakanPerbaikan').val(result[i].Tindakan_Perbaikan);
+                    $('#dueDatePerbaikan').val(dueDate.format("YYYY-MM-DD"));
+                }*@
+                @*let obj = result.filter(item => item.RecordID == idxParam);
+                console.log(obj[0]);
+                return obj[0];*@
+
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetPerbaikanAttachments() {
+        var idPerbaikan = $('#ddlPerbaikan').val();
+        var dto = {
+            Kategori: "Lampiran Perbaikan",
+            NomorCAPA: noCAPA,
+            NIK: nik,
+            FKID: idPerbaikan,
+            Status: "Active"
+        }
+        $.ajax({
+            url: "FindCAPADetail",
+            type: "POST",
+            async: false,
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                attachmentPerbaikan = result;
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    $('#uploadAttachmentPerbaikan').change(function () {
+        var fileCount = this.files.length;
+        var trhtml = '';
+        @* console.log(this.files);*@
+        for (i = 0; i < fileCount; i++) {
+            trhtml += '<tr><td>' + this.files[i].name + '</td></tr>';
+        }
+        PopulateTableAttPerbaikan();
+        $("#tblAttachmentPerbaikan").append(trhtml);
+    })
+
+    function ToggleBtnDeleteAttPerbaikan(action) {
+        var fileCount = attachmentPerbaikan.length;
+        for (i = 0; i < fileCount; i++) {
+            if (action == 'Disable') {
+                $('#btnDeletePerbaikan' + i).prop("disabled", true);
+            } else {
+                $('#btnDeletePerbaikan' + i).prop("disabled", false);
+            }
+        }
+    }
+
+    $('#btnPilihPerbaikan').click(function (e) {
+        var currentText = $(this).text();
+        if (currentText == "Pilih") {
+            $(this).text("Batalkan");
+            $('#ddlPerbaikan').prop("disabled", true);
+            $('#txtHasilPerbaikan').prop("disabled", false);
+            $('#uploadAttachmentPerbaikan').prop("disabled", false);
+            $('#btnSimpanPerbaikan').prop("disabled", false);
+            $('#btnActionPerbaikan').prop("disabled", false);
+            ToggleBtnDeleteAttPerbaikan("Enable");
+        } else {
+            $(this).text("Pilih");
+            $('#ddlPerbaikan').prop("disabled", false);
+            $('#btnActionPerbaikan').prop("disabled", true);
+            ResetPage();
+            ToggleBtnDeleteAttPerbaikan("Disable");
+        }
+    });
+
+    $('#btnEnableUbahPerbaikan').click(function (e) {
+        e.preventDefault();
+        var currentMode = $("#modePerbaikan").val();
+        if (currentMode == "Edit") {
+            $('#btnEnableUbahPerbaikan').html('Edit Tindakan Perbaikan');
+            $("#modePerbaikan").val("Continue");
+            $('#txtTindakanPerbaikan').prop("disabled", true);
+            $('#dueDatePerbaikan').prop("disabled", true);
+            $('#txtModePerbaikan').attr("hidden", true);
+        } else {
+            $('#btnEnableUbahPerbaikan').html('<i class="fa fa-check"></i>  Edit Tindakan Perbaikan');
+            $("#modePerbaikan").val("Edit");
+            $('#txtTindakanPerbaikan').prop("disabled", false);
+            $('#dueDatePerbaikan').prop("disabled", false);
+            $('#txtModePerbaikan').attr("hidden", false);
+        }
+        console.log($("#modePerbaikan").val());
+    });
+
+    $('#btnSimpanPerbaikan').click(function (e) {
+        var modePerbaikan = $("#modePerbaikan").val();
+
+        var idPerbaikan = $('#ddlPerbaikan').val();
+        var tindakanPerbaikan = $('#txtTindakanPerbaikan').val();
+        var dueDate = $('#dueDatePerbaikan').val();
+        var hasilPerbaikan = $('#txtHasilPerbaikan').val();
+        var attachmentPerbaikan = $("#uploadAttachmentPerbaikan").val();
+        var pelaksanaID = getQueryStrings()["PelaksanaID"];
+        var status = "Pending Review Koordinator";
+        var kategori = "Perbaikan";
+
+        pelaksanaID = pelaksanaID.replace('#', '');
+        idPerbaikan = parseInt(idPerbaikan);
+        @* console.log(idPerbaikan, hasilPerbaikan, attachmentPerbaikan, pelaksanaID);*@
+        var formData = new FormData();
+        formData.append("Hasil", hasilPerbaikan);
+        formData.append("TindakanID", idPerbaikan);
+        formData.append("Updater", pelaksanaID);
+        formData.append("NomorCAPA", noCAPA);
+        formData.append("Tindakan", tindakanPerbaikan);
+        formData.append("DueDate", dueDate);
+        @* console.log($('#tblAttachmentPerbaikan tbody tr').length);*@
+
+        if (modePerbaikan == "Continue") {
+            if (hasilPerbaikan.trim() == "" || $('#tblAttachmentPerbaikan td:last-child').text() == "Belum ada file terpilih") {
+                swal('Hasil perbaikan dan attachment wajib diisi!', {
+                    icon: "warning",
+                    buttons: false,
+                    timer: 1000,
+                });
+                return;
+            }
+        }
+        else {
+            kategori = "Perubahan Perbaikan";
+            status = "Pending Review Superior Pelaksana";
+            if (tindakanPerbaikan.trim() == "") {
+                swal('Semua field wajib diisi!', {
+                    icon: "warning",
+                    buttons: false,
+                    timer: 1000,
+                })
+                return;
+            }
+        }
+
+        formData.append("Kategori", kategori);
+        formData.append("Status", status);
+        var files = $('#uploadAttachmentPerbaikan').prop('files');
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            formData.append("Attachments", file);
+        }
+
+        $.ajax({
+            url: "SimpanHasilPelaksanaan",
+            type: "POST",
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            async: false,
+            success: function (data) {
+                swal("Data perbaikan berhasil diupdate!", {
+                    icon: "success",
+                    buttons: false,
+                    timer: 1000,
+                });
+                ReloadPage();
+                @*if (data == 'success') {
+                    swal("Login berhasil!", {
+                        icon: "success",
+                        buttons: false,
+                        timer: 1000,
+                    }).then(() => {
+                        window.location.href = '@Url.Action("Index", "Vendor")';
+                    })
+                } else {
+                    swal({
+                        title: "Login Gagal!",
+                        text: "Akun dengan data tersebut tidak ditemukan!",
+                        icon: "error",
+                        buttons: false,
+                        timer: 1000,
+                    });
+                }*@
+            },
+            error: function (xhr, error, status) {
+                console.log(error, status);
+            }
+        });
+        @*for (var pair of formData.entries()) {
+            console.log(pair[0] + ', ' + pair[1]);
+        }*@
+
+        @*var form = $("#formPerbaikan");
+        var formContent = new FormData(form[0]);*@
+    });
+
+    @* END PERBAIKAN *@
+
+    @* PENCEGAHAN *@
+    function PopulateDDLPencegahan() {
+        $('#ddlPencegahan').empty();
+        if (dataPencegahan.length <= 1) {
+            $('#ddlPencegahan').prop("disabled", true);
+            $('#btnPilihPencegahan').prop("disabled", true);
+        }
+        for (i = 0; i < dataPencegahan.length; i++) {
+            idx = i + 1;
+            dueDate = moment(dataPencegahan[i].Due_Date);
+            //beri keterangan jika status perbaikan sedang menunggu review
+            if (dataPencegahan[i].Status_Pencegahan.startsWith('Pending Review')) {
+                $('#ddlPencegahan').append('<option value="' + dataPencegahan[i].RecordID + '">[In Review] ' + dataPencegahan[i].Tindakan_Pencegahan + '</option>');
+            }
+            else {
+                $('#ddlPencegahan').append('<option value="' + dataPencegahan[i].RecordID + '">' + dataPencegahan[i].Tindakan_Pencegahan + '</option>');
+            }
+        }
+    }
+
+    function DisplayPencegahan() {
+        var idPencegahan = $('#ddlPencegahan').val();
+        let objPencegahan = dataPencegahan.filter(item => item.RecordID == idPencegahan);
+        var dueDate = moment(objPencegahan[0].Due_Date);
+        $('#txtTindakanPencegahan').val(objPencegahan[0].Tindakan_Pencegahan);
+        $('#dueDatePencegahan').val(dueDate.format("YYYY-MM-DD"));
+        $('#txtHasilPencegahan').val(objPencegahan[0].Hasil_Pencegahan);
+
+        GetPencegahanAttachments();
+        PopulateTableAttPencegahan();
+        ToggleBtnDeleteAttPencegahan("Disable");
+
+        var ddlText = $("#ddlPencegahan option:selected").text();
+        var status = "Menunggu Input Pelaksana";
+
+        //disable button pilih agar tidak bisa diedit
+        if (ddlText.indexOf('Review') > 0) {
+            $('#btnPilihPencegahan').prop("disabled", true);
+            status = objPencegahan[0].Status_Pencegahan;
+        }
+        else {
+            $('#btnPilihPencegahan').prop("disabled", false);
+        }
+        $('#txtStatusPencegahan').html('<strong>Status: ' + status + '</strong>');
+    }
+
+    function PopulateTableAttPencegahan() {
+        var fileCount = attachmentPencegahan.length;
+        var trhtml = '';
+        if (fileCount > 0) {
+            for (i = 0; i < fileCount; i++) {
+                trhtml += '<tr><td><a href="' + attachmentPencegahan[i].FILE_PATH + '" style="color:blue;text-decoration:underline">' + attachmentPencegahan[i].FILE_NAME + '</a></td>' +
+                    '<td> <button class="btn-dark input-group-text center" type="button" onclick=" DeleteAttachment(' + attachmentPencegahan[i].RecordID + ')" id="btnDeletePencegahan' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
+            }
+        } else {
+            trhtml += '<tr><td>Belum ada file terpilih</td></tr>';
+        }
+        $("#tbodyAttachmentPencegahan").empty();
+        $("#tblAttachmentPencegahan").append(trhtml);
+    }
+
+    $('#ddlPencegahan').on('change', function () {
+        DisplayPencegahan();
+    });
+
+    function FindPencegahan() {
+        var idPencegahan = $('#ddlPencegahan').val();
+        var dto = {
+            Kategori: "Pencegahan",
+            NomorCAPA: noCAPA,
+            NIK: nik,
+            Status: "Active"
+        }
+        $.ajax({
+            url: "FindCAPADetail",
+            type: "POST",
+            async: false,
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                dataPencegahan = result;
+                @*console.log(data);*@
+                @*var result = JSON.parse(data);
+                $('#txtTindakanPencegahan').val(result[0].Tindakan_Pencegahan);
+                var dueDate = moment(result[0].Due_Date);
+                $('#dueDatePencegahan').val(dueDate.format("YYYY-MM-DD"));*@
+
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetPencegahanAttachments() {
+        var idPencegahan = $('#ddlPencegahan').val();
+        var dto = {
+            Kategori: "Lampiran Pencegahan",
+            NomorCAPA: noCAPA,
+            NIK: nik,
+            FKID: idPencegahan,
+            Status: "Active"
+        }
+        $.ajax({
+            url: "FindCAPADetail",
+            type: "POST",
+            async: false,
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                attachmentPencegahan = result;
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    $('#uploadAttachmentPencegahan').change(function () {
+        var fileCount = this.files.length;
+        var trhtml = '';
+        @* console.log(this.files);*@
+        for (i = 0; i < fileCount; i++) {
+            trhtml += '<tr><td>' + this.files[i].name + '</td></tr>';
+        }
+        PopulateTableAttPencegahan();
+        $("#tblAttachmentPencegahan").append(trhtml);
+    })
+
+    function ToggleBtnDeleteAttPencegahan(action) {
+        var fileCount = attachmentPencegahan.length;
+        for (i = 0; i < fileCount; i++) {
+            if (action == 'Disable') {
+                $('#btnDeletePencegahan' + i).prop("disabled", true);
+            } else {
+                $('#btnDeletePencegahan' + i).prop("disabled", false);
+            }
+        }
+    }
+
+    $('#btnPilihPencegahan').click(function (e) {
+        var currentText = $(this).text();
+        if (currentText == "Pilih") {
+            $(this).text("Batalkan");
+            $('#ddlPencegahan').prop("disabled", true);
+            $('#txtHasilPencegahan').prop("disabled", false);
+            $('#uploadAttachmentPencegahan').prop("disabled", false);
+            $('#btnSimpanPencegahan').prop("disabled", false);
+            $('#btnActionPencegahan').prop("disabled", false);
+            ToggleBtnDeleteAttPencegahan("Enable");
+        } else {
+            $(this).text("Pilih");
+            $('#ddlPencegahan').prop("disabled", false);
+            $('#btnActionPencegahan').prop("disabled", true);
+            ResetPage();
+            ToggleBtnDeleteAttPencegahan("Disable");
+        }
+    });
+
+    $('#btnEnableUbahPencegahan').click(function (e) {
+        e.preventDefault();
+        var currentMode = $("#modePencegahan").val();
+        if (currentMode == "Edit") {
+            $('#btnEnableUbahPencegahan').html('Edit Tindakan Pencegahan');
+            $("#modePencegahan").val("Continue");
+            $('#txtTindakanPencegahan').prop("disabled", true);
+            $('#dueDatePencegahan').prop("disabled", true);
+            $('#txtModePencegahan').attr("hidden", true);
+        } else {
+            $('#btnEnableUbahPencegahan').html('<i class="fa fa-check"></i>  Edit Tindakan Pencegahan');
+            $("#modePencegahan").val("Edit");
+            $('#txtTindakanPencegahan').prop("disabled", false);
+            $('#dueDatePencegahan').prop("disabled", false);
+            $('#txtModePencegahan').attr("hidden", false);
+        }
+        console.log($("#modePencegahan").val());
+    });
+
+    $('#btnSimpanPencegahan').click(function (e) {
+        var modePencegahan = $("#modePencegahan").val();
+
+        var idPencegahan = $('#ddlPencegahan').val();
+        var tindakanPencegahan = $('#txtTindakanPencegahan').val();
+        var dueDate = $('#dueDatePencegahan').val();
+        var hasilPencegahan = $('#txtHasilPencegahan').val();
+        var attachmentPencegahan = $("#uploadAttachmentPencegahan").val();
+        var pelaksanaID = getQueryStrings()["PelaksanaID"];
+        var status = "Pending Review Koordinator";
+        var kategori = "Pencegahan";
+
+        pelaksanaID = pelaksanaID.replace('#', '');
+        idPencegahan = parseInt(idPencegahan);
+        @* console.log(idPencegahan, hasilPencegahan, attachmentPencegahan, pelaksanaID);*@
+        var formData = new FormData();
+        formData.append("Hasil", hasilPencegahan);
+        formData.append("TindakanID", idPencegahan);
+        formData.append("Updater", pelaksanaID);
+        formData.append("NomorCAPA", noCAPA);
+        formData.append("Tindakan", tindakanPencegahan);
+        formData.append("DueDate", dueDate);
+        @* console.log($('#tblAttachmentPencegahan tbody tr').length);*@
+
+        if (modePencegahan == "Continue") {
+            if (hasilPencegahan.trim() == "" || $('#tblAttachmentPencegahan td:last-child').text() == "Belum ada file terpilih") {
+                swal('Hasil pencegahan dan attachment wajib diisi!', {
+                    icon: "warning",
+                    buttons: false,
+                    timer: 1000,
+                });
+                return;
+            }
+        }
+        else {
+            kategori = "Perubahan Pencegahan";
+            status = "Pending Review Superior Pelaksana";
+            if (tindakanPencegahan.trim() == "") {
+                swal('Semua field wajib diisi!', {
+                    icon: "warning",
+                    buttons: false,
+                    timer: 1000,
+                })
+                return;
+            }
+        }
+
+        formData.append("Kategori", kategori);
+        formData.append("Status", status);
+        var files = $('#uploadAttachmentPencegahan').prop('files');
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            formData.append("Attachments", file);
+        }
+
+        $.ajax({
+            url: "SimpanHasilPelaksanaan",
+            type: "POST",
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            async: false,
+            success: function (data) {
+                swal("Data pencegahan berhasil diupdate!", {
+                    icon: "success",
+                    buttons: false,
+                    timer: 1000,
+                });
+                ReloadPage();
+                @*if (data == 'success') {
+                    swal("Login berhasil!", {
+                        icon: "success",
+                        buttons: false,
+                        timer: 1000,
+                    }).then(() => {
+                        window.location.href = '@Url.Action("Index", "Vendor")';
+                    })
+                } else {
+                    swal({
+                        title: "Login Gagal!",
+                        text: "Akun dengan data tersebut tidak ditemukan!",
+                        icon: "error",
+                        buttons: false,
+                        timer: 1000,
+                    });
+                }*@
+            },
+            error: function (xhr, error, status) {
+                console.log(error, status);
+            }
+        });
+        @*for (var pair of formData.entries()) {
+            console.log(pair[0] + ', ' + pair[1]);
+        }*@
+
+        @*var form = $("#formPerbaikan");
+        var formContent = new FormData(form[0]);*@
+    });
+
+    @* END PENCEGAHAN *@
+
+    function DeleteAttachment(attID) {
+        swal({
+            title: "Anda yakin menghapus lampiran?",
+            icon: "warning",
+            buttons: ["Tidak", "Ya"],
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                var formData = {
+                    "IDAttachment": attID
+                };
+
+                $.ajax({
+                    url: "DeleteAttachment",
+                    type: "POST",
+                    data: JSON.stringify(formData),
+                    contentType: "application/json",
+                    dataType: 'json',
+                    success: function (data) {
+                        swal("Attachment berhasil dihapus!", {
+                            icon: "success",
+                            buttons: false,
+                            timer: 1000,
+                        });
+                        ReloadPage();
+            },
+                    error: function (xhr, error, status) {
+                        console.log(error, status);
+                    }
+                });
+            }
+        });
+        @*swal("Att Perbaikan " + attID+ " deleted", {
+            icon: "success",
+            buttons: false,
+            timer: 1000,
+        });*@
+    }
+
+     @*$("#btnUploadPerbaikan").click(function () {
+        var formData = new FormData();
+        var creator = '@Request.RequestContext.HttpContext.Session["NamaUser"]';
+        var number = $('#Txt_Number').val();
+        var totalFiles = document.getElementById("UploadAttachment").files.length;
+
+         var kodePendaftaran = $('#Txt_IDBinding').val();
+         var namaProduk = $('#Txt_Nama_Produk').val();
+
+        for (var i = 0; i < totalFiles; i++) {
+            var file = document.getElementById("UploadAttachment").files[i];
+            formData.append("UploadAttachment", file);
+            //formData.append("NoCAPA", $('#txtNoCAPA').val());
+        }
+        if (file != null && file != "") {
+            $.ajax({
+                type: "POST",
+                url: 'C_Attachment?Creator=' + creator + '&Number=' + number + '&kodePendaftaran=' + kodePendaftaran + '&namaProduk=' + namaProduk,
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                async: false,
+                success: function (data) {
+                    if (data == "Nama File sudah ada, silahkan ganti nama file") {
+                        alert(data);
+                    }
+                    else {
+                        alert('File Uploaded');
+
+                    }
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            });
+        } else {
+            $('#divLoading').attr("hidden", true);
+            alert("Pilih Attachment Terlebih dahulu");
+        }
+         getAttachmentTable();
+     });*@
+
+    function ResetPage() {
+        $('#txtHasilPerbaikan').prop("disabled", true);
+        $('#uploadAttachmentPerbaikan').prop("disabled", true);
+        $('#btnSimpanPerbaikan').prop("disabled", true);
+
+        $('#txtHasilPencegahan').prop("disabled", true);
+        $('#uploadAttachmentPencegahan').prop("disabled", true);
+        $('#btnSimpanPencegahan').prop("disabled", true);
+    }
+
+    @*$('#btnAddAttPerbaikan').click(function () {
+        var formData = new FormData();
+        var totalFiles = document.getElementById("uploadAttachmentPerbaikan").files.length;
+        for (var i = 0; i < totalFiles; i++) {
+            var file = document.getElementById("uploadAttachmentPerbaikan").files[i];
+            formData.append("AttachmentPerbaikan", file);
+        }
+        if (file != null && file != "") {
+            swal("Mashoek", {
+                icon: "success",
+                buttons: false,
+                timer: 1000,
+            });
+        } else {
+            swal("Pilih attachment terlebih dahulu", {
+                icon: "error",
+                buttons: false,
+                timer: 1000,
+            });
+        }
+        GetAttachmentTablePerbaikan();
+    });*@
+
+
+    @*function validateInput() {
+        data = {
+            "hasil perbaikan": $("#txtHasilPerbaikan").val(),
+            "attachment perbaikan": $("#uploadAttachmentPerbaikan").val(),
+        }
+        for (var key in data) {
+            if (data[key] === "") {
+                swal('Field ' + key + ' wajib diisi!', {
+                    icon: "warning",
+                    buttons: false,
+                    timer: 1000,
+                })
+                break;
+            }
+        }
+    }*@
 </script>

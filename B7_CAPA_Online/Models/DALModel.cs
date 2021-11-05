@@ -18,6 +18,12 @@ namespace B7_CAPA_Online.Models
         public string JenisPenyimpangan { get; set; }
         public string Kategori { get; set; }
         public string SP { get; set; }
+        //22/10/2021
+        public string Create_By { get; set; }
+        public string Email { get; set; }
+        //25/10/2021
+        public string VDRUsername { get; set; }
+
     }
 
     public partial class DALModel
@@ -30,7 +36,8 @@ namespace B7_CAPA_Online.Models
         public string KategoriCAPA { get; set; }
         public string Deskripsi { get; set; }
         public string AreaPIC { get; set; }
-        public string PIC_CAPA { get; set; }        
+        public string PIC_CAPA { get; set; }   
+        public string PIC_ID { get; set; }
         public List<string> DepartemenCollection { get; set; }
         public List<string> PenyimpanganCollection { get; set; }
     }
@@ -48,5 +55,6 @@ namespace B7_CAPA_Online.Models
     public partial class Lampiran
     {
         public string LAMPIRAN_TERKAIT { get; set; }
+        public string FILE_NAME { get; set; }
     }
 }

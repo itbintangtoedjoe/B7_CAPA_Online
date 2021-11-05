@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "ReviewCAPA";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body containers">
+    <br />
+    <div class="card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Review CAPA</h4>
+                <form>
+                    <div class="row">
+                        <div class="form-group mb-2 col-sm-3">
+                            <label class="m-t-20">Tanggal</label>
+                            <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly>
+                        </div>
+                        <div class="form-group mb-2 col-sm-3">
+                            <label class="m-t-40">Requestor</label>
+                            <input class="form-control form-control-sm" type="text" id="input_Requestor" readonly>
+                        </div>
+                        <div class="form-group mb-2 col-sm-3">
+                            <label class="m-t-20">Nomor CAPA</label>
+                            <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["CAPA"]" readonly />
+                            <input class="form-control form-control-sm" type="text" id="input_REG_ID" value="@Request.QueryString["REG"]" hidden />
+                        </div>
+                        <div class="form-group mb-2 col-sm-3">
+                            <label class="m-t-40">Departemen</label>
+                            <input class="form-control form-control-sm" type="text" id="input_Departemen" readonly>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Request.QueryString["CAPA"]))
+        {                    
+            @Html.Partial("AnalisaKondisiPV")
+            @Html.Partial("PotentialRootCausePV")
+            @Html.Partial("TindakanPerbaikanPV")
+            @Html.Partial("TindakanPencegahanPV")
+            @Html.Partial("KajianResikoPV")
+            @Html.Partial("ApprovalPV")
+        }
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group mb-2 col-sm-3">
+                        <label class="m-t-20">Rentang monitoring efektifivas tindakan perbaikan</label>
+                        <input type="date" id="deRPerbaikan" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group mb-2 col-sm-3">
+                        <label class="m-t-20">Rentang monitoring efektivitas tindakan pencegahan</label>
+                        <input type="date" id="deRPencegahan" class="form-control form-control-sm">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-md-2">
+        <input type="button" class="btn btn-primary" id="btn_CancelCAPA" value="Cancel CAPA" data-toggle="modal" data-target="#Cancel_Page" />
+    </div>
+    <div class="form-group col-md-2">
+        <input type="button" class="btn btn-primary" id="btn_RejectCAPA" value="Reject CAPA" data-toggle="modal" data-target="#Reject_Page" />
+    </div>
+
+    <div class="modal fade" id="Cancel_Page" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cancel CAPA</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        @Html.Partial("CancelCAPA")
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="Reject_Page" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reject CAPA</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        @Html.Partial("RejectCapa")
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    $('#btn_CancelCAPA').click(function () {
+        $('#Cancel_Page').removeAttr("hidden");
+    });
+
+    $('#btn_RejectCAPA').click(function () {
+        $('#Reject_Page').removeAttr("hidden");
+    });
+</script>
+

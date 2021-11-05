@@ -24,7 +24,7 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
-        public ActionResult EvaluatorAddCAPA()
+        public ActionResult Evaluator()
         {
             return View();
         }
@@ -39,5 +39,14 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
+        public ActionResult CancelCAPA()
+        {
+            return View();
+        }
+
+        public ActionResult ReviewCAPA(string NoCAPA)
+        {
+            return View();
+        }
     }
 }

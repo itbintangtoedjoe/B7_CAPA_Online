@@ -1,0 +1,14 @@
+﻿.right-aligned{
+    text-align: right;
+}
+
+.btn-add{
+	position: absolute;
+	top:6rem;
+	margin-left:17rem;
+}
+
+.text-highlight-yellow{
+	color:black;
+	background-color:yellow;
+}

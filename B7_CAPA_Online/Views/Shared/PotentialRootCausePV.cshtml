@@ -1,0 +1,103 @@
+﻿<div class="card" id="Div_PRCA">
+    <div class="card-body">
+        <h4 class="card-title">Potential Root Cause Analysis</h4>   
+        <form>
+            <div class="row form-group-sm mb-2">
+                <div class="col-md-6">
+                    <label class="m-t-20">Aspect<span style="color: red">*</span></label>
+                    <select class="form-control form-control-sm" id="Aspect_DDL" name="Aspect" required>
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group-sm mb-3">
+                <div class="col-md-6">
+                    <label class="m-t-20">What Actually Happened<span style="color: red">*</span></label>
+                    <select class="form-control form-control-sm" id="WAH_DDL" name="WAH" required>
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group-sm mb-2">
+                <div class="col-md-6">
+                    <label class="m-t-20">Parent?<span style="color: red; visibility: hidden">**</span></label>
+                    <input class="checkbox" type="checkbox" value="Yes" id="isParent" />
+                </div>
+            </div>
+            <div class="row form-group-sm mb-2" id="Div_WhyParent">
+                <div class="col-md-6">
+                    <label class="m-t-20">Why Parent<span style="color: red">*</span></label>
+                    <select class="form-control form-control-sm" id="WhyParent_DDL" name="WhyParent_DDL">
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group-sm mb-2">
+                <div class="col-md-6">
+                    <label class="m-t-20">Why<span style="color: red">*</span></label>
+                    <input class="form-control" type="text" id="TxtWhy" />
+                </div>
+            </div>
+            <div class="row form-group-sm mb-2">
+                <div class="col-md-6">
+                    <button class="form-control-sm" type="button" id="btn_AddWhy">Add</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<script>
+    function populatePotentialRootCauseDDL(data) {
+        $('#Aspect_DDL').append(new Option("*Pilih*", "-"));
+        $.each(data, function (key, value) {
+            if (Object.keys(value)[2] == "WAHType") {
+                if ($("#Aspect_DDL option:contains(" + value.WAHType + ")").val() != value.WAHType) {
+                    $('#Aspect_DDL').append(new Option(value.WAHType, value.WAHType));
+                }
+            }
+
+            //if (Object.keys(value)[4] == "WAHDesc")
+            //    $('#WAH_DDL').append(new Option(value.WAHDesc, value.WAHDesc));
+        });
+
+        $('#Aspect_DDL').change(function () {
+            getWAH(data);
+        });
+    }
+    function getWAH(data) {
+        $('#WAH_DDL').empty();
+        $('#WAH_DDL').append(new Option("*Pilih*", "-"));
+        var aspect = $('#Aspect_DDL').val();
+        $.each(data, function (key, value) {
+            if (Object.keys(value)[2] == "WAHType") {
+                if (aspect == value.WAHType) {
+                    $('#WAH_DDL').append(new Option(value.WAHDesc, value.WAHDesc));
+                }
+            }
+        });
+
+        $('#WAH_DDL').change(function () {
+            $('#WhyParent_DDL').empty();
+            $.ajax({
+                url: '/PIC/GetDataPIC',
+                type: 'post',
+                data: JSON.stringify({
+                    Option: 4,
+                    NO_CAPA: $('#input_NoCAPA').val(),
+                    WAH: $('#WAH_DDL').val(),
+                    Aspect: aspect,
+                    SP: "[dbo].[SP_FORM_CAPA]"
+                }),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    $.each(JSON.parse(data), function (key, value) {
+                        $('#WhyParent_DDL').append(new Option(value.WhyDescription, value.WhyDescription));
+                    });
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+        });
+    }
+</script>

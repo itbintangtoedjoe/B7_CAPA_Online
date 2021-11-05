@@ -1,0 +1,111 @@
+﻿<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Kajian Risiko</h4>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered " id="Tbl_KajianResiko">
+                <thead>
+                    <tr>
+                        <th>Potensi Kegagalan / Penyimpangan yang mungkin terjadi ketika tindakan perbaikan/pencegahan diterapkan</th>
+                        <th>Spesifikasi / Syarat</th>
+                        <th>Dampak</th>
+                        <th>Severity (S)</th>
+                        <th>Penyebab Potensial</th>
+                        <th>Mengatasi Penyebab Potensial</th>
+                        <th>Likelihood (L)</th>
+                        <th>Mencegah Potensi Kegagalan Lolos Menimbulkan Dampak</th>
+                        <th>Detectability (D) </th>
+                        <th>RPN (SxLxD)</th>
+                        <th style="background-color: limegreen">Risk Level</th>
+                        <th>TARGET</th>
+                        <th>Menghilangkan Potensi Kegagalan/ Penyimpangan</th>
+                        <th>Severity (S)</th>
+                        <th>PERBAIKAN untuk mengatasi Penyebab Potensial</th>
+                        <th>Likelihood (L)</th>
+                        <th>PERBAIKAN untuk meningkatkan deteksi potensi kegagalan</th>
+                        <th>Detectability (D)</th>
+                        <th>RPN (SxLxD)</th>
+                        <th style="background-color: limegreen">Risk Level</th>
+                        <th>PIC</th>
+                        <th>Due Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="Tbl_PRCA">
+                    <tr>
+                        <td><input type="text" class="form-control form-control-sm" style="width:100%;" readonly></td>
+                        <td><input type="text" class="form-control form-control-sm" style="width:100%;" readonly></td>
+                        <td><input type="text" class="form-control form-control-sm" style="width:100%;" readonly></td>
+                        <td>
+                            <select id="SaverityDDL" class="form-control" readonly>
+                                <option value="1">1</option>
+                                <option value="4">4</option>
+                                <option value="7">7</option>
+                                <option value="10">10</option>
+                            </select>
+                        </td>
+                        <td><input type="text" class="form-control form-control-sm" style="width:100%;" readonly></td>
+                        <td><input type="text" class="form-control form-control-sm" style="width:100%;" readonly></td>
+                        <td>
+                            <select id="LikelihoodDDL" class="form-control" readonly>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="4">4</option>
+                                <option value="8">8</option>
+                            </select>
+                        </td>
+                        <td><input type="text" class="form-control form-control-sm" style="width:100%;" readonly></td>
+                        <td>
+                            <select id="DetectabilityDDL" class="form-control" readonly>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </td>
+                        <td>SxLxD</td>
+                        <td>Level Risk Color</td>
+                        <td>
+                            <select id="DetectabilityDDL" class="form-control" readonly>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                            </select>
+                        </td>
+                        <td><input type="text" class="form-control form-control-sm" style="width:100%;" readonly></td>
+                        <td>
+                            <select id="LikelihoodDDL" class="form-control" readonly>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="4">4</option>
+                                <option value="8">8</option>
+                            </select>
+                        </td>
+                        <td><input type="text" class="form-control form-control-sm" style="width:100%;" readonly></td>
+                        <td>
+                            <select id="DetectabilityDDL" class="form-control" readonly>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </td>
+                        <td><input type="text" class="form-control form-control-sm" style="width:100%;" readonly></td>
+                        <td>
+                            <select id="DetectabilityDDL" class="form-control" readonly>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </td>
+                        <td>SxLxD</td>
+                        <td>Level Risk Color</td>
+                        <td>PIC</td>
+                        <td>Due Date</td>
+                        <td><button class="form-control-sm" disabled="disabled">Add</button></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

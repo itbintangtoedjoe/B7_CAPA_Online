@@ -1,0 +1,629 @@
+﻿
+@{
+    ViewBag.Title = "ApprovalKoordinator2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <br />
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Koordinator</h4>
+            <form>
+                <div class="row">
+                    <div class="form-group mb-2 col-sm-3">
+                        <label class="m-t-20">Tanggal</label>
+                        <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly>
+                    </div>
+                    <div class="form-group mb-2 col-sm-3">
+                        <label class="m-t-40">Requestor</label>
+                        <input class="form-control form-control-sm" type="text" id="input_Requestor" readonly>
+                    </div>
+                    <div class="form-group mb-2 col-sm-3">
+                        <label class="m-t-20">Nomor CAPA</label>
+                        <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["CAPA"]" readonly />
+                        <input class="form-control form-control-sm" type="text" id="input_REG_ID" value="@Request.QueryString["REG"]" hidden />
+                    </div>
+                    <div class="form-group mb-2 col-sm-3">
+                        <label class="m-t-40">Departemen</label>
+                        <input class="form-control form-control-sm" type="text" id="input_Departemen" readonly>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+
+            <div class="form-group col-md-2">
+                <input type="button" class="btn btn-primary" id="btn_Request_Page" value="Show Request Page" />
+            </div>
+            <div id="Request_Page" hidden="hidden">
+                @Html.Partial("RequestCAPA")
+            </div>
+            <div id="InvestigasiPenyimpangan">
+                @Html.Partial("InvestigasiPenyimpangan")
+            </div>
+            <div id="PenentuanTindakanPerbaikan">
+                @Html.Partial("PenentuanTindakanPerbaikan")
+            </div>
+            <div id="PenentuanTindakanPencegahan">
+                @Html.Partial("PenentuanTindakanPencegahan")
+            </div>
+            <div id="KajianRisiko">
+                @Html.Partial("KajianRisiko")
+            </div>
+            <br />
+
+
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-lg-12">
+                <h4 class="card-title">Tambah Evaluator</h4>
+                <hr />
+                <div id="Add_Evaluator">
+                    <label for="TxtKategoriCCC" class="col-form-label">Plant:</label>
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <div class="input-group">
+                                <select class="form-control select2" id="Eva_Plant_DDL" required>
+                                    <option value=""></option>
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <label for="TxtKategoriCCC" class="col-form-label">Departemen:</label>
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <div class="input-group">
+                                <select class="form-control select2" id="Eva_Departemen_DDL" required>
+                                    <option value=""></option>
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <label for="TxtKategoriCCC" class="col-form-label">List Evaluator:</label>
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <div class="input-group">
+                                <select class="form-control select2" id="EvalList_DDL" required disabled>
+                                    <option value="">--Please Select--</option>
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <label for="TxtKategoriCCC" class="col-form-label">Evaluator Utama:</label>
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <div class="input-group">
+                                <select class="form-control select2" id="IsUtama" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0" selected>No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <button type="button" class="btn btn-primary" id="Add_Eval" style="margin-right:45px;">Add Evaluator</button>
+
+                </div>
+
+                <br />
+                <div class="row">
+                    <table class="table table-striped table-bordered zero-configuration" id="Tbl_Eval">
+                        <thead>
+                            <tr>
+                                <th>EmpID</th>
+                                <th>EmpName</th>
+                                <th>Plant</th>
+                                <th>Role</th>
+                                <th>Evaluator Utama</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-primary" id="btn_Submit_Evaluator">Submit To Evaluator</button>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-primary" id="btn_Reject" style="background-color:red;">Reject CAPA</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @Html.Partial("TriggerCAPA")
+
+
+    <input type="text" class="btn btn-primary" id="QS_NoCAPA" value="@ViewBag.NoCAPA" hidden />
+    <input type="text" class="btn btn-primary" id="QS_Status" value="@ViewBag.status" hidden />
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        GetEvaluator();
+        GetDepartemen();
+        GetPlant();
+        GetEvalTableList();
+        if ($('#QS_Status').val != 4) {
+            disableAll();
+        }
+        $('#Eva_Plant_DDL').change(function () {
+            if ($('#Eva_Departemen_DDL').val() == undefined || $('#Eva_Departemen_DDL').val().trim() == "") {
+                $('#EvalList_DDL').removeAttr("disabled");
+                GetEvaList();
+            }
+            else {
+                $('#EvalList_DDL').attr("disabled", true);
+            }
+        });
+        $('#Eva_Departemen_DDL').change(function () {
+            if ($('#Eva_Plant_DDL').val() != undefined || $('#Eva_Plant_DDL').val().trim() == "") {
+                $('#EvalList_DDL').removeAttr("disabled");
+                GetEvaList();
+            }
+            else {
+                $('#EvalList_DDL').attr("disabled", true);
+            }
+        });
+        $('#Add_Eval').click(function () {
+
+            AddEvaluator();
+        });
+       
+        $('#btn_Submit_Evaluator').click(function () {
+
+            SubmitEvaluator();
+        });
+        $('#btn_Reject').click(function () {
+
+            Reject();
+        });
+        $('#btn_Request_Page').click(function () {
+
+            window.open('../Koordinator/CreateCAPA?CAPA=' + $('#QS_NoCAPA').val()+'')
+        });
+        $('#btn_Add_Evaluator').click(function () {
+            if ($('#btn_Add_Evaluator').val() == "Cancel") {
+
+                $('#Add_Evaluator').attr("hidden", true);
+
+                $('#btn_Add_Evaluator').val("Add Evaluator");
+            }
+            else {
+                $('#Add_Evaluator').removeAttr("hidden");
+                $('#btn_Add_Evaluator').val("Cancel");
+            }
+        });
+    });
+    function disableAll() {
+        GetDisabledEvalTableList();
+        $('#btn_Submit_Evaluator').attr('disabled', true);
+        $('#Add_Eval').attr('disabled', true);
+        $('#IsUtama').attr('disabled', true);
+        $('#btn_Reject').attr('disabled', true);
+        $('#Eva_Departemen_DDL').attr('disabled', true);
+        $('#EvalList_DDL').attr('disabled', true);
+        $('#Eva_Plant_DDL').attr('disabled', true);
+        $('#Trigger_CAPA').attr('disabled', true);
+    } 
+    function GetEvaluator() {
+        $.ajax({
+            url: "GetEvaluator?departemen=" + $('#Eva_Departemen_DDL').val() + "&Option=1&Lokasi=" + $('#Eva_Plant_DDL').val()+"",
+            type: "post",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                var count = result.length;
+                var trhtml = '';
+                var trav = 0;
+
+                trhtml += '<option disabled selected hidden class="dropdown-header">--Please Select--</option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                        trhtml += '<Option value = "' + result[trav].EmpID + '" > ' + result[trav].EmpName;
+                    }
+                }
+                $("#Evaluator_DDL").empty();
+                $("#Evaluator_DDL").append(trhtml);
+                $("#Evaluator_DDL").select2();
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+    }
+    function GetPlant() {
+        $.ajax({
+            url: "GetEvaluator?Option=2",
+            type: "post",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                var count = result.length;
+                var trhtml = '';
+                var trav = 0;
+
+                trhtml += '<option disabled selected hidden class="dropdown-header">--Please Select--</option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                        trhtml += '<Option value = "' + result[trav].PlantID + '" > ' + result[trav].PlantDesc;
+                    }
+                }
+                $("#Eva_Plant_DDL").empty();
+                $("#Eva_Plant_DDL").append(trhtml);
+                $("#Eva_Plant_DDL").select2();
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+    }
+    function GetDepartemen() {
+        $.ajax({
+            url: "GetEvaluator?Option=3",
+            type: "post",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                var count = result.length;
+                var trhtml = '';
+                var trav = 0;
+
+                trhtml += '<option disabled selected hidden class="dropdown-header">--Please Select--</option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                        trhtml += '<Option value = "' + result[trav].EvaluatorRole_PK + '" > ' + result[trav].EvaluatorRoleDesc;
+                    }
+                }
+                $("#Eva_Departemen_DDL").empty();
+                $("#Eva_Departemen_DDL").append(trhtml);
+                $("#Eva_Departemen_DDL").select2();
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+    }
+
+    function GetEvaList() {
+        var dictlist = {
+            NoCAPA: $('#QS_NoCAPA').val(),
+            Option: 4,
+            Lokasi: $('#Eva_Plant_DDL').val(),
+            Departemen: $('#Eva_Departemen_DDL').val()
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_SHOW_EVALUATOR_DDL",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto1),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                var count = result.length;
+                var trhtml = '';
+                var trav = 0;
+
+                trhtml += '<option disabled selected hidden class="dropdown-header">--Please Select--</option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                        trhtml += '<Option value = "' + result[trav].EMPId + '" > ' + result[trav].EmpName;
+                    }
+                }
+                $("#EvalList_DDL").empty();
+                $("#EvalList_DDL").append(trhtml);
+                $("#EvalList_DDL").select2();
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+    }
+
+    function AddEvaluator() {
+        if ($("#EvalList_DDL").val().trim() == "" || $("#EvalList_DDL").val() == undefined) {
+            Swal.fire("Error!", "Evaluator harus dipilih dahulu", "error");
+        }
+        else {
+
+            var dictlist = {
+                NoCAPA: $('#QS_NoCAPA').val(),
+                EmpID: $("#EvalList_DDL").val(),
+                Creator: "",
+                Plant: $('#Eva_Plant_DDL').val(),
+                Role: $('#Eva_Departemen_DDL').val(),
+                IsUtama: $('#IsUtama').val(),
+            }
+            var dto1 = {
+                Model: dictlist
+            }
+            $.ajax({
+                url: "DynamicController?spname=SP_Insert_Evaluator",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto1),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var result = JSON.parse(data);
+                    if (result[0].Stat == "Valid") {
+                        Swal.fire("Success!", "Add Berhasil", "success");
+                        GetEvalTableList();
+                    }
+                    else {
+                        Swal.fire("Error!", "Evaluator Utama sudah Ada", "error");
+                    }
+                },
+                error: function (errormessage) {
+                    $('#divLoading').attr("hidden", true);
+                }
+            });
+        }
+    }
+    function GetEvalTableList() {
+        var dictlist = {
+            NoCAPA: $('#QS_NoCAPA').val(),
+            Option: 5
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_SHOW_EVALUATOR_DDL",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto1),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var table = $('#Tbl_Eval').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": true,
+                    "searching": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "scrollCollapse": true,
+                    "destroy": true,
+                    "columns": [
+                        { "data": "EMPID" },
+                        { "data": "EmpName" },
+                        { "data": "PlantFK" },
+                        { "data": "Evaluator_RoleFK" },
+                        { "data": "IsUtama" },
+                        {
+                            "data": null,
+                            "defaultContent": "<input type='button' id='DeleteEval' class='btn btn-primary' onclick=Delete(this) value='Delete'style='background-color:red;'/>"
+                        },
+                    ],
+                    "order": [[1, 'asc']],
+
+                });
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+    }
+    function GetDisabledEvalTableList() {
+        var dictlist = {
+            NoCAPA: $('#QS_NoCAPA').val(),
+            Option: 5
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_SHOW_EVALUATOR_DDL",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto1),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var table = $('#Tbl_Eval').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": true,
+                    "searching": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "scrollCollapse": true,
+                    "destroy": true,
+                    "columns": [
+                        { "data": "EMPID" },
+                        { "data": "EmpName" },
+                        { "data": "PlantFK" },
+                        { "data": "Evaluator_RoleFK" },
+                        { "data": "IsUtama" },
+                        {
+                            "data": null,
+                            "defaultContent": "<input type='button' id='DeleteEval' class='btn btn-primary' onclick=Delete(this) value='Delete'style='background-color:red;' disabled/>"
+                        },
+                    ],
+                    "order": [[1, 'asc']],
+
+                });
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+    }
+    function SubmitEvaluator() {
+        var dictlist = {
+            NoCAPA: $('#QS_NoCAPA').val(),
+            Option: 8,
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        var row = $('#Tbl_Eval').DataTable();
+        if (row.data().count() == 0) {
+            Swal.fire("Error!", "Silahkan pilih Evaluator terlebih dahulu!", "error");
+        }
+        else
+        {
+            $.ajax({
+                url: "DynamicController?spname=SP_SHOW_EVALUATOR_DDL",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto1),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var result = JSON.parse(data);
+                    if (result[0].Stat == "Invalid") {
+                        Swal.fire("Error!", "Silahkan pilih Evaluator Utama terlebih dahulu!", "error");
+                    }
+                    else {
+                        Swal.fire("Success!", "Submit Berhasil", "success");
+                        GetDisabledEvalTableList();
+                        $('#btn_Submit_Evaluator').attr('disabled', true);
+                        $('#Add_Eval').attr('disabled', true);
+                        $('#IsUtama').attr('disabled', true);
+                        $('#btn_Reject').attr('disabled', true);
+                        $('#Eva_Departemen_DDL').attr('disabled', true);
+                        $('#EvalList_DDL').attr('disabled', true);
+                        $('#Eva_Plant_DDL').attr('disabled', true);
+                        $('#Trigger_CAPA').attr('disabled', true);
+
+                    }
+                },
+                error: function (errormessage) {
+                    $('#divLoading').attr("hidden", true);
+                }
+            });
+        }
+      
+    }
+    function Delete(button) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Delete!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                var row = $(button).closest("TR");
+                var Empid = $("TD", row).eq(0).html();
+                var dictlist = {
+                    NoCAPA: $('#QS_NoCAPA').val(),
+                    Option: 6,
+                    Empid: Empid
+                }
+                var dto1 = {
+                    Model: dictlist
+                }
+                $.ajax({
+                    url: "DynamicController?spname=SP_SHOW_EVALUATOR_DDL",
+                    type: "post",
+                    dataType: "json",
+                    data: JSON.stringify(dto1),
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        GetEvaList();
+                        GetEvalTableList();
+                        Swal.fire(
+                            'Deleted!',
+                            'Evaluator Berhasil Di Hapus!',
+                            'success'
+                        )
+                    },
+                    error: function (errormessage) {
+                    }
+                });
+            }
+        })
+    }
+    function Reject() {
+        Swal.fire({
+            title: 'Alasan Reject',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            html: '<textarea id="txtReject" class="form form-control" ></textarea>',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Reject!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                var reject = $('#txtReject').val();
+                var dictlist = {
+                    NoCAPA: $('#QS_NoCAPA').val(),
+                    Option: 7,
+                    RejectReason: reject,
+                    Creator: ""
+                }
+                var dto1 = {
+                    Model: dictlist
+                }
+                if (reject != null && reject.trim() != '') {
+                    $.ajax({
+                        url: "DynamicController?spname=SP_SHOW_EVALUATOR_DDL",
+                        type: "post",
+                        dataType: "json",
+                        data: JSON.stringify(dto1),
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+                            GetDisabledEvalTableList();
+                            $('#btn_Submit_Evaluator').attr('disabled', true);
+                            $('#Add_Eval').attr('disabled', true);
+                            $('#IsUtama').attr('disabled', true);
+                            $('#btn_Reject').attr('disabled', true);
+                            $('#Eva_Departemen_DDL').attr('disabled', true);
+                            $('#EvalList_DDL').attr('disabled', true);
+                            $('#Eva_Plant_DDL').attr('disabled', true);
+                            $('#Trigger_CAPA').attr('disabled', true);
+                            Swal.fire(
+                                'Rejected!',
+                                'Reject Berhasil',
+                                'success'
+                            )
+                        },
+                        error: function (errormessage) {
+                        }
+                    });
+                }
+                else {
+
+                    Swal.fire(
+                        'Error!',
+                        'Alasan tidak boleh kosong.',
+                        'error'
+                    )
+                }
+
+
+            }
+        })
+
+
+    }
+</script>

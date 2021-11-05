@@ -252,22 +252,22 @@
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">Requestor</label>
-                                    <input class="form-control form-control-sm" type="text" id="input_Requestor" readonly>
+                                    <input class="form-control form-control-sm" type="text" id="input_Requestor" value="@Request.RequestContext.HttpContext.Session["FullName"]" readonly>
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-20">Nomor CAPA</label>
-                                    <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["CAPA"]" readonly />
+                                    <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["NoCAPA"]" readonly />
                                     <input class="form-control form-control-sm" type="text" id="input_REG_ID" value="@Request.QueryString["REG"]" hidden />
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">Departemen</label>
-                                    <input class="form-control form-control-sm" type="text" id="input_Departemen" readonly>
+                                    <input class="form-control form-control-sm" type="text" id="input_Departemen" value="@Request.RequestContext.HttpContext.Session["Departemen"]" readonly>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-                @if (!string.IsNullOrEmpty(Request.QueryString["CAPA"]))
+                @if (!string.IsNullOrEmpty(Request.QueryString["NoCAPA"]))
                 {
                     <div class="card">
                         <div class="card-body">
@@ -340,17 +340,17 @@
                                     </div>
                                 </div>
                                 @*<div class="row form-group-sm mb-2">
-                                    <div class="col-md-6">
-                                        <label class="m-t-20">Lampiran Terkait</label>
-                                        <div class="input-group mb-3">
-                                            <div class="custom-file">
-                                                <input id="TxtFileInput" type="file" name="LampiranTerkait" class="custom-file-input" multiple required>
-                                                @Html.HiddenFor(m => m.LampiranTerkait)
-                                                <label class="custom-file-label">Choose File</label>
+                                        <div class="col-md-6">
+                                            <label class="m-t-20">Lampiran Terkait</label>
+                                            <div class="input-group mb-3">
+                                                <div class="custom-file">
+                                                    <input id="TxtFileInput" type="file" name="LampiranTerkait" class="custom-file-input" multiple required>
+                                                    @Html.HiddenFor(m => m.LampiranTerkait)
+                                                    <label class="custom-file-label">Choose File</label>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>*@
+                                    </div>*@
                                 <div class="row form-group-sm" id="List_Lampiran">
                                     <div class="col-md-6">
                                         <label class="m-t-20">List Lampiran</label>
@@ -466,10 +466,10 @@
                                         </div>
                                     </div>*@
                                 @*<div class="row form-group-sm">
-                                    <div class="col-md-6 mt-1">
-                                        <input class="btn mb-1 btn-primary" type="submit" id="btn_Submit" onclick="validateInput();" />
-                                    </div>
-                                </div>*@
+                                        <div class="col-md-6 mt-1">
+                                            <input class="btn mb-1 btn-primary" type="submit" id="btn_Submit" onclick="validateInput();" />
+                                        </div>
+                                    </div>*@
                             }
                             <!--/form-->
                         </div>
@@ -534,9 +534,9 @@
                                         <label class="m-t-20">Lampiran Terkait</label>
                                         <div class="input-group mb-3">
                                             <div class="custom-file">
-                                                <input id="TxtFileInput" type="file" name="LampiranTerkait" class="custom-file-input" multiple required>
+                                                <input id="TxtFileInput" type="file" name="LampiranTerkait" class="custom-file-input" multiple required">
                                                 @Html.HiddenFor(m => m.LampiranTerkait)
-                                                <label class="custom-file-label">Choose File</label>
+                                                <label id="TxtLampiranCount" class="custom-file-label"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -592,7 +592,10 @@
                                         <label class="m-t-20">PIC CAPA<span style="color: red">*</span></label>
                                         <select class="form-control form-control-sm" id="PIC_DDL" name="PIC_CAPA" required>
                                         </select>
+                                        <input class="form-control form-control-sm" type="text" id="PIC_ID" name="PIC_ID" hidden/>                                        
                                         @Html.HiddenFor(m => m.PIC_CAPA)
+                                        @Html.HiddenFor(m => m.PIC_ID)
+
                                     </div>
                                 </div>
                                 <div class="row form-group-sm" id="List_Departemen" hidden>
@@ -615,28 +618,34 @@
                                             @Html.HiddenFor(m => m.PenyimpanganCollection, new { id = "PenyimpanganNumber", value = "" })
                                         </div>
                                     </div>
+
                                     <div class="col-md-4" id="VendorDiv" hidden>
-                                        <label class="m-t-40">Data Vendor</label>
-                                        <div class="input-group mb-3 ">
-                                            <div class="input-group-prepend">
-                                                <button class="btn btn-outline-dark btn-sm" type="button" data-toggle="modal" data-target="#link_Vendor">Browse</button>
-                                            </div>
-                                            <input type="text" class="form-control" id="TxtVendor" name="TxtVendor">
-                                            <input type="text" class="form-control" name="Vendor" id="Vendor" value="" hidden>
+                                        <label class="m-t-40">Email</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="TxtEmailVendor" name="Email" readonly>
+                                            <input class="form-control form-control-sm" type="text" id="input_Requestors" name="Create_By" value="@Request.RequestContext.HttpContext.Session["NIK"]" hidden>
+                                            @Html.HiddenFor(m => m.Email)
+                                            @Html.HiddenFor(m => m.Create_By)
                                         </div>
-                                    </div>
+                                        <label class="m-t-40">PIC</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="TxtPICVendor" name="TxtPICVendor" readonly>
+                                            <input type="text" class="form-control" id="TxtVendorUsername" name="VDRUsername" hidden>
+                                            @Html.HiddenFor(m => m.VDRUsername)
+                                        </div>
+                                    </div>  
                                 </div>
 
                                 @*<div class="row form-group-sm">
-                                        <div class="col-md-6">
-                                            <label class="m-t-20">Nama Vendor</label>
-                                            <input class="form-control form-control-sm" type="text" id="input_Vendor">
-                                            <label class="m-t-40">Nama Personil</label>
-                                            <input class="form-control form-control-sm" type="text" id="input_Personil">
-                                            <label class="m-t-40">Email</label>
-                                            <input class="form-control form-control-sm" type="email" id="input_Email">
-                                        </div>
-                                </div>*@
+                                            <div class="col-md-6">
+                                                <label class="m-t-20">Nama Vendor</label>
+                                                <input class="form-control form-control-sm" type="text" id="input_Vendor">
+                                                <label class="m-t-40">Nama Personil</label>
+                                                <input class="form-control form-control-sm" type="text" id="input_Personil">
+                                                <label class="m-t-40">Email</label>
+                                                <input class="form-control form-control-sm" type="email" id="input_Email">
+                                            </div>
+                                    </div>*@
                                 <div class="row form-group-sm">
                                     <div class="col-md-6 mt-1">
                                         <input class="btn mb-1 btn-primary" type="submit" id="btn_Submit" onclick="validateInput();" />
@@ -765,12 +774,23 @@
             } else {
                 Location = 'Pulogadung';
             }
-            dto = {
-                Option: 3,
-                Departemen: $('#AreaPIC_DDL').val(),
-                Lokasi: Location,
-                SP: "[dbo].[SP_SHOW_DDL]"
+
+            if ($('#AreaPIC_DDL').val() != 'Others') {
+                dto = {
+                    Option: 3,
+                    Departemen: $('#AreaPIC_DDL').val(),
+                    Lokasi: Location,
+                    SP: "[dbo].[SP_SHOW_DDL]"
+                }
+            } else {
+                dto = {
+                    Option: 12,
+                    Departemen: $('#AreaPIC_DDL').val(),
+                    Lokasi: Location,
+                    SP: "[dbo].[SP_SHOW_DDL]"
+                }
             }
+           
 
             $.ajax({
                 url: 'GetSupervisors',
@@ -778,16 +798,47 @@
                 data: JSON.stringify(dto),
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                success: function (data) {
+                success: function (data) {         
+                    console.log(data);
                     $('#PIC_DDL').empty();
+                    $('#PIC_DDL').append(new Option('*Pilih*',''));
                     if ($('#AreaPIC_DDL').val() != 'Others') {
+                        $('#VendorDiv').prop('hidden', false);
+                        clearInputEmail();
+                        
                         $.each(JSON.parse(data), function (key, entry) {
                             $('#PIC_DDL').append(new Option(entry.EmpName, entry.EmpName));
                         });
+
+                        $('#PIC_DDL').change(function () {
+                            var PIC_Name = $('#PIC_DDL').val();
+                            $.each(JSON.parse(data), function (key, entry) {
+                                if (PIC_Name == entry.EmpName) {
+                                    $('#TxtEmailVendor').val(entry.Email);
+                                    $('#TxtPICVendor').val(entry.EmpName); 
+                                    $('#PIC_ID').val(entry.EmpId);
+                                    return false;
+                                }                                    
+                            });
+                        });
                     } else {
                         $('#VendorDiv').prop('hidden', false);
+                        clearInputEmail();
+
                         $.each(JSON.parse(data), function (key, entry) {
-                            $('#PIC_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
+                            $('#PIC_DDL').append($('<option></option>').attr('value', entry.UserVDRName).text(entry.UserVDRName));
+                        });
+
+                        $('#PIC_DDL').change(function () {
+                            var PIC_Name = $('#PIC_DDL').val();
+                            $.each(JSON.parse(data), function (key, entry) {                                    
+                                if (PIC_Name == entry.UserVDRName) {           
+                                    $('#TxtEmailVendor').val(entry.email);
+                                    $('#TxtPICVendor').val(entry.UserVDRName);
+                                    $('#TxtVendorUsername').val(entry.UserName);
+                                    return false;
+                                }
+                            });
                         });
                     }
                     if ($('#PIC_DDL').val() == null) {
@@ -801,7 +852,7 @@
                 }
             });
             //_callback();
-        });
+        });     
 
         $('#btn_Search_Deviation').click(function () {
             dto = {
@@ -994,7 +1045,7 @@
             }
         });
 
-        if (@Request.QueryString.Count > 1) {
+       if (@Request.QueryString.Count > 1) {
             $.ajax({
                 url: 'GetCAPA',
                 type: 'post',
@@ -1007,12 +1058,10 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    //console.log(data[0]);
-                    console.log(data);
 
                     var kategori = $("#Kategori_DDL option:contains(" + data[0].KATEGORI_CAPA + ")").val();
                     var lokasi = $("#Lokasi_DDL option:contains(" + data[0].LOKASI_CAPA + ")").val();
-                    
+
                     $('#Trigger_CAPA').val(data[0].TRIGGER_CAPA).trigger("change");
                     $('#Kategori_DDL').val(data[0].KATEGORI_CAPA).trigger("change");
                     $('#TxtDeskripsi').val(data[0].DESKRIPSI_MASALAH).trigger("change");
@@ -1044,8 +1093,7 @@
                             { "data": "Departemen" }
                         ]
                         //"order": [[1, 'asc']]
-                    });
-                    console.log(JSON.parse(data[0].DEPTLIST));
+                    });            
 
                     //var Counter = 0;
                     //var Trav = 0;
@@ -1067,6 +1115,12 @@
                 }
             });
         }
+
+        $('#TxtFileInput').change(function () {
+            fileCount = this.files.length;
+            var teks = (fileCount != 0) ? (fileCount + " Lampiran telah dipilih.") : ("");
+            $('#TxtLampiranCount').text(teks);            
+        })
     });
 
     function validateInput() {
@@ -1150,7 +1204,7 @@
             success: function (data) {
                 $('#DepartemenPelapor_DDL').empty();
                 $.each(JSON.parse(data), function (key, entry) {
-                    $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.SubDept).text(entry.SubDept));
+                    $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
                 })
             },
             error: function (ex) {
@@ -1288,7 +1342,7 @@
             data.Departemen = row.find("td").eq(0).html();
             DeptList.push(data);
             $("#myObj").val(JSON.stringify(DeptList));
-        });
+        });        
     }
 
     function TahunDDL() {
@@ -1313,6 +1367,12 @@
         });
         $("#AreaPIC_DDL").val(data[0].AREA_PIC).trigger("change");
         _callback();
+    }      
+
+    function clearInputEmail() {
+        $('#TxtEmailVendor').val("");
+        $('#TxtPICVendor').val("");
+        $('#PIC_ID').val("");
     }
 </script>
 

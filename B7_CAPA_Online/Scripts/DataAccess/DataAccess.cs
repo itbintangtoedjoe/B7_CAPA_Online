@@ -61,12 +61,61 @@ namespace B7_CAPA_Online.Scripts.DataAccess
                                     KeluhanTerkait = Model.KeluhanTerkait,
                                     LampiranTerkait = PathDT,
                                     No_QC_Terkait = Model.No_QC_Terkait,
-                                    PIC_CAPA = Model.PIC_CAPA
+                                    PIC_CAPA = Model.PIC_CAPA,
+                                    PIC_ID = Model.PIC_ID
 
                                 },
                                 commandType: CommandType.StoredProcedure).ToList();
 
                 var json = JsonConvert.SerializeObject(GetPrintedData, Formatting.Indented);
+                result = json;
+            }
+
+            return result;
+        }
+
+        public string ExecuteFormPIC(AnalisaKondisiModel Model, Dictionary<string, object> dictionary)
+        {
+            string result;
+            using (IDbConnection db = new SqlConnection(dbDFIS.ConnectionString))
+            {
+                var GetPrintedData = db.Query<dynamic>(Model.SP,
+                                new DynamicParameters(dictionary),
+                                commandType: CommandType.StoredProcedure).ToList();
+
+                var json = JsonConvert.SerializeObject(GetPrintedData, Formatting.Indented);
+                result = json;
+            }
+
+            return result;
+        }
+
+        public string GetDataFormPIC(AnalisaKondisiModel Model, Dictionary<string, object> dictionary)
+        {
+            string result;
+            using (IDbConnection db = new SqlConnection(dbDFIS.ConnectionString))
+            {
+                var GetPrintedData = db.Query<dynamic>(Model.SP,
+                                new DynamicParameters(dictionary),
+                                commandType: CommandType.StoredProcedure).ToList();
+
+                var json = JsonConvert.SerializeObject(GetPrintedData, Formatting.Indented);
+                result = json;
+            }
+
+            return result;
+        }
+
+        public string StoredProcedure(DynamicParameters parameters, String Spname)
+        {
+            string result;
+
+            using (IDbConnection db = new SqlConnection(dbDFIS.ConnectionString))
+            {
+                var StoredProcedure = db.Query<dynamic>(Spname, parameters,
+                                commandType: CommandType.StoredProcedure).ToList();
+
+                var json = JsonConvert.SerializeObject(StoredProcedure, Formatting.Indented);
                 result = json;
             }
 
