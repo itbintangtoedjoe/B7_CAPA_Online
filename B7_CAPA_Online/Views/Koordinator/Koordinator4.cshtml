@@ -692,6 +692,7 @@
                 }
                 else if (result[0].Stat == 'Complete')
                 {
+                    disableAll();
                     $('#Submit').attr('hidden', true);
                     $('#Status1').attr('hidden', true);
                     $('#Status2').removeAttr('hidden');

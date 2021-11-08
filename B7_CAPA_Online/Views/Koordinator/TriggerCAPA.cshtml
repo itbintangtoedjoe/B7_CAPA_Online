@@ -179,6 +179,20 @@
                 </div>
             </div>
         </div>
+        <div class="row form-group-sm mb-2" id="Lampiran">
+            <div class="col-md-6">
+                <label class="m-t-20">Lampiran Terkait</label>
+                <div class="input-group mb-3">
+                    <div class="custom-file">
+                        <input id="TxtFileInput" type="file" name="LampiranTerkait" class="custom-file-input" multiple required">
+
+                        <label id="TxtLampiranCount" class="custom-file-label"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <input type="button" class="btn btn-primary" id="Submit" value="Upload"/>
     </div>
 </div>
 
@@ -204,6 +218,14 @@
             } else {
                 $('#Linked_Deviation').prop('hidden', false);
             }
+        });
+        $('#TxtFileInput').change(function () {
+            fileCount = this.files.length;
+            var teks = (fileCount != 0) ? (fileCount + " Lampiran telah dipilih.") : ("");
+            $('#TxtLampiranCount').text(teks);
+        })
+        $('#Submit').click(function () {
+            Submit();
         });
 
         $('#btn_Add').click(function () {
@@ -266,7 +288,7 @@
                 var creator = "";
                 // Mengecheck Checkbox apakah sudah di checklist
                 if ($("TD", row).eq(0).find("input[type='checkbox']").prop('checked')) {
-                   var item = {};
+                    var item = {};
 
                     item["NoCapa"] = $('#QS_NoCAPA').val();
                     item["PenyimpanganID"] = PenyimpanganID;
@@ -607,7 +629,7 @@
         });
 
 
-     
+
     });
     function getTableRow() {
         var DeptList = new Array();
@@ -813,5 +835,41 @@
             });
         });
     }
+
+    function Submit() {
+        var formData = new FormData();
+        var totalFiles = document.getElementById("TxtFileInput").files.length;
+        if (totalFiles == 0 || totalFiles == undefined) {
+            Swal.fire("Error!", "Silahkan Memilih File Attachment terlebih dahulu!", "error");
+        }
+        else {
+            for (var i = 0; i < totalFiles; i++) {
+                var file = document.getElementById("TxtFileInput").files[i];
+                formData.append("TxtFileInput", file);
+                //formData.append("NoCAPA", $('#txtNoCAPA').val());
+            }
+            $.ajax({
+                url: "InsertAttachment?NoCapa=" + $('#QS_NoCAPA').val() + "&spname=SP_Insert_Penyimpangan&Creator=&",
+                type: "post",
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (data) {
+
+                    Swal.fire("Success!", "Upload Berhasil!", "success");
+
+                },
+                error: function (errormessage) {
+                    $('#divLoading').attr("hidden", true);
+                }
+
+            });
+        }
+       
+    }
+
+
+
 
 </script>

@@ -144,8 +144,6 @@
             </div>
         </div>
     </div>
-
-
     @Html.Partial("TriggerCAPA")
 
 
@@ -223,6 +221,8 @@
         $('#EvalList_DDL').attr('disabled', true);
         $('#Eva_Plant_DDL').attr('disabled', true);
         $('#Trigger_CAPA').attr('disabled', true);
+        $('#TxtFileInput').attr('disabled', true);
+        $('#Submit').attr('disabled', true);
     } 
     function GetEvaluator() {
         $.ajax({

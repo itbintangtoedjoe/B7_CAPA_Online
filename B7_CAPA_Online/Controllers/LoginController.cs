@@ -84,7 +84,7 @@ namespace B7_CAPA_Online.Controllers
                     //Session["LoginStatus"] = 1;
                     //Session["xUser"] = 1;
 
-                    if (returnValue == false)
+                    if (1 == 2)
                     {
                         //This function returns the error code that the last unmanaged function returned.
                         int ret = Marshal.GetLastWin32Error();
@@ -106,7 +106,7 @@ namespace B7_CAPA_Online.Controllers
                         //get data user karyawan
                         //var dataKaryawan = FindKaryawan(username);
                         JavaScriptSerializer jss = new JavaScriptSerializer();
-                        string dataKaryawan = FindKaryawan(username);
+                        string dataKaryawan = FindKaryawan("dani pernando");
                         var arrayData = JArray.Parse(dataKaryawan);
                         dynamic objectKary = jss.Deserialize<dynamic>(dataKaryawan);
 

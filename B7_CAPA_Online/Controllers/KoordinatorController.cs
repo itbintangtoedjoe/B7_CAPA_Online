@@ -256,7 +256,12 @@ namespace B7_CAPA_Online.Controllers
                 rowstype["Creator"] = Model.Penyimpangan[trav].Creator;
                 dt.Rows.Add(rowstype);
             }
-            var parameters = new DynamicParameters();
+            var dictionary = new Dictionary<string, object>
+            {
+                {"Option",0 }
+
+            };
+            var parameters = new DynamicParameters(dictionary);
             parameters.Add("InsertPenyimpangan", dt.AsTableValuedParameter("[dbo].[InsertPenyimpangan]"));
 
             var spname = "SP_Insert_Penyimpangan";
