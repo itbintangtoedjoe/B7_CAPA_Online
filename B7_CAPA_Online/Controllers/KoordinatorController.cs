@@ -607,5 +607,8 @@ namespace B7_CAPA_Online.Controllers
         }
 
         #endregion
+
+        #region Koordinator Verifikasi
+        #endregion
     }
 }
