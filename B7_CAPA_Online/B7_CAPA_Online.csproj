@@ -170,7 +170,6 @@
     <Compile Include="Models\DALModel.cs" />
     <Compile Include="Models\Email.cs" />
     <Compile Include="Models\EncryptionHelper.cs" />
-    <Compile Include="Models\EvaluatorAttirbute.cs" />
     <Compile Include="Models\FindCAPAModel.cs" />
     <Compile Include="Models\KoordinatorModel.cs" />
     <Compile Include="Models\ListDepartemenModel.cs" />
@@ -5428,8 +5427,9 @@
     <Content Include="Views\Shared\TindakanPencegahanPV.cshtml" />
     <Content Include="Views\Shared\KajianResikoPV.cshtml" />
     <Content Include="Views\Shared\ApprovalPV.cshtml" />
-    <Content Include="Views\Pelaksana\PelaksanaTambahPerbaikan.cshtml" />
-    <Content Include="Views\Evaluator\Evaluator.cshtml" />
+    <Content Include="Views\Koordinator\Koordinator4.cshtml" />
+    <Content Include="Views\Evaluator\KonfirmasiEfektivitas.cshtml" />
+    <Content Include="Views\Evaluator\ViewBukti.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

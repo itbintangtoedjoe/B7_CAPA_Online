@@ -62,7 +62,8 @@ namespace B7_CAPA_Online.Scripts.DataAccess
                                     LampiranTerkait = PathDT,
                                     No_QC_Terkait = Model.No_QC_Terkait,
                                     PIC_CAPA = Model.PIC_CAPA,
-                                    PIC_ID = Model.PIC_ID
+                                    PIC_ID = Model.PIC_ID,
+                                    Create_By = Model.Create_By
 
                                 },
                                 commandType: CommandType.StoredProcedure).ToList();

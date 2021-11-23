@@ -1,5 +1,4 @@
-﻿using B7_CAPA_Online.Models;
-using B7_CAPA_Online.Scripts.DataAccess;
+﻿using B7_CAPA_Online.Scripts.DataAccess;
 using Dapper;
 using System;
 using System.Collections.Generic;
@@ -14,6 +13,7 @@ namespace B7_CAPA_Online.Controllers
     {
         DataAccess DAL = new DataAccess();
         // GET: Evaluator
+        #region View
         public ActionResult Index()
         {
             return View();
@@ -49,16 +49,30 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
-        public ActionResult ReviewCAPA(string NoCAPA)
+        public ActionResult KonfirmasiEfektivitas()
         {
             return View();
         }
 
-        public ActionResult DynamicParameter(DynamicModel Models, string spname)
+        public ActionResult ViewBukti()
         {
-            var parameters = new DynamicParameters(Models.Model);
-            return Json(DAL.StoredProcedure(parameters, spname));
-
+            return View();
         }
+
+        public ActionResult ReviewCAPA(string NoCAPA)
+        {
+            return View();
+        }
+        #endregion
+
+        #region Populate
+        public ActionResult GetPenyimpangan(DynamicModel Param)
+        {
+            DynamicParameters parameters = new DynamicParameters(Param.Model);
+            string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_KONFIRMASI_EFEKTIVITAS]");
+            return Json(Return);
+        }
+        #endregion
+
     }
 }

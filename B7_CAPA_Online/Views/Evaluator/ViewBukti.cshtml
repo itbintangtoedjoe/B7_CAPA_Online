@@ -1,0 +1,209 @@
+﻿
+@{
+    ViewBag.Title = "ViewBukti";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/Scripts/plugins/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
+
+<div class="content-body">    
+    <div class="row page-titles mx-0">
+        <div class="col p-md-0">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Form CAPA</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- row -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Form CAPA</h4>
+                        <form>
+                            <div class="row">
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-20">Tanggal</label>
+                                    <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly>
+                                </div>
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-40">Requestor</label>
+                                    <input class="form-control form-control-sm" type="text" id="input_Requestor" value="@Request.RequestContext.HttpContext.Session["FullName"]" readonly>
+                                    @*<input class="form-control form-control-sm" type="text" id="input_Requestor_NIK" value="HARDCODE_NIK" hidden>*@
+                                    <input class="form-control form-control-sm" type="text" id="input_Requestor_NIK" value="@Request.RequestContext.HttpContext.Session["NIK"]" hidden>
+                                </div>
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-20">Nomor CAPA</label>
+                                    <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["NoCAPA"]" readonly>
+
+                                </div>
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-40">Departemen</label>
+                                    <input class="form-control form-control-sm" type="text" id="input_Departemen" value="@Request.RequestContext.HttpContext.Session["Departemen"]" readonly>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Request Page</h4>
+                        <button class="btn btn-dark form-control col-sm-2" id="btn_Request">Request</button>
+                    </div>
+                </div>
+
+                                       
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Kajian Resiko</h4>
+                        <div class="row form-group" id="Div_KajianResiko_DDL">
+                            <div class="col-md-7">
+                                <select id="RootCause_KajianResikoDDL" class="form-control">
+                                </select>
+                                <input value="" id="TxtRecordID" hidden /> <!--Line Number Kajian Resiko-->
+                                <input value="" id="TxtTipe" hidden /> <!--Tipe Kajian Resiko-->
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" id="btn_AddKajian" class="btn btn-dark mb-2" data-toggle="modal" data-target="#KajianResikoModal">Tambahkan Kajian Resiko</button>
+                            </div>
+                        </div>
+                        <div class="table-responsive mb-3">
+                            <table class="table table-hover table-bordered zero-configuration" id="Tbl_KajianResiko" style="color:black">
+                                <thead>
+                                    <tr>
+                                        <th style="display: none;">NoCAPA</th>
+                                        <th style="display: none;">LineNumber</th>
+                                        <th>Tindakan</th>
+                                        <th>Potensi Kegagalan / Penyimpangan yang mungkin terjadi ketika tindakan perbaikan/pencegahan diterapkan</th>
+                                        <th>Spesifikasi / Syarat</th>
+                                        <th>Dampak</th>
+                                        <th>Severity (S)</th>
+                                        <th>Penyebab Potensial</th>
+                                        <th>Mengatasi Penyebab Potensial</th>
+                                        <th>Likelihood (L)</th>
+                                        <th>Mencegah Potensi Kegagalan Lolos Menimbulkan Dampak</th>
+                                        <th>Detectability (D) </th>
+                                        <th>RPN (SxLxD)</th>
+                                        <th>Risk Level</th>
+                                        <th>TARGET</th>
+                                        <th>Menghilangkan Potensi Kegagalan/ Penyimpangan</th>
+                                        <th>Severity (S)</th>
+                                        <th>PERBAIKAN untuk mengatasi Penyebab Potensial</th>
+                                        <th>Likelihood (L)</th>
+                                        <th>PERBAIKAN untuk meningkatkan deteksi potensi kegagalan</th>
+                                        <th>Detectability (D)</th>
+                                        <th>RPN (SxLxD)</th>
+                                        <th>Risk Level</th>
+                                        <th>PIC</th>
+                                        <th>Due Date</th>
+                                        <th>Lainnya</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="Tbl_PRCA">
+                                    <tr>
+                                        <td>Tindakan</td>
+                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                        <td>
+                                            <select id="SaverityDDL" class="form-control">
+                                                <option value="1">1</option>
+                                                <option value="4">4</option>
+                                                <option value="7">7</option>
+                                                <option value="10">10</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                        <td>
+                                            <select id="LikelihoodDDL" class="form-control">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="4">4</option>
+                                                <option value="8">8</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                        <td>
+                                            <select id="DetectabilityDDL" class="form-control">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                            </select>
+                                        </td>
+                                        <td>SxLxD</td>
+                                        <td>Level Risk Color</td>
+                                        <td>
+                                            <select id="DetectabilityDDL" class="form-control">
+                                                <option value="Low">Low</option>
+                                                <option value="Medium">Medium</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                        <td>
+                                            <select id="LikelihoodDDL" class="form-control">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="4">4</option>
+                                                <option value="8">8</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                        <td>
+                                            <select id="DetectabilityDDL" class="form-control">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                        <td>
+                                            <select id="DetectabilityDDL" class="form-control">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                            </select>
+                                        </td>
+                                        <td>SxLxD</td>
+                                        <td>Level Risk Color</td>
+                                        <td>PIC</td>
+                                        <td>Due Date</td>
+                                        <td>Lainnya</td>
+                                        <td><button class="form-control-sm">Delete</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row form-group" style="float: left">
+                            <div class="col-md-3">
+                                <button type="button" id="btn_Submit" class="btn btn-primary mb-2">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #/ container -->
+    </div>
+</div>
+
+@*JQuery Library*@
+@*<script src="../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>*@
+<script src="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.js" defer></script>
+<script src="~/Content/Scripts/plugins/datatables/jquery.dataTables.min.js" defer></script>
+<script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>
+<script src="https://unpkg.com/gojs/release/go-debug.js" defer></script>
+
+

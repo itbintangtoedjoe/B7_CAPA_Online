@@ -67,6 +67,24 @@ namespace B7_CAPA_Online.Controllers
             string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_FORM_CAPA]");
             return Json(Return);
         }
+        public ActionResult GetDepartemenKajianResiko(DynamicModel Param)
+        {
+            DynamicParameters parameters = new DynamicParameters(Param.Model);
+            string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_SHOW_DDL]");
+            return Json(Return);
+        }
+        public ActionResult GetVendorList(DynamicModel Param)
+        {
+            DynamicParameters parameters = new DynamicParameters(Param.Model);
+            string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_SHOW_DDL]");
+            return Json(Return);
+        }
+        public ActionResult GetPICKajianResiko(DynamicModel Param)
+        {
+            DynamicParameters parameters = new DynamicParameters(Param.Model);
+            string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_SHOW_DDL]");
+            return Json(Return);
+        }
         public ActionResult CheckStatusCAPA(DynamicModel Param)
         {
             DynamicParameters parameters = new DynamicParameters(Param.Model);
