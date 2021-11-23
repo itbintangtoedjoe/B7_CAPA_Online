@@ -609,6 +609,20 @@ namespace B7_CAPA_Online.Controllers
         #endregion
 
         #region Koordinator Verifikasi
+
+        public ActionResult VerifikasiPelaksanaCAPA(string NoCAPA)
+        {
+
+            return View();
+        }
+
+        public ActionResult GetVerfifikasiData(DALModel Model)
+        {
+            Model.SP = "[dbo].[SP_VERIFIKASI_PELAKSANA_CAPA]";
+            Model.Option = 1;
+            
+            return Json(DAL.GetDataPrint(Model));
+        }
         #endregion
     }
 }
