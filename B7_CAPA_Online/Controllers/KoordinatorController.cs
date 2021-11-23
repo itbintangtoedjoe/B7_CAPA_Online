@@ -52,7 +52,6 @@ namespace B7_CAPA_Online.Controllers
         public ActionResult ApprovalKoordinator2(string NoCAPA, string status)
         {
             ViewBag.NoCAPA = NoCAPA;
-
             ViewBag.status = status;
             return View();
         }
@@ -256,7 +255,12 @@ namespace B7_CAPA_Online.Controllers
                 rowstype["Creator"] = Model.Penyimpangan[trav].Creator;
                 dt.Rows.Add(rowstype);
             }
-            var parameters = new DynamicParameters();
+            var dictionary = new Dictionary<string, object>
+            {
+                {"Option",0 }
+
+            };
+            var parameters = new DynamicParameters(dictionary);
             parameters.Add("InsertPenyimpangan", dt.AsTableValuedParameter("[dbo].[InsertPenyimpangan]"));
 
             var spname = "SP_Insert_Penyimpangan";

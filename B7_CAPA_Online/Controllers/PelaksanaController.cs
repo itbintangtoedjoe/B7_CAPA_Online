@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using static B7_CAPA_Online.Models.KoordinatorModel;
 
 namespace B7_CAPA_Online.Controllers
 {
@@ -21,6 +22,70 @@ namespace B7_CAPA_Online.Controllers
         public ActionResult PelaksanaCAPA()
         {
             return View();
+        }
+
+        public ActionResult DynamicController(DynamicModel Models, string spname)
+        {
+            var parameters = new DynamicParameters(Models.Model);
+            return Json(DAL.StoredProcedure(parameters, spname));
+
+        }
+        public ActionResult GetDataPIC(AnalisaKondisiModel Model)
+        {
+            var dictionary = new Dictionary<string, object>{
+                { "Option", Model.Option },
+                { "NO_CAPA",Model.NO_CAPA },
+                { "Aspect", Model.Aspect },
+                { "WSBH" , Model.WSBH },
+                { "WAH" , Model.WAH },
+                { "Status" , Model.Status },
+                { "isParent" , Model.isParent },
+                { "WHY_Parent" , Model.WHY_Parent },
+                { "WHY" , Model.WHY },
+                { "Tindakan", Model.Tindakan},
+                { "Pelaksana", Model.Pelaksana},
+                { "LineNumber", Model.LineNumber},
+                { "NamaPersonil", Model.NamaPersonil},
+                { "Email", Model.Email},
+                { "DueDate", Model.DueDate},
+                { "Is_AreaLain", Model.Is_AreaLain},
+                { "WhyID", Model.WhyID},
+                { "WhyParentID", Model.WhyParentID},
+                { "RootCause", Model.RootCause},
+                { "Create_By", Model.Create_By},
+                { "RecordID", Model.RecordID}
+            };
+            string Result = DAL.GetDataFormPIC(Model, dictionary);
+            return Json(Result);
+        }
+        public ActionResult AddTindakan(AnalisaKondisiModel Model)
+        {
+            var dictionary = new Dictionary<string, object>{
+                { "Option", Model.Option },
+                { "NO_CAPA",Model.NO_CAPA },
+                { "Aspect", Model.Aspect },
+                { "WSBH" , Model.WSBH },
+                { "WAH" , Model.WAH },
+                { "Status" , Model.Status },
+                { "isParent" , Model.isParent },
+                { "WHY_Parent" , Model.WHY_Parent },
+                { "WHY" , Model.WHY },
+                { "Tindakan", Model.Tindakan},
+                { "Pelaksana", Model.Pelaksana},
+                { "LineNumber", Model.LineNumber},
+                { "NamaPersonil", Model.NamaPersonil},
+                { "Email", Model.Email},
+                { "DueDate", Model.DueDate},
+                { "Is_AreaLain", Model.Is_AreaLain},
+                { "WhyID", Model.WhyID},
+                { "WhyParentID", Model.WhyParentID},
+                { "RootCause", Model.RootCause},
+                { "Create_By", Model.Create_By},
+                { "RecordID", Model.RecordID}
+            };
+
+            string Return = DAL.ExecuteFormPIC(Model, dictionary);
+            return Json(Return);
         }
         public ActionResult FindCAPADetail(SPFindDataParams data)
         {
@@ -50,7 +115,8 @@ namespace B7_CAPA_Online.Controllers
             var status = Request.Form.Get("Status");
             var tindakan = Request.Form.Get("Tindakan");
             var dueDate = Request.Form.Get("DueDate");
-
+            var potensiKegagalan = Request.Form.Get("potensiKegagalan");
+            var penyebabPotensi = Request.Form.Get("penyebabPotensi");
             var dictionary = new Dictionary<string, object>{
                 { "kategori", kategori },
                 { "recordID", tindakanID },
@@ -59,7 +125,8 @@ namespace B7_CAPA_Online.Controllers
                 { "status", status },
                 { "tindakan", tindakan },
                 { "dueDate", dueDate },
-
+                {"P_MPenyebab_Hasil", penyebabPotensi },
+                {"M_PKegagalan_Hasil",potensiKegagalan }
             };
             var parameters = new DynamicParameters(dictionary);
             var result = DAL.StoredProcedure(parameters, "SP_Update_Pelaksanaan");
@@ -71,6 +138,11 @@ namespace B7_CAPA_Online.Controllers
                 action = "Insert Pencegahan";
                 tipe = "Pencegahan";
             }
+            else if (kategori.Contains("Treatment"))
+            {
+                action = "Insert Treatment";
+                tipe = "Treatment";
+            }
 
             //insert attachment + save to b7drive
             for (int i = 0; i < Request.Files.Count; i++)
@@ -78,8 +150,9 @@ namespace B7_CAPA_Online.Controllers
                 var file = Request.Files[i];
                 var fileName = file.FileName;
 
-                var path = Path.Combine(@"\\b7-drive.bintang7.com\IntranetPortal\Intranet Attachment\QS\CAPA\"+tipe, fileName);
-                file.SaveAs(path);
+                //var path = Path.Combine(@"\\b7-drive.bintang7.com\IntranetPortal\Intranet Attachment\QS\CAPA\"+tipe, fileName);
+                string path = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
+                //file.SaveAs(path);
 
                 var attDictionary = new Dictionary<string, object>{
                     { "Action", action },

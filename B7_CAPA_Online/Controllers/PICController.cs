@@ -58,7 +58,7 @@ namespace B7_CAPA_Online.Controllers
                 { "Create_By", Model.Create_By},
                 { "RecordID", Model.RecordID}
             };
-            string Result = DAL.GetDataFormPIC(Model,dictionary);
+            string Result = DAL.GetDataFormPIC(Model, dictionary);
             return Json(Result);
         }
         public ActionResult GetKajianResiko(DynamicModel Param)
@@ -125,7 +125,7 @@ namespace B7_CAPA_Online.Controllers
                 { "Create_By", Model.Create_By},
                 { "RecordID", Model.RecordID}
             };
-            string Return = DAL.ExecuteFormPIC(Model,dictionary); // Insert to WAHHeader 
+            string Return = DAL.ExecuteFormPIC(Model, dictionary); // Insert to WAHHeader 
 
             //foreach (DataRow dr in result.Rows)
             //{
@@ -163,7 +163,7 @@ namespace B7_CAPA_Online.Controllers
                 { "Create_By", Model.Create_By},
                 { "RecordID", Model.RecordID}
             };
-            string Return = DAL.ExecuteFormPIC(Model,dictionary);
+            string Return = DAL.ExecuteFormPIC(Model, dictionary);
             return Json(Return);
         }
         public ActionResult DeleteKondisi(AnalisaKondisiModel Model)
@@ -191,7 +191,7 @@ namespace B7_CAPA_Online.Controllers
                 { "Create_By", Model.Create_By},
                 { "RecordID", Model.RecordID}
             };
-            string Return = DAL.ExecuteFormPIC(Model,dictionary);
+            string Return = DAL.ExecuteFormPIC(Model, dictionary);
             return Json(Return);
         }
         public ActionResult DeleteKajianResiko(AnalisaKondisiModel Model)
@@ -249,7 +249,7 @@ namespace B7_CAPA_Online.Controllers
                 { "RecordID", Model.RecordID}
             };
 
-            string Return = DAL.ExecuteFormPIC(Model,dictionary);
+            string Return = DAL.ExecuteFormPIC(Model, dictionary);
             return Json(Return);
         }
         public ActionResult AddKajian(DynamicModel Param)
