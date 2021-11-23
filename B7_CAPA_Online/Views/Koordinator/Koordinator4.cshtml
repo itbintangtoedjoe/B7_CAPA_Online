@@ -308,6 +308,7 @@
         <input type="text" class="btn btn-primary" id="QS_Status" value="@ViewBag.status" hidden />
     </div>
 </div>
+<script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
 
 <script>
     var chckboxstatus = [];
@@ -403,7 +404,7 @@
                     Penyimpangan: Jsonobj
                 }
                 $.ajax({
-                    url: 'InsertAddAbleKoor4?Record=' + $('#Kajian').val() +'',
+                    url: 'InsertAddAbleKoor4?Record=' + $('#Kajian').val() + '',
                     type: 'post',
                     dataType: 'json',
                     data: JSON.stringify(dto),
@@ -449,7 +450,7 @@
                     Penyimpangan: Jsonobj
                 }
                 $.ajax({
-                    url: 'InsertAddAbleKoor4?Record='+$('#Kajian').val()+'',
+                    url: 'InsertAddAbleKoor4?Record=' + $('#Kajian').val() + '',
                     type: 'post',
                     dataType: 'json',
                     data: JSON.stringify(dto),
@@ -630,6 +631,7 @@
         $('input[name="Devi_Radio"]').removeAttr("disabled");
         $('#Submit').removeAttr("disabled");
     }
+
     function getKajian() {
         var dictlist = {
             NoCAPA: $('#QS_NoCAPA').val(),
@@ -683,23 +685,20 @@
             success: function (data) {
                 var result = JSON.parse(data);
                 console.log(result[0].Stat);
-                if (result[0].Stat == 'Invalid')
-                {
+                if (result[0].Stat == 'Invalid') {
                     $('#Submit').attr('hidden', true);
                     $('#Status1').removeAttr('hidden');
                     $('#Status2').attr('hidden', true);
 
                 }
-                else if (result[0].Stat == 'Complete')
-                {
+                else if (result[0].Stat == 'Complete') {
                     disableAll();
                     $('#Submit').attr('hidden', true);
                     $('#Status1').attr('hidden', true);
                     $('#Status2').removeAttr('hidden');
                 }
-                else
-                {
-                    $('#Submit').removeAttr('disabled'); 
+                else {
+                    $('#Submit').removeAttr('disabled');
                     $('#Submit').removeAttr('hidden');
                     $('#Status1').attr('hidden', true);
                     $('#Status2').attr('hidden', true);

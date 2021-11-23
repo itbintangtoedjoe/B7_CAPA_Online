@@ -1147,13 +1147,64 @@
             }
         });
     }
+    function retrieveData() {
+        $.ajax({
+            url: 'GetDataPIC',
+            type: 'post',
+            data: JSON.stringify({
+                Option: 6,
+                NO_CAPA: $('#input_NoCAPA').val(),
+                SP: "[dbo].[SP_FORM_CAPA]"
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (rootcause) {
+                $('#RootCause_DDL').empty();
+                $('#RootCause_DDL').append(new Option("Pilih", ""));
+                $.each(JSON.parse(rootcause), function (key, value) {
+                    $('#RootCause_DDL').append(new Option(value.WhyDesc, value.WhyDesc));
+                });
 
-    function addTindakan(dto) {
+                $('#btn_AddPerbaikan').click(function () {
+                    var dto = {};
+                    var kategori = "Perbaikan";
+                    var obj = JSON.parse(rootcause);
+                    $.each(obj, function (key, value) {
+                        if (value.WhyDesc == $('#RootCause_DDL').val()) {
+                            dto = {
+                                Option: 7,
+                                NO_CAPA: $('#input_NoCAPA').val(),
+                                Aspect: value.Aspect,
+                                WhyID: value.WhyID,
+                                WhyParentID: value.ParentID,
+                                RootCause: value.WhyDesc,
+                                Tindakan: $('#TxtDeskripsiPerbaikan').val(),
+                                Pelaksana: $('#DepartemenPerbaikan_DDL').val(),
+                                LineNumber: value.LineNumber,
+                                DueDate: $('#duedate_perbaikan').val(),
+                                NamaPersonil: $('#NamaPersonilPerbaikan_DDL').val(),
+                                Email: $('#TxtEmailPerbaikan').val(),
+                                Is_AreaLain: $('input[name="Potensi"]:checked').val(),
+                                Create_By: $('#input_Requestor_NIK').val(),
+                                SP: "[dbo].[SP_FORM_CAPA]"
+                            }
+                            addTindakan(dto, kategori);
+                            return false;
+                        }
+                    });
+
+                });
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+    function addTindakan(dto, kategori) {
         var valid = false;
-        // console.log(dto);
         $.each(dto, function (key, value) {
-            if (value == '') {
-                if (value == 0)
+            if (value == '' || value == '-' || value == null) {
+                if (value == 0 || typeof value === "undefined")
                     return valid = true;
                 else
                     return valid = false;
@@ -1175,13 +1226,14 @@
                     if (status[0].Status_Inserted != 'Tindakan Perbaikan' || status[0].Status_Inserted != 'Tindakan Pencegahan') {
                         Swal.fire(
                             'Success',
-                            'Tindakan ' + status[0].Status_Inserted + ' berhasil di-input.',
+                            status[0].Status_Inserted + ' berhasil di-input.',
                             'success'
                         ).then((result) => {
                             if (result.value) {
                                 retrieveData();
                                 retrieveData2();
                                 KajianResikoDDL();
+                                RemoveInputField(kategori);
                             }
                         });
                     }

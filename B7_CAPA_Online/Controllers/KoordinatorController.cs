@@ -52,7 +52,6 @@ namespace B7_CAPA_Online.Controllers
         public ActionResult ApprovalKoordinator2(string NoCAPA,string status)
         {
             ViewBag.NoCAPA = NoCAPA;
-
             ViewBag.status = status;
             return View();
         }

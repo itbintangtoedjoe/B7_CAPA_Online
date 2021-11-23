@@ -5429,6 +5429,7 @@
     <Content Include="Views\Shared\ApprovalPV.cshtml" />
     <Content Include="Views\Pelaksana\PelaksanaTambahPerbaikan.cshtml" />
     <Content Include="Views\Koordinator\Koordinator4.cshtml" />
+    <Content Include="Views\Shared\LoadData_PV.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
