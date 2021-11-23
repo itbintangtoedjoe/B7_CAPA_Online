@@ -5431,6 +5431,8 @@
     <Content Include="Views\Pelaksana\PelaksanaTambahPerbaikan.cshtml" />
     <Content Include="Views\Evaluator\Evaluator.cshtml" />
     <Content Include="Views\Koordinator\VerifikasiPelaksanaCAPA.cshtml" />
+    <Content Include="Views\Evaluator\KonfirmasiEfektivitas.cshtml" />
+    <Content Include="Views\Evaluator\ViewBukti.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
