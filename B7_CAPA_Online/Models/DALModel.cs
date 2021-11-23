@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -24,21 +25,31 @@ namespace B7_CAPA_Online.Models
         //25/10/2021
         public string VDRUsername { get; set; }
 
+
     }
 
     public partial class DALModel
     {
+        [Required]         
         public string TriggerCAPA { get; set; }
         public string PenyimpanganTerkait { get; set; }
         public string KeluhanTerkait { get; set; }
         public string No_QC_Terkait { get; set; }
+        [Required]
         public List<Lampiran> LampiranTerkait { get; set; }
+        [Required]
         public string KategoriCAPA { get; set; }
+        [Required]
         public string Deskripsi { get; set; }
+        [Required]
         public string AreaPIC { get; set; }
-        public string PIC_CAPA { get; set; }   
+        [Required]
+        public string PIC_CAPA { get; set; }
+        [Required]
         public string PIC_ID { get; set; }
+        [Required]
         public List<string> DepartemenCollection { get; set; }
+        [Required]
         public List<string> PenyimpanganCollection { get; set; }
     }
 

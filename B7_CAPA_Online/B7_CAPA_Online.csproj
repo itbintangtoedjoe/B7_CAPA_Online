@@ -5428,6 +5428,8 @@
     <Content Include="Views\Shared\KajianResikoPV.cshtml" />
     <Content Include="Views\Shared\ApprovalPV.cshtml" />
     <Content Include="Views\Koordinator\Koordinator4.cshtml" />
+    <Content Include="Views\Evaluator\KonfirmasiEfektivitas.cshtml" />
+    <Content Include="Views\Evaluator\ViewBukti.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
