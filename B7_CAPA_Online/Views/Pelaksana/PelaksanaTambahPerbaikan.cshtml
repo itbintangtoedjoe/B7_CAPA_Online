@@ -4,6 +4,10 @@
 }
 
 
+
+<link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
+<script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
+
 <div class="content-body">
     <!--Modal-->
     <div class="row page-titles mx-0">
@@ -201,13 +205,13 @@
                                     </div>
                                 </div>
 
-                               
+
                             </form>
                         </div>
                     </div>
                 </div>
 
-                <div class="card" id="Div_Pencegahan" >
+                <div class="card" id="Div_Pencegahan">
                     <div class="card-body">
                         <h4 class="card-title">Penentuan Tindakan Pencegahan</h4>
                         <div class="table-responsive">
@@ -235,6 +239,9 @@
                 </div>
                 @Html.Partial("KajianResikoPV")
                 <button type="button" class="btn btn-primary" id="btnSimpan">Simpan</button>
+                <br />
+                <br />
+                <button type="button" class="btn btn-primary" id="btnback">Back to previous page</button>
             </div>
         </div>
         <!-- #/ container -->
@@ -288,7 +295,11 @@
         $("#TxtPIC").val('Default');
         $('#RootCause_KajianResikoDDL').prop("disabled", true);
         $('#tblHeaderTindakan').prop("hidden", true);
+        $('#btnback').click(function () {
 
+            window.location.href = '../Pelaksana/PelaksanaCAPA';
+
+        });
         $("input[name='TambahPerbaikan']").change(function () {
             var berpotensi = $('input[name="TambahPerbaikan"]:checked').val();
             if (berpotensi == "Yes") {
@@ -591,7 +602,7 @@
 
                     }
                 }
-             
+
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -631,7 +642,6 @@
     }
     function insertTindakan(dto, kategori) {
         var valid = false;
-        alert("test");
         $.each(dto, function (key, value) {
             if (value == '' || value == '-' || value == null) {
 
@@ -644,7 +654,7 @@
             }
         });
 
-        if (valid) {
+        if (valid == true) {
             $.ajax({
                 url: '../PIC/AddTindakan',
                 type: 'post',
@@ -789,11 +799,8 @@
             cleanModalFields();
             newKajianResiko.push(kajianModel);
             populateKajian();
-            swal('Kajian risiko berhasil ditambahkan', {
-                icon: "success",
-                buttons: false,
-                timer: 1000,
-            });
+            alert("Kajian risiko berhasil ditambahkan");
+
         } else {
             swal('Semua field wajib terisi', {
                 icon: "warning",
@@ -911,11 +918,8 @@
             contentType: "application/json",
             dataType: 'json',
             success: function (data) {
-                swal("Penambahan berhasil disimpan", {
-                    icon: "success",
-                    buttons: false,
-                    timer: 1000,
-                });
+                alert("Penambahan berhasil disimpan");
+
                 ReloadPage();
             },
             error: function (xhr, error, status) {

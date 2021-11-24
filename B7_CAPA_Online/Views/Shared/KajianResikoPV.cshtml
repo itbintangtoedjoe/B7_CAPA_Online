@@ -127,7 +127,7 @@
         </div>*@
     </div>
 </div>
-
+<input type="text" class="form-control form-control-sm" id="NoCAPA" val="@ViewBag.NoCAPA" style="width:100%;" hidden>
 <script>
 
     function KajianResikoDDLPV() {
@@ -151,13 +151,14 @@
             }
         });
     }
+
     function TableKajianPV() {
         $.ajax({
             url: '/PIC/GetKajianResiko',
             type: 'post',
             data: JSON.stringify({
                 Model: {
-                    NO_CAPA: $('#input_NoCAPA').val(),
+                    NO_CAPA: $('#NoCAPA').val(),
                     Option: 11,
                     Aspect: '',
                     WSBH: '',

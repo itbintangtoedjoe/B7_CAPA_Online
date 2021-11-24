@@ -5434,7 +5434,7 @@
     <Content Include="Views\Evaluator\KonfirmasiEfektivitas.cshtml" />
     <Content Include="Views\Evaluator\ViewBukti.cshtml" />
     <Content Include="Views\Shared\LoadData_PV.cshtml" />
-    <Content Include="Views\Evaluator\ViewCAPA.cshtml" />
+    <Content Include="Views\Koordinator\Koordinator4.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
