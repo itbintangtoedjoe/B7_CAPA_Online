@@ -1,20 +1,19 @@
 ﻿
 @{
-    ViewBag.Title = "ViewBukti";
+    ViewBag.Title = "ViewCAPA";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.NoCAPA = @Request.QueryString["NoCAPA"];
 }
 
-
 <link href="~/Content/Scripts/plugins/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
 
-<div class="content-body">    
+<div class="content-body">
     <div class="row page-titles mx-0">
         <div class="col p-md-0">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">View Bukti</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">View CAPA</a></li>
             </ol>
         </div>
     </div>
@@ -25,7 +24,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">View Bukti</h4>
+                        <h4 class="card-title">View CAPA</h4>
                         <form>
                             <div class="row">
                                 <div class="form-group mb-2 col-sm-3">
@@ -53,13 +52,13 @@
                 </div>
 
                 @*<div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Request Page</h4>
-                        <button class="btn btn-dark form-control col-sm-2" id="btn_Request">Request</button>
-                    </div>
-                </div>*@
+                        <div class="card-body">
+                            <h4 class="card-title">Request Page</h4>
+                            <button class="btn btn-dark form-control col-sm-2" id="btn_Request">Request</button>
+                        </div>
+                    </div>*@
 
-                
+                @Html.Partial("LoadData_PV")
 
             </div>
         </div>
@@ -79,6 +78,6 @@
 
 <script>
     $(document).ready(function () {
-    
+
     });
 </script>

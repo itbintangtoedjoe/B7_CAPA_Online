@@ -76,12 +76,12 @@
                             </div>
                             <div class="row">
                                 <label class="m-t-20" style="margin-left:15px;"> <b>Ya</b> </label>
-                                <input type='radio' id="Devi_Yes" name="Devi_Radio" value="Yes" style="margin-left:15px;" />
+                                <input type='radio' id="Devi_Yes" name="Devi_Radio" value="Yes" style="margin-left:15px;" disabled />
                                 <label class="m-t-20" style="margin-left:15px;"> <b>Tidak</b> </label>
-                                <input type='radio' id="Devi_No" name="Devi_Radio" value="no" style="margin-left:15px;" />
+                                <input type='radio' id="Devi_No" name="Devi_Radio" value="no" style="margin-left:15px;" disabled />
                             </div>
                             <div class="row" id="Deviation">
-                                <table class="table table-striped table-bordered zero-configuration" id="Tbl_Devi">
+                                <table class="table table-hover table-bordered zero-configuration" id="Tbl_Devi">
                                     <thead>
                                     </thead>
                                     <tbody>
@@ -97,9 +97,9 @@
                             </div>
                             <div class="row">
                                 <label class="m-t-20" style="margin-left:15px;"> <b>Ya</b> </label>
-                                <input type='radio' id="CCC_Yes" name="CCC_Radio" value="Yes" style="margin-left:15px;" />
+                                <input type='radio' id="CCC_Yes" name="CCC_Radio" value="Yes" style="margin-left:15px;" disabled/>
                                 <label class="m-t-20" style="margin-left:15px;"> <b>Tidak</b> </label>
-                                <input type='radio' id="CCC_No" name="CCC_Radio" value="No" style="margin-left:15px;" />
+                                <input type='radio' id="CCC_No" name="CCC_Radio" value="No" style="margin-left:15px;" disabled/>
                             </div>
                             <div class="row">
                                 <table class="table table-striped table-bordered zero-configuration" id="Tbl_CCC" hidden>
@@ -129,9 +129,9 @@
 
                             <div class="row">
                                 <label class="m-t-20" style="margin-left:15px;"> <b>Ya</b> </label>
-                                <input type='radio' id="File_Yes" name="File_Radio" style="margin-left:15px;" value="Yes" />
+                                <input type='radio' id="File_Yes" name="File_Radio" style="margin-left:15px;" value="Yes"  disabled/>
                                 <label class="m-t-20" style="margin-left:15px;"> <b>Tidak</b> </label>
-                                <input type='radio' id="File_No" name="File_Radio" style="margin-left:15px;" value="No" />
+                                <input type='radio' id="File_No" name="File_Radio" style="margin-left:15px;" value="No" disabled />
                             </div>
                             <div class="row form-group-sm mb-2" id="Lampiran" hidden>
                                 <div class="col-md-6">
@@ -144,9 +144,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <br />
-                            <input type="button" class="btn btn-primary" id="Submit" value="Submit" />
+                            </div>                           
                         </form>
                     </div>
                 </div>
@@ -208,6 +206,10 @@
     $(document).ready(function () {
         $('#btn_ViewBukti').click(function () {
             window.open('/Evaluator/ViewBukti');
+        });
+
+        $('#btn_ViewCAPA').click(function () {
+            window.open('/Evaluator/ViewCAPA?NoCAPA=' + $('#input_NoCAPA').val());
         });
 
         $('#btn_Submit').click(function () {
