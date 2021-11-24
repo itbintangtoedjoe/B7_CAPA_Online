@@ -117,7 +117,7 @@
                                     <div class="col-sm-2" style="text-align:right">
                                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="btnActionPerbaikan" disabled>Action</button>
                                         <div class="dropdown-menu" style="width:auto; color:black;">
-                                            <a class="dropdown-item" href="#" id="btnEnableUbahPerbaikan" >Ubah Tindakan Perbaikan</a>
+                                            <a class="dropdown-item" href="#" id="btnEnableUbahPerbaikan">Ubah Tindakan Perbaikan</a>
                                             <a class="dropdown-item" href="#" id="btnTambahPerbaikan">Tambah Tindakan Perbaikan</a>
                                             <a class="dropdown-item" href="#">Cancel Tindakan Perbaikan</a>
                                         </div>
@@ -567,7 +567,7 @@
             </div>
         </div>
         <!-- #/ container -->
-        @Html.Partial("KajianResikoPV");
+        @Html.Partial("KajianResikoPV")
     </div>
 </div>
 
@@ -623,6 +623,8 @@
             $('#txtMDPKegagalan').prop("disabled", false);
             $("#uploadAttachmentTreatment").prop("disabled", false);
             $('#btnSimpanTreatment').prop("disabled", false);
+            GetTreatmentAttachments();
+          
         });
 
     });
@@ -633,6 +635,7 @@
         PopulateDDLPerbaikan();
         FindPencegahan();
         PopulateDDLPencegahan();
+        GetTreatmentAttachments();
         $("#modePerbaikan").val("Continue");
         $("#modePencegahan").val("Continue");
         $('#txtModePerbaikan').attr("hidden", true);
@@ -757,9 +760,9 @@
         {
             $('#btnPilihPerbaikan').prop("disabled", true);
         }
-        
 
-       
+
+
     }
 
     function PopulateTableAttPerbaikan() {
@@ -767,6 +770,7 @@
         var trhtml = '';
         if (fileCount > 0) {
             for (i = 0; i < fileCount; i++) {
+                console.log(attachmentPerbaikan[i].FILE_PATH);
                 trhtml += '<tr><td><a href="' + attachmentPerbaikan[i].FILE_PATH + '" style="color:blue;text-decoration:underline">' + attachmentPerbaikan[i].FILE_NAME + '</a></td>' +
                     '<td> <button class="btn-dark input-group-text center" type="button" onclick=" DeleteAttachment(' + attachmentPerbaikan[i].RecordID + ')" id="btnDeletePerbaikan'+i+'" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
             }
@@ -923,6 +927,7 @@
         var tindakanPerbaikanRev = $('#txtTindakanPerbaikanRev').val();
         var dueDate = $('#dueDatePerbaikan').val();
         var hasilPerbaikan = $('#txtHasilPerbaikan').val();
+        alert(hasilPerbaikan);
         var attachmentPerbaikan = $("#uploadAttachmentPerbaikan").val();
         //var pelaksanaID = getQueryStrings()["PelaksanaID"];
         var status = "Pending Review Koordinator";
@@ -939,9 +944,9 @@
         formData.append("Tindakan", tindakanPerbaikanRev);
         formData.append("DueDate", dueDaterev);
         @* console.log($('#tblAttachmentPerbaikan tbody tr').length);*@
-
+        alert(modePerbaikan);
         if (modePerbaikan == "Continue") {
-            if (hasilPerbaikan.trim() == "" || $('#tblAttachmentPerbaikan td:last-child').text() == "Belum ada file terpilih") {
+            if ($('#tblAttachmentPerbaikan td:last-child').text() == "Belum ada file terpilih") {
                 swal('Hasil perbaikan dan attachment wajib diisi!', {
                     icon: "warning",
                     buttons: false,
@@ -953,7 +958,7 @@
         else {
             kategori = "Perubahan Perbaikan";
             status = "Pending Review Superior Pelaksana";
-            if (tindakanPerbaikan.trim() == "" || tindakanPerbaikanRev.trim() == "") {
+            if (tindakanPerbaikan.trim() == "" || tindakanPerbaikanRev.trim() == "" || dueDaterev == undefined || hasilPerbaikan.trim() == ""  ) {
                 swal('Semua field wajib diisi!', {
                     icon: "warning",
                     buttons: false,
@@ -1053,35 +1058,45 @@
         $('#dueDatePencegahan').val(dueDateRev.format("YYYY-MM-DD"));
         GetPencegahanAttachments();
         PopulateTableAttPencegahan();
-        ToggleBtnDeleteAttPencegahan("Disable");    
+        ToggleBtnDeleteAttPencegahan("Disable");
 
         var ddlText = $("#ddlPencegahan option:selected").text();
         var status = "Menunggu Input Pelaksana";
         var pelaksana = objPencegahan[0].Pelaksana_Pencegahan;
         var pelaksanaName = objPencegahan[0].EmpName;
         var superiorName = objPencegahan[0].SuperiorName;
-        if (ddlText.indexOf('Review') > 0 && pelaksana != nik) {
-            $('#btnPilihPencegahan').prop("disabled", true);
-            status = objPencegahan[0].Status_Pencegahan;
-            $('#txtSuperiorPencegahan').val(superiorName);
-            $('#txtPelaksanaPencegahan').val(pelaksanaName);
+        $('#txtSuperiorPencegahan').val(superiorName);
+        $('#txtPelaksanaPencegahan').val(pelaksanaName);
+        for (var i = 0; i < dataPencegahan.length; i++) {
+            var pelaksana = dataPencegahan[i].Pelaksana_Pencegahan;
+            if (objPencegahan[0].Pelaksana_Pencegahan == nik) {
+                stataction = true;
+            }
+            else {
+                stataction = false;
+            }
+            if (pelaksana == nik) {
+                statuser = true;
+                break;
+            }
         }
-        else if (ddlText.indexOf('Review') > 0 && pelaksana == nik) {
-            $('#btnPilihPencegahan').attr("disabled", true);
-            $('#txtSuperiorPencegahan').val(superiorName);
-            $('#txtPelaksanaPencegahan').val(pelaksanaName);
-        }
-        else if (ddlText.indexOf('Review') < 0 && pelaksana != nik) {
-            $('#btnPilihPencegahan').attr("disabled", true);
-            $('#txtSuperiorPencegahan').val(superiorName);
-            $('#txtPelaksanaPencegahan').val(pelaksanaName);
+        if (statuser == true) {
+            //disable button pilih agar tidak bisa diedit - jika status direview
+            if (ddlText.indexOf('Review') > 0) {
+                $('#btnPilihPencegahan').prop("disabled", true);
+                status = objPencegahan[0].Status_Pencegahan;
+            }
+            else {
+                $('#btnPilihPencegahan').prop('disabled', false);
+            }
 
+            $('#txtStatusPencegahan').html('<strong>Status: ' + status + '</strong>');
+            $('#txtRootCausePencegahan').val(objPencegahan[0].WhyDesc);
         }
         else {
-            $('#btnPilihPencegahan').removeAttr('disabled');
-            $('#txtSuperiorPencegahan').val(superiorName);
-            $('#txtPelaksanaPencegahan').val(pelaksanaName);
+            $('#btnPilihPencegahan').prop("disabled", true);
         }
+       
         //disable button pilih agar tidak bisa diedit
 
         $('#txtStatusPencegahan').html('<strong>Status: ' + status + '</strong>');
@@ -1228,8 +1243,8 @@
         var modePencegahan = $("#modePencegahan").val();
 
         var idPencegahan = $('#ddlPencegahan').val();
-        var tindakanPencegahan = $('#txtTindakanPencegahanRev').val();
-        var dueDate = $('#dueDatePencegahanRev').val();
+        var tindakanPencegahanRev = $('#txtTindakanPencegahanRev').val();
+        var dueDateRev = $('#dueDatePencegahanRev').val();
         var hasilPencegahan = $('#txtHasilPencegahan').val();
         var attachmentPencegahan = $("#uploadAttachmentPencegahan").val();
         //var pelaksanaID = getQueryStrings()["PelaksanaID"];
@@ -1244,8 +1259,8 @@
         formData.append("TindakanID", idPencegahan);
         formData.append("Updater", nik);
         formData.append("NomorCAPA", noCAPA);
-        formData.append("Tindakan", tindakanPencegahan);
-        formData.append("DueDate", dueDate);
+        formData.append("Tindakan", tindakanPencegahanRev);
+        formData.append("DueDate", dueDateRev);
         @* console.log($('#tblAttachmentPencegahan tbody tr').length);*@
 
         if (modePencegahan == "Continue") {
@@ -1261,7 +1276,15 @@
         else {
             kategori = "Perubahan Pencegahan";
             status = "Pending Review Superior Pelaksana";
-            if (tindakanPencegahan.trim() == "") {
+            if (hasilPencegahan.trim() == "" || $('#tblAttachmentPencegahan td:last-child').text() == "Belum ada file terpilih") {
+                swal('Hasil pencegahan dan attachment wajib diisi!', {
+                    icon: "warning",
+                    buttons: false,
+                    timer: 1000,
+                });
+                return;
+            }
+            if (tindakanPencegahanRev.trim() == "" || dueDateRev == undefined) {
                 swal('Semua field wajib diisi!', {
                     icon: "warning",
                     buttons: false,
@@ -1369,6 +1392,53 @@
         });
 
     }
+    function PopulateTableAttTreatment() {
+        var fileCount = attachmentKajian.length;
+        var trhtml = '';
+        if (fileCount > 0) {
+            for (i = 0; i < fileCount; i++) {
+                console.log(attachmentKajian[i].FILE_PATH);
+                trhtml += '<tr><td><a href="' + attachmentKajian[i].FILE_PATH + '" style="color:blue;text-decoration:underline">' + attachmentKajian[i].FILE_NAME + '</a></td>' +
+                    '<td> <button class="btn-dark input-group-text center" type="button" onclick=" DeleteAttachment(' + attachmentKajian[i].RecordID + ')" id="btnDeletePerbaikan' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
+            }
+        } else {
+            trhtml += '<tr><td>Belum ada file terpilih</td></tr>';
+        }
+        $("#tbodyAttachmentTreatment").empty();
+        $("#tblAttachmentTreatment").append(trhtml);
+    }
+    function GetTreatmentAttachments() {
+        var idKajian = $('#ddlKajianTreatment').val();
+        var dto = {
+            Kategori: "Lampiran Treatment",
+            NomorCAPA: noCAPA,
+            NIK: nik,
+            FKID: idKajian,
+            Status: "Active"
+        }
+        $.ajax({
+            url: "FindCAPADetail",
+            type: "POST",
+            async: false,
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                attachmentKajian = result;
+                var trhtml = "";
+                for (i = 0; i < result.length; i++) {
+                    trhtml += '<tr><td><a href="' + result[i].FILE_PATH + '" style="color:blue;text-decoration:underline">' + result[i].FILE_NAME + '</a></td>' +
+                        '<td> <button class="btn-dark input-group-text center" type="button" onclick=" DeleteAttachment(' + result[i].RecordID + ')" id="btnDeleteTreatment' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
+                }
+                $("#tbodyAttachmentTreatment").empty();
+                $("#tblAttachmentTreatment").append(trhtml);
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
     $('#uploadAttachmentTreatment').change(function () {
         var fileCount = this.files.length;
         var trhtml = '';
@@ -1376,14 +1446,13 @@
         for (i = 0; i < fileCount; i++) {
             trhtml += '<tr><td>' + this.files[i].name + '</td></tr>';
         }
-        PopulateTableAttPencegahan();
         $("#tblAttachmentTreatment").append(trhtml);
     })
 
     $('#btnSimpanTreatment').click(function (e) {
              var modeTreatment = $("#modeTreatment").val();
 
-             var idKajian = $('#ddlKajian').val();
+             var idKajian = $('#ddlKajianTreatment').val();
              var potensiKegagalan = $('#txtPotensiKegagalan').val();
              var penyebabPotensi = $('#txtPenyebabPotensi').val();
              var MDPKegagalan = $('#txtMDPKegagalan').val();
@@ -1393,11 +1462,11 @@
              var kategori = "Treatment";
 
              //pelaksanaID = pelaksanaID.replace('#', '');
-             idPencegahan = parseInt(idKajian);
+             var recordidKajian = parseInt(idKajian);
              @* console.log(idPencegahan, hasilPencegahan, attachmentPencegahan, pelaksanaID);*@
-            var formData = new FormData();
+             var formData = new FormData();
              formData.append("Hasil", MDPKegagalan);
-             formData.append("TindakanID", idKajian);
+             formData.append("TindakanID", recordidKajian);
              formData.append("Updater", nik);
              formData.append("NomorCAPA", noCAPA);
              formData.append("Tindakan", " ");
