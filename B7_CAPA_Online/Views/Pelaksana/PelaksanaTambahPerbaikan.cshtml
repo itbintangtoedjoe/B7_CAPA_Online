@@ -281,14 +281,14 @@
 
         retrieveData();
         retrieveData2();
-        $('#btn_AddPerbaikan').click(function () {
-            statRetrieve++
-            retrieveData();
+        //$('#btn_AddPerbaikan').click(function () {
+        //    statRetrieve++
+        //    retrieveData();
 
-        });
-        $('#btn_AddPencegahan').click(function () {
-            retrieveData2();
-        });
+        //});
+        //$('#btn_AddPencegahan').click(function () {
+        //    retrieveData2();
+        //});
         getRootCause();
         getDDLDeptKajianResiko();
         populateKajian();
@@ -465,62 +465,7 @@
             }
         });
     }
-    function retrieveData2() {
-        $.ajax({
-            url: '../PIC/GetDataPIC',
-            type: 'post',
-            data: JSON.stringify({
-                Option: 8,
-                NO_CAPA: noCAPA,
-                SP: "[dbo].[SP_FORM_CAPA]"
-            }),
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            success: function (area_lain) {
-                var data = JSON.parse(area_lain);
-                if (data.length == 0) {
-                    $('#Div_TindakanPencegahan').prop('hidden', true);
-                } else {
-                    $('#AreaLain_DDL').empty();
-                    $('#AreaLain_DDL').append(new Option("Pilih", ""));
-                    $.each(JSON.parse(area_lain), function (key, value) {
-                        $('#AreaLain_DDL').append(new Option(value.WhyDesc, value.WhyDesc));
-                    });
 
-
-                        var dto = {};
-                        var kategori = "Pencegahan";
-                    var obj = JSON.parse(area_lain);
-                    for (var i = 0; i < obj.length; i++) {
-                        if (obj[i].WhyDesc == $('#AreaLain_DDL').val()) {
-                                dto = {
-                                    Option: 9,
-                                    NO_CAPA: $('#input_NoCAPA').val(),
-                                    Aspect: obj[i].WAHType_FK,
-                                    WhyID: obj[i].WhyID,
-                                    WhyParentID: obj[i].WhyParentID,
-                                    RootCause: obj[i].WhyDesc,
-                                    Tindakan: $('#TxtDeskripsiPencegahan').val(),
-                                    Pelaksana: $('#DepartemenPencegahan_DDL').val(),
-                                    LineNumber: obj[i].LineNumber,
-                                    DueDate: $('#duedate_pencegahan').val(),
-                                    NamaPersonil: $('#NamaPersonilPencegahan_DDL').val(),
-                                    Email: $('#TxtEmailPencegahan').val(),
-                                    Create_By: $('#input_Requestor_NIK').val(),
-                                    SP: "[dbo].[SP_FORM_CAPA]"
-                                }
-                            insertTindakan(dto, kategori);
-                            break;
-                            }
-
-                    }
-                }
-            },
-            error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
-        });
-    }
     function KajianResikoDDL() {
         $.ajax({
             url: '../PIC/GetDataPIC',
@@ -562,47 +507,118 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (rootcause) {
-                if (statRetrieve == 0) {
-                    $('#RootCause_DDL').empty();
-                    $('#RootCause_DDL').append(new Option("Pilih", ""));
-                    $.each(JSON.parse(rootcause), function (key, value) {
-                        $('#RootCause_DDL').append(new Option(value.WhyDesc, value.WhyDesc));
-                    });
-                }
-                else
-                {
-                    alert("test");
-                    var dto = {};
-                    var kategori = "Perbaikan";
-                    var obj = JSON.parse(rootcause);
-                    alert(obj.length);
-                    for (var i = 0; i < obj.length; i++) {
-                        if (obj[i].WhyDesc == $('#RootCause_DDL').val()) {
-                            alert($('#RootCause_DDL').val());
-                            dto = {
-                                Option: 7,
-                                NO_CAPA: noCAPA,
-                                Aspect: obj[i].Aspect,
-                                WhyID: obj[i].WhyID,
-                                WhyParentID: obj[i].ParentID,
-                                RootCause: obj[i].WhyDesc,
-                                Tindakan: $('#TxtDeskripsiPerbaikan').val(),
-                                Pelaksana: $('#DepartemenPerbaikan_DDL').val(),
-                                LineNumber: obj[i].LineNumber,
-                                DueDate: $('#duedate_perbaikan').val(),
-                                NamaPersonil: $('#NamaPersonilPerbaikan_DDL').val(),
-                                Email: $('#TxtEmailPerbaikan').val(),
-                                Is_AreaLain: $('input[name="Potensi"]:checked').val(),
-                                Create_By: $('#input_Requestor_NIK').val(),
-                                SP: "[dbo].[SP_FORM_CAPA]"
+                var countAdd = 0;
+                $('#RootCause_DDL').empty();
+                $('#RootCause_DDL').append(new Option("*Pilih*", ""));
+                $.each(JSON.parse(rootcause), function (key, value) {
+                    $('#RootCause_DDL').append(new Option(value.WhyDesc, value.WhyDesc));
+                });
+                console.log(JSON.parse(rootcause));
+
+                $('#btn_AddPerbaikan').click(function () {
+                    countAdd++;
+                    if (countAdd > 1) {
+                        return;
+                    }
+                    else {
+                        var dto = {};
+                        var kategori = "Perbaikan";
+                        var obj = JSON.parse(rootcause);
+
+                        $.each(obj, function (key, value) {
+                            if (value.WhyDesc == $('#RootCause_DDL').val()) {
+                                dto = {
+                                    Option: 7,
+                                    NO_CAPA: noCAPA,
+                                    Aspect: value.Aspect,
+                                    WhyID: value.WhyID,
+                                    WhyParentID: value.ParentID,
+                                    RootCause: value.WhyDesc,
+                                    Tindakan: $('#TxtDeskripsiPerbaikan').val(),
+                                    Pelaksana: $('#NamaPersonilPerbaikan_DDL').val(),
+                                    Departemen: $('#DepartemenPerbaikan_DDL').val(),
+                                    LineNumber: value.LineNumber,
+                                    DueDate: $('#duedate_perbaikan').val(),
+                                    NamaPersonil: $('#NamaPersonilPerbaikan_DDL option:selected').text(),
+                                    Email: $('#TxtEmailPerbaikan').val(),
+                                    Is_AreaLain: $('input[name="Potensi"]:checked').val(),
+                                    Create_By: nik,
+                                    SP: "[dbo].[SP_FORM_CAPA]"
+                                }
+                                return false;
                             }
-                            insertTindakan(dto, kategori);
-                            break;
+                        });
+                        addTindakan(dto, kategori);
+                    }
+                });
+
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function retrieveData2() {
+        $.ajax({
+            url: 'GetDataPIC',
+            type: 'post',
+            data: JSON.stringify({
+                Option: 8,
+                NO_CAPA: noCAPA,
+                SP: "[dbo].[SP_FORM_CAPA]"
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (area_lain) {
+                console.log(area_lain)
+                var countAdd = 0;
+                var data = JSON.parse(area_lain);
+                if (data.length == 0) {
+                    $('#Div_TindakanPencegahan').prop('hidden', true);
+                } else {
+                    $('#AreaLain_DDL').empty();
+                    $('#AreaLain_DDL').append(new Option("*Pilih*", ""));
+                    $.each(JSON.parse(area_lain), function (key, value) {
+                        $('#AreaLain_DDL').append(new Option(value.Tindakan_Perbaikan, value.Tindakan_Perbaikan));
+                    });
+
+                    $('#btn_AddPencegahan').click(function () {
+                        countAdd++;
+                        if (countAdd > 1) {
+                            return;
+                        } else {
+                            var dto = {};
+                            var kategori = "Pencegahan";
+                            var obj = JSON.parse(area_lain);
+                            $.each(obj, function (key, value) {
+                                if (value.Tindakan_Perbaikan == $('#AreaLain_DDL').val()) {
+                                    dto = {
+                                        Option: 9,
+                                        NO_CAPA: noCAPA,
+                                        Aspect: value.WAHType_FK,
+                                        WhyID: value.WhyID,
+                                        WhyParentID: value.WhyParentID,
+                                        RootCause: value.Tindakan_Perbaikan,
+                                        AreaLain: $('#TxtAreaLainPencegahan').val(),
+                                        Tindakan: $('#TxtDeskripsiPencegahan').val(),
+                                        Pelaksana: $('#NamaPersonilPencegahan_DDL').val(),
+                                        Departemen: $('#DepartemenPencegahan_DDL').val(),
+                                        LineNumber: value.LineNumber,
+                                        DueDate: $('#duedate_pencegahan').val(),
+                                        NamaPersonil: $('#NamaPersonilPencegahan_DDL option:selected').text(),
+                                        Email: $('#TxtEmailPencegahan').val(),
+                                        Create_By: nik,
+                                        SP: "[dbo].[SP_FORM_CAPA]"
+                                    }
+                                    return false;
+                                }
+                            });
+                            addTindakan(dto, kategori);
                         }
 
-                    }
+                    });
                 }
-
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -640,13 +656,13 @@
             }
         });
     }
-    function insertTindakan(dto, kategori) {
+
+    function addTindakan(dto, kategori) {
         var valid = false;
         $.each(dto, function (key, value) {
             if (value == '' || value == '-' || value == null) {
-
                 if (value == 0 || typeof value === "undefined")
-                    return valid = true;
+                    valid = true;
                 else
                     return valid = false;
             } else {
@@ -654,13 +670,14 @@
             }
         });
 
-        if (valid == true) {
+        if (valid) {
             $.ajax({
-                url: '../PIC/AddTindakan',
+                url: 'AddTindakan',
                 type: 'post',
                 data: JSON.stringify(dto),
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
+
                 success: function (data) {
                     var status = JSON.parse(data);
                     if (status[0].Status_Inserted != 'Tindakan Perbaikan' || status[0].Status_Inserted != 'Tindakan Pencegahan') {
@@ -690,6 +707,7 @@
             )
         }
     }
+
     $('#Severity_DDL').change(function () {
         realtimeCalculation();
     });
