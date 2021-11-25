@@ -1,4 +1,251 @@
-﻿<div class="card">
+﻿
+<!--Modal-->
+<div class="modal fade" id="KajianResikoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Form Kajian Resiko</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form>
+                            <div class="container">
+                                <div class="row form-group col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="TxtPotensiKegagalan" class="col-form-label">Potensi Kegagalan / Penyimpangan yang mungkin terjadi ketika tindakan perbaikan/pencegahan diterapkan</label>
+                                        <div class="input-group">
+                                            <textarea type="text" class="form-control" name="TxtPotensiKegagalan" id="TxtPotensiKegagalan"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="TxtDampak" class="col-form-label">Dampak</label>
+                                        <div class="input-group">
+                                            <textarea type="text" class="form-control" name="TxtDampak" id="TxtDampak"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="TxtSpesifikasi" class="col-form-label">Spesifikasi / Syarat</label>
+                                        <div class="input-group">
+                                            <textarea type="text" class="form-control" name="TxtSpesifikasi" id="TxtSpesifikasi"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="TxtPenyebabPotensial" class="col-form-label">Penyebab Potensial</label>
+                                        <div class="input-group">
+                                            <textarea type="text" class="form-control" name="TxtPenyebabPotensial" id="TxtPenyebabPotensial"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="TxtMPenyebabPotensial" class="col-form-label">Mengatasi Penyebab Potensial</label>
+                                        <div class="input-group">
+                                            <textarea type="text" class="form-control" name="TxtMPenyebabPotensial" id="TxtMPenyebabPotensial"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="TxtMPotensi_KLMD" class="col-form-label">Mencegah Potensi Kegagalan Lolos Menimbulkan Dampak</label>
+                                        <div class="input-group">
+                                            <textarea type="text" class="form-control" name="TxtMPotensi_KLMD" id="TxtMPotensi_KLMD"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group col-md-12">
+                                    <div class="col-md-4">
+                                        <label for="Severity_DDL" class="col-form-label">Severity</label>
+                                        <div class="input-group">
+                                            <select class="form-control select2" id="Severity_DDL" required>
+                                                <option value="-">*Pilih*</option>
+                                                <option value="1">1</option>
+                                                <option value="4">4</option>
+                                                <option value="7">7</option>
+                                                <option value="10">10</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="Likelihood_DDL" class="col-form-label">Likelihood</label>
+                                        <div class="input-group">
+                                            <select class="form-control select2" id="Likelihood_DDL" required>
+                                                <option value="-">*Pilih*</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="4">4</option>
+                                                <option value="8">8</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="Detectability_DDL" class="col-form-label">Detectability</label>
+                                        <div class="input-group">
+                                            <select class="form-control select2" id="Detectability_DDL" required>
+                                                <option value="-">*Pilih*</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group col-md-12">
+                                    <div class="form-group col-md-6">
+                                        <label for="TxtRPN" class="col-form-label">RPN</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="TxtRPN" id="TxtRPN" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="TxtRiskLevel" class="col-form-label">Risk Level</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="TxtRiskLevel" id="TxtRiskLevel" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container" id="Div_KajianResikoModal" hidden>
+                                <div class="form-group col-md-3">
+                                    <label for="Target_DDL" class="col-form-label">Target</label>
+                                    <div class="input-group">
+                                        <select class="form-control select2" id="Target_DDL" required>
+                                            <option value="">*Pilih*</option>
+                                            <option value="Low">Low</option>
+                                            <option value="Medium">Medium</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="TxtMPotensi_K" class="col-form-label">Menghilangkan Potensi Kegagalan/ Penyimpangan</label>
+                                        <div class="input-group">
+                                            <textarea type="text" class="form-control" name="TxtMPotensi_K" id="TxtMPotensi_K"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="TxtMPenyebab_P" class="col-form-label">Perbaikan untuk mengatasi Penyebab Potensial</label>
+                                        <div class="input-group">
+                                            <textarea type="text" class="form-control" name="TxtMPenyebab_P" id="TxtMPenyebab_P"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="TxtDPotensi_K" class="col-form-label">Perbaikan untuk meningkatkan deteksi potensi kegagalan</label>
+                                        <div class="input-group">
+                                            <textarea type="text" class="form-control" name="TxtDPotensi_K" id="TxtDPotensi_K"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group col-md-12">
+                                    <div class="col-md-4">
+                                        <label for="Severity2_DDL" class="col-form-label">Severity</label>
+                                        <div class="input-group">
+                                            <select class="form-control select2" id="Severity2_DDL" required>
+                                                <option value="-">*Pilih*</option>
+                                                <option value="1">1</option>
+                                                <option value="4">4</option>
+                                                <option value="7">7</option>
+                                                <option value="10">10</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="Likelihood2_DDL" class="col-form-label">Likelihood</label>
+                                        <div class="input-group">
+                                            <select class="form-control select2" id="Likelihood2_DDL" required>
+                                                <option value="-">*Pilih*</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="4">4</option>
+                                                <option value="8">8</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="Detectability2_DDL" class="col-form-label">Detectability</label>
+                                        <div class="input-group">
+                                            <select class="form-control select2" id="Detectability2_DDL" required>
+                                                <option value="-">*Pilih*</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="TxtRPN2" class="col-form-label">RPN</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="TxtRPN2" id="TxtRPN2" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="TxtRiskLevel2" class="col-form-label">Risk Level</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="TxtRiskLevel2" id="TxtRiskLevel2" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container">
+                                <div class="row form-group col-md-12" id="Div_TxtPIC" hidden>
+                                    <div class="col-md-4">
+                                        <label for="TxtPIC" class="col-form-label">PIC</label>
+                                        <div class="input-group">
+                                            <input type="text" id="TxtPICName" name="TxtPICName" class="form-control form-control-sm" readonly>
+                                            <input type="text" id="TxtPIC" name="TxtPIC" class="form-control form-control-sm" hidden>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group col-md-12">
+                                    <div class="col-md-4">
+                                        <label for="TxtLainnya" class="col-form-label">Lainnya</label>
+                                        <div class="input-group">
+                                            <textarea type="text" class="form-control" name="TxtLainnya" id="TxtLainnya"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="DueDate_Kajian" class="col-form-label">Due Date</label>
+                                        <div class="input-group">
+                                            <input type="date" id="DueDate_Kajian" class="form-control form-control-sm">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <button type="button" class="btn btn-primary" id="btn_KajianResiko">Tambahkan</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
     <div class="card-body">
         <h4 class="card-title">Kajian Resiko</h4>
         <div class="row form-group" id="Div_KajianResikoInput">
@@ -129,21 +376,26 @@
 </div>
 <input type="text" class="form-control form-control-sm" id="NoCAPA" val="@ViewBag.NoCAPA" style="width:100%;" hidden>
 <script>
-
+   
     function KajianResikoDDLPV() {
         $.ajax({
             url: '/PIC/GetDataPIC',
             type: 'post',
             data: JSON.stringify({
                 Option: 10,
+                NO_CAPA: $('#input_NoCAPA').val(),
                 SP: "[dbo].[SP_FORM_CAPA]"
             }),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
+                //console.log(JSON.parse(data))
+                //objTindakan = JSON.parse(data);
+                //console.log('Halaman PV dalam KajianResikoDDLPV(): ' + objTindakan);
+                getDataTindakan(JSON.parse(data));
                 $('#RootCause_KajianResikoDDL').empty();
                 $.each(JSON.parse(data), function (key, value) {
-                    $('#RootCause_KajianResikoDDL').append(new Option(value.WhyDesc, value.WhyDesc));
+                    $('#RootCause_KajianResikoDDL').append(new Option(value.Tindakan, value.Tindakan));
                 });
             },
             error: function (ex) {
@@ -187,7 +439,7 @@
                     "pageLength": 5,
                     "lengthChange": true,
                     "paging": false,
-                    "info" : false,
+                    "info": false,
                     "searching": false,
                     "data": JSON.parse(data),
                     "select": true,
@@ -265,11 +517,380 @@
                 color: "white"
             });
         }
-    }//d = data 
+    }//d = data
+
+    function UnhideKajianResikoModalPV() {
+        if ($('#Severity_DDL').val() == 10 || $('#TxtRiskLevel').val() == 'Very High' || $('#TxtRiskLevel').val() == 'High') {
+            $('#Div_KajianResikoModal').prop('hidden', false);
+            $('#Div_TxtPIC').prop('hidden', false);
+        } else {
+            $('#Div_KajianResikoModal').prop('hidden', true);
+            $('#Div_TxtPIC').prop('hidden', true);
+        }
+    }
+
+    function realtimeCalculation() {
+        var RPN = 0;
+        var RPN2 = 0;
+        var Severity = $('#Severity_DDL').val();
+        var Detectability = $('#Detectability_DDL').val();
+        var Likelihood = $('#Likelihood_DDL').val();
+        var Severity2 = $('#Severity2_DDL').val();
+        var Detectability2 = $('#Detectability2_DDL').val();
+        var Likelihood2 = $('#Likelihood2_DDL').val();
+
+        if (!isNaN(Severity) && !isNaN(Detectability) && !isNaN(Likelihood)) {
+            RPN = Severity * Likelihood * Detectability;
+            $('#TxtRiskLevel').val(riskCalculation(RPN));
+        }
+
+        if (!isNaN(Severity2) && !isNaN(Detectability2) && !isNaN(Likelihood2)) {
+            RPN2 = Severity2 * Likelihood2 * Detectability2;
+            $('#TxtRiskLevel2').val(riskCalculation(RPN2));
+        }
+
+
+        $('#TxtRPN').val(RPN);
+        $('#TxtRPN2').val(RPN2);
+    }
+
+    function riskCalculation(RPN) {
+        if (RPN > 0 && RPN <= 35)
+            return "Low";
+        else if (RPN > 35 && RPN <= 80)
+            return "Medium";
+        else if (RPN > 80 && RPN <= 140)
+            return "High";
+        else
+            return "Very High";
+    }
+
+    function DeleteKajianResiko() {
+        $(document).on("click", "#Tbl_KajianResiko button.delete", function () {
+            var rows = $(this).closest('tr');
+            var data = $('#Tbl_KajianResiko').DataTable().row(rows).data();
+            data.Option = 13;
+            //console.log(data);
+            //console.log({
+            //    Model: {
+            //        Option: data.Option,
+            //        NO_CAPA: data.NoCAPA_FK,
+            //        LineNumber: data.LineNumber,
+            //        RecordID: data.RecordID
+            //    }
+            //});
+
+            $.ajax({
+                url: '/PIC/DeleteKajianResiko',
+                type: 'post',
+                dataType: 'json',
+                data: JSON.stringify({
+                    Option: data.Option,
+                    NO_CAPA: data.NoCAPA_FK,
+                    LineNumber: data.LineNumber,
+                    RecordID: data.RecordID
+                }),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    TableKajian();
+                    return true;
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+        });
+    }
+
+    var objTindakan;
+    function getDataTindakan(data) {        
+        return objTindakan = data;
+    }// refer to KajianResikoDDL();
+   
+    //search Tindakan get record_id and Tipe
+    var values; //var values; //objTindakan filtered.
+    function recTindakan(increments) {                    
+        if (objTindakan[increments].Tindakan == $('#RootCause_KajianResikoDDL').val()) {
+            return values = objTindakan[increments];
+        }            
+        else {
+            increments++;
+            recTindakan(increments);
+        }
+    } 
 
     $(document).ready(function () {
         KajianResikoDDLPV();
         TableKajianPV();
-        var isHide = false;        
+        UnhideKajianResikoModalPV();
+        var isHide = false;
+
+        $('#btn_Load').click(function () {
+            console.log(objTindakan);
+        });
+      
+
+        $('#Severity_DDL').change(function () {
+            realtimeCalculation();
+            UnhideKajianResikoModalPV();
+        });
+
+        $('#Likelihood_DDL').change(function () {
+            realtimeCalculation();
+            UnhideKajianResikoModalPV();
+        });
+
+        $('#Detectability_DDL').change(function () {
+            realtimeCalculation();
+            UnhideKajianResikoModalPV();
+        });
+
+        $('#Severity2_DDL').change(function () {
+            realtimeCalculation();
+        });
+
+        $('#Likelihood2_DDL').change(function () {
+            realtimeCalculation();
+        });
+
+        $('#Detectability2_DDL').change(function () {
+            realtimeCalculation();
+        });
+
+        $('#btn_AddKajian').click(function () {          
+            $.when(
+                recTindakan(0)
+            ).done(
+                function () {                  
+                    $('#TxtPIC').val(values.Nama_Personil);
+                    $('#TxtPICName').val(values.FullName);
+                }              
+            );
+            //console.log(values);
+        });
+
+        $('#btn_KajianResiko').click(function () {
+            //recTindakan(0);
+            if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
+                Swal.fire(
+                    'Maaf',
+                    'Risk Level masih tinggi.',
+                    'warning'
+                )
+            } else {
+                var valid = true;
+                var pic = "";
+                if ($('#Severity_DDL').val() == 10 || $('#TxtRiskLevel').val() == 'High' || $('#TxtRiskLevel').val() == 'Very High') {
+                    pic = $('#TxtPIC').val();
+                }
+
+                dto = {
+                    Model: {
+                        RecordID: values.RecordID,
+                        NO_CAPA: $('#input_NoCAPA').val(),
+                        Tipe: values.Tipe,
+                        Tindakan: $('#RootCause_KajianResikoDDL').val(),
+                        P_Kegagalan: $('#TxtPotensiKegagalan').val(),
+                        Spek: $('#TxtSpesifikasi').val(),
+                        Dampak: $('#TxtDampak').val(),
+                        Severity: $('#Severity_DDL').val(),
+                        Penyebab: $('#TxtPenyebabPotensial').val(),
+                        M_Penyebab: $('#TxtMPenyebabPotensial').val(),
+                        Likelihood: $('#Likelihood_DDL').val(),
+                        M_PKegagalan_LMD: $('#TxtMPotensi_KLMD').val(),
+                        Detectability: $('#Detectability_DDL').val(),
+                        RPN: $('#TxtRPN').val(),
+                        RiskLevel: $('#TxtRiskLevel').val(),
+                        Target: $('#Target_DDL').val(),
+                        M_PKegagalan: $('#TxtMPotensi_K').val(),
+                        Severity2: $('#Severity2_DDL').val(),
+                        P_MPenyebab: $('#TxtMPenyebab_P').val(),
+                        Likelihood2: $('#Likelihood2_DDL').val(),
+                        P_MDPKegagalan: $('#TxtDPotensi_K').val(),
+                        Detectability2: $('#Detectability2_DDL').val(),
+                        RPN2: $('#TxtRPN2').val(),
+                        RiskLevel2: $('#TxtRiskLevel2').val(),
+                        PIC: pic,
+                        DueDate: $('#DueDate_Kajian').val(),
+                        Lainnya: $('#TxtLainnya').val(),
+                        EmpID: $('#input_Requestor_NIK').val()
+                    }
+                }
+
+                elementID = {
+                    NO_CAPA: '#input_NoCAPA',
+                    Tindakan: '#RootCause_KajianResikoDDL',
+                    P_Kegagalan: '#TxtPotensiKegagalan',
+                    Spek: '#TxtSpesifikasi',
+                    Dampak: '#TxtDampak',
+                    Severity: '#Severity_DDL',
+                    Penyebab: '#TxtPenyebabPotensial',
+                    M_Penyebab: '#TxtMPenyebabPotensial',
+                    Likelihood: '#Likelihood_DDL',
+                    M_PKegagalan_LMD: '#TxtMPotensi_KLMD',
+                    Detectability: '#Detectability_DDL',
+                    RPN: '#TxtRPN',
+                    RiskLevel: '#TxtRiskLevel',
+                    Target: '#Target_DDL',
+                    M_PKegagalan: '#TxtMPotensi_K',
+                    Severity2: '#Severity2_DDL',
+                    P_MPenyebab: '#TxtMPenyebab_P',
+                    Likelihood2: '#Likelihood2_DDL',
+                    P_MDPKegagalan: '#TxtDPotensi_K',
+                    Detectability2: '#Detectability2_DDL',
+                    RPN2: '#TxtRPN2',
+                    RiskLevel2: '#TxtRiskLevel2',
+                    DueDate: '#DueDate_Kajian',
+                    Lainnya: '#TxtLainnya'
+                }
+
+                var limit = (dto.Model.Severity == 10 || dto.Model.RiskLevel == "High" || dto.Model.RiskLevel == "Very High") ? (25) : (14);
+                var count = 0;
+                //console.log("limit : " + limit);
+                $.each(dto.Model, function (key, value) {
+                    if (key === "M_PKegagalan" || key === "P_MPenyebab" || key == "P_MDPKegagalan") {
+                        if (dto.Model.Severity == 10 || dto.Model.RiskLevel == "High" || dto.Model.RiskLevel == "Very High") {
+                            if (dto.Model.M_PKegagalan == "" && dto.Model.P_MPenyebab == "" && dto.Model.P_MDPKegagalan == "") {
+                                Swal.fire(
+                                    'Maaf',
+                                    'Input field "Menghilangkan Potensi Kegagalan / Penyimpangan" atau "Perbaikan untuk mengatasi Penyebab Potensial" atau "Perbaikan untuk meningkatkan deteksi potensi kegagalan" wajib diisi salah satu.',
+                                    'warning'
+                                )
+                                valid = false;
+                                return false;
+                            }
+                        }
+                        count++;
+                        return;
+                    } else {
+                        //console.log(key + ": " + value);
+                        if (value == "") {
+                            //console.log(dto.Model);
+                            if (count <= limit) {
+                                var label;
+                                if (count == 13 || count == 14 || count == 22 || count == 23) {
+                                    label = "Mohon untuk mengisi nilai Severity, Likelihood, dan Detectability yang tersedia.";
+                                } else {
+                                    label = 'Input field "' + $("label[for='" + elementID[Object.keys(dto.Model)[count]].substring(1) + "']").text() + '" Mohon di isi.';
+                                }
+                                Swal.fire(
+                                    'Maaf',
+                                    label,
+                                    'warning'
+                                )
+                                valid = false;
+                                return false;
+                            }
+                            else if (dto.Model.DueDate == "") {
+                                Swal.fire(
+                                    'Maaf',
+                                    'Mohon untuk mengisi DueDate PIC Treatment.',
+                                    'warning'
+                                )
+                                valid = false;
+                                return false;
+                            }
+                        }
+                    }
+                    count++;
+                    valid = true;
+                });
+
+
+                if (valid) {
+                    $.ajax({
+                        url: '/PIC/AddKajian',
+                        type: 'post',
+                        dataType: 'json',
+                        data: JSON.stringify(dto),
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            if (data != null) {
+                                Swal.fire(
+                                    'Success',
+                                    'Data berhasil di-input.',
+                                    'success'
+                                ).then(function (result) {
+                                    if (result.value) {
+                                        //close modal
+                                        RemoveModalInput();
+                                        // fetch to table
+                                        TableKajian(true);
+                                    }
+                                });
+                            }
+                        },
+                        error: function (ex) {
+                            alert(JSON.stringify(ex));
+                        }
+                    });
+                }
+            }
+        });
+
+        $("#btn_Submit").click(function () {
+            //window.location.replace('/PendingTask/TaskList');
+            $.ajax({
+                url: '/PIC/SubmitToAtasanPIC',
+                type: 'post',
+                dataType: 'json',
+                data: JSON.stringify({
+                    Model: {
+                        NO_CAPA: $('#input_NoCAPA').val(),
+                        Option: 12,
+                        Aspect: '',
+                        WSBH: '',
+                        WAH: '',
+                        Status: '',
+                        isParent: '',
+                        WHY_Parent: '',
+                        WHY: '',
+                        Tindakan: '',
+                        Pelaksana: '',
+                        LineNumber: '',
+                        NamaPersonil: '',
+                        Email: '',
+                        DueDate: '',
+                        Is_AreaLain: '',
+                        WhyID: '',
+                        WhyParentID: '',
+                        RootCause: '',
+                        Create_By: $('#input_Requestor').val(),
+                        RecordID: ''
+                    }
+                }),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var mData = JSON.parse(data);
+                    $.each(mData, function (key, value) {
+                        var attr = Object.keys(value)[0];
+                        var icon;
+                        if (attr == "WAITING")
+                            icon = 'warning';
+                        else if (attr == 'SUCCESS')
+                            icon = 'success';
+                        else
+                            icon = 'error';
+                        Swal.fire(
+                            attr,
+                            value[attr],
+                            icon
+                        ).then(function (result) {
+                            if (result.value) {
+                                window.location.href = '/PendingTask/TaskList';
+                            }
+                        });
+                        return false;
+                    });
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+        });
+       
     });
+
+
+    
 </script>
