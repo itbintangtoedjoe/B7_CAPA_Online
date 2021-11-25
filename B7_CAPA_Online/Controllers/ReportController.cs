@@ -13,5 +13,13 @@ namespace B7_CAPA_Online.Controllers
         {
             return View();
         }
+        public ActionResult ReportMasterlist()
+        {
+            return View();
+        }
+        public ActionResult ReportLeadtime()
+        {
+            return View();
+        }
     }
 }
