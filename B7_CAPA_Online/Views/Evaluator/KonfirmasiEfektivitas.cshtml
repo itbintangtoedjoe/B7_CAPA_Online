@@ -142,6 +142,7 @@
                                             <th>No CAPA</th>
                                             <th>Type</th>
                                             <th>Lampiran</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -207,7 +208,7 @@
 <script>
     function DeviationTable() {
         $.ajax({
-            url: 'GetPenyimpangan',
+            url: 'GetData',
             type: 'post',
             data: JSON.stringify({
                 Model: {
@@ -245,7 +246,7 @@
     }
     function CCCTable() {
         $.ajax({
-            url: 'GetPenyimpangan',
+            url: 'GetData',
             type: 'post',
             data: JSON.stringify({
                 Model: {
@@ -283,7 +284,7 @@
     }
     function LampiranTable() {
         $.ajax({
-            url: 'GetPenyimpangan',
+            url: 'GetData',
             type: 'post',
             data: JSON.stringify({
                 Model: {
@@ -309,7 +310,14 @@
                     "columns": [
                         { "data": "NO_CAPA_FK" },
                         { "data": "Type" },
-                        { "data": "ValueEvaluasi" }
+                        { "data": "Nama_File" },
+                        {
+                            "data": "ValueEvaluasi",
+                            "className": "center",
+                            "render": function (url, type, full) {
+                                return '<a href="' + url + '"><i class="fa fa-cloud-download" style="text-align: center" aria-hidden="true"></i></a>'
+                            }
+                        }
                     ],
                     "order": [[1, 'asc']]
                 });

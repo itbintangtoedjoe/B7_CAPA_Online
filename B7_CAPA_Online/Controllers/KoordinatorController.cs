@@ -146,7 +146,6 @@ namespace B7_CAPA_Online.Controllers
             return Json(Result = DAL.GetDataPrint(Model));
 
         }
-
         public ActionResult GetEvaluator(string departemen, int Option, string Lokasi, string NoCAPA)
         {
             var dictionary = new Dictionary<string, object>

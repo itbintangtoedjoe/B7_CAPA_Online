@@ -71,7 +71,7 @@ namespace B7_CAPA_Online.Controllers
         #endregion
 
         #region Populate
-        public ActionResult GetPenyimpangan(DynamicModel Param)
+        public ActionResult GetData(DynamicModel Param)
         {
             DynamicParameters parameters = new DynamicParameters(Param.Model);
             string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_KONFIRMASI_EFEKTIVITAS]");

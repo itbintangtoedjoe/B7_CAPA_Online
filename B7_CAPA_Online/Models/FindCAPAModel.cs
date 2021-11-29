@@ -27,6 +27,8 @@ namespace B7_CAPA_Online.Models
         public List<string> FILELIST { get; set; }
         public List<string> FILE_NAME{ get; set; }
         public string FullName { get; set; }
+        public string Kata_Kunci { get; set; }
+        public string Kode_CAPA { get; set; }
 
     }
 }

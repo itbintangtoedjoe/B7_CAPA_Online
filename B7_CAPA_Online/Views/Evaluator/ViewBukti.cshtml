@@ -5,11 +5,103 @@
     ViewBag.NoCAPA = @Request.QueryString["NoCAPA"];
 }
 
+<style>
+    @@media (min-width: 768px) {
+        .modal-xl {
+            width: 900%;
+            max-width: 1300px;
+        }
+    }
+</style>
+
+@*<div class="modal fade" id="BuktiPencegahanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Bukti</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Bukti Tindakan Pencegahan</h4>
+                                <div class="table-responsive" id="Div_BuktiTPencegahan">
+                                    <table class="table table-hover table-bordered zero-configuration" style="color:black" id="Tbl_BuktiPencegahan">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Tindakan Pencegahan</th>
+                                                <th>Pelaksana Tindakan Pencegahan</th>
+                                                <th>Superior</th>
+                                                <th>Hasil Tindakan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="BuktiTreatmentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Bukti</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Bukti Treatment Plan</h4>
+                                <div class="table-responsive" id="Div_BuktiTPlan">
+                                    <table class="table table-hover table-bordered zero-configuration" style="color:black" id="Tbl_BuktiTreatment">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Hasil Treatment Plan</th>
+                                                <th>PIC</th>
+                                                <th>DueDate</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>*@
 
 <link href="~/Content/Scripts/plugins/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
 
-<div class="content-body">    
+<div class="content-body">
     <div class="row page-titles mx-0">
         <div class="col p-md-0">
             <ol class="breadcrumb">
@@ -53,14 +145,75 @@
                 </div>
 
                 @*<div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Request Page</h4>
+                <button class="btn btn-dark form-control col-sm-2" id="btn_Request">Request</button>
+            </div>
+        </div>*@
+
+                <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Request Page</h4>
-                        <button class="btn btn-dark form-control col-sm-2" id="btn_Request">Request</button>
+                        <h4 class="card-title">Bukti Tindakan Perbaikan</h4>
+                        <div class="table-responsive" id="Div_BuktiTPerbaikan">
+                            <table class="table table-hover table-bordered zero-configuration" style="color:black" id="Tbl_TindakanPerbaikan">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Root Cause</th>
+                                        <th>Tindakan Perbaikan</th>
+                                        <th>Pelaksana Tindakan Perbaikan</th>
+                                        <th>Superior</th>
+                                        <th>Hasil Tindakan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>*@
+                </div>
 
-                
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Bukti Tindakan Pencegahan</h4>
+                        <div class="table-responsive" id="Div_BuktiTPencegahan">
+                            <table class="table table-hover table-bordered zero-configuration" style="color:black" id="Tbl_BuktiPencegahan">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Tindakan Pencegahan</th>
+                                        <th>Pelaksana Tindakan Pencegahan</th>
+                                        <th>Superior</th>
+                                        <th>Hasil Tindakan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Bukti Treatment Plan</h4>
+                        <div class="table-responsive" id="Div_BuktiTPlan">
+                            <table class="table table-hover table-bordered zero-configuration" style="color:black" id="Tbl_BuktiTreatment">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Hasil Treatment Plan</th>
+                                        <th>PIC</th>
+                                        <th>DueDate</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- #/ container -->
@@ -78,7 +231,368 @@
 
 
 <script>
+    let obj1, obj2;
+
+    function showChild(t, objPencegahan, objTreatment) {
+        // Array to track the ids of the details displayed rows
+        var detailRows = [];
+
+        $('#Tbl_TindakanPerbaikan tbody').on('click', 'tr td a i.fa', function () {
+            var tr = $(this).closest('tr');
+            var trs = $(this).closest('tr td a i');
+            var row = t.row(tr);
+            var idx = $.inArray(tr.attr('id'), detailRows);
+
+            if (row.child.isShown()) {
+                trs.removeClass('fa-eye-slash');
+                row.child.hide();
+
+                // Remove from the 'open' array
+                detailRows.splice(idx, 1);
+            }
+            else {
+                trs.addClass('fa-eye-slash');
+                
+
+                // Add to the 'open' array
+                if (idx === -1) {
+
+                    detailRows.push(tr.attr('id'));
+                    row.child(format(row.data(), objPencegahan, objTreatment)).show();
+                }
+            }
+        });
+
+        // On each draw, loop over the `detailRows` array and show any child rows
+        t.on('draw', function () {
+            $.each(detailRows, function (i, id) {
+                $('#' + id + ' td.details').trigger('click');
+            });
+        });
+    }
+
+    function GetAllBukti() {
+        var objPencegahan, objTreatment;
+        $.when(
+            $.when(
+                $.ajax({
+                    url: 'GetData',
+                    type: 'post',
+                    data: JSON.stringify({
+                        Model: {
+                            Option: 4,
+                            NO_CAPA: $('#input_NoCAPA').val()
+                        }
+                    }),
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        console.log(data);
+                        var t = $('#Tbl_BuktiTreatment').DataTable({
+                            "pageLength": 10,
+                            "responsive": true,
+                            "info": false,
+                            "paging": false,
+                            "lengthChange": true,
+                            "searching": false,
+                            "processing": true,
+                            "data": JSON.parse(data),
+                            "select": true,
+                            "bDestroy": true,
+                            "scrollCollapse": true,
+                            "columns": [
+                                {
+                                    "data": null
+                                },
+                                { "data": "Hasil_Treatment" },                          
+                                { "data": "PIC" },
+                                { "data": "DueDate" },
+                                {
+                                    "orderable": false,
+                                    "data": null,
+                                    "defaultContent": '<span><a><i id="btn_Eye" class="fa fa-eye" aria-hidden="true"></i></a></span>',
+                                    "className": "details text-center"
+                                }
+                            ],
+                            "order": [[1, 'asc']]
+                        });
+
+                        t.on('order.dt search.dt', function () {
+                            t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                                cell.innerHTML = i + 1;
+                            });
+                        }).draw();
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                })
+            ).done(
+                $.ajax({
+                    url: 'GetData',
+                    type: 'post',
+                    data: JSON.stringify({
+                        Model: {
+                            Option: 3,
+                            NO_CAPA: $('#input_NoCAPA').val()
+                        }
+                    }),
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        var t = $('#Tbl_BuktiPencegahan').DataTable({
+                            "pageLength": 10,
+                            "responsive": true,
+                            "info": false,
+                            "paging": false,
+                            "lengthChange": true,
+                            "searching": false,
+                            "processing": true,
+                            "data": JSON.parse(data),
+                            "select": true,
+                            "bDestroy": true,
+                            "scrollCollapse": true,
+                            "columns": [
+                                {
+                                    "data": null
+                                },
+                                { "data": "Tindakan_Pencegahan" },
+                                { "data": "Pelaksana_Pencegahan" },
+                                { "data": "SupApprover" },
+                                { "data": "Hasil_Pencegahan" }
+                                //{
+                                //    "orderable": false,
+                                //    "data": null,
+                                //    "defaultContent": '<span><a><i id="btn_Eye" class="fa fa-eye" aria-hidden="true"></i></a></span>',
+                                //    "className": "details text-center"
+                                //}
+                            ],
+                            "order": [[1, 'asc']]
+                        });
+
+                        t.on('order.dt search.dt', function () {
+                            t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                                cell.innerHTML = i + 1;
+                            });
+                        }).draw();
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                })
+            )
+        ).done(
+            $.ajax({
+                url: 'GetData',
+                type: 'post',
+                data: JSON.stringify({
+                    Model: {
+                        Option: 2,
+                        NO_CAPA: $('#input_NoCAPA').val()
+                    }
+                }),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var t = $('#Tbl_TindakanPerbaikan').DataTable({
+                        "pageLength": 10,
+                        "responsive": true,
+                        "info": false,
+                        "paging": false,
+                        "lengthChange": true,
+                        "searching": false,
+                        "processing": true,
+                        "data": JSON.parse(data),
+                        "select": true,
+                        "bDestroy": true,
+                        "scrollCollapse": true,
+                        "columns": [
+                            {
+                                "data": null
+                            },
+                            { "data": "WhyDesc" },    
+                            { "data": "Tindakan_Perbaikan" },
+                            { "data": "Pelaksana_Perbaikan" },
+                            { "data": "SupApprover" },
+                            { "data": "Hasil_Perbaikan" }
+                            //{
+                            //    "orderable": false,
+                            //    "data": null,
+                            //    "defaultContent": '<span><a><i id="btn_Eye" class="fa fa-eye" aria-hidden="true"></i></a></span>',
+                            //    "className": "details text-center"
+                            //}
+                        ],
+                        "order": [[1, 'asc']]
+                    });
+
+                    t.on('order.dt search.dt', function () {
+                        t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                            cell.innerHTML = i + 1;
+                        });
+                    }).draw();
+                    //showChild(t, objPencegahan, objTreatment);
+
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            })
+        );
+        return;
+    }
+
+    //function format(d, objPencegahan, objTreatment) {
+    //    console.log(objPencegahan);
+    //    obj1 = objPencegahan;
+    //    obj2 = objTreatment;        
+    //    var dPencegahan = JSON.parse(objPencegahan);
+    //    var tablePencegahan = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px; float:left;" id="Tbl_Child">' +
+    //        '<tr>' +
+    //        '<td>Bukti Tindakan Pencegahan</td>' +
+    //        '<td> <button type="button" class="btn mb-1 btn-primary viewBuktiPencegahan" id="btn_viewBuktiPencegahan" data-toggle="modal" data-target="#BuktiPencegahanModal" onclick="GetTindakanPencegahan(objPencegahan)">View</button></td>' +
+    //            '</tr>' +
+    //            '<tr>' +
+    //            '<td>Bukti Treatment</td>' +
+    //            '<td> <button type="button" class="btn mb-1 btn-primary viewBuktiTreatment" data-toggle="modal" data-target="#BuktiTreatmentModal" onclick="">View</button></td>' +
+    //            '</tr>' +
+    //        '</table>';
+        
+    //    //console.log(dPencegahan);
+    //    return tablePencegahan;
+    //}
+
+    function GetTindakanPerbaikan() {
+        $.ajax({
+            url: 'GetData',
+            type: 'post',
+            data: JSON.stringify({
+                Model: {
+                    Option: 2,
+                    NO_CAPA: $('#input_NoCAPA').val()
+                }
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var t = $('#Tbl_TindakanPerbaikan').DataTable({
+                    "pageLength": 10,
+                    "responsive": true,
+                    "info": false,
+                    "paging": false,
+                    "lengthChange": true,
+                    "searching": false,
+                    "processing": true,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "bDestroy": true,
+                    "scrollCollapse": true,
+                    "columns": [
+                        {
+                            "data": null
+                        },
+                        { "data": "Tindakan_Perbaikan" },
+                        { "data": "Pelaksana_Perbaikan" },
+                        { "data": "SupApprover" },
+                        { "data": "Hasil_Perbaikan" },
+                        {
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": '<span><a><i class="fa fa-eye" aria-hidden="true"></i></a></span>',
+                            "className": "details text-center"
+                        }
+                    ],
+                    "order": [[1, 'asc']]
+                });
+
+                t.on('order.dt search.dt', function () {
+                    t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+                }).draw();
+
+                // Array to track the ids of the details displayed rows
+                var detailRows = [];
+
+                $('#Tbl_TindakanPerbaikan tbody').on('click', 'tr td a i.fa', function () {
+                    var tr = $(this).closest('tr');
+                    var trs = $(this).closest('tr td a i');
+                    var row = t.row(tr);
+                    var idx = $.inArray(tr.attr('id'), detailRows);
+
+                    if (row.child.isShown()) {
+                        trs.removeClass('fa-eye-slash');
+                        row.child.hide();
+
+                        // Remove from the 'open' array
+                        detailRows.splice(idx, 1);
+                    }
+                    else {
+                        trs.addClass('fa-eye-slash');
+                        row.child(format(row.data())).show();
+
+                        // Add to the 'open' array
+                        if (idx === -1) {
+                            detailRows.push(tr.attr('id'));
+                        }
+                    }
+                });
+
+                // On each draw, loop over the `detailRows` array and show any child rows
+                t.on('draw', function () {
+                    $.each(detailRows, function (i, id) {
+                        $('#' + id + ' td.details').trigger('click');
+                    });
+                });
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetTindakanPencegahan(objPencegahan) {
+        alert('imhere');
+        console.log(objPencegahan);
+        //var t = $('#Tbl_BuktiPencegahan').DataTable({
+        //    "pageLength": 10,
+        //    "responsive": true,
+        //    "info": false,
+        //    "paging": false,
+        //    "lengthChange": true,
+        //    "searching": false,
+        //    "processing": true,
+        //    "data": objPencegahan,
+        //    "select": true,
+        //    "bDestroy": true,
+        //    "scrollCollapse": true,
+        //    "columns": [
+        //        {
+        //            "data": null
+        //        },
+        //        { "data": "Tindakan_Perbaikan" },
+        //        { "data": "Pelaksana_Perbaikan" },
+        //        { "data": "SupApprover" },
+        //        { "data": "Hasil_Perbaikan" },
+        //        {
+        //            "orderable": false,
+        //            "data": null,
+        //            "defaultContent": '<span><a><i class="fa fa-eye" aria-hidden="true"></i></a></span>',
+        //            "className": "details text-center"
+        //        }
+        //    ],
+        //    "order": [[1, 'asc']]
+        //});
+    }
+
     $(document).ready(function () {
-    
+        //GetTindakanPerbaikan();
+        GetAllBukti();
+        //console.log(GetAllBukti());
+
+        $(document).on("click", "#Tbl_Child td button.viewBuktiPencegahan", function () {
+            GetTindakanPencegahan(obj1);
+        });      
+
+
     });
 </script>

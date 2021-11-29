@@ -40,6 +40,10 @@ namespace B7_CAPA_Online.Models
         [Required]
         public string KategoriCAPA { get; set; }
         [Required]
+        public string KodeCAPA { get; set; }
+        [Required]
+        public string KataKunci{ get; set; }
+        [Required]
         public string Deskripsi { get; set; }
         [Required]
         public string AreaPIC { get; set; }

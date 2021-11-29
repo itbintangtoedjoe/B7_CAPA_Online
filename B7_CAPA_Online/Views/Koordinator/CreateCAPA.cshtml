@@ -253,13 +253,13 @@
                                     <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly>
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
-                                    <label class="m-t-40">Requestor</label>                                    
+                                    <label class="m-t-40">Requestor</label>
                                     <input class="form-control form-control-sm" type="text" id="input_Requestor" value="" readonly>
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-20">Nomor CAPA</label>
                                     <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["NoCAPA"]" readonly />
-                                    <input class="form-control form-control-sm" type="text" id="input_REG_ID" value="@Request.QueryString["REG"]" hidden />                                    
+                                    <input class="form-control form-control-sm" type="text" id="input_REG_ID" value="@Request.QueryString["REG"]" hidden />
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">Departemen</label>
@@ -380,6 +380,24 @@
                                             <option>Option 3</option>
                                         </select>
                                         @Html.HiddenFor(m => m.KategoriCAPA)
+                                    </div>
+                                </div>
+                                <div class="row form-group-sm mb-2">
+                                    <div class="col-md-6">
+                                        <label class="m-t-20">Kode</label>
+                                        <select class="form-control form-control-sm" id="Kode_DDL" name="KodeCAPA" disabled>
+                                            <option>Option 1</option>
+                                            <option>Option 2</option>
+                                            <option>Option 3</option>
+                                        </select>
+                                        @Html.HiddenFor(m => m.KodeCAPA)
+                                    </div>
+                                </div>
+                                <div class="row form-group-sm mb-2" id="Div_KataKunci" hidden>
+                                    <div class="col-md-6">
+                                        <label class="m-t-20">Kata Kunci</label>
+                                        <input class="form-control " id="TxtKataKunci" name="KataKunci" readonly />
+                                        @Html.HiddenFor(m => m.KataKunci)
                                     </div>
                                 </div>
                                 <div class="row form-group-sm">
@@ -555,6 +573,24 @@
                                         @Html.HiddenFor(m => m.KategoriCAPA)
                                     </div>
                                 </div>
+                                <div class="row form-group-sm mb-2">
+                                    <div class="col-md-6">
+                                        <label class="m-t-20">Kode</label>
+                                        <select class="form-control form-control-sm" id="Kode_DDL" name="KodeCAPA">
+                                            <option>Option 1</option>
+                                            <option>Option 2</option>
+                                            <option>Option 3</option>
+                                        </select>
+                                        @Html.HiddenFor(m => m.KodeCAPA)
+                                    </div>
+                                </div>
+                                <div class="row form-group-sm mb-2" id="Div_KataKunci" hidden>
+                                    <div class="col-md-6">
+                                        <label class="m-t-20">Kata Kunci</label>
+                                        <input class="form-control form-control-sm" id="TxtKataKunci" name="KataKunci" />
+                                        @Html.HiddenFor(m => m.KataKunci)
+                                    </div>
+                                </div>
                                 <div class="row form-group-sm">
                                     <div class="col-md-6">
                                         <label class="m-t-20">Deskripsi Masalah<span style="color: red">*</span></label>
@@ -681,6 +717,7 @@
         $('#input_Requestor').val('@Request.RequestContext.HttpContext.Session["FullName"]');
 
         $('#AreaPIC_DDL').select2();
+        $('#Kode_DDL').select2();
         $('#PIC_DDL').select2();
         $('#Departemen_DDL').select2().append();
 
@@ -1012,6 +1049,13 @@
             });
         });
 
+        $('#Kode_DDL').change(function () {
+            $('#Div_KataKunci').prop("hidden", true);
+            if ($('#Kode_DDL').val() == "CODE012") {
+                $('#Div_KataKunci').prop("hidden", false);
+            }
+        });
+
         //checkbox Deviation
         var data = [];
         $(document).on("click", "#Tbl_Deviation input[name='type'][class='selected']", function () {
@@ -1068,14 +1112,15 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    console.log(data);
+                    console.log(data)
                     var kategori = $("#Kategori_DDL option:contains(" + data[0].KATEGORI_CAPA + ")").val();
                     var lokasi = $("#Lokasi_DDL option:contains(" + data[0].LOKASI_CAPA + ")").val();
 
                     $('#input_Requestor').val(data[0].FullName);
-
                     $('#Trigger_CAPA').val(data[0].TRIGGER_CAPA).trigger("change");
                     $('#Kategori_DDL').val(data[0].KATEGORI_CAPA).trigger("change");
+                    $('#Kode_DDL').val(data[0].Kode_CAPA).trigger("change");
+                    $('#TxtKataKunci').val(data[0].Kata_Kunci).trigger("change");
                     $('#TxtDeskripsi').val(data[0].DESKRIPSI_MASALAH).trigger("change");
                     $("#Kategori_DDL").val(kategori).trigger("change");
                     $("#Lokasi_DDL").val(lokasi).trigger("change");
@@ -1281,6 +1326,27 @@
             }
         });
 
+        $.ajax({
+            url: 'DynamicController?spname=[dbo].[SP_SHOW_DDL]',
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify({
+                Model: {
+                    Option: 18
+                }
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#Kode_DDL').empty();
+                $('#Kode_DDL').append($('<option></option>').attr('value', '').text('*Pilih*'));
+                $.each(JSON.parse(data), function (key, entry) {
+                    $('#Kode_DDL').append($('<option></option>').attr('value', entry.Code).text(entry.Code_Desc));
+                })
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
     }
 
     function AddDepartemen() {
