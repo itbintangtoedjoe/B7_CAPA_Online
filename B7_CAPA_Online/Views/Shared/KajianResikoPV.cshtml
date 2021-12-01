@@ -383,7 +383,7 @@
             type: 'post',
             data: JSON.stringify({
                 Option: 10,
-                NO_CAPA: $('#input_NoCAPA').val(),
+                NO_CAPA: noCAPA,
                 SP: "[dbo].[SP_FORM_CAPA]"
             }),
             dataType: 'json',
@@ -394,6 +394,7 @@
                 //console.log('Halaman PV dalam KajianResikoDDLPV(): ' + objTindakan);
                 getDataTindakan(JSON.parse(data));
                 $('#RootCause_KajianResikoDDL').empty();
+                $('#RootCause_KajianResikoDDL').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
                 $.each(JSON.parse(data), function (key, value) {
                     $('#RootCause_KajianResikoDDL').append(new Option(value.Tindakan, value.Tindakan));
                 });
@@ -410,7 +411,7 @@
             type: 'post',
             data: JSON.stringify({
                 Model: {
-                    NO_CAPA: $('#NoCAPA').val(),
+                    NO_CAPA:  noCAPA,
                     Option: 11,
                     Aspect: '',
                     WSBH: '',
@@ -679,15 +680,23 @@
                 )
             } else {
                 var valid = true;
+
+                var ddlText = $("#RootCause_KajianResikoDDL option:selected").text();
                 var pic = "";
                 if ($('#Severity_DDL').val() == 10 || $('#TxtRiskLevel').val() == 'High' || $('#TxtRiskLevel').val() == 'Very High') {
                     pic = $('#TxtPIC').val();
                 }
-
+                if (ddlText.indexOf('Perbaikan') > 0) {
+                    var status = "Perbaikan";
+                }
+                else
+                {
+                    var status = "Pencegahan"
+                }
                 dto = {
                     Model: {
                         RecordID: values.RecordID,
-                        NO_CAPA: $('#input_NoCAPA').val(),
+                        NO_CAPA: noCAPA,
                         Tipe: values.Tipe,
                         Tindakan: $('#RootCause_KajianResikoDDL').val(),
                         P_Kegagalan: $('#TxtPotensiKegagalan').val(),
@@ -713,7 +722,8 @@
                         PIC: pic,
                         DueDate: $('#DueDate_Kajian').val(),
                         Lainnya: $('#TxtLainnya').val(),
-                        EmpID: $('#input_Requestor_NIK').val()
+                        EmpID: $('#input_Requestor_NIK').val(),
+                        Status: status
                     }
                 }
 
@@ -836,7 +846,7 @@
                 dataType: 'json',
                 data: JSON.stringify({
                     Model: {
-                        NO_CAPA: $('#input_NoCAPA').val(),
+                        NO_CAPA: noCAPA,
                         Option: 12,
                         Aspect: '',
                         WSBH: '',
