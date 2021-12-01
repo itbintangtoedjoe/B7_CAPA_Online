@@ -1837,6 +1837,7 @@
             $("#Div_WhyParent").prop('hidden', false);
         });
 
+        var isValid = false;
         $('#btn_AddWhy').click(function () {
             dto = {
                 Option: 3,
@@ -1849,40 +1850,59 @@
                 SP: "[dbo].[SP_FORM_CAPA]"
             }
 
-            $.ajax({
-                url: 'AddWhy',
-                type: 'post',
-                data: JSON.stringify(dto),
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    //console.log(data);
-                    if (JSON.parse(data)[0].VALID == "VALID") {
-                        Swal.fire(
-                            'Success',
-                            'Data berhasil di-input.',
-                            'success'
-                        ).then((result) => {
-                            if (result.value) {
-                                $('#TxtWhy').val("");
-                                status++;
-                                retrieveData();
-                                getWhyParent();
-                                GetAllRoot();
-                            }
-                        })
-                    } else {
-                        Swal.fire(
-                            'Failed',
-                            'Data tidak berhasil di-input.',
-                            'error'
-                        )
+            $.each(dto, function (key, value) {                
+                if (value == "" || value == null) {
+                    if (value === 0) {
+                        isValid = true;
+                        return;
                     }
-                },
-                error: function (ex) {
-                    alert(JSON.stringify(ex));
+                    isValid = false;
+                    return false;
                 }
+                isValid = true;
             });
+
+            if (isValid) {
+                $.ajax({
+                    url: 'AddWhy',
+                    type: 'post',
+                    data: JSON.stringify(dto),
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {                        
+                        if (JSON.parse(data)[0].VALID == "VALID") {
+                            Swal.fire(
+                                'Success',
+                                'Data berhasil di-input.',
+                                'success'
+                            ).then((result) => {
+                                if (result.value) {
+                                    $('#TxtWhy').val("");
+                                    status++;
+                                    retrieveData();
+                                    getWhyParent();
+                                    GetAllRoot();
+                                }
+                            })
+                        } else {
+                            Swal.fire(
+                                'Failed',
+                                'Data tidak berhasil di-input.',
+                                'error'
+                            )
+                        }
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                });
+            } else {
+                Swal.fire(
+                    'Maaf',
+                    'Input tidak boleh kosong.',
+                    'warning'
+                )
+            }
         });
 
         $('#btn_AddKondisi').click(function () {
