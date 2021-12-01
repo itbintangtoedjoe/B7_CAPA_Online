@@ -3,7 +3,14 @@
     ViewBag.Title = "TambahTindakan";
 }
 
-
+<style>
+    @@media (min-width: 768px) {
+        .modal-xl {
+            width: 900%;
+            max-width: 1300px;
+        }
+    }
+</style>
 
 <link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
 <script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
@@ -40,7 +47,7 @@
 
                 <div class="card" id="Div_TindakanPerbaikan" hidden>
                     <div class="card-body">
-                        <h4 class="card-title">Penentuan Tindakan Perbaikan</h4>
+                        <h4 class="card-title">Penambahan Tindakan Perbaikan</h4>
                         <div class="table-responsive">
                             <form>
                                 <div class="row form-group-sm">
@@ -61,36 +68,6 @@
                                     </div>
                                 </div>
                                 <div class="row form-group">
-                                    <div class="col-md-4">
-                                        <label for="DepartemenPerbaikan_DDL" class="col-form-label">Departemen</label>
-                                        <div class="input-group">
-                                            <select class="form-control" name="DepartemenPerbaikan_DDL" id="DepartemenPerbaikan_DDL">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4" id="Div_VendorNamePerbaikan" hidden>
-                                        <label for="VendorPerbaikan_DDL" class="col-form-label">Vendor</label>
-                                        <div class="input-group">
-                                            <select class="form-control" name="VendorPerbaikan_DDL" id="VendorPerbaikan_DDL">
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col-md-3">
-                                        <label class="m-t-40">Nama Personil</label>
-                                        <div class="input-group mb-3">
-                                            <select class="form-control" name="NamaPersonilPerbaikan_DDL" id="NamaPersonilPerbaikan_DDL">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="m-t-40">Alamat Email</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" id="TxtEmailPerbaikan" readonly>
-                                        </div>
-                                    </div>
-
                                     <div class="col-md-12">
                                         <label class="m-t-40">Apakah ada proses / area lain yang berpotensi sama ?</label>
                                         <div class="radio input-group">
@@ -118,7 +95,7 @@
 
                 <div class="card" id="Div_TindakanPencegahan" hidden="hidden">
                     <div class="card-body">
-                        <h4 class="card-title">Penentuan Tindakan Pencegahan</h4>
+                        <h4 class="card-title">Penambahan Tindakan Pencegahan</h4>
                         <div class="table-responsive">
                             <form>
                                 <div class="row form-group-sm">
@@ -139,37 +116,6 @@
                                     </div>
                                 </div>
                                 <div class="row form-group">
-                                    <div class="col-md-4">
-                                        <label for="DepartemenPencegahan_DDL" class="col-form-label">Departemen</label>
-                                        <div class="input-group">
-                                            <select class="form-control" name="DepartemenPencegahan_DDL" id="DepartemenPencegahan_DDL">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4" id="Div_VendorNamePencegahan" hidden>
-                                        <label for="VendorPencegahan_DDL" class="col-form-label">Vendor</label>
-                                        <div class="input-group">
-                                            <select class="form-control" name="VendorPencegahan_DDL" id="VendorPencegahan_DDL">
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col-md-3">
-                                        <label class="m-t-40">Nama Personil</label>
-                                        <div class="input-group mb-3">
-                                            <select class="form-control" name="NamaPersonilPencegahan_DDL" id="NamaPersonilPencegahan_DDL">
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label class="m-t-40">Alamat Email</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" id="TxtEmailPencegahan" readonly>
-                                        </div>
-                                    </div>
-
                                     <div class="col-md-12 mb-3">
                                         <label class="m-t-40" style="visibility: hidden">_</label>
                                         <div class="input-group">
@@ -232,15 +178,17 @@
                                         <input type="date" id="dueDatePencegahan" class="form-control form-control-sm">
                                     </div>
                                 </div>
+                                <br />
+
+                                <button type="button" class="btn btn-primary" id="AddPencegahan">Add</button>
                             </form>
                             <br />
                         </div>
                     </div>
                 </div>
                 @Html.Partial("KajianResikoPV")
-                <button type="button" class="btn btn-primary" id="btnSimpan">Simpan</button>
-                <br />
-                <br />
+                @*<button type="button" class="btn btn-primary" id="btnSimpan">Simpan</button>*@
+
                 <button type="button" class="btn btn-primary" id="btnback">Back to previous page</button>
             </div>
         </div>
@@ -255,7 +203,6 @@
     var dataPerbaikan;
     var newDataPerbaikan;
     var newKajianResiko=[];
-    var statRetrieve = 0;
     function getQueryStrings() {
         var vars = [], hash;
         var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -290,15 +237,14 @@
         //    retrieveData2();
         //});
         getRootCause();
-        getDDLDeptKajianResiko();
         populateKajian();
         $("#TxtPIC").val('Default');
+        //$('#RootCause_KajianResikoDDL').prop("disabled", true);
         $('#RootCause_KajianResikoDDL').prop("disabled", true);
+        $('#btn_AddKajian').prop("disabled", true);
         $('#tblHeaderTindakan').prop("hidden", true);
         $('#btnback').click(function () {
-
             window.location.href = '../Pelaksana/PelaksanaCAPA';
-
         });
         $("input[name='TambahPerbaikan']").change(function () {
             var berpotensi = $('input[name="TambahPerbaikan"]:checked').val();
@@ -338,7 +284,6 @@
         $("#txtTindakanPerbaikan").on('keyup', function (event) {
             var perb = $("#txtTindakanPerbaikan").val();
             $("#txtAreaBerpotensi").val(perb);
-            $('#RootCause_KajianResikoDDL').append('<option value="perbaikan" selected="selected">'+perb+'</option>');
         });
 
         $('#DepartemenPerbaikan_DDL').change(function () {
@@ -356,50 +301,6 @@
             getPICKajianResiko(kategori);
         });
 
-        function getDDLDeptKajianResiko() {
-            $.ajax({
-                url: 'DynamicController?spname=[dbo].[SP_SHOW_DDL]',
-                type: 'post',
-                data: JSON.stringify({
-                    Model: {
-                        Option: 14,
-                        NO_CAPA: noCAPA
-                    }
-                }),
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    $('#DepartemenPerbaikan_DDL').empty();
-                    $('#DepartemenPencegahan_DDL').empty();
-
-                    $('#DepartemenPerbaikan_DDL').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
-
-                    $('#DepartemenPencegahan_DDL').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
-                    $.each(JSON.parse(data), function (key, value) {
-                        $('#DepartemenPerbaikan_DDL').append(new Option(value.DEPARTEMEN, value.DEPARTEMEN));
-                        $('#DepartemenPencegahan_DDL').append(new Option(value.DEPARTEMEN, value.DEPARTEMEN));
-                    });
-                },
-                error: function (ex) {
-                    alert(JSON.stringify(ex));
-                }
-            });
-        }
-
-        $('#DepartemenPencegahan_DDL').change(function () {
-            $('#TxtEmailPencegahan').val("");
-            var kategori = 'Pencegahan';
-            $('#Div_VendorNamePencegahan').prop('hidden', true);
-
-            var dept = $('#DepartemenPencegahan_DDL').val();
-            if (dept == "Others") {
-                $('#Div_VendorNamePencegahan').prop('hidden', false);
-                $('#VendorPencegahan_DDL').change(function () {
-                    getPICKajianResiko(kategori);
-                });
-            }
-            getPICKajianResiko(kategori);
-        });
     });
     function getVendorDDL() {
         $.ajax({
@@ -426,8 +327,7 @@
         });
     }
     function getPICKajianResiko(kategori) {
-        $('#TxtEmail' + kategori).val("");
-        var vendor = $('#Vendor' + kategori + '_DDL').val();
+        $('#TxtEmail').val("");
         $.ajax({
             url: 'DynamicController?spname=[dbo].[SP_SHOW_DDL]',
             type: 'post',
@@ -450,7 +350,7 @@
 
                 $('#NamaPersonil' + kategori + '_DDL').change(function () {
                     $.each(JSON.parse(data), function (key, value) {
-                        if ($('#NamaPersonil' + kategori + '_DDL').val() == value.EmpID) {
+                        if (nik == value.EmpID) {
                             if (value.Email_1 == null)
                                 $('#TxtEmail' + kategori).val(value.Email_2);
                             else
@@ -543,6 +443,7 @@
                                     Email: $('#TxtEmailPerbaikan').val(),
                                     Is_AreaLain: $('input[name="Potensi"]:checked').val(),
                                     Create_By: nik,
+                                    Status: "Perbaikan Baru",
                                     SP: "[dbo].[SP_FORM_CAPA]"
                                 }
                                 return false;
@@ -609,6 +510,7 @@
                                         NamaPersonil: $('#NamaPersonilPencegahan_DDL option:selected').text(),
                                         Email: $('#TxtEmailPencegahan').val(),
                                         Create_By: nik,
+                                        Status: "Pencegahan Baru",
                                         SP: "[dbo].[SP_FORM_CAPA]"
                                     }
                                     return false;
@@ -629,7 +531,7 @@
     function getRootCause() {
         var dto = {
             Kategori: "Cari Perbaikan",
-            RecordID:referenceID
+            RecordID: referenceID
         }
         $.ajax({
             url: "FindCAPADetail",
@@ -644,10 +546,11 @@
                 var duedate = moment(dataPerbaikan.Due_Date);
                 $('#txtRootCauseExisting').val(dataPerbaikan.WhyDesc);
                 $('#txtTindakanPerbaikan').val(dataPerbaikan.Tindakan_Perbaikan);
-
-                $('#txtTindakanPerbaikan').prop("disabled",true);
+                $('#txtAreaBerpotensi').val(dataPerbaikan.Tindakan_Perbaikan);
+                $('#txtTindakanPerbaikan').prop("disabled", true);
                 $('#dueDatePerbaikan').val(duedate.format("YYYY-MM-DD"));
-
+                $('#RootCause_KajianResikoDDL').empty();
+                $('#RootCause_KajianResikoDDL').val(dataPerbaikan.Tindakan_Pencegahan);
                 $('#dueDatePerbaikan').prop("disabled", true);
                 @*$('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
 
@@ -909,41 +812,163 @@
         }
     }
 
-    $('#btnSimpan').click(function (e) {
-        var isAreaLain = $('input[name="radioPotensi"]:checked').val();
-        var adaPencegahan = 0;
-        if (isAreaLain == 'Yes') {
-            adaPencegahan = 1;
+    function KajianDDLPerbaikanBaru() {
+        var dictlist = {
+            Kategori: "Cari Perbaikan",
+            RecordID: referenceID,
+            nomorCAPA: noCAPA
         }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Find_Data",
+            type: "POST",
+            async: false,
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                $('#RootCause_KajianResikoDDL').prop("disabled", false);
+                $('#btn_AddKajian').prop("disabled", false);
+                for (var i = 0; i < result.length; i++) {
+                    $('#RootCause_KajianResikoDDL').append(new Option("[Perbaikan]" + " " + result[i].Tindakan_Perbaikan, result[i].RecordID));
+                }
+                @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
+                KajianDDLPencegahanBaru();
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+    function KajianDDLPencegahanBaru() {
+        var dictlist = {
+            Kategori: "Cari Pencegahan",
+            RecordID: referenceID,
+            nomorCAPA: noCAPA
+        }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Find_Data",
+            type: "POST",
+            async: false,
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                $('#RootCause_KajianResikoDDL').prop("disabled", false);
+                $('#btn_AddKajian').prop("disabled", false);
+                for (var i = 0; i < result.length; i++) {
+                    $('#RootCause_KajianResikoDDL').append(new Option("[Pencegahan]" + " " + result[i].Tindakan_Pencegahan, result[i].RecordID));
+                }
+                @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
+
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function KajianDDLPencegahan() {
+        var dictlist = {
+            Kategori: "Cari Pencegahan",
+            RecordID: referenceID,
+            nomorCAPA: noCAPA
+        }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Find_Data",
+            type: "POST",
+            async: false,
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                $('#RootCause_KajianResikoDDL').empty();
+                $('#RootCause_KajianResikoDDL').prop("disabled", false);
+                $('#btn_AddKajian').prop("disabled", false);
+                for (var i = 0; i < result.length; i++) {
+                    $('#RootCause_KajianResikoDDL').append(new Option("[Pencegahan]" + " " + result[i].Tindakan_Pencegahan, result[i].RecordID));
+                }
+                @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
+
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    $('#AddPencegahan').click(function (e) {
         var referenceID = getQueryStrings()["ReferenceID"];
         referenceID = referenceID.replace('#', '');
 
-        newDataPerbaikan = {
-            TindakanPerbaikan: $('#txtTindakanPerbaikan').val(),
-            DueDatePerbaikan: $('#dueDatePerbaikan').val(),
+        var dictionarylist = {
+            kategori:"Penambahan Pencegahan",
             TindakanPencegahan: $('#txtTindakanPencegahan').val(),
             DueDatePencegahan: $('#dueDatePencegahan').val(),
-            IsAreaLain: adaPencegahan,
+            IsAreaLain: 1,
             KajianResikoList: newKajianResiko,
-            PerbaikanID: referenceID,
-            Updater: nik
+            RecordID: referenceID,
+            EmpId: nik
         }
-        console.log(newDataPerbaikan);
+        var dto = {
+            Model: dictionarylist
+        }
         $.ajax({
-            url: "SimpanPerbaikanBaru",
+            url: "DynamicController?spname=SP_Update_Pelaksanaan",
             type: "POST",
-            data: JSON.stringify(newDataPerbaikan),
+            data: JSON.stringify(dto),
             contentType: "application/json",
             dataType: 'json',
             success: function (data) {
                 alert("Penambahan berhasil disimpan");
-
-                ReloadPage();
+                KajianDDLPencegahan();
             },
             error: function (xhr, error, status) {
                 console.log(error, status);
             }
         });
+        //var isAreaLain = $('input[name="radioPotensi"]:checked').val();
+        //var adaPencegahan = 0;
+        //if (isAreaLain == 'Yes') {
+        //    adaPencegahan = 1;
+        //}
+        //var referenceID = getQueryStrings()["ReferenceID"];
+        //referenceID = referenceID.replace('#', '');
+
+        //newDataPerbaikan = {
+        //    TindakanPerbaikan: $('#txtTindakanPerbaikan').val(),
+        //    DueDatePerbaikan: $('#dueDatePerbaikan').val(),
+        //    TindakanPencegahan: $('#txtTindakanPencegahan').val(),
+        //    DueDatePencegahan: $('#dueDatePencegahan').val(),
+        //    IsAreaLain: adaPencegahan,
+        //    KajianResikoList: newKajianResiko,
+        //    PerbaikanID: referenceID,
+        //    Updater: nik
+        //}
+        //console.log(newDataPerbaikan);
+        //$.ajax({
+        //    url: "SimpanPerbaikanBaru",
+        //    type: "POST",
+        //    data: JSON.stringify(newDataPerbaikan),
+        //    contentType: "application/json",
+        //    dataType: 'json',
+        //    success: function (data) {
+        //        alert("Penambahan berhasil disimpan");
+
+        //        ReloadPage();
+        //    },
+        //    error: function (xhr, error, status) {
+        //        console.log(error, status);
+        //    }
+        //});
 
         @*var modePerbaikan = $("#modePerbaikan").val();
         var idPerbaikan = $('#ddlPerbaikan').val();
