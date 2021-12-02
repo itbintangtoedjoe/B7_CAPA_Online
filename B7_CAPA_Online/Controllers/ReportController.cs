@@ -21,5 +21,9 @@ namespace B7_CAPA_Online.Controllers
         {
             return View();
         }
+        public ActionResult FindCAPA()
+        {
+            return View();
+        }
     }
 }
