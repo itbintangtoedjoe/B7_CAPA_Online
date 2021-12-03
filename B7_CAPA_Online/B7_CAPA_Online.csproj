@@ -5439,6 +5439,7 @@
     <Content Include="Views\Shared\LoadData_PV.cshtml" />
     <Content Include="Views\Evaluator\ViewCAPA.cshtml" />
     <Content Include="Views\Koordinator\Koordinator4.cshtml" />
+    <Content Include="Views\Pelaksana\PelaksanaCAPAPembatalan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

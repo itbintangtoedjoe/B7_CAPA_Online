@@ -376,14 +376,14 @@
 </div>
 <input type="text" class="form-control form-control-sm" id="NoCAPA" val="@ViewBag.NoCAPA" style="width:100%;" hidden>
 <script>
-   
+    
     function KajianResikoDDLPV() {
         $.ajax({
             url: '/PIC/GetDataPIC',
             type: 'post',
             data: JSON.stringify({
                 Option: 10,
-                NO_CAPA: noCAPA,
+                NO_CAPA: $('#input_NoCAPA').val(),
                 SP: "[dbo].[SP_FORM_CAPA]"
             }),
             dataType: 'json',
@@ -411,7 +411,7 @@
             type: 'post',
             data: JSON.stringify({
                 Model: {
-                    NO_CAPA:  noCAPA,
+                    NO_CAPA: $('#input_NoCAPA').val(),
                     Option: 11,
                     Aspect: '',
                     WSBH: '',
@@ -681,22 +681,15 @@
             } else {
                 var valid = true;
 
-                var ddlText = $("#RootCause_KajianResikoDDL option:selected").text();
                 var pic = "";
                 if ($('#Severity_DDL').val() == 10 || $('#TxtRiskLevel').val() == 'High' || $('#TxtRiskLevel').val() == 'Very High') {
                     pic = $('#TxtPIC').val();
                 }
-                if (ddlText.indexOf('Perbaikan') > 0) {
-                    var status = "Perbaikan";
-                }
-                else
-                {
-                    var status = "Pencegahan"
-                }
+
                 dto = {
                     Model: {
                         RecordID: values.RecordID,
-                        NO_CAPA: noCAPA,
+                        NO_CAPA: $('#input_NoCAPA').val(),
                         Tipe: values.Tipe,
                         Tindakan: $('#RootCause_KajianResikoDDL').val(),
                         P_Kegagalan: $('#TxtPotensiKegagalan').val(),
@@ -846,7 +839,7 @@
                 dataType: 'json',
                 data: JSON.stringify({
                     Model: {
-                        NO_CAPA: noCAPA,
+                        NO_CAPA: $('#input_NoCAPA').val(),
                         Option: 12,
                         Aspect: '',
                         WSBH: '',
