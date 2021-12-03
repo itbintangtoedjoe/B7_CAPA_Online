@@ -5439,6 +5439,8 @@
     <Content Include="Views\Shared\LoadData_PV.cshtml" />
     <Content Include="Views\Evaluator\ViewCAPA.cshtml" />
     <Content Include="Views\Koordinator\Koordinator4.cshtml" />
+    <Content Include="Views\Shared\RentangEfektivitas.cshtml" />
+    <Content Include="Views\Shared\RentangEfektivitas_PV.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

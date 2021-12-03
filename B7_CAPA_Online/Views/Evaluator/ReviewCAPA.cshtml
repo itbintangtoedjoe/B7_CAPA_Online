@@ -23,6 +23,7 @@
                         <div class="form-group mb-2 col-sm-3">
                             <label class="m-t-20">Nomor CAPA</label>
                             <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["NoCAPA"]" readonly />
+                            <input type="text" class="btn btn-primary" id="QS_NoCAPA" value="@Request.QueryString["NoCAPA"]" hidden />
                             <input class="form-control form-control-sm" type="text" id="input_REG_ID" value="@Request.QueryString["REG"]" hidden />
                         </div>
                         <div class="form-group mb-2 col-sm-3">
@@ -35,66 +36,65 @@
         </div>
 
         @if (!string.IsNullOrEmpty(Request.QueryString["NoCAPA"]))
-        {                    
-            @Html.Partial("AnalisaKondisiPV")
+        {
+            @*@Html.Partial("AnalisaKondisiPV")
             @Html.Partial("PotentialRootCausePV")
             @Html.Partial("TindakanPerbaikanPV")
             @Html.Partial("TindakanPencegahanPV")
             @Html.Partial("KajianResikoPV")
-            @Html.Partial("ApprovalPV")
+            @Html.Partial("ApprovalPV")*@
+            @Html.Partial("LoadData_PV")
         }
 
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Koordinator</h4>
-                <form>
-                    <div class="row">
-                        <div class="form-group mb-2 col-sm-3">
-                            <label class="m-t-20">Tanggal</label>
-                            <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly>
-                        </div>
-                        <div class="form-group mb-2 col-sm-3">
-                            <label class="m-t-40">Requestor</label>
-                            <input class="form-control form-control-sm" type="text" id="input_Requestor" readonly>
-                        </div>
-                        <div class="form-group mb-2 col-sm-3">
-                            <label class="m-t-20">Nomor CAPA</label>
-                            <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["NoCAPA"]" readonly />
-                            <input class="form-control form-control-sm" type="text" id="input_REG_ID" value="@Request.QueryString["REG"]" hidden />
-                        </div>
-                        <div class="form-group mb-2 col-sm-3">
-                            <label class="m-t-40">Departemen</label>
-                            <input class="form-control form-control-sm" type="text" id="input_Departemen" readonly>
-                        </div>
+        <!--<div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Koordinator</h4>
+            <form>
+                <div class="row">
+                    <div class="form-group mb-2 col-sm-3">
+                        <label class="m-t-20">Tanggal</label>
+                        <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly>
                     </div>
-                </form>
-            </div>
+                    <div class="form-group mb-2 col-sm-3">
+                        <label class="m-t-40">Requestor</label>
+                        <input class="form-control form-control-sm" type="text" id="input_Requestor" readonly>
+                    </div>
+                    <div class="form-group mb-2 col-sm-3">
+                        <label class="m-t-20">Nomor CAPA</label>
+                        <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["NoCAPA"]" readonly />
+                        <input class="form-control form-control-sm" type="text" id="input_REG_ID" value="@Request.QueryString["REG"]" hidden />
+                    </div>
+                    <div class="form-group mb-2 col-sm-3">
+                        <label class="m-t-40">Departemen</label>
+                        <input class="form-control form-control-sm" type="text" id="input_Departemen" readonly>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="card">
-            <div class="card-body">
-                <div class="form-group col-md-2">
-                    <input type="button" class="btn btn-primary" id="btn_Request_Page" value="Show Request Page" />
-                </div>
-                <div id="Request_Page" hidden="hidden">
-                    @*@Html.Partial("../Koordinator/RequestCAPA", "KoordinatorController")*@
-                </div>
-                <div id="InvestigasiPenyimpangan">
-                    @Html.Partial("../Koordinator/InvestigasiPenyimpangan", "KoordinatorController")
-                </div>
-                <div id="PenentuanTindakanPerbaikan">
-                    @Html.Partial("../Koordinator/PenentuanTindakanPerbaikan", "KoordinatorController")
-                </div>
-                <div id="PenentuanTindakanPencegahan">
-                    @Html.Partial("../Koordinator/PenentuanTindakanPencegahan", "KoordinatorController")
-                </div>
-                <div id="KajianRisiko">
-                    @Html.Partial("../Koordinator/KajianRisiko", "KoordinatorController")
-                </div>
-                <br />
-
-
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="form-group col-md-2">
+                <input type="button" class="btn btn-primary" id="btn_Request_Page" value="Show Request Page" />
             </div>
+            <div id="Request_Page" hidden="hidden">-->
+        @*@Html.Partial("../Koordinator/RequestCAPA", "KoordinatorController")*@
+        <!--</div>
+            <div id="InvestigasiPenyimpangan">
+                @Html.Partial("../Koordinator/InvestigasiPenyimpangan", "KoordinatorController")
+            </div>
+            <div id="PenentuanTindakanPerbaikan">
+                @Html.Partial("../Koordinator/PenentuanTindakanPerbaikan", "KoordinatorController")
+            </div>
+            <div id="PenentuanTindakanPencegahan">
+                @Html.Partial("../Koordinator/PenentuanTindakanPencegahan", "KoordinatorController")
+            </div>
+            <div id="KajianRisiko">
+                @Html.Partial("../Koordinator/KajianRisiko", "KoordinatorController")
+            </div>
+            <br />
         </div>
+    </div>-->
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -171,7 +171,7 @@
             Model: dictlist
         }
         $.ajax({
-            url: 'DynamicParameter',
+            url: '/Koordinator/DynamicController',
             type: 'post',
             dataType: 'json',
             data: JSON.stringify({

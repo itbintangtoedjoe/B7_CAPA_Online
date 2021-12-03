@@ -383,7 +383,7 @@
             type: 'post',
             data: JSON.stringify({
                 Option: 10,
-                NO_CAPA: noCAPA,
+                NO_CAPA: $('#input_NoCAPA').val(),
                 SP: "[dbo].[SP_FORM_CAPA]"
             }),
             dataType: 'json',
@@ -411,7 +411,7 @@
             type: 'post',
             data: JSON.stringify({
                 Model: {
-                    NO_CAPA:  noCAPA,
+                    NO_CAPA: $('#input_NoCAPA').val(),
                     Option: 11,
                     Aspect: '',
                     WSBH: '',
@@ -626,6 +626,8 @@
         UnhideKajianResikoModalPV();
         var isHide = false;
 
+        $('#RootCause_KajianResikoDDL').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+
         $('#btn_Load').click(function () {
             console.log(objTindakan);
         });
@@ -696,7 +698,7 @@
                 dto = {
                     Model: {
                         RecordID: values.RecordID,
-                        NO_CAPA: noCAPA,
+                        NO_CAPA: $('#input_NoCAPA').val(),
                         Tipe: values.Tipe,
                         Tindakan: $('#RootCause_KajianResikoDDL').val(),
                         P_Kegagalan: $('#TxtPotensiKegagalan').val(),
@@ -846,7 +848,7 @@
                 dataType: 'json',
                 data: JSON.stringify({
                     Model: {
-                        NO_CAPA: noCAPA,
+                        NO_CAPA: $('#input_NoCAPA').val(),
                         Option: 12,
                         Aspect: '',
                         WSBH: '',

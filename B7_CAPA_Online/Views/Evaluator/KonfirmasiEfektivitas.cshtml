@@ -55,35 +55,19 @@
                         <h4 class="card-title">View CAPA Page</h4>
                         <button class="btn btn-dark form-control col-sm-2" id="btn_ViewCAPA">View CAPA</button>
                     </div>
-                </div>
-
-                <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">View Bukti Page</h4>
                         <button class="btn btn-dark form-control col-sm-2" id="btn_ViewBukti">View Bukti</button>
                     </div>
+                    @Html.Partial("RentangEfektivitas_PV")                 
                 </div>
 
-                <div class="card">
+                @*<div class="card">
                     <div class="card-body">
-                        <div class="row form-group">
-                            <div class="col-md-3">
-                                <label class="m-t-40">Rentang Perbaikan</label>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id="TxtRentangPerbaikan">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col-md-3">
-                                <label class="m-t-40">Rentang Pencegahan</label>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id="TxtRentangPencegahan">
-                                </div>
-                            </div>
-                        </div>
+                        <h4 class="card-title">View Bukti Page</h4>
+                        <button class="btn btn-dark form-control col-sm-2" id="btn_ViewBukti">View Bukti</button>
                     </div>
-                </div>
+                </div>*@               
 
                 <div class="card">
                     <div class="card-body">
@@ -102,7 +86,7 @@
                                 <input type='radio' id="Devi_No" name="Devi_Radio" value="no" style="margin-left:15px;" disabled />
                             </div>
                             <div class="row" id="Deviation">
-                                <table class="table table-hover table-bordered zero-configuration" id="Tbl_Devi">
+                                <table class="table table-hover table-bordered zero-configuration" id="Tbl_Devi" hidden>
                                     <thead>
                                         <tr>
                                             <th>No CAPA</th>
@@ -128,7 +112,7 @@
                                 <input type='radio' id="CCC_No" name="CCC_Radio" value="No" style="margin-left:15px;" disabled />
                             </div>
                             <div class="row">
-                                <table class="table table-hover table-bordered zero-configuration" id="Tbl_CCC">
+                                <table class="table table-hover table-bordered zero-configuration" id="Tbl_CCC" hidden>
                                     <thead>
                                         <tr>
                                             <th>No CAPA</th>
@@ -157,7 +141,7 @@
                                 <input type='radio' id="File_No" name="File_Radio" style="margin-left:15px;" value="No" disabled />
                             </div>
                             <div class="row">
-                                <table class="table table-hover table-bordered zero-configuration" id="Tbl_Lampiran">
+                                <table class="table table-hover table-bordered zero-configuration" id="Tbl_Lampiran" hidden>
                                     <thead>
                                         <tr>
                                             <th>No CAPA</th>
@@ -242,25 +226,33 @@
             }),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                var t = $('#Tbl_Devi').DataTable({
-                    "pageLength": 10,
-                    "responsive": true,
-                    "info": false,
-                    "paging": false,
-                    "lengthChange": true,
-                    "searching": false,
-                    "data": JSON.parse(data),
-                    "select": true,
-                    "bDestroy": true,
-                    "scrollCollapse": true,
-                    "columns": [
-                        { "data": "NO_CAPA_FK" },
-                        { "data": "Type" },
-                        { "data": "ValueEvaluasi" }                        
-                    ],
-                    "order": [[1, 'asc']]
-                });
+            success: function (data) {                
+                $("#Tbl_Devi").prop("hidden", true);
+                if (JSON.parse(data).length > 0) {                    
+                    $("#Tbl_Devi").prop("hidden", false);
+                    $("#Devi_Yes").prop("checked", true);
+                    var t = $('#Tbl_Devi').DataTable({
+                        "pageLength": 10,
+                        "responsive": true,
+                        "info": false,
+                        "paging": false,
+                        "lengthChange": true,
+                        "searching": false,
+                        "data": JSON.parse(data),
+                        "select": true,
+                        "bDestroy": true,
+                        "scrollCollapse": true,
+                        "columns": [
+                            { "data": "NO_CAPA_FK" },
+                            { "data": "Type" },
+                            { "data": "ValueEvaluasi" }
+                        ],
+                        "order": [[1, 'asc']]
+                    });
+                    return;
+                }          
+                $("#Devi_No").prop("checked", true);
+                return;
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -281,24 +273,32 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                var t = $('#Tbl_CCC').DataTable({
-                    "pageLength": 10,
-                    "responsive": true,
-                    "info": false,
-                    "paging": false,
-                    "lengthChange": true,
-                    "searching": false,
-                    "data": JSON.parse(data),
-                    "select": true,
-                    "bDestroy": true,
-                    "scrollCollapse": true,
-                    "columns": [
-                        { "data": "NO_CAPA_FK" },
-                        { "data": "Type" },
-                        { "data": "ValueEvaluasi" }
-                    ],
-                    "order": [[1, 'asc']]
-                });
+                $("#Tbl_CCC").prop("hidden", true);
+                if (JSON.parse(data).length > 0) {
+                    $("#Tbl_CCC").prop("hidden", false);
+                    $("#CCC_Yes").prop("checked", true);
+                    var t = $('#Tbl_CCC').DataTable({
+                        "pageLength": 10,
+                        "responsive": true,
+                        "info": false,
+                        "paging": false,
+                        "lengthChange": true,
+                        "searching": false,
+                        "data": JSON.parse(data),
+                        "select": true,
+                        "bDestroy": true,
+                        "scrollCollapse": true,
+                        "columns": [
+                            { "data": "NO_CAPA_FK" },
+                            { "data": "Type" },
+                            { "data": "ValueEvaluasi" }
+                        ],
+                        "order": [[1, 'asc']]
+                    });
+                    return;
+                }      
+                $("#CCC_No").prop("checked", true);
+                return;
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -319,31 +319,39 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                var t = $('#Tbl_Lampiran').DataTable({
-                    "pageLength": 10,
-                    "responsive": true,
-                    "info": false,
-                    "paging": false,
-                    "lengthChange": true,
-                    "searching": false,
-                    "data": JSON.parse(data),
-                    "select": true,
-                    "bDestroy": true,
-                    "scrollCollapse": true,
-                    "columns": [
-                        { "data": "NO_CAPA_FK" },
-                        { "data": "Type" },
-                        { "data": "Nama_File" },
-                        {
-                            "data": "ValueEvaluasi",
-                            "className": "center",
-                            "render": function (url, type, full) {
-                                return '<a href="' + url + '"><i class="fa fa-cloud-download" style="text-align: center" aria-hidden="true"></i></a>'
+                $("#Tbl_Lampiran").prop("hidden", true);
+                if (JSON.parse(data).length > 0) {
+                    $("#Tbl_Lampiran").prop("hidden", false);
+                    $("#File_Yes").prop("checked", true);
+                    var t = $('#Tbl_Lampiran').DataTable({
+                        "pageLength": 10,
+                        "responsive": true,
+                        "info": false,
+                        "paging": false,
+                        "lengthChange": true,
+                        "searching": false,
+                        "data": JSON.parse(data),
+                        "select": true,
+                        "bDestroy": true,
+                        "scrollCollapse": true,
+                        "columns": [
+                            { "data": "NO_CAPA_FK" },
+                            { "data": "Type" },
+                            { "data": "Nama_File" },
+                            {
+                                "data": "ValueEvaluasi",
+                                "className": "center",
+                                "render": function (url, type, full) {
+                                    return '<a href="' + url + '"><i class="fa fa-cloud-download" style="text-align: center" aria-hidden="true"></i></a>'
+                                }
                             }
-                        }
-                    ],
-                    "order": [[1, 'asc']]
-                });
+                        ],
+                        "order": [[1, 'asc']]
+                    });
+                    return;
+                }   
+                $("#File_No").prop("checked", true);
+                return;
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
