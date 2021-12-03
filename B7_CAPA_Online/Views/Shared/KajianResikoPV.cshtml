@@ -376,7 +376,7 @@
 </div>
 <input type="text" class="form-control form-control-sm" id="NoCAPA" val="@ViewBag.NoCAPA" style="width:100%;" hidden>
 <script>
-   
+    
     function KajianResikoDDLPV() {
         $.ajax({
             url: '/PIC/GetDataPIC',
@@ -683,18 +683,11 @@
             } else {
                 var valid = true;
 
-                var ddlText = $("#RootCause_KajianResikoDDL option:selected").text();
                 var pic = "";
                 if ($('#Severity_DDL').val() == 10 || $('#TxtRiskLevel').val() == 'High' || $('#TxtRiskLevel').val() == 'Very High') {
                     pic = $('#TxtPIC').val();
                 }
-                if (ddlText.indexOf('Perbaikan') > 0) {
-                    var status = "Perbaikan";
-                }
-                else
-                {
-                    var status = "Pencegahan"
-                }
+
                 dto = {
                     Model: {
                         RecordID: values.RecordID,

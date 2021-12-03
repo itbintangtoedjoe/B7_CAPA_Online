@@ -191,6 +191,8 @@
 
                 <button type="button" class="btn btn-primary" id="btnback">Back to previous page</button>
             </div>
+
+            <input type="text" id="input_NoCAPA" value="@ViewBag.NoCAPA" hidden>
         </div>
         <!-- #/ container -->
     </div>
@@ -198,6 +200,7 @@
 
 <script>
     var noCAPA = getQueryStrings()["NoCAPA"];
+    $('#input_NoCAPA').val(noCAPA);
     var referenceID = getQueryStrings()["ReferenceID"];
     var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
     var dataPerbaikan;
@@ -592,9 +595,9 @@
                             if (result.value) {
                                 retrieveData();
                                 retrieveData2();
-                                KajianResikoDDL();
                                 RemoveInputField(kategori);
                             }
+                            KajianDDLPerbaikanBaru();
                         });
                     }
                 },
@@ -831,6 +834,8 @@
             success: function (data) {
                 var result = JSON.parse(data);
                 $('#RootCause_KajianResikoDDL').prop("disabled", false);
+
+                $('#RootCause_KajianResikoDDL').empty();
                 $('#btn_AddKajian').prop("disabled", false);
                 for (var i = 0; i < result.length; i++) {
                     $('#RootCause_KajianResikoDDL').append(new Option("[Perbaikan]" + " " + result[i].Tindakan_Perbaikan, result[i].RecordID));
