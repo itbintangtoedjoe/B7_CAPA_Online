@@ -5441,6 +5441,7 @@
     <Content Include="Views\Koordinator\Koordinator4.cshtml" />
     <Content Include="Views\Shared\RentangEfektivitas.cshtml" />
     <Content Include="Views\Shared\RentangEfektivitas_PV.cshtml" />
+    <Content Include="Views\Pelaksana\PelaksanaCAPAPembatalan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
