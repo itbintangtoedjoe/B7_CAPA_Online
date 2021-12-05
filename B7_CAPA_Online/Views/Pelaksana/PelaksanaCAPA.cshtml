@@ -708,7 +708,6 @@
         $('#txtTindakanPencegahanRev').attr("disabled", true);
         $('#dueDatePerbaikanRev').attr("disabled", true);
         $('#dueDatePencegahanRev').attr("disabled", true);
-
     }
 
     $('#btnViewCAPA').click(function () {
@@ -1018,6 +1017,33 @@
                 }
                 $('#txtHasilPerbaikan').prop("disabled", true);
                 $('#uploadAttachmentPerbaikan').prop("disabled", true);
+
+        }
+        console.log($("#modePerbaikan").val());
+    });
+
+    $('#btnCancelPerbaikan').click(function (e) {
+        e.preventDefault();
+        var currentMode = $("#modePerbaikan").val();
+        if (currentMode == "Edit") {
+            $('#btnEnableUbahPerbaikan').html('Edit Tindakan Perbaikan');
+            $("#modePerbaikan").val("Continue");
+            $('#txtTindakanPerbaikanRev').prop("disabled", true);
+            $('#dueDatePerbaikanRev').prop("disabled", true);
+            $('#txtModePerbaikan').attr("hidden", true);
+        } else {
+
+            if (stataction == true) {
+                $("#modePerbaikan").val("btnCancelPerbaikan");
+                $('#')
+                $('#txtTindakanPerbaikanRev').prop("disabled", false);
+                $('#dueDatePerbaikanRev').prop("disabled", false);
+                $('#btnSimpanPerbaikan').prop("disabled", false);
+                $('#AlasanTindakanPerbaikan').prop("disabled", false);
+                $('#txtModePerbaikan').attr("hidden", false);
+            }
+            $('#txtHasilPerbaikan').prop("disabled", true);
+            $('#uploadAttachmentPerbaikan').prop("disabled", true);
 
         }
         console.log($("#modePerbaikan").val());

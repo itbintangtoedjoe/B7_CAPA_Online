@@ -5365,6 +5365,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\Koordinator\Koordinator4.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -5438,7 +5439,6 @@
     <Content Include="Views\Evaluator\ViewBukti.cshtml" />
     <Content Include="Views\Shared\LoadData_PV.cshtml" />
     <Content Include="Views\Evaluator\ViewCAPA.cshtml" />
-    <Content Include="Views\Koordinator\Koordinator4.cshtml" />
     <Content Include="Views\Shared\RentangEfektivitas.cshtml" />
     <Content Include="Views\Shared\RentangEfektivitas_PV.cshtml" />
     <Content Include="Views\Pelaksana\PelaksanaCAPAPembatalan.cshtml" />
