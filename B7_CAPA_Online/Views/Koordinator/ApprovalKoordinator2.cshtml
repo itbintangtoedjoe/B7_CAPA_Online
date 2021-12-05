@@ -35,23 +35,9 @@
     <div class="card">
         <div class="card-body">
 
-            <div class="form-group col-md-2">
-                <input type="button" class="btn btn-primary" id="btn_Request_Page" value="Show Request Page" />
-            </div>
-            <div id="Request_Page" hidden="hidden">
-                @Html.Partial("RequestCAPA")
-            </div>
+            
             <div id="InvestigasiPenyimpangan">
-                @Html.Partial("InvestigasiPenyimpangan")
-            </div>
-            <div id="PenentuanTindakanPerbaikan">
-                @Html.Partial("PenentuanTindakanPerbaikan")
-            </div>
-            <div id="PenentuanTindakanPencegahan">
-                @Html.Partial("PenentuanTindakanPencegahan")
-            </div>
-            <div id="KajianRisiko">
-                @Html.Partial("KajianRisiko")
+                @Html.Partial("LoadData_PV")
             </div>
             <br />
 
@@ -144,8 +130,6 @@
             </div>
         </div>
     </div>
-
-
     @Html.Partial("TriggerCAPA")
 
 
@@ -153,17 +137,19 @@
     <input type="text" class="btn btn-primary" id="QS_Status" value="@ViewBag.status" hidden />
 
 </div>
+<script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
 
 <script>
 
     $(document).ready(function () {
-        $('#QS_NoCAPA').val("CPA/SIA/HOF/MK/0921/009");
+        //$('#QS_NoCAPA').val("CPA/SIA/HOF/MK/0921/009");
         GetEvaluator();
         GetDepartemen();
         GetPlant();
         GetEvalTableList();
-        if ($('#QS_Status').val != 4) {
-            //disableAll();
+        HideDeleteButton();
+        if ($('#QS_Status').val() != 4) {
+            disableAll();
         }
         $('#Eva_Plant_DDL').change(function () {
             if ($('#Eva_Departemen_DDL').val() == undefined || $('#Eva_Departemen_DDL').val().trim() == "") {
@@ -187,7 +173,7 @@
 
             AddEvaluator();
         });
-       
+
         $('#btn_Submit_Evaluator').click(function () {
 
             SubmitEvaluator();
@@ -196,10 +182,7 @@
 
             Reject();
         });
-        $('#btn_Request_Page').click(function () {
-
-            window.open('../Koordinator/CreateCAPA?CAPA=' + $('#QS_NoCAPA').val()+'')
-        });
+       
         $('#btn_Add_Evaluator').click(function () {
             if ($('#btn_Add_Evaluator').val() == "Cancel") {
 
@@ -223,10 +206,12 @@
         $('#EvalList_DDL').attr('disabled', true);
         $('#Eva_Plant_DDL').attr('disabled', true);
         $('#Trigger_CAPA').attr('disabled', true);
-    } 
+        $('#TxtFileInput').attr('disabled', true);
+        $('#Submit').attr('disabled', true);
+    }
     function GetEvaluator() {
         $.ajax({
-            url: "GetEvaluator?departemen=" + $('#Eva_Departemen_DDL').val() + "&Option=1&Lokasi=" + $('#Eva_Plant_DDL').val()+"",
+            url: "GetEvaluator?departemen=" + $('#Eva_Departemen_DDL').val() + "&Option=1&Lokasi=" + $('#Eva_Plant_DDL').val() + "",
             type: "post",
             dataType: "json",
             contentType: "application/json;charset=utf-8",
@@ -485,8 +470,7 @@
         if (row.data().count() == 0) {
             Swal.fire("Error!", "Silahkan pilih Evaluator terlebih dahulu!", "error");
         }
-        else
-        {
+        else {
             $.ajax({
                 url: "DynamicController?spname=SP_SHOW_EVALUATOR_DDL",
                 type: "post",
@@ -517,7 +501,7 @@
                 }
             });
         }
-      
+
     }
     function Delete(button) {
         Swal.fire({

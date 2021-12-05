@@ -1,7 +1,8 @@
-﻿<div class="card">
+﻿<link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
+<div class="card">
     <div class="card-body">
         <h4 class="card-title">Approval</h4>
-        <div class="row">
+        @*<div class="row">
             <div class="form-group mb-2 col-sm-3">
                 <label class="m-t-20">Status</label>
                 <select class="form-control" id="Status_DDL">
@@ -21,55 +22,59 @@
             <div class="col-md-6">
                 <button class="btn mb-1 btn-primary" id="btn_Submit">Submit</button>
             </div>
+        </div>*@
+
+        <div class="row form-group-sm">
+            <div class="col-md-2">              
+                <button class="btn mb-1 btn-primary" id="btn_ApproveCAPA" value="Approve">Approve CAPA</button>
+            </div>
+            <div class="col-md-2">
+                <input type="button" class="btn btn-danger" id="btn_RejectCAPA" value="Reject CAPA" data-toggle="modal" data-target="#Reject_Page" />
+            </div>
         </div>
     </div>
 </div>
 
+<script src="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.js" defer></script>
 <script>
-    //Get status : Accept, Reject or Cancelled.
-    function GetStatus() {
-        var status = $('#Status_DDL').val();
-        if (status == "Approve")
-            return "Approve";
-        else if (status == "Reject")
-            return "Reject";
-        else
-            return "Cancelled";
-    }
-
     //Submit Approval
-    function SubmitApprovalPV() {
+    function SubmitApprovalPV(StatusApproval, CurrentStatsID) {
         $.ajax({
-            url: 'SubmitApproval',
+            url: '/AtasanPIC/SubmitApproval',
             type: 'post',
             dataType: 'json',
             data: JSON.stringify({
                 Model: {
                     NO_CAPA: $('#input_NoCAPA').val(),
                     Create_By: $('#TxtRequestor').val(),
-                    Status: GetStatus(),
-                    Reject_Reason: $('#TxtAlasanReject').val(),
+                    CurrentStatusID: CurrentStatsID,
+                    Status: StatusApproval,
+                    Reject_Reason: (StatusApproval == 'Approve') ? ('-'):($('#txtRejectReason').val()),
                     Option: 1
                 }
             }),
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                if (data[0].VALID == "Success") {
-                    return Swal.fire(
+                console.log(data);
+                if (JSON.parse(data)[0].VALID == "VALID") {
+                    Swal.fire(
                         'Success',
-                        'Data berhasil di-input.',
+                        'CAPA berhasil di ' + StatusApproval + '.',
                         'success'
                     ).then(function (result) {
                         if (result.value) {
-                            //go to pending task
+                            window.location.href = '/PendingTask/TaskList';
                         }
                     });
                 }
-                return Swal.fire(
-                    'Maaf',
-                    'Input tidak boleh kosong.',
-                    'warning'
-                )
+                else {
+                    Swal.fire(
+                        'Maaf',
+                        'CAPA ini sudah pernah di Submit.',
+                        'warning'
+                    )
+                }
+                    
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -79,16 +84,21 @@
 
     $(document).ready(function () {
         //Alasan Reject Textarea Hide/Unhide
-        $('#Status_DDL').change(function () {
-            var statusVal = $('#Status_DDL').val();
-            if (statusVal == "Approve")
-                $('#Div_AlasanReject').prop('hidden', true);
-            else
-                $('#Div_AlasanReject').prop('hidden', false);
+        //$('#Status_DDL').change(function () {
+        //    var statusVal = $('#Status_DDL').val();
+        //    if (statusVal == "Approve")
+        //        $('#Div_AlasanReject').prop('hidden', true);
+        //    else
+        //        $('#Div_AlasanReject').prop('hidden', false);
+        //});
+
+
+        $("#btn_ApproveCAPA").click(function () {          
+            SubmitApprovalPV("Approve", CurrentStatsID);//Approve Approval EventClick
         });
-        GetStatus();
-        $("#btn_Submit").click(function () {
-            SubmitApprovalPV(); //Submit Approval Atasan PIC
+
+        $("#btnSubmitReject").click(function () {
+            SubmitApprovalPV("Reject", CurrentStatsID);//Reject Approval EventClick
         });
     });
 </script>

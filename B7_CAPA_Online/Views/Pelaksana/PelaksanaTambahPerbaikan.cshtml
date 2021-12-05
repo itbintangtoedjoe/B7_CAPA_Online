@@ -3,6 +3,17 @@
     ViewBag.Title = "TambahTindakan";
 }
 
+<style>
+    @@media (min-width: 768px) {
+        .modal-xl {
+            width: 900%;
+            max-width: 1300px;
+        }
+    }
+</style>
+
+<link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
+<script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
 
 <div class="content-body">
     <!--Modal-->
@@ -19,8 +30,106 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-
                 <div class="card">
+                    <div class="card-body">
+                        <label class="m-t-40">--Please Select--<span style="color: red">*</span></label>
+                        <div class="radio input-group">
+                            <div class="col-sm-3">
+                                <label><input type="radio" value="Yes" name="TambahPerbaikan">&nbsp;&nbsp;Tambah Perbaikan Baru</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <label><input type="radio" value="No" name="TambahPerbaikan" checked>&nbsp;&nbsp;Tambah Pencegahan Existing</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card" id="Div_TindakanPerbaikan" hidden>
+                    <div class="card-body">
+                        <h4 class="card-title">Penambahan Tindakan Perbaikan</h4>
+                        <div class="table-responsive">
+                            <form>
+                                <div class="row form-group-sm">
+                                    <div class="col-md-6">
+                                        <label class="m-t-20">Root Cause</label>
+                                        <select id="RootCause_DDL" class="form-control">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row form-group-sm">
+                                    <div class="col-md-6">
+                                        <label class="m-t-20">Tindakan Perbaikan<span style="color: red">*</span></label>
+                                        <textarea type="text" class="form-control" placeholder="Deskripsi" id="TxtDeskripsiPerbaikan"></textarea>
+                                    </div>
+                                    <div class="form-group mb-2 col-sm-3">
+                                        <label class="m-t-20">Due Date</label>
+                                        <input type="date" id="duedate_perbaikan" class="form-control form-control-sm">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label class="m-t-40">Apakah ada proses / area lain yang berpotensi sama ?</label>
+                                        <div class="radio input-group">
+                                            <div class="col-sm-3">
+                                                <label><input type="radio" value="Yes" name="Potensi">Ya</label>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label><input type="radio" value="No" name="Potensi" checked>Tidak</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 mb-3">
+                                        <label class="m-t-40" style="visibility: hidden">_</label>
+                                        <div class="input-group">
+                                            <button type="button" id="btn_AddPerbaikan" class="btn mb-1 btn-primary ">Tambahkan Tindakan Perbaikan</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="Div_TindakanPencegahan" hidden="hidden">
+                    <div class="card-body">
+                        <h4 class="card-title">Penambahan Tindakan Pencegahan</h4>
+                        <div class="table-responsive">
+                            <form>
+                                <div class="row form-group-sm">
+                                    <div class="col-md-6">
+                                        <label class="m-t-20">Area / Proses lain yang Berpotensi</label>
+                                        <select id="AreaLain_DDL" class="form-control">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row form-group-sm">
+                                    <div class="col-md-6">
+                                        <label class="m-t-20">Tindakan Pencegahan<span style="color: red">*</span></label>
+                                        <textarea type="text" class="form-control" id="TxtDeskripsiPencegahan" placeholder="Deskripsi"></textarea>
+                                    </div>
+                                    <div class="form-group mb-2 col-sm-3">
+                                        <label class="m-t-20">Due Date</label>
+                                        <input type="date" id="duedate_pencegahan" class="form-control form-control-sm">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-12 mb-3">
+                                        <label class="m-t-40" style="visibility: hidden">_</label>
+                                        <div class="input-group">
+                                            <button type="button" id="btn_AddPencegahan" class="btn mb-1 btn-primary ">Tambahkan Tindakan Pencegahan</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="PerbaikanExisting">
                     <div class="card-body">
                         <h4 class="card-title">Penentuan Tindakan Perbaikan</h4>
                         <div class="table-responsive">
@@ -28,7 +137,7 @@
                                 <div class="row form-group">
                                     <div class="col-md-6">
                                         <label class="m-t-20">Root Cause</label>
-                                        <textarea type="text" class="form-control" id="txtRootCause" readonly></textarea>
+                                        <textarea type="text" class="form-control" id="txtRootCauseExisting" readonly></textarea>
                                     </div>
                                 </div>
                                 <div class="row form-group">
@@ -42,25 +151,13 @@
                                     </div>
                                 </div>
 
-                                <div class="row form-group">
-                                    <div class="col-md-12">
-                                        <label class="m-t-40">Apakah ada proses / area lain yang berpotensi sama?<span style="color: red">*</span></label>
-                                        <div class="radio input-group">
-                                            <div class="col-sm-3">
-                                                <label><input type="radio" value="Yes" name="radioPotensi">&nbsp;&nbsp;Ya</label>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <label><input type="radio" value="No" name="radioPotensi" checked>&nbsp;&nbsp;Tidak</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </form>
                         </div>
                     </div>
                 </div>
 
-                <div class="card" id="Div_Pencegahan" hidden>
+                <div class="card" id="Div_Pencegahan">
                     <div class="card-body">
                         <h4 class="card-title">Penentuan Tindakan Pencegahan</h4>
                         <div class="table-responsive">
@@ -81,14 +178,21 @@
                                         <input type="date" id="dueDatePencegahan" class="form-control form-control-sm">
                                     </div>
                                 </div>
+                                <br />
+
+                                <button type="button" class="btn btn-primary" id="AddPencegahan">Add</button>
                             </form>
                             <br />
                         </div>
                     </div>
                 </div>
                 @Html.Partial("KajianResikoPV")
-                <button type="button" class="btn btn-primary" id="btnSimpan">Simpan</button>
+                @*<button type="button" class="btn btn-primary" id="btnSimpan">Simpan</button>*@
+
+                <button type="button" class="btn btn-primary" id="btnback">Back to previous page</button>
             </div>
+
+            <input type="text" id="input_NoCAPA" value="@ViewBag.NoCAPA" hidden>
         </div>
         <!-- #/ container -->
     </div>
@@ -96,12 +200,13 @@
 
 <script>
     var noCAPA = getQueryStrings()["NoCAPA"];
+    $('#input_NoCAPA').val(noCAPA);
     var referenceID = getQueryStrings()["ReferenceID"];
     var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
     var dataPerbaikan;
     var newDataPerbaikan;
-    var newKajianResiko=[];
-
+    var newKajianResiko = [];
+    var objTindakan;
     function getQueryStrings() {
         var vars = [], hash;
         var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -122,35 +227,314 @@
         $('#txtSuperiorPerbaikan').val(superiorName);
         $('#txtSuperiorPencegahan').val(superiorName);*@
 
-    @*ReloadPage();
+        @*ReloadPage();
         ResetPage();*@
 
+        retrieveData();
+        retrieveData2();
+        //$('#btn_AddPerbaikan').click(function () {
+        //    statRetrieve++
+        //    retrieveData();
+
+        //});
+        //$('#btn_AddPencegahan').click(function () {
+        //    retrieveData2();
+        //});
         getRootCause();
-        populateKajian();
         $("#TxtPIC").val('Default');
+        //$('#RootCause_KajianResikoDDL').prop("disabled", true);
         $('#RootCause_KajianResikoDDL').prop("disabled", true);
+        $('#btn_AddKajian').prop("disabled", true);
         $('#tblHeaderTindakan').prop("hidden", true);
+        $('#btnback').click(function () {
+            window.location.href = '../Pelaksana/PelaksanaCAPA';
+        });
+        $("input[name='TambahPerbaikan']").change(function () {
+            var berpotensi = $('input[name="TambahPerbaikan"]:checked').val();
+            if (berpotensi == "Yes") {
+                $('#Div_TindakanPerbaikan').prop('hidden', false);
+                $('#PerbaikanExisting').prop('hidden', true);
+                $('#Div_Pencegahan').prop('hidden', true);
+                $('#btnSimpan').prop('hidden', true);
+            }
+            else {
+                $('#PerbaikanExisting').prop('hidden', false);
+                $('#Div_Pencegahan').prop('hidden', false);
+                $('#btnSimpan').prop('hidden', false);
+
+                $('#Div_TindakanPerbaikan').prop('hidden', true);
+                $('#Div_TindakanPencegahan').prop('hidden', true);
+            }
+        });
+
+        $("input[name='Potensi']").change(function () {
+            var berpotensi = $('input[name="Potensi"]:checked').val();
+            if (berpotensi == "Yes") {
+                $('#Div_TindakanPencegahan').prop('hidden', false);
+            } else {
+                $('#Div_TindakanPencegahan').prop('hidden', true);
+            }
+        });
 
         $("input[name='radioPotensi']").change(function () {
             var berpotensi = $('input[name="radioPotensi"]:checked').val();
             if (berpotensi == "Yes") {
                 $('#Div_Pencegahan').prop('hidden', false);
             } else {
-                $('#Div_Pencegahan').prop('hidden', true);
             }
         });
 
         $("#txtTindakanPerbaikan").on('keyup', function (event) {
             var perb = $("#txtTindakanPerbaikan").val();
             $("#txtAreaBerpotensi").val(perb);
-            $('#RootCause_KajianResikoDDL').append('<option value="perbaikan" selected="selected">'+perb+'</option>');
         });
+
+        $('#DepartemenPerbaikan_DDL').change(function () {
+            $('#TxtEmailPerbaikan').val("");
+            var kategori = 'Perbaikan';
+            $('#Div_VendorNamePerbaikan').prop('hidden', true);
+
+            var dept = $('#DepartemenPerbaikan_DDL').val();
+            if (dept == "Others") {
+                $('#Div_VendorNamePerbaikan').prop('hidden', false);
+                $('#VendorPerbaikan_DDL').change(function () {
+                    getPICKajianResiko(kategori);
+                });
+            }
+            getPICKajianResiko(kategori);
+        });
+
     });
+    function getVendorDDL() {
+        $.ajax({
+            url: 'DynamicController?spname=[dbo].[SP_SHOW_DDL]',
+            type: 'post',
+            data: JSON.stringify({
+                Model: {
+                    Option: 16
+                }
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#VendorPerbaikan_DDL').empty();
+                $('#VendorPencegahan_DDL').empty();
+                $.each(JSON.parse(data), function (key, value) {
+                    $('#VendorPerbaikan_DDL').append(new Option(value.vendor_name, value.vendor_id));
+                    $('#VendorPencegahan_DDL').append(new Option(value.vendor_name, value.vendor_id));
+                });
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+    function getPICKajianResiko(kategori) {
+        $('#TxtEmail').val("");
+        $.ajax({
+            url: 'DynamicController?spname=[dbo].[SP_SHOW_DDL]',
+            type: 'post',
+            data: JSON.stringify({
+                Model: {
+                    Option: 17,
+                    Departemen: $('#Departemen' + kategori + '_DDL').val(),
+                    VendorID: vendor,
+                    NO_CAPA: noCAPA
+                }
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#NamaPersonil' + kategori + '_DDL').empty();
+                $('#NamaPersonil' + kategori + '_DDL').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+                $.each(JSON.parse(data), function (key, value) {
+                    $('#NamaPersonil' + kategori + '_DDL').append(new Option(value.EmpName, value.EmpID));
+                });
+
+                $('#NamaPersonil' + kategori + '_DDL').change(function () {
+                    $.each(JSON.parse(data), function (key, value) {
+                        if (nik == value.EmpID) {
+                            if (value.Email_1 == null)
+                                $('#TxtEmail' + kategori).val(value.Email_2);
+                            else
+                                $('#TxtEmail' + kategori).val(value.Email_1);
+                            return false;
+                        }
+                    });
+                });
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function KajianResikoDDL() {
+        $.ajax({
+            url: '../PIC/GetDataPIC',
+            type: 'post',
+            data: JSON.stringify({
+                Option: 10,
+                SP: "[dbo].[SP_FORM_CAPA]"
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                getDataTindakan(JSON.parse(data));
+                $('#RootCause_KajianResikoDDL').empty();
+                $.each(JSON.parse(data), function (key, value) {
+                    $('#RootCause_KajianResikoDDL').append(new Option(value.WhyDesc, value.WhyDesc));
+                });
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+    function RemoveInputField(kategori) {
+        $('#TxtDeskripsi' + kategori).val("");
+        $('#duedate_' + kategori.toLowerCase()).val("");
+        $('#Departemen' + kategori + '_DDL').val("-").trigger("change");
+    }
+
+
+    function retrieveData() {
+        $.ajax({
+            url: '../PIC/GetDataPIC',
+            type: 'post',
+            data: JSON.stringify({
+                Option: 6,
+                NO_CAPA: noCAPA,
+                SP: "[dbo].[SP_FORM_CAPA]"
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (rootcause) {
+                var countAdd = 0;
+                $('#RootCause_DDL').empty();
+                $('#RootCause_DDL').append(new Option("*Pilih*", ""));
+                $.each(JSON.parse(rootcause), function (key, value) {
+                    $('#RootCause_DDL').append(new Option(value.WhyDesc, value.WhyDesc));
+                });
+                console.log(JSON.parse(rootcause));
+
+                $('#btn_AddPerbaikan').click(function () {
+                    countAdd++;
+                    if (countAdd > 1) {
+                        return;
+                    }
+                    else {
+                        var dto = {};
+                        var kategori = "Perbaikan";
+                        var obj = JSON.parse(rootcause);
+
+                        $.each(obj, function (key, value) {
+                            if (value.WhyDesc == $('#RootCause_DDL').val()) {
+                                dto = {
+                                    Option: 7,
+                                    NO_CAPA: noCAPA,
+                                    Aspect: value.Aspect,
+                                    WhyID: value.WhyID,
+                                    WhyParentID: value.ParentID,
+                                    RootCause: value.WhyDesc,
+                                    Tindakan: $('#TxtDeskripsiPerbaikan').val(),
+                                    Pelaksana: $('#NamaPersonilPerbaikan_DDL').val(),
+                                    Departemen: $('#DepartemenPerbaikan_DDL').val(),
+                                    LineNumber: value.LineNumber,
+                                    DueDate: $('#duedate_perbaikan').val(),
+                                    NamaPersonil: $('#NamaPersonilPerbaikan_DDL option:selected').text(),
+                                    Email: $('#TxtEmailPerbaikan').val(),
+                                    Is_AreaLain: $('input[name="Potensi"]:checked').val(),
+                                    Create_By: nik,
+                                    Status: "Perbaikan Baru",
+                                    SP: "[dbo].[SP_FORM_CAPA]"
+                                }
+                                return false;
+                            }
+                        });
+                        addTindakan(dto, kategori);
+                    }
+                });
+
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function retrieveData2() {
+        $.ajax({
+            url: 'GetDataPIC',
+            type: 'post',
+            data: JSON.stringify({
+                Option: 8,
+                NO_CAPA: noCAPA,
+                SP: "[dbo].[SP_FORM_CAPA]"
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (area_lain) {
+                console.log(area_lain)
+                var countAdd = 0;
+                var data = JSON.parse(area_lain);
+                if (data.length == 0) {
+                    $('#Div_TindakanPencegahan').prop('hidden', true);
+                } else {
+                    $('#AreaLain_DDL').empty();
+                    $('#AreaLain_DDL').append(new Option("*Pilih*", ""));
+                    $.each(JSON.parse(area_lain), function (key, value) {
+                        $('#AreaLain_DDL').append(new Option(value.Tindakan_Perbaikan, value.Tindakan_Perbaikan));
+                    });
+
+                    $('#btn_AddPencegahan').click(function () {
+                        countAdd++;
+                        if (countAdd > 1) {
+                            return;
+                        } else {
+                            var dto = {};
+                            var kategori = "Pencegahan";
+                            var obj = JSON.parse(area_lain);
+                            $.each(obj, function (key, value) {
+                                if (value.Tindakan_Perbaikan == $('#AreaLain_DDL').val()) {
+                                    dto = {
+                                        Option: 9,
+                                        NO_CAPA: noCAPA,
+                                        Aspect: value.WAHType_FK,
+                                        WhyID: value.WhyID,
+                                        WhyParentID: value.WhyParentID,
+                                        RootCause: value.Tindakan_Perbaikan,
+                                        AreaLain: $('#TxtAreaLainPencegahan').val(),
+                                        Tindakan: $('#TxtDeskripsiPencegahan').val(),
+                                        Pelaksana: $('#NamaPersonilPencegahan_DDL').val(),
+                                        Departemen: $('#DepartemenPencegahan_DDL').val(),
+                                        LineNumber: value.LineNumber,
+                                        DueDate: $('#duedate_pencegahan').val(),
+                                        NamaPersonil: $('#NamaPersonilPencegahan_DDL option:selected').text(),
+                                        Email: $('#TxtEmailPencegahan').val(),
+                                        Create_By: nik,
+                                        Status: "Pencegahan Baru",
+                                        SP: "[dbo].[SP_FORM_CAPA]"
+                                    }
+                                    return false;
+                                }
+                            });
+                            addTindakan(dto, kategori);
+                        }
+
+                    });
+                }
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
 
     function getRootCause() {
         var dto = {
             Kategori: "Cari Perbaikan",
-            RecordID:referenceID
+            RecordID: referenceID
         }
         $.ajax({
             url: "FindCAPADetail",
@@ -162,14 +546,72 @@
             success: function (data) {
                 var result = JSON.parse(data);
                 dataPerbaikan = result[0];
-
-                $('#txtRootCause').val(dataPerbaikan.WhyDesc);
+                var duedate = moment(dataPerbaikan.Due_Date);
+                $('#txtRootCauseExisting').val(dataPerbaikan.WhyDesc);
+                $('#txtTindakanPerbaikan').val(dataPerbaikan.Tindakan_Perbaikan);
+                $('#txtAreaBerpotensi').val(dataPerbaikan.Tindakan_Perbaikan);
+                $('#txtTindakanPerbaikan').prop("disabled", true);
+                $('#dueDatePerbaikan').val(duedate.format("YYYY-MM-DD"));
+                $('#RootCause_KajianResikoDDL').empty();
+                $('#RootCause_KajianResikoDDL').val(dataPerbaikan.Tindakan_Pencegahan);
+                $('#dueDatePerbaikan').prop("disabled", true);
                 @*$('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
 
             }, error: function (ex) {
                 alert(JSON.stringify(ex));
             }
         });
+    }
+
+    function addTindakan(dto, kategori) {
+        var valid = false;
+        $.each(dto, function (key, value) {
+            if (value == '' || value == '-' || value == null) {
+                if (value == 0 || typeof value === "undefined")
+                    valid = true;
+                else
+                    return valid = false;
+            } else {
+                valid = true;
+            }
+        });
+
+        if (valid) {
+            $.ajax({
+                url: 'AddTindakan',
+                type: 'post',
+                data: JSON.stringify(dto),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (data) {
+                    var status = JSON.parse(data);
+                    if (status[0].Status_Inserted != 'Tindakan Perbaikan' || status[0].Status_Inserted != 'Tindakan Pencegahan') {
+                        Swal.fire(
+                            'Success',
+                            status[0].Status_Inserted + ' berhasil di-input.',
+                            'success'
+                        ).then((result) => {
+                            if (result.value) {
+                                retrieveData();
+                                retrieveData2();
+                                RemoveInputField(kategori);
+                            }
+                            KajianDDLPerbaikanBaru();
+                        });
+                    }
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+        } else {
+            Swal.fire(
+                'Maaf',
+                'Input tidak boleh kosong.',
+                'warning'
+            )
+        }
     }
 
     $('#Severity_DDL').change(function () {
@@ -232,68 +674,6 @@
             return "Very High";
     }
 
-    $('#btn_KajianResiko').click(function (e) {
-        var kajianModel = {
-            Model: {
-                NO_CAPA: noCAPA,
-                Tindakan: $('#RootCause_KajianResikoDDL').val(),
-                P_Kegagalan: $('#TxtPotensiKegagalan').val(),
-                Spek: $('#TxtSpesifikasi').val(),
-                Dampak: $('#TxtDampak').val(),
-                Severity: $('#Severity_DDL').val(),
-                Penyebab: $('#TxtPenyebabPotensial').val(),
-                M_Penyebab: $('#TxtMPenyebabPotensial').val(),
-                Likelihood: $('#Likelihood_DDL').val(),
-                M_PKegagalan_LMD: $('#TxtMPotensi_KLMD').val(),
-                Detectability: $('#Detectability_DDL').val(),
-                RPN: $('#TxtRPN').val(),
-                RiskLevel: $('#TxtRiskLevel').val(),
-                Target: $('#Target_DDL').val(),
-                M_PKegagalan: $('#TxtMPotensi_K').val(),
-                Severity2: $('#Severity2_DDL').val(),
-                P_MPenyebab: $('#TxtMPenyebab_P').val(),
-                Likelihood2: $('#Likelihood2_DDL').val(),
-                P_MDPKegagalan: $('#TxtDPotensi_K').val(),
-                Detectability2: $('#Detectability2_DDL').val(),
-                RPN2: $('#TxtRPN2').val(),
-                RiskLevel2: $('#TxtRiskLevel2').val(),
-                PIC: $('#TxtPIC').val(),
-                DueDate: $('#DueDate_Kajian').val(),
-                Lainnya: $('#TxtLainnya').val(),
-                Tipe: 'Perbaikan',
-                EmpID: nik
-            }
-        };
-        var valid = true;
-        console.log('kajianModel.Model');
-        console.log(kajianModel.Model);
-        $.each(kajianModel.Model, function (key, value) {
-            if (value == '') {
-                if (value == 0)
-                    return valid = true;
-                else
-                    return valid = false;
-            } else {
-                valid = true;
-            }
-        });
-        if (valid) {
-            cleanModalFields();
-            newKajianResiko.push(kajianModel);
-            populateKajian();
-            swal('Kajian risiko berhasil ditambahkan', {
-                icon: "success",
-                buttons: false,
-                timer: 1000,
-            });
-        } else {
-            swal('Semua field wajib terisi', {
-                icon: "warning",
-                buttons: false,
-                timer: 1000,
-            });
-        }
-    })
 
     function cleanModalFields() {
         $("#KajianResikoModal :input").val("");
@@ -307,113 +687,169 @@
         $("#Detectability2_DDL").val("1");
     }
 
-    function populateKajian() {
-        $('#Tbl_KajianResiko').prop("disabled", true);
-        console.log(newKajianResiko.length);
-        if (newKajianResiko.length > 0) {
-            $('#Tbl_KajianResiko').DataTable({
-                "pageLength": 5,
-                "lengthChange": true,
-                "searching": false,
-                "data": newKajianResiko,
-                "select": true,
-                "bDestroy": true,
-                "scrollCollapse": true,
-                "columns": [
-                    { "data": "Model.P_Kegagalan" },
-                    { "data": "Model.Spek" },
-                    { "data": "Model.Dampak" },
-                    { "data": "Model.Severity" },
-                    { "data": "Model.Penyebab" },
-                    { "data": "Model.M_Penyebab" },
-                    { "data": "Model.Likelihood" },
-                    { "data": "Model.M_PKegagalan_LMD" },
-                    { "data": "Model.Detectability" },
-                    { "data": "Model.RPN" },
-                    {
-                        "data": "Model.RiskLevel",
-                        "className": "riskLevel"
-                    },
-                    { "data": "Model.Target" },
-                    { "data": "Model.M_PKegagalan" },
-                    { "data": "Model.Severity2" },
-                    { "data": "Model.P_MPenyebab" },
-                    { "data": "Model.Likelihood2" },
-                    { "data": "Model.P_MDPKegagalan" },
-                    { "data": "Model.Detectability2" },
-                    { "data": "Model.RPN2" },
-                    {
-                        "data": "Model.RiskLevel2",
-                        "className": "riskLevel2"
-                    },
-                    { "data": "Model.PIC" },
-                    { "data": "Model.DueDate" },
-                    { "data": "Model.Lainnya" },
-                    {
-                        "data": null,
-                        "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onchange=''>Delete</button> "
-                    },
-                ],
-                @*"columnDefs": [
-                    {
-                        "targets": 0,
-                        "visible": false
-                    },
-                    {
-                        "targets": 1,
-                        "visible": false
-                    }
+   
 
-                ],*@
-                "order": [[1, 'asc']],
-                "rowCallback": function (row, data) {
-                    ColoredColumns(row, data.RiskLevel, "riskLevel");
-                    ColoredColumns(row, data.RiskLevel2, "riskLevel2");
-                }
-            });
-        } else {
-
+    function KajianDDLPerbaikanBaru() {
+        var dictlist = {
+            Kategori: "Cari Perbaikan",
+            RecordID: referenceID,
+            nomorCAPA: noCAPA
         }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Find_Data",
+            type: "POST",
+            async: false,
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                $('#RootCause_KajianResikoDDL').prop("disabled", false);
+                $('#RootCause_KajianResikoDDL').empty();
+                $('#btn_AddKajian').prop("disabled", false);
+                for (var i = 0; i < result.length; i++) {
+                    $('#RootCause_KajianResikoDDL').append(new Option("[Perbaikan]" + " " + result[i].Tindakan_Perbaikan, result[i].RecordID));
+                }
+                @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
+                KajianDDLPencegahanBaru();
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+    function KajianDDLPencegahanBaru() {
+        var dictlist = {
+            Kategori: "Cari Pencegahan",
+            RecordID: referenceID,
+            nomorCAPA: noCAPA
+        }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Find_Data",
+            type: "POST",
+            async: false,
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                $('#RootCause_KajianResikoDDL').prop("disabled", false);
+                $('#btn_AddKajian').prop("disabled", false);
+                for (var i = 0; i < result.length; i++) {
+                    $('#RootCause_KajianResikoDDL').append(new Option("[Pencegahan]" + " " + result[i].Tindakan_Pencegahan, result[i].Tindakan_Pencegahan));
+                 
+                }
+              
+                @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
     }
 
-    $('#btnSimpan').click(function (e) {
-        var isAreaLain = $('input[name="radioPotensi"]:checked').val();
-        var adaPencegahan = 0;
-        if (isAreaLain == 'Yes') {
-            adaPencegahan = 1;
+    function KajianDDLPencegahan() {
+        var dictlist = {
+            Kategori: "Cari Pencegahan",
+            RecordID: referenceID,
+            nomorCAPA: noCAPA
         }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Find_Data",
+            type: "POST",
+            async: false,
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                $('#RootCause_KajianResikoDDL').empty();
+                $('#RootCause_KajianResikoDDL').prop("disabled", false);
+                $('#btn_AddKajian').prop("disabled", false);
+                for (var i = 0; i < result.length; i++) {
+                    $('#RootCause_KajianResikoDDL').append(new Option("[Pencegahan]" + " " + result[i].Tindakan_Pencegahan, result[i].Tindakan_Pencegahan));
+                    console.log(result[i].Tindakan_Pencegahan);
+                }
+                @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
+
+                //objTindakan += result;
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    $('#AddPencegahan').click(function (e) {
         var referenceID = getQueryStrings()["ReferenceID"];
         referenceID = referenceID.replace('#', '');
 
-        newDataPerbaikan = {
-            TindakanPerbaikan: $('#txtTindakanPerbaikan').val(),
-            DueDatePerbaikan: $('#dueDatePerbaikan').val(),
+        var dictionarylist = {
+            kategori:"Penambahan Pencegahan",
             TindakanPencegahan: $('#txtTindakanPencegahan').val(),
             DueDatePencegahan: $('#dueDatePencegahan').val(),
-            IsAreaLain: adaPencegahan,
+            IsAreaLain: 1,
             KajianResikoList: newKajianResiko,
-            PerbaikanID: referenceID,
-            Updater: nik
+            RecordID: referenceID,
+            EmpId: nik
         }
-        console.log(newDataPerbaikan);
+        var dto = {
+            Model: dictionarylist
+        }
         $.ajax({
-            url: "SimpanPerbaikanBaru",
+            url: "DynamicController?spname=SP_Update_Pelaksanaan",
             type: "POST",
-            data: JSON.stringify(newDataPerbaikan),
+            data: JSON.stringify(dto),
             contentType: "application/json",
             dataType: 'json',
             success: function (data) {
-                swal("Penambahan berhasil disimpan", {
-                    icon: "success",
-                    buttons: false,
-                    timer: 1000,
-                });
-                ReloadPage();
+                alert("Penambahan berhasil disimpan");
+                KajianDDLPencegahan();
             },
             error: function (xhr, error, status) {
                 console.log(error, status);
             }
         });
+        //var isAreaLain = $('input[name="radioPotensi"]:checked').val();
+        //var adaPencegahan = 0;
+        //if (isAreaLain == 'Yes') {
+        //    adaPencegahan = 1;
+        //}
+        //var referenceID = getQueryStrings()["ReferenceID"];
+        //referenceID = referenceID.replace('#', '');
+
+        //newDataPerbaikan = {
+        //    TindakanPerbaikan: $('#txtTindakanPerbaikan').val(),
+        //    DueDatePerbaikan: $('#dueDatePerbaikan').val(),
+        //    TindakanPencegahan: $('#txtTindakanPencegahan').val(),
+        //    DueDatePencegahan: $('#dueDatePencegahan').val(),
+        //    IsAreaLain: adaPencegahan,
+        //    KajianResikoList: newKajianResiko,
+        //    PerbaikanID: referenceID,
+        //    Updater: nik
+        //}
+        //console.log(newDataPerbaikan);
+        //$.ajax({
+        //    url: "SimpanPerbaikanBaru",
+        //    type: "POST",
+        //    data: JSON.stringify(newDataPerbaikan),
+        //    contentType: "application/json",
+        //    dataType: 'json',
+        //    success: function (data) {
+        //        alert("Penambahan berhasil disimpan");
+
+        //        ReloadPage();
+        //    },
+        //    error: function (xhr, error, status) {
+        //        console.log(error, status);
+        //    }
+        //});
 
         @*var modePerbaikan = $("#modePerbaikan").val();
         var idPerbaikan = $('#ddlPerbaikan').val();

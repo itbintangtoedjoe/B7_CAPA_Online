@@ -6,6 +6,25 @@
 
 <div class="content-body">
     <!--Modal-->
+    <div class="modal fade" id="Reject_Page" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reject CAPA</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        @Html.Partial("RejectCAPA")
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Dasboard > Approval Atasan Pelaksana CAPA-->
     <div class="row page-titles mx-0">
         <div class="col p-md-0">
             <ol class="breadcrumb">
@@ -31,10 +50,12 @@
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">Atasan PIC</label>
                                     <input class="form-control form-control-sm" type="text" id="TxtRequestor" value="@Request.RequestContext.HttpContext.Session["FullName"]" readonly>
+                                    <input class="form-control form-control-sm" type="text" id="TxtRequestor_NIK" value="@Request.RequestContext.HttpContext.Session["NIK"]" hidden>
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-20">Nomor CAPA</label>
-                                    <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["NoCAPA"]" readonly />
+                                    <input class="form-control form-control-sm" type="text" id="QS_NoCAPA" value="@Request.QueryString["NoCAPA"]" readonly />
+                                    <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["NoCAPA"]" hidden />
                                     <input class="form-control form-control-sm" type="text" id="input_REG_ID" value="@Request.QueryString["REG"]" hidden />
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
@@ -49,18 +70,19 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Request Page</h4>
-                        <button class="btn btn-dark form-control col-sm-2">Request</button>
+                        <button class="btn btn-dark form-control col-sm-2" id="btn_Request">Request</button>
                     </div>
                 </div>
 
                 @if (!string.IsNullOrEmpty(Request.QueryString["NoCAPA"]))
-                {                    
+                {
                     @Html.Partial("AnalisaKondisiPV")
-                    @Html.Partial("PotentialRootCausePV")
-                    @Html.Partial("TindakanPerbaikanPV")
-                    @Html.Partial("TindakanPencegahanPV")
+                    <div id="Div_PRCA_PV">@Html.Partial("PotentialRootCausePV")</div>
+                    //@Html.Partial("TindakanPerbaikanPV")
+                    //@Html.Partial("TindakanPencegahanPV")
+                    @Html.Partial("../Koordinator/InvestigasiPenyimpangan")
                     @Html.Partial("KajianResikoPV")
-                    @Html.Partial("ApprovalPV")
+                    <div id="Div_Approval_PV">@Html.Partial("ApprovalPV")</div>
                 }
             </div>
         </div>
@@ -70,25 +92,81 @@
 
 
 <script>
+
+    var CurrentStatsID = 2;
+    function checkStatusCAPA() {
+        $.ajax({
+            url: '/PIC/CheckStatusCAPA',
+            type: 'post',
+            data: JSON.stringify({
+                Model: {
+                    NO_CAPA: $('#input_NoCAPA').val(),
+                    Option: 14,
+                    Aspect: '',
+                    WSBH: '',
+                    WAH: '',
+                    Status: '',
+                    isParent: '',
+                    WHY_Parent: '',
+                    WHY: '',
+                    Tindakan: '',
+                    Pelaksana: '',
+                    LineNumber: '',
+                    NamaPersonil: '',
+                    Email: '',
+                    DueDate: '',
+                    Is_AreaLain: '',
+                    WhyID: '',
+                    WhyParentID: '',
+                    RootCause: '',
+                    Create_By: '',
+                    RecordID: ''
+                }
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var result = JSON.parse(data)[0];
+                var hide = (result.STATUS_ID == CurrentStatsID) ? (false) : (true); // jika status CAPA = 2 maka, hide = false , sebaliknya.                
+                if(hide) //Jika hide true maka di hidden.
+                    $('#Div_Approval_PV').hide(); //Hide ApprovalPV (~/Shared/ApprovalPV)
+                
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }    
     function HideDeleteButton() {
         // variable isHide berada di partial view
         return isHide = true;
-    }    
+    }
 
-    $(document).ready(function () {     
-        //*PV = Partial View
-        //TableKajianPV(); // Isi Table kajian resiko
-        //KajianResikoDDLPV(); // Dropdown Kajian Resiko
-        //getTablePV(); // Isi Table Analisa Kondisi
-        //retrieveDataPV(); // Isi Dropdown Rootcause tindakan perbaikan serta function Add
-        //retrieveData2PV();// Isi Dropdown AreaLain tindakan pencegahan serta function Add
-        //$("#btn_Submit").click(function () {
-        //    SubmitApprovalPV(); //Submit Approval Atasan PIC
-        //});
-         
+    $(document).ready(function () {
+        //*PV = Partial View        
 
-        //Hidden Delete Action Buttons Table Analisa Kondisi serta Table Kajian Resiko        
+        //Hidden card div AnalisaKondisi di PartialView (~/Koordinator/InvestigasiPenyimpangan)
+        $('#Div_AnalisaKondisi').prop('hidden', true);
+
+        //Hidden card div AnalisaKondisi di PartialView (~/Shared/AnalisaKondisiPV)
+        $('#Div_AnalisaKondisiInput').prop('hidden', true);
+
+        //Hidden card div AnalisaKondisi di PartialView (~/Shared/KajianResikoPV)
+        $('#Div_KajianResikoInput').prop('hidden', true);
+
+        //Hidden PotentialRootCausePartialView
+        $('#Div_PRCA_PV').hide();
+
+        //Check Status_ID CAPA from CAPA_HEADERS        
+        checkStatusCAPA();
+
+        //Hidden Delete Action Buttons Table Analisa Kondisi serta Table Kajian Resiko
         HideDeleteButton(); // diberi comment jika ingin unhide tombol delete-nya
+       
+        //Request CAPA Details
+        $('#btn_Request').click(function () {
+            window.open('/Koordinator/CreateCAPA?NoCAPA=' + $('#input_NoCAPA').val());
+        });
 
         //Radio button on/off
         var countYes = 0;
@@ -108,8 +186,6 @@
             }
 
         });
-
-
 
     });
 </script>

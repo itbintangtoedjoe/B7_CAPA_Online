@@ -49,10 +49,9 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
-        public ActionResult ApprovalKoordinator2(string NoCAPA,string status)
+        public ActionResult ApprovalKoordinator2(string NoCAPA, string status)
         {
             ViewBag.NoCAPA = NoCAPA;
-
             ViewBag.status = status;
             return View();
         }
@@ -147,7 +146,6 @@ namespace B7_CAPA_Online.Controllers
             return Json(Result = DAL.GetDataPrint(Model));
 
         }
-
         public ActionResult GetEvaluator(string departemen, int Option, string Lokasi, string NoCAPA)
         {
             var dictionary = new Dictionary<string, object>
@@ -171,9 +169,9 @@ namespace B7_CAPA_Online.Controllers
 
         }
 
-       
-        public ActionResult InsertAttachment(string spname,string NoCapa,string Creator)
-        {            
+
+        public ActionResult InsertAttachment(string spname, string NoCapa, string Creator)
+        {
             DataTable dt = new DataTable();
             dt.Columns.Add("LAMPIRAN_TERKAIT");
             dt.Columns.Add("FILE_NAME");
@@ -256,7 +254,12 @@ namespace B7_CAPA_Online.Controllers
                 rowstype["Creator"] = Model.Penyimpangan[trav].Creator;
                 dt.Rows.Add(rowstype);
             }
-            var parameters = new DynamicParameters();
+            var dictionary = new Dictionary<string, object>
+            {
+                {"Option",0 }
+
+            };
+            var parameters = new DynamicParameters(dictionary);
             parameters.Add("InsertPenyimpangan", dt.AsTableValuedParameter("[dbo].[InsertPenyimpangan]"));
 
             var spname = "SP_Insert_Penyimpangan";
@@ -370,7 +373,7 @@ namespace B7_CAPA_Online.Controllers
             int Count = 0;
             List<ListDepartemenModel> arrListDept = new List<ListDepartemenModel>();
             var list = new ListDepartemen();
-            string[] attr = { "DEPARTEMEN", "PENYIMPANGAN", "FILE_PATH" };
+            string[] attr = { "DEPARTEMEN", "PENYIMPANGAN", "FILE_PATH", "FILENAMES" };
             Result = DAL.GetDataPrint(Model);
             var CAPA = JsonConvert.DeserializeObject<List<FindCAPAModel>>(Result);
             foreach (var str in CAPA)
@@ -401,11 +404,19 @@ namespace B7_CAPA_Online.Controllers
                         case 2:
                             str.FILELIST = newList;
                             break;
+                        case 3:
+                            str.FILE_NAME = newList;
+                            break;
                     }
                     Count++;
                 }
             }
             return Json(CAPA);
+        }
+        public void ResetDepartments()
+        {
+            var list = new ListDepartemen();
+            list.ClearDT();
         }
 
         //public JsonResult GetDepartments()
@@ -503,7 +514,7 @@ namespace B7_CAPA_Online.Controllers
                 System.IO.Stream fileContent = file.InputStream;
                 string filePath = Path.Combine(@"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Koordinator\", Path.GetFileName(file.FileName));
                 //string filePath = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
-                Model.LampiranTerkait.Add(new Lampiran { LAMPIRAN_TERKAIT = filePath , FILE_NAME = Path.GetFileName(file.FileName)});
+                Model.LampiranTerkait.Add(new Lampiran { LAMPIRAN_TERKAIT = filePath, FILE_NAME = Path.GetFileName(file.FileName) });
                 Model.SP = "[dbo].[SP_CAPA_ID]";
                 //file.SaveAs(filePath);
             }
@@ -512,13 +523,13 @@ namespace B7_CAPA_Online.Controllers
 
             string penyimpanganObj = string.Join(",", Model.PenyimpanganCollection.ToArray());
             dynamic penyimpanganList = JsonConvert.DeserializeObject<List<Penyimpangan>>(penyimpanganObj);
-            
-            var Departemen_DT= ToDataTable<Dept>(deptList);
+
+            var Departemen_DT = ToDataTable<Dept>(deptList);
             var Penyimpangan_DT = new DataTable();
             if (penyimpanganList != null)
-            {                
+            {
                 Penyimpangan_DT = ToDataTable<Penyimpangan>(penyimpanganList);
-            }            
+            }
             var Path_DT = ToDataTable<Lampiran>(Model.LampiranTerkait);
             //smtp email
             //try
@@ -594,6 +605,23 @@ namespace B7_CAPA_Online.Controllers
             return dt;
         }
 
+        #endregion
+
+        #region Koordinator Verifikasi
+
+        public ActionResult VerifikasiPelaksanaCAPA(string NoCAPA)
+        {
+
+            return View();
+        }
+
+        public ActionResult GetVerfifikasiData(DALModel Model)
+        {
+            Model.SP = "[dbo].[SP_VERIFIKASI_PELAKSANA_CAPA]";
+            Model.Option = 1;
+            
+            return Json(DAL.GetDataPrint(Model));
+        }
         #endregion
     }
 }

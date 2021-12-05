@@ -22,9 +22,11 @@ namespace B7_CAPA_Online.Models
         public int isParent { get; set; }      
         public string WHY_Parent { get; set; }
         public string WHY { get; set; }
+        public string AreaLain { get; set; }
         public string Tindakan { get; set; }
         public string Pelaksana { get; set; }
-        public int LineNumber { get; set; }
+        public string Departemen { get; set; }
+        public string LineNumber { get; set; }
         public string NamaPersonil { get; set; }
         public string Email { get; set; }
         public string DueDate { get; set; }

@@ -1,0 +1,413 @@
+﻿
+@{
+    ViewBag.Title = "ViewBukti";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.NoCAPA = @Request.QueryString["NoCAPA"];
+}
+
+<style>
+    @@media (min-width: 768px) {
+        .modal-xl {
+            width: 900%;
+            max-width: 1300px;
+        }
+    }
+</style>
+
+<link href="~/Content/Scripts/plugins/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
+
+<div class="content-body">
+    <div class="row page-titles mx-0">
+        <div class="col p-md-0">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">View Bukti</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- row -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">View Bukti</h4>
+                        <form>
+                            <div class="row">
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-20">Tanggal</label>
+                                    <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly>
+                                </div>
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-40">Requestor</label>
+                                    <input class="form-control form-control-sm" type="text" id="input_Requestor" value="@Request.RequestContext.HttpContext.Session["FullName"]" readonly>
+                                    @*<input class="form-control form-control-sm" type="text" id="input_Requestor_NIK" value="HARDCODE_NIK" hidden>*@
+                                    <input class="form-control form-control-sm" type="text" id="input_Requestor_NIK" value="@Request.RequestContext.HttpContext.Session["NIK"]" hidden>
+                                </div>
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-20">Nomor CAPA</label>
+                                    <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["NoCAPA"]" readonly>
+
+                                </div>
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label class="m-t-40">Departemen</label>
+                                    <input class="form-control form-control-sm" type="text" id="input_Departemen" value="@Request.RequestContext.HttpContext.Session["Departemen"]" readonly>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                @*<div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Request Page</h4>
+                <button class="btn btn-dark form-control col-sm-2" id="btn_Request">Request</button>
+            </div>
+        </div>*@
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Bukti Tindakan Perbaikan</h4>
+                        <div id="Div_BuktiTPerbaikan">
+                            <table class="table table-hover table-bordered zero-configuration" style="color:black" id="Tbl_BuktiPerbaikan">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Root Cause</th>
+                                        <th>Tindakan Perbaikan</th>
+                                        <th>Pelaksana Tindakan Perbaikan</th>
+                                        <th>Superior</th>
+                                        <th>Hasil Tindakan</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Bukti Tindakan Pencegahan</h4>
+                        <div id="Div_BuktiTPencegahan">
+                            <table class="table table-hover table-bordered zero-configuration" style="color:black" id="Tbl_BuktiPencegahan">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Root Cause</th>
+                                        <th>Tindakan Pencegahan</th>
+                                        <th>Pelaksana Tindakan Pencegahan</th>
+                                        <th>Superior</th>
+                                        <th>Hasil Tindakan</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Bukti Treatment Plan</h4>
+                        <div id="Div_BuktiTPlan">
+                            <table class="table table-hover table-bordered zero-configuration" style="color:black" id="Tbl_BuktiTreatment">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Hasil Treatment Plan</th>
+                                        <th>PIC</th>
+                                        <th>DueDate</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>              
+
+            </div>
+        </div>
+        <!-- #/ container -->
+    </div>
+</div>
+
+@*JQuery Library*@
+@*<script src="../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>*@
+<script src="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.js" defer></script>
+<script src="~/Content/Scripts/plugins/datatables/jquery.dataTables.min.js" defer></script>
+<script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>
+<script src="https://unpkg.com/gojs/release/go-debug.js" defer></script>
+
+
+
+<script>
+    let objPencegahan, objTreatment, objLampiran;
+
+    function showChild(t, tahapan) {
+        // Array to track the ids of the details displayed rows
+        var detailRows = [];
+
+        $('#Tbl_Bukti' + tahapan + ' tbody').on('click', 'tr td a i.fa', function () {
+            var tr = $(this).closest('tr');
+            var trs = $(this).closest('tr td a i');
+            var row = t.row(tr);
+            var idx = $.inArray(tr.attr('id'), detailRows);
+
+            if (row.child.isShown()) {
+                trs.removeClass('fa-eye-slash');
+                row.child.hide();
+
+                // Remove from the 'open' array
+                detailRows.splice(idx, 1);
+            }
+            else {
+                trs.addClass('fa-eye-slash');
+                row.child(format(row.data(), tahapan)).show();
+                // Add to the 'open' array
+                if (idx === -1) {
+                    detailRows.push(tr.attr('id'));
+                }
+            }
+        });
+
+        // On each draw, loop over the `detailRows` array and show any child rows
+        t.on('draw', function () {
+            $.each(detailRows, function (i, id) {
+                $('#' + id + ' td.details').trigger('click');
+            });
+        });
+    }
+
+    function GetAllBukti() {
+        $.when(
+            $.when(
+                $.ajax({
+                    url: 'GetData',
+                    type: 'post',
+                    data: JSON.stringify({
+                        Model: {
+                            Option: 4,
+                            NO_CAPA: $('#input_NoCAPA').val()
+                        }
+                    }),
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        objTreatment = data;
+                        var t = $('#Tbl_BuktiTreatment').DataTable({
+                            "pageLength": 10,
+                            "responsive": true,
+                            "info": false,
+                            "paging": false,
+                            "lengthChange": true,
+                            "searching": false,
+                            "processing": true,
+                            "data": JSON.parse(data),
+                            "select": true,
+                            "bDestroy": true,
+                            "scrollCollapse": true,
+                            "columns": [
+                                {
+                                    "data": null
+                                },
+                                { "data": "Hasil_Treatment" },
+                                { "data": "PIC" },
+                                { "data": "DueDate" },
+                                {
+                                    "orderable": false,
+                                    "data": null,
+                                    "defaultContent": '<span><a><i class="fa fa-eye" aria-hidden="true"></i></a></span>',
+                                    "className": "details text-center"
+                                }
+                            ],
+                            "order": [[1, 'asc']]
+                        });
+
+                        t.on('order.dt search.dt', function () {
+                            t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                                cell.innerHTML = i + 1;
+                            });
+                        }).draw();
+                        showChild(t, "Treatment");
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                })
+            ).done(
+                $.ajax({
+                    url: 'GetData',
+                    type: 'post',
+                    data: JSON.stringify({
+                        Model: {
+                            Option: 3,
+                            NO_CAPA: $('#input_NoCAPA').val()
+                        }
+                    }),
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        var t = $('#Tbl_BuktiPencegahan').DataTable({
+                            "pageLength": 10,
+                            "responsive": true,
+                            "info": false,
+                            "paging": false,
+                            "lengthChange": true,
+                            "searching": false,
+                            "processing": true,
+                            "data": JSON.parse(data),
+                            "select": true,
+                            "bDestroy": true,
+                            "scrollCollapse": true,
+                            "columns": [
+                                {
+                                    "data": null
+                                },
+                                { "data": "WhyDesc" },
+                                { "data": "Tindakan_Pencegahan" },
+                                { "data": "Pelaksana_Pencegahan" },
+                                { "data": "SupApprover" },
+                                { "data": "Hasil_Pencegahan" },
+                                {
+                                    "orderable": false,
+                                    "data": null,
+                                    "defaultContent": '<span><a><i class="fa fa-eye" aria-hidden="true"></i></a></span>',
+                                    "className": "details text-center"
+                                }
+                            ],
+                            "order": [[1, 'asc']]
+                        });
+                        objPencegahan = data;
+                        t.on('order.dt search.dt', function () {
+                            t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                                cell.innerHTML = i + 1;
+                            });
+                        }).draw();
+                        showChild(t, "Pencegahan");
+
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                })
+            )
+        ).done(
+            $.when(
+                $.ajax({
+                    url: 'GetData',
+                    type: 'post',
+                    data: JSON.stringify({
+                        Model: {
+                            Option: 5,
+                            NO_CAPA: $('#input_NoCAPA').val()
+                        }
+                    }),
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        objLampiran = data;
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                })
+            ).done(
+                $.ajax({
+                    url: 'GetData',
+                    type: 'post',
+                    data: JSON.stringify({
+                        Model: {
+                            Option: 2,
+                            NO_CAPA: $('#input_NoCAPA').val()
+                        }
+                    }),
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        var t = $('#Tbl_BuktiPerbaikan').DataTable({
+                            "pageLength": 10,
+                            "responsive": true,
+                            "info": false,
+                            "paging": false,
+                            "lengthChange": true,
+                            "searching": false,
+                            "processing": true,
+                            "data": JSON.parse(data),
+                            "select": true,
+                            "bDestroy": true,
+                            "scrollCollapse": true,
+                            "columns": [
+                                {
+                                    "data": null
+                                },
+                                { "data": "WhyDesc" },
+                                { "data": "Tindakan_Perbaikan" },
+                                { "data": "Pelaksana_Perbaikan" },
+                                { "data": "SupApprover" },
+                                { "data": "Hasil_Perbaikan" },
+                                {
+                                    "orderable": false,
+                                    "data": null,
+                                    "defaultContent": '<span><a><i class="fa fa-eye" aria-hidden="true"></i></a></span>',
+                                    "className": "details text-center"
+                                },
+                            ],
+                            "order": [[1, 'asc']]
+                        });
+
+                        t.on('order.dt search.dt', function () {
+                            t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                                cell.innerHTML = i + 1;
+                            });
+                        }).draw();
+                        showChild(t, "Perbaikan");
+
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                })
+            )
+        );
+        return;
+    }
+
+    function format(d, tahapan) {
+        console.log(objLampiran);
+        var html = '';
+        $.each(JSON.parse(objLampiran), function (key, value) {
+            if (value.ID_FK == d.RecordID && value.TAHAPAN == "Lampiran " + tahapan) {
+                return html += '<tr>' +
+                    '<td>File Name :</td>' +
+                    '<td><a href="' + value.FILE_PATH + '">' + value.FILE_NAME + '</a></td>' +
+                    '</tr>';
+            }           
+        });
+
+        if (html == '') {
+            html = '';
+            html = '<tr>' +
+                '<td>Tidak ada lampiran.</td>' +
+                '</tr>';
+        }
+
+        var tableChild = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+            html +
+            '</table>';
+        return tableChild;
+    }
+
+    $(document).ready(function () {
+        GetAllBukti();
+    });
+</script>

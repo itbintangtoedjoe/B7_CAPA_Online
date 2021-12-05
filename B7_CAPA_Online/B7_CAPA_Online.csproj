@@ -170,6 +170,7 @@
     <Compile Include="Models\DALModel.cs" />
     <Compile Include="Models\Email.cs" />
     <Compile Include="Models\EncryptionHelper.cs" />
+    <Compile Include="Models\EvaluatorAttirbute.cs" />
     <Compile Include="Models\FindCAPAModel.cs" />
     <Compile Include="Models\KoordinatorModel.cs" />
     <Compile Include="Models\ListDepartemenModel.cs" />
@@ -181,6 +182,9 @@
     <Compile Include="Scripts\DataAccess\DataAccess.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\bg-b7.jpg" />
+    <Content Include="Content\Images\logob7-white.png" />
+    <Content Include="Content\Images\logob7.png" />
     <Content Include="Content\Scripts\js\custom.min.js" />
     <Content Include="Content\Scripts\js\dashboard\dashboard-1.js" />
     <Content Include="Content\Scripts\js\gleek.js" />
@@ -5428,6 +5432,15 @@
     <Content Include="Views\Shared\KajianResikoPV.cshtml" />
     <Content Include="Views\Shared\ApprovalPV.cshtml" />
     <Content Include="Views\Pelaksana\PelaksanaTambahPerbaikan.cshtml" />
+    <Content Include="Views\Evaluator\Evaluator.cshtml" />
+    <Content Include="Views\Koordinator\VerifikasiPelaksanaCAPA.cshtml" />
+    <Content Include="Views\Evaluator\KonfirmasiEfektivitas.cshtml" />
+    <Content Include="Views\Evaluator\ViewBukti.cshtml" />
+    <Content Include="Views\Shared\LoadData_PV.cshtml" />
+    <Content Include="Views\Evaluator\ViewCAPA.cshtml" />
+    <Content Include="Views\Shared\RentangEfektivitas.cshtml" />
+    <Content Include="Views\Shared\RentangEfektivitas_PV.cshtml" />
+    <Content Include="Views\Pelaksana\PelaksanaCAPAPembatalan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -22,7 +22,13 @@ namespace B7_CAPA_Online.Models
         public string FILE_PATH { get; set; }
         public string PENYIMPANGAN { get; set; }
         public string DEPTLIST { get; set; }
+        public string FILENAMES { get; set; }
         public List<string> PENYIMPANGANLIST { get; set; }
         public List<string> FILELIST { get; set; }
+        public List<string> FILE_NAME{ get; set; }
+        public string FullName { get; set; }
+        public string Kata_Kunci { get; set; }
+        public string Kode_CAPA { get; set; }
+
     }
 }

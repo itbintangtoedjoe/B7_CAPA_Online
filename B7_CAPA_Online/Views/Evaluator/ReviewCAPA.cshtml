@@ -22,7 +22,8 @@
                         </div>
                         <div class="form-group mb-2 col-sm-3">
                             <label class="m-t-20">Nomor CAPA</label>
-                            <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["CAPA"]" readonly />
+                            <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["NoCAPA"]" readonly />
+                            <input type="text" class="btn btn-primary" id="QS_NoCAPA" value="@Request.QueryString["NoCAPA"]" hidden />
                             <input class="form-control form-control-sm" type="text" id="input_REG_ID" value="@Request.QueryString["REG"]" hidden />
                         </div>
                         <div class="form-group mb-2 col-sm-3">
@@ -34,28 +35,80 @@
             </div>
         </div>
 
-        @if (!string.IsNullOrEmpty(Request.QueryString["CAPA"]))
-        {                    
-            @Html.Partial("AnalisaKondisiPV")
+        @if (!string.IsNullOrEmpty(Request.QueryString["NoCAPA"]))
+        {
+            @*@Html.Partial("AnalisaKondisiPV")
             @Html.Partial("PotentialRootCausePV")
             @Html.Partial("TindakanPerbaikanPV")
             @Html.Partial("TindakanPencegahanPV")
             @Html.Partial("KajianResikoPV")
-            @Html.Partial("ApprovalPV")
+            @Html.Partial("ApprovalPV")*@
+            @Html.Partial("LoadData_PV")
         }
 
+        <!--<div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Koordinator</h4>
+            <form>
+                <div class="row">
+                    <div class="form-group mb-2 col-sm-3">
+                        <label class="m-t-20">Tanggal</label>
+                        <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly>
+                    </div>
+                    <div class="form-group mb-2 col-sm-3">
+                        <label class="m-t-40">Requestor</label>
+                        <input class="form-control form-control-sm" type="text" id="input_Requestor" readonly>
+                    </div>
+                    <div class="form-group mb-2 col-sm-3">
+                        <label class="m-t-20">Nomor CAPA</label>
+                        <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["NoCAPA"]" readonly />
+                        <input class="form-control form-control-sm" type="text" id="input_REG_ID" value="@Request.QueryString["REG"]" hidden />
+                    </div>
+                    <div class="form-group mb-2 col-sm-3">
+                        <label class="m-t-40">Departemen</label>
+                        <input class="form-control form-control-sm" type="text" id="input_Departemen" readonly>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="form-group col-md-2">
+                <input type="button" class="btn btn-primary" id="btn_Request_Page" value="Show Request Page" />
+            </div>
+            <div id="Request_Page" hidden="hidden">-->
+        @*@Html.Partial("../Koordinator/RequestCAPA", "KoordinatorController")*@
+        <!--</div>
+            <div id="InvestigasiPenyimpangan">
+                @Html.Partial("../Koordinator/InvestigasiPenyimpangan", "KoordinatorController")
+            </div>
+            <div id="PenentuanTindakanPerbaikan">
+                @Html.Partial("../Koordinator/PenentuanTindakanPerbaikan", "KoordinatorController")
+            </div>
+            <div id="PenentuanTindakanPencegahan">
+                @Html.Partial("../Koordinator/PenentuanTindakanPencegahan", "KoordinatorController")
+            </div>
+            <div id="KajianRisiko">
+                @Html.Partial("../Koordinator/KajianRisiko", "KoordinatorController")
+            </div>
+            <br />
+        </div>
+    </div>-->
         <div class="card">
             <div class="card-body">
                 <div class="row">
                     <div class="form-group mb-2 col-sm-3">
                         <label class="m-t-20">Rentang monitoring efektifivas tindakan perbaikan</label>
-                        <input type="date" id="deRPerbaikan" class="form-control form-control-sm">
+                        <select class="form-control select2" name="RentangDDL" id="RentangPerbaikan_DDL" required>
+                        </select>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group mb-2 col-sm-3">
                         <label class="m-t-20">Rentang monitoring efektivitas tindakan pencegahan</label>
-                        <input type="date" id="deRPencegahan" class="form-control form-control-sm">
+                        <select class="form-control select2" name="RentangDDL" id="RentangPencegahan_DDL" required>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -106,12 +159,51 @@
 
 </div>
 <script>
+    $(document).ready(function () {
+        getDDL();  
+    });
+
+    function getDDL() {
+        var dictlist = {
+            Option: 13
+        }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: '/Koordinator/DynamicController',
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify({
+                Models:dto,
+                spname: "[dbo].[SP_SHOW_DDL]"
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log(data);
+                $('#RentangPerbaikan_DDL').empty();
+                $('#RentangPencegahan_DDL').empty();
+                $.each(JSON.parse(data), function (key, entry) {
+                    $('#RentangPerbaikan_DDL').append($('<option></option>').attr('value', entry.RentangValue).text(entry.RentangDesc));
+                    $('#RentangPencegahan_DDL').append($('<option></option>').attr('value', entry.RentangValue).text(entry.RentangDesc));
+                })
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
     $('#btn_CancelCAPA').click(function () {
         $('#Cancel_Page').removeAttr("hidden");
     });
 
     $('#btn_RejectCAPA').click(function () {
         $('#Reject_Page').removeAttr("hidden");
+    });
+
+    $('#btn_Request_Page').click(function () {
+        window.open('../Koordinator/CreateCAPA?NoCAPA=' + $("#input_NoCAPA").val());
     });
 </script>
 
