@@ -376,7 +376,7 @@
 </div>
 <input type="text" class="form-control form-control-sm" id="NoCAPA" val="@ViewBag.NoCAPA" style="width:100%;" hidden>
 <script>
-   
+    
     function KajianResikoDDLPV() {
         $.ajax({
             url: '/PIC/GetDataPIC',
@@ -394,6 +394,7 @@
                 //console.log('Halaman PV dalam KajianResikoDDLPV(): ' + objTindakan);
                 getDataTindakan(JSON.parse(data));
                 $('#RootCause_KajianResikoDDL').empty();
+                $('#RootCause_KajianResikoDDL').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
                 $.each(JSON.parse(data), function (key, value) {
                     $('#RootCause_KajianResikoDDL').append(new Option(value.Tindakan, value.Tindakan));
                 });
@@ -410,7 +411,7 @@
             type: 'post',
             data: JSON.stringify({
                 Model: {
-                    NO_CAPA: $('#NoCAPA').val(),
+                    NO_CAPA: $('#input_NoCAPA').val(),
                     Option: 11,
                     Aspect: '',
                     WSBH: '',
@@ -609,7 +610,8 @@
    
     //search Tindakan get record_id and Tipe
     var values; //var values; //objTindakan filtered.
-    function recTindakan(increments) {                    
+    function recTindakan(increments) {
+        console.log(objTindakan[increments].Tindakan +' ');
         if (objTindakan[increments].Tindakan == $('#RootCause_KajianResikoDDL').val()) {
             return values = objTindakan[increments];
         }            
@@ -623,7 +625,10 @@
         KajianResikoDDLPV();
         TableKajianPV();
         UnhideKajianResikoModalPV();
+        console.log(objTindakan);
         var isHide = false;
+
+        $('#RootCause_KajianResikoDDL').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
 
         $('#btn_Load').click(function () {
             console.log(objTindakan);
@@ -679,6 +684,7 @@
                 )
             } else {
                 var valid = true;
+
                 var pic = "";
                 if ($('#Severity_DDL').val() == 10 || $('#TxtRiskLevel').val() == 'High' || $('#TxtRiskLevel').val() == 'Very High') {
                     pic = $('#TxtPIC').val();
@@ -713,7 +719,8 @@
                         PIC: pic,
                         DueDate: $('#DueDate_Kajian').val(),
                         Lainnya: $('#TxtLainnya').val(),
-                        EmpID: $('#input_Requestor_NIK').val()
+                        EmpID: $('#input_Requestor_NIK').val(),
+                        Status: status
                     }
                 }
 

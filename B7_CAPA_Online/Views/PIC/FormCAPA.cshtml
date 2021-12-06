@@ -1515,6 +1515,7 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 var result = JSON.parse(data);
+                myDiagram.model = new go.TreeModel();
                 var $ = go.GraphObject.make;
                 myDiagram =
                     $(go.Diagram, "DiagManusia",
@@ -1543,6 +1544,7 @@
                             new go.Binding("text", "desc"))
                     );
 
+               
                 myDiagram.model = new go.TreeModel(result);
             }
         });
@@ -1850,26 +1852,33 @@
                 SP: "[dbo].[SP_FORM_CAPA]"
             }
 
-            $.each(dto, function (key, value) {                
-                if (value == "" || value == null) {
-                    if (value === 0) {
-                        isValid = true;
-                        return;
+            $.each(dto, function (key, value) {   
+                if (dto.isParent == 1) {
+                    if (key != "isParent" && key != "WHY_Parent") {
+                        if (value == null || value == "") {
+                            isValid = false;
+                            return false;
+                        }
                     }
-                    isValid = false;
-                    return false;
+                } else {
+                    if (key != "isParent") {
+                        if (value == null || value == "") {
+                            isValid = false;
+                            return false;
+                        }
+                    }
                 }
                 isValid = true;
             });
-
-            if (isValid) {
+            
+            if (isValid) {                
                 $.ajax({
                     url: 'AddWhy',
                     type: 'post',
                     data: JSON.stringify(dto),
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
-                    success: function (data) {                        
+                    success: function (data) {
                         if (JSON.parse(data)[0].VALID == "VALID") {
                             Swal.fire(
                                 'Success',

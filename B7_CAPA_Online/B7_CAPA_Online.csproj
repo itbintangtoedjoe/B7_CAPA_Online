@@ -5437,8 +5437,10 @@
     <Content Include="Views\Evaluator\KonfirmasiEfektivitas.cshtml" />
     <Content Include="Views\Evaluator\ViewBukti.cshtml" />
     <Content Include="Views\Shared\LoadData_PV.cshtml" />
-    <Content Include="Views\Koordinator\Koordinator4.cshtml" />
     <Content Include="Views\Evaluator\ViewCAPA.cshtml" />
+    <Content Include="Views\Shared\RentangEfektivitas.cshtml" />
+    <Content Include="Views\Shared\RentangEfektivitas_PV.cshtml" />
+    <Content Include="Views\Pelaksana\PelaksanaCAPAPembatalan.cshtml" />
     <Content Include="Views\Koordinator\Koordinator4.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -24,6 +24,11 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
+        public ActionResult PelaksanaCAPAPembatalan()
+        {
+            return View();
+        }
+
         public ActionResult DynamicController(DynamicModel Models, string spname)
         {
             var parameters = new DynamicParameters(Models.Model);
@@ -117,6 +122,8 @@ namespace B7_CAPA_Online.Controllers
             var dueDate = Request.Form.Get("DueDate");
             var potensiKegagalan = Request.Form.Get("potensiKegagalan");
             var penyebabPotensi = Request.Form.Get("penyebabPotensi");
+            var alasantindakan = Request.Form.Get("AlasanTindakan");
+            var alasanduedate = Request.Form.Get("AlasanDueDate");
             var dictionary = new Dictionary<string, object>{
                 { "kategori", kategori },
                 { "recordID", tindakanID },
@@ -126,7 +133,9 @@ namespace B7_CAPA_Online.Controllers
                 { "tindakan", tindakan },
                 { "dueDate", dueDate },
                 {"P_MPenyebab_Hasil", penyebabPotensi },
-                {"M_PKegagalan_Hasil",potensiKegagalan }
+                {"M_PKegagalan_Hasil",potensiKegagalan },
+                {"alasan_tindakan", alasantindakan },
+                {"alasan_due_date",alasanduedate}
             };
             var parameters = new DynamicParameters(dictionary);
             var result = DAL.StoredProcedure(parameters, "SP_Update_Pelaksanaan");
