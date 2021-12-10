@@ -622,6 +622,34 @@ namespace B7_CAPA_Online.Controllers
             
             return Json(DAL.GetDataPrint(Model));
         }
+
+        public ActionResult ApprovePelaksanaCAPA(DALModel Model)
+        {
+            var dictionary = new Dictionary<string, object>
+            {
+                {"Option", 1 },
+                {"Create_By", Model.Create_By},
+                {"NO_CAPA", Model.NO_CAPA }
+            };
+            var spname = "SP_VERIFIKASI_PELAKSANA_CAPA";
+
+            var parameters = new DynamicParameters(dictionary);
+            return Json(DAL.StoredProcedure(parameters, spname));
+        }
+
+        public ActionResult RejectPelaksanaCAPA(DALModel Model)
+        {
+            var dictionary = new Dictionary<string, object>
+            {
+                {"Option", 2 },
+                {"Create_By", Model.Create_By},
+                {"NO_CAPA", Model.NO_CAPA }
+            };
+            var spname = "SP_VERIFIKASI_PELAKSANA_CAPA";
+
+            var parameters = new DynamicParameters(dictionary);
+            return Json(DAL.StoredProcedure(parameters, spname));
+        }
         #endregion
     }
 }

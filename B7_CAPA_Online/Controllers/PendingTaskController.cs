@@ -1,5 +1,6 @@
 ﻿using B7_CAPA_Online.Models;
 using B7_CAPA_Online.Scripts.DataAccess;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +23,14 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
-        public ActionResult GetTaskList(DALModel Model)
-        {            
-            return Json(DAL.GetDataPrint(Model));
+        public ActionResult GetTaskList(PendingTaskModel Model)
+        {
+            var dictionary = new Dictionary<string, object>
+            {
+                {"NIK", Model.NIK}
+            };
+            var parameters = new DynamicParameters(dictionary);
+            return Json(DAL.StoredProcedure(parameters, "SP_PENDING_TASK"));
         }
     }
 }
