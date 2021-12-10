@@ -93,7 +93,7 @@
 
 <script>
 
-    var CurrentStatsID = 2;
+    var CurrentStatsID = @Request.RequestContext.HttpContext.Session["StatsID"];
     function checkStatusCAPA() {
         $.ajax({
             url: '/PIC/CheckStatusCAPA',
@@ -127,23 +127,23 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 var result = JSON.parse(data)[0];
-                var hide = (result.STATUS_ID == CurrentStatsID) ? (false) : (true); // jika status CAPA = 2 maka, hide = false , sebaliknya.                
+                var hide = (result.STATUS_ID == CurrentStatsID) ? (false) : (true); // jika status CAPA = 2 maka, hide = false , sebaliknya.
                 if(hide) //Jika hide true maka di hidden.
                     $('#Div_Approval_PV').hide(); //Hide ApprovalPV (~/Shared/ApprovalPV)
-                
+
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
             }
         });
-    }    
+    }
     function HideDeleteButton() {
         // variable isHide berada di partial view
         return isHide = true;
     }
 
     $(document).ready(function () {
-        //*PV = Partial View        
+        //*PV = Partial View
 
         //Hidden card div AnalisaKondisi di PartialView (~/Koordinator/InvestigasiPenyimpangan)
         $('#Div_AnalisaKondisi').prop('hidden', true);
@@ -157,12 +157,12 @@
         //Hidden PotentialRootCausePartialView
         $('#Div_PRCA_PV').hide();
 
-        //Check Status_ID CAPA from CAPA_HEADERS        
+        //Check Status_ID CAPA from CAPA_HEADERS
         checkStatusCAPA();
 
         //Hidden Delete Action Buttons Table Analisa Kondisi serta Table Kajian Resiko
         HideDeleteButton(); // diberi comment jika ingin unhide tombol delete-nya
-       
+
         //Request CAPA Details
         $('#btn_Request').click(function () {
             window.open('/Koordinator/CreateCAPA?NoCAPA=' + $('#input_NoCAPA').val());

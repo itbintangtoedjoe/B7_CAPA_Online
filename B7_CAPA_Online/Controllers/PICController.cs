@@ -23,7 +23,7 @@ namespace B7_CAPA_Online.Controllers
         {
             return View();
         }
-        public ActionResult FormCAPA()
+        public ActionResult FormCAPA(string NoCAPA)
         {
             var list = new ListKondisi();
             list.ClearDT();
