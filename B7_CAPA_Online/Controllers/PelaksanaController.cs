@@ -28,10 +28,6 @@ namespace B7_CAPA_Online.Controllers
         {
             return View();
         }
-        public ActionResult PelaksanaCAPAPerubahan()
-        {
-            return View();
-        }
 
         public ActionResult DynamicController(DynamicModel Models, string spname)
         {
