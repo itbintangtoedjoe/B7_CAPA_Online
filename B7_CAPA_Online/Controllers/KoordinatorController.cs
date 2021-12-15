@@ -611,7 +611,6 @@ namespace B7_CAPA_Online.Controllers
 
         public ActionResult VerifikasiPelaksanaCAPA(string NoCAPA)
         {
-
             return View();
         }
 
@@ -623,14 +622,33 @@ namespace B7_CAPA_Online.Controllers
             return Json(DAL.GetDataPrint(Model));
         }
 
-        public ActionResult ApprovePelaksanaCAPA(DALModel Model)
+        public ActionResult VerifyPelaksanaCAPA(DALModel Model)
         {
-            var dictionary = new Dictionary<string, object>
+            var dictionary = new Dictionary<string, object>();
+            if (Model.Type == "Perbaikan")
             {
-                {"Option", 1 },
-                {"Create_By", Model.Create_By},
-                {"NO_CAPA", Model.NO_CAPA }
-            };
+
+                dictionary.Add("Option", 2);
+                dictionary.Add("Create_By", Model.Create_By);
+                dictionary.Add("NO_CAPA", Model.NO_CAPA);
+                dictionary.Add("RecordID", Model.RecordID);
+
+            }
+            else
+            if (Model.Type == "Pencegahan")
+            {
+                dictionary.Add("Option", 3);
+                dictionary.Add("Create_By", Model.Create_By);
+                dictionary.Add("NO_CAPA", Model.NO_CAPA);
+                dictionary.Add("RecordID", Model.RecordID);
+            }
+            else {
+                dictionary.Add("Option", 4);
+                dictionary.Add("Create_By", Model.Create_By);
+                dictionary.Add("NO_CAPA", Model.NO_CAPA);
+                dictionary.Add("RecordID", Model.RecordID);
+            }
+            
             var spname = "SP_VERIFIKASI_PELAKSANA_CAPA";
 
             var parameters = new DynamicParameters(dictionary);
@@ -639,14 +657,48 @@ namespace B7_CAPA_Online.Controllers
 
         public ActionResult RejectPelaksanaCAPA(DALModel Model)
         {
-            var dictionary = new Dictionary<string, object>
+            
+            var dictionary = new Dictionary<string, object>();
+            if (Model.Type == "Perbaikan")
             {
-                {"Option", 2 },
-                {"Create_By", Model.Create_By},
-                {"NO_CAPA", Model.NO_CAPA }
-            };
+
+                dictionary.Add("Option", 5);
+                dictionary.Add("Create_By", Model.Create_By);
+                dictionary.Add("NO_CAPA", Model.NO_CAPA);
+                dictionary.Add("RecordID", Model.RecordID);
+                dictionary.Add("AlasanReject", Model.AlasanReject);
+            }
+            else
+            if (Model.Type == "Pencegahan")
+            {
+                dictionary.Add("Option", 6);
+                dictionary.Add("Create_By", Model.Create_By);
+                dictionary.Add("NO_CAPA", Model.NO_CAPA);
+                dictionary.Add("RecordID", Model.RecordID);
+                dictionary.Add("AlasanReject", Model.AlasanReject);
+            }
+            else {
+                dictionary.Add("Option", 7);
+                dictionary.Add("Create_By", Model.Create_By);
+                dictionary.Add("NO_CAPA", Model.NO_CAPA);
+                dictionary.Add("RecordID", Model.RecordID);
+                dictionary.Add("AlasanReject", Model.AlasanReject);
+            }
             var spname = "SP_VERIFIKASI_PELAKSANA_CAPA";
 
+            var parameters = new DynamicParameters(dictionary);
+            return Json(DAL.StoredProcedure(parameters, spname));
+        }
+
+        public ActionResult CheckStatus(DALModel Model)
+        {
+            var dictionary = new Dictionary<string, object>
+            {
+                {"Option", 8 },
+                {"NO_CAPA", Model.NO_CAPA }
+            };
+
+            var spname = "SP_VERIFIKASI_PELAKSANA_CAPA";
             var parameters = new DynamicParameters(dictionary);
             return Json(DAL.StoredProcedure(parameters, spname));
         }
