@@ -117,33 +117,33 @@ namespace B7_CAPA_Online.Controllers
             //simpan hasil perbaikan (update table perbaikan)
             //var keys = Request.Form.AllKeys;
             var kategori = Request.Form.Get("Kategori");
-            var hasil = Request.Form.Get("Hasil");
+            //var hasil = Request.Form.Get("Hasil");
             var tindakanID = Request.Form.Get("TindakanID");
             var updater = Request.Form.Get("Updater");
             var nomorCAPA = Request.Form.Get("NomorCAPA");
-            var status = Request.Form.Get("Status");
-            var tindakan = Request.Form.Get("Tindakan");
-            var dueDate = Request.Form.Get("DueDate");
-            var potensiKegagalan = Request.Form.Get("potensiKegagalan");
-            var penyebabPotensi = Request.Form.Get("penyebabPotensi");
-            var alasantindakan = Request.Form.Get("AlasanTindakan");
-            var alasanduedate = Request.Form.Get("AlasanDueDate");
-            var dictionary = new Dictionary<string, object>{
-                { "kategori", kategori },
-                { "recordID", tindakanID },
-                { "empID", updater },
-                { "hasil", hasil },
-                { "status", status },
-                { "tindakan", tindakan },
-                { "dueDate", dueDate },
-                {"P_MPenyebab_Hasil", penyebabPotensi },
-                {"M_PKegagalan_Hasil",potensiKegagalan },
-                {"alasan_tindakan", alasantindakan },
-                {"alasan_due_date",alasanduedate}
-            };
-            var parameters = new DynamicParameters(dictionary);
-            var result = DAL.StoredProcedure(parameters, "SP_Update_Pelaksanaan");
-
+            //var status = Request.Form.Get("Status");
+            //var tindakan = Request.Form.Get("Tindakan");
+            //var dueDate = Request.Form.Get("DueDate");
+            //var potensiKegagalan = Request.Form.Get("potensiKegagalan");
+            //var penyebabPotensi = Request.Form.Get("penyebabPotensi");
+            //var alasantindakan = Request.Form.Get("AlasanTindakan");
+            //var alasanduedate = Request.Form.Get("AlasanDueDate");
+            //var dictionary = new Dictionary<string, object>{
+            //    { "kategori", kategori },
+            //    { "recordID", tindakanID },
+            //    { "empID", updater },
+            //    { "hasil", hasil },
+            //    { "status", status },
+            //    { "tindakan", tindakan },
+            //    { "dueDate", dueDate },
+            //    {"P_MPenyebab_Hasil", penyebabPotensi },
+            //    {"M_PKegagalan_Hasil",potensiKegagalan },
+            //    {"alasan_tindakan", alasantindakan },
+            //    {"alasan_due_date",alasanduedate}
+            //};
+            //var parameters = new DynamicParameters(dictionary);s
+            //var result = DAL.StoredProcedure(parameters, "SP_Update_Pelaksanaan");
+            var attResult = "";
             var action = "Insert Perbaikan";
             var tipe = "Perbaikan";
             if (kategori.Contains("Pencegahan"))
@@ -176,10 +176,11 @@ namespace B7_CAPA_Online.Controllers
                     { "FilePath", path },
                 };
                 var attParameters = new DynamicParameters(attDictionary);
-                var attResult = DAL.StoredProcedure(attParameters, "SP_Attachment_Pelaksanaan");
-            }
+                attResult = DAL.StoredProcedure(attParameters, "SP_Attachment_Pelaksanaan");
 
-            return Json(result);
+            }
+            
+                return Json(attResult);
         }
 
         public ActionResult DeleteAttachment(SPUpdatePelaksanaanParams data)
