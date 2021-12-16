@@ -620,6 +620,35 @@
         }
     } 
 
+    function RemoveModalInput() {
+        $('#TxtPotensiKegagalan').val("");
+        $('#TxtDampak').val("");
+        $('#TxtSpesifikasi').val("");
+        $('#TxtPenyebabPotensial').val("");
+        $('#TxtMPenyebabPotensial').val("");
+        $('#TxtMPotensi_KLMD').val("");
+        $('#Severity_DDL').val("-").trigger('change');
+        $('#Likelihood_DDL').val("-").trigger('change');
+        $('#Detectability_DDL').val("-").trigger('change');
+        $('#TxtRPN').val("");
+        $('#TxtRiskLevel').val("");
+        $('#Target_DDL').val("").trigger('change');
+        $('#TxtMPotensi_K').val("");
+        $('#TxtMPenyebab_P').val("");
+        $('#TxtDPotensi_K').val("");
+        $('#Severity2_DDL').val("-").trigger('change');
+        $('#Likelihood2_DDL').val("-").trigger('change');
+        $('#Detectability2_DDL').val("-").trigger('change');
+        $('#TxtRPN2').val("");
+        $('#TxtRiskLevel2').val("");
+        //$('#TxtPICName').val("");
+        //$('#TxtPIC').val("");
+        $('#TxtLainnya').val("");
+        $('#DueDate_Kajian').val("");
+        $('#Div_KajianResikoModal').prop('hidden', true);
+        $('#KajianResikoModal').modal('hide');
+    }
+
     $(document).ready(function () {
         KajianResikoDDLPV();
         TableKajianPV();

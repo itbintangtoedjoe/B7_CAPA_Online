@@ -61,7 +61,8 @@
             data: JSON.stringify(
                 {
                     SP: "[dbo].[SP_SHOW_DDL]",
-                    Option: 9
+                    Option: 9,
+                    Create_By: '@Request.RequestContext.HttpContext.Session["NIK"]'
                 }
             ),
             dataType: 'json',

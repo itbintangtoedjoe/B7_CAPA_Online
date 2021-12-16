@@ -601,11 +601,16 @@
                                 <div class="row form-group-sm mb-2">
                                     <div class="col-md-6">
                                         <label class="m-t-20">Lokasi</label>
-                                        <select class="form-control form-control-sm" id="Lokasi_DDL" name="Lokasi">
-                                            <option>Option 1</option>
-                                            <option>Option 2</option>
-                                            <option>Option 3</option>
-                                        </select>
+                                        <div class="input-group">
+                                            <select class="form-control form-control-sm" id="Lokasi_DDL" name="Lokasi">
+                                                <option>Option 1</option>
+                                                <option>Option 2</option>
+                                                <option>Option 3</option>
+                                            </select>
+                                            <div class="input-group-append" style="padding-left:10px">
+                                                <button class="btn btn-outline-dark rounded btn-sm" type="button" id="btn_Add_Lokasi">Add</button>
+                                            </div>
+                                        </div>                                       
                                         @Html.HiddenFor(m => m.Lokasi)
                                     </div>
                                     <div class="col-md-4">
@@ -711,9 +716,6 @@
 
 <script>
     $(document).ready(function () {
-        getDDL();
-        TahunDDL();
-        DeleteDepartemen();
         $('#input_Requestor').val('@Request.RequestContext.HttpContext.Session["FullName"]');
 
         $('#AreaPIC_DDL').select2();
@@ -727,7 +729,7 @@
                 $('#Linked_Oracle').prop('hidden', false);
             } else if ($('#Trigger_CAPA').val() == "CCC") {
                 $('#Linked_CCC').prop('hidden', false);
-            } else {
+            } else if ($('#Trigger_CAPA').val() == "DEVIATION"){
                 $('#Linked_Deviation').prop('hidden', false);
             }
         });
@@ -737,6 +739,7 @@
             $('#VendorDiv').prop('hidden', true);
         });
 
+        //Ketika dropdownlist lokasi dipilih akan ngeload departemen berdasarkan lokasi yang dipilih.
         $('#Lokasi_DDL').change(function () {
             var Location;
 
@@ -808,6 +811,7 @@
             //});
         });
 
+        //Ketika dropdownlist departemen dipilih akan ngeload PIC CAPA berdasarkan area yang dipilih.
         $('#AreaPIC_DDL').change(function () {
             var Location;
             $('#VendorDiv').prop('hidden', true);
@@ -899,6 +903,7 @@
             //_callback();
         });
 
+        // Button search isi lampiran Deviation yang menyimpang.
         $('#btn_Search_Deviation').click(function () {
             data = [];
             dto = {
@@ -976,6 +981,7 @@
             });
         });
 
+        // Button search untuk menampilkan CCC yang menyimpang.
         $('#btn_Search_CCC').click(function () {
             data = [];
             dto = {
@@ -1051,6 +1057,7 @@
             });
         });
 
+        //Trigger Change untuk menampilkan kolom input KataKunci ketika milih Lain-Lain di dropdownlist Kode_DLL
         $('#Kode_DDL').change(function () {
             $('#Div_KataKunci').prop("hidden", true);
             if ($('#Kode_DDL').val() == "CODE012") {
@@ -1058,8 +1065,9 @@
             }
         });
 
-        //checkbox Deviation
+        //variable data tempat --
         var data = [];
+        //checkbox Deviation
         $(document).on("click", "#Tbl_Deviation input[name='type'][class='selected']", function () {
             if ($(this).prop('checked') == true) {
                 var columns = $(this).closest('tr').find('td:eq(1)').text();
@@ -1081,6 +1089,7 @@
 
         });
 
+        //checkbox CCC
         $(document).on("click", "#Tbl_CCC input[name='type'][class='selected']", function () {
             if ($(this).prop('checked') == true) {
                 var columns = $(this).closest('tr').find('td:eq(1)').text();
@@ -1101,84 +1110,7 @@
             }
         });
 
-        if (@Request.QueryString.Count == 1) {
-            $.ajax({
-                url: 'GetCAPA',
-                type: 'post',
-                data: JSON.stringify({
-                    Option: 10,
-                    NO_CAPA: $('#input_NoCAPA').val(),
-                    REG_ID: $('#input_REG_ID').val(),
-                    SP: "[dbo].[SP_SHOW_DDL]"
-                }),
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    console.log(data)
-                    var kategori = $("#Kategori_DDL option:contains(" + data[0].KATEGORI_CAPA + ")").val();
-                    var lokasi = $("#Lokasi_DDL option:contains(" + data[0].LOKASI_CAPA + ")").val();
-
-                    $('#input_Requestor').val(data[0].FullName);
-                    $('#Trigger_CAPA').val(data[0].TRIGGER_CAPA).trigger("change");
-                    $('#Kategori_DDL').val(data[0].KATEGORI_CAPA).trigger("change");
-                    $('#Kode_DDL').val(data[0].Kode_CAPA).trigger("change");
-                    $('#TxtKataKunci').val(data[0].Kata_Kunci).trigger("change");
-                    $('#TxtDeskripsi').val(data[0].DESKRIPSI_MASALAH).trigger("change");
-                    $("#Kategori_DDL").val(kategori).trigger("change");
-                    $("#Lokasi_DDL").val(lokasi).trigger("change");
-                    $.each(JSON.parse(data[0].DEPTLIST), function (key, value) {
-                        $("#AreaPIC_DDL").append(new Option(value.Departemen.trim(), value.Departemen.trim()));
-                    });
-                    $("#PIC_DDL").empty().append(new Option(data[0].PIC_CAPA, data[0].PIC_CAPA));
-                    $("#PIC_DDL").val(data[0].PIC_CAPA).trigger("change");
-
-                    $('#link_CCC').modal('hide');
-                    $('#link_Deviation').modal('hide');
-
-                    $.each(data[0].FILELIST, function (key, value) {
-                        $('#Tbl_Lampiran').append($('<tr><td><a href="' + value + '" ><span style="color:black;">' + data[0].FILE_NAME[key] + '</span></a></td></tr>'))
-                    });
-
-                    $.each(data[0].PENYIMPANGANLIST, function (key, value) {
-                        $('#Tbl_Penyimpangan').append($('<tr><td>' + value + '</td></tr>'))
-                    });
-
-                    var table = $('#Table_Departemen').DataTable({
-                        "pageLength": 4,
-                        "lengthChange": true,
-                        "paging": false,
-                        "info": false,
-                        "searching": false,
-                        "data": JSON.parse(data[0].DEPTLIST),
-                        "select": true,
-                        "bDestroy": true,
-                        "scrollCollapse": true,
-                        "columns": [
-                            { "data": "Departemen" }
-                        ]
-                        //"order": [[1, 'asc']]
-                    });
-
-                    //var Counter = 0;
-                    //var Trav = 0;
-                    //$.each(JSON.parse(data), function (i, item) {
-                    //    var value = item.DEPARTEMEN;
-                    //    jQuery.trim(value);
-                    //    const testing = value.split(",");
-
-                    //    var Count = testing.length;
-
-                    //    for (Trav = 0; Trav < Count; Trav++) {
-                    //        $('#Tbl_Departemen').append($('<tr><td>' + testing[Trav] + '</td><td><button type="button" class="form-control-sm delete">Delete</button></td></tr>'));
-                    //    }
-                    //    Counter++;
-                    //});
-                },
-                error: function (ex) {
-                    alert(JSON.stringify(ex));
-                }
-            });
-        }
+        requestPage(getRequestPageData);
 
         $('#TxtFileInput').change(function () {
             fileCount = this.files.length;
@@ -1339,6 +1271,7 @@
             }),
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
+                console.log("1");
                 $('#Kode_DDL').empty();
                 $('#Kode_DDL').append($('<option></option>').attr('value', '').text('*Pilih*'));
                 $.each(JSON.parse(data), function (key, entry) {
@@ -1486,9 +1419,104 @@
                 }
             });
         }
-
         _callback();
     }
+
+    function requestPage(_callback) {
+        getDDL();
+        TahunDDL();
+        DeleteDepartemen();
+        _callback();
+    }
+
+    function getRequestPageData() {
+        if (@Request.QueryString.Count == 1) {
+            $.ajax({
+                url: 'GetCAPA',
+                type: 'post',
+                data: JSON.stringify({
+                    Option: 10,
+                    NO_CAPA: $('#input_NoCAPA').val(),
+                    REG_ID: $('#input_REG_ID').val(),
+                    SP: "[dbo].[SP_SHOW_DDL]"
+                }),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var exOnce = function (kategori, lokasi) {
+                        $("#Kategori_DDL").val(kategori).trigger("change");
+                        $("#Lokasi_DDL").val(lokasi).trigger("change");
+                        $('#Kode_DDL').val(data[0].Kode_CAPA).trigger("change");
+                        console.log()
+                    };
+                    console.log(data)
+                    var kategori = $("#Kategori_DDL option:contains(" + data[0].KATEGORI_CAPA + ")").val();
+                    var lokasi = $("#Lokasi_DDL option:contains(" + data[0].LOKASI_CAPA + ")").val();
+                    exOnce(kategori, lokasi);
+
+                    $('#input_Requestor').val(data[0].FullName);
+                    $('#Trigger_CAPA').val(data[0].TRIGGER_CAPA).trigger("change");
+                    //$('#Kategori_DDL').val(data[0].KATEGORI_CAPA).trigger("change");
+
+                    $('#TxtKataKunci').val(data[0].Kata_Kunci).trigger("change");
+                    $('#TxtDeskripsi').val(data[0].DESKRIPSI_MASALAH).trigger("change");
+
+                    $.each(JSON.parse(data[0].DEPTLIST), function (key, value) {
+                        $("#AreaPIC_DDL").append(new Option(value.Departemen.trim(), value.Departemen.trim()));
+                    });
+                    $("#PIC_DDL").empty().append(new Option(data[0].PIC_CAPA, data[0].PIC_CAPA));
+                    $("#PIC_DDL").val(data[0].PIC_CAPA).trigger("change");
+
+                    $('#link_CCC').modal('hide');
+                    $('#link_Deviation').modal('hide');
+
+                    $.each(data[0].FILELIST, function (key, value) {
+                        $('#Tbl_Lampiran').append($('<tr><td><a href="' + value + '" ><span style="color:black;">' + data[0].FILE_NAME[key] + '</span></a></td></tr>'))
+                    });
+
+                    $.each(data[0].PENYIMPANGANLIST, function (key, value) {
+                        $('#Tbl_Penyimpangan').append($('<tr><td>' + value + '</td></tr>'))
+                    });
+
+                    var table = $('#Table_Departemen').DataTable({
+                        "pageLength": 4,
+                        "lengthChange": true,
+                        "paging": false,
+                        "info": false,
+                        "searching": false,
+                        "data": JSON.parse(data[0].DEPTLIST),
+                        "select": true,
+                        "bDestroy": true,
+                        "scrollCollapse": true,
+                        "columns": [
+                            { "data": "Departemen" }
+                        ]
+                        //"order": [[1, 'asc']]
+                    });
+
+                    //var Counter = 0;
+                    //var Trav = 0;
+                    //$.each(JSON.parse(data), function (i, item) {
+                    //    var value = item.DEPARTEMEN;
+                    //    jQuery.trim(value);
+                    //    const testing = value.split(",");
+
+                    //    var Count = testing.length;
+
+                    //    for (Trav = 0; Trav < Count; Trav++) {
+                    //        $('#Tbl_Departemen').append($('<tr><td>' + testing[Trav] + '</td><td><button type="button" class="form-control-sm delete">Delete</button></td></tr>'));
+                    //    }
+                    //    Counter++;
+                    //});
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+        }
+
+    }
+
 </script>
 
 
