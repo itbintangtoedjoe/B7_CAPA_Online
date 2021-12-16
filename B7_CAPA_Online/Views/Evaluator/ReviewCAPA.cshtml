@@ -95,6 +95,37 @@
             <br />
         </div>
     </div>-->
+        <div class="card-body">
+            <h4 class="card-title"> Rentang Efektivitas Tindakan Perbaikan</h4>
+            <table class="table table-hover table-bordered zero-configuration" id="Tbl_RentangPerbaikan" style="color: black">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Tindakan Perbaikan</th>
+                        <th>Rentang</th>                       
+                    </tr>
+                </thead>
+                <tbody id="Table_RentangPerbaikan">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card-body">
+            <h4 class="card-title"> Rentang Efektivitas Tindakan Pencegahan</h4>
+            <table class="table table-hover table-bordered zero-configuration" id="Tbl_RentangPencegahan" style="color: black">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Tindakan Pencegahan</th>
+                        <th>Rentang</th>
+                    </tr>
+                </thead>
+                <tbody id="Table_RentangPencegahan">
+                </tbody>
+            </table>
+        </div>        
+
+
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -159,6 +190,59 @@
 
 </div>
 <script>
+    function GetRentang() {
+        $.ajax({
+            url: 'GetData',
+            type: 'post',
+            data: JSON.stringify({
+                Model: {
+                    Option: 6,
+                    NO_CAPA: $('#input_NoCAPA').val()
+                }
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var NumberPerbaikan = 0, NumberPencegahan = 0;
+                $.each(JSON.parse(data), function (key, value) {
+                    if (value.Tipe == "Perbaikan") {
+                        NumberPerbaikan++;
+                        $('#Table_RentangPerbaikan').append('<tr>'
+                            + '<td>' + NumberPerbaikan + '</td>'
+                            + '<td>' + value.Tindakan + '</td>'
+                            + '<td>' + value.Rentang + ' Bulan</td>'
+                            + '</tr > ');
+                    } else {
+                        NumberPencegahan++;
+                        $('#Table_RentangPencegahan').append('<tr>'
+                            + '<td>' + NumberPencegahan + '</td>'
+                            + '<td>' + value.Tindakan + '</td>'
+                            + '<td>' + value.Rentang + ' Bulan</td>'
+                            + '</tr > ');
+                    }
+                });
+                var dtAttr = {
+                    "pageLength": 10,
+                    "responsive": true,
+                    "info": false,
+                    "paging": false,
+                    "lengthChange": true,
+                    "searching": false,
+                    "processing": true,
+                    "select": true,
+                    "bDestroy": true,
+                    "scrollCollapse": true,
+                }
+
+                $('#Tbl_RentangPerbaikan').DataTable(dtAttr);
+                $('#Tbl_RentangPencegahan').DataTable(dtAttr);
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
     $(document).ready(function () {
         getDDL();  
     });
