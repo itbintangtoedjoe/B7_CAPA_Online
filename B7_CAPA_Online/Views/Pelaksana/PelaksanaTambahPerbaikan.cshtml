@@ -446,7 +446,8 @@
                                     Email: $('#TxtEmailPerbaikan').val(),
                                     Is_AreaLain: $('input[name="Potensi"]:checked').val(),
                                     Create_By: nik,
-                                    Status_ID: 10,
+                                    Status:"Perbaikan Baru",
+                                    Status_ID: 0,
                                     SP: "[dbo].[SP_FORM_CAPA]"
                                 }
                                 return false;
@@ -514,7 +515,7 @@
                                         Email: $('#TxtEmailPencegahan').val(),
                                         Create_By: nik,
                                         Status: "Pencegahan Baru",
-                                        Status_ID: 10,
+                                        Status_ID: 0,
                                         SP: "[dbo].[SP_FORM_CAPA]"
                                     }
                                     return false;
