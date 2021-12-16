@@ -201,29 +201,29 @@
     function SelectedTask(param) {
         let dataRow = $('#Tbl_PendingTask').DataTable().row($(param).closest('tr')).data();
 
-        if (dataRow.STATUS_ID = 1) {
+        if (dataRow.STATUS_ID === 1) {
             // PIC
             window.open("/PIC/FormCAPA?NoCAPA=" + dataRow.NO_CAPA);
-        } else if (dataRow.STATUS_ID = 2) {
+        } else if (dataRow.STATUS_ID === 2) {
             window.open("/AtasanPIC/ApprovalAtasanPIC?NoCAPA=" + dataRow.NO_CAPA + "&StatsID=" + dataRow.STATUS_ID);
-        } else if (dataRow.STATUS_ID = 3) {
+        } else if (dataRow.STATUS_ID === 3) {
             window.open("/AtasanPelaksana/ApprovalAtasanPelaksana?NoCAPA=" + dataRow.NO_CAPA + "&StatsID=" + dataRow.STATUS_ID);
-        } else if (dataRow.STATUS_ID = 4) {
+        } else if (dataRow.STATUS_ID === 4) {
             window.open("/Koordinator/ApprovalKoordinator2?NoCAPA=" + dataRow.NO_CAPA + "&StatsID=" + dataRow.STATUS_ID);
-        } else if (dataRow.STATUS_ID = 5) {
+        } else if (dataRow.STATUS_ID === 5) {
 
-        } else if (dataRow.STATUS_ID = 6) {
+        } else if (dataRow.STATUS_ID === 6) {
             //From CAPA
-            if (dataRow.pending = NIK) {
+            if (dataRow.pending == NIK) {
                 window.open("/Pelaksana/PelaksanaCAPA?NoCAPA=" + dataRow.NO_CAPA + "&PelaksanaID=" + NIK);
             }
-        } else if (dataRow.STATUS_ID = 7) {
+        } else if (dataRow.STATUS_ID === 7) {
+            window.open("/Koordinator/VerifikasiPelaksanaCAPA?NoCAPA=" + dataRow.NO_CAPA);
+        } else if (dataRow.STATUS_ID === 8) {
 
-        } else if (dataRow.STATUS_ID = 8) {
+        } else if (dataRow.STATUS_ID === 9) {
 
-        } else if (dataRow.STATUS_ID = 9) {
-
-        } else if (dataRow.STATUS_ID = 10) {
+        } else if (dataRow.STATUS_ID === 10) {
 
         }         
     }

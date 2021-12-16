@@ -78,15 +78,15 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Verifikasi Pelaksanaan Tindakan Perbaikan CAPA </h4>
-                        <div class="table-responsive" id="Div_BuktiTPerbaikan">
+                        <div id="Div_BuktiTPerbaikan">
                             <table class="table table-hover table-bordered zero-configuration" style="color:black" id="Tbl_BuktiPerbaikan">
                                 <thead>
                                     <tr>
                                         <th hidden>ID</th>
-                                        <th>Action</th>
+                                        <th >Action</th>
                                         <th>No</th>
-                                        <th>Root Cause</th>
-                                        <th>Tindakan Perbaikan</th>
+                                        <th style="width: 132px">Root Cause</th>
+                                        <th style="width: 194px">Tindakan Perbaikan</th>
                                         <th>Due&nbsp;Date</th>
                                         <th>Pelaksana Tindakan Perbaikan</th>
                                         <th>Tanggal Pelaksanaan</th>
@@ -105,15 +105,15 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Verifikasi Pelaksanaan Tindakan Pencegahan CAPA</h4>
-                        <div class="table-responsive" id="Div_BuktiTPencegahan">
+                        <div id="Div_BuktiTPencegahan">
                             <table class="table table-hover table-bordered zero-configuration" style="color:black" id="Tbl_BuktiPencegahan">
                                 <thead>
                                     <tr>
                                         <th hidden>ID</th>
                                         <th>Action</th>
                                         <th>No</th>
-                                        <th>Root Cause</th>
-                                        <th>Tindakan Pencegahan</th>
+                                        <th style="width: 132px">Root Cause</th>
+                                        <th style="width: 194px">Tindakan Pencegahan</th>
                                         <th>Due&nbsp;Date</th>
                                         <th>Pelaksana Tindakan Pencegahan</th>
                                         <th>Tanggal Pelaksanaan</th>
@@ -132,12 +132,12 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Verifikasi Pelaksanaan Tindakan Treatment Plan</h4>
-                        <div class="table-responsive" id="Div_BuktiTPlan">
+                        <div id="Div_BuktiTPlan">
                             <table class="table table-hover table-bordered zero-configuration" style="color:black" id="Tbl_BuktiTreatment">
                                 <thead>
                                     <tr>
                                         <th hidden>ID</th>
-                                        <th>Action</th>
+                                        <th style='width:40px;'>Action</th>
                                         <th>No</th>
                                         <th>Usulan Tindakan Treatment</th>
                                         <th>Due&nbsp;Date</th>
@@ -154,12 +154,12 @@
                     </div>
                 </div>
 
-                <div class="card">
+                <div class="card" id="CardApproveVerifikasi" hidden>
                     <div class="card-body">
                         <h4 class="card-title">Submit Verifikasi CAPA</h4>
                         <div class="form-group">
                             <div class="form-check form-check-inline">
-                                <button type="button" id="btnApproveVerifikasi" class="btn mb-1 btn-success btn-lg">
+                                <button type="button" id="btnApproveVerifikasi" class="btn mb-1 btn-success btn-lg" hidden>
                                     Submit
                                 </button>
                             </div>
@@ -184,6 +184,7 @@
                                 <div class="modal-body">
                                     <p style="color:black">Mohon berikan alasan yang jelas untuk Reject hasil tindakan CAPA</p>
                                     <input id="txtRecordID" hidden />
+                                    <input id="txtType" hidden />
                                     <textarea id="txtAlasanRejectVerifikasi" class="form-control"></textarea>
                                 </div>
                                 <div class="modal-footer">
@@ -202,10 +203,10 @@
 </div>
 
 <script>
-    var dataPerbaikan;
-    var noCAPA = getQueryStrings()["NoCAPA"];
-    var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
-    var Username = '@Request.RequestContext.HttpContext.Session["Username"]';
+    let dataPerbaikan;
+    let noCAPA = getQueryStrings()["NoCAPA"];
+    let nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
+    let Username = '@Request.RequestContext.HttpContext.Session["Username"]';
     let objPencegahan, objTreatment, objLampiran;
 
     $(document).ready(function () {
@@ -229,6 +230,24 @@
 
         $('#btn_SubmitRjtPelaksanaCAPA').click(function () {
 
+            let RecordID = $('#txtRecordID').val();
+            let type = $('#txtType').val();
+            let TAlasan = $('#txtAlasanRejectVerifikasi').val();
+            if (TAlasan == '') {
+                swal(
+                    {
+                        title: "Opss ..",
+                        icon: "warning",
+                        text: "Alasan Reject tidak boleh kosong, wajib diisi !",
+                        buttons: false,
+                        timer: 2000
+                    }
+                ).then(() => {
+                    return
+                })
+            } else {
+                RejectPelaksanaCAPA(RecordID, type, TAlasan);
+            }
         });
     });
 
@@ -293,10 +312,11 @@
                             icon: "success",
                             buttons: false,
                             timer: 2000,
-                    }).then(() => {
+                        }).then(() => {
+                        $('#modalAlasanReject').modal('toggle');
                         window.location.href = '@Url.Action("TaskList", "PendingTask")';
                     })
-        }
+                }
                 else {
 
                 }
@@ -308,12 +328,30 @@
         });
     }
 
-    function Rejected() {
-        $.ajax({
-
+    function format(d, tahapan) {
+        console.log(objLampiran);
+        var html = '';
+        $.each(JSON.parse(objLampiran), function (key, value) {
+            if (value.ID_FK == d.RecordID && value.TAHAPAN == "Lampiran " + tahapan) {
+                return html += '<tr>' +
+                    '<td>File Name :</td>' +
+                    '<td><a href="' + value.FILE_PATH + '">' + value.FILE_NAME + '</a></td>' +
+                    '</tr>';
+            }
         });
-    }
 
+        if (html == '') {
+            html = '';
+            html = '<tr>' +
+                '<td>Tidak ada lampiran.</td>' +
+                '</tr>';
+        }
+
+        var tableChild = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+            html +
+            '</table>';
+        return tableChild;
+    }
 
     function showChild(t, tahapan) {
         // Array to track the ids of the details displayed rows
@@ -358,7 +396,7 @@
                     type: 'post',
                     data: JSON.stringify({
                         Model: {
-                            Option: 4,
+                            Option: 9,
                             NO_CAPA: $('#input_NoCAPA').val(),
                             Status: 7
                         }
@@ -385,11 +423,21 @@
                                     "visible": false
                                 },
                                 {
-                                    "data": null,
-                                    "width": style = "91.7778px",
-                                    "defaultContent": "<button class='btn btn-success' style='width:40px; margin-bottom:5px' onclick='VerifyTreatmentCAPA(this)'>Verify</button>" +
-                                        "<button class='btn btn-danger' style='width:40px' onclick='RejectTreatmentCAPA(this)'>Reject</button>"
+                                    "data": "Status_ID",
+                                    "render": function (data) {
+                                        if (data === 8) {
+                                            return '<img id="imgApprove" src="../Content/Images/approveHijau.png"  style="width: 80px"/>';
+                                        }
+                                        else
+                                            if (data === 6) {
+                                                return '<img id="imgReject" src="../Content/Images/rejected.png"  style="width: 80px"/>';
+                                            }
+                                            else {
 
+                                                return "<button class='btn btn-success' style='width:40px; margin-bottom:5px' onclick='VerifyTreatmentCAPA(this)'>Verify</button>" +
+                                                    "<button class='btn btn-danger' style='width:40px' data-toggle='modal' data-target='#modalAlasanReject' onclick='RejectTreatmentCAPA(this)'>Reject</button>";
+                                            }
+                                    }
                                 },
                                 {
                                     "width": style = "35px",
@@ -438,7 +486,7 @@
                     type: 'post',
                     data: JSON.stringify({
                         Model: {
-                            Option: 3,
+                            Option: 8,
                             NO_CAPA: $('#input_NoCAPA').val(),
                             Status: 7
                         }
@@ -464,10 +512,21 @@
                                     "visible": false
                                 },
                                 {
-                                    "data": null,
-                                    "defaultContent": "<button class='btn btn-success' style='width:40px; margin-bottom:5px' onclick='VerifyPencegahanCAPA(this)'>Verify</button>" +
-                                        "<button class='btn btn-danger' style='width:40px' onclick='RejectPencegahanCAPA(this)'>Reject</button>"
+                                    "data": "Status_ID",
+                                    "render": function (data) {
+                                        if (data === 8) {
+                                            return '<img id="imgApprove" src="../Content/Images/approveHijau.png"  style="width: 80px"/>';
+                                        }
+                                        else
+                                            if (data === 6) {
+                                                return '<img id="imgReject" src="../Content/Images/rejected.png"  style="width: 80px"/>';
+                                            }
+                                            else {
 
+                                                return "<button class='btn btn-success' style='width:40px; margin-bottom:5px' onclick='VerifyPencegahanCAPA(this)'>Verify</button>" +
+                                                    "<button class='btn btn-danger' style='width:40px' data-toggle='modal' data-target='#modalAlasanReject' onclick='RejectPencegahanCAPA(this)'>Reject</button>";
+                                            }
+                                    }
                                 },
                                 {
                                     "width": style = "35px",
@@ -543,9 +602,8 @@
                     type: 'post',
                     data: JSON.stringify({
                         Model: {
-                            Option: 2,
-                            NO_CAPA: $('#input_NoCAPA').val(),
-                            Status: 7
+                            Option: 7,
+                            NO_CAPA: $('#input_NoCAPA').val()
                         }
                     }),
                     dataType: 'json',
@@ -569,10 +627,21 @@
                                     "visible": false
                                 },
                                 {
-                                    "data": null,
-                                    "defaultContent": "<button class='btn btn-success' style='width:40px; margin-bottom:5px' onclick='VerifyPerbaiaknCAPA(this)'>Verify</button>" +
-                                        "<button class='btn btn-danger' style='width:40px' data-toggle='modal' data-target='#modalAlasanReject' onclick='RejectPerbaiaknCAPA(this)'>Reject</button>"
+                                    "data": "Status_ID",
+                                    "render": function (data) {
+                                        if (data  === 8) {
+                                            return '<img id="imgApprove" src="../Content/Images/approveHijau.png"  style="width: 80px"/>';
+                                        }
+                                        else
+                                            if ( data === 6) {
+                                                return '<img id="imgReject" src="../Content/Images/rejected.png"  style="width: 80px"/>';
+                                            }
+                                            else {
 
+                                                return "<button class='btn btn-success' style='width:40px; margin-bottom:5px' onclick='VerifyPerbaiaknCAPA(this)'>Verify</button>" +
+                                                    "<button class='btn btn-danger' style='width:40px' data-toggle='modal' data-target='#modalAlasanReject' onclick='RejectPerbaiaknCAPA(this)'>Reject</button>";
+                                            }
+                                    }
                                 },
                                 {
                                     "width": style = "35px",
@@ -629,67 +698,130 @@
     //Perbaikan
     function VerifyPerbaiaknCAPA(param) {
         let dataRow = $('#Tbl_BuktiPerbaikan').DataTable().row($(param).closest('tr')).data();
-        alert(dataRow.RecordID);
+        let type = 'Perbaikan';
+        VefiryPelaksanaCAPA(dataRow.RecordID, type);
     }
 
     function RejectPerbaiaknCAPA(param) {
         let dataRow = $('#Tbl_BuktiPerbaikan').DataTable().row($(param).closest('tr')).data();
         $('#txtRecordID').val(dataRow.RecordID);
+        $('#txtType').val('Perbaikan');
     }
 
     //Pencegahan
     function VerifyPencegahanCAPA(param) {
         let dataRow = $('#Tbl_BuktiPencegahan').DataTable().row($(param).closest('tr')).data();
-        alert(dataRow.RecordID);
+        let type = 'Pencegahan';
+        VefiryPelaksanaCAPA(dataRow.RecordID, type);
     }
 
     function RejectPencegahanCAPA(param) {
         let dataRow = $('#Tbl_BuktiPencegahan').DataTable().row($(param).closest('tr')).data();
-        alert(dataRow.RecordID);
+        $('#txtRecordID').val(dataRow.RecordID);
+        $('#txtType').val('Pencegahan');
     }
 
 
-    function format(d, tahapan) {
-        console.log(objLampiran);
-        var html = '';
-        $.each(JSON.parse(objLampiran), function (key, value) {
-            if (value.ID_FK == d.RecordID && value.TAHAPAN == "Lampiran " + tahapan) {
-                return html += '<tr>' +
-                    '<td>File Name :</td>' +
-                    '<td><a href="' + value.FILE_PATH + '">' + value.FILE_NAME + '</a></td>' +
-                    '</tr>';
-            }
-        });
-
-        if (html == '') {
-            html = '';
-            html = '<tr>' +
-                '<td>Tidak ada lampiran.</td>' +
-                '</tr>';
-        }
-
-        var tableChild = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-            html +
-            '</table>';
-        return tableChild;
+    // Treatment Plan
+    function VerifyTreatmentCAPA(param) {
+        let dataRow = $('#Tbl_BuktiTreatment').DataTable().row($(param).closest('tr')).data();
+        let type = 'Treatment';
+        
+        VefiryPelaksanaCAPA(dataRow.RecordID, type);
     }
 
-    function RejectPelaksanaCAPA() {
+    function RejectTreatmentCAPA(param) {
+        let dataRow = $('#Tbl_BuktiTreatment').DataTable().row($(param).closest('tr')).data();
+        $('#txtRecordID').val(dataRow.RecordID);
+        $('#txtType').val('Treatment');
+    }
+    
+
+    function RejectPelaksanaCAPA(RecordID, type, Alasan) {
         $.ajax({
-            url: '', 
+            url: 'RejectPelaksanaCAPA',
             type: 'post',
             data: JSON.stringify({
                 Model: {
-                    Option: 2,
+                    RecordID: RecordID,
                     NO_CAPA: $('#input_NoCAPA').val(),
-                    Status: 7
+                    Type: type,
+                    Create_By: nik,
+                    AlasanReject: Alasan
                 }
             }),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                
+                swal("Reject CAPA Berhasil !",
+                        {
+                            icon: "success",
+                            buttons: false,
+                            timer: 2000
+                        }
+                ).then(() => {
+                    $.when(
+                        $('#modalAlasanReject').modal('hide'),
+                        GetAllBukti()
+                    ).done(
+                        CheckStatus(),
+                        $('#txtAlasanRejectVerifikasi').val('')
+                    )
+                })
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
 
+    function VefiryPelaksanaCAPA(RecordID, type) {
+      
+        $.ajax({
+            url: 'VerifyPelaksanaCAPA',
+            type: 'post',
+            data: JSON.stringify({
+                Model: {
+                    RecordID: RecordID,
+                    NO_CAPA: $('#input_NoCAPA').val(),
+                    Type: type,
+                    Create_By: nik
+                }
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {                
+
+                $.when(
+                    GetAllBukti()
+                ).done(
+                    CheckStatus()
+                )                              
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function CheckStatus() {
+        $.ajax({
+            url: 'CheckStatus',
+            type: 'post',
+            data: JSON.stringify({
+                Model: {
+                    NO_CAPA: $('#input_NoCAPA').val()
+                }
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $.each(JSON.parse(data), function (key, value) {
+                    console.log(value.HasilCek)
+                    if (value.HasilCek == 0) {
+                        $('#CardApproveVerifikasi').prop('hidden', false);
+                    }
+                });
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
