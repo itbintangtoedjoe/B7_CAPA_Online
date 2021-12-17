@@ -66,24 +66,22 @@
                         <div class="form-group col-md-6">
                             <button type="button" class="btn btn-primary" id="btn_Search_Deviation">Search</button>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table table-hover table-bordered zero-configuration" id="Tbl_Deviation" style="color: black">
-                                <thead>
-                                    <tr>
-                                        <th>Action</th>
-                                        <th>No Penyimpangan</th>
-                                        <th>Nama Pelapor</th>
-                                        <th>Kategori Penyimpangan</th>
-                                        <th>Jenis Penyimpangan</th>
-                                        <th>Deskripsi Singkat</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <table class="table table-hover table-bordered zero-configuration" id="Tbl_Deviation" style="color: black">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>No Penyimpangan</th>
+                                    <th>Nama Pelapor</th>
+                                    <th>Kategori Penyimpangan</th>
+                                    <th>Jenis Penyimpangan</th>
+                                    <th>Deskripsi Singkat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                </tr>
+                            </tbody>
+                        </table>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -552,6 +550,20 @@
                                 </div>
                                 <div class="row form-group-sm mb-2">
                                     <div class="col-md-6">
+                                        <table class="table table-hover table-bordered zero-configuration" id="Table_Penyimpangan" style="color:black;">
+                                            <thead>
+                                                <tr>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row form-group-sm mb-2">
+                                    <div class="col-md-6">
                                         <label class="m-t-20">Lampiran Terkait</label>
                                         <div class="input-group mb-3">
                                             <div class="custom-file">
@@ -601,16 +613,11 @@
                                 <div class="row form-group-sm mb-2">
                                     <div class="col-md-6">
                                         <label class="m-t-20">Lokasi</label>
-                                        <div class="input-group">
-                                            <select class="form-control form-control-sm" id="Lokasi_DDL" name="Lokasi">
-                                                <option>Option 1</option>
-                                                <option>Option 2</option>
-                                                <option>Option 3</option>
-                                            </select>
-                                            <div class="input-group-append" style="padding-left:10px">
-                                                <button class="btn btn-outline-dark rounded btn-sm" type="button" id="btn_Add_Lokasi">Add</button>
-                                            </div>
-                                        </div>                                       
+                                        <select class="form-control form-control-sm" id="Lokasi_DDL" name="Lokasi" multiple>
+                                            <option>Option 1</option>
+                                            <option>Option 2</option>
+                                            <option>Option 3</option>
+                                        </select>
                                         @Html.HiddenFor(m => m.Lokasi)
                                     </div>
                                     <div class="col-md-4">
@@ -716,6 +723,12 @@
 
 <script>
     $(document).ready(function () {
+        $("#Lokasi_DDL").change(function (key, value) {
+            console.log($("#Lokasi_DDL").val().toString());
+        });
+
+        //variable data untuk menampung data deviation dan ccc
+        var data = [];
         $('#input_Requestor').val('@Request.RequestContext.HttpContext.Session["FullName"]');
 
         $('#AreaPIC_DDL').select2();
@@ -725,6 +738,14 @@
 
         $('#Trigger_CAPA').change(function () {
             clearHidden();
+            $('#Table_Penyimpangan').prop("hidden", true);
+            data = [];
+            $('#Tbl_Deviation').empty();
+            $('#Tbl_CCC').empty();
+            $('#TxtDeviation').val("");
+            $('#TxtCCC').val("");
+
+            console.log(data);
             if ($('#Trigger_CAPA').val() == "ORACLE") {
                 $('#Linked_Oracle').prop('hidden', false);
             } else if ($('#Trigger_CAPA').val() == "CCC") {
@@ -763,7 +784,7 @@
                 dataType: 'json',
                 data: JSON.stringify({
                     Option: 2,
-                    Lokasi: Location,
+                    Lokasi: $('#Lokasi_DDL').val().toString(),
                     SP: "[dbo].[SP_SHOW_DDL]"
                 }),
                 contentType: 'application/json; charset=utf-8',
@@ -1065,14 +1086,16 @@
             }
         });
 
-        //variable data tempat --
-        var data = [];
         //checkbox Deviation
         $(document).on("click", "#Tbl_Deviation input[name='type'][class='selected']", function () {
             if ($(this).prop('checked') == true) {
-                var columns = $(this).closest('tr').find('td:eq(1)').text();
+                var columns = $(this).closest('tr');
                 var id = {};
-                id.PENYIMPANGAN_ID = columns;
+                id.PENYIMPANGAN_ID = columns.find('td:eq(1)').text();
+                id.NAMA_PELAPOR = columns.find('td:eq(2)').text();;
+                id.JENIS_KATEGORI = columns.find('td:eq(3)').text();;
+                id.JENIS_PENYIMPANGAN = columns.find('td:eq(4)').text();;
+                id.DESKRIPSI = columns.find('td:eq(5)').text();;
                 data.push(id);
             }
             else {
@@ -1086,15 +1109,54 @@
                 $('#PenyimpanganTerkait').val("Yes");
                 $('#TxtDeviation').val(data.length + " Data telah dipilih.");
             }
+            $('#Table_Penyimpangan').prop("hidden", false);
+            $('#Table_Penyimpangan').DataTable({
+                "pageLength": 5,
+                "paging": false,
+                "info": false,
+                "lengthChange": true,
+                "searching": false,
+                "data": data,
+                "select": true,
+                "bDestroy": true,
+                "scrollCollapse": true,
+                "columns": [
+                    {
+                        "data": "PENYIMPANGAN_ID",
+                        "title": "No Penyimpangan"
+                    },
+                    {
+                        "data": "NAMA_PELAPOR",
+                        "title": "Nama Pelapor"
+                    },
+                    {
+                        "data": "JENIS_KATEGORI",
+                        "title": "Jenis Kategori"
+                    },
+                    {
+                        "data": "JENIS_PENYIMPANGAN",
+                        "title": "Jenis Penyimpangan"
+                    },
+                    {
+                        "data": "DESKRIPSI",
+                        "title": "Deskripsi Singkat"
+                    }
+                ],
+                "order": [[1, 'asc']]
+            });
 
         });
 
         //checkbox CCC
         $(document).on("click", "#Tbl_CCC input[name='type'][class='selected']", function () {
             if ($(this).prop('checked') == true) {
-                var columns = $(this).closest('tr').find('td:eq(1)').text();
+                var columns = $(this).closest('tr');
                 var id = {};
-                id.PENYIMPANGAN_ID = columns;
+                id.PENYIMPANGAN_ID = columns.find('td:eq(1)').text();
+                id.NAMA_PELANGGAN = columns.find('td:eq(2)').text();
+                id.JENIS_KATEGORI = columns.find('td:eq(3)').text();
+                id.JENIS_KELUHAN = columns.find('td:eq(4)').text();
+                id.DESKRIPSI = columns.find('td:eq(5)').text();
                 data.push(id);
             }
             else {
@@ -1108,6 +1170,42 @@
                 $('#KeluhanTerkait').val("Yes");
                 $('#TxtCCC').val(data.length + " Data telah dipilih.");
             }
+
+            $('#Table_Penyimpangan').prop("hidden", false);
+            $('#Table_Penyimpangan').DataTable({
+                "pageLength": 5,
+                "paging": false,
+                "info": false,
+                "lengthChange": true,
+                "searching": false,
+                "data": data,
+                "select": true,
+                "bDestroy": true,
+                "scrollCollapse": true,
+                "columns": [
+                    {
+                        "data": "PENYIMPANGAN_ID",
+                        "title": "No CCC"
+                    },
+                    {
+                        "data": "NAMA_PELANGGAN",
+                        "title": "Nama Pelanggan"
+                    },
+                    {
+                        "data": "JENIS_KATEGORI",
+                        "title": "Jenis Kategori"
+                    },
+                    {
+                        "data": "JENIS_KELUHAN",
+                        "title": "Jenis Keluhan"
+                    },
+                    {
+                        "data": "DESKRIPSI",
+                        "title": "Deskripsi Singkat"
+                    }
+                ],
+                "order": [[1, 'asc']]
+            });
         });
 
         requestPage(getRequestPageData);
