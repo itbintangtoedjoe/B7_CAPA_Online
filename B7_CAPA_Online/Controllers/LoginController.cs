@@ -247,6 +247,15 @@ namespace B7_CAPA_Online.Controllers
                         Session["Departemen"] = objectKary[0]["Org_Group_Name"];
                         Session["Lokasi"] = objectKary[0]["Location"];
                         Session["SuperiorName"] = objectKary[0]["SuperiorName"];
+                        if(objectKary[0]["Email_1"] != "")
+                        {
+
+                            Session["Email"] = objectKary[0]["Email_1"];
+                        }
+                        else
+                        {
+                            Session["Email"] = objectKary[0]["Email_2"];
+                        }
                     }
                     else
                     {

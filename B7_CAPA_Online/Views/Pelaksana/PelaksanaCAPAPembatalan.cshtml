@@ -229,6 +229,7 @@
     var dataPerbaikan, attachmentPerbaikan, dataPencegahan, attachmentPencegahan;
     var statuser = false;
     var stataction = false;
+    var laststate = false;
     var referenceID = getQueryStrings()["ReferenceID"];
     var tindakan = getQueryStrings()["Tindakan"]
     $('#input_NoCAPA').val(noCAPA);
@@ -360,7 +361,11 @@
         var dto = {
             Model: dictlist
         }
-        if (valid == true) {
+        if (valid == true)
+        {
+            laststate = true;
+        }
+        if (laststate == true) {
             $.ajax({
                 url: "DynamicController?spname=SP_Update_Pelaksanaan",
                 type: "POST",
@@ -401,6 +406,9 @@
             Model: dictlist
         }
         if (valid == true) {
+            laststate = true;
+        }
+        if (laststate == true) {
             $.ajax({
                 url: "DynamicController?spname=SP_Update_Pelaksanaan",
                 type: "POST",

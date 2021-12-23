@@ -15,10 +15,10 @@
                         <form>
                             <div class="container">
                                 <div class="row form-group col-md-12">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" >
                                         <label for="TxtPotensiKegagalan" class="col-form-label">Potensi Kegagalan / Penyimpangan yang mungkin terjadi ketika tindakan perbaikan/pencegahan diterapkan</label>
                                         <div class="input-group">
-                                            <textarea type="text" class="form-control" name="TxtPotensiKegagalan" id="TxtPotensiKegagalan"></textarea>
+                                            <textarea type="text" class="form-control" name="TxtPotensiKegagalan" id="TxtPotensiKegagalan" z-index = 1000></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -26,13 +26,13 @@
                                     <div class="col-md-6">
                                         <label for="TxtDampak" class="col-form-label">Dampak</label>
                                         <div class="input-group">
-                                            <textarea type="text" class="form-control" name="TxtDampak" id="TxtDampak"></textarea>
+                                            <textarea type="text" class="form-control" name="TxtDampak" id="TxtDampak" z-index = 900 ></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="TxtSpesifikasi" class="col-form-label">Spesifikasi / Syarat</label>
                                         <div class="input-group">
-                                            <textarea type="text" class="form-control" name="TxtSpesifikasi" id="TxtSpesifikasi"></textarea>
+                                            <textarea type="text" class="form-control" name="TxtSpesifikasi" id="TxtSpesifikasi" z-index = 800></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -40,7 +40,7 @@
                                     <div class="col-md-6">
                                         <label for="TxtPenyebabPotensial" class="col-form-label">Penyebab Potensial</label>
                                         <div class="input-group">
-                                            <textarea type="text" class="form-control" name="TxtPenyebabPotensial" id="TxtPenyebabPotensial"></textarea>
+                                            <textarea type="text" class="form-control" name="TxtPenyebabPotensial" id="TxtPenyebabPotensial" z-index = 700></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -376,7 +376,10 @@
 </div>
 <input type="text" class="form-control form-control-sm" id="NoCAPA" val="@ViewBag.NoCAPA" style="width:100%;" hidden>
 <script>
-    
+    var tipe;
+    var valid = false;
+    var objTindakan;
+    var values;
     function KajianResikoDDLPV() {
         $.ajax({
             url: '/PIC/GetDataPIC',
@@ -390,14 +393,13 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 //console.log(JSON.parse(data))
-                //objTindakan = JSON.parse(data);
+                objTindakan = JSON.parse(data);
                 //console.log('Halaman PV dalam KajianResikoDDLPV(): ' + objTindakan);
-                getDataTindakan(JSON.parse(data));
-                $('#RootCause_KajianResikoDDL').empty();
-                $('#RootCause_KajianResikoDDL').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
-                $.each(JSON.parse(data), function (key, value) {
-                    $('#RootCause_KajianResikoDDL').append(new Option(value.Tindakan, value.Tindakan));
-                });
+                //$('#RootCause_KajianResikoDDL').empty();
+                //$('#RootCause_KajianResikoDDL').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+                //$.each(JSON.parse(data), function (key, value) {
+                //    $('#RootCause_KajianResikoDDL').append(new Option(value.Tindakan, value.Tindakan));
+                //});
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -593,7 +595,7 @@
                 }),
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    TableKajian();
+                    TableKajianPV();
                     return true;
                 },
                 error: function (ex) {
@@ -603,22 +605,25 @@
         });
     }
 
-    var objTindakan;
-    function getDataTindakan(data) {        
+    function getDataTindakan(data) {
         return objTindakan = data;
     }// refer to KajianResikoDDL();
    
     //search Tindakan get record_id and Tipe
-    var values; //var values; //objTindakan filtered.
-    function recTindakan(increments) {
-        console.log(objTindakan[increments].Tindakan +' ');
-        if (objTindakan[increments].Tindakan == $('#RootCause_KajianResikoDDL').val()) {
-            return values = objTindakan[increments];
-        }            
-        else {
-            increments++;
-            recTindakan(increments);
+    //var values; //objTindakan filtered.
+    function recTindakan() {
+
+        //console.log(objTindakan);
+        //console.log(tipe);
+        for (var i = 0; i < objTindakan.length; i++)
+        {
+            if (objTindakan[i].RecordID == $('#RootCause_KajianResikoDDL').val() && objTindakan[i].Tipe == tipe) {
+                values = objTindakan[i];
+                break;
+            }
+            
         }
+        
     } 
 
     function RemoveModalInput() {
@@ -651,10 +656,9 @@
     }
 
     $(document).ready(function () {
-        KajianResikoDDLPV();
+        //KajianResikoDDLPV();
         TableKajianPV();
         UnhideKajianResikoModalPV();
-        console.log(objTindakan);
         var isHide = false;
 
         $('#RootCause_KajianResikoDDL').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
@@ -692,14 +696,7 @@
         });
 
         $('#btn_AddKajian').click(function () {          
-            $.when(
-                recTindakan(0)
-            ).done(
-                function () {                  
-                    $('#TxtPIC').val(values.Nama_Personil);
-                    $('#TxtPICName').val(values.FullName);
-                }              
-            );
+            recTindakan();
             //console.log(values);
         });
 
@@ -712,7 +709,6 @@
                     'warning'
                 )
             } else {
-                var valid = true;
 
                 var pic = "";
                 if ($('#Severity_DDL').val() == 10 || $('#TxtRiskLevel').val() == 'High' || $('#TxtRiskLevel').val() == 'Very High') {
@@ -779,7 +775,8 @@
                     DueDate: '#DueDate_Kajian',
                     Lainnya: '#TxtLainnya'
                 }
-
+                var date = new Date();
+                var datekajian = new Date($('#DueDate_Kajian').val());
                 var limit = (dto.Model.Severity == 10 || dto.Model.RiskLevel == "High" || dto.Model.RiskLevel == "Very High") ? (25) : (14);
                 var count = 0;
                 //console.log("limit : " + limit);
@@ -828,6 +825,16 @@
                             }
                         }
                     }
+                    if (date.getTime() > datekajian.getTime())
+                    {
+                        Swal.fire(
+                            'Maaf',
+                            'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
+                            'warning'
+                        )
+                        valid = false;
+                        return false;
+                    }
                     count++;
                     valid = true;
                 });
@@ -851,7 +858,7 @@
                                         //close modal
                                         RemoveModalInput();
                                         // fetch to table
-                                        TableKajian(true);
+                                        TableKajianPV(true);
                                     }
                                 });
                             }

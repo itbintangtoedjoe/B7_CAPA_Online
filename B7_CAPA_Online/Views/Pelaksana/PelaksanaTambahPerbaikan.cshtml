@@ -187,9 +187,8 @@
                     </div>
                 </div>
                 @Html.Partial("KajianResikoPV")
-                @*<button type="button" class="btn btn-primary" id="btnSimpan">Simpan</button>*@
+                <button type="button" class="btn btn-primary" id="btnSimpan">Simpan</button>
 
-                <button type="button" class="btn btn-primary" id="btnback">Back to previous page</button>
             </div>
 
             <input type="text" id="input_NoCAPA" value="@ViewBag.NoCAPA" hidden>
@@ -203,10 +202,14 @@
     $('#input_NoCAPA').val(noCAPA);
     var referenceID = getQueryStrings()["ReferenceID"];
     var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
+    var namauser = '@Request.RequestContext.HttpContext.Session["NamaUser"]';
+    var departemen = '@Request.RequestContext.HttpContext.Session["Departemen"]';
+    var email ='@Request.RequestContext.HttpContext.Session["Email"]';
     var dataPerbaikan;
     var newDataPerbaikan;
     var newKajianResiko = [];
     var objTindakan;
+    var laststate = false;
     function getQueryStrings() {
         var vars = [], hash;
         var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -255,13 +258,11 @@
                 $('#Div_TindakanPerbaikan').prop('hidden', false);
                 $('#PerbaikanExisting').prop('hidden', true);
                 $('#Div_Pencegahan').prop('hidden', true);
-                $('#btnSimpan').prop('hidden', true);
             }
             else {
                 $('#PerbaikanExisting').prop('hidden', false);
                 $('#Div_Pencegahan').prop('hidden', false);
                 $('#btnSimpan').prop('hidden', false);
-
                 $('#Div_TindakanPerbaikan').prop('hidden', true);
                 $('#Div_TindakanPencegahan').prop('hidden', true);
             }
@@ -304,7 +305,131 @@
             getPICKajianResiko(kategori);
         });
 
+        $('#btnSimpan').click(function () {
+
+            var berpotensi = $('input[name="TambahPerbaikan"]:checked').val();
+       
+            if (berpotensi == "Yes") {
+                SubmitTindakanBaru();
+            }
+            else
+            {
+                SubmitTindakanExisting();
+            }
+        })
+
+        $('#RootCause_KajianResikoDDL').change(function () {
+            var val = $('#RootCause_KajianResikoDDL').text();
+            alert(val.indexOf('[Perbaikan]'));
+            alert(val.indexOf('[Pencegahan]') )
+            if (val.indexOf('[Perbaikan]') == 0) {
+                tipe = "Perbaikan";
+            }
+            else
+            {
+                tipe = "Pencegahan"
+            }
+
+        });
     });
+    function SubmitTindakanExisting()
+    {
+        if (valid == true) {
+            laststate = true;
+        }
+        if (laststate == true) {
+            var referenceID = getQueryStrings()["ReferenceID"];
+            referenceID = referenceID.replace('#', '');
+
+            var dictionarylist = {
+                kategori: "Penambahan Submit Existing",
+                RecordID: referenceID,
+                NoCAPA: noCAPA
+            }
+            var dto = {
+                Model: dictionarylist
+            }
+            $.ajax({
+                url: "DynamicController?spname=SP_Update_Pelaksanaan",
+                type: "POST",
+                data: JSON.stringify(dto),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (data) {
+                    if (result[0].Validate == "Invalid Pencegahan")
+                    {
+
+                        Swal.fire("Error!", "Masih ada Tindakan Pencegahan yang belum dikaji !", "error");
+
+                    }
+                    else {
+
+                        Swal.fire("Success!", "Submit Berhasil!", "success");
+
+                        $("input[name='TambahPerbaikan']").prop("disabled", false);
+                    }
+                },
+                error: function (xhr, error, status) {
+                    console.log(error, status);
+                }
+            });
+        }
+        else
+        {
+            Swal.fire("Error!", "Tindakan Harus Dikaji Terlebih Dahulu!", "error");
+        }
+    }
+    function SubmitTindakanBaru()
+    {
+
+        var dictlist =
+        {
+            NoCAPA: noCAPA,
+            kategori: "Penambahan Submit",
+
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        if (valid == true)
+        {
+            laststate = true;
+        }
+        if (laststate == true)
+        {
+            $.ajax({
+                url: "DynamicController?spname=SP_Update_Pelaksanaan",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto1),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var result = JSON.parse(data);
+                    if (result[0].Validate == "Invalid Perbaikan") {
+
+                        Swal.fire("Error!", "Masih ada Tindakan Perbaikan yang belum dikaji !", "error");
+                    }
+                    else if (result[0].Validate == "Invalid Pencegahan") {
+
+                        Swal.fire("Error!", "Masih ada Tindakan Pencegahan yang belum dikaji !", "error");
+
+                    }
+                    else {
+                        Swal.fire("Success!", "Submit Berhasil !", "Success");
+
+                        $("input[name='TambahPerbaikan']").prop("disabled", false);
+                    }
+                },
+                error: function (errormessage) {
+                    $('#divLoading').attr("hidden", true);
+                }
+            });
+        }
+        else {
+            Swal.fire("Error!", "Tindakan Harus Dikaji Terlebih Dahulu!", "error");
+        }
+
+    }
     function getVendorDDL() {
         $.ajax({
             url: 'DynamicController?spname=[dbo].[SP_SHOW_DDL]',
@@ -329,6 +454,7 @@
             }
         });
     }
+
     function getPICKajianResiko(kategori) {
         $('#TxtEmail').val("");
         $.ajax({
@@ -381,9 +507,8 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 getDataTindakan(JSON.parse(data));
-                $('#RootCause_KajianResikoDDL').empty();
                 $.each(JSON.parse(data), function (key, value) {
-                    $('#RootCause_KajianResikoDDL').append(new Option(value.WhyDesc, value.WhyDesc));
+
                 });
             },
             error: function (ex) {
@@ -391,6 +516,7 @@
             }
         });
     }
+
     function RemoveInputField(kategori) {
         $('#TxtDeskripsi' + kategori).val("");
         $('#duedate_' + kategori.toLowerCase()).val("");
@@ -416,14 +542,11 @@
                 $.each(JSON.parse(rootcause), function (key, value) {
                     $('#RootCause_DDL').append(new Option(value.WhyDesc, value.WhyDesc));
                 });
-                console.log(JSON.parse(rootcause));
 
                 $('#btn_AddPerbaikan').click(function () {
-                    countAdd++;
-                    if (countAdd > 1) {
-                        return;
-                    }
-                    else {
+                    
+                   
+                   
                         var dto = {};
                         var kategori = "Perbaikan";
                         var obj = JSON.parse(rootcause);
@@ -439,22 +562,22 @@
                                     RootCause: value.WhyDesc,
                                     Tindakan: $('#TxtDeskripsiPerbaikan').val(),
                                     Pelaksana: $('#NamaPersonilPerbaikan_DDL').val(),
-                                    Departemen: $('#DepartemenPerbaikan_DDL').val(),
+                                    Departemen: departemen,
                                     LineNumber: value.LineNumber,
                                     DueDate: $('#duedate_perbaikan').val(),
-                                    NamaPersonil: $('#NamaPersonilPerbaikan_DDL option:selected').text(),
-                                    Email: $('#TxtEmailPerbaikan').val(),
+                                    NamaPersonil: namauser,
+                                    Email: email,
                                     Is_AreaLain: $('input[name="Potensi"]:checked').val(),
                                     Create_By: nik,
                                     Status:"Perbaikan Baru",
                                     Status_ID: 0,
                                     SP: "[dbo].[SP_FORM_CAPA]"
                                 }
-                                return false;
+                              
                             }
                         });
                         addTindakan(dto, kategori);
-                    }
+                    
                 });
 
             },
@@ -476,9 +599,10 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (area_lain) {
-                console.log(area_lain)
                 var countAdd = 0;
                 var data = JSON.parse(area_lain);
+
+                var date = new Date();
                 if (data.length == 0) {
                     $('#Div_TindakanPencegahan').prop('hidden', true);
                 } else {
@@ -487,12 +611,9 @@
                     $.each(JSON.parse(area_lain), function (key, value) {
                         $('#AreaLain_DDL').append(new Option(value.Tindakan_Perbaikan, value.Tindakan_Perbaikan));
                     });
-
                     $('#btn_AddPencegahan').click(function () {
                         countAdd++;
-                        if (countAdd > 1) {
-                            return;
-                        } else {
+                         
                             var dto = {};
                             var kategori = "Pencegahan";
                             var obj = JSON.parse(area_lain);
@@ -507,22 +628,22 @@
                                         RootCause: value.Tindakan_Perbaikan,
                                         AreaLain: $('#TxtAreaLainPencegahan').val(),
                                         Tindakan: $('#TxtDeskripsiPencegahan').val(),
-                                        Pelaksana: $('#NamaPersonilPencegahan_DDL').val(),
-                                        Departemen: $('#DepartemenPencegahan_DDL').val(),
+                                        Pelaksana: nik,
+                                        Departemen: departemen,
                                         LineNumber: value.LineNumber,
                                         DueDate: $('#duedate_pencegahan').val(),
-                                        NamaPersonil: $('#NamaPersonilPencegahan_DDL option:selected').text(),
-                                        Email: $('#TxtEmailPencegahan').val(),
+                                        NamaPersonil: namauser,
+                                        Email: email,
                                         Create_By: nik,
                                         Status: "Pencegahan Baru",
                                         Status_ID: 0,
                                         SP: "[dbo].[SP_FORM_CAPA]"
                                     }
-                                    return false;
+                                    
                                 }
                             });
                             addTindakan(dto, kategori);
-                        }
+                        
 
                     });
                 }
@@ -577,6 +698,32 @@
                 valid = true;
             }
         });
+        if (kategori == "Perbaikan") {
+            var date = new Date();
+            var datepencegahan = new Date($('#duedate_perbaikan').val());
+            if (date.getTime() > datepencegahan.getTime()) {
+                Swal.fire(
+                    'Maaf',
+                    'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
+                    'warning'
+                )
+                return;
+            }
+        }
+        if (kategori == "Pencegahan")
+        {
+            var date = new Date();
+            var datepencegahan = new Date($('#duedate_pencegahan').val());
+            if (date.getTime() > datepencegahan.getTime())
+            {
+                Swal.fire(
+                    'Maaf',
+                    'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
+                    'warning'
+                )
+                return;
+            }
+        }
 
         if (valid) {
             $.ajax({
@@ -599,6 +746,8 @@
                                 retrieveData2();
                                 RemoveInputField(kategori);
                             }
+                            $("input[name='TambahPerbaikan']").prop("disabled", true);
+                            KajianResikoDDLPV();
                             KajianDDLPerbaikanBaru();
                         });
                     }
@@ -615,7 +764,7 @@
             )
         }
     }
-
+        
     $('#Severity_DDL').change(function () {
         realtimeCalculation();
     });
@@ -641,7 +790,6 @@
     });
 
     function realtimeCalculation() {
-        console.log('masok');
         var RPN = 0;
         var RPN2 = 0;
         var Severity = $('#Severity_DDL').val();
@@ -689,12 +837,9 @@
         $("#Detectability2_DDL").val("1");
     }
 
-   
-
     function KajianDDLPerbaikanBaru() {
         var dictlist = {
-            Kategori: "Cari Perbaikan",
-            RecordID: referenceID,
+            Kategori: "Cari Perbaikan Baru",
             nomorCAPA: noCAPA
         }
         var dto = {
@@ -722,10 +867,10 @@
             }
         });
     }
+
     function KajianDDLPencegahanBaru() {
         var dictlist = {
-            Kategori: "Cari Pencegahan",
-            RecordID: referenceID,
+            Kategori: "Cari Pencegahan Baru",
             nomorCAPA: noCAPA
         }
         var dto = {
@@ -743,10 +888,11 @@
                 $('#RootCause_KajianResikoDDL').prop("disabled", false);
                 $('#btn_AddKajian').prop("disabled", false);
                 for (var i = 0; i < result.length; i++) {
-                    $('#RootCause_KajianResikoDDL').append(new Option("[Pencegahan]" + " " + result[i].Tindakan_Pencegahan, result[i].Tindakan_Pencegahan));
-                 
+                    $('#RootCause_KajianResikoDDL').append(new Option("[Pencegahan]" + " " + result[i].Tindakan_Pencegahan, result[i].RecordID));
+
                 }
-              
+
+                //objTindakan += result;
                 @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
             }, error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -775,12 +921,13 @@
                 $('#RootCause_KajianResikoDDL').empty();
                 $('#RootCause_KajianResikoDDL').prop("disabled", false);
                 $('#btn_AddKajian').prop("disabled", false);
+                $('#RootCause_KajianResikoDDL').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
                 for (var i = 0; i < result.length; i++) {
-                    $('#RootCause_KajianResikoDDL').append(new Option("[Pencegahan]" + " " + result[i].Tindakan_Pencegahan, result[i].Tindakan_Pencegahan));
-                    console.log(result[i].Tindakan_Pencegahan);
+                    $('#RootCause_KajianResikoDDL').append(new Option("[Pencegahan]" + " " + result[i].Tindakan_Pencegahan, result[i].RecordID));
+
                 }
                 @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
-
+                KajianResikoDDLPV();
                 //objTindakan += result;
             }, error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -791,7 +938,16 @@
     $('#AddPencegahan').click(function (e) {
         var referenceID = getQueryStrings()["ReferenceID"];
         referenceID = referenceID.replace('#', '');
-
+        var date = new Date();
+        var datepencegahan = new Date($('#dueDatePencegahan').val());
+        if (date.getTime() > datepencegahan.getTime()) {
+            Swal.fire(
+                'Maaf',
+                'Tanggal due date tidak boleh kurang dari hari ini.',
+                'warning'
+            )
+            return;
+        }
         var dictionarylist = {
             kategori:"Penambahan Pencegahan",
             TindakanPencegahan: $('#txtTindakanPencegahan').val(),
@@ -811,7 +967,8 @@
             contentType: "application/json",
             dataType: 'json',
             success: function (data) {
-                alert("Penambahan berhasil disimpan");
+                Swal.fire("Success!", "Penambahan berhasil disimpan!", "success");
+                $("input[name='TambahPerbaikan']").prop("disabled", true);
                 KajianDDLPencegahan();
             },
             error: function (xhr, error, status) {

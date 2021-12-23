@@ -24,50 +24,44 @@
                         <div class="row form-group-sm">
                             <div class="col-md-6">
                                 <label class="m-t-20">Status CAPA<span style="color: red">*</span></label>
-                                <select class="form-control form-control-sm" id="Trigger_CAPA">
-                                    <option value="Open">Open</option>
-                                    <option value="ApprovedCAPA">ApprovedCAPA</option>
-                                    <option value="Closed">Closed</option>
-                                    <option value="ClosedWithInitial">Closed with initial New CAPA</option>
-                                    <option value="Cancelled">Cancelled</option>
+                                <select class="form-control select2" id="Status">
+                                   
                                 </select>
                             </div>
                         </div>
                         <div class="row form-group-sm">
                             <div class="col-md-6">
                                 <label class="m-t-20">Departemen PIC CAPA<span style="color: red">*</span></label>
-                                <select class="form-control form-control-sm" id="Trigger_CAPA">
+                                <select class="form-control select2" id="Departemen">
                                 </select>
                             </div>
                         </div>
                         <div class="row form-group-sm">
                             <div class="col-md-6">
-                                <label class="m-t-20">Ketegori<span style="color: red">*</span></label>
-                                <select class="form-control form-control-sm" id="Trigger_CAPA">
-                                    <option value="Produk">Kualitas Terkait Produk</option>
-                                    <option value="NonProduk">Kualitas Terkait Non Produk</option>
-                                    <option value="Material">Kualitas Terkait Material Awal</option>
-                                    <option value="SIA">Internal Audit (SIA)</option>
-                                    <option value="SEA">External Audit (SEA)</option>
-                                    <option value="HSE">HSE</option>
+                                <label class="m-t-20">Kategori<span style="color: red">*</span></label>
+                                <select class="form-control select2" id="Kategori">
+                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group-sm">
+                            <div class="col-md-6">
+                                <label class="m-t-20">Kode CAPA<span style="color: red">*</span></label>
+                                <select class="form-control select2" id="Kode_CAPA">
                                 </select>
                             </div>
                         </div>
                         <div class="row form-group-sm">
                             <div class="col-md-6">
                                 <label class="m-t-20">Tahun<span style="color: red">*</span></label>
-                                <select class="form-control form-control-sm" id="Trigger_CAPA">
+                                <select class="form-control select2" id="Tahun">
                                 </select>
                             </div>
                         </div>
                         <div class="row form-group-sm">
                             <div class="col-md-6">
                                 <label class="m-t-20">Lokasi Site<span style="color: red">*</span></label>
-                                <select class="form-control form-control-sm" id="Trigger_CAPA">
-                                    <option value="Cikarang">Cikarang</option>
-                                    <option value="Pulogadung">Pulogadung</option>
-                                    <option value="HeadOffice">Head Office</option>
-                                    <option value="All">All</option>
+                                <select class="form-control select2" id="Lokasi">
                                 </select>
                             </div>
                         </div>
@@ -121,3 +115,164 @@
     </div>
     <!-- #/ container -->
 </div>
+<script>
+
+      $(document).ready(function () {
+        getKodeCAPA();
+
+    });
+
+    function getKodeCAPA()
+    {
+        var dictlist = {
+            Option:"Kode CAPA"
+        }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Report",
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                $('#Kode_CAPA').empty();
+                var result = JSON.parse(data);
+                for (var i = 0; i < result.length; i++) {
+                    $('#Kode_CAPA').append(new Option(result[i].Code_Desc, result[i].Code));
+                }
+
+                getDepartemen();
+                }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
+    }
+    function getDepartemen() {
+        var dictlist = {
+            Option: "Departemen"
+        }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Report",
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var result = JSON.parse(data);
+                $('#Departemen').empty();
+
+                $('#Departemen').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+                for (var i = 0; i < result.length; i++) {
+                    $('#Departemen').append(new Option(result[i].PlantDesc, result[i].PlantID));
+                }
+
+                getLokasi();
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
+    }
+
+
+    function getLokasi() {
+        var dictlist = {
+            Option: "Lokasi"
+        }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Report",
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                $('#Lokasi').empty();
+
+                $('#Lokasi').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+                for (var i = 0; i < result.length; i++) {
+                    $('#Lokasi').append(new Option(result[i].DDL_CODE, result[i].DDL_DESCRIPTION));
+                }
+
+                getStatusCAPA();
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
+    }
+
+    function getStatusCAPA() {
+        var dictlist = {
+            Option: "Status CAPA"
+        }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Report",
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var result = JSON.parse(data);
+                $('#Status').empty();
+
+                $('#Status').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+                for (var i = 0; i < result.length; i++) {
+                    $('#Status').append(new Option(result[i].STATUS_ID, result[i].STATUS_CAPA));
+                }
+                getKategori();
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
+    }
+
+
+    function getKategori() {
+        var dictlist = {
+            Option: "Kategori"
+        }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Report",
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var result = JSON.parse(data);
+                $('#Kategori').empty();
+
+                $('#Kategori').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+                for (var i = 0; i < result.length; i++) {
+                    $('#Kategori').append(new Option(result[i].DDL_DESCRIPTION, result[i].DDL_CODE));
+                }
+
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
+    }
+
+
+</script>

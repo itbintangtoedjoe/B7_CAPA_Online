@@ -112,7 +112,7 @@
                             <hr />
                             <div class="row form-group">
                                 <div class="col-sm-6">
-                                    <select class="form-control select2" name="ddlPerbaikan" id="ddlPerbaikan" required>
+                                    <select class="form-control select2" name="ddlPerbaikan" id="ddlPerbaikan" required >
                                     </select>
                                 </div>
                                 <div class="col-sm-1" id="PilihPerbaikan">
@@ -964,6 +964,7 @@
         $('#dueDatePerbaikan').val(dueDate.format("YYYY-MM-DD"));
         $('#txtHasilPerbaikan').val(objPerbaikan[0].Hasil_Perbaikan);
         $('#dueDatePerbaikanRev').val(dueDateRev.format("YYYY-MM-DD"));
+        $('#txtRootCausePerbaikan').val(objPerbaikan[0].WhyDesc);
         GetPerbaikanAttachments();
         PopulateTableAttPerbaikan();
         ToggleBtnDeleteAttPerbaikan("Disable");
@@ -990,14 +991,13 @@
         }
         if (statuser == true) {
             //disable button pilih agar tidak bisa diedit - jika status direview
-            
+
                 $('#btnPilihPerbaikan').prop('disabled', false);
                 status = "Waiting Upload Bukti"
-            
+
             $('#txtStatusPerbaikan').html('<strong>Status: ' + status + '</strong>');
-            $('#txtRootCausePerbaikan').val(objPerbaikan[0].WhyDesc);
         }
-        
+
 
 
 
@@ -1566,6 +1566,14 @@
         var alasantindakanpencegahan = $('#AlasanTindakanPencegahan').val();
         //pelaksanaID = pelaksanaID.replace('#', '');
         idPencegahan = parseInt(idPencegahan);
+        if (hasilPencegahan.trim() == "" || $('#tblAttachmentPencegahan td:last-child').text() == "Belum ada file terpilih") {
+                swal('Hasil pencegahan dan attachment wajib diisi!', {
+                    icon: "warning",
+                    buttons: false,
+                    timer: 1000,
+                });
+                return;
+         }
         var dictlist = {
             kategori: kategori,
             recordID: idPencegahan,
@@ -1589,7 +1597,7 @@
                     timer: 100000,
                 });
                 ReloadPage();
-                
+
                 $('#ddlPencegahan').attr("disabled", false);
             },
             error: function (errormessage) {
@@ -1804,67 +1812,65 @@
     //    $("#tbodyAttachmentTreatment").empty();
     //    $("#tblAttachmentTreatment").append(trhtml);
     //})
-    function KajianDDLPerbaikan() {
-        var dictlist = {
-            kategori: "Cari Tindakan Perbaikan",
-            nomorCAPA: noCAPA
-        }
-        var dto = {
-            Model: dictlist
-        }
-        $.ajax({
-            url: "DynamicController?spname=SP_Find_Data",
-            type: "POST",
-            async: false,
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                var result = JSON.parse(data);
-                $('#RootCause_KajianResikoDDL').empty();
-                $('#RootCause_KajianResikoDDL').prop("disabled", false);
-                $('#btn_AddKajian').prop("disabled", false);
-                for (var i = 0; i < result.length; i++) {
-                    $('#RootCause_KajianResikoDDL').append(new Option("[Perbaikan]" + " " + result[i].Tindakan_Perbaikan, result[i].RecordID));
-                }
-                KajianDDLPencegahan();
-                @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
+    //function KajianDDLPerbaikan() {
+    //    var dictlist = {
+    //        kategori: "Cari Tindakan Perbaikan",
+    //        nomorCAPA: noCAPA
+    //    }
+    //    var dto = {
+    //        Model: dictlist
+    //    }
+    //    $.ajax({
+    //        url: "DynamicController?spname=SP_Find_Data",
+    //        type: "POST",
+    //        async: false,
+    //        dataType: "json",
+    //        data: JSON.stringify(dto),
+    //        contentType: "application/json;charset=utf-8",
+    //        success: function (data) {
+    //            var result = JSON.parse(data);
+    //            $('#RootCause_KajianResikoDDL').empty();
+    //            $('#RootCause_KajianResikoDDL').prop("disabled", false);
+    //            $('#btn_AddKajian').prop("disabled", false);
+    //            for (var i = 0; i < result.length; i++) {
+    //                $('#RootCause_KajianResikoDDL').append(new Option("[Perbaikan]" + " " + result[i].Tindakan_Perbaikan, result[i].RecordID));
+    //            }
+    //            KajianDDLPencegahan();
 
-            }, error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
-        });
-    }
+    //        }, error: function (ex) {
+    //            alert(JSON.stringify(ex));
+    //        }
+    //    });
+    //}
 
-    function KajianDDLPencegahan() {
-        var dictlist = {
-            Kategori: "Cari Tindakan Pencegahan",
-            nomorCAPA: noCAPA
-        }
-        var dto = {
-            Model: dictlist
-        }
-        $.ajax({
-            url: "DynamicController?spname=SP_Find_Data",
-            type: "POST",
-            async: false,
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                var result = JSON.parse(data);
-                $('#RootCause_KajianResikoDDL').prop("disabled", false);
-                $('#btn_AddKajian').prop("disabled", false);
-                for (var i = 0; i < result.length; i++) {
-                    $('#RootCause_KajianResikoDDL').append(new Option("[Pencegahan]" + " " + result[i].Tindakan_Pencegahan, result[i].RecordID));
-                }
-                @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
+    //function KajianDDLPencegahan() {
+    //    var dictlist = {
+    //        Kategori: "Cari Tindakan Pencegahan",
+    //        nomorCAPA: noCAPA
+    //    }
+    //    var dto = {
+    //        Model: dictlist
+    //    }
+    //    $.ajax({
+    //        url: "DynamicController?spname=SP_Find_Data",
+    //        type: "POST",
+    //        async: false,
+    //        dataType: "json",
+    //        data: JSON.stringify(dto),
+    //        contentType: "application/json;charset=utf-8",
+    //        success: function (data) {
+    //            var result = JSON.parse(data);
+    //            $('#RootCause_KajianResikoDDL').prop("disabled", false);
+    //            $('#btn_AddKajian').prop("disabled", false);
+    //            for (var i = 0; i < result.length; i++) {
+    //                $('#RootCause_KajianResikoDDL').append(new Option("[Pencegahan]" + " " + result[i].Tindakan_Pencegahan, result[i].RecordID));
+    //            }
 
-            }, error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
-        });
-    }
+    //        }, error: function (ex) {
+    //            alert(JSON.stringify(ex));
+    //        }
+    //    });
+    //}
 
     $('#btnSimpanTreatment').click(function (e) {
         var modeTreatment = $("#modeTreatment").val();

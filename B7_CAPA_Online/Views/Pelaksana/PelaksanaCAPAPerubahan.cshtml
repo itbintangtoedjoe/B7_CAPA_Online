@@ -161,7 +161,7 @@
                                 </div>
                                 <div class="form-group mb-2 col-md-4">
                                     <label class="m-t-20">Due date Rev<span style="color: red">*</span></label>
-                                    <input type="date" id="dueDatePencegahanRev" class="form-control form-control-sm" >
+                                    <input type="date" id="dueDatePencegahanRev" class="form-control form-control-sm">
                                 </div>
                                 <div class="col-md-4">
                                     <label class="m-t-40">Alasan Perubahan Due Date<span style="color: red">*</span></label>
@@ -258,6 +258,7 @@
     var dataPerbaikan, attachmentPerbaikan, dataPencegahan, attachmentPencegahan;
     var statuser = false;
     var stataction = false;
+    var laststate = false;
     var referenceID = getQueryStrings()["ReferenceID"];
     var tindakan = getQueryStrings()["Tindakan"]
     $('#input_NoCAPA').val(noCAPA);
@@ -405,6 +406,8 @@
         var alasanDueDate = $('#AlasanDueDate').val();
         var alasantindakanperbaikan = $('#AlasanTindakanPerbaikan').val();
         var dueDaterev = $('#dueDatePerbaikanRev').val();
+        var date = new Date();
+        var dateperbaikan = new Date($('#dueDatePerbaikanRev').val());
         var dictlist = {
             Kategori: "Perubahan Perbaikan",
             RecordID: referenceID,
@@ -418,23 +421,8 @@
         var dto = {
             Model: dictlist
         }
-        if ((tindakanPerbaikanRev.trim() != '' && alasantindakanperbaikan.trim() == '') || (tindakanPerbaikanRev.trim() == '' && alasantindakanperbaikan.trim() != '')) {
-            swal('tindakan perbaikan revisi dan alasan perubahan wajib diisi!', {
-                icon: "warning",
-                buttons: false,
-                timer: 1000,
-            })
-            return;
-        }
-        if ((dueDaterev != undefined && alasanDueDate == '') || (dueDaterev == undefined && alasanDueDate() != '')) {
-            swal('due date revisi dan alasan perubahan due date wajib diisi!', {
-                icon: "warning",
-                buttons: false,
-                timer: 1000,
-            })
-            return;
-        }
-        if (tindakanPerbaikanRev.trim() == "" && dueDaterev == undefined) {
+
+         if (tindakanPerbaikanRev.trim() == "" && dueDaterev == "") {
             swal('tindakan perbaikan revisi atau due date revisi wajib diisi!', {
                 icon: "warning",
                 buttons: false,
@@ -442,7 +430,28 @@
             })
             return;
         }
-        if (valid == true) {
+         else if (alasantindakanperbaikan.trim() == "" && alasanDueDate.trim() == "" ) {
+            swal('alasan perubahan harus diisi!', {
+                icon: "warning",
+                buttons: false,
+                timer: 1000,
+            })
+            return;
+        }
+        if (dateperbaikan != "" && (date.getTime() > dateperbaikan.getTime())) {
+            Swal.fire(
+                'Maaf',
+                'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
+                'warning'
+            )
+            return;
+        }
+        if (valid == true)
+        {
+            laststate = true;
+        }
+        if (laststate == true)
+        {
             $.ajax({
                 url: "DynamicController?spname=SP_Update_Pelaksanaan",
                 type: "POST",
@@ -480,6 +489,9 @@
         var dueDateRev = $('#dueDatePencegahanRev').val();
         var alasanDueDate = $('#AlasanDueDatePencegahan').val();
         var alasantindakanpencegahan = $('#AlasanTindakanPencegahan').val();
+        var date = new Date();
+        var datepencegahan = new Date($('#dueDatePencegahanRev').val());
+        
         var dictlist = {
             Kategori: "Perubahan Pencegahan",
             RecordID: referenceID,
@@ -493,31 +505,35 @@
         var dto = {
             Model: dictlist
         }
-        if ((tindakanPencegahanRev.trim() != '' && alasantindakanpencegahan.trim() == '') || (tindakanPencegahanRev.trim() == '' && alasantindakanpencegahan.trim() != '')) {
-            swal('tindakan pencegahan revisi dan alasan tindakan perbaikan wajib diisi!', {
+        if (tindakanPencegahanRev.trim() == "" && dueDaterev == "") {
+            swal('tindakan perbaikan revisi atau due date revisi wajib diisi!', {
                 icon: "warning",
                 buttons: false,
                 timer: 1000,
             })
             return;
         }
-        if ((dueDateRev != undefined && alasanDueDate == '') || (dueDateRev == undefined && alasanDueDate() != '')) {
-            swal('due date revisi dan alasan perubahan due date wajib diisi!', {
+        else if (alasantindakanpencegahan.trim() == "" && alasanDueDate.trim() == "") {
+            swal('alasan perubahan harus diisi!', {
                 icon: "warning",
                 buttons: false,
                 timer: 1000,
             })
             return;
         }
-        if (tindakanPencegahanRev.trim() == "" && dueDateRev == undefined) {
-            swal('Semua field wajib diisi!', {
-                icon: "warning",
-                buttons: false,
-                timer: 1000,
-            })
+        if (valid == true)
+        {
+            laststate == true;
+        }
+        if (datepencegahan !="" && (date.getTime() > datepencegahan.getTime())) {
+            Swal.fire(
+                'Maaf',
+                'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
+                'warning'
+            )
             return;
         }
-        if (valid == true) {
+        if (laststate == true) {
             $.ajax({
                 url: "DynamicController?spname=SP_Update_Pelaksanaan",
                 type: "POST",
