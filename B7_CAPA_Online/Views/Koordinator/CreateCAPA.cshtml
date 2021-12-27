@@ -66,7 +66,7 @@
                         <div class="form-group col-md-6">
                             <button type="button" class="btn btn-primary" id="btn_Search_Deviation">Search</button>
                         </div>
-                        <table class="table table-hover table-bordered zero-configuration" id="Tbl_Deviation" style="color: black">
+                        <table class="table table-hover table-bordered zero-configuration" id="Tbl_Deviation" style="color: black" hidden>
                             <thead>
                                 <tr>
                                     <th>Action</th>
@@ -138,7 +138,7 @@
                             <button type="button" class="btn btn-primary" id="btn_Search_CCC">Search</button>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-hover table-bordered zero-configuration" id="Tbl_CCC" style="color: black">
+                            <table class="table table-hover table-bordered zero-configuration" id="Tbl_CCC" style="color: black" hidden>
                                 <thead>
                                     <tr>
                                         <th>Action</th>
@@ -574,6 +574,19 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row form-group-sm mb-2" id="Table_File" hidden>
+                                    <div class="col-md-6">
+                                        <table class="table table-hover table-bordered zero-configuration" id="Tbl_File" style="color:black;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Filename</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tb_File">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                                 <div class="row form-group-sm mb-2">
                                     <div class="col-md-6">
                                         <label class="m-t-20">Kategori</label>
@@ -613,7 +626,7 @@
                                 <div class="row form-group-sm mb-2">
                                     <div class="col-md-6">
                                         <label class="m-t-20">Lokasi</label>
-                                        <select class="form-control form-control-sm" id="Lokasi_DDL" name="Lokasi" multiple>
+                                        <select class="form-control form-control-sm" id="Lokasi_DDL" name="Lokasi">
                                             <option>Option 1</option>
                                             <option>Option 2</option>
                                             <option>Option 3</option>
@@ -699,6 +712,7 @@
                                     <div class="col-md-6 mt-1">
                                         <input class="btn mb-1 btn-primary" type="button" id="btn_Submit" value="Submit" />
                                     </div>
+                                    <input class="btn mb-1 btn-primary" type="button" id="btn_Submits" value="ssss" />
                                 </div>
                             }
                             <!--/form-->
@@ -723,10 +737,6 @@
 
 <script>
     $(document).ready(function () {
-        $("#Lokasi_DDL").change(function (key, value) {
-            console.log($("#Lokasi_DDL").val().toString());
-        });
-
         //variable data untuk menampung data deviation dan ccc
         var data = [];
         $('#input_Requestor').val('@Request.RequestContext.HttpContext.Session["FullName"]');
@@ -740,12 +750,11 @@
             clearHidden();
             $('#Table_Penyimpangan').prop("hidden", true);
             data = [];
-            $('#Tbl_Deviation').empty();
-            $('#Tbl_CCC').empty();
+            $('#Tbl_Deviation tbody').empty();
+            $('#Tbl_CCC tbody').empty();
             $('#TxtDeviation').val("");
             $('#TxtCCC').val("");
 
-            console.log(data);
             if ($('#Trigger_CAPA').val() == "ORACLE") {
                 $('#Linked_Oracle').prop('hidden', false);
             } else if ($('#Trigger_CAPA').val() == "CCC") {
@@ -761,6 +770,7 @@
         });
 
         //Ketika dropdownlist lokasi dipilih akan ngeload departemen berdasarkan lokasi yang dipilih.
+        var arr = [];
         $('#Lokasi_DDL').change(function () {
             var Location;
 
@@ -768,9 +778,12 @@
                 Location = 'Cikarang';
             } else if ($('#Lokasi_DDL').val() == 'HOF') {
                 Location = 'Head Office';
+            } else if ($('#Lokasi_DDL').val() == 'ALL') {
+                Location = 'Pulogadung,Cikarang';
             } else {
                 Location = 'Pulogadung';
             }
+
             dto = {
                 Option: 3,
                 Departemen: $('#AreaPIC_DDL').val(),
@@ -841,6 +854,8 @@
                 Location = 'Cikarang';
             } else if ($('#Lokasi_DDL').val() == 'HOF') {
                 Location = 'Head Office';
+            } else if ($('#Lokasi_DDL').val() == 'ALL') {
+                Location = 'Pulogadung,Cikarang';
             } else {
                 Location = 'Pulogadung';
             }
@@ -926,6 +941,7 @@
 
         // Button search isi lampiran Deviation yang menyimpang.
         $('#btn_Search_Deviation').click(function () {
+            $('#Tbl_Deviation').prop("hidden", false);
             data = [];
             dto = {
                 Option: 4,
@@ -1004,6 +1020,7 @@
 
         // Button search untuk menampilkan CCC yang menyimpang.
         $('#btn_Search_CCC').click(function () {
+            $('#Tbl_CCC').prop("hidden", false);
             data = [];
             dto = {
                 Option: 7,
@@ -1212,7 +1229,17 @@
 
         $('#TxtFileInput').change(function () {
             fileCount = this.files.length;
+            var names = $.map(this.files, function (val) { return val.name; });
+            console.log(names);
             var teks = (fileCount != 0) ? (fileCount + " Lampiran telah dipilih.") : ("");
+            $('#Table_File').prop("hidden", true);
+            if (fileCount > 0) {
+                $('#Table_File').prop("hidden", false);
+                $.each(names, function (key, value) {
+                    $('#tb_File').append('<tr><td>' + value + '</td><tr>')
+                });
+            }
+
             $('#TxtLampiranCount').text(teks);
         })
 
@@ -1222,6 +1249,16 @@
                 return $('#SubmitData').submit();
             }
         });
+
+        //$("#btn_Submits").click(function () {
+        //    var locationValue = $("#Lokasi_DDL").val();
+        //    $.each(locationValue, function (key, value) {                
+        //        if (value == "CKG") {
+
+        //        }
+        //    });          
+
+        //});
     });
 
     function validateInput() {
