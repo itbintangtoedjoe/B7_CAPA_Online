@@ -11,5 +11,6 @@ namespace B7_CAPA_Online.Models
         public string SP { get; set; }
         public string NO_CAPA { get; set; }
         public string REG_ID { get; set; }
+        public string NIK { get; set; }
     }
 }

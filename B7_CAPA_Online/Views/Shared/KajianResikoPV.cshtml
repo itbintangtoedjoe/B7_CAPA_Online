@@ -610,7 +610,8 @@
    
     //search Tindakan get record_id and Tipe
     var values; //var values; //objTindakan filtered.
-    function recTindakan(increments) {                    
+    function recTindakan(increments) {
+        console.log(objTindakan[increments].Tindakan +' ');
         if (objTindakan[increments].Tindakan == $('#RootCause_KajianResikoDDL').val()) {
             return values = objTindakan[increments];
         }            
@@ -653,6 +654,7 @@
         KajianResikoDDLPV();
         TableKajianPV();
         UnhideKajianResikoModalPV();
+        console.log(objTindakan);
         var isHide = false;
 
         $('#RootCause_KajianResikoDDL').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');

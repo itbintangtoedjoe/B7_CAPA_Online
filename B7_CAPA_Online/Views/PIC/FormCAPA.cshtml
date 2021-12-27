@@ -1,4 +1,4 @@
-﻿
+﻿r
 @{
     ViewBag.Title = "FormCAPA";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -1130,6 +1130,8 @@
                                     Email: $('#TxtEmailPerbaikan').val(),
                                     Is_AreaLain: $('input[name="Potensi"]:checked').val(),
                                     Create_By: $('#input_Requestor_NIK').val(),
+                                    Status: "Active",
+                                    Status_ID: 1,
                                     SP: "[dbo].[SP_FORM_CAPA]"
                                 }
                                 return false;
@@ -1196,6 +1198,8 @@
                                         NamaPersonil: $('#NamaPersonilPencegahan_DDL option:selected').text(),
                                         Email: $('#TxtEmailPencegahan').val(),
                                         Create_By: $('#input_Requestor_NIK').val(),
+                                        Status: "Active",
+                                        Status_ID: 1,
                                         SP: "[dbo].[SP_FORM_CAPA]"
                                     }
                                     return false;

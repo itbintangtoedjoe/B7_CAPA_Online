@@ -1,8 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "PelaksanaCAPAPembatalan";
+    ViewBag.Title = "PelaksanaCAPAPerubahan";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <style>
     @@media (min-width: 768px) {
         .modal-xl {
@@ -63,18 +64,32 @@
                                     <textarea type="text" class="form-control" placeholder="Deskripsi" id="txtTindakanPerbaikan" disabled></textarea>
                                 </div>
                                 <div class="col-md-4">
+                                    <label class="m-t-40">Tindakan perbaikan Revisi<span style="color: red">*</span></label>
+                                    <div class="input-group mb-3">
+                                        <textarea type="text" id="txtTindakanPerbaikanRev" class="form-control" placeholder="Tindakan perbaikan Revisi..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="m-t-40">Alasan perubahan Tindakan perbaikan<span style="color: red">*</span></label>
+                                    <div class="input-group mb-3">
+                                        <textarea type="text" id="AlasanTindakanPerbaikan" class="form-control" placeholder="Alasan perubahan tindakan perbaikan..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-md-4">
                                     <label class="m-t-20">Due date<span style="color: red">*</span></label>
                                     <input type="date" id="dueDatePerbaikan" class="form-control form-control-sm" disabled>
                                 </div>
-
-
-                            </div>
-                            <br />
-                            <div class="row form-group-sm">
                                 <div class="col-md-4">
-                                    <label class="m-t-40">Alasan Cancel Tindakan perbaikan<span style="color: red">*</span></label>
-                                    <div class="input-group mb-3">
-                                        <textarea type="text" id="AlasanBatalPerbaikan" class="form-control" placeholder="Alasan Cancel Tindakan perbaikan..."></textarea>
+                                    <label class="m-t-20">Due date Rev<span style="color: red">*</span></label>
+                                    <input type="date" id="dueDatePerbaikanRev" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="m-t-40">Alasan perubahan DueDate<span style="color: red">*</span></label>
+                                    <div class="input-group mb-4">
+                                        <textarea type="text" id="AlasanDueDate" class="form-control" placeholder="Alasan perubahan due date..."></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -122,22 +137,36 @@
 
                             <div class="row form-group-sm">
                                 <div class="col-md-4">
-                                    <label class="m-t-20">Tindakan Pencegahan<span style="color: red;">*</span></label>
-                                    <textarea type="text" class="form-control" placeholder="Deskripsi" id="txtTindakanPencegahan" disabled></textarea>
+                                    <label class="m-t-20">Tindakan pencegahan<span style="color: red">*</span></label>
+                                    <textarea type="text" id="txtTindakanPencegahan" class="form-control" placeholder="Deskripsi" disabled></textarea>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="m-t-20">Due date<span style="color: red">*</span></label>
+                                    <label class="m-t-40">Tindakan Pencegahan Revisi<span style="color: red">*</span></label>
+                                    <div class="input-group mb-3">
+                                        <textarea type="text" id="txtTindakanPencegahanRev" class="form-control" placeholder="Tindakan Pencegahan Revisi..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="m-t-40">Alasan Perubahan Tindakan Pencegahan<span style="color: red">*</span></label>
+                                    <div class="input-group mb-3">
+                                        <textarea type="text" id="AlasanTindakanPencegahan" class="form-control" placeholder="Alasan tindakan Pencegahan..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group-sm">
+
+                                <div class="form-group mb-2 col-md-4">
+                                    <label class="m-t-20">Due date<span style="color: red;">*</span></label>
                                     <input type="date" id="dueDatePencegahan" class="form-control form-control-sm" disabled>
                                 </div>
-
-
-                            </div>
-
-                            <div class="row form-group-sm">
+                                <div class="form-group mb-2 col-md-4">
+                                    <label class="m-t-20">Due date Rev<span style="color: red">*</span></label>
+                                    <input type="date" id="dueDatePencegahanRev" class="form-control form-control-sm" >
+                                </div>
                                 <div class="col-md-4">
-                                    <label class="m-t-40">Alasan Cancel Pencegahan<span style="color: red">*</span></label>
+                                    <label class="m-t-40">Alasan Perubahan Due Date<span style="color: red">*</span></label>
                                     <div class="input-group mb-3">
-                                        <textarea type="text" id="AlasanBatalPencegahan" class="form-control" placeholder="Alasan Cancel Pencegahan..."></textarea>
+                                        <textarea type="text" id="AlasanDueDatePencegahan" class="form-control" placeholder="Alasan Due Date..."></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -260,25 +289,45 @@
         }
         $('#btn_AddKajian').attr("disabled", true);
         $('#RootCause_KajianResikoDDL').attr("disabled", true);
-        $('#AlasanBatalPerbaikan').on('click',function () {
+        $('#AlasanTindakanPerbaikan').on('click',function () {
 
 
             $('#RootCause_KajianResikoDDL').empty();
 
             $('#RootCause_KajianResikoDDL').append(new Option($('#txtTindakanPerbaikan').val(), $('#txtTindakanPerbaikan').val()));
         });
-        $('#AlasanBatalPerbaikan').on('change', function () {
-            $('#btn_AddKajian').attr("disabled", false);
+        $('#AlasanTindakanPerbaikan').on('change', function () {
+            if ($('#txtTindakanPerbaikanRev').val() != "" && $('#AlasanTindakanPerbaikan').val() != "") {
+                $('#btn_AddKajian').attr("disabled", false);
+            }
         });
-        $('#AlasanBatalPencegahan').on('click', function () {
-
-
+        $('#AlasanDueDate').on('click', function () {
+            $('#RootCause_KajianResikoDDL').empty();
+            $('#RootCause_KajianResikoDDL').append(new Option($('#txtTindakanPerbaikan').val(), $('#txtTindakanPerbaikan').val()));
+        });
+        $('#AlasanDueDate').on('change', function () {
+            if ($('#AlasanDueDate').val() != "" && $('#dueDatePerbaikanRev').val() != "") {
+                $('#btn_AddKajian').attr("disabled", false);
+            }
+        });
+        $('#AlasanDueDatePencegahan').on('click', function () {
+            $('#RootCause_KajianResikoDDL').empty();
+            $('#RootCause_KajianResikoDDL').append(new Option($('#txtTindakanPencegahan').val(), $('#txtTindakanPencegahan').val()));
+        });
+        $('#AlasanDueDatePencegahan').on('change', function () {
+            if ($('#AlasanDueDatePencegahan').val() != "" && $('#dueDatePencegahanRev').val() != "") {
+                $('#btn_AddKajian').attr("disabled", false);
+            }
+        });
+        $('#AlasanTindakanPencegahan').on('click', function () {
             $('#RootCause_KajianResikoDDL').empty();
 
             $('#RootCause_KajianResikoDDL').append(new Option($('#txtTindakanPencegahan').val(), $('#txtTindakanPencegahan').val()));
         });
-        $('#AlasanBatalPencegahan').on('change', function () {
-            $('#btn_AddKajian').attr("disabled", false);
+        $('#AlasanTindakanPencegahan').on('change', function () {
+            if ($('#txtTindakanPencegahanRev').val() != "" && $('#AlasanTindakanPencegahan').val() != "") {
+                $('#btn_AddKajian').attr("disabled", false);
+            }
         });
 
         $('#Submit').click(function () {
@@ -352,13 +401,46 @@
 
     function SubmitPerbaikan()
     {
+        var tindakanPerbaikanRev = $('#txtTindakanPerbaikanRev').val();
+        var alasanDueDate = $('#AlasanDueDate').val();
+        var alasantindakanperbaikan = $('#AlasanTindakanPerbaikan').val();
+        var dueDaterev = $('#dueDatePerbaikanRev').val();
         var dictlist = {
-            Kategori: "Batal Perbaikan",
+            Kategori: "Perubahan Perbaikan",
             RecordID: referenceID,
-            alasan_batal: $('#AlasanBatalPerbaikan').val()
+            tindakan: tindakanPerbaikanRev,
+            alasan_tindakan: alasantindakanperbaikan,
+            alasan_due_date: alasanDueDate,
+            dueDate: dueDaterev,
+            empID: nik,
+            NoCAPA: noCAPA
         }
         var dto = {
             Model: dictlist
+        }
+        if ((tindakanPerbaikanRev.trim() != '' && alasantindakanperbaikan.trim() == '') || (tindakanPerbaikanRev.trim() == '' && alasantindakanperbaikan.trim() != '')) {
+            swal('tindakan perbaikan revisi dan alasan perubahan wajib diisi!', {
+                icon: "warning",
+                buttons: false,
+                timer: 1000,
+            })
+            return;
+        }
+        if ((dueDaterev != undefined && alasanDueDate == '') || (dueDaterev == undefined && alasanDueDate() != '')) {
+            swal('due date revisi dan alasan perubahan due date wajib diisi!', {
+                icon: "warning",
+                buttons: false,
+                timer: 1000,
+            })
+            return;
+        }
+        if (tindakanPerbaikanRev.trim() == "" && dueDaterev == undefined) {
+            swal('tindakan perbaikan revisi atau due date revisi wajib diisi!', {
+                icon: "warning",
+                buttons: false,
+                timer: 1000,
+            })
+            return;
         }
         if (valid == true) {
             $.ajax({
@@ -371,7 +453,7 @@
                 success: function (data) {
                     Swal.fire(
                         'Berhasil',
-                        'Pembatalan berhasil di submit',
+                        'Perubahan berhasil di submit',
                         'success'
                     )
                     @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
@@ -391,14 +473,49 @@
         }
 
     }
+
+
     function SubmitPencegahan() {
+        var tindakanPencegahanRev = $('#txtTindakanPencegahanRev').val();
+        var dueDateRev = $('#dueDatePencegahanRev').val();
+        var alasanDueDate = $('#AlasanDueDatePencegahan').val();
+        var alasantindakanpencegahan = $('#AlasanTindakanPencegahan').val();
         var dictlist = {
-            Kategori: "Batal Pencegahan",
+            Kategori: "Perubahan Pencegahan",
             RecordID: referenceID,
-            alasan_batal: $('#AlasanBatalPencegahan').val()
+            tindakan: tindakanPencegahanRev,
+            alasan_tindakan: alasantindakanpencegahan,
+            alasan_due_date: alasanDueDate,
+            dueDate: dueDateRev,
+            empID: nik,
+            NoCAPA: noCAPA
         }
         var dto = {
             Model: dictlist
+        }
+        if ((tindakanPencegahanRev.trim() != '' && alasantindakanpencegahan.trim() == '') || (tindakanPencegahanRev.trim() == '' && alasantindakanpencegahan.trim() != '')) {
+            swal('tindakan pencegahan revisi dan alasan tindakan perbaikan wajib diisi!', {
+                icon: "warning",
+                buttons: false,
+                timer: 1000,
+            })
+            return;
+        }
+        if ((dueDateRev != undefined && alasanDueDate == '') || (dueDateRev == undefined && alasanDueDate() != '')) {
+            swal('due date revisi dan alasan perubahan due date wajib diisi!', {
+                icon: "warning",
+                buttons: false,
+                timer: 1000,
+            })
+            return;
+        }
+        if (tindakanPencegahanRev.trim() == "" && dueDateRev == undefined) {
+            swal('Semua field wajib diisi!', {
+                icon: "warning",
+                buttons: false,
+                timer: 1000,
+            })
+            return;
         }
         if (valid == true) {
             $.ajax({
@@ -411,7 +528,7 @@
                 success: function (data) {
                     Swal.fire(
                         'Berhasil',
-                        'Pembatalan berhasil di submit',
+                        'Perubahan berhasil di submit',
                         'success'
                     )
                     @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
@@ -424,11 +541,12 @@
         else {
             Swal.fire(
                 'Maaf',
-                'tindakan harus dikaji terlebih dahulu.',
+                'Tindakan harus dikaji terlebih dahulu.',
                 'warning'
             )
         }
 
     }
 </script>
+
 

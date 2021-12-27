@@ -24,8 +24,8 @@ namespace B7_CAPA_Online.Models
         public string Email { get; set; }
         //25/10/2021
         public string VDRUsername { get; set; }
-
-
+        public int RecordID { get; set; }
+        public string Type { get; set; }
     }
 
     public partial class DALModel
@@ -55,6 +55,7 @@ namespace B7_CAPA_Online.Models
         public List<string> DepartemenCollection { get; set; }
         [Required]
         public List<string> PenyimpanganCollection { get; set; }
+        public string AlasanReject { get; set; }
     }
 
     public partial class Dept

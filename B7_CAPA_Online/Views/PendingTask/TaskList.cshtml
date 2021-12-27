@@ -35,9 +35,10 @@
                                         <th>Deskripsi</th>
                                         <th>Area PIC</th>
                                         @*<th>PIC CAPA</th>
-        <th>Alasan Penolakan</th>*@
+                                          <th>Alasan Penolakan</th>*@
                                         <th>Status</th>
                                         <th>Detail Status</th>
+                                        <th hidden>ID</th>
                                     </tr>
                                 </thead>
                                 <tbody id="Tbl_TaskList">
@@ -54,15 +55,102 @@
 <script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>
 
 <script>
+    var NIK = '@Request.RequestContext.HttpContext.Session["NIK"]';
+
     $(document).ready(function () {
+        DataPendingTask();
+
+
+
+        //$(document).on("click", "#Tbl_TaskList button[name='view'][class='btn']", function () {
+        //    var taskList = new Array();
+        //    var row = $(this).closest("tr");
+        //    var columns = row.find("td");
+
+        //    $.each(columns, function (i, item) {
+        //        var data = {};
+        //        (i == 2) ? (data.REG_ID = item.innerHTML) : ("");
+        //        (i == 3) ? (data.NO_CAPA = item.innerHTML) : ("");
+        //        if (!jQuery.isEmptyObject(data))
+        //            taskList.push(data);
+        //    });
+        //    console.log(taskList);
+
+        //    //window.open("/Koordinator/CreateCAPA?CAPA=" + taskList[1].NO_CAPA + "&REG=" + taskList[0].REG_ID); //RequestPage
+        //    window.open("/PIC/FormCAPA?CAPA=" + taskList[1].NO_CAPA); //FromCAPA
+        //});
+
+        //$(document).on("click", "#Tbl_TaskList button[name='pelaksanaView'][class='btn']", function () {
+        //    var taskList = new Array();
+        //    var row = $(this).closest("tr");
+        //    var columns = row.find("td");
+
+        //    $.each(columns, function (i, item) {
+        //        var data = {};
+        //        (i == 2) ? (data.REG_ID = item.innerHTML) : ("");
+        //        (i == 3) ? (data.NO_CAPA = item.innerHTML) : ("");
+        //        if (!jQuery.isEmptyObject(data))
+        //            taskList.push(data);
+        //    });
+        //    console.log(taskList);
+        //    //window.open("/Koordinator/CreateCAPA?CAPA=" + taskList[1].NO_CAPA + "&REG=" + taskList[0].REG_ID); //RequestPage
+
+        //    window.open("/Pelaksana/PelaksanaCAPA?NoCAPA=" + taskList[1].NO_CAPA + "&PelaksanaID=" + NIK); //FromCAPA
+        //});
+
+        //$(document).on("click", "#Tbl_TaskList button[name='select'][class='btn']", function () {
+        //    var taskList = new Array();
+        //    var row = $(this).closest("tr");
+        //    var columns = row.find("td");
+
+        //    $.each(columns, function (i, item) {
+        //        var data = {};
+        //        (i == 2) ? (data.REG_ID = item.innerHTML) : ("");
+        //        (i == 3) ? (data.NO_CAPA = item.innerHTML) : ("");
+
+        //        if (!jQuery.isEmptyObject(data))
+        //            taskList.push(data);
+        //    });
+        //    console.log(taskList);
+
+        //    //window.open("/Koordinator/CreateCAPA?CAPA=" + taskList[1].NO_CAPA + "&REG=" + taskList[0].REG_ID); //RequestPage
+
+        //    if (taskList[20].STATUS_ID = 1) {
+        //        // PIC
+        //        window.open("/PIC/FormCAPA?NoCAPA=" + taskList[1].NO_CAPA);
+        //    } else if (taskList[20].STATUS_ID = 2) {
+
+        //    } else if (taskList[20].STATUS_ID = 3) {
+
+        //    } else if (taskList[20].STATUS_ID = 4) {
+
+        //    } else if (taskList[20].STATUS_ID = 5) {
+
+        //    } else if (taskList[20].STATUS_ID = 6) {
+        //        //From CAPA
+        //        window.open("/Pelaksana/PelaksanaCAPA?NoCAPA=" + taskList[1].NO_CAPA + "&PelaksanaID=" + NIK); 
+        //    } else if (taskList[20].STATUS_ID = 7) {
+
+        //    } else if (taskList[20].STATUS_ID = 8) {
+
+        //    } else if (taskList[20].STATUS_ID = 9) {
+
+        //    } else if (taskList[20].STATUS_ID = 10) {
+
+        //    }             
+        //});
+    });
+
+    
+
+    function DataPendingTask() {
         $.ajax({
             type: "POST",
             url: "GetTaskList",
             data: JSON.stringify(
                 {
-                    SP: "[dbo].[SP_SHOW_DDL]",
-                    Option: 9,
-                    Create_By: '@Request.RequestContext.HttpContext.Session["NIK"]'
+                    SP: "SP_PENDING_TASK",
+                    NIK: NIK
                 }
             ),
             dataType: 'json',
@@ -79,7 +167,8 @@
                     "columns": [
                         {
                             "data": null,
-                            "defaultContent": "<button class='btn' type='button' name='view'>View CAPA</button><button class='btn' type='button' name='pelaksanaView'>Pelaksana</button>"
+                            //"defaultContent": "<button class='btn' type='button' name='view'>View CAPA</button><button class='btn' type='button' name='pelaksanaView'>Pelaksana</button>"
+                            "defaultContent": "<button class='btn btn-success' style='width:40px;' onclick='SelectedTask(this)'>Select</button>"
                         },
                         {
                             "className": 'details-control',
@@ -87,91 +176,91 @@
                             "data": null,
                             "defaultContent": ''
                         },
-                        { "data": "REG_ID"},
+                        { "data": "REG_ID" },
                         { "data": "NO_CAPA" },
-                        @*{ "data": "TRIGGER_CAPA" },*@
+                     @* { "data": "TRIGGER_CAPA" },*@
                         { "data": "KATEGORI_CAPA" },
                         { "data": "DESKRIPSI_MASALAH" },
                         { "data": "AREA_PIC" },
-                        @*{ "data": "PIC_CAPA" },
+                     @* { "data": "PIC_CAPA" },
                         { "data": "REJECT_REASON" },*@
                         { "data": "STATUS_CAPA" },
-                        { "data": "STATUS_DESKRIPSI" }
+                        { "data": "STATUS_DESKRIPSI" },
+                        {
+                            "data": "STATUS_ID",
+                            "visible": false
+                        }
                     ],
                     "order": [[1, 'asc']]
                 });
             }
         });
+    }
+       
 
-        function format(d) {
-            // `d` is the original data object for the row
-            return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-                '<tr>' +
-                '<td>Trigger CAPA:</td>' +
-                '<td>' + d.TRIGGER_CAPA + '</td>' +
-                '</tr>' +
-                '<tr>' +
-                '<td>PIC CAPA:</td>' +
-                '<td>' + d.PIC_CAPA + '</td>' +
-                '</tr>' +
-                '<tr>' +
-                '<td>Alasan Penolakan:</td>' +
-                '<td>' + d.REJECT_REASON + '</td>' +
-                '</tr>' +
-                '</table>';
+    function SelectedTask(param) {
+        let dataRow = $('#Tbl_PendingTask').DataTable().row($(param).closest('tr')).data();
+
+        if (dataRow.STATUS_ID === 1) {
+            // PIC
+            window.open("/PIC/FormCAPA?NoCAPA=" + dataRow.NO_CAPA);
+        } else if (dataRow.STATUS_ID === 2) {
+            window.open("/AtasanPIC/ApprovalAtasanPIC?NoCAPA=" + dataRow.NO_CAPA + "&StatsID=" + dataRow.STATUS_ID);
+        } else if (dataRow.STATUS_ID === 3) {
+            window.open("/AtasanPelaksana/ApprovalAtasanPelaksana?NoCAPA=" + dataRow.NO_CAPA + "&StatsID=" + dataRow.STATUS_ID);
+        } else if (dataRow.STATUS_ID === 4) {
+            window.open("/Koordinator/ApprovalKoordinator2?NoCAPA=" + dataRow.NO_CAPA + "&StatsID=" + dataRow.STATUS_ID);
+        } else if (dataRow.STATUS_ID === 5) {
+
+        } else if (dataRow.STATUS_ID === 6) {
+            //From CAPA
+            if (dataRow.pending == NIK) {
+                window.open("/Pelaksana/PelaksanaCAPA?NoCAPA=" + dataRow.NO_CAPA + "&PelaksanaID=" + NIK);
+            }
+        } else if (dataRow.STATUS_ID === 7) {
+            window.open("/Koordinator/VerifikasiPelaksanaCAPA?NoCAPA=" + dataRow.NO_CAPA);
+        } else if (dataRow.STATUS_ID === 8) {
+
+        } else if (dataRow.STATUS_ID === 9) {
+
+        } else if (dataRow.STATUS_ID === 10) {
+
+        }         
+    }
+
+
+    function format(d) {
+        // `d` is the original data object for the row
+        return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+            '<tr>' +
+            '<td>Trigger CAPA:</td>' +
+            '<td>' + d.TRIGGER_CAPA + '</td>' +
+            '</tr>' +
+            '<tr>' +
+            '<td>PIC CAPA:</td>' +
+            '<td>' + d.PIC_CAPA + '</td>' +
+            '</tr>' +
+            '<tr>' +
+            '<td>Alasan Penolakan:</td>' +
+            '<td>' + d.REJECT_REASON + '</td>' +
+            '</tr>' +
+            '</table>';
+    }
+
+    $('#Tbl_PendingTask tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var tTable = $('#Tbl_PendingTask').DataTable();
+        var row = tTable.row(tr);
+
+        if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
         }
-
-        $('#Tbl_PendingTask tbody').on('click', 'td.details-control', function () {
-            var tr = $(this).closest('tr');
-            var tTable = $('#Tbl_PendingTask').DataTable();
-            var row = tTable.row(tr);
-
-            if (row.child.isShown()) {
-                // This row is already open - close it
-                row.child.hide();
-                tr.removeClass('shown');
-            }
-            else {
-                // Open this row
-                row.child(format(row.data())).show();
-                tr.addClass('shown');
-            }
-        });
-
-        $(document).on("click", "#Tbl_TaskList button[name='view'][class='btn']", function () {
-            var taskList = new Array();
-            var row = $(this).closest("tr");
-            var columns = row.find("td");
-
-            $.each(columns, function (i, item) {
-                var data = {};
-                (i == 2) ? (data.REG_ID = item.innerHTML) : ("");
-                (i == 3) ? (data.NO_CAPA = item.innerHTML) : ("");
-                if (!jQuery.isEmptyObject(data))
-                    taskList.push(data);
-            });
-            console.log(taskList);
-
-            //window.open("/Koordinator/CreateCAPA?CAPA=" + taskList[1].NO_CAPA + "&REG=" + taskList[0].REG_ID); //RequestPage
-            window.open("/PIC/FormCAPA?CAPA=" + taskList[1].NO_CAPA); //FromCAPA
-        });
-
-        $(document).on("click", "#Tbl_TaskList button[name='pelaksanaView'][class='btn']", function () {
-            var taskList = new Array();
-            var row = $(this).closest("tr");
-            var columns = row.find("td");
-
-            $.each(columns, function (i, item) {
-                var data = {};
-                (i == 2) ? (data.REG_ID = item.innerHTML) : ("");
-                (i == 3) ? (data.NO_CAPA = item.innerHTML) : ("");
-                if (!jQuery.isEmptyObject(data))
-                    taskList.push(data);
-            });
-            console.log(taskList);
-            //window.open("/Koordinator/CreateCAPA?CAPA=" + taskList[1].NO_CAPA + "&REG=" + taskList[0].REG_ID); //RequestPage
-            var nik ='@Request.RequestContext.HttpContext.Session["NIK"]';
-            window.open("/Pelaksana/PelaksanaCAPA?NoCAPA=" + taskList[1].NO_CAPA + "&PelaksanaID=" + nik); //FromCAPA
-        });
+        else {
+            // Open this row
+            row.child(format(row.data())).show();
+            tr.addClass('shown');
+        }
     });
 </script>

@@ -185,6 +185,7 @@
     <Content Include="Content\Images\bg-b7.jpg" />
     <Content Include="Content\Images\logob7-white.png" />
     <Content Include="Content\Images\logob7.png" />
+    <Content Include="Content\Images\rejected.png" />
     <Content Include="Content\Scripts\js\custom.min.js" />
     <Content Include="Content\Scripts\js\dashboard\dashboard-1.js" />
     <Content Include="Content\Scripts\js\gleek.js" />
@@ -5438,9 +5439,11 @@
     <Content Include="Views\Evaluator\ViewBukti.cshtml" />
     <Content Include="Views\Shared\LoadData_PV.cshtml" />
     <Content Include="Views\Evaluator\ViewCAPA.cshtml" />
-    <Content Include="Views\Koordinator\Koordinator4.cshtml" />
+    <Content Include="Views\Shared\RentangEfektivitas.cshtml" />
     <Content Include="Views\Shared\RentangEfektivitas_PV.cshtml" />
     <Content Include="Views\Pelaksana\PelaksanaCAPAPembatalan.cshtml" />
+    <Content Include="Views\Koordinator\Koordinator4.cshtml" />
+    <Content Include="Views\Pelaksana\PelaksanaCAPAPerubahan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

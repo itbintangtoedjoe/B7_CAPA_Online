@@ -205,7 +205,8 @@
     var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
     var dataPerbaikan;
     var newDataPerbaikan;
-    var newKajianResiko=[];
+    var newKajianResiko = [];
+    var objTindakan;
     function getQueryStrings() {
         var vars = [], hash;
         var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -240,7 +241,6 @@
         //    retrieveData2();
         //});
         getRootCause();
-        populateKajian();
         $("#TxtPIC").val('Default');
         //$('#RootCause_KajianResikoDDL').prop("disabled", true);
         $('#RootCause_KajianResikoDDL').prop("disabled", true);
@@ -446,7 +446,8 @@
                                     Email: $('#TxtEmailPerbaikan').val(),
                                     Is_AreaLain: $('input[name="Potensi"]:checked').val(),
                                     Create_By: nik,
-                                    Status: "Perbaikan Baru",
+                                    Status:"Perbaikan Baru",
+                                    Status_ID: 0,
                                     SP: "[dbo].[SP_FORM_CAPA]"
                                 }
                                 return false;
@@ -514,6 +515,7 @@
                                         Email: $('#TxtEmailPencegahan').val(),
                                         Create_By: nik,
                                         Status: "Pencegahan Baru",
+                                        Status_ID: 0,
                                         SP: "[dbo].[SP_FORM_CAPA]"
                                     }
                                     return false;
@@ -674,65 +676,6 @@
             return "Very High";
     }
 
-    $('#btn_KajianResiko').click(function (e) {
-        var kajianModel = {
-            Model: {
-                NO_CAPA: noCAPA,
-                Tindakan: $('#RootCause_KajianResikoDDL').val(),
-                P_Kegagalan: $('#TxtPotensiKegagalan').val(),
-                Spek: $('#TxtSpesifikasi').val(),
-                Dampak: $('#TxtDampak').val(),
-                Severity: $('#Severity_DDL').val(),
-                Penyebab: $('#TxtPenyebabPotensial').val(),
-                M_Penyebab: $('#TxtMPenyebabPotensial').val(),
-                Likelihood: $('#Likelihood_DDL').val(),
-                M_PKegagalan_LMD: $('#TxtMPotensi_KLMD').val(),
-                Detectability: $('#Detectability_DDL').val(),
-                RPN: $('#TxtRPN').val(),
-                RiskLevel: $('#TxtRiskLevel').val(),
-                Target: $('#Target_DDL').val(),
-                M_PKegagalan: $('#TxtMPotensi_K').val(),
-                Severity2: $('#Severity2_DDL').val(),
-                P_MPenyebab: $('#TxtMPenyebab_P').val(),
-                Likelihood2: $('#Likelihood2_DDL').val(),
-                P_MDPKegagalan: $('#TxtDPotensi_K').val(),
-                Detectability2: $('#Detectability2_DDL').val(),
-                RPN2: $('#TxtRPN2').val(),
-                RiskLevel2: $('#TxtRiskLevel2').val(),
-                PIC: $('#TxtPIC').val(),
-                DueDate: $('#DueDate_Kajian').val(),
-                Lainnya: $('#TxtLainnya').val(),
-                Tipe: 'Perbaikan',
-                EmpID: nik
-            }
-        };
-        var valid = true;
-        console.log('kajianModel.Model');
-        console.log(kajianModel.Model);
-        $.each(kajianModel.Model, function (key, value) {
-            if (value == '') {
-                if (value == 0)
-                    return valid = true;
-                else
-                    return valid = false;
-            } else {
-                valid = true;
-            }
-        });
-        if (valid) {
-            cleanModalFields();
-            newKajianResiko.push(kajianModel);
-            populateKajian();
-            alert("Kajian risiko berhasil ditambahkan");
-
-        } else {
-            swal('Semua field wajib terisi', {
-                icon: "warning",
-                buttons: false,
-                timer: 1000,
-            });
-        }
-    })
 
     function cleanModalFields() {
         $("#KajianResikoModal :input").val("");
@@ -746,74 +689,7 @@
         $("#Detectability2_DDL").val("1");
     }
 
-    function populateKajian() {
-        $('#Tbl_KajianResiko').prop("disabled", true);
-        console.log(newKajianResiko.length);
-        if (newKajianResiko.length > 0) {
-            $('#Tbl_KajianResiko').DataTable({
-                "pageLength": 5,
-                "lengthChange": true,
-                "searching": false,
-                "data": newKajianResiko,
-                "select": true,
-                "bDestroy": true,
-                "scrollCollapse": true,
-                "columns": [
-                    { "data": "Model.P_Kegagalan" },
-                    { "data": "Model.Spek" },
-                    { "data": "Model.Dampak" },
-                    { "data": "Model.Severity" },
-                    { "data": "Model.Penyebab" },
-                    { "data": "Model.M_Penyebab" },
-                    { "data": "Model.Likelihood" },
-                    { "data": "Model.M_PKegagalan_LMD" },
-                    { "data": "Model.Detectability" },
-                    { "data": "Model.RPN" },
-                    {
-                        "data": "Model.RiskLevel",
-                        "className": "riskLevel"
-                    },
-                    { "data": "Model.Target" },
-                    { "data": "Model.M_PKegagalan" },
-                    { "data": "Model.Severity2" },
-                    { "data": "Model.P_MPenyebab" },
-                    { "data": "Model.Likelihood2" },
-                    { "data": "Model.P_MDPKegagalan" },
-                    { "data": "Model.Detectability2" },
-                    { "data": "Model.RPN2" },
-                    {
-                        "data": "Model.RiskLevel2",
-                        "className": "riskLevel2"
-                    },
-                    { "data": "Model.PIC" },
-                    { "data": "Model.DueDate" },
-                    { "data": "Model.Lainnya" },
-                    {
-                        "data": null,
-                        "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onchange=''>Delete</button> "
-                    },
-                ],
-                @*"columnDefs": [
-                    {
-                        "targets": 0,
-                        "visible": false
-                    },
-                    {
-                        "targets": 1,
-                        "visible": false
-                    }
-
-                ],*@
-                "order": [[1, 'asc']],
-                "rowCallback": function (row, data) {
-                    ColoredColumns(row, data.RiskLevel, "riskLevel");
-                    ColoredColumns(row, data.RiskLevel2, "riskLevel2");
-                }
-            });
-        } else {
-
-        }
-    }
+   
 
     function KajianDDLPerbaikanBaru() {
         var dictlist = {
@@ -834,7 +710,6 @@
             success: function (data) {
                 var result = JSON.parse(data);
                 $('#RootCause_KajianResikoDDL').prop("disabled", false);
-
                 $('#RootCause_KajianResikoDDL').empty();
                 $('#btn_AddKajian').prop("disabled", false);
                 for (var i = 0; i < result.length; i++) {
@@ -868,10 +743,11 @@
                 $('#RootCause_KajianResikoDDL').prop("disabled", false);
                 $('#btn_AddKajian').prop("disabled", false);
                 for (var i = 0; i < result.length; i++) {
-                    $('#RootCause_KajianResikoDDL').append(new Option("[Pencegahan]" + " " + result[i].Tindakan_Pencegahan, result[i].RecordID));
+                    $('#RootCause_KajianResikoDDL').append(new Option("[Pencegahan]" + " " + result[i].Tindakan_Pencegahan, result[i].Tindakan_Pencegahan));
+                 
                 }
+              
                 @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
-
             }, error: function (ex) {
                 alert(JSON.stringify(ex));
             }
@@ -900,10 +776,12 @@
                 $('#RootCause_KajianResikoDDL').prop("disabled", false);
                 $('#btn_AddKajian').prop("disabled", false);
                 for (var i = 0; i < result.length; i++) {
-                    $('#RootCause_KajianResikoDDL').append(new Option("[Pencegahan]" + " " + result[i].Tindakan_Pencegahan, result[i].RecordID));
+                    $('#RootCause_KajianResikoDDL').append(new Option("[Pencegahan]" + " " + result[i].Tindakan_Pencegahan, result[i].Tindakan_Pencegahan));
+                    console.log(result[i].Tindakan_Pencegahan);
                 }
                 @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
 
+                //objTindakan += result;
             }, error: function (ex) {
                 alert(JSON.stringify(ex));
             }
