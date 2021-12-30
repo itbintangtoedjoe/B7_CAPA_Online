@@ -93,7 +93,7 @@
 
 <script>
 
-    var CurrentStatsID = @Request.RequestContext.HttpContext.Session["StatsID"];
+    var CurrentStatsID = '@Request.RequestContext.HttpContext.Session["StatsID"]';
     function checkStatusCAPA() {
         $.ajax({
             url: '/PIC/CheckStatusCAPA',
@@ -185,6 +185,10 @@
                 $('input[name="Potensi"]').prop("checked", false);
             }
 
+        });
+
+        $('#btn_Request').click(function () {
+            window.open('/Koordinator/CreateCAPA?NoCAPA=' + $('#input_NoCAPA').val());
         });
 
     });

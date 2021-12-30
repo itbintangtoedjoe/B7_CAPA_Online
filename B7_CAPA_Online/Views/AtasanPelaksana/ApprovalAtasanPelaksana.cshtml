@@ -69,7 +69,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Request Page</h4>
-                        <button class="btn btn-dark form-control col-sm-2">Request</button>
+                        <button class="btn btn-dark form-control col-sm-2" id="btn_Request">Request</button>
                     </div>
                 </div>
 
@@ -176,5 +176,10 @@
                 $('input[name="Potensi"]').prop("checked", false);
             }
         });
+
+        $('#btn_Request').click(function () {
+            window.open('/Koordinator/CreateCAPA?NoCAPA=' + $('#input_NoCAPA').val());
+        });
+
     });
 </script>
