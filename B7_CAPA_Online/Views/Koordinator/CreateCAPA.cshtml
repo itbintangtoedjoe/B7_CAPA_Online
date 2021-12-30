@@ -711,8 +711,7 @@
                                 <div class="row form-group-sm">
                                     <div class="col-md-6 mt-1">
                                         <input class="btn mb-1 btn-primary" type="button" id="btn_Submit" value="Submit" />
-                                    </div>
-                                    <input class="btn mb-1 btn-primary" type="button" id="btn_Submits" value="ssss" />
+                                    </div>                                    
                                 </div>
                             }
                             <!--/form-->
@@ -774,7 +773,7 @@
         $('#Lokasi_DDL').change(function () {
             var Location;
 
-            if ($('#Lokasi_DDL').val() == 'CKG') {
+            if ($('#Lokasi_DDL').val() == 'CKR') {
                 Location = 'Cikarang';
             } else if ($('#Lokasi_DDL').val() == 'HOF') {
                 Location = 'Head Office';
@@ -850,7 +849,7 @@
             var Location;
             $('#VendorDiv').prop('hidden', true);
 
-            if ($('#Lokasi_DDL').val() == 'CKG') {
+            if ($('#Lokasi_DDL').val() == 'CKR') {
                 Location = 'Cikarang';
             } else if ($('#Lokasi_DDL').val() == 'HOF') {
                 Location = 'Head Office';
@@ -1578,15 +1577,15 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    var exOnce = function (kategori, lokasi) {
+                    console.log(data);
+                    var exOnce = function (kategori, lokasi) {                      
                         $("#Kategori_DDL").val(kategori).trigger("change");
                         $("#Lokasi_DDL").val(lokasi).trigger("change");
-                        $('#Kode_DDL').val(data[0].Kode_CAPA).trigger("change");
-                        console.log()
-                    };
-                    console.log(data)
-                    var kategori = $("#Kategori_DDL option:contains(" + data[0].KATEGORI_CAPA + ")").val();
+                        $('#Kode_DDL').val(data[0].Kode_CAPA).trigger("change");                        
+                    };                       
+                    var kategori = $("#Kategori_DDL option:contains(" + data[0].KATEGORI_CAPA + ")").val();                    
                     var lokasi = $("#Lokasi_DDL option:contains(" + data[0].LOKASI_CAPA + ")").val();
+                    
                     exOnce(kategori, lokasi);
 
                     $('#input_Requestor').val(data[0].FullName);
