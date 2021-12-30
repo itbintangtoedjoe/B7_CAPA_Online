@@ -126,6 +126,9 @@
                     <div class="col-md-1">
                         <button type="button" class="btn btn-primary" id="btn_Reject" style="background-color:red;">Reject CAPA</button>
                     </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-primary" id="btn_Cancel" style="background-color:orange;">Cancel CAPA</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -141,6 +144,7 @@
 
 <script>
 
+    var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
     $(document).ready(function () {
         //$('#QS_NoCAPA').val("CPA/SIA/HOF/MK/0921/009");
         GetEvaluator();
@@ -148,6 +152,7 @@
         GetPlant();
         GetEvalTableList();
         HideDeleteButton();
+
         if ($('#QS_Status').val() != 4) {
             disableAll();
         }
@@ -182,7 +187,10 @@
 
             Reject();
         });
-       
+        $('#btn_Cancel').click(function () {
+            Cancel();
+        });
+
         $('#btn_Add_Evaluator').click(function () {
             if ($('#btn_Add_Evaluator').val() == "Cancel") {
 
@@ -202,6 +210,7 @@
         $('#Add_Eval').attr('disabled', true);
         $('#IsUtama').attr('disabled', true);
         $('#btn_Reject').attr('disabled', true);
+        $('#btn_Cancel').attr('disabled', true);
         $('#Eva_Departemen_DDL').attr('disabled', true);
         $('#EvalList_DDL').attr('disabled', true);
         $('#Eva_Plant_DDL').attr('disabled', true);
@@ -436,7 +445,7 @@
                     "searching": false,
                     "data": JSON.parse(data),
                     "select": true,
-                    "scrollCollapse": true,
+                    "scrollX": true,
                     "destroy": true,
                     "columns": [
                         { "data": "EMPID" },
@@ -489,6 +498,7 @@
                         $('#Add_Eval').attr('disabled', true);
                         $('#IsUtama').attr('disabled', true);
                         $('#btn_Reject').attr('disabled', true);
+                        $('#btn_Cancel').attr('disabled', true);
                         $('#Eva_Departemen_DDL').attr('disabled', true);
                         $('#EvalList_DDL').attr('disabled', true);
                         $('#Eva_Plant_DDL').attr('disabled', true);
@@ -564,7 +574,7 @@
                     NoCAPA: $('#QS_NoCAPA').val(),
                     Option: 7,
                     RejectReason: reject,
-                    Creator: ""
+                    Creator: nik
                 }
                 var dto1 = {
                     Model: dictlist
@@ -582,6 +592,7 @@
                             $('#Add_Eval').attr('disabled', true);
                             $('#IsUtama').attr('disabled', true);
                             $('#btn_Reject').attr('disabled', true);
+                            $('#btn_Cancel').attr('disabled', true);
                             $('#Eva_Departemen_DDL').attr('disabled', true);
                             $('#EvalList_DDL').attr('disabled', true);
                             $('#Eva_Plant_DDL').attr('disabled', true);
@@ -611,4 +622,72 @@
 
 
     }
+
+    function Cancel() {
+        Swal.fire({
+            title: 'Alasan Cancel',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            html: '<textarea id="txtCancel" class="form form-control" ></textarea>',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Batalkan!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                var cancel = $('#txtCancel').val();
+                var dictlist = {
+                    NoCAPA: $('#QS_NoCAPA').val(),
+                    Option: 9,
+                    CancelReason: cancel,
+                    Creator: nik
+                }
+                var dto1 = {
+                    Model: dictlist
+                }
+                if (cancel != null && cancel.trim() != '') {
+                    $.ajax({
+                        url: "DynamicController?spname=SP_SHOW_EVALUATOR_DDL",
+                        type: "post",
+                        dataType: "json",
+                        data: JSON.stringify(dto1),
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+                            GetDisabledEvalTableList();
+                            $('#btn_Submit_Evaluator').attr('disabled', true);
+                            $('#Add_Eval').attr('disabled', true);
+                            $('#IsUtama').attr('disabled', true);
+                            $('#btn_Reject').attr('disabled', true);
+                            $('#btn_Cancel').attr('disabled', true);
+                            $('#Eva_Departemen_DDL').attr('disabled', true);
+                            $('#EvalList_DDL').attr('disabled', true);
+                            $('#Eva_Plant_DDL').attr('disabled', true);
+                            $('#Trigger_CAPA').attr('disabled', true);
+                            Swal.fire(
+                                'Cancelled!',
+                                'Cancel Berhasil',
+                                'success'
+                            )
+                        },
+                        error: function (errormessage) {
+                        }
+                    });
+                }
+                else {
+
+                    Swal.fire(
+                        'Error!',
+                        'Alasan tidak boleh kosong.',
+                        'error'
+                    )
+                }
+
+
+            }
+        })
+
+
+    }
+
 </script>

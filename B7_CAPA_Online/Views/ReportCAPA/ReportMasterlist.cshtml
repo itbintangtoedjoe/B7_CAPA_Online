@@ -25,7 +25,6 @@
                             <div class="col-md-6">
                                 <label class="m-t-20">Status CAPA<span style="color: red">*</span></label>
                                 <select class="form-control select2" id="Status">
-                                   
                                 </select>
                             </div>
                         </div>
@@ -40,7 +39,6 @@
                             <div class="col-md-6">
                                 <label class="m-t-20">Kategori<span style="color: red">*</span></label>
                                 <select class="form-control select2" id="Kategori">
-                                    
                                 </select>
                             </div>
                         </div>
@@ -67,48 +65,32 @@
                         </div>
                         <div class="row form-group-sm mt-3">
                             <div class="col-md-6">
-                                <button class="btn btn-primary">Filter</button>
+                                <button class="btn btn-primary" id="Filter">Filter</button>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered zero-configuration">
-                                <thead>
-                                    <tr>
-                                        <th>Created Date</th>
-                                        <th>No CAPA</th>
-                                        <th>PIC CAPA</th>
-                                        <th>Departemen</th>
-                                        <th>Site</th>
-                                        <th>Requestor CAPA</th>
-                                        <th>Kategori CAPA</th>                                        
-                                        <th>Status</th>
-                                        <th>Outstanding</th>
-                                        <th>Tanggal Closed</th>
-                                        <th>Alasan Cancelled</th>
-                                        <th>Tanggal Cancelled</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>29 Juni 2021</td>
-                                        <td>CPA/QXX/AAA/BB/CCDD/EEE</td>
-                                        <td>Arya Saloka</td>
-                                        <td>Produksi</td>
-                                        <td>Cikarang</td>
-                                        <td>Andriani Devi</td>
-                                        <td>Kualitas produk</td>
-                                        <td>Waiting Approval Koordinator</td>
-                                        <td>Tri Pamulatsih</td>
-                                        <td>29 Juli 2021</td>
-                                        <td>N/A</td>
-                                        <td>N/A</td>               
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <table class="table table-bordered zero-configuration" id="Tbl_Filter">
+                        <thead>
+                            <tr>
+                                <th>Created Date</th>
+                                <th>No CAPA</th>
+                                <th>PIC CAPA</th>
+                                <th>Departemen</th>
+                                <th>Site</th>
+                                <th>Requestor CAPA</th>
+                                <th>Kategori CAPA</th>
+                                <th>Kata Kunci</th>
+                                <th>Status</th>
+                                <th>Detail Status</th>
+                                <th>Outstanding</th>
+                                <th>Tanggal Closed</th>
+                                <th>Alasan Cancelled</th>
+                                <th>Tanggal Cancelled</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -117,15 +99,87 @@
 </div>
 <script>
 
-      $(document).ready(function () {
+    $(document).ready(function () {
+        $('#Tbl_Filter').DataTable({
+            "pageLength": 5,
+            "lengthChange": true,
+            "paging": false,
+            "info": false,
+            "searching": false,
+            "select": true,
+            "bDestroy": true,
+            "scrollCollapse": true,
+        });
         getKodeCAPA();
-
+        getTahun();
+        $('#Filter').click(function () {
+            Filter();
+        });
     });
-
-    function getKodeCAPA()
-    {
+    function Filter() {
         var dictlist = {
-            Option:"Kode CAPA"
+            Status: $('#Status').val(),
+            Tahun: $('#Tahun').val(),
+            Lokasi: $('#Lokasi').val(),
+            Departemen: $('#Departemen').val(),
+            Kode: $('#Kode_CAPA').val(),
+            Kategori: $('#Kategori').val(),
+            Option: "Filter",
+
+        }
+        console.log($('#Lokasi').val());
+        console.log($('#Kode_CAPA').val());
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Report",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto1),
+            async: false,
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var table = $('#Tbl_Filter').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": true,
+                    "paging": false,
+                    "info": false,
+                    "searching": false,
+                    "select": true,
+                    "bDestroy": true,
+                    "scrollCollapse": true,
+                    "data": JSON.parse(data),
+                    "columns": [
+                        { "data": "CREATE_DATE" },
+                        { "data": "NO_CAPA" },
+                        { "data": "PIC_CAPA" },
+                        { "data": "AREA_PIC" },
+                        { "data": "LOKASI_CAPA" },
+                        { "data": "EmpName" },
+                        { "data": "KATEGORI_CAPA" },
+                        { "data": "KATA_KUNCI" },
+                        { "data": "STATUS_CAPA" },
+                        { "data": "STATUS_DESKRIPSI" },
+                        { "data": "PENDING_NAME" },
+                        { "data": "Tanggal_Close" },
+                        { "data": "CANCEL" },
+                        { "data": "Tanggal_Cancel" },
+
+                    ],
+                    "order": [[1, 'asc']],
+
+                });
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+
+    }
+    function getKodeCAPA() {
+        var dictlist = {
+            Option: "Kode CAPA"
         }
         var dto = {
             Model: dictlist
@@ -137,15 +191,26 @@
             data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-
-                $('#Kode_CAPA').empty();
                 var result = JSON.parse(data);
+                $('#Kode_CAPA').empty();
+                var all = "";
+                for (var i = 0; i < result.length; i++) {
+                    if (i == 0) {
+                        all += result[i].Code;
+                    }
+                    else {
+                        all += ',' + result[i].Code;
+                    }
+                }
+                $('#Kode_CAPA').append(new Option("All", all));
+                $('#Kode_CAPA').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+
                 for (var i = 0; i < result.length; i++) {
                     $('#Kode_CAPA').append(new Option(result[i].Code_Desc, result[i].Code));
                 }
 
                 getDepartemen();
-                }, error: function (ex) {
+            }, error: function (ex) {
                 alert(JSON.stringify(ex));
             }
         });
@@ -170,8 +235,9 @@
                 $('#Departemen').empty();
 
                 $('#Departemen').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+
                 for (var i = 0; i < result.length; i++) {
-                    $('#Departemen').append(new Option(result[i].PlantDesc, result[i].PlantID));
+                    $('#Departemen').append(new Option(result[i].DEPARTEMEN, result[i].DEPARTEMEN));
                 }
 
                 getLokasi();
@@ -199,10 +265,19 @@
             success: function (data) {
                 var result = JSON.parse(data);
                 $('#Lokasi').empty();
-
                 $('#Lokasi').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+                var all = "";
                 for (var i = 0; i < result.length; i++) {
-                    $('#Lokasi').append(new Option(result[i].DDL_CODE, result[i].DDL_DESCRIPTION));
+                    if (i == 0) {
+                        all += result[i].DDL_DESCRIPTION;
+                    }
+                    else {
+                        all += ',' + result[i].DDL_DESCRIPTION;
+                    }
+                }
+                $('#Lokasi').append(new Option("All", all));
+                for (var i = 0; i < result.length; i++) {
+                    $('#Lokasi').append(new Option(result[i].DDL_DESCRIPTION, result[i].DDL_DESCRIPTION));
                 }
 
                 getStatusCAPA();
@@ -233,13 +308,24 @@
 
                 $('#Status').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
                 for (var i = 0; i < result.length; i++) {
-                    $('#Status').append(new Option(result[i].STATUS_ID, result[i].STATUS_CAPA));
+                    $('#Status').append(new Option(result[i].STATUS_CAPA, result[i].STATUS_ID_PK));
                 }
                 getKategori();
             }, error: function (ex) {
                 alert(JSON.stringify(ex));
             }
         });
+
+    }
+
+    function getTahun() {
+        var date = new Date();
+        $('#Tahun').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+        for (var i = 2021; i <= date.getFullYear(); i++) {
+
+            $('#Tahun').append(new Option(i, i));
+        }
+
 
     }
 
@@ -264,7 +350,7 @@
 
                 $('#Kategori').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
                 for (var i = 0; i < result.length; i++) {
-                    $('#Kategori').append(new Option(result[i].DDL_DESCRIPTION, result[i].DDL_CODE));
+                    $('#Kategori').append(new Option(result[i].DDL_DESCRIPTION, result[i].DDL_DESCRIPTION));
                 }
 
             }, error: function (ex) {

@@ -4,6 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+@{
+    ViewBag.Title = "ReportMasterlist";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 <div class="content-body">
     <div class="row page-titles mx-0">
         <div class="col p-md-0">
@@ -20,99 +26,159 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Report Masterlist</h4>
+                        <h4 class="card-title">Report Leadtime</h4>
                         <div class="row form-group-sm">
                             <div class="col-md-6">
-                                <label class="m-t-20">Status CAPA<span style="color: red">*</span></label>
-                                <select class="form-control form-control-sm" id="Trigger_CAPA">
-                                    <option value="Open">Open</option>
-                                    <option value="ApprovedCAPA">ApprovedCAPA</option>
-                                    <option value="Closed">Closed</option>
-                                    <option value="ClosedWithInitial">Closed with initial New CAPA</option>
-                                    <option value="Cancelled">Cancelled</option>
+                                <label class="m-t-20">Tahun Permohonan CAPA<span style="color: red">*</span></label>
+                                <select class="form-control select2" id="Tahun">
                                 </select>
                             </div>
                         </div>
                         <div class="row form-group-sm">
                             <div class="col-md-6">
-                                <label class="m-t-20">Departemen PIC CAPA<span style="color: red">*</span></label>
-                                <select class="form-control form-control-sm" id="Trigger_CAPA">
+                                <label class="m-t-20">Bulan Permohonan CAPA<span style="color: red">*</span></label>
+                                <select class="form-control select2" id="Bulan">
                                 </select>
                             </div>
                         </div>
                         <div class="row form-group-sm">
                             <div class="col-md-6">
-                                <label class="m-t-20">Ketegori<span style="color: red">*</span></label>
-                                <select class="form-control form-control-sm" id="Trigger_CAPA">
-                                    <option value="Produk">Kualitas Terkait Produk</option>
-                                    <option value="NonProduk">Kualitas Terkait Non Produk</option>
-                                    <option value="Material">Kualitas Terkait Material Awal</option>
-                                    <option value="SIA">Internal Audit (SIA)</option>
-                                    <option value="SEA">External Audit (SEA)</option>
-                                    <option value="HSE">HSE</option>
+                                <label class="m-t-20">Kategori CAPA<span style="color: red">*</span></label>
+                                <select class="form-control select2" id="Kategori">
                                 </select>
                             </div>
                         </div>
                         <div class="row form-group-sm">
                             <div class="col-md-6">
-                                <label class="m-t-20">Tahun<span style="color: red">*</span></label>
-                                <select class="form-control form-control-sm" id="Trigger_CAPA">
+                                <label class="m-t-20">Departemen<span style="color: red">*</span></label>
+                                <select class="form-control select2" id="Departemen">
                                 </select>
                             </div>
                         </div>
                         <div class="row form-group-sm">
                             <div class="col-md-6">
                                 <label class="m-t-20">Lokasi Site<span style="color: red">*</span></label>
-                                <select class="form-control form-control-sm" id="Trigger_CAPA">
-                                    <option value="Cikarang">Cikarang</option>
-                                    <option value="Pulogadung">Pulogadung</option>
-                                    <option value="HeadOffice">Head Office</option>
-                                    <option value="All">All</option>
+                                <select class="form-control select2" id="Lokasi">
                                 </select>
                             </div>
                         </div>
                         <div class="row form-group-sm mt-3">
                             <div class="col-md-6">
-                                <button class="btn btn-primary">Filter</button>
+                                <button class="btn btn-primary" id="Filter">Filter</button>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered zero-configuration">
-                                <thead>
-                                    <tr>
-                                        <th>Bulan</th>
-                                        <th>No CAPA</th>
-                                        <th>KAtegori CAPA</th>
-                                        <th>Departemen</th>                                        
-                                        <th>Requestor CAPA</th>
-                                        <th>Tanggal Permohonan</th>
-                                        <th>PIC</th>
-                                        <th>Done Input</th>
-                                        <th>Tanggal Closed</th>
-                                        <th>Alasan Cancelled</th>
-                                        <th>Tanggal Cancelled</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>29 Juni 2021</td>
-                                        <td>CPA/QXX/AAA/BB/CCDD/EEE</td>
-                                        <td>Arya Saloka</td>
-                                        <td>Produksi</td>
-                                        <td>Cikarang</td>
-                                        <td>Andriani Devi</td>
-                                        <td>Kualitas produk</td>
-                                        <td>Waiting Approval Koordinator</td>
-                                        <td>Tri Pamulatsih</td>
-                                        <td>29 Juli 2021</td>
-                                        <td>N/A</td>
-                                        <td>N/A</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="table-responsive">
+                        <table id="Tbl_Filter" class="table table-bordered zero-configuration">
+                            <thead>
+                                <tr>
+                                    <th>Bulan</th>
+                                    <th>Nomor CAPA</th>
+                                    <th>Kategori CAPA</th>
+                                    <th>Departemen</th>
+                                    <th>Requestor CAPA</th>
+                                    <th>Tanggal Permohonan</th>
+                                    <th>PIC</th>
+                                    <th>Done Input PIC</th>
+                                    <th>Leadtime</th>
+                                    <th>Superior PIC</th>
+                                    <th>Done Approval PIC</th>
+                                    <th>Superior Pelaksana 1</th>
+                                    <th>Done Approval Superior Pelaksana 1</th>
+                                    <th>Leadtime</th>
+                                    <th>Superior Pelaksana 2</th>
+                                    <th>Leadtime</th>
+                                    <th>Koordinator</th>
+                                    <th>Done Approval Koordinator</th>
+                                    <th>Leadtime</th>
+                                    <th>Evaluator</th>
+                                    <th>Done Approval Evaluator</th>
+                                    <th>Leadtime</th>
+                                    <th>Perubahan</th>
+                                    <th>Superior Pelaksana 1</th>
+                                    <th>Done Approval Perubahan</th>
+                                    <th>Leadtime</th>
+                                    <th>Evaluator</th>
+                                    <th>Done Approval Perubahan</th>
+                                    <th>Leadtime</th>
+                                    <th>Total Leadtime Approval CAPA</th>
+                                    <th>Pelaksana 1</th>
+                                    <th>Done Bukti Upload Pelaksana 1</th>
+                                    <th>Leadtime</th>
+                                    <th>Pelaksana 2</th>
+                                    <th>Done Bukti Upload Pelaksana 2</th>
+                                    <th>Leadtime</th>
+                                    <th>Koordinator</th>
+                                    <th>Done Verifikasi Bukti</th>
+                                    <th>Leadtime</th>
+                                    <th>Koordinator</th>
+                                    <th>Done Verifikasi Bukti</th>
+                                    <th>Leadtime</th>
+                                    <th>Koordinator</th>
+                                    <th>Done Monitoring Efektivitas</th>
+                                    <th>Leadtime</th>
+                                    <th>Evaluator</th>
+                                    <th>Done Closed</th>
+                                    <th>Leadtime</th>
+                                    <th>Total Leadtime Closed CAPA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                    <td>test</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+
                     </div>
                 </div>
             </div>
@@ -120,4 +186,238 @@
     </div>
     <!-- #/ container -->
 </div>
+<script>
+
+    $(document).ready(function () {
+ 
+         $('#Tbl_Filter').DataTable({
+            "pageLength": 5,
+            "lengthChange": true,
+            "paging": false,
+            "info": false,
+            "searching": false,
+            "select": true,
+            "bDestroy": true,
+            "scrollCollapse": true,
+            "responsive":true,
+            "columnDefs": [
+                 { responsivePriority: 1, targets: 0 },
+                 { responsivePriority: 10001, targets: 4 },
+                 { responsivePriority: 2, targets: 1 }
+             ]
+             
+        });
+        getDepartemen();
+        getLokasi();
+        getKategori();
+        getTahun();
+        getBulan();
+        $('#Filter').click(function () {
+            Filter();
+        });
+    });
+    function Filter() {
+        var dictlist = {
+            Status: $('#Status').val(),
+            Tahun: $('#Tahun').val(),
+            Lokasi: $('#Lokasi').val(),
+            Departemen: $('#Departemen').val(),
+            Kode: $('#Kode_CAPA').val(),
+            Kategori: $('#Kategori').val(),
+            Option: "Filter Leadtime",
+
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Report",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto1),
+            async: false,
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                var NoCAPA = [];
+                var note = [];
+                var user =[]
+                var kolom = [];
+                var currentCAPA = '';
+                for (var i = 0; i < result.length; i++) {
+
+                    if (result[i].NoCAPA != currentCAPA) {
+                        var currentCAPA = result[i].NoCAPA;
+                        NoCAPA.push(result[i].NoCAPA);
+                    }
+
+                    if (result[i].NoCAPA == currentCAPA)
+                    {
+                        note.push(result[i].CreationDate);
+                        user.push(result[i].Username);
+                    }
+                }
+
+
+                var table = $('#Tbl_Filter').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": true,
+                    "searching": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "scrollCollapse": true,
+                    "destroy": true,
+                    "columns": [
+                        { "data": "CREATE_DATE" },
+                        { "data": "NO_CAPA" },
+                        { "data": "PIC_CAPA" },
+                        { "data": "AREA_PIC" },
+                        { "data": "LOKASI_CAPA" },
+                        { "data": "EmpName" },
+                        { "data": "KATEGORI_CAPA" },
+                        { "data": "KATA_KUNCI" },
+                        { "data": "STATUS_CAPA" },
+                        { "data": "STATUS_DESKRIPSI" },
+                        { "data": "PENDING" },
+                        { "data": "Tanggal_Close" },
+                        { "data": "CANCEL" },
+                        { "data": "Tanggal_Cancel" },
+
+                    ],
+                    "order": [[1, 'asc']],
+
+                });
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+
+    }
+
+    function getDepartemen() {
+        var dictlist = {
+            Option: "Departemen"
+        }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Report",
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var result = JSON.parse(data);
+                $('#Departemen').empty();
+
+                $('#Departemen').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+
+                for (var i = 0; i < result.length; i++) {
+                    $('#Departemen').append(new Option(result[i].Org_Group_Name, result[i].Org_Group_Name));
+                }
+
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
+    }
+
+
+    function getLokasi() {
+        var dictlist = {
+            Option: "Lokasi"
+        }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Report",
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                $('#Lokasi').empty();
+                $('#Lokasi').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+                var all = "";
+                for (var i = 0; i < result.length; i++) {
+                    if (i == 0) {
+                        all += result[i].DDL_CODE;
+                    }
+                    else {
+                        all += ',' + result[i].DDL_CODE;
+                    }
+                }
+                $('#Lokasi').append(new Option("All", all));
+                for (var i = 0; i < result.length; i++) {
+                    $('#Lokasi').append(new Option(result[i].DDL_DESCRIPTION, result[i].DDL_CODE));
+                }
+
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
+    }
+
+
+    function getTahun() {
+        var date = new Date();
+        $('#Tahun').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+        for (var i = 2021; i <= date.getFullYear(); i++) {
+
+            $('#Tahun').append(new Option(i, i));
+        }
+
+
+    }
+    function getBulan() {
+        var date = new Date();
+        var bulan = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        $('#Bulan').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+        for (var i = 0; i < 12; i++) {
+
+            $('#Bulan').append(new Option(bulan[i], i + 1));
+        }
+
+
+    }
+
+    function getKategori() {
+        var dictlist = {
+            Option: "Kategori"
+        }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Report",
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var result = JSON.parse(data);
+                $('#Kategori').empty();
+
+                $('#Kategori').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+                for (var i = 0; i < result.length; i++) {
+                    $('#Kategori').append(new Option(result[i].DDL_DESCRIPTION, result[i].DDL_CODE));
+                }
+
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
+    }
+
+
+</script>
 
