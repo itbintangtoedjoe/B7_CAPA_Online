@@ -413,6 +413,12 @@ namespace B7_CAPA_Online.Controllers
             }
             return Json(CAPA);
         }
+
+        public ActionResult CheckUser(DynamicModel Param){
+            DynamicParameters dynamicParameters = new DynamicParameters(Param.Model);
+            string Result = DAL.StoredProcedure(dynamicParameters, "[dbo].[SP_SHOW_DDL]");
+            return Json(Result);
+        }
         public void ResetDepartments()
         {
             var list = new ListDepartemen();
@@ -532,34 +538,43 @@ namespace B7_CAPA_Online.Controllers
             }
             var Path_DT = ToDataTable<Lampiran>(Model.LampiranTerkait);
             //smtp email
-            //try
-            //{
-            //    var dictionary = new Dictionary<string, object>
-            //    {
-            //        {"Nama_Aplikasi", "CAPA" },
-            //        {"Kategori", "PICReminder" }
-            //    };
-            //    var parameters = new DynamicParameters(dictionary);
-            //    Email emailData = new Email();
-            //    string eData = DAL.StoredProcedure(parameters, "[dbo].[SP_EMAIL_SENDER]");
-            //    dynamic emailList = JsonConvert.DeserializeObject<List<Email>>(eData);
-            //    emailData.EmailSubject = emailList[0].EmailSubject;
-            //    emailData.EmailBody = emailList[0].EmailBody;
-            //    SmtpClient mailObj = new SmtpClient("mail.kalbe.co.id");
-            //    var msg = new MailMessage();
-            //    msg.From = new MailAddress("it.bintang7@gmail.com", "CAPA B7 Mailing System");
-            //    msg.Body = emailData.EmailBody;
-            //    msg.Subject = emailData.EmailSubject;
-            //    msg.Priority = MailPriority.High;
-            //    msg.IsBodyHtml = true;
-            //    msg.To.Add(Model.Email);
-            //    //mailObj.Send(msg);
-            //    //return Json("success");
-            //}
-            //catch (Exception ex)
-            //{
-            //    return Json("error, check log");
-            //}
+            try
+            {
+                var dictionary = new Dictionary<string, object>
+                {
+                    {"Nama_Aplikasi", "CAPA" },
+                    {"Kategori", "PICReminder" }
+                };
+                var parameters = new DynamicParameters(dictionary);
+                Email emailData = new Email();
+                string eData = DAL.StoredProcedure(parameters, "[dbo].[SP_EMAIL_SENDER]");
+                dynamic emailList = JsonConvert.DeserializeObject<List<Email>>(eData);
+                emailData.EmailSubject = emailList[0].EmailSubject;
+                emailData.EmailBody = emailList[0].EmailBody;
+                SmtpClient mailObj = new SmtpClient("mail.kalbe.co.id");
+                var msg = new MailMessage();
+                msg.From = new MailAddress("it.bintang7@gmail.com", "CAPA B7 Mailing System");
+                msg.Body = emailData.EmailBody;
+                msg.Subject = emailData.EmailSubject;
+                msg.Priority = MailPriority.High;
+                msg.IsBodyHtml = true;
+                msg.To.Add(Model.Email);
+                //mailObj.Send(msg);
+                //return Json("success");
+            }
+            catch (Exception ex)
+            {
+                var dictionary = new Dictionary<string, object>();                              
+                dictionary.Add("UpdateBy", Model.Create_By);
+                dictionary.Add("NO_CAPA", Model.NO_CAPA);
+                dictionary.Add("ErrorLog", ex.ToString());
+                dictionary.Add("StatusID", 1);
+
+                DynamicParameters dynamicParameters = new DynamicParameters(dictionary);
+
+                DAL.StoredProcedure(dynamicParameters, "[dbo].[SP_ERROR_HISTORY]");
+                return Json("error, check log");
+            }
 
             // Method Insert Data
             DAL.InsertData(Model, Departemen_DT, Penyimpangan_DT, Path_DT);

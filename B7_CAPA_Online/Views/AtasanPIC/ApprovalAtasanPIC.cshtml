@@ -57,6 +57,7 @@
                                     <input class="form-control form-control-sm" type="text" id="QS_NoCAPA" value="@Request.QueryString["NoCAPA"]" readonly />
                                     <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["NoCAPA"]" hidden />
                                     <input class="form-control form-control-sm" type="text" id="input_REG_ID" value="@Request.QueryString["REG"]" hidden />
+
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">Departemen</label>
@@ -74,16 +75,19 @@
                     </div>
                 </div>
 
+
                 @if (!string.IsNullOrEmpty(Request.QueryString["NoCAPA"]))
                 {
                     @Html.Partial("AnalisaKondisiPV")
                     <div id="Div_PRCA_PV">@Html.Partial("PotentialRootCausePV")</div>
-                    //@Html.Partial("TindakanPerbaikanPV")
-                    //@Html.Partial("TindakanPencegahanPV")
+                    @Html.Partial("TindakanPerbaikanPV")
+                    @Html.Partial("TindakanPencegahanPV")
                     @Html.Partial("../Koordinator/InvestigasiPenyimpangan")
                     @Html.Partial("KajianResikoPV")
                     <div id="Div_Approval_PV">@Html.Partial("ApprovalPV")</div>
                 }
+
+
             </div>
         </div>
         <!-- #/ container -->
@@ -93,7 +97,7 @@
 
 <script>
 
-    var CurrentStatsID = '@Request.RequestContext.HttpContext.Session["StatsID"]';
+    var CurrentStatsID = 2;
     function checkStatusCAPA() {
         $.ajax({
             url: '/PIC/CheckStatusCAPA',
@@ -126,9 +130,12 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
+                //console.log(data);
+                getSuperiorNIK();
+
                 var result = JSON.parse(data)[0];
                 var hide = (result.STATUS_ID == CurrentStatsID) ? (false) : (true); // jika status CAPA = 2 maka, hide = false , sebaliknya.
-                if(hide) //Jika hide true maka di hidden.
+                if (hide) //Jika hide true maka di hidden.
                     $('#Div_Approval_PV').hide(); //Hide ApprovalPV (~/Shared/ApprovalPV)
 
             },
@@ -141,10 +148,34 @@
         // variable isHide berada di partial view
         return isHide = true;
     }
+    function getSuperiorNIK() {
+        $.ajax({
+            url: 'SubmitApproval',
+            type: 'post',
+            data: JSON.stringify({
+                Model: {
+                    NO_CAPA: $('#input_NoCAPA').val(),
+                    Option: 2
+                }
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var result = JSON.parse(data);                              
+                if (result[0].PIC_SUPERIOR_ID != $('#TxtRequestor_NIK').val()) {
+                    $('#Div_Approval_PV').hide();
+                    return;
+                }
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
 
     $(document).ready(function () {
         //*PV = Partial View
-
+       
         //Hidden card div AnalisaKondisi di PartialView (~/Koordinator/InvestigasiPenyimpangan)
         $('#Div_AnalisaKondisi').prop('hidden', true);
 

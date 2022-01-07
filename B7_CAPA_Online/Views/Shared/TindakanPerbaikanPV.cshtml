@@ -1,73 +1,83 @@
 ﻿<div class="card">
     <div class="card-body">
-        <h4 class="card-title">Penentuan Tindakan Perbaikan</h4>
-        <div class="table-responsive">
-            <form>
-                <div class="row form-group-sm">
-                    <div class="col-md-6">
-                        <label class="m-t-20">Root Cause</label>
-                        <select id="RootCause_DDL" class="form-control">
-                        </select>
-                    </div>
-                </div>
-                <div class="row form-group-sm">
-                    <div class="col-md-6">
-                        <label class="m-t-20">Tindakan Perbaikan<span style="color: red">*</span></label>
-                        <textarea type="text" class="form-control" placeholder="Deskripsi" id="TxtDeskripsiPerbaikan"></textarea>
-                    </div>
-                    <div class="form-group mb-2 col-sm-3">
-                        <label class="m-t-20">Due Date</label>
-                        <input type="date" id="duedate_perbaikan" class="form-control form-control-sm">
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label class="m-t-40">Pelaksana Tindakan Perbaikan</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="TxtPelaksanaPerbaikan">
-                        </div>
-                    </div>
-                    @*<div class="col-md-4" style="text-align: center">
-                            <label class="m-t-40" style="visibility:hidden">_</label>
-                            <div class="input-group mb-3">
-                                <button type="button" class="btn mb-1 btn-primary ">Add</button>
-                                <button type="button" class="btn mb-1 btn-primary ">Browse</button>
-                            </div>
-                        </div>*@
-                    <div class="col-md-3">
-                        <label class="m-t-40">Nama Personil</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="TxtNamaPersonil">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="m-t-40">Alamat Email</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="TxtEmailPelaksana">
-                        </div>
-                    </div>
-
-                    <div class="col-md-12">
-                        <label class="m-t-40">Apakah ada proses / area lain yang berpotensi sama ?</label>
-                        <div class="radio input-group">
-                            <div class="col-sm-3">
-                                <label><input type="radio" value="Yes" name="Potensi">Ya</label>
-                            </div>
-                            <div class="col-sm-3">
-                                <label><input type="radio" value="No" name="Potensi">Tidak</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 mb-3">
-                        <label class="m-t-40" style="visibility: hidden">_</label>
-                        <div class="input-group">
-                            <button type="button" id="btn_AddPerbaikan" class="btn mb-1 btn-primary ">Tambahkan Tindakan Perbaikan</button>
-                        </div>
-                    </div>
-
-                </div>
-            </form>
+        <h4 class="card-title">Tindakan Perbaikan</h4>
+        <div>
+            <table class="table table-hover table-bordered zero-configuration" style="color: black" id="Tbl_Perbaikan">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Root Cause</th>
+                        <th>Tindakan Perbaikan</th>
+                        <th>Nama Pelaksana</th>
+                        <th>Due_Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
+@*Hidden Input*@
+<input class="form-control form-control-sm" type="text" id="input_NIK" value="@Request.QueryString["NIK"]" hidden />
+
+<script>
+    function GetTindakanPerbaikanPV() {
+        var dictlist = {
+            NoCAPA: $('#input_NoCAPA').val(),
+            Option: 4,
+            NIK: $('#input_NIK').val()
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: '../Koordinator/DynamicController?spname=SP_SHOW_Tindakan_PV',
+            type: 'post',
+            data: JSON.stringify(dto1),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var table = $('#Tbl_Perbaikan').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": false,
+                    "info" : false,
+                    "searching": false,
+                    "paging": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "scrollCollapse": true,
+                    "destroy": true,
+                    "columns": [
+                        { "data": "WhyID" },
+                        { "data": "WhyParentID" },
+                        { "data": "WhyDesc" },
+                        { "data": "Tindakan_Perbaikan" },
+                        { "data": "Nama_Personil" },
+                        { "data": "Due_Date" }
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": [0],
+                            "visible": false
+                        },
+                        {
+                            "targets": [1],
+                            "visible": false
+                        }
+                    ],
+                    "order": [[1, 'asc']],
+                })
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        GetTindakanPerbaikanPV();
+    });
+</script>

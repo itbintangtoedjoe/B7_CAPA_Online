@@ -222,8 +222,8 @@
                                     </div>
                                 </div>
 
-                                <div class="container">
-                                    <div class="row form-group col-md-12" id="Div_TxtPIC" hidden>
+                                <div class="container" id="Div_TxtPIC" hidden>
+                                    <div class="row form-group col-md-12">
                                         <div class="col-md-4">
                                             <label for="TxtPIC" class="col-form-label">PIC</label>
                                             <div class="input-group">
@@ -247,11 +247,12 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                </div>
+                                <div class="container">
                                     <div class="form-group col-md-6">
                                         <button type="button" class="btn btn-primary" id="btn_KajianResiko">Tambahkan</button>
                                     </div>
-                                </div>
+                                </div>                                
                             </form>
                         </div>
                     </div>
@@ -914,8 +915,7 @@
             }),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                //console.log(data);
+            success: function (data) {                
                 $('#Tbl_KajianResiko').DataTable({
                     "pageLength": 5,
                     "lengthChange": true,
@@ -1099,8 +1099,7 @@
                 $('#RootCause_DDL').append(new Option("*Pilih*", ""));
                 $.each(JSON.parse(rootcause), function (key, value) {
                     $('#RootCause_DDL').append(new Option(value.WhyDesc, value.WhyDesc));
-                });
-                console.log(JSON.parse(rootcause));
+                });                
 
                 $('#btn_AddPerbaikan').click(function () {
                     countAdd++;
@@ -1158,8 +1157,7 @@
             }),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            success: function (area_lain) {
-                console.log(area_lain)
+            success: function (area_lain) {                
                 var countAdd = 0;
                 var data = JSON.parse(area_lain);
                 if (data.length == 0) {
@@ -1519,7 +1517,7 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 var result = JSON.parse(data);
-                myDiagram.model = new go.TreeModel();
+                //myDiagram.model = new go.TreeModel();
                 var $ = go.GraphObject.make;
                 myDiagram =
                     $(go.Diagram, "DiagManusia",
@@ -2179,15 +2177,15 @@
                                 valid = false;
                                 return false;
                             }
-                            else if (dto.Model.DueDate == "") {
-                                Swal.fire(
-                                    'Maaf',
-                                    'Mohon untuk mengisi DueDate PIC Treatment.',
-                                    'warning'
-                                )
-                                valid = false;
-                                return false;
-                            }
+                            //else if (dto.Model.DueDate == "") {
+                            //    Swal.fire(
+                            //        'Maaf',
+                            //        'Mohon untuk mengisi DueDate PIC Treatment.',
+                            //        'warning'
+                            //    )
+                            //    valid = false;
+                            //    return false;
+                            //}
                         }
                     }
                     count++;
@@ -2228,6 +2226,8 @@
 
         $("#btn_Submit").click(function () {
             //window.location.replace('/PendingTask/TaskList');
+            var isValid = false;
+
             $.ajax({
                 url: 'SubmitToAtasanPIC',
                 type: 'post',
@@ -2235,56 +2235,84 @@
                 data: JSON.stringify({
                     Model: {
                         NO_CAPA: $('#input_NoCAPA').val(),
-                        Option: 12,
-                        Aspect: '',
-                        WSBH: '',
-                        WAH: '',
-                        Status: '',
-                        isParent: '',
-                        WHY_Parent: '',
-                        WHY: '',
-                        Tindakan: '',
-                        Pelaksana: '',
-                        LineNumber: '',
-                        NamaPersonil: '',
-                        Email: '',
-                        DueDate: '',
-                        Is_AreaLain: '',
-                        WhyID: '',
-                        WhyParentID: '',
-                        RootCause: '',
-                        Create_By: $('#input_Requestor').val(),
-                        RecordID: ''
+                        Option: 15,                        
                     }
                 }),
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    var mData = JSON.parse(data);
-                    $.each(mData, function (key, value) {
-                        var attr = Object.keys(value)[0];
-                        var icon;
-                        if (attr == "WAITING")
-                            icon = 'warning';
-                        else if (attr == 'SUCCESS')
-                            icon = 'success';
-                        else
-                            icon = 'error';
-                        Swal.fire(
-                            attr,
-                            value[attr],
-                            icon
-                        ).then(function (result) {
-                            if (result.value) {
-                                window.location.href = '/PendingTask/TaskList';
-                            }
-                        });
-                        return false;
-                    });
+                    isValid = JSON.parse(data)[0].IS_VALID;                    
                 },
                 error: function (ex) {
                     alert(JSON.stringify(ex));
                 }
             });
+
+            if (isValid) {
+                $.ajax({
+                    url: 'SubmitToAtasanPIC',
+                    type: 'post',
+                    dataType: 'json',
+                    data: JSON.stringify({
+                        Model: {
+                            NO_CAPA: $('#input_NoCAPA').val(),
+                            Option: 12,
+                            Aspect: '',
+                            WSBH: '',
+                            WAH: '',
+                            Status: '',
+                            isParent: '',
+                            WHY_Parent: '',
+                            WHY: '',
+                            Tindakan: '',
+                            Pelaksana: '',
+                            LineNumber: '',
+                            NamaPersonil: '',
+                            Email: '',
+                            DueDate: '',
+                            Is_AreaLain: '',
+                            WhyID: '',
+                            WhyParentID: '',
+                            RootCause: '',
+                            Create_By: $('#input_Requestor').val(),
+                            RecordID: ''
+                        }
+                    }),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        var mData = JSON.parse(data);
+                        $.each(mData, function (key, value) {
+                            var attr = Object.keys(value)[0];
+                            var icon;
+                            if (attr == "WAITING")
+                                icon = 'warning';
+                            else if (attr == 'SUCCESS')
+                                icon = 'success';
+                            else
+                                icon = 'error';
+                            Swal.fire(
+                                attr,
+                                value[attr],
+                                icon
+                            ).then(function (result) {
+                                if (result.value) {
+                                    window.location.href = '/PendingTask/TaskList';
+                                }
+                            });
+                            return false;
+                        });
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                });
+            } else {
+                Swal.fire(
+                    'WARNING',
+                    'Masih ada Tindakan yang belum dikaji.',
+                    'warning'
+                );                
+            }
+            
         });
 
         $('#btn_Request').click(function () {
