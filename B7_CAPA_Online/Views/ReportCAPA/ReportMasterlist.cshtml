@@ -14,89 +14,98 @@
         </div>
     </div>
     <!-- row -->
-
+    <style>
+        .dtr-title {
+            font-weight: bold;
+        }
+    </style>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Report Masterlist</h4>
-                        <div class="row form-group-sm">
-                            <div class="col-md-6">
-                                <label class="m-t-20">Status CAPA<span style="color: red">*</span></label>
-                                <select class="form-control select2" id="Status">
-                                </select>
+                        <form>
+                            <div class="row form-group-sm">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Status CAPA<span style="color: red">*</span></label>
+                                    <select class="form-control select2" id="Status" required="required">
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row form-group-sm">
-                            <div class="col-md-6">
-                                <label class="m-t-20">Departemen PIC CAPA<span style="color: red">*</span></label>
-                                <select class="form-control select2" id="Departemen">
-                                </select>
+                            <div class="row form-group-sm">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Departemen PIC CAPA<span style="color: red">*</span></label>
+                                    <select class="form-control select2" id="Departemen" required="required">
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row form-group-sm">
-                            <div class="col-md-6">
-                                <label class="m-t-20">Kategori<span style="color: red">*</span></label>
-                                <select class="form-control select2" id="Kategori">
-                                </select>
+                            <div class="row form-group-sm">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Kategori<span style="color: red">*</span></label>
+                                    <select class="form-control select2" id="Kategori" required="required">
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row form-group-sm">
-                            <div class="col-md-6">
-                                <label class="m-t-20">Kode CAPA<span style="color: red">*</span></label>
-                                <select class="form-control select2" id="Kode_CAPA">
-                                </select>
+                            <div class="row form-group-sm">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Kode CAPA<span style="color: red">*</span></label>
+                                    <select class="form-control select2" id="Kode_CAPA" required="required">
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row form-group-sm">
-                            <div class="col-md-6">
-                                <label class="m-t-20">Tahun<span style="color: red">*</span></label>
-                                <select class="form-control select2" id="Tahun">
-                                </select>
+                            <div class="row form-group-sm">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Tahun<span style="color: red">*</span></label>
+                                    <select class="form-control select2" id="Tahun" required="required">
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row form-group-sm">
-                            <div class="col-md-6">
-                                <label class="m-t-20">Lokasi Site<span style="color: red">*</span></label>
-                                <select class="form-control select2" id="Lokasi">
-                                </select>
+                            <div class="row form-group-sm">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Lokasi Site<span style="color: red">*</span></label>
+                                    <select class="form-control select2" id="Lokasi" required="required">
+                                    </select>
+                                </div>
                             </div>
-                        </div>
+
+                        </form> 
                         <div class="row form-group-sm mt-3">
                             <div class="col-md-6">
                                 <button class="btn btn-primary" id="Filter">Filter</button>
                             </div>
                         </div>
                     </div>
-                    <table class="table table-bordered zero-configuration" id="Tbl_Filter">
-                        <thead>
-                            <tr>
-                                <th>Created Date</th>
-                                <th>No CAPA</th>
-                                <th>PIC CAPA</th>
-                                <th>Departemen</th>
-                                <th>Site</th>
-                                <th>Requestor CAPA</th>
-                                <th>Kategori CAPA</th>
-                                <th>Kata Kunci</th>
-                                <th>Status</th>
-                                <th>Detail Status</th>
-                                <th>Outstanding</th>
-                                <th>Tanggal Closed</th>
-                                <th>Alasan Cancelled</th>
-                                <th>Tanggal Cancelled</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                        <table class="table table-bordered " id="Tbl_Filter">
+                            <thead>
+                                <tr>
+                                    <th>Created Date</th>
+                                    <th>No CAPA</th>
+                                    <th>PIC CAPA</th>
+                                    <th>Departemen</th>
+                                    <th>Site</th>
+                                    <th>Requestor CAPA</th>
+                                    <th>Kategori CAPA</th>
+                                    <th>Kata Kunci</th>
+                                    <th>Status</th>
+                                    <th>Detail Status</th>
+                                    <th>Outstanding</th>
+                                    <th>Tanggal Closed </th>
+                                    <th>Alasan Cancelled </th>
+                                    <th>Tanggal Cancelled  </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                 </div>
             </div>
         </div>
     </div>
     <!-- #/ container -->
 </div>
+@*<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js" defer></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" defer></script>*@
 <script>
 
     $(document).ready(function () {
@@ -109,6 +118,7 @@
             "select": true,
             "bDestroy": true,
             "scrollCollapse": true,
+            "responsive": true,
         });
         getKodeCAPA();
         getTahun();
@@ -127,8 +137,6 @@
             Option: "Filter",
 
         }
-        console.log($('#Lokasi').val());
-        console.log($('#Kode_CAPA').val());
         var dto1 = {
             Model: dictlist
         }
@@ -140,6 +148,7 @@
             async: false,
             contentType: "application/json;charset=utf-8",
             success: function (data) {
+                console.log(JSON.parse(data));
                 var table = $('#Tbl_Filter').DataTable({
                     "pageLength": 5,
                     "lengthChange": true,
@@ -148,10 +157,28 @@
                     "searching": false,
                     "select": true,
                     "bDestroy": true,
+                    //"responsive": {
+                    //    "details": {
+                    //        "renderer": function (api, rowIdx, columns) {
+                    //            var data = $.map(columns, function (col, i) {
+                    //                return col.hidden ?
+                    //                    '<tr data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '">' +
+                    //                    '<td>' + col.title + ':' + '</td> ' +
+                    //                    '<td>' + col.data + '</td>' +
+                    //                    '</tr>' :
+                    //                    '';
+                    //            }).join('');
+
+                    //            return data ?
+                    //                $('<table/>').append(data) :
+                    //                false;
+                    //        }
+                    //    }
+                    //},
                     "scrollCollapse": true,
                     "data": JSON.parse(data),
                     "columns": [
-                        { "data": "CREATE_DATE" },
+                        { "data": "Tanggal_Create" },
                         { "data": "NO_CAPA" },
                         { "data": "PIC_CAPA" },
                         { "data": "AREA_PIC" },
@@ -167,6 +194,14 @@
                         { "data": "Tanggal_Cancel" },
 
                     ],
+                    //"columnDefs": [
+
+                    //    { "responsivePriority": 1, "targets": 0 },
+                    //    { "responsivePriority": 2, "targets": 1 },
+                    //    { "responsivePriority": 3, "targets": 2 },
+                    //    { "responsivePriority": 4, "targets": 3 },
+                    //    { "responsivePriority": 5, "targets": 4 }
+                    //],
                     "order": [[1, 'asc']],
 
                 });
@@ -216,37 +251,37 @@
         });
 
     }
-    function getDepartemen() {
-        var dictlist = {
-            Option: "Departemen"
-        }
-        var dto = {
-            Model: dictlist
-        }
-        $.ajax({
-            url: "DynamicController?spname=SP_Report",
-            type: "POST",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-
-                var result = JSON.parse(data);
-                $('#Departemen').empty();
-
-                $('#Departemen').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
-
-                for (var i = 0; i < result.length; i++) {
-                    $('#Departemen').append(new Option(result[i].DEPARTEMEN, result[i].DEPARTEMEN));
-                }
-
-                getLokasi();
-            }, error: function (ex) {
-                alert(JSON.stringify(ex));
+        function getDepartemen() {
+            var dictlist = {
+                Option: "Departemen"
             }
-        });
+            var dto = {
+                Model: dictlist
+            }
+            $.ajax({
+                url: "DynamicController?spname=SP_Report",
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
 
-    }
+                    var result = JSON.parse(data);
+                    $('#Departemen').empty();
+
+                    $('#Departemen').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+
+                    for (var i = 0; i < result.length; i++) {
+                        $('#Departemen').append(new Option(result[i].DEPARTEMEN, result[i].DEPARTEMEN));
+                    }
+
+                    getLokasi();
+                }, error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+
+        }
 
 
     function getLokasi() {
@@ -308,7 +343,7 @@
 
                 $('#Status').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
                 for (var i = 0; i < result.length; i++) {
-                    $('#Status').append(new Option(result[i].STATUS_CAPA, result[i].STATUS_ID_PK));
+                    $('#Status').append(new Option(result[i].STATUS_CAPA, result[i].STATUS_CAPA));
                 }
                 getKategori();
             }, error: function (ex) {

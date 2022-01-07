@@ -5459,6 +5459,7 @@
     <Content Include="Views\Pelaksana\PelaksanaCAPAPembatalan.cshtml" />
     <Content Include="Views\Koordinator\Koordinator4.cshtml" />
     <Content Include="Views\Pelaksana\PelaksanaCAPAPerubahan.cshtml" />
+    <Content Include="Views\AtasanPelaksana\AtasanPelaksanaApprovalPerubahanTindakan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

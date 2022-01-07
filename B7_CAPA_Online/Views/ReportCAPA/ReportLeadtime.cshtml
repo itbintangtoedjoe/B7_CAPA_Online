@@ -83,10 +83,30 @@
                                     <th>Leadtime</th>
                                     <th>Superior PIC</th>
                                     <th>Done Approval PIC</th>
+                                    <th>Leadtime</th>
                                     <th>Superior Pelaksana 1</th>
                                     <th>Done Approval Superior Pelaksana 1</th>
                                     <th>Leadtime</th>
                                     <th>Superior Pelaksana 2</th>
+                                    <th>Done Approval Superior Pelaksana 2</th>
+                                    <th>Leadtime</th>
+                                    <th>Superior Pelaksana 3</th>
+                                    <th>Done Approval Superior Pelaksana 3</th>
+                                    <th>Leadtime</th>
+                                    <th>Superior Pelaksana 4</th>
+                                    <th>Done Approval Superior Pelaksana 4</th>
+                                    <th>Leadtime</th>
+                                    <th>Superior Pelaksana 5</th>
+                                    <th>Done Approval Superior Pelaksana 5</th>
+                                    <th>Leadtime</th>
+                                    <th>Superior Pelaksana 6</th>
+                                    <th>Done Approval Superior Pelaksana 6</th>
+                                    <th>Leadtime</th>
+                                    <th>Superior Pelaksana 7</th>
+                                    <th>Done Approval Superior Pelaksana 7</th>
+                                    <th>Leadtime</th>
+                                    <th>Superior Pelaksana 8</th>
+                                    <th>Done Approval Superior Pelaksana 8</th>
                                     <th>Leadtime</th>
                                     <th>Koordinator</th>
                                     <th>Done Approval Koordinator</th>
@@ -108,6 +128,24 @@
                                     <th>Pelaksana 2</th>
                                     <th>Done Bukti Upload Pelaksana 2</th>
                                     <th>Leadtime</th>
+                                    <th>Pelaksana 3</th>
+                                    <th>Done Bukti Upload Pelaksana 3</th>
+                                    <th>Leadtime</th>
+                                    <th>Pelaksana 4</th>
+                                    <th>Done Bukti Upload Pelaksana 4</th>
+                                    <th>Leadtime</th>
+                                    <th>Pelaksana 5</th>
+                                    <th>Done Bukti Upload Pelaksana 5</th>
+                                    <th>Leadtime</th>
+                                    <th>Pelaksana 6</th>
+                                    <th>Done Bukti Upload Pelaksana 6</th>
+                                    <th>Leadtime</th>
+                                    <th>Pelaksana 7</th>
+                                    <th>Done Bukti Upload Pelaksana 7</th>
+                                    <th>Leadtime</th>
+                                    <th>Pelaksana 8</th>
+                                    <th>Done Bukti Upload Pelaksana 8</th>
+                                    <th>Leadtime</th>
                                     <th>Koordinator</th>
                                     <th>Done Verifikasi Bukti</th>
                                     <th>Leadtime</th>
@@ -125,55 +163,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                    <td>test</td>
+                                  
 
                                 </tr>
                             </tbody>
@@ -190,23 +180,7 @@
 
     $(document).ready(function () {
  
-         $('#Tbl_Filter').DataTable({
-            "pageLength": 5,
-            "lengthChange": true,
-            "paging": false,
-            "info": false,
-            "searching": false,
-            "select": true,
-            "bDestroy": true,
-            "scrollCollapse": true,
-            "responsive":true,
-            "columnDefs": [
-                 { responsivePriority: 1, targets: 0 },
-                 { responsivePriority: 10001, targets: 4 },
-                 { responsivePriority: 2, targets: 1 }
-             ]
-             
-        });
+      
         getDepartemen();
         getLokasi();
         getKategori();
@@ -220,6 +194,7 @@
         var dictlist = {
             Status: $('#Status').val(),
             Tahun: $('#Tahun').val(),
+            Bulan: $('#Bulan').val(),
             Lokasi: $('#Lokasi').val(),
             Departemen: $('#Departemen').val(),
             Kode: $('#Kode_CAPA').val(),
@@ -239,25 +214,6 @@
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var result = JSON.parse(data);
-                var NoCAPA = [];
-                var note = [];
-                var user =[]
-                var kolom = [];
-                var currentCAPA = '';
-                for (var i = 0; i < result.length; i++) {
-
-                    if (result[i].NoCAPA != currentCAPA) {
-                        var currentCAPA = result[i].NoCAPA;
-                        NoCAPA.push(result[i].NoCAPA);
-                    }
-
-                    if (result[i].NoCAPA == currentCAPA)
-                    {
-                        note.push(result[i].CreationDate);
-                        user.push(result[i].Username);
-                    }
-                }
-
 
                 var table = $('#Tbl_Filter').DataTable({
                     "pageLength": 5,
@@ -268,20 +224,87 @@
                     "scrollCollapse": true,
                     "destroy": true,
                     "columns": [
-                        { "data": "CREATE_DATE" },
+                        { "data": "Bulan" },
                         { "data": "NO_CAPA" },
-                        { "data": "PIC_CAPA" },
-                        { "data": "AREA_PIC" },
-                        { "data": "LOKASI_CAPA" },
-                        { "data": "EmpName" },
                         { "data": "KATEGORI_CAPA" },
-                        { "data": "KATA_KUNCI" },
-                        { "data": "STATUS_CAPA" },
-                        { "data": "STATUS_DESKRIPSI" },
-                        { "data": "PENDING" },
-                        { "data": "Tanggal_Close" },
-                        { "data": "CANCEL" },
-                        { "data": "Tanggal_Cancel" },
+                        { "data": "Departemen" },
+                        { "data": "LOKASI_CAPA" },
+                        { "data": "CREATE_BY" },
+                        { "data": "TanggalReq" },
+                        { "data": "UsernameInputPIC" },
+                        { "data": "DoneInputPIC" },
+                        { "data": "TIPLead" },
+                        { "data": "UsernameSuperiorPIC" },
+                        { "data": "DoneSuperiorPIC" },
+                        { "data": "TSPLead" },
+                        { "data": "UsernameSuperiorPelaksana1" },
+                        { "data": "DoneSuperiorPelaksana1" },
+                        { "data": "TSP1Lead" },
+                        { "data": "UsernameSuperiorPelaksana2" },
+                        { "data": "DoneSuperiorPelaksana2" },
+                        { "data": "TSP2Lead" },
+                        { "data": "UsernameSuperiorPelaksana3" },
+                        { "data": "DoneSuperiorPelaksana3" },
+                        { "data": "TSP3Lead" },
+                        { "data": "UsernameSuperiorPelaksana4" },
+                        { "data": "DoneSuperiorPelaksana4" },
+                        { "data": "UsernameSuperiorPelaksana5" },
+                        { "data": "DoneSuperiorPelaksana5" },
+                        { "data": "TSP5Lead" },
+                        { "data": "UsernameSuperiorPelaksana6" },
+                        { "data": "DoneSuperiorPelaksana6" },
+                        { "data": "TSP6Lead" },
+                        { "data": "UsernameSuperiorPelaksana7" },
+                        { "data": "DoneSuperiorPelaksana7" },
+                        { "data": "TSP7Lead" },
+                        { "data": "UsernameSuperiorPelaksana8" },
+                        { "data": "DoneSuperiorPelaksana8" },
+                        { "data": "TSP8Lead" },
+                        { "data": "UsernameApprovalKoordinator" },
+                        { "data": "DoneApprovalKoordinator" },
+                        { "data": "TKLead" },
+                        { "data": "UsernameApprovalEvaluator" },
+                        { "data": "DoneApprovalEvaluator" },
+                        { "data": "TELead" },
+                        { "data": "Perubahan" },
+                        { "data": "UsernameApprovalPerubahan" },
+                        { "data": "DoneApprovalPerubahan" },
+                        { "data": "TPSPLead" },
+                        { "data": "UsernameApprovalEvaluator" },
+                        { "data": "DoneApprovalPerubahanEvaluator" },
+                        { "data": "TPELead" },
+                        { "data": "TotalLeadApproval" },
+                        { "data": "UsernameUploadBuktiPelaksana1" },
+                        { "data": "DoneUploadBuktiPelaksana1" },
+                        { "data": "TUBP1Lead" },
+                        { "data": "UsernameUploadBuktiPelaksana12" },
+                        { "data": "DoneUploadBuktiPelaksana2" },
+                        { "data": "TUBP2Lead" },
+                        { "data": "UsernameUploadBuktiPelaksana3" },
+                        { "data": "DoneUploadBuktiPelaksana3" },
+                        { "data": "TUBP3Lead" },
+                        { "data": "UsernameUploadBuktiPelaksana4" },
+                        { "data": "DoneUploadBuktiPelaksana4" },
+                        { "data": "TUBP4Lead" },
+                        { "data": "UsernameUploadBuktiPelaksana5" },
+                        { "data": "DoneUploadBuktiPelaksana5" },
+                        { "data": "TUBP5Lead" },
+                        { "data": "UsernameUploadBuktiPelaksana6" },
+                        { "data": "DoneUploadBuktiPelaksana6" },
+                        { "data": "TUBP6Lead" },
+                        { "data": "UsernameUploadBuktiPelaksana7" },
+                        { "data": "DoneUploadBuktiPelaksana7" },
+                        { "data": "TUBP7Lead" },
+                        { "data": "UsernameUploadBuktiPelaksana8" },
+                        { "data": "DoneUploadBuktiPelaksana8" },
+                        { "data": "TUBP8Lead" },
+                        { "data": "UsernameVerifikasiBukti" },
+                        { "data": "DoneVerifikasiBukti" },
+                        { "data": "TVBLead" },
+                        { "data": "UsernameClosed" },
+                        { "data": "DoneClosed" },
+                        { "data": "TCLead" },
+                        { "data": "TotalLeadClosed" },
 
                     ],
                     "order": [[1, 'asc']],
@@ -294,7 +317,6 @@
         });
 
     }
-
     function getDepartemen() {
         var dictlist = {
             Option: "Departemen"
@@ -316,15 +338,17 @@
                 $('#Departemen').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
 
                 for (var i = 0; i < result.length; i++) {
-                    $('#Departemen').append(new Option(result[i].Org_Group_Name, result[i].Org_Group_Name));
+                    $('#Departemen').append(new Option(result[i].DEPARTEMEN, result[i].DEPARTEMEN));
                 }
 
+                getLokasi();
             }, error: function (ex) {
                 alert(JSON.stringify(ex));
             }
         });
 
     }
+
 
 
     function getLokasi() {
@@ -347,15 +371,15 @@
                 var all = "";
                 for (var i = 0; i < result.length; i++) {
                     if (i == 0) {
-                        all += result[i].DDL_CODE;
+                        all += result[i].DDL_DESCRIPTION;
                     }
                     else {
-                        all += ',' + result[i].DDL_CODE;
+                        all += ',' + result[i].DDL_DESCRIPTION;
                     }
                 }
                 $('#Lokasi').append(new Option("All", all));
                 for (var i = 0; i < result.length; i++) {
-                    $('#Lokasi').append(new Option(result[i].DDL_DESCRIPTION, result[i].DDL_CODE));
+                    $('#Lokasi').append(new Option(result[i].DDL_DESCRIPTION, result[i].DDL_DESCRIPTION));
                 }
 
             }, error: function (ex) {
@@ -388,6 +412,7 @@
 
     }
 
+
     function getKategori() {
         var dictlist = {
             Option: "Kategori"
@@ -408,7 +433,7 @@
 
                 $('#Kategori').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
                 for (var i = 0; i < result.length; i++) {
-                    $('#Kategori').append(new Option(result[i].DDL_DESCRIPTION, result[i].DDL_CODE));
+                    $('#Kategori').append(new Option(result[i].DDL_DESCRIPTION, result[i].DDL_DESCRIPTION));
                 }
 
             }, error: function (ex) {
