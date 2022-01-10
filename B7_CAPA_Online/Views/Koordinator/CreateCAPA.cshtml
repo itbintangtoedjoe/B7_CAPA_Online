@@ -462,14 +462,13 @@
                                             @Html.HiddenFor(m => m.PenyimpanganCollection, new { id = "PenyimpanganNumber", value = "" })
                                         </div>
                                     </div>
-                                    <div class="col-md-4" id="VendorDiv" hidden>
-                                        <label class="m-t-40">Data Vendor</label>
-                                        <div class="input-group mb-3 ">
-                                            <div class="input-group-prepend">
-                                                <button class="btn btn-outline-dark btn-sm" type="button" data-toggle="modal" data-target="#link_Vendor">Browse</button>
-                                            </div>
-                                            <input type="text" class="form-control" id="TxtVendor" name="TxtVendor">
-                                            <input type="text" class="form-control" name="Vendor" id="Vendor" value="" hidden>
+                                    <div class="col-md-4" id="VendorDiv">
+                                        <label class="m-t-40">Email</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="TxtEmailVendor" name="Email" readonly>
+                                            <input class="form-control form-control-sm" type="text" id="input_Requestors" name="Create_By" value="@Request.RequestContext.HttpContext.Session["NIK"]" hidden>
+                                            @Html.HiddenFor(m => m.Email)
+                                            @Html.HiddenFor(m => m.Create_By)
                                         </div>
                                     </div>
                                 </div>
@@ -709,11 +708,14 @@
                                                 <input class="form-control form-control-sm" type="email" id="input_Email">
                                             </div>
                                     </div>*@
-                                <div class="row form-group-sm">
-                                    <div class="col-md-6 mt-1">
-                                        <input class="btn mb-1 btn-primary" type="button" id="btn_Submit" value="Submit" />
-                                    </div>
-                                </div>
+                        <div class="row form-group-sm">
+                            <div class="col-md-6 mt-1">
+                                <input class="btn mb-1 btn-primary" type="button" id="btn_Submit" value="Submit" />
+                            </div>
+                            <div class="col-md-6 mt-1">
+                                <input class="btn mb-1 btn-primary" type="button" id="btn_Submits" value="Submits" />
+                            </div>
+                        </div>
                             }
                             <!--/form-->
                         </div>
@@ -860,20 +862,20 @@
                 Location = 'Pulogadung';
             }
 
-            if ($('#AreaPIC_DDL').val() != 'Others') {
-                dto = {
-                    Option: 3,
-                    Departemen: $('#AreaPIC_DDL').val(),
-                    Lokasi: Location,
-                    SP: "[dbo].[SP_SHOW_DDL]"
-                }
-            } else {
+            if ($('#AreaPIC_DDL').val() == 'Others') {
                 dto = {
                     Option: 12,
                     Departemen: $('#AreaPIC_DDL').val(),
                     Lokasi: Location,
                     SP: "[dbo].[SP_SHOW_DDL]"
                 }
+            } else {
+                dto = {
+                    Option: 3,
+                    Departemen: $('#AreaPIC_DDL').val(),
+                    Lokasi: Location,
+                    SP: "[dbo].[SP_SHOW_DDL]"
+                }               
             }
 
 
@@ -1225,7 +1227,7 @@
             });
         });
 
-        requestPage(getRequestPageData);
+        requestPage();
 
         $('#TxtFileInput').change(function () {
             fileCount = this.files.length;
@@ -1249,6 +1251,12 @@
                 return $('#SubmitData').submit();
             }
         });
+
+        $("#btn_Submits").click(function () {
+            $('#SubmitData').submit();
+        });
+
+
                     
         checkUser($('#input_NIK').val());
     });
@@ -1549,11 +1557,11 @@
         _callback();
     }
 
-    function requestPage(_callback) {
-        getDDL();
+    function requestPage() {
+        //getDDL();
         TahunDDL();
         DeleteDepartemen();
-        _callback();
+        getRequestPageData()
     }
 
     function getRequestPageData() {
@@ -1571,18 +1579,19 @@
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
                     console.log(data);
-                    var exOnce = function (kategori, lokasi) {
-                        $("#Kategori_DDL").val(kategori).trigger("change");
-                        $("#Lokasi_DDL").val(lokasi).trigger("change");
-                        $('#Kode_DDL').val(data[0].Kode_CAPA).trigger("change");
-                    };
-                    var kategori = $("#Kategori_DDL option:contains(" + data[0].KATEGORI_CAPA + ")").val();
-                    var lokasi = $("#Lokasi_DDL option:contains(" + data[0].LOKASI_CAPA + ")").val();
+                    $("#Trigger_CAPA").empty().append(new Option(data[0].TRIGGER_CAPA, data[0].TRIGGER_CAPA));
+                    $("#Kategori_DDL").empty().append(new Option(data[0].KATEGORI_CAPA, data[0].KATEGORI_CAPA2));
+                    $("#Lokasi_DDL").empty().append(new Option(data[0].LOKASI_CAPA, data[0].LOKASI_CAPA2));
+                    $("#Kode_DDL").empty().append(new Option(data[0].Kode_CAPA2, data[0].Kode_CAPA));
+                    $("#TxtEmailVendor").val(data[0].EMAIL);
+                    
 
-                    exOnce(kategori, lokasi);
+                    $("#Kategori_DDL").select2();
+                    $("#Trigger_CAPA").select2();
+                    $("#Lokasi_DDL").select2();
 
                     $('#input_Requestor').val(data[0].FullName);
-                    $('#Trigger_CAPA').val(data[0].TRIGGER_CAPA).trigger("change");
+                    //$('#Trigger_CAPA').val(data[0].TRIGGER_CAPA).trigger("change");
                     //$('#Kategori_DDL').val(data[0].KATEGORI_CAPA).trigger("change");
 
                     $('#TxtKataKunci').val(data[0].Kata_Kunci).trigger("change");
