@@ -209,6 +209,8 @@
     var newDataPerbaikan;
     var newKajianResiko = [];
     var objTindakan;
+    var tipe;
+    var jenis = "Tambah Pencegahan Existing";
     var laststate = false;
     function getQueryStrings() {
         var vars = [], hash;
@@ -253,11 +255,12 @@
             window.location.href = '../Pelaksana/PelaksanaCAPA';
         });
         $("input[name='TambahPerbaikan']").change(function () {
-            var berpotensi = $('input[name="TambahPerbaikan"]:checked').val();
-            if (berpotensi == "Yes") {
+            var tambahperbaikan = $('input[name="TambahPerbaikan"]:checked').val();
+            if (tambahperbaikan == "Yes") {
                 $('#Div_TindakanPerbaikan').prop('hidden', false);
                 $('#PerbaikanExisting').prop('hidden', true);
                 $('#Div_Pencegahan').prop('hidden', true);
+                jenis = "Tambah Pencegahan Existing";
             }
             else {
                 $('#PerbaikanExisting').prop('hidden', false);
@@ -265,6 +268,7 @@
                 $('#btnSimpan').prop('hidden', false);
                 $('#Div_TindakanPerbaikan').prop('hidden', true);
                 $('#Div_TindakanPencegahan').prop('hidden', true);
+                jenis = "Tambah Pencegahan Baru";
             }
         });
 
@@ -324,6 +328,7 @@
             alert(val.indexOf('[Pencegahan]') )
             if (val.indexOf('[Perbaikan]') == 0) {
                 tipe = "Perbaikan";
+                jenis = "Tambah Perbaikan Baru";
             }
             else
             {
@@ -331,7 +336,287 @@
             }
 
         });
+        $('#btn_AddKajian').click(function () {
+            recTindakan();
+            //console.log(values);
+        });
+
+        $('#btn_KajianResiko').click(function () {
+            //recTindakan(0);
+            if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
+                Swal.fire(
+                    'Maaf',
+                    'Risk Level masih tinggi.',
+                    'warning'
+                )
+            } else {
+
+                var pic = "";
+                if ($('#Severity_DDL').val() == 10 || $('#TxtRiskLevel').val() == 'High' || $('#TxtRiskLevel').val() == 'Very High') {
+                    pic = $('#TxtPIC').val();
+                }
+
+                dto = {
+                    Model: {
+                        RecordID: values.RecordID,
+                        NO_CAPA: $('#input_NoCAPA').val(),
+                        Tipe: jenis,
+                        Tindakan: $('#RootCause_KajianResikoDDL').val(),
+                        P_Kegagalan: $('#TxtPotensiKegagalan').val(),
+                        Spek: $('#TxtSpesifikasi').val(),
+                        Dampak: $('#TxtDampak').val(),
+                        Severity: $('#Severity_DDL').val(),
+                        Penyebab: $('#TxtPenyebabPotensial').val(),
+                        M_Penyebab: $('#TxtMPenyebabPotensial').val(),
+                        Likelihood: $('#Likelihood_DDL').val(),
+                        M_PKegagalan_LMD: $('#TxtMPotensi_KLMD').val(),
+                        Detectability: $('#Detectability_DDL').val(),
+                        RPN: $('#TxtRPN').val(),
+                        RiskLevel: $('#TxtRiskLevel').val(),
+                        Target: $('#Target_DDL').val(),
+                        M_PKegagalan: $('#TxtMPotensi_K').val(),
+                        Severity2: $('#Severity2_DDL').val(),
+                        P_MPenyebab: $('#TxtMPenyebab_P').val(),
+                        Likelihood2: $('#Likelihood2_DDL').val(),
+                        P_MDPKegagalan: $('#TxtDPotensi_K').val(),
+                        Detectability2: $('#Detectability2_DDL').val(),
+                        RPN2: $('#TxtRPN2').val(),
+                        RiskLevel2: $('#TxtRiskLevel2').val(),
+                        PIC: pic,
+                        DueDate: $('#DueDate_Kajian').val(),
+                        Lainnya: $('#TxtLainnya').val(),
+                        EmpID: $('#input_Requestor_NIK').val(),
+                        Status: 10
+                    }
+                }
+
+                elementID = {
+                    NO_CAPA: '#input_NoCAPA',
+                    Tindakan: '#RootCause_KajianResikoDDL',
+                    P_Kegagalan: '#TxtPotensiKegagalan',
+                    Spek: '#TxtSpesifikasi',
+                    Dampak: '#TxtDampak',
+                    Severity: '#Severity_DDL',
+                    Penyebab: '#TxtPenyebabPotensial',
+                    M_Penyebab: '#TxtMPenyebabPotensial',
+                    Likelihood: '#Likelihood_DDL',
+                    M_PKegagalan_LMD: '#TxtMPotensi_KLMD',
+                    Detectability: '#Detectability_DDL',
+                    RPN: '#TxtRPN',
+                    RiskLevel: '#TxtRiskLevel',
+                    Target: '#Target_DDL',
+                    M_PKegagalan: '#TxtMPotensi_K',
+                    Severity2: '#Severity2_DDL',
+                    P_MPenyebab: '#TxtMPenyebab_P',
+                    Likelihood2: '#Likelihood2_DDL',
+                    P_MDPKegagalan: '#TxtDPotensi_K',
+                    Detectability2: '#Detectability2_DDL',
+                    RPN2: '#TxtRPN2',
+                    RiskLevel2: '#TxtRiskLevel2',
+                    DueDate: '#DueDate_Kajian',
+                    Lainnya: '#TxtLainnya'
+                }
+                var date = new Date();
+                var datekajian = new Date($('#DueDate_Kajian').val());
+                var limit = (dto.Model.Severity == 10 || dto.Model.RiskLevel == "High" || dto.Model.RiskLevel == "Very High") ? (25) : (14);
+                var count = 0;
+                //console.log("limit : " + limit);
+                $.each(dto.Model, function (key, value) {
+                    if (key === "M_PKegagalan" || key === "P_MPenyebab" || key == "P_MDPKegagalan") {
+                        if (dto.Model.Severity == 10 || dto.Model.RiskLevel == "High" || dto.Model.RiskLevel == "Very High") {
+                            if (dto.Model.M_PKegagalan == "" && dto.Model.P_MPenyebab == "" && dto.Model.P_MDPKegagalan == "") {
+                                Swal.fire(
+                                    'Maaf',
+                                    'Input field "Menghilangkan Potensi Kegagalan / Penyimpangan" atau "Perbaikan untuk mengatasi Penyebab Potensial" atau "Perbaikan untuk meningkatkan deteksi potensi kegagalan" wajib diisi salah satu.',
+                                    'warning'
+                                )
+                                valid = false;
+                                return false;
+                            }
+                        }
+                        count++;
+                        return;
+                    } else {
+                        //console.log(key + ": " + value);
+                        if (value == "") {
+                            //console.log(dto.Model);
+                            if (count <= limit) {
+                                var label;
+                                if (count == 13 || count == 14 || count == 22 || count == 23) {
+                                    label = "Mohon untuk mengisi nilai Severity, Likelihood, dan Detectability yang tersedia.";
+                                } else {
+                                    label = 'Input field "' + $("label[for='" + elementID[Object.keys(dto.Model)[count]].substring(1) + "']").text() + '" Mohon di isi.';
+                                }
+                                Swal.fire(
+                                    'Maaf',
+                                    label,
+                                    'warning'
+                                )
+                                valid = false;
+                                return false;
+                            }
+                            else if (dto.Model.DueDate == "") {
+                                Swal.fire(
+                                    'Maaf',
+                                    'Mohon untuk mengisi DueDate PIC Treatment.',
+                                    'warning'
+                                )
+                                valid = false;
+                                return false;
+                            }
+                        }
+                    }
+                    if (date.getTime() > datekajian.getTime()) {
+                        Swal.fire(
+                            'Maaf',
+                            'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
+                            'warning'
+                        )
+                        valid = false;
+                        return false;
+                    }
+                    count++;
+                    valid = true;
+                });
+
+
+                if (valid) {
+                    $.ajax({
+                        url: '/PIC/AddKajian',
+                        type: 'post',
+                        dataType: 'json',
+                        data: JSON.stringify(dto),
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            if (data != null) {
+                                Swal.fire(
+                                    'Success',
+                                    'Data berhasil di-input.',
+                                    'success'
+                                ).then(function (result) {
+                                    if (result.value) {
+                                        //close modal
+                                        RemoveModalInput();
+                                        // fetch to table
+                                        TableKajianPV(true);
+                                    }
+                                });
+                            }
+                        },
+                        error: function (ex) {
+                            alert(JSON.stringify(ex));
+                        }
+                    });
+                }
+            }
+        });
+
     });
+    function recTindakan() {
+
+        //console.log(objTindakan);
+        //console.log(tipe);
+        for (var i = 0; i < objTindakan.length; i++) {
+            if (objTindakan[i].RecordID == $('#RootCause_KajianResikoDDL').val() && objTindakan[i].Tipe == tipe) {
+                values = objTindakan[i];
+                break;
+            }
+
+        }
+    }
+
+    function TableKajianPV() {
+        $.ajax({
+            url: '/PIC/GetKajianResiko',
+            type: 'post',
+            data: JSON.stringify({
+                Model: {
+                    NO_CAPA: $('#input_NoCAPA').val(),
+                    Option: 11,
+                    Aspect: '',
+                    WSBH: '',
+                    WAH: '',
+                    Status: '',
+                    isParent: '',
+                    WHY_Parent: '',
+                    WHY: '',
+                    Tindakan: '',
+                    Pelaksana: '',
+                    LineNumber: '',
+                    NamaPersonil: '',
+                    Email: '',
+                    DueDate: '',
+                    Is_AreaLain: '',
+                    WhyID: '',
+                    WhyParentID: '',
+                    RootCause: ''
+                }
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                //console.log(data);
+                $('#Tbl_KajianResiko').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": true,
+                    "paging": false,
+                    "info": false,
+                    "searching": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "bDestroy": true,
+                    "scrollCollapse": true,
+                    "columns": [
+                        { "data": "Tindakan" },
+                        { "data": "P_Kegagalan" },
+                        { "data": "Spek" },
+                        { "data": "Dampak" },
+                        { "data": "Severity" },
+                        { "data": "Penyebab" },
+                        { "data": "M_Penyebab" },
+                        { "data": "Likelihood" },
+                        { "data": "M_PKegagalan_LMD" },
+                        { "data": "Detectability" },
+                        { "data": "RPN" },
+                        {
+                            "data": "RiskLevel",
+                            "className": "riskLevel"
+                        },
+                        { "data": "Target" },
+                        { "data": "M_PKegagalan" },
+                        { "data": "Severity2" },
+                        { "data": "P_MPenyebab" },
+                        { "data": "Likelihood2" },
+                        { "data": "P_MDPKegagalan" },
+                        { "data": "Detectability2" },
+                        { "data": "RPN2" },
+                        {
+                            "data": "RiskLevel2",
+                            "className": "riskLevel2"
+                        },
+                        { "data": "FullName" },
+                        { "data": "DueDate" },
+                        { "data": "Lainnya" },
+                        {
+                            "data": null,
+                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onchange=''>Delete</button> ",
+                            "visible": (!isHide) ? (true) : (false)
+                        },
+                    ],
+                    "order": [[1, 'asc']],
+                    "rowCallback": function (row, data) {
+                        ColoredColumns(row, data.RiskLevel, "riskLevel");
+                        ColoredColumns(row, data.RiskLevel2, "riskLevel2");
+                    }
+                });
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+
     function SubmitTindakanExisting()
     {
         if (valid == true) {

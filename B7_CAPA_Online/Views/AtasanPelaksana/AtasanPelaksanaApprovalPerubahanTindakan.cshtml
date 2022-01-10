@@ -28,189 +28,175 @@
     <!-- row -->
 
     <div class="container-fluid">
-        <div id="Perbaikan" hidden>
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Tindakan Perbaikan</h4>
-                    <div class="table-responsive">
-                        <form id="formPerbaikan">
-                            <div class="row form-group">
-                                <div class="col-md-6">
-                                    <label class="m-t-40">Pelaksana Tindakan Perbaikan</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" id="txtPelaksanaPerbaikan" class="form-control" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <label class="m-t-40">Superior</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" id="txtSuperiorPerbaikan" class="form-control" disabled>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <hr />
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label class="m-t-20">Root cause</label>
-                                    <textarea type="text" class="form-control" id="txtRootCausePerbaikan" disabled></textarea>
-                                </div>
-                            </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Tindakan Perbaikan</h4>
+                        <div>
+                            <table class="table table-hover table-bordered zero-configuration" style="color: black" id="Tbl_Perbaikan">
+                                <thead>
+                                    <tr>
+                                        <th>Root Cause</th>
+                                        <th>Nama Pelaksana</th>
+                                        <th>Tindakan Perbaikan</th>
+                                        <th>Tindakan Perbaikan Revisi</th>
+                                        <th>Alasan Perubahan Tindakan Perbaikan</th>
+                                        <th>Due Date</th>
+                                        <th>Due Date Revisi</th>
+                                        <th>Alasan Perubahan Due Date </th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
 
-                            <div class="row form-group-sm">
-                                <div class="col-md-4">
-                                    <label class="m-t-20">Tindakan perbaikan<span style="color: red;">*</span></label>
-                                    <textarea type="text" class="form-control" placeholder="Deskripsi" id="txtTindakanPerbaikan" disabled></textarea>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="m-t-20">Due date<span style="color: red">*</span></label>
-                                    <input type="date" id="dueDatePerbaikan" class="form-control form-control-sm" disabled>
-                                </div>
-
-
-                            </div>
-                            <br />
-                            <div class="row form-group-sm">
-                                <div class="col-md-4">
-                                    <label class="m-t-40">Alasan Cancel Tindakan perbaikan<span style="color: red">*</span></label>
-                                    <div class="input-group mb-3">
-                                        <textarea type="text" id="AlasanBatalPerbaikan" class="form-control" placeholder="Alasan Cancel Tindakan perbaikan..."></textarea>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </form>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="Pencegahan" hidden>
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Tindakan Pencegahan</h4>
-                    <div class="table-responsive">
-                        <form>
-
-                            <div class="row form-group">
-                                <div class="col-md-6">
-                                    <label class="m-t-40">Pelaksana Tindakan Pencegahan</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" id="txtPelaksanaPencegahan" class="form-control" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <label class="m-t-40">Superior</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" id="txtSuperiorPencegahan" class="form-control" disabled>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row form-group">
-                                @*<div class="col-sm-2">
-                                        <button type="button" class="btn btn-primary">Tambah Tindakan Pencegahan</button>
-                                    </div>*@
-                            </div>
-                            <hr />
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label class="m-t-20">Area / Proses lain yang Berpotensi</label>
-                                    <textarea type="text" class="form-control" id="txtRootCausePencegahan" disabled></textarea>
-                                </div>
-                            </div>
-
-                            <div class="row form-group-sm">
-                                <div class="col-md-4">
-                                    <label class="m-t-20">Tindakan Pencegahan<span style="color: red;">*</span></label>
-                                    <textarea type="text" class="form-control" placeholder="Deskripsi" id="txtTindakanPencegahan" disabled></textarea>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="m-t-20">Due date<span style="color: red">*</span></label>
-                                    <input type="date" id="dueDatePencegahan" class="form-control form-control-sm" disabled>
-                                </div>
-
-
-                            </div>
-
-                            <div class="row form-group-sm">
-                                <div class="col-md-4">
-                                    <label class="m-t-40">Alasan Cancel Pencegahan<span style="color: red">*</span></label>
-                                    <div class="input-group mb-3">
-                                        <textarea type="text" id="AlasanBatalPencegahan" class="form-control" placeholder="Alasan Cancel Pencegahan..."></textarea>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="card" id="Div_Pencegahan" hidden>
+        <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Tindakan Pencegahan</h4>
-                <div class="table-responsive">
-                    <form>
-                        <div class="row form-group-sm">
-                            <div class="col-md-6">
-                                <label class="m-t-20">Root Cause</label>
-                                <textarea type="text" class="form-control" placeholder="create otomatis Why terakhir dari halaman PIC CAPA Page 1"></textarea>
-                            </div>
-                        </div>
-                        <div class="row form-group-sm">
-                            <div class="col-md-6">
-                                <label class="m-t-20">Tindakan Perbaikan<span style="color: red">*</span></label>
-                                <textarea type="text" class="form-control" placeholder="Deskripsi"></textarea>
-                            </div>
-                            <div class="form-group mb-2 col-sm-3">
-                                <label class="m-t-20">Due Date</label>
-                                <input type="date" id="date-format" class="form-control form-control-sm">
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col-md-6">
-                                <label class="m-t-40">Pelaksana Tindakan Perbaikan</label>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-4" style="text-align: center">
-                                <label class="m-t-40" style="visibility:hidden">_</label>
-                                <div class="input-group mb-3">
-                                    <button type="button" class="btn mb-1 btn-primary ">Add</button>
-                                    <button type="button" class="btn mb-1 btn-primary ">Browse</button>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="m-t-40">Nama Personil</label>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="m-t-40">Alamat Email</label>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-
-                        </div>
-                    </form>
+                <div>
+                    <table class="table table-hover table-bordered zero-configuration" style="color: black" id="Tbl_Pencegahan">
+                        <thead>
+                            <tr>
+                                <th>Root Cause</th>
+                                <th>Nama Pelaksana</th>
+                                <th>Tindakan Pencegahan</th>
+                                <th>Tindakan Pencegahan Revisi</th>
+                                <th>Alasan Perubahan Tindakan Pencegahan</th>
+                                <th>Due Date</th>
+                                <th>Due Date Revisi</th>
+                                <th>Alasan Perubahan Due Date </th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-        @Html.Partial("KajianResikoPV")
+
+        <table class="table table-hover table-bordered  table-responsive" id="Tbl_KajianResiko" style="color:black" >
+            <thead>
+                <tr>
+                    <th>Tindakan</th>
+                    <th>Potensi Kegagalan / Penyimpangan yang mungkin terjadi ketika tindakan perbaikan/pencegahan diterapkan</th>
+                    <th>Spesifikasi / Syarat</th>
+                    <th>Dampak</th>
+                    <th>Severity (S)</th>
+                    <th>Penyebab Potensial</th>
+                    <th>Mengatasi Penyebab Potensial</th>
+                    <th>Likelihood (L)</th>
+                    <th>Mencegah Potensi Kegagalan Lolos Menimbulkan Dampak</th>
+                    <th>Detectability (D) </th>
+                    <th>RPN (SxLxD)</th>
+                    <th>Risk Level</th>
+                    <th>TARGET</th>
+                    <th>Menghilangkan Potensi Kegagalan/ Penyimpangan</th>
+                    <th>Severity (S)</th>
+                    <th>PERBAIKAN untuk mengatasi Penyebab Potensial</th>
+                    <th>Likelihood (L)</th>
+                    <th>PERBAIKAN untuk meningkatkan deteksi potensi kegagalan</th>
+                    <th>Detectability (D)</th>
+                    <th>RPN (SxLxD)</th>
+                    <th>Risk Level</th>
+                    <th>PIC</th>
+                    <th>Due Date</th>
+                    <th>Lainnya</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="Tbl_PRCA">
+                <tr>
+                    <td>Tindakan</td>
+                    <td><input type="text" class="form-control form-control-sm" style="width:100%;" disabled></td>
+                    <td><input type="text" class="form-control form-control-sm" style="width:100%;" disabled></td>
+                    <td><input type="text" class="form-control form-control-sm" style="width:100%;" disabled></td>
+                    <td>
+                        <select id="SaverityDDL" class="form-control" disabled>
+                            <option value="1">1</option>
+                            <option value="4">4</option>
+                            <option value="7">7</option>
+                            <option value="10">10</option>
+                        </select>
+                    </td>
+                    <td><input type="text" class="form-control form-control-sm" style="width:100%;" disabled></td>
+                    <td><input type="text" class="form-control form-control-sm" style="width:100%;" disabled></td>
+                    <td>
+                        <select id="LikelihoodDDL" class="form-control" disabled>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="4">4</option>
+                            <option value="8">8</option>
+                        </select>
+                    </td>
+                    <td><input type="text" class="form-control form-control-sm" style="width:100%;" disabled></td>
+                    <td>
+                        <select id="DetectabilityDDL" class="form-control" disabled>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </td>
+                    <td>SxLxD</td>
+                    <td>Level Risk Color</td>
+                    <td>
+                        <select id="DetectabilityDDL" class="form-control" disabled>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                        </select>
+                    </td>
+                    <td><input type="text" class="form-control form-control-sm" style="width:100%;" disabled></td>
+                    <td>
+                        <select id="LikelihoodDDL" class="form-control" disabled>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="4">4</option>
+                            <option value="8">8</option>
+                        </select>
+                    </td>
+                    <td><input type="text" class="form-control form-control-sm" style="width:100%;" disabled></td>
+                    <td>
+                        <select id="DetectabilityDDL" class="form-control" disabled>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </td>
+                    <td><input type="text" class="form-control form-control-sm" style="width:100%;" disabled></td>
+                    <td>
+                        <select id="DetectabilityDDL" class="form-control" disabled>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </td>
+                    <td>SxLxD</td>
+                    <td>Level Risk Color</td>
+                    <td>PIC</td>
+                    <td>Due Date</td>
+                    <td>Lainnya</td>
+                    <td><button class="form-control-sm" disabled>Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
         <div class="row form-group-sm">
-            <div class="col-md-6 mt-3">
-                <button class="btn mb-1 btn-primary" id="Kamus" style="background-color:orange;">Lihat Kamus Kriteria Resiko</button>
+            <div class="col-md-6 mt-1">
+                <button class="btn mb-1 btn-primary" id="Approve">Approve</button>
             </div>
-        </div>
-        <div class="row form-group-sm">
-            <div class="col-md-6 mt-3">
-                <button class="btn mb-1 btn-primary" id="Submit">Submit</button>
+            <div class="col-md-6 mt-1">
+                <button class="btn mb-1 btn-primary" style="background-color:red" id="Reject">Reject</button>
             </div>
         </div>
 
@@ -231,7 +217,6 @@
     var stataction = false;
     var laststate = false;
     var referenceID = getQueryStrings()["ReferenceID"];
-    var tindakan = getQueryStrings()["Tindakan"]
     $('#input_NoCAPA').val(noCAPA);
     //function untuk ambil semua query string
     function getQueryStrings() {
@@ -244,199 +229,313 @@
         }
         return vars;
     }
+    function checkUser()
+    {
+        var dictlist = {
+            NoCAPA: noCAPA,
+            Option: 4,
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: 'DynamicController?spname=SP_FORM_Perubahan',
+            type: 'post',
+            data: JSON.stringify(dto1),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var result = JSON.parse(data);
+                for (var i = 0; i < result.length; i++) {
+                    var listuser = result[i].SupName;
+                    if (listuser == namaUser) {
+                        $('#Approve').attr('disabled', false);
+                        $('#Reject').attr('disabled', false);
+                        break;
+                    }
+                    else {
+                        $('#Approve').attr('disabled', true);
+                        $('#Reject').attr('disabled', true);
+                    }
+                }
 
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
     $(document).ready(function () {
-        if (tindakan == "Perbaikan") {
-            $('#Perbaikan').attr("hidden", false);
-            $('#txtPelaksanaPerbaikan').val(namaUser);
-            $('#txtSuperiorPerbaikan').val(superiorName);
-            getRootCausePerbaikan();
-        }
-        else
-        {
-            $('#txtPelaksanaPencegahan').val(namaUser);
-            $('#txtSuperiorPencegahan').val(superiorName);
-            $('#Pencegahan').attr("hidden", false);
-            getRootCausePencegahan();
-        }
-        $('#btn_AddKajian').attr("disabled", true);
-        $('#RootCause_KajianResikoDDL').attr("disabled", true);
-        $('#AlasanBatalPerbaikan').on('click',function () {
+        checkUser();
+        GetTindakanPerbaikan();
+        GetTindakanPencegahan();
+        TableKajian();
+        $('#Reject').click(function () {
 
-
-            $('#RootCause_KajianResikoDDL').empty();
-
-            $('#RootCause_KajianResikoDDL').append(new Option($('#txtTindakanPerbaikan').val(), $('#txtTindakanPerbaikan').val()));
-        });
-        $('#AlasanBatalPerbaikan').on('change', function () {
-            $('#btn_AddKajian').attr("disabled", false);
-        });
-        $('#AlasanBatalPencegahan').on('click', function () {
-
-
-            $('#RootCause_KajianResikoDDL').empty();
-
-            $('#RootCause_KajianResikoDDL').append(new Option($('#txtTindakanPencegahan').val(), $('#txtTindakanPencegahan').val()));
-        });
-        $('#AlasanBatalPencegahan').on('change', function () {
-            $('#btn_AddKajian').attr("disabled", false);
+            Reject();
         });
 
-        $('#Submit').click(function () {
-            if (tindakan == "Perbaikan") {
-                SubmitPerbaikan();
-            }
-            else
-            {
-                SubmitPencegahan();
-            }
+        $('#Approve').click(function () {
+
+            Approve();
         });
     });
 
-
-     function getRootCausePerbaikan() {
-            var dto = {
-                Kategori: "Cari Perbaikan",
-                RecordID: referenceID
-            }
-            $.ajax({
-                url: "FindCAPADetail",
-                type: "POST",
-                async: false,
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-                    var result = JSON.parse(data);
-                    dataPerbaikan = result[0];
-                    var duedate = moment(dataPerbaikan.Due_Date);
-                    $('#txtRootCausePerbaikan').val(dataPerbaikan.WhyDesc);
-                    $('#txtTindakanPerbaikan').val(dataPerbaikan.Tindakan_Perbaikan);
-                    $('#txtTindakanPerbaikan').prop("disabled", true);
-                    $('#dueDatePerbaikan').val(duedate.format("YYYY-MM-DD"));
-                    $('#dueDatePerbaikan').prop("disabled", true);
-                    @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
-
-            }, error: function (ex) {
-                    alert(JSON.stringify(ex));
-                }
-            });
-    }
-
-    function getRootCausePencegahan(){
-        var dto = {
-            Kategori: "Cari Batal Pencegahan",
-            RecordID: referenceID
+    function GetTindakanPerbaikan() {
+        var dictlist = {
+            NoCAPA: noCAPA,
+            Empid: nik,
+            Option: 1,
+        }
+        var dto1 = {
+            Model: dictlist
         }
         $.ajax({
-            url: "FindCAPADetail",
-            type: "POST",
-            async: false,
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
+            url: 'DynamicController?spname=SP_FORM_Perubahan',
+            type: 'post',
+            data: JSON.stringify(dto1),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                var result = JSON.parse(data);
-                dataPencegahan = result[0];
-                var duedate = moment(dataPencegahan.Due_Date);
-                $('#txtRootCausePencegahan').val(dataPencegahan.WhyDesc);
-                $('#txtTindakanPencegahan').val(dataPencegahan.Tindakan_Pencegahan);
-                $('#txtTindakanPencegahan').prop("disabled", true);
-                $('#dueDatePencegahan').val(duedate.format("YYYY-MM-DD"));
-                @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
+                var table = $('#Tbl_Perbaikan').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": true,
+                    "searching": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "scrollCollapse": true,
+                    "responsive": true,
+                    "destroy": true,
+                    "columns": [
+                        { "data": "PelaksanaName" },
+                        { "data": "WhyID" },
+                        { "data": "Tindakan_Perbaikan" },
+                        { "data": "Tindakan_PerbaikanRev" },
+                        { "data": "Alasan_Tindakan_Perbaikan"},
+                        { "data": "tanggal" },
+                        { "data": "tanggalRev" },
+                        { "data": "Alasan_Due_Date"},
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": [0],
+                            "visible": false,
+                            "searchable": false
+                        },
 
-            }, error: function (ex) {
+                        {
+                            "targets": [1],
+                            "visible": false
+                        },
+                    ],
+                    "order": [[1, 'asc']],
+                })
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+    function GetTindakanPencegahan() {
+        var dictlist = {
+            NoCAPA: noCAPA,
+            Empid: nik,
+            Option: 2,
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: 'DynamicController?spname=SP_FORM_Perubahan',
+            type: 'post',
+            data: JSON.stringify(dto1),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var table = $('#Tbl_Pencegahan').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": true,
+                    "searching": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "scrollCollapse": true,
+                    "destroy": true,
+
+                    "columns": [
+                        { "data": "PelaksanaName" },
+                        { "data": "WhyDesc" },
+                        { "data": "Tindakan_Pencegahan" },
+                        { "data": "Tindakan_PencegahanRev" },
+                        { "data": "Alasan_Tindakan_Pencegahan" },
+                        { "data": "tanggal" },
+                        { "data": "tanggalRev" },
+                        { "data": "Alasan_Due_Date" },
+                    ],
+
+                    "order": [[1, 'asc']],
+
+                });
+
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+    function Approve()
+    {
+        var dictlist = {
+            NoCAPA: noCAPA,
+            Empid: nik,
+            Option: 6,
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: 'DynamicController?spname=SP_FORM_Perubahan',
+            type: 'post',
+            data: JSON.stringify(dto1),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+
+                Swal.fire(
+                    'Approve!',
+                    'Approve Berhasil',
+                    'success'
+                )
+            }
+        });
+    }
+    function Reject() {
+        Swal.fire({
+            title: 'Alasan Reject',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            html: '<textarea id="txtReject" class="form form-control" ></textarea>',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Reject!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                var reject = $('#txtReject').val();
+                var dictlist = {
+                    NoCAPA: $('#QS_NoCAPA').val(),
+                    Option: 5,
+                    RejectReason: reject,
+                    Empid: nik
+                }
+                var dto1 = {
+                    Model: dictlist
+                }
+                if (reject != null && reject.trim() != '') {
+                    $.ajax({
+                        url: "DynamicController?spname=SP_FORM_Perubahan",
+                        type: "post",
+                        dataType: "json",
+                        data: JSON.stringify(dto1),
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+                            Swal.fire(
+                                'Rejected!',
+                                'Reject Berhasil',
+                                'success'
+                            )
+                        },
+                        error: function (errormessage) {
+                        }
+                    });
+                }
+                else {
+
+                    Swal.fire(
+                        'Error!',
+                        'Alasan tidak boleh kosong.',
+                        'error'
+                    )
+                }
+            }
+        })
+    }
+
+    function TableKajian() {
+        $.ajax({
+            url: 'DynamicController?spname=SP_FORM_Perubahan',
+            type: 'post',
+            data: JSON.stringify({
+                Model: {
+                    NO_CAPA: noCAPA,
+                    Option: 3,
+                }
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                //console.log(data);
+                $('#Tbl_KajianResiko').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": true,
+                    "paging": false,
+                    "info": false,
+                    "searching": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "bDestroy": true,
+                    "scrollCollapse": true,
+                    "columns": [
+                        { "data": "Tindakan" },
+                        { "data": "P_Kegagalan" },
+                        { "data": "Spek" },
+                        { "data": "Dampak" },
+                        { "data": "Severity" },
+                        { "data": "Penyebab" },
+                        { "data": "M_Penyebab" },
+                        { "data": "Likelihood" },
+                        { "data": "M_PKegagalan_LMD" },
+                        { "data": "Detectability" },
+                        { "data": "RPN" },
+                        {
+                            "data": "RiskLevel",
+                            "className": "riskLevel"
+                        },
+                        { "data": "Target" },
+                        { "data": "M_PKegagalan" },
+                        { "data": "Severity2" },
+                        { "data": "P_MPenyebab" },
+                        { "data": "Likelihood2" },
+                        { "data": "P_MDPKegagalan" },
+                        { "data": "Detectability2" },
+                        { "data": "RPN2" },
+                        {
+                            "data": "RiskLevel2",
+                            "className": "riskLevel2"
+                        },
+                        { "data": "FullName" },
+                        { "data": "DueDate" },
+                        { "data": "Lainnya" },
+                        {
+                            "data": null,
+                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onchange=''>Delete</button> ",
+                            "visible": (!isHide) ? (true) : (false)
+                        },
+                    ],
+                    "order": [[1, 'asc']],
+                    "rowCallback": function (row, data) {
+                        ColoredColumns(row, data.RiskLevel, "riskLevel");
+                        ColoredColumns(row, data.RiskLevel2, "riskLevel2");
+                    }
+                });
+            },
+            error: function (ex) {
                 alert(JSON.stringify(ex));
             }
         });
     }
 
-    function SubmitPerbaikan()
-    {
-        var dictlist = {
-            Kategori: "Batal Perbaikan",
-            RecordID: referenceID,
-            alasan_batal: $('#AlasanBatalPerbaikan').val()
-        }
-        var dto = {
-            Model: dictlist
-        }
-        if (valid == true)
-        {
-            laststate = true;
-        }
-        if (laststate == true) {
-            $.ajax({
-                url: "DynamicController?spname=SP_Update_Pelaksanaan",
-                type: "POST",
-                async: false,
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-                    Swal.fire(
-                        'Berhasil',
-                        'Pembatalan berhasil di submit',
-                        'success'
-                    )
-                    @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
 
-                }, error: function (ex) {
-                    alert(JSON.stringify(ex));
-                }
-            });
-        }
-        else
-        {
-            Swal.fire(
-                'Maaf',
-                'tindakan harus dikaji terlebih dahulu.',
-                'warning'
-            )
-        }
 
-    }
-    function SubmitPencegahan() {
-        var dictlist = {
-            Kategori: "Batal Pencegahan",
-            RecordID: referenceID,
-            alasan_batal: $('#AlasanBatalPencegahan').val()
-        }
-        var dto = {
-            Model: dictlist
-        }
-        if (valid == true) {
-            laststate = true;
-        }
-        if (laststate == true) {
-            $.ajax({
-                url: "DynamicController?spname=SP_Update_Pelaksanaan",
-                type: "POST",
-                async: false,
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-                    Swal.fire(
-                        'Berhasil',
-                        'Pembatalan berhasil di submit',
-                        'success'
-                    )
-                    @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
-
-                }, error: function (ex) {
-                    alert(JSON.stringify(ex));
-                }
-            });
-        }
-        else {
-            Swal.fire(
-                'Maaf',
-                'tindakan harus dikaji terlebih dahulu.',
-                'warning'
-            )
-        }
-
-    }
 </script>
 
