@@ -1,5 +1,6 @@
 ﻿using B7_CAPA_Online.Models;
 using B7_CAPA_Online.Scripts.DataAccess;
+using B7_CAPA_Online.Scripts.SMTP;
 using Dapper;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -537,67 +538,16 @@ namespace B7_CAPA_Online.Controllers
                 Penyimpangan_DT = ToDataTable<Penyimpangan>(penyimpanganList);
             }
             var Path_DT = ToDataTable<Lampiran>(Model.LampiranTerkait);
-            //smtp email
-            try
-            {
-                var dictionary = new Dictionary<string, object>
-                {
-                    {"Nama_Aplikasi", "CAPA" },
-                    {"Kategori", "PICReminder" }
-                };
-                var parameters = new DynamicParameters(dictionary);
-                Email emailData = new Email();
-                string eData = DAL.StoredProcedure(parameters, "[dbo].[SP_EMAIL_SENDER]");
-                dynamic emailList = JsonConvert.DeserializeObject<List<Email>>(eData);
-                emailData.EmailSubject = emailList[0].EmailSubject;
-                emailData.EmailBody = emailList[0].EmailBody;
-                SmtpClient mailObj = new SmtpClient("mail.kalbe.co.id");
-                var msg = new MailMessage();
-                msg.From = new MailAddress("it.bintang7@gmail.com", "CAPA B7 Mailing System");
-                msg.Body = emailData.EmailBody;
-                msg.Subject = emailData.EmailSubject;
-                msg.Priority = MailPriority.High;
-                msg.IsBodyHtml = true;
-                msg.To.Add(Model.Email);
-                //mailObj.Send(msg);
-                //return Json("success");
-            }
-            catch (Exception ex)
-            {
-                var dictionary = new Dictionary<string, object>();                              
-                dictionary.Add("UpdateBy", Model.Create_By);
-                dictionary.Add("NO_CAPA", Model.NO_CAPA);
-                dictionary.Add("ErrorLog", ex.ToString());
-                dictionary.Add("StatusID", 1);
-
-                DynamicParameters dynamicParameters = new DynamicParameters(dictionary);
-
-                DAL.StoredProcedure(dynamicParameters, "[dbo].[SP_ERROR_HISTORY]");
-                return Json("error, check log");
-            }
 
             // Method Insert Data
-            DAL.InsertData(Model, Departemen_DT, Penyimpangan_DT, Path_DT);
+            //Model.NO_CAPA = DAL.InsertData(Model, Departemen_DT, Penyimpangan_DT, Path_DT);
+
+            // Method SMTP Email
+            EmailSender emailSender = new EmailSender();
+            emailSender.SendEmail(Model);            
+            
             return RedirectToAction("TaskList", "PendingTask", new { success = "succeed" });
         }
-        //public DataTable CreateDT<T>(List<T> items, string columns, string propName)
-        //{
-        //    DataTable dt = new DataTable();
-        //    dt.Columns.Add(columns);
-        //    foreach (var str in items)
-        //    {
-        //        if (str != null)
-        //        {
-        //            var val = str.GetType()
-        //            .GetProperty(propName)
-        //            .GetValue(str);
-        //            DataRow rowstype = dt.NewRow();
-        //            rowstype[columns] = val;
-        //            dt.Rows.Add(rowstype);
-        //        }
-        //    }
-        //    return dt;
-        //}
 
         public DataTable ToDataTable<T>(IList<T> data)
         {

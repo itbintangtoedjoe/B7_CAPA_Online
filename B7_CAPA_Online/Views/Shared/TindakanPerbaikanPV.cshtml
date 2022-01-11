@@ -1,4 +1,6 @@
-﻿<div class="card">
+﻿<link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
+
+<div class="card">
     <div class="card-body">
         <h4 class="card-title">Tindakan Perbaikan</h4>
         <div>
@@ -7,10 +9,12 @@
                     <tr>
                         <th></th>
                         <th></th>
+                        <th></th>
                         <th>Root Cause</th>
                         <th>Tindakan Perbaikan</th>
                         <th>Nama Pelaksana</th>
                         <th>Due_Date</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,7 +27,10 @@
 @*Hidden Input*@
 <input class="form-control form-control-sm" type="text" id="input_NIK" value="@Request.QueryString["NIK"]" hidden />
 
+<script src="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.js" defer></script>
+
 <script>
+    var isHide = false;
     function GetTindakanPerbaikanPV() {
         var dictlist = {
             NoCAPA: $('#input_NoCAPA').val(),
@@ -51,12 +58,18 @@
                     "scrollCollapse": true,
                     "destroy": true,
                     "columns": [
+                        { "data": "RecordID" },
                         { "data": "WhyID" },
                         { "data": "WhyParentID" },
                         { "data": "WhyDesc" },
                         { "data": "Tindakan_Perbaikan" },
                         { "data": "Nama_Personil" },
-                        { "data": "Due_Date" }
+                        { "data": "Due_Date" },
+                        {
+                            "data": null,
+                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete'>Delete</button> ",
+                            "visible": (!isHide) ? (true) : (false)
+                        }
                     ],
                     "columnDefs": [
                         {
@@ -65,6 +78,10 @@
                         },
                         {
                             "targets": [1],
+                            "visible": false
+                        },
+                        {
+                            "targets": [2],
                             "visible": false
                         }
                     ],
@@ -77,7 +94,51 @@
         });
     }
 
+    function DeleteTindakanPerbaikanPV() {
+        $(document).on("click", "#Tbl_Perbaikan button.delete", function () {
+            var rows = $(this).closest('tr');
+            var data = $('#Tbl_Perbaikan').DataTable().row(rows).data();
+
+            var dictlist = {
+                NoCAPA: $('#input_NoCAPA').val(),
+                Option: 5,
+                RecordID: data.RecordID
+            }
+            var dto1 = {
+                Model: dictlist
+            }
+
+            $.ajax({
+                url: '../Koordinator/DynamicController?spname=SP_SHOW_Tindakan_PV',
+                type: 'post',
+                data: JSON.stringify(dto1),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var result = JSON.parse(data);
+                    if (result[0].STATUS == "DELETED") {
+                        Swal.fire(
+                            'Success',
+                            'Tindakan berhasil di hapus.',
+                            'success'
+                        ).then((result) => {
+                            if (result.value) {
+                                GetTindakanPerbaikanPV();
+                            }
+                        });
+                    }
+
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+        });
+
+    }
+
     $(document).ready(function () {
         GetTindakanPerbaikanPV();
+        DeleteTindakanPerbaikanPV();
     });
 </script>

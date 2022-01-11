@@ -81,7 +81,7 @@
                                             <label for="Severity_DDL" class="col-form-label">Severity</label>
                                             <div class="input-group">
                                                 <select class="form-control select2" id="Severity_DDL" required>
-                                                    <option value="-">*Pilih*</option>
+                                                    <option selected disabled value="-">*Pilih*</option>
                                                     <option value="1">1</option>
                                                     <option value="4">4</option>
                                                     <option value="7">7</option>
@@ -93,7 +93,7 @@
                                             <label for="Likelihood_DDL" class="col-form-label">Likelihood</label>
                                             <div class="input-group">
                                                 <select class="form-control select2" id="Likelihood_DDL" required>
-                                                    <option value="-">*Pilih*</option>
+                                                    <option selected disabled value="-">*Pilih*</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="4">4</option>
@@ -105,7 +105,7 @@
                                             <label for="Detectability_DDL" class="col-form-label">Detectability</label>
                                             <div class="input-group">
                                                 <select class="form-control select2" id="Detectability_DDL" required>
-                                                    <option value="-">*Pilih*</option>
+                                                    <option selected disabled value="-">*Pilih*</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -134,7 +134,7 @@
                                         <label for="Target_DDL" class="col-form-label">Target</label>
                                         <div class="input-group">
                                             <select class="form-control select2" id="Target_DDL" required>
-                                                <option value="">*Pilih*</option>
+                                                <option selected disabled value="">*Pilih*</option>
                                                 <option value="Low">Low</option>
                                                 <option value="Medium">Medium</option>
                                             </select>
@@ -170,7 +170,7 @@
                                             <label for="Severity2_DDL" class="col-form-label">Severity</label>
                                             <div class="input-group">
                                                 <select class="form-control select2" id="Severity2_DDL" required>
-                                                    <option value="-">*Pilih*</option>
+                                                    <option selected disabled value="-">*Pilih*</option>
                                                     <option value="1">1</option>
                                                     <option value="4">4</option>
                                                     <option value="7">7</option>
@@ -183,7 +183,7 @@
                                             <label for="Likelihood2_DDL" class="col-form-label">Likelihood</label>
                                             <div class="input-group">
                                                 <select class="form-control select2" id="Likelihood2_DDL" required>
-                                                    <option value="-">*Pilih*</option>
+                                                    <option selected disabled value="-">*Pilih*</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="4">4</option>
@@ -196,7 +196,7 @@
                                             <label for="Detectability2_DDL" class="col-form-label">Detectability</label>
                                             <div class="input-group">
                                                 <select class="form-control select2" id="Detectability2_DDL" required>
-                                                    <option value="-">*Pilih*</option>
+                                                    <option selected disabled value="-">*Pilih*</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -252,7 +252,7 @@
                                     <div class="form-group col-md-6">
                                         <button type="button" class="btn btn-primary" id="btn_KajianResiko">Tambahkan</button>
                                     </div>
-                                </div>                                
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -493,7 +493,7 @@
                 <div class="card" id="Div_TindakanPerbaikan">
                     <div class="card-body">
                         <h4 class="card-title">Penentuan Tindakan Perbaikan</h4>
-                        <div class="table-responsive">
+                        <div>
                             <form>
                                 <div class="row form-group-sm">
                                     <div class="col-md-6">
@@ -565,13 +565,16 @@
                                 </div>
                             </form>
                         </div>
+                        <div>
+                            @Html.Partial("TindakanPerbaikanPV")
+                        </div>
                     </div>
                 </div>
 
                 <div class="card" id="Div_TindakanPencegahan">
                     <div class="card-body">
                         <h4 class="card-title">Penentuan Tindakan Pencegahan </h4>
-                        <div class="table-responsive">
+                        <div>
                             <form>
                                 <div class="row form-group-sm">
                                     <div class="col-md-6">
@@ -637,6 +640,9 @@
 
                                 </div>
                             </form>
+                        </div>
+                        <div>
+                            @Html.Partial("TindakanPencegahanPV")
                         </div>
                     </div>
                 </div>
@@ -915,7 +921,7 @@
             }),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            success: function (data) {                
+            success: function (data) {
                 $('#Tbl_KajianResiko').DataTable({
                     "pageLength": 5,
                     "lengthChange": true,
@@ -1099,7 +1105,7 @@
                 $('#RootCause_DDL').append(new Option("*Pilih*", ""));
                 $.each(JSON.parse(rootcause), function (key, value) {
                     $('#RootCause_DDL').append(new Option(value.WhyDesc, value.WhyDesc));
-                });                
+                });
 
                 $('#btn_AddPerbaikan').click(function () {
                     countAdd++;
@@ -1157,7 +1163,7 @@
             }),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            success: function (area_lain) {                
+            success: function (area_lain) {
                 var countAdd = 0;
                 var data = JSON.parse(area_lain);
                 if (data.length == 0) {
@@ -1249,6 +1255,8 @@
                                 retrieveData2();
                                 KajianResikoDDL();
                                 RemoveInputField(kategori);
+                                GetTindakanPencegahanPV();
+                                GetTindakanPerbaikanPV();
                             }
                         });
                     }
@@ -1338,7 +1346,7 @@
             return "Medium";
         else if (RPN > 80 && RPN <= 140)
             return "High";
-        else
+        else if (RPN >= 140)
             return "Very High";
     }
 
@@ -1545,7 +1553,7 @@
                             new go.Binding("text", "desc"))
                     );
 
-               
+
                 myDiagram.model = new go.TreeModel(result);
             }
         });
@@ -1853,7 +1861,7 @@
                 SP: "[dbo].[SP_FORM_CAPA]"
             }
 
-            $.each(dto, function (key, value) {   
+            $.each(dto, function (key, value) {
                 if (dto.isParent == 1) {
                     if (key != "isParent" && key != "WHY_Parent") {
                         if (value == null || value == "") {
@@ -1871,8 +1879,8 @@
                 }
                 isValid = true;
             });
-            
-            if (isValid) {                
+
+            if (isValid) {
                 $.ajax({
                     url: 'AddWhy',
                     type: 'post',
@@ -1928,7 +1936,7 @@
             }
 
             $.each(dto, function (key, value) {
-                if (value == '') {
+                if (value == '' || value === undefined) {
                     return valid = false;
                 } else {
                     valid = true;
@@ -2062,18 +2070,17 @@
             recTindakan(0);
             $('#TxtPIC').val(values.Nama_Personil);
             $('#TxtPICName').val(values.FullName);
-            //console.log(values);
         });
 
         $('#btn_KajianResiko').click(function () {
             //recTindakan(0);
-            if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
-                Swal.fire(
-                    'Maaf',
-                    'Risk Level masih tinggi.',
-                    'warning'
-                )
-            } else {
+            //if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
+            //    Swal.fire(
+            //        'Maaf',
+            //        'Risk Level masih tinggi.',
+            //        'warning'
+            //    )
+            //} else {
                 var valid = true;
                 var pic = "";
                 if ($('#Severity_DDL').val() == 10 || $('#TxtRiskLevel').val() == 'High' || $('#TxtRiskLevel').val() == 'Very High') {
@@ -2141,6 +2148,36 @@
                 }
 
                 var limit = (dto.Model.Severity == 10 || dto.Model.RiskLevel == "High" || dto.Model.RiskLevel == "Very High") ? (25) : (14);
+
+                //Delete dto.Model over than 14 properties.
+                var i = 0;
+                for (var property in dto.Model) {
+                    if (limit == 14) {
+                        if (i > 14) {
+                            if (elementID[property] != undefined) {
+                                $(elementID[property]).val("");
+                                if (i == 17 || i == 19 || i == 21) { //ini index array untuk dropdownlist Severity2, Likelihood2, dan Detectability2
+                                    $(elementID[property]).val('-');
+                                }
+
+                            }
+                            delete dto.Model[property];
+                        }
+                    } else {
+                        if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
+                            valid = false;
+                            return Swal.fire(
+                                'Maaf',
+                                'Risk Level masih tinggi.',
+                                'warning'
+                            )
+                        }
+                    }
+                    i++;
+                }
+
+                console.log("masih ke bawah ga berhenti")
+
                 var count = 0;
                 //console.log("limit : " + limit);
                 $.each(dto.Model, function (key, value) {
@@ -2192,36 +2229,37 @@
                     valid = true;
                 });
 
+                console.log(valid)
 
-                if (valid) {
-                    $.ajax({
-                        url: 'AddKajian',
-                        type: 'post',
-                        dataType: 'json',
-                        data: JSON.stringify(dto),
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (data) {
-                            if (data != null) {
-                                Swal.fire(
-                                    'Success',
-                                    'Data berhasil di-input.',
-                                    'success'
-                                ).then(function (result) {
-                                    if (result.value) {
-                                        //close modal
-                                        RemoveModalInput();
-                                        // fetch to table
-                                        TableKajian(true);
-                                    }
-                                });
-                            }
-                        },
-                        error: function (ex) {
-                            alert(JSON.stringify(ex));
-                        }
-                    });
-                }
-            }
+                //if (valid) {
+                //    $.ajax({
+                //        url: 'AddKajian',
+                //        type: 'post',
+                //        dataType: 'json',
+                //        data: JSON.stringify(dto),
+                //        contentType: 'application/json; charset=utf-8',
+                //        success: function (data) {
+                //            if (data != null) {
+                //                Swal.fire(
+                //                    'Success',
+                //                    'Data berhasil di-input.',
+                //                    'success'
+                //                ).then(function (result) {
+                //                    if (result.value) {
+                //                        //close modal
+                //                        RemoveModalInput();
+                //                        // fetch to table
+                //                        TableKajian(true);
+                //                    }
+                //                });
+                //            }
+                //        },
+                //        error: function (ex) {
+                //            alert(JSON.stringify(ex));
+                //        }
+                //    });
+                //}
+            //}
         });
 
         $("#btn_Submit").click(function () {
@@ -2235,12 +2273,12 @@
                 data: JSON.stringify({
                     Model: {
                         NO_CAPA: $('#input_NoCAPA').val(),
-                        Option: 15,                        
+                        Option: 15,
                     }
                 }),
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    isValid = JSON.parse(data)[0].IS_VALID;                    
+                    isValid = JSON.parse(data)[0].IS_VALID;
                 },
                 error: function (ex) {
                     alert(JSON.stringify(ex));
@@ -2310,9 +2348,9 @@
                     'WARNING',
                     'Masih ada Tindakan yang belum dikaji.',
                     'warning'
-                );                
+                );
             }
-            
+
         });
 
         $('#btn_Request').click(function () {
