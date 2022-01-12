@@ -2174,13 +2174,11 @@
                         }
                     }
                     i++;
-                }
-
-                console.log("masih ke bawah ga berhenti")
+                }               
 
                 var count = 0;
                 //console.log("limit : " + limit);
-                $.each(dto.Model, function (key, value) {
+                $.each(dto.Model, function (key, value) {                    
                     if (key === "M_PKegagalan" || key === "P_MPenyebab" || key == "P_MDPKegagalan") {
                         if (dto.Model.Severity == 10 || dto.Model.RiskLevel == "High" || dto.Model.RiskLevel == "Very High") {
                             if (dto.Model.M_PKegagalan == "" && dto.Model.P_MPenyebab == "" && dto.Model.P_MDPKegagalan == "") {
@@ -2197,9 +2195,10 @@
                         return;
                     } else {
                         //console.log(key + ": " + value);
-                        if (value == "") {
+                        if (value == "" || value == null) {                                                        
                             //console.log(dto.Model);
                             if (count <= limit) {
+                                
                                 var label;
                                 if (count == 13 || count == 14 || count == 22 || count == 23) {
                                     label = "Mohon untuk mengisi nilai Severity, Likelihood, dan Detectability yang tersedia.";
@@ -2229,37 +2228,37 @@
                     valid = true;
                 });
 
-                console.log(valid)
+                //console.log(valid)
 
-                //if (valid) {
-                //    $.ajax({
-                //        url: 'AddKajian',
-                //        type: 'post',
-                //        dataType: 'json',
-                //        data: JSON.stringify(dto),
-                //        contentType: 'application/json; charset=utf-8',
-                //        success: function (data) {
-                //            if (data != null) {
-                //                Swal.fire(
-                //                    'Success',
-                //                    'Data berhasil di-input.',
-                //                    'success'
-                //                ).then(function (result) {
-                //                    if (result.value) {
-                //                        //close modal
-                //                        RemoveModalInput();
-                //                        // fetch to table
-                //                        TableKajian(true);
-                //                    }
-                //                });
-                //            }
-                //        },
-                //        error: function (ex) {
-                //            alert(JSON.stringify(ex));
-                //        }
-                //    });
-                //}
-            //}
+                if (valid) {
+                    $.ajax({
+                        url: 'AddKajian',
+                        type: 'post',
+                        dataType: 'json',
+                        data: JSON.stringify(dto),
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            if (data != null) {
+                                Swal.fire(
+                                    'Success',
+                                    'Data berhasil di-input.',
+                                    'success'
+                                ).then(function (result) {
+                                    if (result.value) {
+                                        //close modal
+                                        RemoveModalInput();
+                                        // fetch to table
+                                        TableKajian(true);
+                                    }
+                                });
+                            }
+                        },
+                        error: function (ex) {
+                            alert(JSON.stringify(ex));
+                        }
+                    });
+                }
+            }
         });
 
         $("#btn_Submit").click(function () {
