@@ -58,144 +58,13 @@
                 </div>
             </div>
         </div>
-
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Tindakan Pencegahan</h4>
-                <div>
-                    <table class="table table-hover table-bordered zero-configuration" style="color: black" id="Tbl_Pencegahan">
-                        <thead>
-                            <tr>
-                                <th>Root Cause</th>
-                                <th>Nama Pelaksana</th>
-                                <th>Tindakan Pencegahan</th>
-                                <th>Tindakan Pencegahan Revisi</th>
-                                <th>Alasan Perubahan Tindakan Pencegahan</th>
-                                <th>Due Date</th>
-                                <th>Due Date Revisi</th>
-                                <th>Alasan Perubahan Due Date </th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <table class="table table-hover table-bordered  table-responsive" id="Tbl_KajianResiko" style="color:black" >
-            <thead>
-                <tr>
-                    <th>Tindakan</th>
-                    <th>Potensi Kegagalan / Penyimpangan yang mungkin terjadi ketika tindakan perbaikan/pencegahan diterapkan</th>
-                    <th>Spesifikasi / Syarat</th>
-                    <th>Dampak</th>
-                    <th>Severity (S)</th>
-                    <th>Penyebab Potensial</th>
-                    <th>Mengatasi Penyebab Potensial</th>
-                    <th>Likelihood (L)</th>
-                    <th>Mencegah Potensi Kegagalan Lolos Menimbulkan Dampak</th>
-                    <th>Detectability (D) </th>
-                    <th>RPN (SxLxD)</th>
-                    <th>Risk Level</th>
-                    <th>TARGET</th>
-                    <th>Menghilangkan Potensi Kegagalan/ Penyimpangan</th>
-                    <th>Severity (S)</th>
-                    <th>PERBAIKAN untuk mengatasi Penyebab Potensial</th>
-                    <th>Likelihood (L)</th>
-                    <th>PERBAIKAN untuk meningkatkan deteksi potensi kegagalan</th>
-                    <th>Detectability (D)</th>
-                    <th>RPN (SxLxD)</th>
-                    <th>Risk Level</th>
-                    <th>PIC</th>
-                    <th>Due Date</th>
-                    <th>Lainnya</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="Tbl_PRCA">
-                <tr>
-                    <td>Tindakan</td>
-                    <td><input type="text" class="form-control form-control-sm" style="width:100%;" disabled></td>
-                    <td><input type="text" class="form-control form-control-sm" style="width:100%;" disabled></td>
-                    <td><input type="text" class="form-control form-control-sm" style="width:100%;" disabled></td>
-                    <td>
-                        <select id="SaverityDDL" class="form-control" disabled>
-                            <option value="1">1</option>
-                            <option value="4">4</option>
-                            <option value="7">7</option>
-                            <option value="10">10</option>
-                        </select>
-                    </td>
-                    <td><input type="text" class="form-control form-control-sm" style="width:100%;" disabled></td>
-                    <td><input type="text" class="form-control form-control-sm" style="width:100%;" disabled></td>
-                    <td>
-                        <select id="LikelihoodDDL" class="form-control" disabled>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="4">4</option>
-                            <option value="8">8</option>
-                        </select>
-                    </td>
-                    <td><input type="text" class="form-control form-control-sm" style="width:100%;" disabled></td>
-                    <td>
-                        <select id="DetectabilityDDL" class="form-control" disabled>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
-                    </td>
-                    <td>SxLxD</td>
-                    <td>Level Risk Color</td>
-                    <td>
-                        <select id="DetectabilityDDL" class="form-control" disabled>
-                            <option value="Low">Low</option>
-                            <option value="Medium">Medium</option>
-                        </select>
-                    </td>
-                    <td><input type="text" class="form-control form-control-sm" style="width:100%;" disabled></td>
-                    <td>
-                        <select id="LikelihoodDDL" class="form-control" disabled>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="4">4</option>
-                            <option value="8">8</option>
-                        </select>
-                    </td>
-                    <td><input type="text" class="form-control form-control-sm" style="width:100%;" disabled></td>
-                    <td>
-                        <select id="DetectabilityDDL" class="form-control" disabled>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
-                    </td>
-                    <td><input type="text" class="form-control form-control-sm" style="width:100%;" disabled></td>
-                    <td>
-                        <select id="DetectabilityDDL" class="form-control" disabled>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
-                    </td>
-                    <td>SxLxD</td>
-                    <td>Level Risk Color</td>
-                    <td>PIC</td>
-                    <td>Due Date</td>
-                    <td>Lainnya</td>
-                    <td><button class="form-control-sm" disabled>Delete</button></td>
-                </tr>
-            </tbody>
-        </table>
+        
+        @Html.Partial("KajianResikoPV")
         <div class="row form-group-sm">
-            <div class="col-md-6 mt-1">
+            <div class="col-md-1 mt-1">
                 <button class="btn mb-1 btn-primary" id="Approve">Approve</button>
             </div>
-            <div class="col-md-6 mt-1">
+            <div class="col-md-1 mt-1">
                 <button class="btn mb-1 btn-primary" style="background-color:red" id="Reject">Reject</button>
             </div>
         </div>
@@ -209,8 +78,11 @@
 
 <script>
     var noCAPA = getQueryStrings()["NoCAPA"];
-    var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
-    var namaUser = '@Request.RequestContext.HttpContext.Session["NamaUser"]';
+    //var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
+    var nik = "090500076";
+    //var namaUser = '@Request.RequestContext.HttpContext.Session["NamaUser"]';
+    var namaUser = 'DENNY IRAWAN';
+    var tindakan = "Approval Perubahan";
     var superiorName = '@Request.RequestContext.HttpContext.Session["SuperiorName"]';
     var dataPerbaikan, attachmentPerbaikan, dataPencegahan, attachmentPencegahan;
     var statuser = false;
@@ -267,6 +139,8 @@
     }
     $(document).ready(function () {
         checkUser();
+        $('#RootCause_KajianResikoDDL').attr('disabled', true);
+        $('#btn_AddKajian').attr('disabled', true);
         GetTindakanPerbaikan();
         GetTindakanPencegahan();
         TableKajian();
@@ -314,7 +188,8 @@
                         { "data": "Alasan_Tindakan_Perbaikan"},
                         { "data": "tanggal" },
                         { "data": "tanggalRev" },
-                        { "data": "Alasan_Due_Date"},
+                        { "data": "Alasan_Due_Date" },
+                        { "data": "Stat" }
                     ],
                     "columnDefs": [
                         {
@@ -467,7 +342,7 @@
             type: 'post',
             data: JSON.stringify({
                 Model: {
-                    NO_CAPA: noCAPA,
+                    NoCAPA: noCAPA,
                     Empid: nik,
                     Option: 3,
                 }

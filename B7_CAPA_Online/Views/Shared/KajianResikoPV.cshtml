@@ -206,11 +206,18 @@
 
                             <div class="container">
                                 <div class="row form-group col-md-12" id="Div_TxtPIC" hidden>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                         <label for="TxtPIC" class="col-form-label">PIC</label>
                                         <div class="input-group">
                                             <input type="text" id="TxtPICName" name="TxtPICName" class="form-control form-control-sm" readonly>
                                             <input type="text" id="TxtPIC" name="TxtPIC" class="form-control form-control-sm" hidden>
+                                        </div>
+
+                                    </div> 
+                                    <div class="col-md-2">
+                                        <label for="DueDate_Kajian" class="col-form-label">Due Date</label>
+                                        <div class="input-group">
+                                            <input type="date" id="DueDate_Kajian" class="form-control form-control-sm">
                                         </div>
                                     </div>
                                 </div>
@@ -220,12 +227,6 @@
                                         <label for="TxtLainnya" class="col-form-label">Lainnya</label>
                                         <div class="input-group">
                                             <textarea type="text" class="form-control" name="TxtLainnya" id="TxtLainnya"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label for="DueDate_Kajian" class="col-form-label">Due Date</label>
-                                        <div class="input-group">
-                                            <input type="date" id="DueDate_Kajian" class="form-control form-control-sm">
                                         </div>
                                     </div>
                                 </div>
@@ -379,8 +380,7 @@
     var tipe;
     var jenis = "Tambah Pencegahan Existing" ;
     var valid = false;
-    var objTindakan;
-    var values;
+    var tindakan;
     var status;
     function KajianResikoDDLPV() {
         $.ajax({
@@ -395,7 +395,7 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 //console.log(JSON.parse(data))
-                objTindakan = JSON.parse(data);
+                //objTindakan = JSON.parse(data);
                 //console.log('Halaman PV dalam KajianResikoDDLPV(): ' + objTindakan);
                 //$('#RootCause_KajianResikoDDL').empty();
                 //$('#RootCause_KajianResikoDDL').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
@@ -659,7 +659,10 @@
 
     $(document).ready(function () {
         //KajianResikoDDLPV();
-        TableKajianPV();
+        if (tindakan == '')
+        {
+            TableKajianPV();
+        }
         UnhideKajianResikoModalPV();
         var isHide = false;
 
