@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "ReportAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<iframe id="ifrmReportViewer" style="height:3500px; width:100%;" frameborder="0" scrolling="no"></iframe>
+
+<script>
+    $(document).ready(function () {
+        ReportValidationCheck(a);
+    });
+    function ReportValidationCheck() {
+
+        url = "../Report/WebFormCAPA.aspx";
+
+        var myframe = document.getElementById("ifrmReportViewer");
+        if (myframe !== null) {
+            if (myframe.src) {
+                myframe.src = url;
+            }
+            else if (myframe.contentWindow !== null && myframe.contentWindow.location !== null) {
+                myframe.contentWindow.location = url;
+            }
+            else {
+                myframe.setAttribute('src', url);
+            }
+        }
+        return false;
+    }
+</script>
+

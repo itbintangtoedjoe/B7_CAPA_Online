@@ -191,6 +191,13 @@
     <Compile Include="Models\Vendor.cs" />
     <Compile Include="Models\VendorType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\WebFormCAPA.aspx.cs">
+      <DependentUpon>WebFormCAPA.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report\WebFormCAPA.aspx.designer.cs">
+      <DependentUpon>WebFormCAPA.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Scripts\DataAccess\DataAccess.cs" />
     <Compile Include="Scripts\SMTP\EmailSender.cs" />
   </ItemGroup>
@@ -5101,6 +5108,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Report\WebFormCAPA.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\Scripts\plugins\block-ui\blockUI.jquery.json" />
@@ -5461,6 +5469,7 @@
     <Content Include="Views\Koordinator\Koordinator4.cshtml" />
     <Content Include="Views\Pelaksana\PelaksanaCAPAPerubahan.cshtml" />
     <Content Include="Views\AtasanPelaksana\AtasanPelaksanaApprovalPerubahanTindakan.cshtml" />
+    <Content Include="Views\ReportCAPA\ReportAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -5475,6 +5484,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Report\ReportCAPA.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

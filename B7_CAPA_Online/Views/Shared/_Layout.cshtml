@@ -158,6 +158,17 @@
                             <li>@Html.ActionLink("Create User Vendor", "CreateUserVendor", "UserVendor", null, null)</li>
                         </ul>
                     </li>
+                    <li class="nav-label">Report</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="true">
+                            <i class="icon-list menu-icon"></i><span class="nav-text">List Report</span>
+                        </a>
+                        <ul aria-expanded="true">
+                            <li>@Html.ActionLink("Report", "ReportAll", "ReportCAPA", null, null)</li>
+                            <li>@Html.ActionLink("Report Leadtime", "ReportLeadtime", "ReportCAPA", null, null)</li>
+                            <li>@Html.ActionLink("Report Masterlist", "ReportMasterlist", "ReportCAPA", null, null)</li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
