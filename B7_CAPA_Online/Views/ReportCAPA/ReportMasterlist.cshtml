@@ -69,47 +69,47 @@
                                 </div>
                             </div>
 
-                        </form> 
+                        </form>
                         <div class="row form-group-sm mt-3">
                             <div class="col-md-6">
                                 <button class="btn btn-primary" id="Filter">Filter</button>
                             </div>
                         </div>
                     </div>
-                        <table class="table table-bordered " id="Tbl_Filter">
-                            <thead>
-                                <tr>
-                                    <th>Created Date</th>
-                                    <th>No CAPA</th>
-                                    <th>PIC CAPA</th>
-                                    <th>Departemen</th>
-                                    <th>Site</th>
-                                    <th>Requestor CAPA</th>
-                                    <th>Kategori CAPA</th>
-                                    <th>Kata Kunci</th>
-                                    <th>Status</th>
-                                    <th>Detail Status</th>
-                                    <th>Outstanding</th>
-                                    <th>Tanggal Closed </th>
-                                    <th>Alasan Cancelled </th>
-                                    <th>Tanggal Cancelled  </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                    <table class="table table-bordered " id="Tbl_Filter">
+                        <thead>
+                            <tr>
+                                <th>Created Date</th>
+                                <th>No CAPA</th>
+                                <th>PIC CAPA</th>
+                                <th>Departemen</th>
+                                <th>Site</th>
+                                <th>Requestor CAPA</th>
+                                <th>Kategori CAPA</th>
+                                <th>Kata Kunci</th>
+                                <th>Status</th>
+                                <th>Detail Status</th>
+                                <th>Outstanding</th>
+                                <th>Tanggal Closed </th>
+                                <th>Alasan Cancelled </th>
+                                <th>Tanggal Cancelled  </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
     <!-- #/ container -->
 </div>
-@*<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js" defer></script>
-<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" defer></script>*@
+@*<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js" defer></script>*@
 <script>
 
     $(document).ready(function () {
-        $('#Tbl_Filter').DataTable({
+        var table = $('#Tbl_Filter').DataTable({
+            "dom": "Bfrtip",
             "pageLength": 5,
             "lengthChange": true,
             "paging": false,
@@ -117,9 +117,14 @@
             "searching": false,
             "select": true,
             "bDestroy": true,
-            "scrollCollapse": true,
-            "responsive": true,
+        
+            "buttons": [
+                "excelHtml5"
+            ],
+
         });
+
+
         getKodeCAPA();
         getTahun();
         $('#Filter').click(function () {
@@ -157,6 +162,10 @@
                     "searching": false,
                     "select": true,
                     "bDestroy": true,
+                    "dom": 'Bfrtip',
+                    "buttons": [
+                        'Excel'
+                    ],
                     //"responsive": {
                     //    "details": {
                     //        "renderer": function (api, rowIdx, columns) {
@@ -251,37 +260,37 @@
         });
 
     }
-        function getDepartemen() {
-            var dictlist = {
-                Option: "Departemen"
-            }
-            var dto = {
-                Model: dictlist
-            }
-            $.ajax({
-                url: "DynamicController?spname=SP_Report",
-                type: "POST",
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-
-                    var result = JSON.parse(data);
-                    $('#Departemen').empty();
-
-                    $('#Departemen').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
-
-                    for (var i = 0; i < result.length; i++) {
-                        $('#Departemen').append(new Option(result[i].DEPARTEMEN, result[i].DEPARTEMEN));
-                    }
-
-                    getLokasi();
-                }, error: function (ex) {
-                    alert(JSON.stringify(ex));
-                }
-            });
-
+    function getDepartemen() {
+        var dictlist = {
+            Option: "Departemen"
         }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Report",
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var result = JSON.parse(data);
+                $('#Departemen').empty();
+
+                $('#Departemen').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+
+                for (var i = 0; i < result.length; i++) {
+                    $('#Departemen').append(new Option(result[i].DEPARTEMEN, result[i].DEPARTEMEN));
+                }
+
+                getLokasi();
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
+    }
 
 
     function getLokasi() {

@@ -211,6 +211,7 @@
     var objTindakan;
     var tipe;
     var jenis = "Tambah Pencegahan Existing";
+    var values;
     var laststate = false;
     function getQueryStrings() {
         var vars = [], hash;
@@ -324,8 +325,6 @@
 
         $('#RootCause_KajianResikoDDL').change(function () {
             var val = $('#RootCause_KajianResikoDDL').text();
-            alert(val.indexOf('[Perbaikan]'));
-            alert(val.indexOf('[Pencegahan]') )
             if (val.indexOf('[Perbaikan]') == 0) {
                 tipe = "Perbaikan";
                 jenis = "Tambah Perbaikan Baru";
@@ -338,6 +337,7 @@
         });
         $('#btn_AddKajian').click(function () {
             recTindakan();
+            $('#TxtPICName').val(values.FullName);
             //console.log(values);
         });
 
@@ -517,6 +517,7 @@
         //console.log(objTindakan);
         //console.log(tipe);
         for (var i = 0; i < objTindakan.length; i++) {
+            if
             if (objTindakan[i].RecordID == $('#RootCause_KajianResikoDDL').val() && objTindakan[i].Tipe == tipe) {
                 values = objTindakan[i];
                 break;

@@ -261,8 +261,10 @@
     var laststate = false;
     var tipe;
     var jenis;
+    var values;
     var referenceID = getQueryStrings()["ReferenceID"];
-    var tindakan = getQueryStrings()["Tindakan"]
+    var tindakan = getQueryStrings()["Tindakan"];
+    var objTindakan;
     $('#input_NoCAPA').val(noCAPA);
     //function untuk ambil semua query string
     function getQueryStrings() {
@@ -278,6 +280,15 @@
 
     $(document).ready(function () {
         if (tindakan == "Perbaikan") {
+            jenis = "Perubahan Perbaikan";
+        }
+        else {
+            jenis = "Perubahan Pencegahan"
+        }
+
+        TableKajian();
+        KajianResikoDDL();
+;        if (tindakan == "Perbaikan") {
             $('#Perbaikan').attr("hidden", false);
             $('#txtPelaksanaPerbaikan').val(namaUser);
             $('#txtSuperiorPerbaikan').val(superiorName);
@@ -301,6 +312,7 @@
         });
         $('#AlasanTindakanPerbaikan').on('change', function () {
             if ($('#txtTindakanPerbaikanRev').val() != "" && $('#AlasanTindakanPerbaikan').val() != "") {
+
                 $('#btn_AddKajian').attr("disabled", false);
             }
         });
@@ -310,7 +322,38 @@
         });
         $('#AlasanDueDate').on('change', function () {
             if ($('#AlasanDueDate').val() != "" && $('#dueDatePerbaikanRev').val() != "") {
+                var date = new Date();
+                var dateperbaikan = new Date($('#dueDatePerbaikanRev').val());
+                if (dateperbaikan != "" && (date.getTime() > dateperbaikan.getTime())) {
+                    Swal.fire(
+                        'Maaf',
+                        'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
+                        'warning'
+                    )
+                    $('#btn_AddKajian').attr("disabled", true);
+                    $('#Submit').attr("disabled", true);
+                    return;
+                }
                 $('#btn_AddKajian').attr("disabled", false);
+                $('#Submit').attr("disabled", false);
+            }
+        });
+        $('#dueDatePerbaikanRev').on('change', function () {
+            if ($('#AlasanDueDate').val() != "" && $('#dueDatePerbaikanRev').val() != "") {
+                var date = new Date();
+                var dateperbaikan = new Date($('#dueDatePerbaikanRev').val());
+                if (dateperbaikan != "" && (date.getTime() > dateperbaikan.getTime())) {
+                    Swal.fire(
+                        'Maaf',
+                        'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
+                        'warning'
+                    )
+                    $('#btn_AddKajian').attr("disabled", true);
+                    $('#Submit').attr("disabled", true);
+                    return;
+                }
+                $('#btn_AddKajian').attr("disabled", false);
+                $('#Submit').attr("disabled", false);
             }
         });
         $('#AlasanDueDatePencegahan').on('click', function () {
@@ -318,8 +361,40 @@
             $('#RootCause_KajianResikoDDL').append(new Option($('#txtTindakanPencegahan').val(), $('#txtTindakanPencegahan').val()));
         });
         $('#AlasanDueDatePencegahan').on('change', function () {
+            var date = new Date();
+            var datepencegahan = new Date($('#dueDatePencegahanRev').val());
             if ($('#AlasanDueDatePencegahan').val() != "" && $('#dueDatePencegahanRev').val() != "") {
+                if (datepencegahan != "" && (date.getTime() > datepencegahan.getTime())) {
+                    Swal.fire(
+                        'Maaf',
+                        'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
+                        'warning'
+                    )
+                    $('#btn_AddKajian').attr("disabled", true);
+                    $('#Submit').attr("disabled", true);
+                    return;
+                }
                 $('#btn_AddKajian').attr("disabled", false);
+
+                $('#Submit').attr("disabled", false);
+            }
+        });
+        $('#dueDatePencegahanRev').on('change', function () {
+            var date = new Date();
+            var datepencegahan = new Date($('#dueDatePencegahanRev').val());
+            if ($('#AlasanDueDatePencegahan').val() != "" && $('#dueDatePencegahanRev').val() != "") {
+                if (datepencegahan != "" && (date.getTime() > datepencegahan.getTime())) {
+                    Swal.fire(
+                        'Maaf',
+                        'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
+                        'warning'
+                    )
+                    $('#btn_AddKajian').attr("disabled", true);
+                    $('#Submit').attr("disabled", true);
+                    return;
+                }
+                $('#btn_AddKajian').attr("disabled", false);
+                $('#Submit').attr("disabled", false);
             }
         });
         $('#AlasanTindakanPencegahan').on('click', function () {
@@ -329,20 +404,9 @@
         });
         $('#AlasanTindakanPencegahan').on('change', function () {
             if ($('#txtTindakanPencegahanRev').val() != "" && $('#AlasanTindakanPencegahan').val() != "") {
+
                 $('#btn_AddKajian').attr("disabled", false);
             }
-        });
-        $('#RootCause_KajianResikoDDL').change(function () {
-            var val = $('#RootCause_KajianResikoDDL').text();
-            if (val.indexOf('[Perbaikan]') == 0) {
-                tipe = "Perbaikan";
-                jenis = "Perubahan Perbaikan";
-            }
-            else {
-                tipe = "Pencegahan";
-                jenis = "Perubahan Pencegahan"
-            }
-
         });
         $('#Submit').click(function () {
             if (tindakan == "Perbaikan") {
@@ -355,7 +419,8 @@
         });
         $('#btn_AddKajian').click(function () {
             recTindakan();
-            //console.log(values);
+            $('#TxtPICName').val(values.FullName);
+            console.log(values);
         });
         $('#btn_KajianResiko').click(function () {
             //recTindakan(0);
@@ -366,7 +431,6 @@
                     'warning'
                 )
             } else {
-
                 var pic = "";
                 if ($('#Severity_DDL').val() == 10 || $('#TxtRiskLevel').val() == 'High' || $('#TxtRiskLevel').val() == 'Very High') {
                     pic = $('#TxtPIC').val();
@@ -374,8 +438,8 @@
 
                 dto = {
                     Model: {
-                        RecordID: values.RecordID,
-                        NO_CAPA: $('#input_NoCAPA').val(),
+                        RecordID: referenceID,
+                        NO_CAPA: noCAPA,
                         Tipe: jenis,
                         Tindakan: $('#RootCause_KajianResikoDDL').val(),
                         P_Kegagalan: $('#TxtPotensiKegagalan').val(),
@@ -401,7 +465,7 @@
                         PIC: pic,
                         DueDate: $('#DueDate_Kajian').val(),
                         Lainnya: $('#TxtLainnya').val(),
-                        EmpID: $('#input_Requestor_NIK').val(),
+                        EmpID: nik,
                         Status: 10
                     }
                 }
@@ -449,6 +513,25 @@
                                 valid = false;
                                 return false;
                             }
+
+                            else if (dto.Model.DueDate == "") {
+                                Swal.fire(
+                                    'Maaf',
+                                    'Mohon untuk mengisi DueDate PIC Treatment.',
+                                    'warning'
+                                )
+                                valid = false;
+                                return false;
+                            }
+                            else if (date.getTime() > datekajian.getTime()) {
+                                Swal.fire(
+                                    'Maaf',
+                                    'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
+                                    'warning'
+                                )
+                                valid = false;
+                                return false;
+                            }
                         }
                         count++;
                         return;
@@ -471,25 +554,8 @@
                                 valid = false;
                                 return false;
                             }
-                            else if (dto.Model.DueDate == "") {
-                                Swal.fire(
-                                    'Maaf',
-                                    'Mohon untuk mengisi DueDate PIC Treatment.',
-                                    'warning'
-                                )
-                                valid = false;
-                                return false;
-                            }
+
                         }
-                    }
-                    if (date.getTime() > datekajian.getTime()) {
-                        Swal.fire(
-                            'Maaf',
-                            'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
-                            'warning'
-                        )
-                        valid = false;
-                        return false;
                     }
                     count++;
                     valid = true;
@@ -514,7 +580,7 @@
                                         //close modal
                                         RemoveModalInput();
                                         // fetch to table
-                                        TableKajianPV(true);
+                                        TableKajian();
                                     }
                                 });
                             }
@@ -528,45 +594,83 @@
         });
 
     });
+    function RemoveModalInput() {
+        $('#TxtPotensiKegagalan').val("");
+        $('#TxtDampak').val("");
+        $('#TxtSpesifikasi').val("");
+        $('#TxtPenyebabPotensial').val("");
+        $('#TxtMPenyebabPotensial').val("");
+        $('#TxtMPotensi_KLMD').val("");
+        $('#Severity_DDL').val("-").trigger('change');
+        $('#Likelihood_DDL').val("-").trigger('change');
+        $('#Detectability_DDL').val("-").trigger('change');
+        $('#TxtRPN').val("");
+        $('#TxtRiskLevel').val("");
+        $('#Target_DDL').val("").trigger('change');
+        $('#TxtMPotensi_K').val("");
+        $('#TxtMPenyebab_P').val("");
+        $('#TxtDPotensi_K').val("");
+        $('#Severity2_DDL').val("-").trigger('change');
+        $('#Likelihood2_DDL').val("-").trigger('change');
+        $('#Detectability2_DDL').val("-").trigger('change');
+        $('#TxtRPN2').val("");
+        $('#TxtRiskLevel2').val("");
+        //$('#TxtPICName').val("");
+        //$('#TxtPIC').val("");
+        $('#TxtLainnya').val("");
+        $('#DueDate_Kajian').val("");
+        $('#Div_KajianResikoModal').prop('hidden', true);
+        $('#KajianResikoModal').modal('hide');
+    }
+    function KajianResikoDDL() {
+        $.ajax({
+            url: '/PIC/GetDataPIC',
+            type: 'post',
+            data: JSON.stringify({
+                Option: 10,
+                NO_CAPA: noCAPA,
+                SP: "[dbo].[SP_FORM_CAPA]"
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                //console.log(JSON.parse(data))
+                objTindakan = JSON.parse(data);
+                //console.log('Halaman PV dalam KajianResikoDDLPV(): ' + objTindakan);
+                //$('#RootCause_KajianResikoDDL').empty();
+                //$('#RootCause_KajianResikoDDL').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+                //$.each(JSON.parse(data), function (key, value) {
+                //    $('#RootCause_KajianResikoDDL').append(new Option(value.Tindakan, value.Tindakan));
+                //});
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
 
     function recTindakan() {
 
         //console.log(objTindakan);
         //console.log(tipe);
         for (var i = 0; i < objTindakan.length; i++) {
-            if (objTindakan[i].RecordID == $('#RootCause_KajianResikoDDL').val() && objTindakan[i].Tipe == tipe) {
+            if (objTindakan[i].RecordID == referenceID && objTindakan[i].Tipe == tindakan) {
                 values = objTindakan[i];
                 break;
             }
-
         }
     }
 
-    function TableKajianPV() {
+    function TableKajian() {
         $.ajax({
-            url: '/PIC/GetKajianResiko',
+            url: 'DynamicController?spname=SP_Find_Data',
             type: 'post',
             data: JSON.stringify({
                 Model: {
-                    NO_CAPA: $('#input_NoCAPA').val(),
-                    Option: 11,
-                    Aspect: '',
-                    WSBH: '',
-                    WAH: '',
-                    Status: '',
-                    isParent: '',
-                    WHY_Parent: '',
-                    WHY: '',
-                    Tindakan: '',
-                    Pelaksana: '',
-                    LineNumber: '',
-                    NamaPersonil: '',
-                    Email: '',
-                    DueDate: '',
-                    Is_AreaLain: '',
-                    WhyID: '',
-                    WhyParentID: '',
-                    RootCause: ''
+                    NoCAPA: noCAPA,
+                    kategori: "Kajian Resiko",
+                    tipe: jenis,
+                    recordID: referenceID
                 }
             }),
             dataType: 'json',
@@ -736,12 +840,6 @@
             )
             return;
         }
-        if (valid == true)
-        {
-            laststate = true;
-        }
-        if (laststate == true)
-        {
             $.ajax({
                 url: "DynamicController?spname=SP_Update_Pelaksanaan",
                 type: "POST",
@@ -750,26 +848,29 @@
                 data: JSON.stringify(dto),
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
-                    Swal.fire(
-                        'Berhasil',
-                        'Perubahan berhasil di submit',
-                        'success'
-                    )
+                    var result = JSON.parse(data);
+                    console.log(result[0].Stat);
+                    if (result[0].Stat == "Invalid") {
+                        Swal.fire(
+                            'Maaf',
+                            'tindakan harus dikaji terlebih dahulu.',
+                            'warning'
+                        )
+                    }
+                    else {
+                        Swal.fire(
+                            'Berhasil',
+                            'Perubahan berhasil di submit',
+                            'success'
+                        )
+                    }
                     @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
 
                 }, error: function (ex) {
                     alert(JSON.stringify(ex));
                 }
             });
-        }
-        else
-        {
-            Swal.fire(
-                'Maaf',
-                'tindakan harus dikaji terlebih dahulu.',
-                'warning'
-            )
-        }
+        
 
     }
 
@@ -781,7 +882,7 @@
         var alasantindakanpencegahan = $('#AlasanTindakanPencegahan').val();
         var date = new Date();
         var datepencegahan = new Date($('#dueDatePencegahanRev').val());
-        
+
         var dictlist = {
             Kategori: "Perubahan Pencegahan",
             RecordID: referenceID,
@@ -832,11 +933,21 @@
                 data: JSON.stringify(dto),
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
-                    Swal.fire(
-                        'Berhasil',
-                        'Perubahan berhasil di submit',
-                        'success'
-                    )
+                    var result = JSON.parse(data);
+                    if (result[0].Stat == "Invalid") {
+                        Swal.fire(
+                            'Maaf',
+                            'tindakan harus dikaji terlebih dahulu.',
+                            'warning'
+                        )
+                    }
+                    else {
+                        Swal.fire(
+                            'Berhasil',
+                            'Perubahan berhasil di submit',
+                            'success'
+                        )
+                    }
                     @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
 
                 }, error: function (ex) {
