@@ -574,7 +574,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row form-group-sm mb-2" id="Table_File" hidden>
+                                <div class="row form-group-sm mb-2" id="Table_File">
                                     <div class="col-md-6">
                                         <table class="table table-hover table-bordered zero-configuration" id="Tbl_File" style="color:black;">
                                             <thead>
@@ -1229,20 +1229,29 @@
 
         requestPage();
 
-        $('#TxtFileInput').change(function () {
-            fileCount = this.files.length;
+        $('#TxtFileInput').change(function () {            
+            $('#tb_File').empty();
+            fileCount = this.files.length;            
             var names = $.map(this.files, function (val) { return val.name; });
             console.log(names);
             var teks = (fileCount != 0) ? (fileCount + " Lampiran telah dipilih.") : ("");
-            $('#Table_File').prop("hidden", true);
+            //$('#Table_File').prop("hidden", true);
             if (fileCount > 0) {
-                $('#Table_File').prop("hidden", false);
+                //$('#Table_File').prop("hidden", false);              
                 $.each(names, function (key, value) {
                     $('#tb_File').append('<tr><td>' + value + '</td><tr>')
                 });
             }
 
             $('#TxtLampiranCount').text(teks);
+
+            //$('#Tbl_File').DataTable({
+            //    "searching": false,
+            //    "paging": false,
+            //    "info": false,
+            //    "pageLength": 4,
+            //    "lengthChange": true,
+            //});
         })
 
         $("#btn_Submit").click(function () {
@@ -1558,7 +1567,7 @@
     }
 
     function requestPage() {
-        //getDDL();
+        getDDL();
         TahunDDL();
         DeleteDepartemen();
         getRequestPageData()
@@ -1578,7 +1587,7 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    console.log(data);
+                    //console.log(data);
                     $("#Trigger_CAPA").empty().append(new Option(data[0].TRIGGER_CAPA, data[0].TRIGGER_CAPA));
                     $("#Kategori_DDL").empty().append(new Option(data[0].KATEGORI_CAPA, data[0].KATEGORI_CAPA2));
                     $("#Lokasi_DDL").empty().append(new Option(data[0].LOKASI_CAPA, data[0].LOKASI_CAPA2));
