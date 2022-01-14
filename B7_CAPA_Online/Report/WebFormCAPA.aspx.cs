@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace B7_CAPA_Online.Report
 {
-    public partial class WebForm1 : System.Web.UI.Page
+    public partial class WebFormCAPA : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -25,48 +25,48 @@ namespace B7_CAPA_Online.Report
                 string conString = mySetting.ConnectionString;
                 SqlConnection conn = new SqlConnection(conString);
                 DataTable DT = new DataTable();
-                string a = Request.QueryString.Get("resi");
+                //string a = Request.QueryString.Get("resi");
 
-                try
-                {
-                    conn.Open();
-                    using (SqlCommand command = new SqlCommand("sp_load_report", conn))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
+                //try
+                //{
+                //    conn.Open();
+                //    using (SqlCommand command = new SqlCommand("sp_load_report", conn))
+                //    {
+                //        command.CommandType = CommandType.StoredProcedure;
 
-                        command.Parameters.Add("@resi", System.Data.SqlDbType.VarChar);
-                        command.Parameters["@resi"].Value = a;
+                //        command.Parameters.Add("@resi", System.Data.SqlDbType.VarChar);
+                //        command.Parameters["@resi"].Value = a;
 
-                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                        dataAdapt.SelectCommand = command;
+                //        SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                //        dataAdapt.SelectCommand = command;
 
-                        dataAdapt.Fill(DT);
-                    }
-                    conn.Close();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+                //        dataAdapt.Fill(DT);
+                //    }
+                //    conn.Close();
+                //}
+                //catch (Exception ex)
+                //{
+                //    throw ex;
+                //}
 
 
-                List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
-                Dictionary<string, object> row;
-                foreach (DataRow dr in DT.Rows)
-                {
-                    row = new Dictionary<string, object>();
-                    foreach (DataColumn col in DT.Columns)
-                    {
-                        row.Add(col.ColumnName, dr[col]);
-                    }
-                    rows.Add(row);
-                }
+                //List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+                //Dictionary<string, object> row;
+                //foreach (DataRow dr in DT.Rows)
+                //{
+                //    row = new Dictionary<string, object>();
+                //    foreach (DataColumn col in DT.Columns)
+                //    {
+                //        row.Add(col.ColumnName, dr[col]);
+                //    }
+                //    rows.Add(row);
+                //}
 
-                ReportDataSource DataSource = new ReportDataSource("EkspedisiOnlineDataSource", DT);
-                this.ReportViewer1.LocalReport.DataSources.Clear();
-                this.ReportViewer1.LocalReport.DataSources.Add(DataSource);
+                //ReportDataSource DataSource = new ReportDataSource("EkspedisiOnlineDataSource", DT);
+                //this.ReportViewer1.LocalReport.DataSources.Clear();
+                //this.ReportViewer1.LocalReport.DataSources.Add(DataSource);
 
-                ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("EODataset", DT));
+                //ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("EODataset", DT));
 
             }
         }

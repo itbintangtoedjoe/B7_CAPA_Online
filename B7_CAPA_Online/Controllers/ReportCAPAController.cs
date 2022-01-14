@@ -26,6 +26,14 @@ namespace B7_CAPA_Online.Controllers
         {
             return View();
         }
+        public ActionResult ReportView()
+        {
+            return View();
+        }
+        public ActionResult ReportAll()
+        {
+            return View();
+        }
 
         public ActionResult DynamicController(DynamicModel Models, string spname)
         {

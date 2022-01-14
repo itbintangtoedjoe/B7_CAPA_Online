@@ -11,7 +11,7 @@ namespace B7_CAPA_Online.Report
 {
 
 
-    public partial class WebForm1
+    public partial class WebFormCAPA
     {
 
         /// <summary>
