@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
-  <ReportSections>
-    <ReportSection>
       <Body>
         <ReportItems>
           <Rectangle Name="Rectangle1">
@@ -5943,8 +5941,6 @@ ATB/PMTMS/FKM</Value>
         <ColumnSpacing>0.13cm</ColumnSpacing>
         <Style />
       </Page>
-    </ReportSection>
-  </ReportSections>
   <EmbeddedImages>
     <EmbeddedImage Name="logo">
       <MIMEType>image/png</MIMEType>
