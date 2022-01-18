@@ -1,8 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "AtasanPelaksanaApprovalPerubahanTindakan";
+    ViewBag.Title = "AtasanPelaksanaPembatalanTindakan";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <style>
     @@media (min-width: 768px) {
         .modal-xl {
@@ -93,7 +94,7 @@
             </div>
         </div>
         @Html.Partial("KajianResikoPV")
-       
+
 
     </div>
 </div>
@@ -164,7 +165,7 @@
         });
     }
     $(document).ready(function () {
-       
+
         $('#RootCause_KajianResikoDDL').attr('disabled', true);
         $('#btn_AddKajian').attr('disabled', true);
         GetTindakanPerbaikan();
@@ -182,13 +183,12 @@
     });
 
     function GetTindakanPerbaikan() {
-        console.log(noCAPA);
         var dictlist = {
             NoCAPA: noCAPA,
             Empid: nik,
             Option: 1,
-            Stat: 10,
-            Status_Perbaikan: 'Perubahan Perbaikan'
+            Stat:10,
+            Status_Perbaikan: "Pembatalan Perbaikan"
         }
         var dto1 = {
             Model: dictlist
@@ -246,7 +246,8 @@
             Empid: nik,
             Option: 2,
             Stat: 10,
-            Status_Pencegahan: "Perubahan Pencegahan"
+            Status_Pencegahan: "Pembatalan Pencegahan"
+
         }
         var dto1 = {
             Model: dictlist
@@ -306,6 +307,7 @@
         var id = data['RecordID'];
         var dictlist = {
             NoCAPA: noCAPA,
+            Empid: nik,
             RecordID: id,
             Option: 7,
         }
@@ -350,7 +352,8 @@
                     NoCAPA: $('#QS_NoCAPA').val(),
                     Option: 5,
                     RecordID: id,
-                    RejectReason: reject
+                    RejectReason: reject,
+                    Empid: nik
                 }
                 var dto1 = {
                     Model: dictlist
@@ -363,7 +366,6 @@
                         data: JSON.stringify(dto1),
                         contentType: "application/json;charset=utf-8",
                         success: function (data) {
-                            GetTindakanPerbaikan();
                             Swal.fire(
                                 'Rejected!',
                                 'Reject Berhasil',
@@ -387,10 +389,11 @@
     }
     function ApprovePencegahan(button) {
         var row = $(button).closest("TR");
-        var data = $('#Tbl_Pencegahan').DataTable().row(row).data();
+        var data = $('#Tbl_Perbaikan').DataTable().row(row).data();
         var id = data['RecordID'];
         var dictlist = {
             NoCAPA: noCAPA,
+            Empid: nik,
             RecordID: id,
             Option: 8,
         }
@@ -404,7 +407,7 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                GetTindakanPencegahan();
+
                 Swal.fire(
                     'Approve!',
                     'Approve Berhasil',
@@ -429,13 +432,14 @@
             if (result.value) {
                 var reject = $('#txtReject').val();
                 var row = $(button).closest("TR");
-                var data = $('#Tbl_Pencegahan').DataTable().row(row).data();
+                var data = $('#Tbl_Perbaikan').DataTable().row(row).data();
                 var id = data['RecordID'];
                 var dictlist = {
                     NoCAPA: $('#QS_NoCAPA').val(),
                     Option: 6,
                     RecordID: id,
-                    RejectReason: reject
+                    RejectReason: reject,
+                    Empid: nik
                 }
                 var dto1 = {
                     Model: dictlist
@@ -448,7 +452,6 @@
                         data: JSON.stringify(dto1),
                         contentType: "application/json;charset=utf-8",
                         success: function (data) {
-                            GetTindakanPencegahan();
                             Swal.fire(
                                 'Rejected!',
                                 'Reject Berhasil',
@@ -480,8 +483,8 @@
                     Empid: nik,
                     Option: 3,
                     Stat: 10,
-                    Status_Perbaikan: "Perubahan Perbaikan",
-                    Status_Pencegahan: "Perubahan Pencegahan"
+                    Status_Perbaikan: "Pembatalan Perbaikan",
+                    Status_Pencegahan:"Pembatalan Pencegahan"
                 }
             }),
             dataType: 'json',

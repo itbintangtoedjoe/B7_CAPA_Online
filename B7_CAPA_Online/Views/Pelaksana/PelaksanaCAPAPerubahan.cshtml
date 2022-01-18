@@ -441,7 +441,7 @@
                         RecordID: referenceID,
                         NO_CAPA: noCAPA,
                         Tipe: jenis,
-                        Tindakan: $('#RootCause_KajianResikoDDL').val(),
+                        Tindakan: values.Tindakan,
                         P_Kegagalan: $('#TxtPotensiKegagalan').val(),
                         Spek: $('#TxtSpesifikasi').val(),
                         Dampak: $('#TxtDampak').val(),
@@ -462,7 +462,7 @@
                         Detectability2: $('#Detectability2_DDL').val(),
                         RPN2: $('#TxtRPN2').val(),
                         RiskLevel2: $('#TxtRiskLevel2').val(),
-                        PIC: pic,
+                        PIC: nik,
                         DueDate: $('#DueDate_Kajian').val(),
                         Lainnya: $('#TxtLainnya').val(),
                         EmpID: nik,
@@ -912,10 +912,6 @@
             })
             return;
         }
-        if (valid == true)
-        {
-            laststate == true;
-        }
         if (datepencegahan !="" && (date.getTime() > datepencegahan.getTime())) {
             Swal.fire(
                 'Maaf',
@@ -924,7 +920,6 @@
             )
             return;
         }
-        if (laststate == true) {
             $.ajax({
                 url: "DynamicController?spname=SP_Update_Pelaksanaan",
                 type: "POST",
@@ -954,14 +949,7 @@
                     alert(JSON.stringify(ex));
                 }
             });
-        }
-        else {
-            Swal.fire(
-                'Maaf',
-                'Tindakan harus dikaji terlebih dahulu.',
-                'warning'
-            )
-        }
+       
 
     }
 </script>

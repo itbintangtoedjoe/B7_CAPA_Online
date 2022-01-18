@@ -1,8 +1,10 @@
 ﻿
 @{
-    ViewBag.Title = "AtasanPelaksanaApprovalPerubahanTindakan";
+    ViewBag.Title = "ApprovalPenambahanEvaluator";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
 <style>
     @@media (min-width: 768px) {
         .modal-xl {
@@ -93,7 +95,7 @@
             </div>
         </div>
         @Html.Partial("KajianResikoPV")
-       
+
 
     </div>
 </div>
@@ -114,6 +116,7 @@
     var statuser = false;
     var stataction = false;
     var laststate = false;
+    var valid = false;
     var referenceID = getQueryStrings()["ReferenceID"];
     $('#input_NoCAPA').val(noCAPA);
     //function untuk ambil semua query string
@@ -131,7 +134,7 @@
     {
         var dictlist = {
             NoCAPA: noCAPA,
-            Option: 4,
+            Option: 23,
         }
         var dto1 = {
             Model: dictlist
@@ -146,14 +149,12 @@
                 var result = JSON.parse(data);
                 for (var i = 0; i < result.length; i++) {
                     var listuser = result[i].SupName;
-                    if (listuser == namaUser) {
-                        $('#ApprovePerb').attr('disabled', false);
-                        $('#RejectPerb').attr('disabled', false);
+                    if (listuser == nik) {
+                        valid = true;
                         break;
                     }
                     else {
-                        $('#ApprovePerb').attr('disabled', true);
-                        $('#RejectPerb').attr('disabled', true);
+                        valid = false;
                     }
                 }
 
@@ -164,7 +165,7 @@
         });
     }
     $(document).ready(function () {
-       
+
         $('#RootCause_KajianResikoDDL').attr('disabled', true);
         $('#btn_AddKajian').attr('disabled', true);
         GetTindakanPerbaikan();
@@ -182,13 +183,12 @@
     });
 
     function GetTindakanPerbaikan() {
-        console.log(noCAPA);
         var dictlist = {
             NoCAPA: noCAPA,
             Empid: nik,
             Option: 1,
-            Stat: 10,
-            Status_Perbaikan: 'Perubahan Perbaikan'
+            Stat: 11,
+            Status_Perbaikan:"Perbaikan Baru"
         }
         var dto1 = {
             Model: dictlist
@@ -244,9 +244,8 @@
         var dictlist = {
             NoCAPA: noCAPA,
             Empid: nik,
-            Option: 2,
-            Stat: 10,
-            Status_Pencegahan: "Perubahan Pencegahan"
+            Option: 18,
+            Stat: 11
         }
         var dto1 = {
             Model: dictlist
@@ -306,8 +305,9 @@
         var id = data['RecordID'];
         var dictlist = {
             NoCAPA: noCAPA,
+            Empid: nik,
             RecordID: id,
-            Option: 7,
+            Option: 14,
         }
         var dto1 = {
             Model: dictlist
@@ -348,9 +348,10 @@
                 var id = data['RecordID'];
                 var dictlist = {
                     NoCAPA: $('#QS_NoCAPA').val(),
-                    Option: 5,
+                    Option: 12,
                     RecordID: id,
-                    RejectReason: reject
+                    RejectReason: reject,
+                    Empid: nik
                 }
                 var dto1 = {
                     Model: dictlist
@@ -363,7 +364,6 @@
                         data: JSON.stringify(dto1),
                         contentType: "application/json;charset=utf-8",
                         success: function (data) {
-                            GetTindakanPerbaikan();
                             Swal.fire(
                                 'Rejected!',
                                 'Reject Berhasil',
@@ -387,12 +387,13 @@
     }
     function ApprovePencegahan(button) {
         var row = $(button).closest("TR");
-        var data = $('#Tbl_Pencegahan').DataTable().row(row).data();
+        var data = $('#Tbl_Perbaikan').DataTable().row(row).data();
         var id = data['RecordID'];
         var dictlist = {
             NoCAPA: noCAPA,
+            Empid: nik,
             RecordID: id,
-            Option: 8,
+            Option: 15,
         }
         var dto1 = {
             Model: dictlist
@@ -404,7 +405,7 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                GetTindakanPencegahan();
+
                 Swal.fire(
                     'Approve!',
                     'Approve Berhasil',
@@ -429,13 +430,14 @@
             if (result.value) {
                 var reject = $('#txtReject').val();
                 var row = $(button).closest("TR");
-                var data = $('#Tbl_Pencegahan').DataTable().row(row).data();
+                var data = $('#Tbl_Perbaikan').DataTable().row(row).data();
                 var id = data['RecordID'];
                 var dictlist = {
                     NoCAPA: $('#QS_NoCAPA').val(),
-                    Option: 6,
+                    Option: 13,
                     RecordID: id,
-                    RejectReason: reject
+                    RejectReason: reject,
+                    Empid: nik
                 }
                 var dto1 = {
                     Model: dictlist
@@ -448,7 +450,6 @@
                         data: JSON.stringify(dto1),
                         contentType: "application/json;charset=utf-8",
                         success: function (data) {
-                            GetTindakanPencegahan();
                             Swal.fire(
                                 'Rejected!',
                                 'Reject Berhasil',
@@ -470,6 +471,7 @@
             }
         })
     }
+
     function TableKajian() {
         $.ajax({
             url: 'DynamicController?spname=SP_FORM_Perubahan',
@@ -478,10 +480,8 @@
                 Model: {
                     NoCAPA: noCAPA,
                     Empid: nik,
-                    Option: 3,
-                    Stat: 10,
-                    Status_Perbaikan: "Perubahan Perbaikan",
-                    Status_Pencegahan: "Perubahan Pencegahan"
+                    Option: 11,
+                    Stat: 11
                 }
             }),
             dataType: 'json',
@@ -551,4 +551,8 @@
 
 
 </script>
+
+
+
+
 

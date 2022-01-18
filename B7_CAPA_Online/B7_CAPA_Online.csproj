@@ -5461,6 +5461,12 @@
     <Content Include="Views\Koordinator\Koordinator4.cshtml" />
     <Content Include="Views\Pelaksana\PelaksanaCAPAPerubahan.cshtml" />
     <Content Include="Views\AtasanPelaksana\AtasanPelaksanaApprovalPerubahanTindakan.cshtml" />
+    <Content Include="Views\Koordinator\PenilaianEfektivitas.cshtml" />
+    <Content Include="Views\Evaluator\ApprovalPerubahanEvaluator.cshtml" />
+    <Content Include="Views\AtasanPelaksana\AtasanPelaksanaPenambahanTindakan.cshtml" />
+    <Content Include="Views\AtasanPelaksana\AtasanPelaksanaPembatalanTindakan.cshtml" />
+    <Content Include="Views\Evaluator\ApprovalPembatalanEvaluator.cshtml" />
+    <Content Include="Views\Evaluator\ApprovalPenambahanEvaluator.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

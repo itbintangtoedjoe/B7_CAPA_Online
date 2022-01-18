@@ -24,6 +24,12 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
+
+        public ActionResult ApprovalPerubahanEvaluator()
+        {
+            return View();
+        }
+
         public ActionResult VerifikasiCAPA()
         {
             return View();
@@ -79,5 +85,12 @@ namespace B7_CAPA_Online.Controllers
         }
         #endregion
 
+
+        public ActionResult DynamicController(DynamicModel Models, string spname)
+        {
+            var parameters = new DynamicParameters(Models.Model);
+            return Json(DAL.StoredProcedure(parameters, spname));
+
+        }
     }
 }

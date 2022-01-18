@@ -153,7 +153,6 @@
         GetDepartemen();
         GetPlant();
         GetEvalTableList();
-        HideDeleteButton();
 
         if ($('#QS_Status').val() != 4) {
             disableAll();
@@ -264,7 +263,7 @@
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
 
-                        trhtml += '<Option value = "' + result[trav].PlantID + '" > ' + result[trav].PlantDesc;
+                        trhtml += '<Option value = "' + result[trav].DDL_DESCRIPTION + '" > ' + result[trav].DDL_DESCRIPTION;
                     }
                 }
                 $("#Eva_Plant_DDL").empty();
@@ -353,7 +352,7 @@
             var dictlist = {
                 NoCAPA: $('#QS_NoCAPA').val(),
                 EmpID: $("#EvalList_DDL").val(),
-                Creator: "",
+                Creator: nik,
                 Plant: $('#Eva_Plant_DDL').val(),
                 Role: $('#Eva_Departemen_DDL').val(),
                 IsUtama: $('#IsUtama').val(),

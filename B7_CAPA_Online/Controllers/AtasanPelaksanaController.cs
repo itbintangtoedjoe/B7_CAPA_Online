@@ -44,7 +44,14 @@ namespace B7_CAPA_Online.Controllers
         {
             return View();
         }
-
+        public ActionResult AtasanPelaksanaPembatalanTindakan()
+        {
+            return View();
+        }
+        public ActionResult AtasanPelaksanaPenambahanTindakan()
+        {
+            return View();
+        }
         public ActionResult DynamicController(DynamicModel Models, string spname)
         {
             var parameters = new DynamicParameters(Models.Model);

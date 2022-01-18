@@ -1,8 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "AtasanPelaksanaApprovalPerubahanTindakan";
+    ViewBag.Title = "ApprovalPembatalanEvaluator";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <style>
     @@media (min-width: 768px) {
         .modal-xl {
@@ -93,7 +94,7 @@
             </div>
         </div>
         @Html.Partial("KajianResikoPV")
-       
+
 
     </div>
 </div>
@@ -114,6 +115,7 @@
     var statuser = false;
     var stataction = false;
     var laststate = false;
+    var valid = '';
     var referenceID = getQueryStrings()["ReferenceID"];
     $('#input_NoCAPA').val(noCAPA);
     //function untuk ambil semua query string
@@ -131,7 +133,7 @@
     {
         var dictlist = {
             NoCAPA: noCAPA,
-            Option: 4,
+            Option: 23,
         }
         var dto1 = {
             Model: dictlist
@@ -145,15 +147,13 @@
             success: function (data) {
                 var result = JSON.parse(data);
                 for (var i = 0; i < result.length; i++) {
-                    var listuser = result[i].SupName;
-                    if (listuser == namaUser) {
-                        $('#ApprovePerb').attr('disabled', false);
-                        $('#RejectPerb').attr('disabled', false);
+                    var listuser = result[i].EMPID;
+                    if (listuser == nik) {
+                        valid = true;
                         break;
                     }
                     else {
-                        $('#ApprovePerb').attr('disabled', true);
-                        $('#RejectPerb').attr('disabled', true);
+                        valid = false;
                     }
                 }
 
@@ -164,7 +164,7 @@
         });
     }
     $(document).ready(function () {
-       
+
         $('#RootCause_KajianResikoDDL').attr('disabled', true);
         $('#btn_AddKajian').attr('disabled', true);
         GetTindakanPerbaikan();
@@ -182,13 +182,12 @@
     });
 
     function GetTindakanPerbaikan() {
-        console.log(noCAPA);
         var dictlist = {
             NoCAPA: noCAPA,
             Empid: nik,
             Option: 1,
-            Stat: 10,
-            Status_Perbaikan: 'Perubahan Perbaikan'
+            Stat: 11,
+            Status_Perbaikan: "Pembatalan Perbaikan"
         }
         var dto1 = {
             Model: dictlist
@@ -245,8 +244,8 @@
             NoCAPA: noCAPA,
             Empid: nik,
             Option: 2,
-            Stat: 10,
-            Status_Pencegahan: "Perubahan Pencegahan"
+            Stat: 11,
+            Status_Pencegahan: "Pembatalan Pencegahan"
         }
         var dto1 = {
             Model: dictlist
@@ -306,27 +305,39 @@
         var id = data['RecordID'];
         var dictlist = {
             NoCAPA: noCAPA,
+            Empid: nik,
             RecordID: id,
-            Option: 7,
+            Option: 16,
         }
         var dto1 = {
             Model: dictlist
         }
-        $.ajax({
-            url: 'DynamicController?spname=SP_FORM_Perubahan',
-            type: 'post',
-            data: JSON.stringify(dto1),
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
+        if (valid == true) {
+            $.ajax({
+                url: 'DynamicController?spname=SP_FORM_Perubahan',
+                type: 'post',
+                data: JSON.stringify(dto1),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
 
-                Swal.fire(
-                    'Approve!',
-                    'Approve Berhasil',
-                    'success'
-                )
-            }
-        });
+                    Swal.fire(
+                        'Approve!',
+                        'Approve Berhasil',
+                        'success'
+                    )
+                }
+            });
+        }
+        else
+        {
+            Swal.fire(
+                'Error!',
+                'Khusus Evaluator yang Ditunjuk!',
+                'error'
+            )
+        }
+       
     }
 
     function RejectPerbaikan(button) {
@@ -350,7 +361,8 @@
                     NoCAPA: $('#QS_NoCAPA').val(),
                     Option: 5,
                     RecordID: id,
-                    RejectReason: reject
+                    RejectReason: reject,
+                    Empid: nik
                 }
                 var dto1 = {
                     Model: dictlist
@@ -363,7 +375,6 @@
                         data: JSON.stringify(dto1),
                         contentType: "application/json;charset=utf-8",
                         success: function (data) {
-                            GetTindakanPerbaikan();
                             Swal.fire(
                                 'Rejected!',
                                 'Reject Berhasil',
@@ -387,89 +398,112 @@
     }
     function ApprovePencegahan(button) {
         var row = $(button).closest("TR");
-        var data = $('#Tbl_Pencegahan').DataTable().row(row).data();
+        var data = $('#Tbl_Perbaikan').DataTable().row(row).data();
         var id = data['RecordID'];
         var dictlist = {
             NoCAPA: noCAPA,
+            Empid: nik,
             RecordID: id,
-            Option: 8,
+            Option: 17,
         }
         var dto1 = {
             Model: dictlist
         }
-        $.ajax({
-            url: 'DynamicController?spname=SP_FORM_Perubahan',
-            type: 'post',
-            data: JSON.stringify(dto1),
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                GetTindakanPencegahan();
-                Swal.fire(
-                    'Approve!',
-                    'Approve Berhasil',
-                    'success'
-                )
-            }
-        });
+        if (valid = true) {
+            $.ajax({
+                url: 'DynamicController?spname=SP_FORM_Perubahan',
+                type: 'post',
+                data: JSON.stringify(dto1),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+
+                    Swal.fire(
+                        'Approve!',
+                        'Approve Berhasil',
+                        'success'
+                    )
+                }
+            });
+        }
+        else
+        {
+            Swal.fire(
+                'Error!',
+                'Khusus Evaluator yang Ditunjuk!',
+                'error'
+            )
+        }
     }
 
     function RejectPencegahan(button) {
-        Swal.fire({
-            title: 'Alasan Reject',
-            text: "You won't be able to revert this!",
-            type: 'warning',
-            html: '<textarea id="txtReject" class="form form-control" ></textarea>',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Reject!',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.value) {
-                var reject = $('#txtReject').val();
-                var row = $(button).closest("TR");
-                var data = $('#Tbl_Pencegahan').DataTable().row(row).data();
-                var id = data['RecordID'];
-                var dictlist = {
-                    NoCAPA: $('#QS_NoCAPA').val(),
-                    Option: 6,
-                    RecordID: id,
-                    RejectReason: reject
-                }
-                var dto1 = {
-                    Model: dictlist
-                }
-                if (reject != null && reject.trim() != '') {
-                    $.ajax({
-                        url: "DynamicController?spname=SP_FORM_Perubahan",
-                        type: "post",
-                        dataType: "json",
-                        data: JSON.stringify(dto1),
-                        contentType: "application/json;charset=utf-8",
-                        success: function (data) {
-                            GetTindakanPencegahan();
-                            Swal.fire(
-                                'Rejected!',
-                                'Reject Berhasil',
-                                'success'
-                            )
-                        },
-                        error: function (errormessage) {
-                        }
-                    });
-                }
-                else {
+        if (valid = true) {
+            Swal.fire({
+                title: 'Alasan Reject',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                html: '<textarea id="txtReject" class="form form-control" ></textarea>',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Reject!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    var reject = $('#txtReject').val();
+                    var row = $(button).closest("TR");
+                    var data = $('#Tbl_Perbaikan').DataTable().row(row).data();
+                    var id = data['RecordID'];
+                    var dictlist = {
+                        NoCAPA: $('#QS_NoCAPA').val(),
+                        Option: 6,
+                        RecordID: id,
+                        RejectReason: reject,
+                        Empid: nik
+                    }
+                    var dto1 = {
+                        Model: dictlist
+                    }
+                    if (reject != null && reject.trim() != '') {
+                        $.ajax({
+                            url: "DynamicController?spname=SP_FORM_Perubahan",
+                            type: "post",
+                            dataType: "json",
+                            data: JSON.stringify(dto1),
+                            contentType: "application/json;charset=utf-8",
+                            success: function (data) {
+                                Swal.fire(
+                                    'Rejected!',
+                                    'Reject Berhasil',
+                                    'success'
+                                )
+                            },
+                            error: function (errormessage) {
+                            }
+                        });
+                    }
+                    else {
 
-                    Swal.fire(
-                        'Error!',
-                        'Alasan tidak boleh kosong.',
-                        'error'
-                    )
+                        Swal.fire(
+                            'Error!',
+                            'Alasan tidak boleh kosong.',
+                            'error'
+                        )
+                    }
                 }
-            }
-        })
+            })
+        }
+        else
+        {
+            Swal.fire(
+                'Error!',
+                'Khusus Evaluator yang Ditunjuk!',
+                'error'
+            )
+        }
+        
     }
+
     function TableKajian() {
         $.ajax({
             url: 'DynamicController?spname=SP_FORM_Perubahan',
@@ -477,11 +511,10 @@
             data: JSON.stringify({
                 Model: {
                     NoCAPA: noCAPA,
-                    Empid: nik,
-                    Option: 3,
-                    Stat: 10,
-                    Status_Perbaikan: "Perubahan Perbaikan",
-                    Status_Pencegahan: "Perubahan Pencegahan"
+                    Option: 22,
+                    Stat: 11,
+                    Status_Perbaikan: 'Perubahan Perbaikan',
+                    Status_Pencegahan: 'Perubahan Pencegahan'
                 }
             }),
             dataType: 'json',
@@ -551,4 +584,8 @@
 
 
 </script>
+
+
+
+
 
