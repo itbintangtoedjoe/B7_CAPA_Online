@@ -308,6 +308,7 @@
             NoCAPA: noCAPA,
             RecordID: id,
             Option: 7,
+            Empid: nik
         }
         var dto1 = {
             Model: dictlist
@@ -347,10 +348,11 @@
                 var data = $('#Tbl_Perbaikan').DataTable().row(row).data();
                 var id = data['RecordID'];
                 var dictlist = {
-                    NoCAPA: $('#QS_NoCAPA').val(),
+                    NoCAPA: noCAPA,
                     Option: 5,
                     RecordID: id,
-                    RejectReason: reject
+                    RejectReason: reject,
+                    Empid: nik
                 }
                 var dto1 = {
                     Model: dictlist
@@ -393,6 +395,7 @@
             NoCAPA: noCAPA,
             RecordID: id,
             Option: 8,
+            Empid: nik
         }
         var dto1 = {
             Model: dictlist
@@ -432,10 +435,11 @@
                 var data = $('#Tbl_Pencegahan').DataTable().row(row).data();
                 var id = data['RecordID'];
                 var dictlist = {
-                    NoCAPA: $('#QS_NoCAPA').val(),
+                    NoCAPA: noCAPA,
                     Option: 6,
                     RecordID: id,
-                    RejectReason: reject
+                    RejectReason: reject,
+                    Empid: nik
                 }
                 var dto1 = {
                     Model: dictlist

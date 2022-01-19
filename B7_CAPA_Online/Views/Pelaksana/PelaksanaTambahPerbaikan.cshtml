@@ -210,7 +210,7 @@
     var newKajianResiko = [];
     var objTindakan;
     var tipe;
-    var jenis = "Tambah Pencegahan Existing";
+    var jenis;
     var values;
     var laststate = false;
     function getQueryStrings() {
@@ -225,6 +225,7 @@
     }
 
     $(document).ready(function () {
+        jenis = "Pencegahan Existing";
         KajianResikoDDL();
         TableKajian();
         retrieveData();
@@ -233,7 +234,6 @@
         $("#TxtPIC").val('Default');
         KajianDDLPencegahan();
         //$('#RootCause_KajianResikoDDL').prop("disabled", true);
-        $('#btn_AddKajian').prop("disabled", true);
         $('#tblHeaderTindakan').prop("hidden", true);
         $('#btnback').click(function () {
             window.location.href = '../Pelaksana/PelaksanaCAPA';
@@ -244,7 +244,6 @@
                 $('#Div_TindakanPerbaikan').prop('hidden', false);
                 $('#PerbaikanExisting').prop('hidden', true);
                 $('#Div_Pencegahan').prop('hidden', true);
-                jenis = "Tambah Pencegahan Baru";
                 KajianDDLPerbaikanBaru();
                 TableKajianTambahTindakanBaru();
             }
@@ -254,7 +253,6 @@
                 $('#btnSimpan').prop('hidden', false);
                 $('#Div_TindakanPerbaikan').prop('hidden', true);
                 $('#Div_TindakanPencegahan').prop('hidden', true);
-                jenis = "Tambah Pencegahan Existing";
                 KajianDDLPencegahan();
                 TableKajian();
             }
@@ -312,15 +310,21 @@
 
         $('#RootCause_KajianResikoDDL').change(function () {
             var val = $('#RootCause_KajianResikoDDL').text();
-            if (val.indexOf('[Perbaikan]') == 0) {
-                tipe = "Perbaikan";
-                jenis = "Tambah Perbaikan Baru";
+            var berpotensi = $('input[name="TambahPerbaikan"]:checked').val();
+            if (berpotensi == "Yes") {
+                if (val.indexOf('[Perbaikan]') == 0) {
+                    tipe = "Perbaikan";
+                    jenis = "Perbaikan Baru";
+                }
+                else {
+                    tipe = "Pencegahan"
+                    jenis = "Pencegahan Baru";
+                }
             }
-            else
-            {
-                tipe = "Pencegahan"
+            else {
+                jenis = "Pencegahan Existing";
             }
-
+            
         });
         $('#btn_AddKajian').click(function () {
             recTindakan();
@@ -513,12 +517,13 @@
 
     function KajianResikoDDL() {
         $.ajax({
-            url: '/PIC/GetDataPIC',
+            url: 'DynamicController?spname=SP_FORM_CAPA',
             type: 'post',
             data: JSON.stringify({
-                Option: 10,
-                NO_CAPA: noCAPA,
-                SP: "[dbo].[SP_FORM_CAPA]"
+                Model: {
+                    Option: 10,
+                    NO_CAPA: noCAPA
+                }
             }),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
@@ -539,11 +544,12 @@
     }
 
     function recTindakan() {
-
-        //console.log(objTindakan);
+        console.log(objTindakan);
         //console.log(tipe);
+        console.log($('#RootCause_KajianResikoDDL').val());
+        var tambahperbaikan = $('input[name="TambahPerbaikan"]:checked').val();
+        console.log(tambahperbaikan);
         for (var i = 0; i < objTindakan.length; i++) {
-            var tambahperbaikan = $('input[name="TambahPerbaikan"]:checked').val();
             if (tambahperbaikan == "Yes") {
                 if (objTindakan[i].RecordID == $('#RootCause_KajianResikoDDL').val() && objTindakan[i].Tipe == tipe) {
                     values = objTindakan[i];
@@ -552,13 +558,15 @@
             }
             else
             {
-                if (objTindakan[i].RecordID == referenceID && objTindakan[i].Tipe == "Pencegahan") {
+                if (objTindakan[i].RecordID == $('#RootCause_KajianResikoDDL').val()  && objTindakan[i].Tipe == "Pencegahan") {
                     values = objTindakan[i];
+                    console.log(values);
                     break;
                 }
             }
         }
     }
+
     function TableKajianTambahTindakanBaru() {
         $.ajax({
             url: 'DynamicController?spname=SP_Find_Data',
@@ -636,16 +644,17 @@
     }
 
     function TableKajian() {
+        var refid = parseInt(referenceID);
         $.ajax({
             url: 'DynamicController?spname=SP_Find_Data',
             type: 'post',
             data: JSON.stringify({
                 Model: {
                     nomorCAPA: noCAPA,
-                    kategori: "Kajian Resiko",
+                    kategori: "Kajian Resiko Pencegahan Existing",
                     tipe: jenis,
-                    recordID: referenceID
-                }
+                    refid: refid
+                }   
             }),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
@@ -1098,6 +1107,7 @@
                             }
                             $("input[name='TambahPerbaikan']").prop("disabled", true);
                             KajianDDLPerbaikanBaru();
+                            KajianResikoDDL();
                         });
                     }
                 },
@@ -1221,8 +1231,8 @@
                 if (result.length > 0) {
 
                     $('#RootCause_KajianResikoDDL').prop("disabled", false);
-                    $('#btn_AddKajian').prop("disabled", false);
                     $('#RootCause_KajianResikoDDL').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+                    $('#btn_AddKajian').prop("disabled", false);
                 }
                 else {
                     $('#RootCause_KajianResikoDDL').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
