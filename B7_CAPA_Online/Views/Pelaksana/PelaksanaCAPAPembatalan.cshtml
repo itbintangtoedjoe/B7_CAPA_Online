@@ -481,9 +481,9 @@
                                         //close modal
                                         RemoveModalInput();
                                         // fetch to table
-                                        TableKajian();
                                     }
                                 });
+                                TableKajian();
                             }
                         },
                         error: function (ex) {
@@ -747,9 +747,8 @@
                     var duedaterev = moment(dataPerbaikan.Due_DateRev);
                     $('#txtRootCausePerbaikan').val(dataPerbaikan.WhyDesc);
                     $('#txtTindakanPerbaikan').val(dataPerbaikan.Tindakan_Perbaikan);
-                    $('#txtTindakanPerbaikan').prop("disabled", true);
                     $('#dueDatePerbaikan').val(duedate.format("YYYY-MM-DD"));
-                    $('#dueDatePerbaikan').prop("disabled", true);
+                    $('#txtTindakanPerbaikan').prop("disabled", true);
                     $('#AlasanBatalPerbaikan').val(dataPerbaikan.Alasan_Pembatalan);
                     if (dataPerbaikan.Alasan_Pembatalan != "") {
                         $('#btn_AddKajian').attr("disabled", false);
@@ -762,13 +761,9 @@
                     }
                     if (dataPerbaikan.Status_ID != 6) {
                         $('#btn_AddKajian').attr("disabled", true);
-                        $('#txtTindakanPerbaikanRev').attr("disabled", true);
-                        $('#AlasanTindakanPerbaikan').attr("disabled", true);
-                        $('#dueDatePerbaikanRev').attr("disabled", true);
-                        $('#AlasanDueDate').attr("disabled", true);
-                        $('#UpdatePerbaikan').attr("disabled", true);
+                        $('#AlasanBatalPerbaikan').attr("disabled", true);
+                        $('#CancelPerbaikan').attr("disabled", true);
                         $('#Submit').attr("disabled", true);
-
                     }
                     @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
 
@@ -802,8 +797,24 @@
                 $('#txtTindakanPencegahan').val(dataPencegahan.Tindakan_Pencegahan);
                 $('#txtTindakanPencegahan').prop("disabled", true);
                 $('#dueDatePencegahan').val(duedate.format("YYYY-MM-DD"));
+                $('#AlasanBatalPencegahan').val(dataPencegahan.Alasan_Pembatalan);
                 @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
+                if (dataPencegahan.Alasan_Pembatalan != "") {
+                    $('#btn_AddKajian').attr("disabled", false);
+                    $('#RootCause_KajianResikoDDL').append(new Option(dataPencegahan.Tindakan_Pencegahan, dataPencegahan.Tindakan_Pencegahan));
+                    $('#RootCause_KajianResikoDDL').val(dataPencegahan.Tindakan_Pencegahan);
 
+                }
+                else {
+                    $('#btn_AddKajian').attr("disabled", true);
+                }
+                if (dataPencegahan.Status_ID != 6) {
+                    $('#btn_AddKajian').attr("disabled", true);
+                    $('#CancelPencegahan').attr("disabled", true);
+                    $('#AlasanBatalPencegahan').attr("disabled", true);
+                    $('#Submit').attr("disabled", true);
+
+                }
             }, error: function (ex) {
                 alert(JSON.stringify(ex));
             }
@@ -847,6 +858,7 @@
                     )
 
                     $('#CancelPerbaikan').attr("disabled", true);
+                    $('#AlasanBatalPerbaikan').attr("disabled", true);
                     $('#btn_AddKajian').attr("disabled", true);
                     $('#Submit').attr("disabled", true);
                     @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
@@ -892,6 +904,7 @@
                         'success'
                     )
                     $('#CancelPencegahan').attr("disabled", true);
+                    $('#AlasanBatalPencegahan').attr("disabled", true);
                     $('#btn_AddKajian').attr("disabled", true);
                     $('#Submit').attr("disabled", true);
                     @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@

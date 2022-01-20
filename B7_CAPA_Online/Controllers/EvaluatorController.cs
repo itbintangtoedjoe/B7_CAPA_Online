@@ -30,6 +30,16 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
+        public ActionResult ApprovalPembatalanEvaluator()
+        {
+            return View();
+        }
+
+        public ActionResult ApprovalPenambahanEvaluator()
+        {
+            return View();
+        }
+
         public ActionResult VerifikasiCAPA()
         {
             return View();

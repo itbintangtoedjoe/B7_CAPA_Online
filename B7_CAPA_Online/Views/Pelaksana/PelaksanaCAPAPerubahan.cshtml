@@ -785,6 +785,7 @@
         var alasanDueDate = $('#AlasanDueDate').val();
         var alasantindakanperbaikan = $('#AlasanTindakanPerbaikan').val();
         var dueDaterev = $('#dueDatePerbaikanRev').val();
+        alert(dueDaterev);
         var dateperbaikan = new Date($('#dueDatePerbaikanRev').val());
         var dictlist = {
             Kategori: "Update Perbaikan",
@@ -948,6 +949,8 @@
                         )
                         $('#txtTindakanPerbaikanRev').attr("disabled", true);
                         $('#AlasanTindakanPerbaikan').attr("disabled", true);
+                        $('#UpdatePerbaikan').attr("disabled", true);
+                        $('#AlasanDueDate').attr("disabled", true);
                         $('#dueDatePerbaikanRev').attr("disabled", true);
                         $('#txtTindakanPerbaikanRev').attr("disabled", true);
                     }
@@ -997,6 +1000,8 @@
                         )
                         $('#txtTindakanPencegahanRev').attr("disabled", true);
                         $('#AlasanTindakanPencegahan').attr("disabled", true);
+                        $('#UpdatePencegahan').attr("disabled", true);
+                        $('#AlasanDueDatePencegahan').attr("disabled", true);
                         $('#dueDatePencegahanRev').attr("disabled", true);
                         $('#txtTindakanPencegahanRev').attr("disabled", true);
                     }

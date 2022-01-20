@@ -105,10 +105,10 @@
 
 <script>
     var noCAPA = getQueryStrings()["NoCAPA"];
-    //var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
-    var nik = "090500076";
-    //var namaUser = '@Request.RequestContext.HttpContext.Session["NamaUser"]';
-    var namaUser = 'DENNY IRAWAN';
+    var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
+    //var nik = "090500076";
+    var namaUser = '@Request.RequestContext.HttpContext.Session["NamaUser"]';
+    //var namaUser = 'DENNY IRAWAN';
     var tindakan = "Approval Perubahan";
     var superiorName = '@Request.RequestContext.HttpContext.Session["SuperiorName"]';
     var dataPerbaikan, attachmentPerbaikan, dataPencegahan, attachmentPencegahan;
@@ -202,7 +202,7 @@
             success: function (data) {
                 var table = $('#Tbl_Perbaikan').DataTable({
                     "pageLength": 5,
-                    "lengthChange": true,
+                    "lengthChange": false,
                     "searching": false,
                     "data": JSON.parse(data),
                     "select": true,
@@ -211,7 +211,7 @@
                     "destroy": true,
                     "columns": [
                         { "data": "RecordID" },
-                        { "data": "WhyID" },
+                        { "data": "WhyDesc" },
                         { "data": "PelaksanaName" },
                         { "data": "Tindakan_Perbaikan" },
                         { "data": "Tindakan_PerbaikanRev" },
@@ -240,6 +240,7 @@
             }
         });
     }
+
     function GetTindakanPencegahan() {
         var dictlist = {
             NoCAPA: noCAPA,
@@ -259,13 +260,12 @@
             success: function (data) {
                 var table = $('#Tbl_Pencegahan').DataTable({
                     "pageLength": 5,
-                    "lengthChange": true,
+                    "lengthChange": false,
                     "searching": false,
                     "data": JSON.parse(data),
-                    "select": true,
+                    "select": false,
                     "scrollCollapse": true,
                     "destroy": true,
-
                     "columns": [
                         { "data": "RecordID" },
                         { "data": "WhyDesc" },
@@ -276,6 +276,7 @@
                         { "data": "tanggal" },
                         { "data": "tanggalRev" },
                         { "data": "Alasan_Due_Date" },
+                        { "data": "Stat" },
                         {
                             "data": null,
                             "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahan(this) value='Reject'style='background-color:red;'/>"
@@ -319,7 +320,8 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-
+                GetTindakanPerbaikan();
+                TableKajian();
                 Swal.fire(
                     'Approve!',
                     'Approve Berhasil',
@@ -364,6 +366,8 @@
                         data: JSON.stringify(dto1),
                         contentType: "application/json;charset=utf-8",
                         success: function (data) {
+                            GetTindakanPerbaikan();
+                            TableKajian();
                             Swal.fire(
                                 'Rejected!',
                                 'Reject Berhasil',
@@ -387,7 +391,7 @@
     }
     function ApprovePencegahan(button) {
         var row = $(button).closest("TR");
-        var data = $('#Tbl_Perbaikan').DataTable().row(row).data();
+        var data = $('#Tbl_Pencegahan').DataTable().row(row).data();
         var id = data['RecordID'];
         var dictlist = {
             NoCAPA: noCAPA,
@@ -405,7 +409,8 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-
+                GetTindakanPencegahan();
+                TableKajian();
                 Swal.fire(
                     'Approve!',
                     'Approve Berhasil',
@@ -430,13 +435,15 @@
             if (result.value) {
                 var reject = $('#txtReject').val();
                 var row = $(button).closest("TR");
-                var data = $('#Tbl_Perbaikan').DataTable().row(row).data();
+                var data = $('#Tbl_Pencegahan').DataTable().row(row).data();
                 var id = data['RecordID'];
+                var tipe = data['Status_Pencegahan'];
                 var dictlist = {
-                    NoCAPA: $('#QS_NoCAPA').val(),
+                    NoCAPA: noCAPA,
                     Option: 13,
                     RecordID: id,
                     RejectReason: reject,
+                    Tipe: tipe,
                     Empid: nik
                 }
                 var dto1 = {
@@ -450,6 +457,8 @@
                         data: JSON.stringify(dto1),
                         contentType: "application/json;charset=utf-8",
                         success: function (data) {
+                            GetTindakanPencegahan();
+                            TableKajian();
                             Swal.fire(
                                 'Rejected!',
                                 'Reject Berhasil',
@@ -471,6 +480,7 @@
             }
         })
     }
+
     function TableKajian() {
         $.ajax({
             url: 'DynamicController?spname=SP_FORM_Perubahan',
@@ -480,7 +490,7 @@
                     NoCAPA: noCAPA,
                     Empid: nik,
                     Option: 11,
-                    Stat: 11
+                    Stat: 10
                 }
             }),
             dataType: 'json',

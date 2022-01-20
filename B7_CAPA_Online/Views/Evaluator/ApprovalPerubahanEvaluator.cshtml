@@ -105,10 +105,11 @@
 
 <script>
     var noCAPA = getQueryStrings()["NoCAPA"];
-    //var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
-    var nik = "090500076";
-    //var namaUser = '@Request.RequestContext.HttpContext.Session["NamaUser"]';
-    var namaUser = 'DENNY IRAWAN';
+
+    var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
+    //var nik = "090500076";
+    var namaUser = '@Request.RequestContext.HttpContext.Session["NamaUser"]';
+    //var namaUser = 'DENNY IRAWAN';
     var tindakan = "Approval Perubahan";
     var superiorName = '@Request.RequestContext.HttpContext.Session["SuperiorName"]';
     var dataPerbaikan, attachmentPerbaikan, dataPencegahan, attachmentPencegahan;
@@ -128,11 +129,10 @@
         }
         return vars;
     }
-    function checkUser()
-    {
+    function checkUser() {
         var dictlist = {
             NoCAPA: noCAPA,
-            Option: 4,
+            Option: 23,
         }
         var dto1 = {
             Model: dictlist
@@ -146,7 +146,7 @@
             success: function (data) {
                 var result = JSON.parse(data);
                 for (var i = 0; i < result.length; i++) {
-                    var listuser = result[i].SupName;
+                    var listuser = result[i].EMPID;
                     if (listuser == nik) {
                         valid = true;
                         break;
@@ -163,7 +163,7 @@
         });
     }
     $(document).ready(function () {
-
+        checkUser();
         $('#RootCause_KajianResikoDDL').attr('disabled', true);
         $('#btn_AddKajian').attr('disabled', true);
         GetTindakanPerbaikan();
@@ -199,7 +199,7 @@
             success: function (data) {
                 var table = $('#Tbl_Perbaikan').DataTable({
                     "pageLength": 5,
-                    "lengthChange": true,
+                    "lengthChange": false,
                     "searching": false,
                     "data": JSON.parse(data),
                     "select": true,
@@ -208,7 +208,7 @@
                     "destroy": true,
                     "columns": [
                         { "data": "RecordID" },
-                        { "data": "WhyID" },
+                        { "data": "WhyDesc" },
                         { "data": "PelaksanaName" },
                         { "data": "Tindakan_Perbaikan" },
                         { "data": "Tindakan_PerbaikanRev" },
@@ -242,7 +242,7 @@
             NoCAPA: noCAPA,
             Empid: nik,
             Option: 20,
-            Status_Pencegahan: "Perubahan Pencegahan" 
+            Status_Pencegahan: "Perubahan Pencegahan"
         }
         var dto1 = {
             Model: dictlist
@@ -256,7 +256,7 @@
             success: function (data) {
                 var table = $('#Tbl_Pencegahan').DataTable({
                     "pageLength": 5,
-                    "lengthChange": true,
+                    "lengthChange": false,
                     "searching": false,
                     "data": JSON.parse(data),
                     "select": true,
@@ -273,6 +273,7 @@
                         { "data": "tanggal" },
                         { "data": "tanggalRev" },
                         { "data": "Alasan_Due_Date" },
+                        { "data": "Stat" },
                         {
                             "data": null,
                             "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahan(this) value='Reject'style='background-color:red;'/>"
@@ -295,6 +296,7 @@
             }
         });
     }
+
     function ApprovePerbaikan(button)
     {
         var row = $(button).closest("TR");
@@ -308,82 +310,106 @@
         var dto1 = {
             Model: dictlist
         }
-        $.ajax({
-            url: 'DynamicController?spname=SP_FORM_Perubahan',
-            type: 'post',
-            data: JSON.stringify(dto1),
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
+        if (valid == true) {
+            $.ajax({
+                url: 'DynamicController?spname=SP_FORM_Perubahan',
+                type: 'post',
+                data: JSON.stringify(dto1),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    GetTindakanPerbaikan();
+                    TableKajian();
+                    Swal.fire(
+                        'Approve!',
+                        'Approve Berhasil',
+                        'success'
+                    )
+                }
+            });
+        }
+        else {
+            Swal.fire(
+                'Error!',
+                'Khusus Evaluator yang Ditunjuk!',
+                'error'
+            )
+        }
 
-                Swal.fire(
-                    'Approve!',
-                    'Approve Berhasil',
-                    'success'
-                )
-            }
-        });
     }
 
     function RejectPerbaikan(button) {
-        Swal.fire({
-            title: 'Alasan Reject',
-            text: "You won't be able to revert this!",
-            type: 'warning',
-            html: '<textarea id="txtReject" class="form form-control" ></textarea>',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Reject!',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.value) {
-                var reject = $('#txtReject').val();
-                var row = $(button).closest("TR");
-                var data = $('#Tbl_Perbaikan').DataTable().row(row).data();
-                var id = data['RecordID'];
-                var dictlist = {
-                    NoCAPA: $('#QS_NoCAPA').val(),
-                    Option: 5,
-                    RecordID: id,
-                    RejectReason: reject,
-                    Empid: nik
+        if (valid == true) {
+            Swal.fire({
+                title: 'Alasan Reject',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                html: '<textarea id="txtReject" class="form form-control" ></textarea>',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Reject!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    var reject = $('#txtReject').val();
+                    var row = $(button).closest("TR");
+                    var data = $('#Tbl_Pencegahan').DataTable().row(row).data();
+                    var id = data['RecordID'];
+                    var dictlist = {
+                        NoCAPA: noCAPA,
+                        Option: 5,
+                        RecordID: id,
+                        RejectReason: reject,
+                        Empid: nik
+                    }
+                    var dto1 = {
+                        Model: dictlist
+                    }
+                    if (reject != null && reject.trim() != '') {
+                        $.ajax({
+                            url: "DynamicController?spname=SP_FORM_Perubahan",
+                            type: "post",
+                            dataType: "json",
+                            data: JSON.stringify(dto1),
+                            contentType: "application/json;charset=utf-8",
+                            success: function (data) {
+                                GetTindakanPerbaikan();
+                                TableKajian();
+                                Swal.fire(
+                                    'Rejected!',
+                                    'Reject Berhasil',
+                                    'success'
+                                )
+                            },
+                            error: function (errormessage) {
+                            }
+                        });
+                    }
+                    else {
+                        Swal.fire(
+                            'Error!',
+                            'Alasan tidak boleh kosong.',
+                            'error'
+                        )
+                    }
                 }
-                var dto1 = {
-                    Model: dictlist
-                }
-                if (reject != null && reject.trim() != '') {
-                    $.ajax({
-                        url: "DynamicController?spname=SP_FORM_Perubahan",
-                        type: "post",
-                        dataType: "json",
-                        data: JSON.stringify(dto1),
-                        contentType: "application/json;charset=utf-8",
-                        success: function (data) {
-                            Swal.fire(
-                                'Rejected!',
-                                'Reject Berhasil',
-                                'success'
-                            )
-                        },
-                        error: function (errormessage) {
-                        }
-                    });
-                }
-                else {
+            })
+        }
+        else {
 
-                    Swal.fire(
-                        'Error!',
-                        'Alasan tidak boleh kosong.',
-                        'error'
-                    )
-                }
-            }
-        })
+            Swal.fire(
+                'Error!',
+                'Khusus Evaluator yang Ditunjuk!',
+                'error'
+            )
+        }
+
     }
+
     function ApprovePencegahan(button) {
         var row = $(button).closest("TR");
-        var data = $('#Tbl_Perbaikan').DataTable().row(row).data();
+        var data = $('#Tbl_Pencegahan').DataTable().row(row).data();
         var id = data['RecordID'];
         var dictlist = {
             NoCAPA: noCAPA,
@@ -394,78 +420,103 @@
         var dto1 = {
             Model: dictlist
         }
-        $.ajax({
-            url: 'DynamicController?spname=SP_FORM_Perubahan',
-            type: 'post',
-            data: JSON.stringify(dto1),
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
+        if (valid == true) {
+            $.ajax({
+                url: 'DynamicController?spname=SP_FORM_Perubahan',
+                type: 'post',
+                data: JSON.stringify(dto1),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    GetTindakanPencegahan();
+                    TableKajian();
+                    Swal.fire(
+                        'Approve!',
+                        'Approve Berhasil',
+                        'success'
+                    )
+                }
+            });
+        }
+        else {
 
-                Swal.fire(
-                    'Approve!',
-                    'Approve Berhasil',
-                    'success'
-                )
-            }
-        });
+            Swal.fire(
+                'Error!',
+                'Khusus Evaluator yang Ditunjuk!',
+                'error'
+            )
+        }
+
     }
 
     function RejectPencegahan(button) {
-        Swal.fire({
-            title: 'Alasan Reject',
-            text: "You won't be able to revert this!",
-            type: 'warning',
-            html: '<textarea id="txtReject" class="form form-control" ></textarea>',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Reject!',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.value) {
-                var reject = $('#txtReject').val();
-                var row = $(button).closest("TR");
-                var data = $('#Tbl_Perbaikan').DataTable().row(row).data();
-                var id = data['RecordID'];
-                var dictlist = {
-                    NoCAPA: $('#QS_NoCAPA').val(),
-                    Option: 6,
-                    RecordID: id,
-                    RejectReason: reject,
-                    Empid: nik
-                }
-                var dto1 = {
-                    Model: dictlist
-                }
-                if (reject != null && reject.trim() != '') {
-                    $.ajax({
-                        url: "DynamicController?spname=SP_FORM_Perubahan",
-                        type: "post",
-                        dataType: "json",
-                        data: JSON.stringify(dto1),
-                        contentType: "application/json;charset=utf-8",
-                        success: function (data) {
-                            Swal.fire(
-                                'Rejected!',
-                                'Reject Berhasil',
-                                'success'
-                            )
-                        },
-                        error: function (errormessage) {
-                        }
-                    });
-                }
-                else {
+        if (valid == true) {
+            Swal.fire({
+                title: 'Alasan Reject',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                html: '<textarea id="txtReject" class="form form-control" ></textarea>',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Reject!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    var reject = $('#txtReject').val();
+                    var row = $(button).closest("TR");
+                    var data = $('#Tbl_Pencegahan').DataTable().row(row).data();
+                    var id = data['RecordID'];
+                    var dictlist = {
+                        NoCAPA: noCAPA,
+                        Option: 6,
+                        RecordID: id,
+                        RejectReason: reject,
+                        Empid: nik
+                    }
+                    var dto1 = {
+                        Model: dictlist
+                    }
+                    if (reject != null && reject.trim() != '') {
+                        $.ajax({
+                            url: "DynamicController?spname=SP_FORM_Perubahan",
+                            type: "post",
+                            dataType: "json",
+                            data: JSON.stringify(dto1),
+                            contentType: "application/json;charset=utf-8",
+                            success: function (data) {
+                                GetTindakanPencegahan();
+                                TableKajian();
+                                Swal.fire(
+                                    'Rejected!',
+                                    'Reject Berhasil',
+                                    'success'
+                                )
 
-                    Swal.fire(
-                        'Error!',
-                        'Alasan tidak boleh kosong.',
-                        'error'
-                    )
+                            },
+                            error: function (errormessage) {
+                            }
+                        });
+                    }
+                    else {
+                        Swal.fire(
+                            'Error!',
+                            'Alasan tidak boleh kosong.',
+                            'error'
+                        )
+                    }
                 }
-            }
-        })
+            })
+        }
+        else {
+
+            Swal.fire(
+                'Error!',
+                'Khusus Evaluator yang Ditunjuk!',
+                'error'
+            )
+        }
+
     }
 
     function TableKajian() {
@@ -484,7 +535,7 @@
             type: 'post',
             data: JSON.stringify(dto1),
             dataType: 'json',
-            contentType: 'application/json; charset=utf-8', 
+            contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 console.log(data);
                 $('#Tbl_KajianResiko').DataTable({

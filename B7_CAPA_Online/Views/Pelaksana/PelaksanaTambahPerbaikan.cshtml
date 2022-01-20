@@ -544,6 +544,7 @@
     }
 
     function recTindakan() {
+        KajianResikoDDL();
         console.log(objTindakan);
         //console.log(tipe);
         console.log($('#RootCause_KajianResikoDDL').val());
@@ -723,16 +724,13 @@
 
     function SubmitTindakanExisting()
     {
-        if (valid == true) {
-            laststate = true;
-        }
-        if (laststate == true) {
             var referenceID = getQueryStrings()["ReferenceID"];
             referenceID = referenceID.replace('#', '');
 
             var dictionarylist = {
                 kategori: "Penambahan Submit Existing",
                 RecordID: referenceID,
+                empID: nik,
                 NoCAPA: noCAPA
             }
             var dto = {
@@ -745,6 +743,7 @@
                 contentType: "application/json",
                 dataType: 'json',
                 success: function (data) {
+                    var result = JSON.parse(data);
                     if (result[0].Validate == "Invalid Pencegahan")
                     {
                         Swal.fire("Error!", "Masih ada Tindakan Pencegahan yang belum dikaji !", "error");
@@ -755,17 +754,14 @@
                         Swal.fire("Success!", "Submit Berhasil!", "success");
 
                         $("input[name='TambahPerbaikan']").prop("disabled", false);
+                        
                     }
                 },
                 error: function (xhr, error, status) {
                     console.log(error, status);
                 }
             });
-        }
-        else
-        {
-            Swal.fire("Error!", "Tindakan Harus Dikaji Terlebih Dahulu!", "error");
-        }
+        
     }
     function SubmitTindakanBaru()
     {
@@ -1285,6 +1281,8 @@
             success: function (data) {
                 Swal.fire("Success!", "Penambahan berhasil disimpan!", "success");
                 $("input[name='TambahPerbaikan']").prop("disabled", true);
+                $('#txtTindakanPencegahan').val("");
+                $('#dueDatePencegahan').val("")
                 KajianDDLPencegahan();
             },
             error: function (xhr, error, status) {
