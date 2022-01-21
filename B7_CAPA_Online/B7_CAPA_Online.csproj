@@ -148,6 +148,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="B7_CAPA_ONLINEDataSource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>B7_CAPA_ONLINEDataSource.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\ApprovalEvaluatorController.cs" />
     <Compile Include="Controllers\ApprovalKoordinatorController.cs" />
     <Compile Include="Controllers\AtasanPelaksanaAddCAPAController.cs" />
@@ -5376,6 +5381,17 @@
     <Content Include="Content\Styles\icons\weather-icons\fonts\weathericons-regular-webfont.woff" />
     <Content Include="Content\Styles\icons\weather-icons\fonts\weathericons-regular-webfont.woff2" />
     <Content Include="Content\Styles\images\f-logo_tmp17117" />
+    <Content Include="B7_CAPA_ONLINEDataSource.xsc">
+      <DependentUpon>B7_CAPA_ONLINEDataSource.xsd</DependentUpon>
+    </Content>
+    <None Include="B7_CAPA_ONLINEDataSource.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>B7_CAPA_ONLINEDataSource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="B7_CAPA_ONLINEDataSource.xss">
+      <DependentUpon>B7_CAPA_ONLINEDataSource.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -5470,7 +5486,8 @@
     <Content Include="Views\Pelaksana\PelaksanaCAPAPerubahan.cshtml" />
     <Content Include="Views\AtasanPelaksana\AtasanPelaksanaApprovalPerubahanTindakan.cshtml" />
     <Content Include="Views\ReportCAPA\ReportAll.cshtml" />
-    <Content Include="Views\ReportCAPA\ReportView.cshtml" />
+    <Content Include="Views\FindCAPA\Reporting.cshtml" />
+    <Content Include="Views\ReportCAPA\ReportWeb.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

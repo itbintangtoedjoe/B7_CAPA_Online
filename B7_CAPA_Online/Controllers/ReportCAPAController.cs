@@ -26,12 +26,15 @@ namespace B7_CAPA_Online.Controllers
         {
             return View();
         }
-        public ActionResult ReportView()
+
+        public ActionResult ReportWeb()
         {
             return View();
         }
-        public ActionResult ReportAll()
+
+        public ActionResult ReportAll(String NoCAPA)
         {
+            ViewBag.NoCAPA = NoCAPA;
             return View();
         }
 

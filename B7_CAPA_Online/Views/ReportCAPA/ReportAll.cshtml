@@ -4,15 +4,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="content-body">
+    <input id="nocapa" name="nocapa" class="form-control" type="text" value="@ViewBag.NoCAPA" hidden />
     <iframe id="ifrmReportViewer" style="height:3500px; width:100%;" frameborder="0" scrolling="no"></iframe>
 </div>
     <script>
         $(document).ready(function () {
-            ReportValidationCheck();
+            var nocapa = $("#nocapa").val();
+/*            alert(nocapa);*/
+            ReportValidationCheck(nocapa);
         });
-        function ReportValidationCheck() {
+        function ReportValidationCheck(nocapa) {
 
-            url = "../Report/WebFormCAPA.aspx";
+            url = "../Report/WebFormCAPA.aspx?NoCAPA=" + nocapa;
 
             var myframe = document.getElementById("ifrmReportViewer");
             if (myframe !== null) {
