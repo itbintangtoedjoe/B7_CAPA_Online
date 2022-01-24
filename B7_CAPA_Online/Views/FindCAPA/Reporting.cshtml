@@ -109,20 +109,14 @@
         });
     }
 
-    //function Print(button) {
-    //    var row = $(button).closest("TR");
-    //    var NoCAPA = $("TD", row).eq(4).html();
-
-    //    window.open("/ReportCAPA/ReportAll?NoCAPA=" + NoCAPA)
-
-    //}
     function Print(button) {
         var row = $(button).closest("TR");
         var NoCAPA = $("TD", row).eq(4).html();
 
-        window.open("/ReportCAPA/ReportView")
+        window.open("/ReportCAPA/ReportAll?NoCAPA=" + NoCAPA)
 
     }
+
 </script>
 <script src="~/Content/Scripts/plugins/datatables/jquery.dataTables.min.js" defer></script>
 <script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>

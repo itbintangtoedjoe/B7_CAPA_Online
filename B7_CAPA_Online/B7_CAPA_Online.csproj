@@ -148,10 +148,40 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="B7_CAPA_ONLINEDataSource.Designer.cs">
+    <Compile Include="B7_CAPA_ONLINEDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>B7_CAPA_ONLINEDataSource.xsd</DependentUpon>
+      <DependentUpon>B7_CAPA_ONLINEDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="B7_CAPA_ONLINEDataSetAnalisa.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>B7_CAPA_ONLINEDataSetAnalisa.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="B7_CAPA_ONLINEDataSetBukti.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>B7_CAPA_ONLINEDataSetBukti.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="B7_CAPA_ONLINEDataSetPelaksana.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>B7_CAPA_ONLINEDataSetPelaksana.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="B7_CAPA_ONLINEDataSetPencegahan.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>B7_CAPA_ONLINEDataSetPencegahan.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="B7_CAPA_ONLINEDataSetPerbaikan.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>B7_CAPA_ONLINEDataSetPerbaikan.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="B7_CAPA_ONLINEDataSetRoot.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>B7_CAPA_ONLINEDataSetRoot.xsd</DependentUpon>
     </Compile>
     <Compile Include="Controllers\ApprovalEvaluatorController.cs" />
     <Compile Include="Controllers\ApprovalKoordinatorController.cs" />
@@ -5381,16 +5411,82 @@
     <Content Include="Content\Styles\icons\weather-icons\fonts\weathericons-regular-webfont.woff" />
     <Content Include="Content\Styles\icons\weather-icons\fonts\weathericons-regular-webfont.woff2" />
     <Content Include="Content\Styles\images\f-logo_tmp17117" />
-    <Content Include="B7_CAPA_ONLINEDataSource.xsc">
-      <DependentUpon>B7_CAPA_ONLINEDataSource.xsd</DependentUpon>
+    <Content Include="B7_CAPA_ONLINEDataSet.xsc">
+      <DependentUpon>B7_CAPA_ONLINEDataSet.xsd</DependentUpon>
     </Content>
-    <None Include="B7_CAPA_ONLINEDataSource.xsd">
+    <None Include="B7_CAPA_ONLINEDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>B7_CAPA_ONLINEDataSource.Designer.cs</LastGenOutput>
+      <LastGenOutput>B7_CAPA_ONLINEDataSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <Content Include="B7_CAPA_ONLINEDataSource.xss">
-      <DependentUpon>B7_CAPA_ONLINEDataSource.xsd</DependentUpon>
+    <Content Include="B7_CAPA_ONLINEDataSet.xss">
+      <DependentUpon>B7_CAPA_ONLINEDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="B7_CAPA_ONLINEDataSetAnalisa.xsc">
+      <DependentUpon>B7_CAPA_ONLINEDataSetAnalisa.xsd</DependentUpon>
+    </Content>
+    <None Include="B7_CAPA_ONLINEDataSetAnalisa.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>B7_CAPA_ONLINEDataSetAnalisa.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="B7_CAPA_ONLINEDataSetAnalisa.xss">
+      <DependentUpon>B7_CAPA_ONLINEDataSetAnalisa.xsd</DependentUpon>
+    </Content>
+    <Content Include="B7_CAPA_ONLINEDataSetRoot.xsc">
+      <DependentUpon>B7_CAPA_ONLINEDataSetRoot.xsd</DependentUpon>
+    </Content>
+    <Content Include="B7_CAPA_ONLINEDataSetPencegahan.xsc">
+      <DependentUpon>B7_CAPA_ONLINEDataSetPencegahan.xsd</DependentUpon>
+    </Content>
+    <Content Include="B7_CAPA_ONLINEDataSetPelaksana.xsc">
+      <DependentUpon>B7_CAPA_ONLINEDataSetPelaksana.xsd</DependentUpon>
+    </Content>
+    <Content Include="B7_CAPA_ONLINEDataSetBukti.xsc">
+      <DependentUpon>B7_CAPA_ONLINEDataSetBukti.xsd</DependentUpon>
+    </Content>
+    <None Include="B7_CAPA_ONLINEDataSetBukti.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>B7_CAPA_ONLINEDataSetBukti.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="B7_CAPA_ONLINEDataSetBukti.xss">
+      <DependentUpon>B7_CAPA_ONLINEDataSetBukti.xsd</DependentUpon>
+    </Content>
+    <None Include="B7_CAPA_ONLINEDataSetPelaksana.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>B7_CAPA_ONLINEDataSetPelaksana.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="B7_CAPA_ONLINEDataSetPelaksana.xss">
+      <DependentUpon>B7_CAPA_ONLINEDataSetPelaksana.xsd</DependentUpon>
+    </Content>
+    <None Include="B7_CAPA_ONLINEDataSetPencegahan.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>B7_CAPA_ONLINEDataSetPencegahan.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="B7_CAPA_ONLINEDataSetPencegahan.xss">
+      <DependentUpon>B7_CAPA_ONLINEDataSetPencegahan.xsd</DependentUpon>
+    </Content>
+    <Content Include="B7_CAPA_ONLINEDataSetPerbaikan.xsc">
+      <DependentUpon>B7_CAPA_ONLINEDataSetPerbaikan.xsd</DependentUpon>
+    </Content>
+    <None Include="B7_CAPA_ONLINEDataSetPerbaikan.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>B7_CAPA_ONLINEDataSetPerbaikan.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="B7_CAPA_ONLINEDataSetPerbaikan.xss">
+      <DependentUpon>B7_CAPA_ONLINEDataSetPerbaikan.xsd</DependentUpon>
+    </Content>
+    <None Include="B7_CAPA_ONLINEDataSetRoot.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>B7_CAPA_ONLINEDataSetRoot.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="B7_CAPA_ONLINEDataSetRoot.xss">
+      <DependentUpon>B7_CAPA_ONLINEDataSetRoot.xsd</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
