@@ -26,48 +26,8 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
-        public ActionResult Reporting()
-        {
-            return View();
-        }
+        
 
-        public ActionResult LoadDataReporting()
-        {
-            string conString = mySetting.ConnectionString;
-            SqlConnection conn = new SqlConnection(conString);
-            try
-            {
-                conn.Open();
-                using (SqlCommand command = new SqlCommand("SP_SHOW_REPORTING", conn))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                    dataAdapt.SelectCommand = command;
-
-                    dataAdapt.Fill(DT);
-                }
-                conn.Close();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-
-            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
-            Dictionary<string, object> row;
-            foreach (DataRow dr in DT.Rows)
-            {
-                row = new Dictionary<string, object>();
-                foreach (DataColumn col in DT.Columns)
-                {
-                    row.Add(col.ColumnName, dr[col]);
-                }
-                rows.Add(row);
-            }
-
-            return Json(rows, JsonRequestBehavior.AllowGet);
-        }
+        
     }
 }

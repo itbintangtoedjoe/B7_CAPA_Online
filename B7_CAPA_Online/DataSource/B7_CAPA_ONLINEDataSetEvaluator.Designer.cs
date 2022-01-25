@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace B7_CAPA_Online {
+namespace B7_CAPA_Online.DataSource {
     
     
     /// <summary>
@@ -20,17 +20,17 @@ namespace B7_CAPA_Online {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("B7_CAPA_ONLINEDataSetRoot")]
+    [global::System.Xml.Serialization.XmlRootAttribute("B7_CAPA_ONLINEDataSetEvaluator")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class B7_CAPA_ONLINEDataSetRoot : global::System.Data.DataSet {
+    public partial class B7_CAPA_ONLINEDataSetEvaluator : global::System.Data.DataSet {
         
-        private SP_LOAD_REPORT_RootDataTable tableSP_LOAD_REPORT_Root;
+        private SP_LOAD_REPORT_EvaluatorDataTable tableSP_LOAD_REPORT_Evaluator;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public B7_CAPA_ONLINEDataSetRoot() {
+        public B7_CAPA_ONLINEDataSetEvaluator() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace B7_CAPA_Online {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected B7_CAPA_ONLINEDataSetRoot(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected B7_CAPA_ONLINEDataSetEvaluator(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -54,8 +54,8 @@ namespace B7_CAPA_Online {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["SP_LOAD_REPORT_Root"] != null)) {
-                    base.Tables.Add(new SP_LOAD_REPORT_RootDataTable(ds.Tables["SP_LOAD_REPORT_Root"]));
+                if ((ds.Tables["SP_LOAD_REPORT_Evaluator"] != null)) {
+                    base.Tables.Add(new SP_LOAD_REPORT_EvaluatorDataTable(ds.Tables["SP_LOAD_REPORT_Evaluator"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -79,9 +79,9 @@ namespace B7_CAPA_Online {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public SP_LOAD_REPORT_RootDataTable SP_LOAD_REPORT_Root {
+        public SP_LOAD_REPORT_EvaluatorDataTable SP_LOAD_REPORT_Evaluator {
             get {
-                return this.tableSP_LOAD_REPORT_Root;
+                return this.tableSP_LOAD_REPORT_Evaluator;
             }
         }
         
@@ -127,7 +127,7 @@ namespace B7_CAPA_Online {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            B7_CAPA_ONLINEDataSetRoot cln = ((B7_CAPA_ONLINEDataSetRoot)(base.Clone()));
+            B7_CAPA_ONLINEDataSetEvaluator cln = ((B7_CAPA_ONLINEDataSetEvaluator)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -152,8 +152,8 @@ namespace B7_CAPA_Online {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["SP_LOAD_REPORT_Root"] != null)) {
-                    base.Tables.Add(new SP_LOAD_REPORT_RootDataTable(ds.Tables["SP_LOAD_REPORT_Root"]));
+                if ((ds.Tables["SP_LOAD_REPORT_Evaluator"] != null)) {
+                    base.Tables.Add(new SP_LOAD_REPORT_EvaluatorDataTable(ds.Tables["SP_LOAD_REPORT_Evaluator"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,10 +188,10 @@ namespace B7_CAPA_Online {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableSP_LOAD_REPORT_Root = ((SP_LOAD_REPORT_RootDataTable)(base.Tables["SP_LOAD_REPORT_Root"]));
+            this.tableSP_LOAD_REPORT_Evaluator = ((SP_LOAD_REPORT_EvaluatorDataTable)(base.Tables["SP_LOAD_REPORT_Evaluator"]));
             if ((initTable == true)) {
-                if ((this.tableSP_LOAD_REPORT_Root != null)) {
-                    this.tableSP_LOAD_REPORT_Root.InitVars();
+                if ((this.tableSP_LOAD_REPORT_Evaluator != null)) {
+                    this.tableSP_LOAD_REPORT_Evaluator.InitVars();
                 }
             }
         }
@@ -199,18 +199,18 @@ namespace B7_CAPA_Online {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "B7_CAPA_ONLINEDataSetRoot";
+            this.DataSetName = "B7_CAPA_ONLINEDataSetEvaluator";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/B7_CAPA_ONLINEDataSetRoot.xsd";
+            this.Namespace = "http://tempuri.org/B7_CAPA_ONLINEDataSetEvaluator.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableSP_LOAD_REPORT_Root = new SP_LOAD_REPORT_RootDataTable();
-            base.Tables.Add(this.tableSP_LOAD_REPORT_Root);
+            this.tableSP_LOAD_REPORT_Evaluator = new SP_LOAD_REPORT_EvaluatorDataTable();
+            base.Tables.Add(this.tableSP_LOAD_REPORT_Evaluator);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private bool ShouldSerializeSP_LOAD_REPORT_Root() {
+        private bool ShouldSerializeSP_LOAD_REPORT_Evaluator() {
             return false;
         }
         
@@ -225,7 +225,7 @@ namespace B7_CAPA_Online {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            B7_CAPA_ONLINEDataSetRoot ds = new B7_CAPA_ONLINEDataSetRoot();
+            B7_CAPA_ONLINEDataSetEvaluator ds = new B7_CAPA_ONLINEDataSetEvaluator();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -270,25 +270,23 @@ namespace B7_CAPA_Online {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void SP_LOAD_REPORT_RootRowChangeEventHandler(object sender, SP_LOAD_REPORT_RootRowChangeEvent e);
+        public delegate void SP_LOAD_REPORT_EvaluatorRowChangeEventHandler(object sender, SP_LOAD_REPORT_EvaluatorRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class SP_LOAD_REPORT_RootDataTable : global::System.Data.TypedTableBase<SP_LOAD_REPORT_RootRow> {
+        public partial class SP_LOAD_REPORT_EvaluatorDataTable : global::System.Data.TypedTableBase<SP_LOAD_REPORT_EvaluatorRow> {
             
-            private global::System.Data.DataColumn columnWAHType_FK;
+            private global::System.Data.DataColumn columnEvaluator;
             
-            private global::System.Data.DataColumn columnWAHDesc;
-            
-            private global::System.Data.DataColumn columnWhyDescription;
+            private global::System.Data.DataColumn columnColumn1;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_LOAD_REPORT_RootDataTable() {
-                this.TableName = "SP_LOAD_REPORT_Root";
+            public SP_LOAD_REPORT_EvaluatorDataTable() {
+                this.TableName = "SP_LOAD_REPORT_Evaluator";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -296,7 +294,7 @@ namespace B7_CAPA_Online {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal SP_LOAD_REPORT_RootDataTable(global::System.Data.DataTable table) {
+            internal SP_LOAD_REPORT_EvaluatorDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -313,32 +311,24 @@ namespace B7_CAPA_Online {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected SP_LOAD_REPORT_RootDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected SP_LOAD_REPORT_EvaluatorDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn WAHType_FKColumn {
+            public global::System.Data.DataColumn EvaluatorColumn {
                 get {
-                    return this.columnWAHType_FK;
+                    return this.columnEvaluator;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn WAHDescColumn {
+            public global::System.Data.DataColumn Column1Column {
                 get {
-                    return this.columnWAHDesc;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn WhyDescriptionColumn {
-                get {
-                    return this.columnWhyDescription;
+                    return this.columnColumn1;
                 }
             }
             
@@ -353,47 +343,46 @@ namespace B7_CAPA_Online {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_LOAD_REPORT_RootRow this[int index] {
+            public SP_LOAD_REPORT_EvaluatorRow this[int index] {
                 get {
-                    return ((SP_LOAD_REPORT_RootRow)(this.Rows[index]));
+                    return ((SP_LOAD_REPORT_EvaluatorRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_LOAD_REPORT_RootRowChangeEventHandler SP_LOAD_REPORT_RootRowChanging;
+            public event SP_LOAD_REPORT_EvaluatorRowChangeEventHandler SP_LOAD_REPORT_EvaluatorRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_LOAD_REPORT_RootRowChangeEventHandler SP_LOAD_REPORT_RootRowChanged;
+            public event SP_LOAD_REPORT_EvaluatorRowChangeEventHandler SP_LOAD_REPORT_EvaluatorRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_LOAD_REPORT_RootRowChangeEventHandler SP_LOAD_REPORT_RootRowDeleting;
+            public event SP_LOAD_REPORT_EvaluatorRowChangeEventHandler SP_LOAD_REPORT_EvaluatorRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_LOAD_REPORT_RootRowChangeEventHandler SP_LOAD_REPORT_RootRowDeleted;
+            public event SP_LOAD_REPORT_EvaluatorRowChangeEventHandler SP_LOAD_REPORT_EvaluatorRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddSP_LOAD_REPORT_RootRow(SP_LOAD_REPORT_RootRow row) {
+            public void AddSP_LOAD_REPORT_EvaluatorRow(SP_LOAD_REPORT_EvaluatorRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_LOAD_REPORT_RootRow AddSP_LOAD_REPORT_RootRow(string WAHType_FK, string WAHDesc, string WhyDescription) {
-                SP_LOAD_REPORT_RootRow rowSP_LOAD_REPORT_RootRow = ((SP_LOAD_REPORT_RootRow)(this.NewRow()));
+            public SP_LOAD_REPORT_EvaluatorRow AddSP_LOAD_REPORT_EvaluatorRow(string Evaluator, string Column1) {
+                SP_LOAD_REPORT_EvaluatorRow rowSP_LOAD_REPORT_EvaluatorRow = ((SP_LOAD_REPORT_EvaluatorRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        WAHType_FK,
-                        WAHDesc,
-                        WhyDescription};
-                rowSP_LOAD_REPORT_RootRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowSP_LOAD_REPORT_RootRow);
-                return rowSP_LOAD_REPORT_RootRow;
+                        Evaluator,
+                        Column1};
+                rowSP_LOAD_REPORT_EvaluatorRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowSP_LOAD_REPORT_EvaluatorRow);
+                return rowSP_LOAD_REPORT_EvaluatorRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                SP_LOAD_REPORT_RootDataTable cln = ((SP_LOAD_REPORT_RootDataTable)(base.Clone()));
+                SP_LOAD_REPORT_EvaluatorDataTable cln = ((SP_LOAD_REPORT_EvaluatorDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -401,55 +390,53 @@ namespace B7_CAPA_Online {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new SP_LOAD_REPORT_RootDataTable();
+                return new SP_LOAD_REPORT_EvaluatorDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
-                this.columnWAHType_FK = base.Columns["WAHType_FK"];
-                this.columnWAHDesc = base.Columns["WAHDesc"];
-                this.columnWhyDescription = base.Columns["WhyDescription"];
+                this.columnEvaluator = base.Columns["Evaluator"];
+                this.columnColumn1 = base.Columns["Column1"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
-                this.columnWAHType_FK = new global::System.Data.DataColumn("WAHType_FK", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnWAHType_FK);
-                this.columnWAHDesc = new global::System.Data.DataColumn("WAHDesc", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnWAHDesc);
-                this.columnWhyDescription = new global::System.Data.DataColumn("WhyDescription", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnWhyDescription);
-                this.columnWAHType_FK.MaxLength = 50;
-                this.columnWAHDesc.MaxLength = 500;
-                this.columnWhyDescription.MaxLength = 500;
+                this.columnEvaluator = new global::System.Data.DataColumn("Evaluator", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEvaluator);
+                this.columnColumn1 = new global::System.Data.DataColumn("Column1", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnColumn1);
+                this.columnEvaluator.ReadOnly = true;
+                this.columnEvaluator.MaxLength = 141;
+                this.columnColumn1.ReadOnly = true;
+                this.columnColumn1.MaxLength = 100;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_LOAD_REPORT_RootRow NewSP_LOAD_REPORT_RootRow() {
-                return ((SP_LOAD_REPORT_RootRow)(this.NewRow()));
+            public SP_LOAD_REPORT_EvaluatorRow NewSP_LOAD_REPORT_EvaluatorRow() {
+                return ((SP_LOAD_REPORT_EvaluatorRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new SP_LOAD_REPORT_RootRow(builder);
+                return new SP_LOAD_REPORT_EvaluatorRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(SP_LOAD_REPORT_RootRow);
+                return typeof(SP_LOAD_REPORT_EvaluatorRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.SP_LOAD_REPORT_RootRowChanged != null)) {
-                    this.SP_LOAD_REPORT_RootRowChanged(this, new SP_LOAD_REPORT_RootRowChangeEvent(((SP_LOAD_REPORT_RootRow)(e.Row)), e.Action));
+                if ((this.SP_LOAD_REPORT_EvaluatorRowChanged != null)) {
+                    this.SP_LOAD_REPORT_EvaluatorRowChanged(this, new SP_LOAD_REPORT_EvaluatorRowChangeEvent(((SP_LOAD_REPORT_EvaluatorRow)(e.Row)), e.Action));
                 }
             }
             
@@ -457,8 +444,8 @@ namespace B7_CAPA_Online {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.SP_LOAD_REPORT_RootRowChanging != null)) {
-                    this.SP_LOAD_REPORT_RootRowChanging(this, new SP_LOAD_REPORT_RootRowChangeEvent(((SP_LOAD_REPORT_RootRow)(e.Row)), e.Action));
+                if ((this.SP_LOAD_REPORT_EvaluatorRowChanging != null)) {
+                    this.SP_LOAD_REPORT_EvaluatorRowChanging(this, new SP_LOAD_REPORT_EvaluatorRowChangeEvent(((SP_LOAD_REPORT_EvaluatorRow)(e.Row)), e.Action));
                 }
             }
             
@@ -466,8 +453,8 @@ namespace B7_CAPA_Online {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.SP_LOAD_REPORT_RootRowDeleted != null)) {
-                    this.SP_LOAD_REPORT_RootRowDeleted(this, new SP_LOAD_REPORT_RootRowChangeEvent(((SP_LOAD_REPORT_RootRow)(e.Row)), e.Action));
+                if ((this.SP_LOAD_REPORT_EvaluatorRowDeleted != null)) {
+                    this.SP_LOAD_REPORT_EvaluatorRowDeleted(this, new SP_LOAD_REPORT_EvaluatorRowChangeEvent(((SP_LOAD_REPORT_EvaluatorRow)(e.Row)), e.Action));
                 }
             }
             
@@ -475,14 +462,14 @@ namespace B7_CAPA_Online {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.SP_LOAD_REPORT_RootRowDeleting != null)) {
-                    this.SP_LOAD_REPORT_RootRowDeleting(this, new SP_LOAD_REPORT_RootRowChangeEvent(((SP_LOAD_REPORT_RootRow)(e.Row)), e.Action));
+                if ((this.SP_LOAD_REPORT_EvaluatorRowDeleting != null)) {
+                    this.SP_LOAD_REPORT_EvaluatorRowDeleting(this, new SP_LOAD_REPORT_EvaluatorRowChangeEvent(((SP_LOAD_REPORT_EvaluatorRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void RemoveSP_LOAD_REPORT_RootRow(SP_LOAD_REPORT_RootRow row) {
+            public void RemoveSP_LOAD_REPORT_EvaluatorRow(SP_LOAD_REPORT_EvaluatorRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -491,7 +478,7 @@ namespace B7_CAPA_Online {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                B7_CAPA_ONLINEDataSetRoot ds = new B7_CAPA_ONLINEDataSetRoot();
+                B7_CAPA_ONLINEDataSetEvaluator ds = new B7_CAPA_ONLINEDataSetEvaluator();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -509,7 +496,7 @@ namespace B7_CAPA_Online {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "SP_LOAD_REPORT_RootDataTable";
+                attribute2.FixedValue = "SP_LOAD_REPORT_EvaluatorDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -553,99 +540,71 @@ namespace B7_CAPA_Online {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class SP_LOAD_REPORT_RootRow : global::System.Data.DataRow {
+        public partial class SP_LOAD_REPORT_EvaluatorRow : global::System.Data.DataRow {
             
-            private SP_LOAD_REPORT_RootDataTable tableSP_LOAD_REPORT_Root;
+            private SP_LOAD_REPORT_EvaluatorDataTable tableSP_LOAD_REPORT_Evaluator;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal SP_LOAD_REPORT_RootRow(global::System.Data.DataRowBuilder rb) : 
+            internal SP_LOAD_REPORT_EvaluatorRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableSP_LOAD_REPORT_Root = ((SP_LOAD_REPORT_RootDataTable)(this.Table));
+                this.tableSP_LOAD_REPORT_Evaluator = ((SP_LOAD_REPORT_EvaluatorDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string WAHType_FK {
+            public string Evaluator {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_LOAD_REPORT_Root.WAHType_FKColumn]));
+                        return ((string)(this[this.tableSP_LOAD_REPORT_Evaluator.EvaluatorColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'WAHType_FK\' in table \'SP_LOAD_REPORT_Root\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Evaluator\' in table \'SP_LOAD_REPORT_Evaluator\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_LOAD_REPORT_Root.WAHType_FKColumn] = value;
+                    this[this.tableSP_LOAD_REPORT_Evaluator.EvaluatorColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string WAHDesc {
+            public string Column1 {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_LOAD_REPORT_Root.WAHDescColumn]));
+                        return ((string)(this[this.tableSP_LOAD_REPORT_Evaluator.Column1Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'WAHDesc\' in table \'SP_LOAD_REPORT_Root\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Column1\' in table \'SP_LOAD_REPORT_Evaluator\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_LOAD_REPORT_Root.WAHDescColumn] = value;
+                    this[this.tableSP_LOAD_REPORT_Evaluator.Column1Column] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string WhyDescription {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_LOAD_REPORT_Root.WhyDescriptionColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'WhyDescription\' in table \'SP_LOAD_REPORT_Root\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_LOAD_REPORT_Root.WhyDescriptionColumn] = value;
-                }
+            public bool IsEvaluatorNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_Evaluator.EvaluatorColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsWAHType_FKNull() {
-                return this.IsNull(this.tableSP_LOAD_REPORT_Root.WAHType_FKColumn);
+            public void SetEvaluatorNull() {
+                this[this.tableSP_LOAD_REPORT_Evaluator.EvaluatorColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetWAHType_FKNull() {
-                this[this.tableSP_LOAD_REPORT_Root.WAHType_FKColumn] = global::System.Convert.DBNull;
+            public bool IsColumn1Null() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_Evaluator.Column1Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsWAHDescNull() {
-                return this.IsNull(this.tableSP_LOAD_REPORT_Root.WAHDescColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetWAHDescNull() {
-                this[this.tableSP_LOAD_REPORT_Root.WAHDescColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsWhyDescriptionNull() {
-                return this.IsNull(this.tableSP_LOAD_REPORT_Root.WhyDescriptionColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetWhyDescriptionNull() {
-                this[this.tableSP_LOAD_REPORT_Root.WhyDescriptionColumn] = global::System.Convert.DBNull;
+            public void SetColumn1Null() {
+                this[this.tableSP_LOAD_REPORT_Evaluator.Column1Column] = global::System.Convert.DBNull;
             }
         }
         
@@ -653,22 +612,22 @@ namespace B7_CAPA_Online {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public class SP_LOAD_REPORT_RootRowChangeEvent : global::System.EventArgs {
+        public class SP_LOAD_REPORT_EvaluatorRowChangeEvent : global::System.EventArgs {
             
-            private SP_LOAD_REPORT_RootRow eventRow;
+            private SP_LOAD_REPORT_EvaluatorRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_LOAD_REPORT_RootRowChangeEvent(SP_LOAD_REPORT_RootRow row, global::System.Data.DataRowAction action) {
+            public SP_LOAD_REPORT_EvaluatorRowChangeEvent(SP_LOAD_REPORT_EvaluatorRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_LOAD_REPORT_RootRow Row {
+            public SP_LOAD_REPORT_EvaluatorRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -684,7 +643,7 @@ namespace B7_CAPA_Online {
         }
     }
 }
-namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetRootTableAdapters {
+namespace B7_CAPA_Online.DataSource.B7_CAPA_ONLINEDataSetEvaluatorTableAdapters {
     
     
     /// <summary>
@@ -696,7 +655,7 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetRootTableAdapters {
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class SP_LOAD_REPORT_RootTableAdapter : global::System.ComponentModel.Component {
+    public partial class SP_LOAD_REPORT_EvaluatorTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -710,7 +669,7 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetRootTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public SP_LOAD_REPORT_RootTableAdapter() {
+        public SP_LOAD_REPORT_EvaluatorTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -807,10 +766,9 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetRootTableAdapters {
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "SP_LOAD_REPORT_Root";
-            tableMapping.ColumnMappings.Add("WAHType_FK", "WAHType_FK");
-            tableMapping.ColumnMappings.Add("WAHDesc", "WAHDesc");
-            tableMapping.ColumnMappings.Add("WhyDescription", "WhyDescription");
+            tableMapping.DataSetTable = "SP_LOAD_REPORT_Evaluator";
+            tableMapping.ColumnMappings.Add("Evaluator", "Evaluator");
+            tableMapping.ColumnMappings.Add("Column1", "Column1");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -827,7 +785,7 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetRootTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "dbo.SP_LOAD_REPORT_Root";
+            this._commandCollection[0].CommandText = "dbo.SP_LOAD_REPORT_Evaluator";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@NoCAPA", global::System.Data.SqlDbType.VarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -837,7 +795,7 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetRootTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(B7_CAPA_ONLINEDataSetRoot.SP_LOAD_REPORT_RootDataTable dataTable, string NoCAPA) {
+        public virtual int Fill(B7_CAPA_ONLINEDataSetEvaluator.SP_LOAD_REPORT_EvaluatorDataTable dataTable, string NoCAPA) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((NoCAPA == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -856,7 +814,7 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetRootTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual B7_CAPA_ONLINEDataSetRoot.SP_LOAD_REPORT_RootDataTable GetData(string NoCAPA) {
+        public virtual B7_CAPA_ONLINEDataSetEvaluator.SP_LOAD_REPORT_EvaluatorDataTable GetData(string NoCAPA) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((NoCAPA == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -864,7 +822,7 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetRootTableAdapters {
             else {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((string)(NoCAPA));
             }
-            B7_CAPA_ONLINEDataSetRoot.SP_LOAD_REPORT_RootDataTable dataTable = new B7_CAPA_ONLINEDataSetRoot.SP_LOAD_REPORT_RootDataTable();
+            B7_CAPA_ONLINEDataSetEvaluator.SP_LOAD_REPORT_EvaluatorDataTable dataTable = new B7_CAPA_ONLINEDataSetEvaluator.SP_LOAD_REPORT_EvaluatorDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -938,7 +896,7 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetRootTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateUpdatedRows(B7_CAPA_ONLINEDataSetRoot dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(B7_CAPA_ONLINEDataSetEvaluator dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -948,7 +906,7 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetRootTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateInsertedRows(B7_CAPA_ONLINEDataSetRoot dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(B7_CAPA_ONLINEDataSetEvaluator dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -958,7 +916,7 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetRootTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateDeletedRows(B7_CAPA_ONLINEDataSetRoot dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(B7_CAPA_ONLINEDataSetEvaluator dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
             return result;
         }
@@ -992,7 +950,7 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetRootTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public virtual int UpdateAll(B7_CAPA_ONLINEDataSetRoot dataSet) {
+        public virtual int UpdateAll(B7_CAPA_ONLINEDataSetEvaluator dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }
