@@ -1,40 +1,80 @@
 ﻿<link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
+
+<!--Modal-->
+<div class="modal fade" id="Reject_Page" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Reject CAPA</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    @Html.Partial("RejectCAPA")
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal-->
+<div class="modal fade" id="Cancel_Page" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cancel CAPA</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    @Html.Partial("CancelCAPA")
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">Approval</h4>
-        @*<div class="row">
-            <div class="form-group mb-2 col-sm-3">
-                <label class="m-t-20">Status</label>
-                <select class="form-control" id="Status_DDL">
-                    <option value="Approve">Approve</option>
-                    <option value="Reject">Reject</option>
-                    <option value="Cancelled">Cancelled</option>
-                </select>
-            </div>
-        </div>
-        <div class="row form-group-sm" id="Div_AlasanReject" hidden>
-            <div class="col-md-6">
-                <label class="m-t-20">Alasan Reject</label>
-                <textarea type="text" class="form-control" id="TxtAlasanReject" placeholder="Alasan Reject"></textarea>
-            </div>
-        </div>
-        <div class="row form-group-sm mt-4">
-            <div class="col-md-6">
-                <button class="btn mb-1 btn-primary" id="btn_Submit">Submit</button>
-            </div>
-        </div>*@
 
-    <div class="row form-group-sm">
-        <div class="col-md-2">
-            <button class="btn mb-1 btn-primary" id="btn_ApproveCAPA" value="Approve">Approve CAPA</button>
+        @*<div class="row">
+                <div class="form-group mb-2 col-sm-3">
+                    <label class="m-t-20">Status</label>
+                    <select class="form-control" id="Status_DDL">
+                        <option value="Approve">Approve</option>
+                        <option value="Reject">Reject</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group-sm" id="Div_AlasanReject" hidden>
+                <div class="col-md-6">
+                    <label class="m-t-20">Alasan Reject</label>
+                    <textarea type="text" class="form-control" id="TxtAlasanReject" placeholder="Alasan Reject"></textarea>
+                </div>
+            </div>
+            <div class="row form-group-sm mt-4">
+                <div class="col-md-6">
+                    <button class="btn mb-1 btn-primary" id="btn_Submit">Submit</button>
+                </div>
+            </div>*@
+
+        <div class="row form-group-sm">
+            <div class="col-md-2">
+                <button class="btn mb-1 btn-primary" id="btn_ApproveCAPA" value="Approve">Approve CAPA</button>
+            </div>
+            <div class="col-md-2">
+                <input type="button" class="btn btn-danger" id="btn_RejectCAPA" value="Reject CAPA" data-toggle="modal" data-target="#Reject_Page" />
+            </div>
+            <div class="col-md-2">
+                <input type="button" class="btn btn-danger" id="btn_CancelCAPA" value="Cancel CAPA" data-toggle="modal" data-target="#Cancel_Page" />
+            </div>
         </div>
-        <div class="col-md-2">
-            <input type="button" class="btn btn-danger" id="btn_RejectCAPA" value="Reject CAPA" data-toggle="modal" data-target="#Reject_Page" />
-        </div>
-        <div class="col-md-2">
-            <input type="button" class="btn btn-danger" id="btn_CancelCAPA" value="Cancel CAPA" data-toggle="modal" data-target="#Cancel_Page" />
-        </div>
-    </div>
     </div>
 </div>
 
@@ -52,7 +92,7 @@
                     Create_By: $('#TxtRequestor').val(),
                     CurrentStatusID: CurrentStatsID,
                     Status: StatusApproval,
-                    Reject_Reason: (StatusApproval == 'Approve') ? ('-'):($('#txtRejectReason').val()),
+                    Reject_Reason: (StatusApproval == 'Approve') ? ('-') : ($('#txtRejectReason').val()),
                     Option: 1
                 }
             }),
@@ -77,12 +117,17 @@
                         'warning'
                     )
                 }
-                    
+
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
             }
         });
+    }
+
+    function ClearRejectReason() {
+        $('#txtRejectReason').val("");
+        $('#txtCancelReason').val("");
     }
 
     $(document).ready(function () {
@@ -95,13 +140,24 @@
         //        $('#Div_AlasanReject').prop('hidden', false);
         //});
 
-
-        $("#btn_ApproveCAPA").click(function () {          
+        $("#btn_ApproveCAPA").click(function () {
             SubmitApprovalPV("Approve", CurrentStatsID);//Approve Approval EventClick
         });
 
         $("#btnSubmitReject").click(function () {
             SubmitApprovalPV("Reject", CurrentStatsID);//Reject Approval EventClick
+        });
+
+        $("#btnSubmitCancel").click(function () {
+            SubmitApprovalPV("Cancel", CurrentStatsID);//Reject Approval EventClick
+        });
+
+        $("#btnCloseCancel").click(function () {
+            ClearRejectReason();//Remove Reason Field EventClick
+        });
+
+        $("#btnCloseReject").click(function () {
+            ClearRejectReason();//Remove Reason Field EventClick
         });
     });
 </script>

@@ -712,9 +712,9 @@
                             <div class="col-md-6 mt-1">
                                 <input class="btn mb-1 btn-primary" type="button" id="btn_Submit" value="Submit" />
                             </div>
-                            <div class="col-md-6 mt-1">
+                            @*<div class="col-md-6 mt-1">
                                 <input class="btn mb-1 btn-primary" type="button" id="btn_Submits" value="Submits" />
-                            </div>
+                            </div>*@
                         </div>
                             }
                             <!--/form-->
@@ -1355,7 +1355,7 @@
                 $('#DepartemenPelapor_DDL').empty();
                 $.each(JSON.parse(data), function (key, entry) {
                     $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
-                })
+                })                
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));

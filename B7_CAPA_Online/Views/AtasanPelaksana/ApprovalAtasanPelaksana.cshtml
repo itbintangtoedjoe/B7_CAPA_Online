@@ -56,7 +56,8 @@
                                     <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["NoCAPA"]" readonly />
                                     <input class="form-control form-control-sm" type="text" id="input_REG_ID" value="@Request.QueryString["REG"]" hidden />
                                     <input class="form-control form-control-sm" type="text" id="QS_NoCAPA" value="@Request.QueryString["NoCAPA"]" hidden />
-                                    <input class="form-control form-control-sm" type="text" id="NIKLogin" value="090500076" hidden />
+                                    @*<input class="form-control form-control-sm" type="text" id="NIKLogin" value="@Request.RequestContext.HttpContext.Session["NIK"]" hidden />*@
+                                    <input class="form-control form-control-sm" type="text" id="NIKLogin" value="090500076" hidden /> @*090500076*@
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">Departemen</label>
@@ -102,35 +103,21 @@
             data: JSON.stringify({
                 Model: {
                     NO_CAPA: $('#input_NoCAPA').val(),
-                    Option: 14,
-                    Aspect: '',
-                    WSBH: '',
-                    WAH: '',
-                    Status: '',
-                    isParent: '',
-                    WHY_Parent: '',
-                    WHY: '',
-                    Tindakan: '',
-                    Pelaksana: '',
-                    LineNumber: '',
-                    NamaPersonil: '',
-                    Email: '',
-                    DueDate: '',
-                    Is_AreaLain: '',
-                    WhyID: '',
-                    WhyParentID: '',
-                    RootCause: '',
-                    Create_By: '',
-                    RecordID: ''
+                    Option: 16,                   
+                    Create_By: $('#NIKLogin').val(),
                 }
             }),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                var result = JSON.parse(data)[0];
-                var hide = (result.STATUS_ID == CurrentStatsID) ? (false) : (true); // jika status CAPA = 2 maka, hide = false , sebaliknya.
+                $('#Div_Approval_PV').show();
+                var result = JSON.parse(data)[0];                
+                var hide = (result.Status_ID == CurrentStatsID) ? (false) : (true); // jika status CAPA = 2 maka, hide = false , sebaliknya.
                 if (hide) //Jika hide true maka di hidden.
+                {
                     $('#Div_Approval_PV').hide(); //Hide ApprovalPV (~/Shared/ApprovalPV)
+                }
+                   
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -155,15 +142,21 @@
             }),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                var result = JSON.parse(data);                              
+            success: function (data) {     
+                var queryNIK = $('#input_NIK').val();
+                var result = JSON.parse(data);               
                 for (var sup of result) {
-                    if (sup.SupApprover.trim() != $('#NIKLogin').val().trim()) {                             
+                    $('#Div_Approval_PV').hide();
+                    if ($('#NIKLogin').val() == queryNIK) {
+                        if (sup.SupApprover.trim() == $('#NIKLogin').val().trim()) {
+                            checkStatusCAPA();                                               
+                            return false;
+                        } 
+                    } else {
                         $('#Div_Approval_PV').hide();
                         return false;
-                    }
-                }
-                
+                    }                                  
+                }                
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -173,7 +166,7 @@
 
     $(document).ready(function () {
         //*PV = Partial View
-        checkStatusCAPA();
+        TableKajianPV();
 
         getSuperiorNIK();
         //Hidden card div AnalisaKondisi di PartialView (~/Koordinator/InvestigasiPenyimpangan)

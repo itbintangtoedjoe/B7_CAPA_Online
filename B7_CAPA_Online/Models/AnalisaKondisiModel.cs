@@ -37,6 +37,7 @@ namespace B7_CAPA_Online.Models
         public string Create_By { get; set; }
         //28/10/2021
         public int RecordID { get; set; }
+        public int Status_ID { get; set; }
 
     }
     partial class ListKondisi

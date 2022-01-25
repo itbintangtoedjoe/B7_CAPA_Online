@@ -540,7 +540,7 @@ namespace B7_CAPA_Online.Controllers
             var Path_DT = ToDataTable<Lampiran>(Model.LampiranTerkait);
 
             // Method Insert Data
-            //Model.NO_CAPA = DAL.InsertData(Model, Departemen_DT, Penyimpangan_DT, Path_DT);
+            Model.NO_CAPA = DAL.InsertData(Model, Departemen_DT, Penyimpangan_DT, Path_DT);
 
             // Method SMTP Email
             EmailSender emailSender = new EmailSender();

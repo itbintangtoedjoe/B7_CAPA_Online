@@ -5,24 +5,7 @@
 }
 
 <div class="content-body">
-    <!--Modal-->
-    <div class="modal fade" id="Reject_Page" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Reject CAPA</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        @Html.Partial("RejectCAPA")
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <!--Dasboard > Approval Atasan Pelaksana CAPA-->
     <div class="row page-titles mx-0">
@@ -50,8 +33,8 @@
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">Atasan PIC</label>
                                     <input class="form-control form-control-sm" type="text" id="TxtRequestor" value="@Request.RequestContext.HttpContext.Session["FullName"]" readonly>
-                                    @*<input class="form-control form-control-sm" type="text" id="TxtRequestor_NIK" value="@Request.RequestContext.HttpContext.Session["NIK"]" hidden>*@
-                                    <input class="form-control form-control-sm" type="text" id="TxtRequestor_NIK" value="090500076" hidden>
+                                    <input class="form-control form-control-sm" type="text" id="TxtRequestor_NIK" value="@Request.RequestContext.HttpContext.Session["NIK"]" hidden>
+                                   @* <input class="form-control form-control-sm" type="text" id="TxtRequestor_NIK" value="090500076" hidden>*@
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-20">Nomor CAPA</label>
@@ -106,26 +89,7 @@
             data: JSON.stringify({
                 Model: {
                     NO_CAPA: $('#input_NoCAPA').val(),
-                    Option: 14,
-                    Aspect: '',
-                    WSBH: '',
-                    WAH: '',
-                    Status: '',
-                    isParent: '',
-                    WHY_Parent: '',
-                    WHY: '',
-                    Tindakan: '',
-                    Pelaksana: '',
-                    LineNumber: '',
-                    NamaPersonil: '',
-                    Email: '',
-                    DueDate: '',
-                    Is_AreaLain: '',
-                    WhyID: '',
-                    WhyParentID: '',
-                    RootCause: '',
-                    Create_By: '',
-                    RecordID: ''
+                    Option: 14
                 }
             }),
             dataType: 'json',
@@ -176,6 +140,7 @@
 
     $(document).ready(function () {
         //*PV = Partial View
+        TableKajianPV();
        
         //Hidden card div AnalisaKondisi di PartialView (~/Koordinator/InvestigasiPenyimpangan)
         $('#Div_AnalisaKondisi').prop('hidden', true);
