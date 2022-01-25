@@ -248,7 +248,8 @@ namespace B7_CAPA_Online.Controllers
                 { "WhyParentID", Model.WhyParentID},
                 { "RootCause", Model.RootCause},
                 { "Create_By", Model.Create_By},
-                { "RecordID", Model.RecordID}
+                { "RecordID", Model.RecordID},
+                { "Status_ID", Model.Status_ID}
             };
 
             string Return = DAL.ExecuteFormPIC(Model, dictionary);

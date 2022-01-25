@@ -24,7 +24,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Form CAPA</h4>
+                        <h4 class="card-title">Evaluator CAPA</h4>
                         <form>
                             <div class="row">
                                 <div class="form-group mb-2 col-sm-3">
@@ -59,15 +59,15 @@
                         <h4 class="card-title">View Bukti Page</h4>
                         <button class="btn btn-dark form-control col-sm-2" id="btn_ViewBukti">View Bukti</button>
                     </div>
-                    @Html.Partial("RentangEfektivitas_PV")                 
+                    @Html.Partial("RentangEfektivitas_PV")
                 </div>
 
                 @*<div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">View Bukti Page</h4>
-                        <button class="btn btn-dark form-control col-sm-2" id="btn_ViewBukti">View Bukti</button>
-                    </div>
-                </div>*@               
+                        <div class="card-body">
+                            <h4 class="card-title">View Bukti Page</h4>
+                            <button class="btn btn-dark form-control col-sm-2" id="btn_ViewBukti">View Bukti</button>
+                        </div>
+                    </div>*@
 
                 <div class="card">
                     <div class="card-body">
@@ -213,6 +213,7 @@
 <script src="https://unpkg.com/gojs/release/go-debug.js" defer></script>
 
 <script>
+    var CurrentStatsID = 8;
     function DeviationTable() {
         $.ajax({
             url: 'GetData',
@@ -222,13 +223,13 @@
                     Option: 1,
                     NO_CAPA: $('#input_NoCAPA').val(),
                     Type: 'DEVIATION'
-                }                                
+                }
             }),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            success: function (data) {                
+            success: function (data) {
                 $("#Tbl_Devi").prop("hidden", true);
-                if (JSON.parse(data).length > 0) {                    
+                if (JSON.parse(data).length > 0) {
                     $("#Tbl_Devi").prop("hidden", false);
                     $("#Devi_Yes").prop("checked", true);
                     var t = $('#Tbl_Devi').DataTable({
@@ -250,7 +251,7 @@
                         "order": [[1, 'asc']]
                     });
                     return;
-                }          
+                }
                 $("#Devi_No").prop("checked", true);
                 return;
             },
@@ -296,7 +297,7 @@
                         "order": [[1, 'asc']]
                     });
                     return;
-                }      
+                }
                 $("#CCC_No").prop("checked", true);
                 return;
             },
@@ -349,7 +350,7 @@
                         "order": [[1, 'asc']]
                     });
                     return;
-                }   
+                }
                 $("#File_No").prop("checked", true);
                 return;
             },
@@ -359,7 +360,34 @@
         });
     }
 
+    function checkStatusCAPA() {
+        $.ajax({
+            url: '/PIC/CheckStatusCAPA',
+            type: 'post',
+            data: JSON.stringify({
+                Model: {
+                    NO_CAPA: $('#input_NoCAPA').val(),
+                    Option: 14
+                }
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log(data);
+                var result = JSON.parse(data)[0];
+                var valid = (result.STATUS_ID == CurrentStatsID) ? (true) : (false); // jika status CAPA = 2 maka, hide = false , sebaliknya.
+                if (!valid) //Jika hide true maka di hidden.
+                    window.location.href = '/PendingTask/TaskList';
+
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
     $(document).ready(function () {
+        checkStatusCAPA();
         DeviationTable();
         CCCTable();
         LampiranTable();
@@ -372,9 +400,60 @@
         });
 
         $('#btn_Submit').click(function () {
-            if ($('#TxtCatatan').val() != "" && $('input[name="Efektivitas"]:checked').val() != "") {
-                // Closed CAPA or Closed with Initiate CAPA
+            if ($('#TxtCatatan').val() == "" || $('input[name="Efektivitas"]:checked').val() == undefined) {
+                Swal.fire(
+                    'Maaf',
+                    'Mohon untuk mengisi field yang tersedia.',
+                    'warning'
+                );
+                return;
             }
+            
+            $.ajax({
+                url: '/AtasanPIC/SubmitApproval',
+                type: 'post',
+                dataType: 'json',
+                data: JSON.stringify({
+                    Model: {
+                        NO_CAPA: $('#input_NoCAPA').val(),
+                        Create_By: $('#input_Requestor_NIK').val(),
+                        CurrentStatusID: 8,
+                        Status: $('input[name="Efektivitas"]:checked').val(),
+                        Reject_Reason: $('#TxtCatatan').val(),
+                        Option: 4
+                    }
+                }),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var result = JSON.parse(data);
+                    if (!result.IS_VALID) {
+                        Swal.fire(
+                            'Maaf',
+                            'Mohon untuk mengisi field yang tersedia.',
+                            'warning'
+                        );
+                        return;
+                    }
+
+                    Swal.fire({
+                        title: 'Success!',
+                        text: "Berhasil di submit.",
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Yes'
+                    }).then((result) => {
+                        if (result.value) {
+                            window.location.href = '/PendingTask/TaskList';
+                        }
+                    })
+
+
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+
 
         });
 
