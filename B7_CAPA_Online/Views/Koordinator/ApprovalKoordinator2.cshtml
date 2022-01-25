@@ -506,6 +506,8 @@
                         $('#Trigger_CAPA').attr('disabled', true);
 
                     }
+
+                    window.location.href('../PendingTask/TaskList');
                 },
                 error: function (errormessage) {
                     $('#divLoading').attr("hidden", true);
@@ -550,6 +552,7 @@
                             'Evaluator Berhasil Di Hapus!',
                             'success'
                         )
+
                     },
                     error: function (errormessage) {
                     }
@@ -603,6 +606,8 @@
                                 'Reject Berhasil',
                                 'success'
                             )
+
+                            window.location.href('../PendingTask/TaskList');
                         },
                         error: function (errormessage) {
                         }
@@ -670,6 +675,7 @@
                                 'Cancel Berhasil',
                                 'success'
                             )
+                            window.location.href('../PendingTask/TaskList');
                         },
                         error: function (errormessage) {
                         }

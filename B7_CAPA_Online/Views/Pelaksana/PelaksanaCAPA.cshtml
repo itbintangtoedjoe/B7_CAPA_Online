@@ -105,14 +105,14 @@
                             </div>
 
                             @*<div class="row form-group">
-                                    <div class="col-sm-2">
-                                        <button type="button" class="btn btn-primary" id="btnTambahPerbaikan">Tambah Tindakan Perbaikan</button>
-                                    </div>
-                                </div>*@
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-primary" id="btnTambahPerbaikan">Tambah Tindakan Perbaikan</button>
+            </div>
+        </div>*@
                             <hr />
                             <div class="row form-group">
                                 <div class="col-sm-6">
-                                    <select class="form-control select2" name="ddlPerbaikan" id="ddlPerbaikan" required >
+                                    <select class="form-control select2" name="ddlPerbaikan" id="ddlPerbaikan" required>
                                     </select>
                                 </div>
                                 <div class="col-sm-1" id="PilihPerbaikan">
@@ -126,7 +126,7 @@
                                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="btnActionPerbaikan" disabled>Action</button>
                                     <div class="dropdown-menu" style="width:auto; color:black;">
                                         <a class="dropdown-item" href="#" id="btnEnableUbahPerbaikan">Ubah Tindakan Perbaikan</a>
-                                        <a class="dropdown-item" href="#" id="btnTambahPerbaikan">Tambah Tindakan Perbaikan</a>
+                                        <a class="dropdown-item" href="#" id="btnTambahPerbaikan">Tambah Tindakan </a>
                                         <a class="dropdown-item" href="#" id="btnCancelPerbaikan">Cancel Tindakan Perbaikan</a>
                                     </div>
                                 </div>
@@ -135,6 +135,12 @@
                             <div class="row form-group">
                                 <div class="col-md-12">
                                     <label id="txtStatusPerbaikan"><strong>Status: Menunggu Input Pelaksana</strong></label>
+                                </div>
+                            </div>
+                            <div class="row form-group" id="RejectRow" hidden>
+                                <div class="col-md-4">
+                                    <label class="m-t-20">Alasan Reject</label>
+                                    <textarea type="text" class="form-control" id="txtRejectPerbaikan" disabled></textarea>
                                 </div>
                             </div>
                             <div class="row form-group">
@@ -229,8 +235,8 @@
 
                             <div class="row form-group">
                                 @*<div class="col-sm-2">
-                                        <button type="button" class="btn btn-primary">Tambah Tindakan Pencegahan</button>
-                                    </div>*@
+                <button type="button" class="btn btn-primary">Tambah Tindakan Pencegahan</button>
+            </div>*@
                             </div>
                             <hr />
                             <div class="row form-group">
@@ -260,6 +266,12 @@
                                 </div>
                             </div>
 
+                            <div class="row form-group" id="RejectRowPencegahan" hidden>
+                                <div class="col-md-4">
+                                    <label class="m-t-20">Alasan Reject</label>
+                                    <textarea type="text" class="form-control" id="txtRejectPencegahan" disabled></textarea>
+                                </div>
+                            </div>
                             <div class="row form-group-sm">
                                 <div class="col-md-4">
                                     <label class="m-t-20">Tindakan pencegahan<span style="color: red">*</span></label>
@@ -281,16 +293,16 @@
                                     </div>
                                 </div>
                                 @*<div class="col-md-6">
-                                        <label class="m-t-40" style="visibility:hidden">Hasil tindakan perbaikan yang sudah dilakukan</label>
-                                        <div class="input-group mb-3">
-                                            <button type=   "button" class="btn mb-1 btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
-                                            <div class="dropdown-menu" style="width:auto">
-                                                <a class="dropdown-item" href="#">Ubah Tindakan Pencegahan</a>
-                                                <a class="dropdown-item" href="#">Cancel Tindakan Pencegahan</a>
-                                                <a class="dropdown-item" href="#">Tambah Tindakan Pencegahan</a>
-                                            </div>
-                                        </div>
-                                    </div>*@
+                <label class="m-t-40" style="visibility:hidden">Hasil tindakan perbaikan yang sudah dilakukan</label>
+                <div class="input-group mb-3">
+                    <button type=   "button" class="btn mb-1 btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
+                    <div class="dropdown-menu" style="width:auto">
+                        <a class="dropdown-item" href="#">Ubah Tindakan Pencegahan</a>
+                        <a class="dropdown-item" href="#">Cancel Tindakan Pencegahan</a>
+                        <a class="dropdown-item" href="#">Tambah Tindakan Pencegahan</a>
+                    </div>
+                </div>
+            </div>*@
                                 <div class="col-md-4">
                                     <label class="m-t-20">Upload Bukti Tindakan Pencegahan<span style="color: red">*</span></label>
                                     <div class="input-group mb-3">
@@ -300,8 +312,8 @@
                                         <label id="TxtLampiranCountPencegahan" class="custom-file-label">Tidak ada File Yang Dipilih</label>
 
                                         @*<div class="input-group-append">
-                                                <button id="btnAddAttPerbaikan" class="btn-dark input-group-text center" style="cursor:pointer" type="button">Add<span style="visibility:hidden">..</span><i class="fa fa-plus color-success"></i></button>
-                                            </div>*@
+                        <button id="btnAddAttPerbaikan" class="btn-dark input-group-text center" style="cursor:pointer" type="button">Add<span style="visibility:hidden">..</span><i class="fa fa-plus color-success"></i></button>
+                    </div>*@
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -590,7 +602,7 @@
     $(document).ready(function () {
         $('#TxtDepartemen').val('@Request.RequestContext.HttpContext.Session["Departemen"]');
         $('#TxtNoCAPA').val(noCAPA);
-        //$('#TxtRequestor').val(superiorName);
+        $('#TxtRequestor').val(superiorName);
         //$('#txtPelaksanaPerbaikan').val(namaUser);
         //$('#txtPelaksanaPencegahan').val(namaUser);
         //$('#txtSuperiorPerbaikan').val(superiorName);
@@ -717,6 +729,8 @@
                         buttons: false,
                         timer: 1000,
                     });
+
+                    window.location.href('../PendingTask/TaskList');
                 }
             },
             error: function (errormessage) {
@@ -800,9 +814,9 @@
             @*if (dataPerbaikan[i].Status_Perbaikan.startsWith('Pending Review')) {
                 $('#ddlPerbaikan').append('<option value="' + dataPerbaikan[i].RecordID + '">' + 'Perbaikan ' + idx + ' - in review</option>');
             }*@
-            if (dataPerbaikan[i].Status_Perbaikan > 6) {
+            if (dataPerbaikan[i].Status_ID == 25) {
                 @*$('#ddlPerbaikan').append('<option value="' + dataPerbaikan[i].RecordID + '">' + 'Perbaikan ' + idx + ' - ' + dataPerbaikan[i].Status_Perbaikan + '</option>');*@
-                 $('#ddlPerbaikan').append('<option value="' + dataPerbaikan[i].RecordID + '">[In Review] ' + dataPerbaikan[i].Tindakan_Perbaikan + '</option>');
+                 $('#ddlPerbaikan').append('<option value="' + dataPerbaikan[i].RecordID + '">[Reject] ' + dataPerbaikan[i].Tindakan_Perbaikan + '</option>');
             }
             else {
                 $('#ddlPerbaikan').append('<option value="' + dataPerbaikan[i].RecordID + '">' + dataPerbaikan[i].Tindakan_Perbaikan + '</option>');
@@ -959,6 +973,7 @@
         $('#dueDatePerbaikan').val(dueDate.format("YYYY-MM-DD"));
         $('#txtHasilPerbaikan').val(objPerbaikan[0].Hasil_Perbaikan);
         $('#txtRootCausePerbaikan').val(objPerbaikan[0].WhyDesc);
+       
         GetPerbaikanAttachments();
         PopulateTableAttPerbaikan();
         ToggleBtnDeleteAttPerbaikan("Disable");
@@ -984,17 +999,29 @@
             }
         }
         if (statuser == true) {
-            //disable button pilih agar tidak bisa diedit - jika status direview
 
                 $('#btnPilihPerbaikan').prop('disabled', false);
                 status = "Waiting Upload Bukti"
 
             $('#txtStatusPerbaikan').html('<strong>Status: ' + status + '</strong>');
         }
-
-
-
-
+        var textperb = $('#ddlPerbaikan option:selected').text();
+        if (textperb.indexOf('[Reject]') == 0) {
+            $('#btnPilihPerbaikan').attr("disabled", true);
+            $('#txtRejectPerbaikan').attr("disabled", true);
+            $('#RejectRow').attr("hidden", false);
+        }
+        else {
+            $('#RejectRow').attr("hidden", true);
+            $('#btnPilihPerbaikan').attr("disabled", false);
+        }
+        if (objPerbaikan[0].Alasan_Reject.trim() != "") {
+            $('#RejectRow').attr("hidden", false);
+            $('#txtRejectPerbaikan').val(objPerbaikan[0].Alasan_Reject);
+        }
+        else {
+            $('#RejectRow').attr("hidden", true);
+        }
     }
 
     function PopulateTableAttPerbaikan() {
@@ -1134,6 +1161,7 @@
             $('#txtTindakanPerbaikanRev').prop("disabled", true);
             $('#dueDatePerbaikanRev').prop("disabled", true);
             $('#txtModePerbaikan').attr("hidden", true);
+            $('#UploadPerbaikan').prop("disabled", true)
             $('#btnEnableUbahPerbaikan').html('Edit Tindakan Perbaikan');
             $("#modePerbaikan").val("Continue");
             ResetPage();
@@ -1323,8 +1351,8 @@
             idx = i + 1;
             dueDate = moment(dataPencegahan[i].Due_Date);
             //beri keterangan jika status perbaikan sedang menunggu review
-            if (dataPencegahan[i].Status_Pencegahan >6) {
-                $('#ddlPencegahan').append('<option value="' + dataPencegahan[i].RecordID + '">[In Review] ' + dataPencegahan[i].Tindakan_Pencegahan + '</option>');
+            if (dataPencegahan[i].Status_Pencegahan.Status_ID == 25) {
+                $('#ddlPencegahan').append('<option value="' + dataPencegahan[i].RecordID + '">[Reject] ' + dataPencegahan[i].Tindakan_Pencegahan + '</option>');
             }
             else {
                 $('#ddlPencegahan').append('<option value="' + dataPencegahan[i].RecordID + '">' + dataPencegahan[i].Tindakan_Pencegahan + '</option>');
@@ -1344,7 +1372,7 @@
         GetPencegahanAttachments();
         PopulateTableAttPencegahan();
         ToggleBtnDeleteAttPencegahan("Disable");
-
+        
         var ddlText = $("#ddlPencegahan option:selected").text();
         var status = "Menunggu Input Pelaksana";
         var pelaksana = objPencegahan[0].Pelaksana_Pencegahan;
@@ -1366,14 +1394,6 @@
             }
         }
         if (statuser == true) {
-            //disable button pilih agar tidak bisa diedit - jika status direview
-            if (ddlText.indexOf('Review') > 0) {
-                $('#btnPilihPencegahan').prop("disabled", true);
-                status = objPencegahan[0].STATUS_DESKRIPSI;
-            }
-            else {
-                $('#btnPilihPencegahan').prop('disabled', false);
-            }
 
             $('#txtStatusPencegahan').html('<strong>Status: ' + status + '</strong>');
             $('#txtRootCausePencegahan').val(objPencegahan[0].WhyDesc);
@@ -1382,9 +1402,25 @@
             $('#btnPilihPencegahan').prop("disabled", true);
         }
 
-        //disable button pilih agar tidak bisa diedit
+        var textperb = $('#ddlPencegahan option:selected').text();
+        if (textperb.indexOf('[Reject]') == 0) {
+            $('#btnPilihPencegahan').attr("disabled", true);
+            $('#txtRejectPencegahan').attr("disabled", true);
+            $('#RejectPencegahanRow').attr("hidden", false)
+        }
+        else {
+            $('#RejectRow').attr("hidden", true);
+            $('#btnPilihPerbaikan').attr("disabled", false);
+        }
 
-        $('#txtStatusPencegahan').html('<strong>Status: ' + status + '</strong>');
+        if (objPencegahan[0].Alasan_Reject.trim() != "") {
+            $('#RejectRow').attr("hidden", false);
+            $('#txtRejectPencegahan').val(objPerbaikan[0].Alasan_Reject);
+        }
+        else {
+            $('#RejectRow').attr("hidden", true);
+        }
+
     }
 
     function PopulateTableAttPencegahan() {
@@ -1510,6 +1546,7 @@
         } else {
             $(this).text("Pilih");
             $('#ddlPencegahan').prop("disabled", false);
+            $('#UploadPencegahan').prop("disabled", true);
             $('#btnActionPencegahan').prop("disabled", true);
             ResetPage();
             ToggleBtnDeleteAttPencegahan("Disable");

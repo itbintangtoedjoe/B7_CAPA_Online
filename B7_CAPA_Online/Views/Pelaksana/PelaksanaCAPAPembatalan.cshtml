@@ -28,6 +28,31 @@
     <!-- row -->
 
     <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Pelaksana CAPA</h4>
+                <form>
+                    <div class="row">
+                        <div class="form-group mb-2 col-sm-3">
+                            <label class="m-t-20">Tanggal</label>
+                            <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly>
+                        </div>
+                        <div class="form-group mb-2 col-sm-3">
+                            <label class="m-t-40">Atasan Pelaksana</label>
+                            <input class="form-control form-control-sm" type="text" id="TxtRequestor" readonly>
+                        </div>
+                        <div class="form-group mb-2 col-sm-3">
+                            <label class="m-t-20">Nomor CAPA</label>
+                            <input class="form-control form-control-sm" type="text" id="TxtNoCAPA" readonly>
+                        </div>
+                        <div class="form-group mb-2 col-sm-3">
+                            <label class="m-t-40">Departemen</label>
+                            <input class="form-control form-control-sm" type="text" id="TxtDepartemen" readonly>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div id="Perbaikan" hidden>
             <div class="card">
                 <div class="card-body">
@@ -112,8 +137,8 @@
 
                         <div class="row form-group">
                             @*<div class="col-sm-2">
-                                    <button type="button" class="btn btn-primary">Tambah Tindakan Pencegahan</button>
-                                </div>*@
+                                <button type="button" class="btn btn-primary">Tambah Tindakan Pencegahan</button>
+                            </div>*@
                         </div>
                         <hr />
                         <div class="row form-group">
@@ -256,6 +281,9 @@
     }
 
     $(document).ready(function () {
+        $('#TxtDepartemen').val('@Request.RequestContext.HttpContext.Session["Departemen"]');
+        $('#TxtNoCAPA').val(noCAPA);
+        $('#TxtRequestor').val(superiorName);
         if (tindakan == "Perbaikan") {
             jenis = "Pembatalan Perbaikan";
         }
@@ -399,7 +427,32 @@
                 }
                 var date = new Date();
                 var datekajian = new Date($('#DueDate_Kajian').val());
-                var limit = (dto.Model.Severity == 10 || dto.Model.RiskLevel == "High" || dto.Model.RiskLevel == "Very High") ? (25) : (14);
+                var limit = (dto.Model.Severity == 10 || dto.Model.RiskLevel == "High" || dto.Model.RiskLevel == "Very High") ? (25) : (14);   var i = 0;
+                var i = 0;
+                for (var property in dto.Model) {
+                    if (limit == 14 ) {
+                        if (i > 14 && i < 26) {
+                            if (elementID[property] != undefined) {
+                                $(elementID[property]).val("");
+                                if (i == 17 || i == 19 || i == 21) { //ini index array untuk dropdownlist Severity2, Likelihood2, dan Detectability2
+                                    $(elementID[property]).val('-');
+                                }
+
+                            }
+                            delete dto.Model[property];
+                        }
+                    } else {
+                        if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
+                            valid = false;
+                            return Swal.fire(
+                                'Maaf',
+                                'Risk Level masih tinggi.',
+                                'warning'
+                            )
+                        }
+                    }
+                    i++;
+                }
                 var count = 0;
                 //console.log("limit : " + limit);
                 $.each(dto.Model, function (key, value) {
@@ -584,7 +637,7 @@
                 //console.log(data);
                 $('#Tbl_KajianResiko').DataTable({
                     "pageLength": 5,
-                    "lengthChange": true,
+                    "lengthChange": false,
                     "paging": false,
                     "info": false,
                     "searching": false,
@@ -657,7 +710,7 @@
             Swal.fire(
                 'Error',
                 'Alasan Cancel harus diisi',
-                'error' 
+                'error'
             )
         }
         else {
@@ -826,7 +879,7 @@
         var dictlist = {
             Kategori: "Batal Perbaikan",
             RecordID: referenceID,
-            Tipe: jenis 
+            Tipe: jenis
         }
         var dto = {
             Model: dictlist
@@ -856,7 +909,7 @@
                         'Pembatalan berhasil di submit',
                         'success'
                     )
-
+                    window.location.href('../PendingTask/TaskList');
                     $('#CancelPerbaikan').attr("disabled", true);
                     $('#AlasanBatalPerbaikan').attr("disabled", true);
                     $('#btn_AddKajian').attr("disabled", true);
@@ -903,6 +956,7 @@
                         'Pembatalan berhasil di submit',
                         'success'
                     )
+                    window.location.href('../PendingTask/TaskList');
                     $('#CancelPencegahan').attr("disabled", true);
                     $('#AlasanBatalPencegahan').attr("disabled", true);
                     $('#btn_AddKajian').attr("disabled", true);

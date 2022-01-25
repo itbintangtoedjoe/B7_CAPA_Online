@@ -30,7 +30,27 @@
     <!-- row -->
 
     <div class="container-fluid">
-
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Pelaksana CAPA</h4>
+                <form>
+                    <div class="row">
+                        <div class="form-group mb-2 col-sm-3">
+                            <label class="m-t-20">Tanggal</label>
+                            <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly>
+                        </div>
+                        <div class="form-group mb-2 col-sm-3">
+                            <label class="m-t-20">Nomor CAPA</label>
+                            <input class="form-control form-control-sm" type="text" id="TxtNoCAPA" readonly>
+                        </div>
+                        <div class="form-group mb-2 col-sm-3">
+                            <label class="m-t-40">Departemen</label>
+                            <input class="form-control form-control-sm" type="text" id="TxtDepartemen" readonly>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="card">
             <div class="card-body">
                 <div class="card">
@@ -44,12 +64,9 @@
                                         <th>Root Cause</th>
                                         <th>Nama Pelaksana</th>
                                         <th>Tindakan Perbaikan</th>
-                                        <th>Tindakan Perbaikan Revisi</th>
-                                        <th>Alasan Perubahan Tindakan Perbaikan</th>
                                         <th>Due Date</th>
-                                        <th>Due Date Revisi</th>
-                                        <th>Alasan Perubahan Due Date </th>
                                         <th>Status</th>
+                                        <th>Rentang</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -76,12 +93,9 @@
                                         <th>Root Cause</th>
                                         <th>Nama Pelaksana</th>
                                         <th>Tindakan Pencegahan</th>
-                                        <th>Tindakan Pencegahan Revisi</th>
-                                        <th>Alasan Perubahan Tindakan Pencegahan</th>
                                         <th>Due Date</th>
-                                        <th>Due Date Revisi</th>
-                                        <th>Alasan Perubahan Due Date </th>
                                         <th>Status</th>
+                                        <th>Rentang</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -165,6 +179,9 @@
         });
     }
     $(document).ready(function () {
+        $('#TxtDepartemen').val('@Request.RequestContext.HttpContext.Session["Departemen"]');
+        $('#TxtNoCAPA').val(noCAPA);
+        $('#TxtRequestor').val(superiorName);
         checkUser();
         $('#RootCause_KajianResikoDDL').attr('disabled', true);
         $('#btn_AddKajian').attr('disabled', true);
@@ -214,16 +231,16 @@
                         { "data": "WhyDesc" },
                         { "data": "PelaksanaName" },
                         { "data": "Tindakan_Perbaikan" },
-                        { "data": "Tindakan_PerbaikanRev" },
-                        { "data": "Alasan_Tindakan_Perbaikan"},
                         { "data": "tanggal" },
-                        { "data": "tanggalRev" },
-                        { "data": "Alasan_Due_Date" },
                         { "data": "Stat" },
                         {
                             "data": null,
-                            "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>"
+                            "defaultContent": "<input type='number' /> "
                         },
+                        {
+                            "data": null,
+                            "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>"
+                        }
                     ],
                     "columnDefs": [
                         {
@@ -244,7 +261,7 @@
         var dictlist = {
             NoCAPA: noCAPA,
             Option: 24,
-            Stat: 11,
+            Stat: 11
         }
         var dto1 = {
             Model: dictlist
@@ -256,6 +273,7 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
+                var result = JSON.parse(data);
                 var table = $('#Tbl_Pencegahan').DataTable({
                     "pageLength": 5,
                     "lengthChange": false,
@@ -270,16 +288,17 @@
                         { "data": "WhyDesc" },
                         { "data": "PelaksanaName" },
                         { "data": "Tindakan_Pencegahan" },
-                        { "data": "Tindakan_PencegahanRev" },
-                        { "data": "Alasan_Tindakan_Pencegahan" },
                         { "data": "tanggal" },
-                        { "data": "tanggalRev" },
-                        { "data": "Alasan_Due_Date" },
                         { "data": "Stat" },
                         {
+                            "data": "Rentang",
+                            "defaultContent": '<input type="number" />'
+                        },
+                        {
                             "data": null,
-                            "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahan(this) value='Reject'style='background-color:red;'/>"
-                       },
+                            "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahan(this) value='Approve'style='background-color:green; '/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahan(this) value='Reject'style='background-color:red;'/>"
+                        }
+                       
                     ],
                     "columnDefs": [
                         {

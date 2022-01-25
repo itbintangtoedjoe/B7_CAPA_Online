@@ -28,6 +28,31 @@
     <!-- row -->
 
     <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Pelaksana CAPA</h4>
+                <form>
+                    <div class="row">
+                        <div class="form-group mb-2 col-sm-3">
+                            <label class="m-t-20">Tanggal</label>
+                            <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly>
+                        </div>
+                        <div class="form-group mb-2 col-sm-3">
+                            <label class="m-t-20">Nomor CAPA</label>
+                            <input class="form-control form-control-sm" type="text" id="TxtNoCAPA" readonly>
+                        </div>
+                        <div class="form-group mb-2 col-sm-3">
+                            <label class="m-t-40">Atasan Pelaksana</label>
+                            <input class="form-control form-control-sm" type="text" id="TxtRequestor" readonly>
+                        </div>
+                        <div class="form-group mb-2 col-sm-3">
+                            <label class="m-t-40">Departemen</label>
+                            <input class="form-control form-control-sm" type="text" id="TxtDepartemen" readonly>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
@@ -205,6 +230,7 @@
     var namauser = '@Request.RequestContext.HttpContext.Session["NamaUser"]';
     var departemen = '@Request.RequestContext.HttpContext.Session["Departemen"]';
     var email ='@Request.RequestContext.HttpContext.Session["Email"]';
+    var superiorName = '@Request.RequestContext.HttpContext.Session["SuperiorName"]';
     var dataPerbaikan;
     var newDataPerbaikan;
     var newKajianResiko = [];
@@ -225,6 +251,9 @@
     }
 
     $(document).ready(function () {
+        $('#TxtDepartemen').val('@Request.RequestContext.HttpContext.Session["Departemen"]');
+        $('#TxtNoCAPA').val(noCAPA);
+        $('#TxtRequestor').val(superiorName);
         jenis = "Pencegahan Existing";
         KajianResikoDDL();
         TableKajian();
@@ -298,7 +327,7 @@
         $('#btnSimpan').click(function () {
 
             var berpotensi = $('input[name="TambahPerbaikan"]:checked').val();
-       
+
             if (berpotensi == "Yes") {
                 SubmitTindakanBaru();
             }
@@ -309,7 +338,7 @@
         })
 
         $('#RootCause_KajianResikoDDL').change(function () {
-            var val = $('#RootCause_KajianResikoDDL').text();
+            var val = $('#RootCause_KajianResikoDDL option:selected').text();
             var berpotensi = $('input[name="TambahPerbaikan"]:checked').val();
             if (berpotensi == "Yes") {
                 if (val.indexOf('[Perbaikan]') == 0) {
@@ -324,13 +353,10 @@
             else {
                 jenis = "Pencegahan Existing";
             }
-            
         });
         $('#btn_AddKajian').click(function () {
-            recTindakan();
+            KajianResikoDDL();
             console.log(namauser);
-            console.log(values);
-            $('#TxtPICName').val(values.FullName);
             //console.log(values);
         });
 
@@ -412,6 +438,31 @@
                 var date = new Date();
                 var datekajian = new Date($('#DueDate_Kajian').val());
                 var limit = (dto.Model.Severity == 10 || dto.Model.RiskLevel == "High" || dto.Model.RiskLevel == "Very High") ? (25) : (14);
+                var i = 0;
+                for (var property in dto.Model) {
+                    if (limit == 14) {
+                        if (i > 14 && i < 26) {
+                            if (elementID[property] != undefined) {
+                                $(elementID[property]).val("");
+                                if (i == 17 || i == 19 || i == 21) { //ini index array untuk dropdownlist Severity2, Likelihood2, dan Detectability2
+                                    $(elementID[property]).val('-');
+                                }
+
+                            }
+                            delete dto.Model[property];
+                        }
+                    } else {
+                        if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
+                            valid = false;
+                            return Swal.fire(
+                                'Maaf',
+                                'Risk Level masih tinggi.',
+                                'warning'
+                            )
+                        }
+                    }
+                    i++;
+                }
                 var count = 0;
                 //console.log("limit : " + limit);
                 $.each(dto.Model, function (key, value) {
@@ -467,7 +518,7 @@
                                 valid = false;
                                 return false;
                             }
-                          
+
                         }
                     }
                     count++;
@@ -530,6 +581,7 @@
             success: function (data) {
                 //console.log(JSON.parse(data))
                 objTindakan = JSON.parse(data);
+                recTindakan();
                 //console.log('Halaman PV dalam KajianResikoDDLPV(): ' + objTindakan);
                 //$('#RootCause_KajianResikoDDL').empty();
                 //$('#RootCause_KajianResikoDDL').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
@@ -544,16 +596,18 @@
     }
 
     function recTindakan() {
-        KajianResikoDDL();
         console.log(objTindakan);
         //console.log(tipe);
         console.log($('#RootCause_KajianResikoDDL').val());
         var tambahperbaikan = $('input[name="TambahPerbaikan"]:checked').val();
         console.log(tambahperbaikan);
+        console.log(tipe);
         for (var i = 0; i < objTindakan.length; i++) {
             if (tambahperbaikan == "Yes") {
                 if (objTindakan[i].RecordID == $('#RootCause_KajianResikoDDL').val() && objTindakan[i].Tipe == tipe) {
                     values = objTindakan[i];
+                    $('#TxtPICName').val(values.FullName);
+                    console.log(values);
                     break;
                 }
             }
@@ -562,6 +616,7 @@
                 if (objTindakan[i].RecordID == $('#RootCause_KajianResikoDDL').val()  && objTindakan[i].Tipe == "Pencegahan") {
                     values = objTindakan[i];
                     console.log(values);
+                    $('#TxtPICName').val(values.FullName);
                     break;
                 }
             }
@@ -577,7 +632,7 @@
                     nomorCAPA: noCAPA,
                     kategori: "Kajian Resiko Tambah Tindakan Baru",
                     tipe: jenis,
-                    recordID: referenceID
+                    nik: nik
                 }
             }),
             dataType: 'json',
@@ -586,7 +641,7 @@
                 //console.log(data);
                 $('#Tbl_KajianResiko').DataTable({
                     "pageLength": 5,
-                    "lengthChange": true,
+                    "lengthChange": false,
                     "paging": false,
                     "info": false,
                     "searching": false,
@@ -655,7 +710,7 @@
                     kategori: "Kajian Resiko Pencegahan Existing",
                     tipe: jenis,
                     refid: refid
-                }   
+                }
             }),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
@@ -754,14 +809,14 @@
                         Swal.fire("Success!", "Submit Berhasil!", "success");
 
                         $("input[name='TambahPerbaikan']").prop("disabled", false);
-                        
+
                     }
                 },
                 error: function (xhr, error, status) {
                     console.log(error, status);
                 }
             });
-        
+
     }
     function SubmitTindakanBaru()
     {
@@ -802,8 +857,8 @@
                     $('#divLoading').attr("hidden", true);
                 }
             });
-        
-      
+
+
 
     }
     function getVendorDDL() {
@@ -899,9 +954,9 @@
                 });
 
                 $('#btn_AddPerbaikan').click(function () {
-                    
-                   
-                   
+
+
+
                         var dto = {};
                         var kategori = "Perbaikan";
                         var obj = JSON.parse(rootcause);
@@ -916,7 +971,7 @@
                                     WhyParentID: value.ParentID,
                                     RootCause: value.WhyDesc,
                                     Tindakan: $('#TxtDeskripsiPerbaikan').val(),
-                                    Pelaksana: $('#NamaPersonilPerbaikan_DDL').val(),
+                                    Pelaksana: nik,
                                     Departemen: departemen,
                                     LineNumber: value.LineNumber,
                                     DueDate: $('#duedate_perbaikan').val(),
@@ -928,11 +983,11 @@
                                     Status_ID: 0,
                                     SP: "[dbo].[SP_FORM_CAPA]"
                                 }
-                              
                             }
                         });
                         addTindakan(dto, kategori);
-                    
+
+                        retrieveData2();
                 });
 
             },
@@ -943,14 +998,19 @@
     }
 
     function retrieveData2() {
+        var dictlist =
+        {
+            Option: 8,
+            NO_CAPA: noCAPA,
+            Status_Perbaikan: 'Perbaikan Baru'
+        }
+        var dto1 = {
+            Model: dictlist
+        }
         $.ajax({
-            url: 'GetDataPIC',
+            url: 'DynamicController?spname=[dbo].[SP_FORM_CAPA]',
             type: 'post',
-            data: JSON.stringify({
-                Option: 8,
-                NO_CAPA: noCAPA,
-                SP: "[dbo].[SP_FORM_CAPA]"
-            }),
+            data: JSON.stringify(dto1),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (area_lain) {
@@ -968,7 +1028,7 @@
                     });
                     $('#btn_AddPencegahan').click(function () {
                         countAdd++;
-                         
+
                             var dto = {};
                             var kategori = "Pencegahan";
                             var obj = JSON.parse(area_lain);
@@ -979,6 +1039,7 @@
                                         NO_CAPA: noCAPA,
                                         Aspect: value.WAHType_FK,
                                         WhyID: value.WhyID,
+                                        WhyDesc: value.WhyDesc,
                                         WhyParentID: value.WhyParentID,
                                         RootCause: value.Tindakan_Perbaikan,
                                         AreaLain: $('#TxtAreaLainPencegahan').val(),
@@ -994,11 +1055,11 @@
                                         Status_ID: 0,
                                         SP: "[dbo].[SP_FORM_CAPA]"
                                     }
-                                    
+
                                 }
                             });
                             addTindakan(dto, kategori);
-                        
+
 
                     });
                 }
@@ -1119,7 +1180,7 @@
             )
         }
     }
-        
+
 
 
     function cleanModalFields() {
@@ -1152,18 +1213,19 @@
             success: function (data) {
                 var result = JSON.parse(data);
                 $('#RootCause_KajianResikoDDL').empty();
+                $('#RootCause_KajianResikoDDL').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
                 for (var i = 0; i < result.length; i++) {
                     $('#RootCause_KajianResikoDDL').append(new Option("[Perbaikan]" + " " + result[i].Tindakan_Perbaikan, result[i].RecordID));
                 }
                 @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
-                KajianDDLPencegahanBaru(result);
+                KajianDDLPencegahanBaru();
             }, error: function (ex) {
                 alert(JSON.stringify(ex));
             }
         });
     }
 
-    function KajianDDLPencegahanBaru(result) {
+    function KajianDDLPencegahanBaru() {
         var dictlist = {
             Kategori: "Cari Pencegahan Baru",
             nomorCAPA: noCAPA
@@ -1192,7 +1254,7 @@
                     $('#btn_AddKajian').prop("disabled", true);
                 }
                 for (var i = 0; i < hasil.length; i++) {
-                    $('#RootCause_KajianResikoDDL').append(new Option("[Pencegahan]" + " " + result[i].Tindakan_Pencegahan, result[i].RecordID));
+                    $('#RootCause_KajianResikoDDL').append(new Option("[Pencegahan]" + " " + hasil[i].Tindakan_Pencegahan, hasil[i].RecordID));
 
                 }
 

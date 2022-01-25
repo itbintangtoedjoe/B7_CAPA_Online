@@ -29,7 +29,27 @@
     <!-- row -->
 
     <div class="container-fluid">
-
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Pelaksana CAPA</h4>
+                <form>
+                    <div class="row">
+                        <div class="form-group mb-2 col-sm-3">
+                            <label class="m-t-20">Tanggal</label>
+                            <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly>
+                        </div>
+                        <div class="form-group mb-2 col-sm-3">
+                            <label class="m-t-20">Nomor CAPA</label>
+                            <input class="form-control form-control-sm" type="text" id="TxtNoCAPA" readonly>
+                        </div>
+                        <div class="form-group mb-2 col-sm-3">
+                            <label class="m-t-40">Departemen</label>
+                            <input class="form-control form-control-sm" type="text" id="TxtDepartemen" readonly>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="card">
             <div class="card-body">
                 <div class="card">
@@ -166,6 +186,9 @@
         });
     }
     $(document).ready(function () {
+        $('#TxtDepartemen').val('@Request.RequestContext.HttpContext.Session["Departemen"]');
+        $('#TxtNoCAPA').val(noCAPA);
+        $('#TxtRequestor').val(superiorName);
         checkUser();
         $('#RootCause_KajianResikoDDL').attr('disabled', true);
         $('#btn_AddKajian').attr('disabled', true);

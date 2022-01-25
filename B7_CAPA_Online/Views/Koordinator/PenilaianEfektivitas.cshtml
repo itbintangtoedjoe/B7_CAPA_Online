@@ -45,6 +45,11 @@
             </div>
         </div>
         <div class="card">
+            <br />
+            <div class="col-sm-3" style="margin-left:15px;">
+                <button id="ViewAllBukti" class="btn btn-primary">View All Bukti</button>
+            </div>
+            @Html.Partial("RentangEfektivitas_PV")
             <div class="card-body">
                 <form>
                     <label for="TxtKategoriCCC" class="col-form-label">Kajian:</label>
@@ -314,12 +319,17 @@
 <script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
 
 <script>
+    var nocapa = $('#QS_NoCAPA').val();
+    $('#input_NoCAPA').val(nocapa)
     var chckboxstatus = [];
     $(document).ready(function () {
-        $('#QS_NoCAPA').val("CPA/SIA/HOF/MK/0921/009");
         if ($('#QS_Status').val() != 8) {
-            //disableAll();
+            disableAll();
         }
+        $('#ViewAllBukti').click(function () {
+            window.open('../Koordinator/VerifikasiPelaksanaCAPA?NoCAPA=' + nocapa)
+        })
+
         getDDL();
         TahunDDL();
         getKajian();
@@ -999,6 +1009,7 @@
                         success: function (data) {
 
                             Swal.fire("Success!", "Submit Berhasil!", "success");
+                            window.location.href('../PendingTask/TaskList');
                             disableAll();
                         },
                         error: function (errormessage) {
