@@ -27,6 +27,17 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
+        public ActionResult ReportWeb()
+        {
+            return View();
+        }
+
+        public ActionResult ReportAll(String NoCAPA)
+        {
+            ViewBag.NoCAPA = NoCAPA;
+            return View();
+        }
+
         public ActionResult DynamicController(DynamicModel Models, string spname)
         {
             var parameters = new DynamicParameters(Models.Model);
