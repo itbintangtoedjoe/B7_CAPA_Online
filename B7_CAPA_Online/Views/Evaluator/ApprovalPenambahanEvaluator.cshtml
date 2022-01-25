@@ -121,8 +121,8 @@
 <script>
     var noCAPA = getQueryStrings()["NoCAPA"];
 
-    //var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
-    var nik = "960200051";
+    var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
+    //var nik = "960200051";
     var namaUser = '@Request.RequestContext.HttpContext.Session["NamaUser"]';
     //var namaUser = 'DENNY IRAWAN';
     var tindakan = "Approval Perubahan";
@@ -234,9 +234,24 @@
                         { "data": "tanggal" },
                         { "data": "Stat" },
                         {
-                            "data": null,
-                            "defaultContent": "<input type='number' /> "
+                            "data": "Rentang",
+                            "render": function (data, type, row, meta) {
+                                var valrentang = data;
+                                var rentang = $("<select class='form-control select2'></select>");
+                                for (var i = 1; i <= 12; i++) {
+                                    var option = $("<option />");
+                                    option.html(i + " Bulan");
+                                    option.val(i);
+                                    rentang.append(option);
+                                    if (i == valrentang) {
+                                        option.attr("selected", "selected")
+                                        rentang.attr("disabled", true);
+                                    }
+                                }
+                                return rentang[0].outerHTML;
+                            }
                         },
+
                         {
                             "data": null,
                             "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>"
@@ -292,7 +307,23 @@
                         { "data": "Stat" },
                         {
                             "data": "Rentang",
-                            "defaultContent": '<input type="number" />'
+                            "render": function (data, type, row, meta) {
+                                var valrentang = data;
+                                var rentang = $("<select></select>");
+                                for (var i = 1; i <= 12; i++)
+                                {
+
+                                    var option = $("<option />");
+                                    option.html(i + " Bulan");
+                                    option.val(i);
+                                    rentang.append(option);
+                                    if (i == valrentang) {
+                                        option.attr("selected", "selected")
+                                        rentang.attr("disabled", true);
+                                    }
+                                }
+                                return rentang[0].outerHTML;
+                            }
                         },
                         {
                             "data": null,
@@ -322,11 +353,13 @@
         var row = $(button).closest("TR");
         var data = $('#Tbl_Perbaikan').DataTable().row(row).data();
         var id = data['RecordID'];
+        var rentang = $("TD", row).eq(5).find("select").val();
         var dictlist = {
             NoCAPA: noCAPA,
             Empid: nik,
             RecordID: id,
             Option: 14,
+            Rentang: rentang
         }
         var dto1 = {
             Model: dictlist
@@ -430,40 +463,42 @@
         var row = $(button).closest("TR");
         var data = $('#Tbl_Pencegahan').DataTable().row(row).data();
         var id = data['RecordID'];
+        var rentang = $("TD", row).eq(5).find("select").val();
         var dictlist = {
             NoCAPA: noCAPA,
             Empid: nik,
             RecordID: id,
             Option: 15,
+            Rentang: rentang
         }
         var dto1 = {
             Model: dictlist
         }
-        if (valid == true) {
-            $.ajax({
-                url: 'DynamicController?spname=SP_FORM_Perubahan',
-                type: 'post',
-                data: JSON.stringify(dto1),
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    GetTindakanPencegahan();
-                    TableKajian();
-                    Swal.fire(
-                        'Approve!',
-                        'Approve Berhasil',
-                        'success'
-                    )
-                }
-            });
-        }
-        else {
-            Swal.fire(
-                'Error!',
-                'Khusus Evaluator yang Ditunjuk!',
-                'error'
-            )
-        }
+        //if (valid == true) {
+        //    $.ajax({
+        //        url: 'DynamicController?spname=SP_FORM_Perubahan',
+        //        type: 'post',
+        //        data: JSON.stringify(dto1),
+        //        dataType: 'json',
+        //        contentType: 'application/json; charset=utf-8',
+        //        success: function (data) {
+        //            GetTindakanPencegahan();
+        //            TableKajian();
+        //            Swal.fire(
+        //                'Approve!',
+        //                'Approve Berhasil',
+        //                'success'
+        //            )
+        //        }
+        //    });
+        //}
+        //else {
+        //    Swal.fire(
+        //        'Error!',
+        //        'Khusus Evaluator yang Ditunjuk!',
+        //        'error'
+        //    )
+        //}
     }
 
     function RejectPencegahan(button) {
