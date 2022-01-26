@@ -173,7 +173,7 @@ namespace B7_CAPA_Online.Report
                         throw ex;
                 }
 
-                ReportDataSource DataSource = new ReportDataSource("B7_CAPA_ONLINEDataSet", DT);
+                ReportDataSource DataSource = new ReportDataSource("B7_CAPA_ONLINEDataSetHeader1", DT);
                 this.ReportViewer1.LocalReport.DataSources.Clear();
                 this.ReportViewer1.LocalReport.DataSources.Add(DataSource);
                 ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DataSetHeader1", DT));

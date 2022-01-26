@@ -5638,6 +5638,7 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Report\ReportCAPA - Copy.rdlc" />
     <EmbeddedResource Include="Report\ReportCAPA.rdlc" />
   </ItemGroup>
   <PropertyGroup>
