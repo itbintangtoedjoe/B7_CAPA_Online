@@ -5440,6 +5440,7 @@
     <Content Include="B7_CAPA_ONLINEDataSource.xss">
       <DependentUpon>B7_CAPA_ONLINEDataSource.xsd</DependentUpon>
     </Content>
+    <Content Include="Content\Images\SD-QO-QS-1008 Kamus Kriteria Risiko.pdf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -5467,41 +5468,19 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Koordinator\Koordinator.cshtml" />
-    <Content Include="Views\HalamanRequest\HalamanRequest.cshtml" />
     <Content Include="Views\Shared\SaverityDDL.cshtml" />
     <Content Include="Views\AtasanPIC\ApprovalAtasanPIC.cshtml" />
     <Content Include="Views\AtasanPelaksana\ApprovalAtasanPelaksana.cshtml" />
     <Content Include="Views\ApprovalKoordinator\ApprovalKoordinator.cshtml" />
     <Content Include="Views\ApprovalEvaluator\ApprovalEvaluator.cshtml" />
     <Content Include="Views\Pelaksana\PelaksanaCAPA.cshtml" />
-    <Content Include="Views\PelaksanaCancelCAPA\PelaksanaCancelCAPA.cshtml" />
-    <Content Include="Views\EvaluatorCancelCAPA\EvaluatorCancelCAPA.cshtml" />
-    <Content Include="Views\PelaksanaAddCAPA\PelaksanaAddCAPA.cshtml" />
-    <Content Include="Views\EvaluatorAddCAPA\EvaluatorAddCAPA.cshtml" />
-    <Content Include="Views\PelaksanaUpdateCAPA\PelaksanaUpdateCAPA.cshtml" />
-    <Content Include="Views\EvaluatorUpdateCAPA\EvaluatorUpdateCAPA.cshtml" />
     <Content Include="Views\ApprovalKoordinator\ApprovalKoordinatorCARPAR.cshtml" />
-    <Content Include="Views\AtasanPelaksana\AtasanPelaksanaAddCAPA.cshtml" />
-    <Content Include="Views\AtasanPelaksana\AtasanPelaksanaCancelCAPA.cshtml" />
-    <Content Include="Views\AtasanPelaksana\AtasanPelaksanaUpdateCAPA.cshtml" />
-    <Content Include="Views\Koordinator\ApprovalKoordinatorCARPAR.cshtml" />
-    <Content Include="Views\Koordinator\ApprovalKoordinator.cshtml" />
-    <Content Include="Views\Koordinator\SubmitCARPAR.cshtml" />
-    <Content Include="Views\Evaluator\VerifikasiCAPA.cshtml" />
-    <Content Include="Views\FindCAPA\FindCAPA.cshtml" />
-    <Content Include="Views\ListOutstanding\ListOutstanding.cshtml" />
     <Content Include="Views\ReportCAPA\ReportMasterlist.cshtml" />
     <Content Include="Views\ReportCAPA\ReportLeadtime.cshtml" />
     <Content Include="Views\Koordinator\CreateCAPA.cshtml" />
-    <Content Include="Views\Evaluator\EvaluatorAddCAPA.cshtml" />
-    <Content Include="Views\Evaluator\EvaluatorCancelCAPA.cshtml" />
-    <Content Include="Views\Evaluator\EvaluatorUpdateCAPA.cshtml" />
     <Content Include="Views\PendingTask\TaskList.cshtml" />
     <Content Include="Views\PIC\FormCAPA.cshtml" />
     <Content Include="Views\Koordinator\ApprovalKoordinator2.cshtml" />
-    <Content Include="Views\Koordinator\PenentuanTindakanPerbaikan.cshtml" />
-    <Content Include="Views\Koordinator\PenentuanTindakanPencegahan.cshtml" />
-    <Content Include="Views\Koordinator\InvestigasiPenyimpangan.cshtml" />
     <Content Include="Views\Koordinator\KajianRisiko.cshtml" />
     <Content Include="Views\Koordinator\TriggerCAPA.cshtml" />
     <Content Include="Views\Koordinator\RequestCAPA.cshtml" />
@@ -5530,7 +5509,6 @@
     <Content Include="Views\Shared\RentangEfektivitas.cshtml" />
     <Content Include="Views\Shared\RentangEfektivitas_PV.cshtml" />
     <Content Include="Views\Pelaksana\PelaksanaCAPAPembatalan.cshtml" />
-    <Content Include="Views\Koordinator\Koordinator4.cshtml" />
     <Content Include="Views\Pelaksana\PelaksanaCAPAPerubahan.cshtml" />
     <Content Include="Views\AtasanPelaksana\AtasanPelaksanaApprovalPerubahanTindakan.cshtml" />
     <Content Include="Views\Shared\CancelCAPA.cshtml" />
@@ -5543,6 +5521,27 @@
     <Content Include="Views\ReportCAPA\ReportAll.cshtml" />
     <Content Include="Views\ReportCAPA\ReportWeb.cshtml" />
     <Content Include="Views\FindCAPA\Reporting.cshtml" />
+    <Content Include="Views\PelaksanaAddCAPA\PelaksanaAddCAPA.cshtml" />
+    <Content Include="Views\PelaksanaCancelCAPA\PelaksanaCancelCAPA.cshtml" />
+    <Content Include="Views\PelaksanaUpdateCAPA\PelaksanaUpdateCAPA.cshtml" />
+    <Content Include="Views\EvaluatorAddCAPA\EvaluatorAddCAPA.cshtml" />
+    <Content Include="Views\EvaluatorCancelCAPA\EvaluatorCancelCAPA.cshtml" />
+    <Content Include="Views\EvaluatorUpdateCAPA\EvaluatorUpdateCAPA.cshtml" />
+    <Content Include="Views\HalamanRequest\HalamanRequest.cshtml" />
+    <Content Include="Views\ListOutstanding\ListOutstanding.cshtml" />
+    <Content Include="Views\FindCAPA\FindCAPA.cshtml" />
+    <Content Include="Views\AtasanPelaksana\AtasanPelaksanaAddCAPA.cshtml" />
+    <Content Include="Views\AtasanPelaksana\AtasanPelaksanaCancelCAPA.cshtml" />
+    <Content Include="Views\AtasanPelaksana\AtasanPelaksanaUpdateCAPA.cshtml" />
+    <Content Include="Views\Evaluator\EvaluatorCancelCAPA.cshtml" />
+    <Content Include="Views\Evaluator\EvaluatorUpdateCAPA.cshtml" />
+    <Content Include="Views\Evaluator\VerifikasiCAPA.cshtml" />
+    <Content Include="Views\Koordinator\ApprovalKoordinator.cshtml" />
+    <Content Include="Views\Koordinator\ApprovalKoordinatorCARPAR.cshtml" />
+    <Content Include="Views\Koordinator\InvestigasiPenyimpangan.cshtml" />
+    <Content Include="Views\Koordinator\PenentuanTindakanPencegahan.cshtml" />
+    <Content Include="Views\Koordinator\PenentuanTindakanPerbaikan.cshtml" />
+    <Content Include="Views\Koordinator\SubmitCARPAR.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

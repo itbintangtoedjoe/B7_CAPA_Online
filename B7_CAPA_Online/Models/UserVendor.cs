@@ -24,14 +24,6 @@ namespace B7_CAPA_Online.Models
         public int IsActive { get; set; }
     }
 
-    public class UserKaryawan
-    {
-        public string NIK { get; set; }
-        public string Username { get; set; }
-        public string Departemen { get; set; }
-        public string Lokasi { get; set; }
-        public string Email { get; set; }
-    }
 
     public class LoginData
     {

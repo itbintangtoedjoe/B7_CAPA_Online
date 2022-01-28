@@ -49,20 +49,23 @@
             <div class="col-sm-3" style="margin-left:15px;">
                 <button id="ViewAllBukti" class="btn btn-primary">View All Bukti</button>
             </div>
-            @Html.Partial("RentangEfektivitas_PV")
+            <br />
+            <div class="col-sm-3" style="margin-left:15px;">
+                <button id="ViewAllBukti" class="btn btn-primary">View Rentang</button>
+            </div>
             <div class="card-body">
                 <form>
-                    <label for="TxtKategoriCCC" class="col-form-label">Kajian:</label>
-                    <div class="row">
-                        <div class="form-group col-md-2">
-                            <div class="input-group">
-                                <select class="form-control select2" id="Kajian" required>
-                                    <option value=""></option>
-                                    <option value=""></option>
-                                </select>
+                    <!--<label for="TxtKategoriCCC" class="col-form-label">Kajian:</label>-->
+                    @*<div class="row">
+                            <div class="form-group col-md-2">
+                                <div class="input-group">
+                                    <select class="form-control select2" id="Kajian" required>
+                                        <option value=""></option>
+                                        <option value=""></option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        </div>*@
                     <div class="row">
                         <div class="form-group mb-2 col-sm-12">
                             <label class="m-t-40">
@@ -153,17 +156,39 @@
                         <label class="m-t-20" style="margin-left:15px;"> <b>Tidak:</b> </label>
                         <input type='radio' id="File_No" name="File_Radio" style="margin-left: 15px; margin-top: 5px;" value="No" />
                     </div>
-                    <div class="row form-group-sm mb-2" id="Lampiran" hidden>
-                        <div class="col-md-6">
-                            <label class="m-t-20">Lampiran Terkait</label>
-                            <div class="input-group mb-3">
-                                <div class="custom-file">
-                                    <input id="TxtFileInput" type="file" name="LampiranTerkait" class="custom-file-input" multiple required">
+                    <div id="Lampiran" hidden>
+                        <div class="row form-group-sm ">
+                            <div class="col-md-6">
+                                <label class="m-t-20">Lampiran Terkait</label>
+                                <div class="input-group mb-3">
+                                    <div class="custom-file">
+                                        <input id="TxtFileInput" type="file" name="LampiranTerkait" class="custom-file-input" multiple required">
 
-                                    <label id="TxtLampiranCount" class="custom-file-label"></label>
+                                        <label id="TxtLampiranCount" class="custom-file-label"></label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="row form-group-sm ">
+                            <div class="col-md-6">
+                                <table class="table table-hover table-bordered zero-configuration" id="Tabel_File">
+                                    <thead>
+                                        <tr>
+                                            <th>No CAPA</th>
+                                            <th>Type</th>
+                                            <th>Nama File</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <br />
+                                <br />
+                            </div>
+                        </div>
+                        <input type="button" class="btn btn-primary" id="Upload" value="Upload" />
                     </div>
                     <br />
                     <input type="button" class="btn btn-primary" id="Submit" value="Submit" disabled />
@@ -314,7 +339,7 @@
             <input type="text" class="btn btn-primary" id="QS_Status" value="@ViewBag.status" hidden />
         </div>
     </div>
-    
+
 </div>
 <script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
 
@@ -323,30 +348,26 @@
     $('#input_NoCAPA').val(nocapa)
     var chckboxstatus = [];
     $(document).ready(function () {
-        if ($('#QS_Status').val() != 8) {
-            disableAll();
-        }
+        checkStat();
         $('#ViewAllBukti').click(function () {
             window.open('../Koordinator/VerifikasiPelaksanaCAPA?NoCAPA=' + nocapa)
         })
 
         getDDL();
         TahunDDL();
-        getKajian();
-        disableAll();
+
         $('#Tahun_DDL').select2();
         $('#AreaPIC_DDL').select2();
         $('#PIC_DDL').select2();
-        $('#Kajian').change(function () {
-            enableall();
-            GetAddedCCC();
-            GetAddedDeviation();
-            ValidateKajian();
-        });
+        GetAddedCCC();
+        GetAddedDeviation();
+        GetLampiran();
+        ValidateKajian();
         $('input[name="Devi_Radio"]').change(function () {
             if ($('input[name="Devi_Radio"]:checked').val() == 'Yes') {
                 chckboxstatus[0] = "1";
                 $('#Deviation').removeAttr('hidden');
+                $('#link_Deviation').attr("hidden", false);
             }
             else {
                 chckboxstatus[0] = "0";
@@ -388,6 +409,11 @@
         $('#Submit').click(function () {
 
             Submit();
+
+        });
+        $('#Upload').click(function () {
+
+            UploadFile();
 
         });
         $('#btn_Close_CCC').click(function () {
@@ -645,10 +671,77 @@
         $('#Submit').removeAttr("disabled");
     }
 
-    function getKajian() {
+    function GetLampiran() {
         var dictlist = {
             NoCAPA: $('#QS_NoCAPA').val(),
-            Option: 5
+            Option: 8
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_FORM_KOOR4",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto1),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var table = $('#Tabel_File').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": false,
+                    "searching": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "scrollCollapse": true,
+                    "destroy": true,
+                    "columns": [
+                        { "data": "NO_CAPA_FK" },
+                        { "data": "Type" },
+                        { "data": "Nama_File" }
+                    ],
+                    "order": [[1, 'asc']],
+
+                });
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+    }
+
+    function UploadFile() {
+        var formData = new FormData();
+        var totalFiles = document.getElementById("TxtFileInput").files.length;
+        if (totalFiles == 0 || totalFiles == undefined) {
+            Swal.fire("Error!", "Silahkan Memilih File Attachment terlebih dahulu!", "error");
+        }
+        else {
+            for (var i = 0; i < totalFiles; i++) {
+                var file = document.getElementById("TxtFileInput").files[i];
+                formData.append("TxtFileInput", file);
+                //formData.append("NoCAPA", $('#txtNoCAPA').val());
+            }
+            $.ajax({
+                url: "InsertAttachment?NoCapa=" + $('#QS_NoCAPA').val() + "&spname=SP_FORM_KOOR4&Creator=",
+                type: "post",
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    GetLampiran();
+                    Swal.fire("Success!", "Upload Berhasil!", "success");
+                },
+                error: function (errormessage) {
+                    $('#divLoading').attr("hidden", true);
+                }
+            });
+        }
+    }
+    function checkStat() {
+        var dictlist = {
+            NoCAPA: $('#QS_NoCAPA').val(),
+            Option: 8
         }
         var dto1 = {
             Model: dictlist
@@ -661,20 +754,12 @@
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var result = JSON.parse(data);
-                var count = result.length;
-                var trhtml = '';
-                var trav = 0;
-
-                trhtml += '<option disabled selected hidden class="dropdown-header">--Please Select--</option>';
-                if (count > 0) {
-                    for (trav = 0; trav < count; trav++) {
-
-                        trhtml += '<Option value = "' + result[trav].RecordID + '" > ' + result[trav].Tindakan;
-                    }
+                console.log(result[0].STATUS_ID);
+                if (result[0].Status_ID != 8) {
+                    disableAll();
+                } else {
+                    enableall();
                 }
-                $("#Kajian").empty();
-                $("#Kajian").append(trhtml);
-                $("#Kajian").select2();
             },
             error: function (errormessage) {
                 $('#divLoading').attr("hidden", true);
@@ -683,7 +768,7 @@
     }
     function ValidateKajian() {
         var dictlist = {
-            Record: $("#Kajian").val(),
+            NoCAPA: nocapa,
             Option: 6
         }
         var dto1 = {
@@ -699,22 +784,17 @@
                 var result = JSON.parse(data);
                 console.log(result[0].Stat);
                 if (result[0].Stat == 'Invalid') {
-                    $('#Submit').attr('hidden', true);
-                    $('#Status1').removeAttr('hidden');
-                    $('#Status2').attr('hidden', true);
-
-                }
-                else if (result[0].Stat == 'Complete') {
-                    disableAll();
-                    $('#Submit').attr('hidden', true);
-                    $('#Status1').attr('hidden', true);
-                    $('#Status2').removeAttr('hidden');
+                    $('#Submit').removeAttr('hidden');
+                    $('input[name="File_Radio"]').attr("disabled", false);
+                    $('input[name="CCC_Radio"]').attr("disabled", false);
+                    $('input[name="Devi_Radio"]').attr("disabled", false);
                 }
                 else {
                     $('#Submit').removeAttr('disabled');
                     $('#Submit').removeAttr('hidden');
-                    $('#Status1').attr('hidden', true);
-                    $('#Status2').attr('hidden', true);
+                    $('input[name="File_Radio"]').attr("disabled", true);
+                    $('input[name="CCC_Radio"]').attr("disabled", true);
+                    $('input[name="Devi_Radio"]').attr("disabled", true);
                 }
             },
             error: function (errormessage) {
@@ -919,106 +999,44 @@
         if ($('input[name="Devi_Radio"]:checked').val() != undefined &&
             $('input[name="CCC_Radio"]:checked').val() != undefined &&
             $('input[name="File_Radio"]:checked').val() != undefined) {
-            if (chckboxstatus[2] == "Yes") {
-                var formData = new FormData();
-                var totalFiles = document.getElementById("TxtFileInput").files.length;
-                var tableCCC = $('#Tabel_CCC').DataTable();
-                var tableDeviation = $('#Tbl_Devi').DataTable();
-                if ((tableDeviation.data().count() == 0 && chckboxstatus[0] == "1")
-                    || (tableCCC.data().count() == 0 && chckboxstatus[1] == "1")) {
-                    Swal.fire("Error!", "Silahkan Menambahkan CCC atau Deviation terlebih dahulu!", "error");
+            var tableCCC = $('#Tabel_CCC').DataTable();
+            var tableDeviation = $('#Tbl_Devi').DataTable();
+            if ((tableDeviation.data().count() == 0 && chckboxstatus[0] == "1")
+                || (tableCCC.data().count() == 0 && chckboxstatus[1] == "1")) {
+                Swal.fire("Error!", "Silahkan Menambahkan CCC atau Deviation terlebih dahulu!", "error");
 
-                }
-                else if (totalFiles == 0 || totalFiles == undefined) {
-                    Swal.fire("Error!", "Silahkan Memilih File Attachment terlebih dahulu!", "error");
-                }
-                else {
-                    for (var i = 0; i < totalFiles; i++) {
-                        var file = document.getElementById("TxtFileInput").files[i];
-                        formData.append("TxtFileInput", file);
-                        //formData.append("NoCAPA", $('#txtNoCAPA').val());
-                    }
-                    $.ajax({
-                        url: "InsertAttachment?NoCapa=" + $('#QS_NoCAPA').val() + "&spname=SP_FORM_KOOR4&Creator=",
-                        type: "post",
-                        data: formData,
-                        dataType: 'json',
-                        contentType: false,
-                        processData: false,
-                        success: function (data) {
-                            var dictlist = {
-                                NoCAPA: $('#QS_NoCAPA').val(),
-                                Option: 2,
-                                StatCCC: chckboxstatus[1],
-                                StatDeviation: chckboxstatus[0],
-                                Record: $('#Kajian').val(),
-                                Creator: nik,
-                            }
-                            var dto1 = {
-                                Model: dictlist
-                            }
-                            $.ajax({
-                                url: "DynamicController?spname=SP_FORM_KOOR4&",
-                                type: "post",
-                                data: JSON.stringify(dto1),
-                                dataType: 'json',
-                                contentType: "application/json;charset=utf-8",
-                                success: function (data) {
-
-                                    Swal.fire("Success!", "Submit Berhasil!", "success");
-                                    disableAll();
-                                },
-                                error: function (errormessage) {
-                                    $('#divLoading').attr("hidden", true);
-                                }
-                            });
-                        },
-                        error: function (errormessage) {
-                            $('#divLoading').attr("hidden", true);
-                        }
-                    });
-                }
             }
-
             else {
-                var tableCCC = $('#Tabel_CCC').DataTable();
-                var tableDeviation = $('#Tbl_Devi').DataTable();
-                if ((tableDeviation.data().count() == 0 && chckboxstatus[0] == "1")
-                    || (tableCCC.data().count() == 0 && chckboxstatus[1] == "1")) {
-                    Swal.fire("Error!", "Silahkan Menambahkan CCC atau Deviation terlebih dahulu!", "error");
-
+                var dictlist = {
+                    NoCAPA: $('#QS_NoCAPA').val(),
+                    Option: 2,
+                    StatCCC: chckboxstatus[1],
+                    StatDeviation: chckboxstatus[0],
+                    Record: $('#Kajian').val(),
+                    Creator: nik,
                 }
-                else {
-                    var dictlist = {
-                        NoCAPA: $('#QS_NoCAPA').val(),
-                        Option: 2,
-                        StatCCC: chckboxstatus[1],
-                        StatDeviation: chckboxstatus[0],
-                        Record: $('#Kajian').val(),
-                        Creator: nik,
-                    }
-                    var dto1 = {
-                        Model: dictlist
-                    }
-                    $.ajax({
-                        url: "DynamicController?spname=SP_FORM_KOOR4&",
-                        type: "post",
-                        data: JSON.stringify(dto1),
-                        dataType: 'json',
-                        contentType: "application/json;charset=utf-8",
-                        success: function (data) {
-
-                            Swal.fire("Success!", "Submit Berhasil!", "success");
-                            window.location.href('../PendingTask/TaskList');
-                            disableAll();
-                        },
-                        error: function (errormessage) {
-                            $('#divLoading').attr("hidden", true);
-                        }
-                    });
-
+                var dto1 = {
+                    Model: dictlist
                 }
+                $.ajax({
+                    url: "DynamicController?spname=SP_FORM_KOOR4&",
+                    type: "post",
+                    data: JSON.stringify(dto1),
+                    dataType: 'json',
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+
+                        Swal.fire("Success!", "Submit Berhasil!", "success");
+                        window.location.href('../PendingTask/TaskList');
+                        disableAll();
+                    },
+                    error: function (errormessage) {
+                        $('#divLoading').attr("hidden", true);
+                    }
+                });
+
             }
+
         }
         else {
             Swal.fire("Error!", "Silahkan Jawab Semua Pertanyaan terlebih dahulu!", "error");

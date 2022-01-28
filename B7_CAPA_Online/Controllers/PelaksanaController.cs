@@ -196,49 +196,11 @@ namespace B7_CAPA_Online.Controllers
             //hapus dari b7drive belum dibuat
             return Json(result);
         }
+
         public ActionResult PelaksanaTambahPerbaikan()
         {
             return View();
         }
 
-        [HttpPost]
-        public ActionResult SimpanPerbaikanBaru(SPUpdatePelaksanaanParams data)
-        {
-            var dictionary = new Dictionary<string, object>{
-                { "kategori", "Penambahan Perbaikan" },
-                { "tindakan", data.TindakanPerbaikan },
-                { "empID", data.Updater },
-                { "dueDate", data.DueDatePerbaikan },
-                { "isAreaLain", data.IsAreaLain },
-                { "recordID", data.PerbaikanID },
-                { "tindakanPencegahan", data.TindakanPencegahan },
-                { "dueDatePencegahan", data.DueDatePencegahan },
-            };
-            var parameters = new DynamicParameters(dictionary);
-            var result = DAL.StoredProcedure(parameters, "SP_Update_Pelaksanaan");
-            //return Json(result);
-
-            //insert kajian resiko
-            var kajianResikoList = data.KajianResikoList;
-            string kajianResult="";
-            for (int i = 0; i < kajianResikoList.Count; i++)
-            {
-                DynamicParameters kajianParameters = new DynamicParameters(kajianResikoList[i].Model);
-                kajianResult = DAL.StoredProcedure(kajianParameters, "[dbo].[SP_INSERT_KAJIAN_RESIKO]");
-            }
-            return Json(kajianResult);
-            //var dictionaryResiko = new Dictionary<string, object>{
-            //    { "kategori", "Penambahan Perbaikan" },
-            //    { "tindakan", data.TindakanPerbaikan },
-            //    { "empID", data.Updater },
-            //    { "dueDate", data.DueDatePerbaikan },
-            //    { "isAreaLain", data.IsAreaLain },
-            //    { "recordID", data.PerbaikanID },
-            //    { "tindakanPencegahan", data.TindakanPencegahan },
-            //    { "dueDatePencegahan", data.DueDatePencegahan },
-            //};
-            //var kajianParameters = new DynamicParameters(dictionaryResiko);
-            //var kajianResult = DAL.StoredProcedure(parameters, "SP_INSERT_KAJIAN_RESIKO");
-        }
     }
 }

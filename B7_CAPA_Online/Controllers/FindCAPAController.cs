@@ -1,4 +1,6 @@
 ﻿using B7_CAPA_Online.Models;
+using B7_CAPA_Online.Scripts.DataAccess;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -7,7 +9,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using static B7_CAPA_Online.Models.KoordinatorModel;
 
 namespace B7_CAPA_Online.Controllers
 {
@@ -16,6 +18,7 @@ namespace B7_CAPA_Online.Controllers
         // GET: FindCAPA
         readonly ConnectionStringSettings mySetting = ConfigurationManager.ConnectionStrings["CAPAONLINE"];
         readonly DataTable DT = new DataTable();
+        DataAccess DAL = new DataAccess();
         public ActionResult Index()
         {
             return View();
@@ -31,43 +34,12 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
-        public ActionResult LoadDataReporting()
+
+        public ActionResult DynamicController(DynamicModel Models, string spname)
         {
-            string conString = mySetting.ConnectionString;
-            SqlConnection conn = new SqlConnection(conString);
-            try
-            {
-                conn.Open();
-                using (SqlCommand command = new SqlCommand("SP_SHOW_REPORTING", conn))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
+            var parameters = new DynamicParameters(Models.Model);
+            return Json(DAL.StoredProcedure(parameters, spname));
 
-                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                    dataAdapt.SelectCommand = command;
-
-                    dataAdapt.Fill(DT);
-                }
-                conn.Close();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-
-            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
-            Dictionary<string, object> row;
-            foreach (DataRow dr in DT.Rows)
-            {
-                row = new Dictionary<string, object>();
-                foreach (DataColumn col in DT.Columns)
-                {
-                    row.Add(col.ColumnName, dr[col]);
-                }
-                rows.Add(row);
-            }
-
-            return Json(rows, JsonRequestBehavior.AllowGet);
         }
     }
 }
