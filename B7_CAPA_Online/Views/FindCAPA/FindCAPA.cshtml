@@ -69,31 +69,37 @@
                             </div>
                         </div>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table table-bordered zero-configuration" id="Tbl_Filter">
-                            <thead>
-                                <tr>
-                                    <th>No CAPA</th>
-                                    <th>PIC CAPA</th>
-                                    <th>Departemen</th>
-                                    <th>Site</th>
-                                    <th>Kategori CAPA</th>
-                                    <th>Deskripsi Singkat</th>
-                                    <th>Status</th>
-                                    <th>Detail Status</th>
-                                    <th>Alasan Cancelled</th>
-                                    <th>Catatan</th>
-                                    <th>Tanggal Cancelled</th>
-                                    <th>Outstanding</th>
-                                    <th>Tanggal Outstanding</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                </tr>
-                            </tbody>
-                        </table>
+
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered zero-configuration" id="Tbl_Filter">
+                                <thead>
+                                    <tr>
+                                        <th>No CAPA</th>
+                                        <th>PIC CAPA</th>
+                                        <th>Departemen</th>
+                                        <th>Site</th>
+                                        <th>Kategori CAPA</th>
+                                        <th>Deskripsi Singkat</th>
+                                        <th>Status</th>
+                                        <th>Detail Status</th>
+                                        <th>Alasan Cancelled</th>
+                                        <th>Catatan</th>
+                                        <th>Tanggal Cancelled</th>
+                                        <th>Outstanding</th>
+                                        <th>Tanggal Outstanding</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -110,6 +116,7 @@
         $('#Filter').click(function () {
             Filter();
         });
+     
     });
     function Filter() {
         var dictlist = {
