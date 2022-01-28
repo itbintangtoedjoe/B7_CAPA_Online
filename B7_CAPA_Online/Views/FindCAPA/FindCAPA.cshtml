@@ -156,7 +156,7 @@
                         { "data": "KATEGORI_CAPA" },
                         { "data": "DESKRIPSI_MASALAH" },
                         { "data": "STATUS_CAPA" },
-                        { "data": "STATUS_DETAIL" },
+                        { "data": "STATUS_DESKRIPSI" },
                         { "data": "CANCEL" },
                         { "data": "REJECT_REASON" },
                         { "data": "Tanggal_Cancel" },
@@ -164,7 +164,7 @@
                         { "data": "Tanggal_Outstanding" },
                         {
                             "data": null,
-                            "defaultContent": '<button class="btn btn-primary" id="Filter">View</button>'
+                            "defaultContent": '<button class="btn btn-primary" onclick="ViewCAPA(this)"id="Filter">View</button>'
                         }
 
                     ],
@@ -177,6 +177,13 @@
             }
         });
 
+    }
+
+    function ViewCAPA(button) {
+        var row = $(button).closest("TR");
+        var data = $('#Tbl_Filter').DataTable().row(row).data();
+        var nocapa = data['NO_CAPA'];
+        window.open('../Koordinator/CreateCAPA?NoCAPA=' + nocapa);
     }
 
     function getKodeCAPA() {
