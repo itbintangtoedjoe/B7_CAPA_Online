@@ -295,6 +295,8 @@ namespace B7_CAPA_Online.DataSource {
             
             private global::System.Data.DataColumn columnSuperior;
             
+            private global::System.Data.DataColumn columnStatus_ID;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public SP_LOAD_REPORT_TPencegahanDataTable() {
@@ -394,6 +396,14 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn Status_IDColumn {
+                get {
+                    return this.columnStatus_ID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -429,7 +439,7 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_LOAD_REPORT_TPencegahanRow AddSP_LOAD_REPORT_TPencegahanRow(string AreaLain, string WhyDesc, string Tindakan_Pencegahan, string Due_Date, string PelaksanaPencegahan, string Nama_Personil, string Email, string Superior) {
+            public SP_LOAD_REPORT_TPencegahanRow AddSP_LOAD_REPORT_TPencegahanRow(string AreaLain, string WhyDesc, string Tindakan_Pencegahan, string Due_Date, string PelaksanaPencegahan, string Nama_Personil, string Email, string Superior, int Status_ID) {
                 SP_LOAD_REPORT_TPencegahanRow rowSP_LOAD_REPORT_TPencegahanRow = ((SP_LOAD_REPORT_TPencegahanRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         AreaLain,
@@ -439,7 +449,8 @@ namespace B7_CAPA_Online.DataSource {
                         PelaksanaPencegahan,
                         Nama_Personil,
                         Email,
-                        Superior};
+                        Superior,
+                        Status_ID};
                 rowSP_LOAD_REPORT_TPencegahanRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSP_LOAD_REPORT_TPencegahanRow);
                 return rowSP_LOAD_REPORT_TPencegahanRow;
@@ -470,6 +481,7 @@ namespace B7_CAPA_Online.DataSource {
                 this.columnNama_Personil = base.Columns["Nama_Personil"];
                 this.columnEmail = base.Columns["Email"];
                 this.columnSuperior = base.Columns["Superior"];
+                this.columnStatus_ID = base.Columns["Status_ID"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -491,6 +503,8 @@ namespace B7_CAPA_Online.DataSource {
                 base.Columns.Add(this.columnEmail);
                 this.columnSuperior = new global::System.Data.DataColumn("Superior", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSuperior);
+                this.columnStatus_ID = new global::System.Data.DataColumn("Status_ID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStatus_ID);
                 this.columnAreaLain.MaxLength = 2000;
                 this.columnWhyDesc.MaxLength = 500;
                 this.columnTindakan_Pencegahan.MaxLength = 500;
@@ -775,6 +789,23 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int Status_ID {
+                get {
+                    try {
+                        return ((int)(this[this.tableSP_LOAD_REPORT_TPencegahan.Status_IDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Status_ID\' in table \'SP_LOAD_REPORT_TPencegahan\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_LOAD_REPORT_TPencegahan.Status_IDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsAreaLainNull() {
                 return this.IsNull(this.tableSP_LOAD_REPORT_TPencegahan.AreaLainColumn);
             }
@@ -867,6 +898,18 @@ namespace B7_CAPA_Online.DataSource {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetSuperiorNull() {
                 this[this.tableSP_LOAD_REPORT_TPencegahan.SuperiorColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsStatus_IDNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_TPencegahan.Status_IDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetStatus_IDNull() {
+                this[this.tableSP_LOAD_REPORT_TPencegahan.Status_IDColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1037,6 +1080,7 @@ namespace B7_CAPA_Online.DataSource.B7_CAPA_ONLINEDataSetPencegahanTableAdapters
             tableMapping.ColumnMappings.Add("Nama_Personil", "Nama_Personil");
             tableMapping.ColumnMappings.Add("Email", "Email");
             tableMapping.ColumnMappings.Add("Superior", "Superior");
+            tableMapping.ColumnMappings.Add("Status_ID", "Status_ID");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

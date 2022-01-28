@@ -30,6 +30,7 @@
               <Mapping SourceColumn="Nama_Personil" DataSetColumn="Nama_Personil" />
               <Mapping SourceColumn="Email" DataSetColumn="Email" />
               <Mapping SourceColumn="Creation_Date" DataSetColumn="Creation_Date" />
+              <Mapping SourceColumn="Status_ID" DataSetColumn="Status_ID" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -58,7 +59,13 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Due_Date" msprop:Generator_ColumnVarNameInTable="columnDue_Date" msprop:Generator_ColumnPropNameInRow="Due_Date" msprop:Generator_ColumnPropNameInTable="Due_DateColumn" msprop:Generator_UserColumnName="Due_Date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Due_Date" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnDue_Date" msprop:Generator_ColumnPropNameInRow="Due_Date" msprop:Generator_ColumnPropNameInTable="Due_DateColumn" msprop:Generator_UserColumnName="Due_Date" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element name="Pelaksana_Perbaikan" msprop:Generator_ColumnVarNameInTable="columnPelaksana_Perbaikan" msprop:Generator_ColumnPropNameInRow="Pelaksana_Perbaikan" msprop:Generator_ColumnPropNameInTable="Pelaksana_PerbaikanColumn" msprop:Generator_UserColumnName="Pelaksana_Perbaikan" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -88,6 +95,7 @@
                 </xs:simpleType>
               </xs:element>
               <xs:element name="Creation_Date" msprop:Generator_ColumnVarNameInTable="columnCreation_Date" msprop:Generator_ColumnPropNameInRow="Creation_Date" msprop:Generator_ColumnPropNameInTable="Creation_DateColumn" msprop:Generator_UserColumnName="Creation_Date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Status_ID" msprop:Generator_ColumnVarNameInTable="columnStatus_ID" msprop:Generator_ColumnPropNameInRow="Status_ID" msprop:Generator_ColumnPropNameInTable="Status_IDColumn" msprop:Generator_UserColumnName="Status_ID" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -295,6 +295,8 @@ namespace B7_CAPA_Online.DataSource {
             
             private global::System.Data.DataColumn columnCreation_Date;
             
+            private global::System.Data.DataColumn columnStatus_ID;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public SP_LOAD_REPORT_TPerbaikanDataTable() {
@@ -394,6 +396,14 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn Status_IDColumn {
+                get {
+                    return this.columnStatus_ID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -429,7 +439,7 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_LOAD_REPORT_TPerbaikanRow AddSP_LOAD_REPORT_TPerbaikanRow(string WhyDesc, string Tindakan_Perbaikan, System.DateTime Due_Date, string Pelaksana_Perbaikan, string Superior, string Nama_Personil, string Email, System.DateTime Creation_Date) {
+            public SP_LOAD_REPORT_TPerbaikanRow AddSP_LOAD_REPORT_TPerbaikanRow(string WhyDesc, string Tindakan_Perbaikan, string Due_Date, string Pelaksana_Perbaikan, string Superior, string Nama_Personil, string Email, System.DateTime Creation_Date, int Status_ID) {
                 SP_LOAD_REPORT_TPerbaikanRow rowSP_LOAD_REPORT_TPerbaikanRow = ((SP_LOAD_REPORT_TPerbaikanRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         WhyDesc,
@@ -439,7 +449,8 @@ namespace B7_CAPA_Online.DataSource {
                         Superior,
                         Nama_Personil,
                         Email,
-                        Creation_Date};
+                        Creation_Date,
+                        Status_ID};
                 rowSP_LOAD_REPORT_TPerbaikanRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSP_LOAD_REPORT_TPerbaikanRow);
                 return rowSP_LOAD_REPORT_TPerbaikanRow;
@@ -470,6 +481,7 @@ namespace B7_CAPA_Online.DataSource {
                 this.columnNama_Personil = base.Columns["Nama_Personil"];
                 this.columnEmail = base.Columns["Email"];
                 this.columnCreation_Date = base.Columns["Creation_Date"];
+                this.columnStatus_ID = base.Columns["Status_ID"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -479,7 +491,7 @@ namespace B7_CAPA_Online.DataSource {
                 base.Columns.Add(this.columnWhyDesc);
                 this.columnTindakan_Perbaikan = new global::System.Data.DataColumn("Tindakan_Perbaikan", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTindakan_Perbaikan);
-                this.columnDue_Date = new global::System.Data.DataColumn("Due_Date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                this.columnDue_Date = new global::System.Data.DataColumn("Due_Date", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDue_Date);
                 this.columnPelaksana_Perbaikan = new global::System.Data.DataColumn("Pelaksana_Perbaikan", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPelaksana_Perbaikan);
@@ -491,8 +503,12 @@ namespace B7_CAPA_Online.DataSource {
                 base.Columns.Add(this.columnEmail);
                 this.columnCreation_Date = new global::System.Data.DataColumn("Creation_Date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCreation_Date);
+                this.columnStatus_ID = new global::System.Data.DataColumn("Status_ID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStatus_ID);
                 this.columnWhyDesc.MaxLength = 500;
                 this.columnTindakan_Perbaikan.MaxLength = 500;
+                this.columnDue_Date.ReadOnly = true;
+                this.columnDue_Date.MaxLength = 30;
                 this.columnPelaksana_Perbaikan.MaxLength = 50;
                 this.columnSuperior.ReadOnly = true;
                 this.columnSuperior.MaxLength = 100;
@@ -673,10 +689,10 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public System.DateTime Due_Date {
+            public string Due_Date {
                 get {
                     try {
-                        return ((global::System.DateTime)(this[this.tableSP_LOAD_REPORT_TPerbaikan.Due_DateColumn]));
+                        return ((string)(this[this.tableSP_LOAD_REPORT_TPerbaikan.Due_DateColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'Due_Date\' in table \'SP_LOAD_REPORT_TPerbaikan\' is DBNull.", e);
@@ -767,6 +783,22 @@ namespace B7_CAPA_Online.DataSource {
                 }
                 set {
                     this[this.tableSP_LOAD_REPORT_TPerbaikan.Creation_DateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int Status_ID {
+                get {
+                    try {
+                        return ((int)(this[this.tableSP_LOAD_REPORT_TPerbaikan.Status_IDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Status_ID\' in table \'SP_LOAD_REPORT_TPerbaikan\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_LOAD_REPORT_TPerbaikan.Status_IDColumn] = value;
                 }
             }
             
@@ -864,6 +896,18 @@ namespace B7_CAPA_Online.DataSource {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetCreation_DateNull() {
                 this[this.tableSP_LOAD_REPORT_TPerbaikan.Creation_DateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsStatus_IDNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_TPerbaikan.Status_IDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetStatus_IDNull() {
+                this[this.tableSP_LOAD_REPORT_TPerbaikan.Status_IDColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1034,6 +1078,7 @@ namespace B7_CAPA_Online.DataSource.B7_CAPA_ONLINEDataSetPerbaikanTableAdapters 
             tableMapping.ColumnMappings.Add("Nama_Personil", "Nama_Personil");
             tableMapping.ColumnMappings.Add("Email", "Email");
             tableMapping.ColumnMappings.Add("Creation_Date", "Creation_Date");
+            tableMapping.ColumnMappings.Add("Status_ID", "Status_ID");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

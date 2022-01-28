@@ -30,6 +30,7 @@
               <Mapping SourceColumn="Nama_Personil" DataSetColumn="Nama_Personil" />
               <Mapping SourceColumn="Email" DataSetColumn="Email" />
               <Mapping SourceColumn="Superior" DataSetColumn="Superior" />
+              <Mapping SourceColumn="Status_ID" DataSetColumn="Status_ID" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -100,6 +101,7 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="Status_ID" msprop:Generator_ColumnVarNameInTable="columnStatus_ID" msprop:Generator_ColumnPropNameInRow="Status_ID" msprop:Generator_ColumnPropNameInTable="Status_IDColumn" msprop:Generator_UserColumnName="Status_ID" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

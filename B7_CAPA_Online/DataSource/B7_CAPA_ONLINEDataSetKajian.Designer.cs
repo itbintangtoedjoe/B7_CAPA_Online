@@ -327,6 +327,8 @@ namespace B7_CAPA_Online.DataSource {
             
             private global::System.Data.DataColumn columnSuperiorPelaksana;
             
+            private global::System.Data.DataColumn columnStatus_ID;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public SP_LOAD_REPORT_KajianResikoDataTable() {
@@ -554,6 +556,14 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn Status_IDColumn {
+                get {
+                    return this.columnStatus_ID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -611,9 +621,10 @@ namespace B7_CAPA_Online.DataSource {
                         int RPN2, 
                         string RiskLevel2, 
                         string Column1, 
-                        System.DateTime DueDate, 
+                        string DueDate, 
                         string SuperiorPIC, 
-                        string SuperiorPelaksana) {
+                        string SuperiorPelaksana, 
+                        int Status_ID) {
                 SP_LOAD_REPORT_KajianResikoRow rowSP_LOAD_REPORT_KajianResikoRow = ((SP_LOAD_REPORT_KajianResikoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         P_Kegagalan,
@@ -639,7 +650,8 @@ namespace B7_CAPA_Online.DataSource {
                         Column1,
                         DueDate,
                         SuperiorPIC,
-                        SuperiorPelaksana};
+                        SuperiorPelaksana,
+                        Status_ID};
                 rowSP_LOAD_REPORT_KajianResikoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSP_LOAD_REPORT_KajianResikoRow);
                 return rowSP_LOAD_REPORT_KajianResikoRow;
@@ -686,6 +698,7 @@ namespace B7_CAPA_Online.DataSource {
                 this.columnDueDate = base.Columns["DueDate"];
                 this.columnSuperiorPIC = base.Columns["SuperiorPIC"];
                 this.columnSuperiorPelaksana = base.Columns["SuperiorPelaksana"];
+                this.columnStatus_ID = base.Columns["Status_ID"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -733,12 +746,14 @@ namespace B7_CAPA_Online.DataSource {
                 base.Columns.Add(this.columnRiskLevel2);
                 this.columnColumn1 = new global::System.Data.DataColumn("Column1", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnColumn1);
-                this.columnDueDate = new global::System.Data.DataColumn("DueDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                this.columnDueDate = new global::System.Data.DataColumn("DueDate", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDueDate);
                 this.columnSuperiorPIC = new global::System.Data.DataColumn("SuperiorPIC", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSuperiorPIC);
                 this.columnSuperiorPelaksana = new global::System.Data.DataColumn("SuperiorPelaksana", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSuperiorPelaksana);
+                this.columnStatus_ID = new global::System.Data.DataColumn("Status_ID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStatus_ID);
                 this.columnP_Kegagalan.MaxLength = 500;
                 this.columnSpek.MaxLength = 500;
                 this.columnDampak.MaxLength = 500;
@@ -753,6 +768,8 @@ namespace B7_CAPA_Online.DataSource {
                 this.columnRiskLevel2.MaxLength = 50;
                 this.columnColumn1.ReadOnly = true;
                 this.columnColumn1.MaxLength = 100;
+                this.columnDueDate.ReadOnly = true;
+                this.columnDueDate.MaxLength = 30;
                 this.columnSuperiorPIC.ReadOnly = true;
                 this.columnSuperiorPIC.MaxLength = 141;
                 this.columnSuperiorPelaksana.ReadOnly = true;
@@ -1250,10 +1267,10 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public System.DateTime DueDate {
+            public string DueDate {
                 get {
                     try {
-                        return ((global::System.DateTime)(this[this.tableSP_LOAD_REPORT_KajianResiko.DueDateColumn]));
+                        return ((string)(this[this.tableSP_LOAD_REPORT_KajianResiko.DueDateColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'DueDate\' in table \'SP_LOAD_REPORT_KajianResiko\' is DBNull.", e);
@@ -1295,6 +1312,23 @@ namespace B7_CAPA_Online.DataSource {
                 }
                 set {
                     this[this.tableSP_LOAD_REPORT_KajianResiko.SuperiorPelaksanaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int Status_ID {
+                get {
+                    try {
+                        return ((int)(this[this.tableSP_LOAD_REPORT_KajianResiko.Status_IDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Status_ID\' in table \'SP_LOAD_REPORT_KajianResiko\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_LOAD_REPORT_KajianResiko.Status_IDColumn] = value;
                 }
             }
             
@@ -1585,6 +1619,18 @@ namespace B7_CAPA_Online.DataSource {
             public void SetSuperiorPelaksanaNull() {
                 this[this.tableSP_LOAD_REPORT_KajianResiko.SuperiorPelaksanaColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsStatus_IDNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_KajianResiko.Status_IDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetStatus_IDNull() {
+                this[this.tableSP_LOAD_REPORT_KajianResiko.Status_IDColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -1770,6 +1816,7 @@ namespace B7_CAPA_Online.DataSource.B7_CAPA_ONLINEDataSetKajianTableAdapters {
             tableMapping.ColumnMappings.Add("DueDate", "DueDate");
             tableMapping.ColumnMappings.Add("SuperiorPIC", "SuperiorPIC");
             tableMapping.ColumnMappings.Add("SuperiorPelaksana", "SuperiorPelaksana");
+            tableMapping.ColumnMappings.Add("Status_ID", "Status_ID");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

@@ -46,6 +46,7 @@
               <Mapping SourceColumn="DueDate" DataSetColumn="DueDate" />
               <Mapping SourceColumn="SuperiorPIC" DataSetColumn="SuperiorPIC" />
               <Mapping SourceColumn="SuperiorPelaksana" DataSetColumn="SuperiorPelaksana" />
+              <Mapping SourceColumn="Status_ID" DataSetColumn="Status_ID" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -159,7 +160,13 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="DueDate" msprop:Generator_ColumnVarNameInTable="columnDueDate" msprop:Generator_ColumnPropNameInRow="DueDate" msprop:Generator_ColumnPropNameInTable="DueDateColumn" msprop:Generator_UserColumnName="DueDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DueDate" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnDueDate" msprop:Generator_ColumnPropNameInRow="DueDate" msprop:Generator_ColumnPropNameInTable="DueDateColumn" msprop:Generator_UserColumnName="DueDate" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element name="SuperiorPIC" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnSuperiorPIC" msprop:Generator_ColumnPropNameInRow="SuperiorPIC" msprop:Generator_ColumnPropNameInTable="SuperiorPICColumn" msprop:Generator_UserColumnName="SuperiorPIC" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -174,6 +181,7 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="Status_ID" msprop:Generator_ColumnVarNameInTable="columnStatus_ID" msprop:Generator_ColumnPropNameInRow="Status_ID" msprop:Generator_ColumnPropNameInTable="Status_IDColumn" msprop:Generator_UserColumnName="Status_ID" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
