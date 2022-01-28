@@ -287,9 +287,9 @@ namespace B7_CAPA_Online.DataSource {
             
             private global::System.Data.DataColumn columnEvaluator;
             
-            private global::System.Data.DataColumn columnUpdate_Date;
-            
             private global::System.Data.DataColumn columnRoles;
+            
+            private global::System.Data.DataColumn columnStatus_ID;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -358,17 +358,17 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn Update_DateColumn {
+            public global::System.Data.DataColumn RolesColumn {
                 get {
-                    return this.columnUpdate_Date;
+                    return this.columnRoles;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn RolesColumn {
+            public global::System.Data.DataColumn Status_IDColumn {
                 get {
-                    return this.columnRoles;
+                    return this.columnStatus_ID;
                 }
             }
             
@@ -409,15 +409,15 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_LOAD_REPORT_VerifikasiRow AddSP_LOAD_REPORT_VerifikasiRow(string Rentang, string Efektif, string Catatan, string Evaluator, System.DateTime Update_Date, string Roles) {
+            public SP_LOAD_REPORT_VerifikasiRow AddSP_LOAD_REPORT_VerifikasiRow(string Rentang, string Efektif, string Catatan, string Evaluator, string Roles, int Status_ID) {
                 SP_LOAD_REPORT_VerifikasiRow rowSP_LOAD_REPORT_VerifikasiRow = ((SP_LOAD_REPORT_VerifikasiRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Rentang,
                         Efektif,
                         Catatan,
                         Evaluator,
-                        Update_Date,
-                        Roles};
+                        Roles,
+                        Status_ID};
                 rowSP_LOAD_REPORT_VerifikasiRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSP_LOAD_REPORT_VerifikasiRow);
                 return rowSP_LOAD_REPORT_VerifikasiRow;
@@ -444,8 +444,8 @@ namespace B7_CAPA_Online.DataSource {
                 this.columnEfektif = base.Columns["Efektif"];
                 this.columnCatatan = base.Columns["Catatan"];
                 this.columnEvaluator = base.Columns["Evaluator"];
-                this.columnUpdate_Date = base.Columns["Update_Date"];
                 this.columnRoles = base.Columns["Roles"];
+                this.columnStatus_ID = base.Columns["Status_ID"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -459,10 +459,10 @@ namespace B7_CAPA_Online.DataSource {
                 base.Columns.Add(this.columnCatatan);
                 this.columnEvaluator = new global::System.Data.DataColumn("Evaluator", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnEvaluator);
-                this.columnUpdate_Date = new global::System.Data.DataColumn("Update_Date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnUpdate_Date);
                 this.columnRoles = new global::System.Data.DataColumn("Roles", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRoles);
+                this.columnStatus_ID = new global::System.Data.DataColumn("Status_ID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStatus_ID);
                 this.columnRentang.ReadOnly = true;
                 this.columnRentang.MaxLength = 50;
                 this.columnEfektif.ReadOnly = true;
@@ -470,7 +470,7 @@ namespace B7_CAPA_Online.DataSource {
                 this.columnCatatan.ReadOnly = true;
                 this.columnCatatan.MaxLength = 200;
                 this.columnEvaluator.ReadOnly = true;
-                this.columnEvaluator.MaxLength = 100;
+                this.columnEvaluator.MaxLength = 141;
                 this.columnRoles.ReadOnly = true;
                 this.columnRoles.MaxLength = 100;
             }
@@ -679,23 +679,6 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public System.DateTime Update_Date {
-                get {
-                    try {
-                        return ((global::System.DateTime)(this[this.tableSP_LOAD_REPORT_Verifikasi.Update_DateColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Update_Date\' in table \'SP_LOAD_REPORT_Verifikasi\' is DBNull" +
-                                ".", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_LOAD_REPORT_Verifikasi.Update_DateColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string Roles {
                 get {
                     try {
@@ -707,6 +690,22 @@ namespace B7_CAPA_Online.DataSource {
                 }
                 set {
                     this[this.tableSP_LOAD_REPORT_Verifikasi.RolesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int Status_ID {
+                get {
+                    try {
+                        return ((int)(this[this.tableSP_LOAD_REPORT_Verifikasi.Status_IDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Status_ID\' in table \'SP_LOAD_REPORT_Verifikasi\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_LOAD_REPORT_Verifikasi.Status_IDColumn] = value;
                 }
             }
             
@@ -760,18 +759,6 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsUpdate_DateNull() {
-                return this.IsNull(this.tableSP_LOAD_REPORT_Verifikasi.Update_DateColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetUpdate_DateNull() {
-                this[this.tableSP_LOAD_REPORT_Verifikasi.Update_DateColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsRolesNull() {
                 return this.IsNull(this.tableSP_LOAD_REPORT_Verifikasi.RolesColumn);
             }
@@ -780,6 +767,18 @@ namespace B7_CAPA_Online.DataSource {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetRolesNull() {
                 this[this.tableSP_LOAD_REPORT_Verifikasi.RolesColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsStatus_IDNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_Verifikasi.Status_IDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetStatus_IDNull() {
+                this[this.tableSP_LOAD_REPORT_Verifikasi.Status_IDColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -946,8 +945,8 @@ namespace B7_CAPA_Online.DataSource.B7_CAPA_ONLINEDataSetBuktiTableAdapters {
             tableMapping.ColumnMappings.Add("Efektif", "Efektif");
             tableMapping.ColumnMappings.Add("Catatan", "Catatan");
             tableMapping.ColumnMappings.Add("Evaluator", "Evaluator");
-            tableMapping.ColumnMappings.Add("Update_Date", "Update_Date");
             tableMapping.ColumnMappings.Add("Roles", "Roles");
+            tableMapping.ColumnMappings.Add("Status_ID", "Status_ID");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

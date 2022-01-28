@@ -287,7 +287,7 @@ namespace B7_CAPA_Online.DataSource {
             
             private global::System.Data.DataColumn columnDue_Date;
             
-            private global::System.Data.DataColumn columnPelaksanaPerbaikan;
+            private global::System.Data.DataColumn columnPelaksanaPencegahan;
             
             private global::System.Data.DataColumn columnNama_Personil;
             
@@ -362,9 +362,9 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PelaksanaPerbaikanColumn {
+            public global::System.Data.DataColumn PelaksanaPencegahanColumn {
                 get {
-                    return this.columnPelaksanaPerbaikan;
+                    return this.columnPelaksanaPencegahan;
                 }
             }
             
@@ -429,14 +429,14 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_LOAD_REPORT_TPencegahanRow AddSP_LOAD_REPORT_TPencegahanRow(string AreaLain, string WhyDesc, string Tindakan_Pencegahan, System.DateTime Due_Date, string PelaksanaPerbaikan, string Nama_Personil, string Email, string Superior) {
+            public SP_LOAD_REPORT_TPencegahanRow AddSP_LOAD_REPORT_TPencegahanRow(string AreaLain, string WhyDesc, string Tindakan_Pencegahan, string Due_Date, string PelaksanaPencegahan, string Nama_Personil, string Email, string Superior) {
                 SP_LOAD_REPORT_TPencegahanRow rowSP_LOAD_REPORT_TPencegahanRow = ((SP_LOAD_REPORT_TPencegahanRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         AreaLain,
                         WhyDesc,
                         Tindakan_Pencegahan,
                         Due_Date,
-                        PelaksanaPerbaikan,
+                        PelaksanaPencegahan,
                         Nama_Personil,
                         Email,
                         Superior};
@@ -466,7 +466,7 @@ namespace B7_CAPA_Online.DataSource {
                 this.columnWhyDesc = base.Columns["WhyDesc"];
                 this.columnTindakan_Pencegahan = base.Columns["Tindakan_Pencegahan"];
                 this.columnDue_Date = base.Columns["Due_Date"];
-                this.columnPelaksanaPerbaikan = base.Columns["PelaksanaPerbaikan"];
+                this.columnPelaksanaPencegahan = base.Columns["PelaksanaPencegahan"];
                 this.columnNama_Personil = base.Columns["Nama_Personil"];
                 this.columnEmail = base.Columns["Email"];
                 this.columnSuperior = base.Columns["Superior"];
@@ -481,10 +481,10 @@ namespace B7_CAPA_Online.DataSource {
                 base.Columns.Add(this.columnWhyDesc);
                 this.columnTindakan_Pencegahan = new global::System.Data.DataColumn("Tindakan_Pencegahan", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTindakan_Pencegahan);
-                this.columnDue_Date = new global::System.Data.DataColumn("Due_Date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                this.columnDue_Date = new global::System.Data.DataColumn("Due_Date", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDue_Date);
-                this.columnPelaksanaPerbaikan = new global::System.Data.DataColumn("PelaksanaPerbaikan", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPelaksanaPerbaikan);
+                this.columnPelaksanaPencegahan = new global::System.Data.DataColumn("PelaksanaPencegahan", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPelaksanaPencegahan);
                 this.columnNama_Personil = new global::System.Data.DataColumn("Nama_Personil", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnNama_Personil);
                 this.columnEmail = new global::System.Data.DataColumn("Email", typeof(string), null, global::System.Data.MappingType.Element);
@@ -494,8 +494,10 @@ namespace B7_CAPA_Online.DataSource {
                 this.columnAreaLain.MaxLength = 2000;
                 this.columnWhyDesc.MaxLength = 500;
                 this.columnTindakan_Pencegahan.MaxLength = 500;
-                this.columnPelaksanaPerbaikan.ReadOnly = true;
-                this.columnPelaksanaPerbaikan.MaxLength = 100;
+                this.columnDue_Date.ReadOnly = true;
+                this.columnDue_Date.MaxLength = 30;
+                this.columnPelaksanaPencegahan.ReadOnly = true;
+                this.columnPelaksanaPencegahan.MaxLength = 100;
                 this.columnNama_Personil.MaxLength = 50;
                 this.columnEmail.MaxLength = 60;
                 this.columnSuperior.ReadOnly = true;
@@ -691,10 +693,10 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public System.DateTime Due_Date {
+            public string Due_Date {
                 get {
                     try {
-                        return ((global::System.DateTime)(this[this.tableSP_LOAD_REPORT_TPencegahan.Due_DateColumn]));
+                        return ((string)(this[this.tableSP_LOAD_REPORT_TPencegahan.Due_DateColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'Due_Date\' in table \'SP_LOAD_REPORT_TPencegahan\' is DBNull.", e);
@@ -707,18 +709,18 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string PelaksanaPerbaikan {
+            public string PelaksanaPencegahan {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_LOAD_REPORT_TPencegahan.PelaksanaPerbaikanColumn]));
+                        return ((string)(this[this.tableSP_LOAD_REPORT_TPencegahan.PelaksanaPencegahanColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PelaksanaPerbaikan\' in table \'SP_LOAD_REPORT_TPencegahan\' i" +
-                                "s DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'PelaksanaPencegahan\' in table \'SP_LOAD_REPORT_TPencegahan\' " +
+                                "is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_LOAD_REPORT_TPencegahan.PelaksanaPerbaikanColumn] = value;
+                    this[this.tableSP_LOAD_REPORT_TPencegahan.PelaksanaPencegahanColumn] = value;
                 }
             }
             
@@ -821,14 +823,14 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPelaksanaPerbaikanNull() {
-                return this.IsNull(this.tableSP_LOAD_REPORT_TPencegahan.PelaksanaPerbaikanColumn);
+            public bool IsPelaksanaPencegahanNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_TPencegahan.PelaksanaPencegahanColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPelaksanaPerbaikanNull() {
-                this[this.tableSP_LOAD_REPORT_TPencegahan.PelaksanaPerbaikanColumn] = global::System.Convert.DBNull;
+            public void SetPelaksanaPencegahanNull() {
+                this[this.tableSP_LOAD_REPORT_TPencegahan.PelaksanaPencegahanColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1031,7 +1033,7 @@ namespace B7_CAPA_Online.DataSource.B7_CAPA_ONLINEDataSetPencegahanTableAdapters
             tableMapping.ColumnMappings.Add("WhyDesc", "WhyDesc");
             tableMapping.ColumnMappings.Add("Tindakan_Pencegahan", "Tindakan_Pencegahan");
             tableMapping.ColumnMappings.Add("Due_Date", "Due_Date");
-            tableMapping.ColumnMappings.Add("PelaksanaPerbaikan", "PelaksanaPerbaikan");
+            tableMapping.ColumnMappings.Add("PelaksanaPencegahan", "PelaksanaPencegahan");
             tableMapping.ColumnMappings.Add("Nama_Personil", "Nama_Personil");
             tableMapping.ColumnMappings.Add("Email", "Email");
             tableMapping.ColumnMappings.Add("Superior", "Superior");
