@@ -170,8 +170,18 @@
                         { "data": "PENDING" },
                         { "data": "Tanggal_Outstanding" },
                         {
-                            "data": null,
-                            "defaultContent": '<button class="btn btn-primary" onclick="ViewCAPA(this)"id="Filter">View</button>'
+                            "data": "STATUS_ID",
+                            "render": function (data) {
+                                if (data > 5 && data <= 12) {
+                                    return '<button class="btn btn-primary" onclick="ViewCAPA(this)"id="Filter">View</button>'
+                                }
+                                else if (data === 14) {
+                                    return '<button class="btn btn-primary" onclick="ViewCAPA(this)"id="Filter">View</button>'
+                                }
+                                else {
+                                    return '<button class="btn btn-primary" onclick="ViewCAPA(this)"id="Filter" disabled>View</button>'
+                                }
+                            }
                         }
 
                     ],
