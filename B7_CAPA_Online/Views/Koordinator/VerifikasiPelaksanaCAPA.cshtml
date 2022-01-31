@@ -638,8 +638,8 @@
                                             }
                                             else {
 
-                                                return "<button class='btn btn-success' style='width:40px; margin-bottom:5px' onclick='VerifyPerbaiaknCAPA(this)'>Verify</button>" +
-                                                    "<button class='btn btn-danger' style='width:40px' data-toggle='modal' data-target='#modalAlasanReject' onclick='RejectPerbaiaknCAPA(this)'>Reject</button>";
+                                                return "<button class='btn btn-success' style='width:40px; margin-bottom:5px' onclick='VerifyPerbaikanCAPA(this)'>Verify</button>" +
+                                                    "<button class='btn btn-danger' style='width:40px' data-toggle='modal' data-target='#modalAlasanReject' onclick='RejectPerbaikanCAPA(this)'>Reject</button>";
                                             }
                                     }
                                 },
@@ -696,13 +696,13 @@
     }
 
     //Perbaikan
-    function VerifyPerbaiaknCAPA(param) {
+    function VerifyPerbaikanCAPA(param) {
         let dataRow = $('#Tbl_BuktiPerbaikan').DataTable().row($(param).closest('tr')).data();
         let type = 'Perbaikan';
         VefiryPelaksanaCAPA(dataRow.RecordID, type);
     }
 
-    function RejectPerbaiaknCAPA(param) {
+    function RejectPerbaikanCAPA(param) {
         let dataRow = $('#Tbl_BuktiPerbaikan').DataTable().row($(param).closest('tr')).data();
         $('#txtRecordID').val(dataRow.RecordID);
         $('#txtType').val('Perbaikan');
