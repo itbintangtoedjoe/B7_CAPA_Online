@@ -26,8 +26,8 @@
               <Mapping SourceColumn="Efektif" DataSetColumn="Efektif" />
               <Mapping SourceColumn="Catatan" DataSetColumn="Catatan" />
               <Mapping SourceColumn="Evaluator" DataSetColumn="Evaluator" />
-              <Mapping SourceColumn="Update_Date" DataSetColumn="Update_Date" />
               <Mapping SourceColumn="Roles" DataSetColumn="Roles" />
+              <Mapping SourceColumn="Status_ID" DataSetColumn="Status_ID" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -66,11 +66,10 @@
               <xs:element name="Evaluator" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnEvaluator" msprop:Generator_ColumnPropNameInRow="Evaluator" msprop:Generator_ColumnPropNameInTable="EvaluatorColumn" msprop:Generator_UserColumnName="Evaluator" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="100" />
+                    <xs:maxLength value="141" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Update_Date" msprop:Generator_ColumnVarNameInTable="columnUpdate_Date" msprop:Generator_ColumnPropNameInRow="Update_Date" msprop:Generator_ColumnPropNameInTable="Update_DateColumn" msprop:Generator_UserColumnName="Update_Date" type="xs:dateTime" minOccurs="0" />
               <xs:element name="Roles" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnRoles" msprop:Generator_ColumnPropNameInRow="Roles" msprop:Generator_ColumnPropNameInTable="RolesColumn" msprop:Generator_UserColumnName="Roles" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -78,6 +77,7 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="Status_ID" msprop:Generator_ColumnVarNameInTable="columnStatus_ID" msprop:Generator_ColumnPropNameInRow="Status_ID" msprop:Generator_ColumnPropNameInTable="Status_IDColumn" msprop:Generator_UserColumnName="Status_ID" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

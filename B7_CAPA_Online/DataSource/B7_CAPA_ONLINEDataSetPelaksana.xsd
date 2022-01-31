@@ -24,10 +24,14 @@
             <Mappings>
               <Mapping SourceColumn="Tindakan_Perbaikan" DataSetColumn="Tindakan_Perbaikan" />
               <Mapping SourceColumn="Pelaksana_Perbaikan" DataSetColumn="Pelaksana_Perbaikan" />
+              <Mapping SourceColumn="StatusPerbaikan" DataSetColumn="StatusPerbaikan" />
               <Mapping SourceColumn="Tindakan_Pencegahan" DataSetColumn="Tindakan_Pencegahan" />
-              <Mapping SourceColumn="Pelaksana_Pencegahan" DataSetColumn="Pelaksana_Pencegahan" />
+              <Mapping SourceColumn="PelaksanaPencegahan" DataSetColumn="PelaksanaPencegahan" />
+              <Mapping SourceColumn="StatusPencegahan" DataSetColumn="StatusPencegahan" />
               <Mapping SourceColumn="Treatment" DataSetColumn="Treatment" />
               <Mapping SourceColumn="PIC" DataSetColumn="PIC" />
+              <Mapping SourceColumn="StatusTreatment" DataSetColumn="StatusTreatment" />
+              <Mapping SourceColumn="Koordinator" DataSetColumn="Koordinator" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -49,13 +53,14 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Pelaksana_Perbaikan" msprop:Generator_ColumnVarNameInTable="columnPelaksana_Perbaikan" msprop:Generator_ColumnPropNameInRow="Pelaksana_Perbaikan" msprop:Generator_ColumnPropNameInTable="Pelaksana_PerbaikanColumn" msprop:Generator_UserColumnName="Pelaksana_Perbaikan" minOccurs="0">
+              <xs:element name="Pelaksana_Perbaikan" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnPelaksana_Perbaikan" msprop:Generator_ColumnPropNameInRow="Pelaksana_Perbaikan" msprop:Generator_ColumnPropNameInTable="Pelaksana_PerbaikanColumn" msprop:Generator_UserColumnName="Pelaksana_Perbaikan" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
+                    <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="StatusPerbaikan" msprop:Generator_ColumnVarNameInTable="columnStatusPerbaikan" msprop:Generator_ColumnPropNameInRow="StatusPerbaikan" msprop:Generator_ColumnPropNameInTable="StatusPerbaikanColumn" msprop:Generator_UserColumnName="StatusPerbaikan" type="xs:int" minOccurs="0" />
               <xs:element name="Tindakan_Pencegahan" msprop:Generator_ColumnVarNameInTable="columnTindakan_Pencegahan" msprop:Generator_ColumnPropNameInRow="Tindakan_Pencegahan" msprop:Generator_ColumnPropNameInTable="Tindakan_PencegahanColumn" msprop:Generator_UserColumnName="Tindakan_Pencegahan" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -63,13 +68,14 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Pelaksana_Pencegahan" msprop:Generator_ColumnVarNameInTable="columnPelaksana_Pencegahan" msprop:Generator_ColumnPropNameInRow="Pelaksana_Pencegahan" msprop:Generator_ColumnPropNameInTable="Pelaksana_PencegahanColumn" msprop:Generator_UserColumnName="Pelaksana_Pencegahan" minOccurs="0">
+              <xs:element name="PelaksanaPencegahan" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnPelaksanaPencegahan" msprop:Generator_ColumnPropNameInRow="PelaksanaPencegahan" msprop:Generator_ColumnPropNameInTable="PelaksanaPencegahanColumn" msprop:Generator_UserColumnName="PelaksanaPencegahan" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
+                    <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="StatusPencegahan" msprop:Generator_ColumnVarNameInTable="columnStatusPencegahan" msprop:Generator_ColumnPropNameInRow="StatusPencegahan" msprop:Generator_ColumnPropNameInTable="StatusPencegahanColumn" msprop:Generator_UserColumnName="StatusPencegahan" type="xs:int" minOccurs="0" />
               <xs:element name="Treatment" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTreatment" msprop:Generator_ColumnPropNameInRow="Treatment" msprop:Generator_ColumnPropNameInTable="TreatmentColumn" msprop:Generator_UserColumnName="Treatment" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -81,6 +87,14 @@
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="StatusTreatment" msprop:Generator_ColumnVarNameInTable="columnStatusTreatment" msprop:Generator_ColumnPropNameInRow="StatusTreatment" msprop:Generator_ColumnPropNameInTable="StatusTreatmentColumn" msprop:Generator_UserColumnName="StatusTreatment" type="xs:int" minOccurs="0" />
+              <xs:element name="Koordinator" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnKoordinator" msprop:Generator_ColumnPropNameInRow="Koordinator" msprop:Generator_ColumnPropNameInTable="KoordinatorColumn" msprop:Generator_UserColumnName="Koordinator" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="141" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>

@@ -31,6 +31,8 @@ namespace B7_CAPA_Online.Report
                 DataTable DT4 = new DataTable();
                 DataTable DT5 = new DataTable();
                 DataTable DT6 = new DataTable();
+                DataTable DT7 = new DataTable();
+                DataTable DT8 = new DataTable();
                 string NoCAPA = Request.QueryString.Get("NoCAPA");
 
                 try
@@ -134,6 +136,35 @@ namespace B7_CAPA_Online.Report
 
                         dataAdapt.Fill(DT6);
                     }
+                    using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_KajianResiko", conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
+                        command.Parameters["@NoCAPA"].Value = NoCAPA;
+
+
+
+                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                        dataAdapt.SelectCommand = command;
+
+                        dataAdapt.Fill(DT7);
+                    }
+
+                    using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_Evaluator", conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
+                        command.Parameters["@NoCAPA"].Value = NoCAPA;
+
+
+
+                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                        dataAdapt.SelectCommand = command;
+
+                        dataAdapt.Fill(DT8);
+                    }
 
                     conn.Close();
                 }
@@ -142,7 +173,7 @@ namespace B7_CAPA_Online.Report
                         throw ex;
                 }
 
-                ReportDataSource DataSource = new ReportDataSource("B7_CAPA_ONLINEDataSet", DT);
+                ReportDataSource DataSource = new ReportDataSource("B7_CAPA_ONLINEDataSetHeader1", DT);
                 this.ReportViewer1.LocalReport.DataSources.Clear();
                 this.ReportViewer1.LocalReport.DataSources.Add(DataSource);
                 ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DataSetHeader1", DT));
@@ -170,6 +201,14 @@ namespace B7_CAPA_Online.Report
                 ReportDataSource DataSource6 = new ReportDataSource("B7_CAPA_ONLINEDataSetBukti", DT6);
                 this.ReportViewer1.LocalReport.DataSources.Add(DataSource6);
                 ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DataSetBukti", DT6));
+
+                ReportDataSource DataSource7 = new ReportDataSource("B7_CAPA_ONLINEDataSetKajian", DT7);
+                this.ReportViewer1.LocalReport.DataSources.Add(DataSource7);
+                ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DataSetKajian", DT7));
+
+                ReportDataSource DataSource8 = new ReportDataSource("B7_CAPA_ONLINEDataSetEvaluator", DT8);
+                this.ReportViewer1.LocalReport.DataSources.Add(DataSource8);
+                ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DataSetEvaluator", DT8));
             }
         }
     }

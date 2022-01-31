@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace B7_CAPA_Online {
+namespace B7_CAPA_Online.DataSource {
     
     
     /// <summary>
@@ -20,17 +20,17 @@ namespace B7_CAPA_Online {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("B7_CAPA_ONLINEDataSetPencegahan")]
+    [global::System.Xml.Serialization.XmlRootAttribute("B7_CAPA_ONLINEDataSetAnalisa")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class B7_CAPA_ONLINEDataSetPencegahan : global::System.Data.DataSet {
+    public partial class B7_CAPA_ONLINEDataSetAnalisa : global::System.Data.DataSet {
         
-        private SP_LOAD_REPORT_TPencegahanDataTable tableSP_LOAD_REPORT_TPencegahan;
+        private SP_LOAD_REPORT_AnalisaDataTable tableSP_LOAD_REPORT_Analisa;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public B7_CAPA_ONLINEDataSetPencegahan() {
+        public B7_CAPA_ONLINEDataSetAnalisa() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace B7_CAPA_Online {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected B7_CAPA_ONLINEDataSetPencegahan(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected B7_CAPA_ONLINEDataSetAnalisa(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -54,8 +54,8 @@ namespace B7_CAPA_Online {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["SP_LOAD_REPORT_TPencegahan"] != null)) {
-                    base.Tables.Add(new SP_LOAD_REPORT_TPencegahanDataTable(ds.Tables["SP_LOAD_REPORT_TPencegahan"]));
+                if ((ds.Tables["SP_LOAD_REPORT_Analisa"] != null)) {
+                    base.Tables.Add(new SP_LOAD_REPORT_AnalisaDataTable(ds.Tables["SP_LOAD_REPORT_Analisa"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -79,9 +79,9 @@ namespace B7_CAPA_Online {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public SP_LOAD_REPORT_TPencegahanDataTable SP_LOAD_REPORT_TPencegahan {
+        public SP_LOAD_REPORT_AnalisaDataTable SP_LOAD_REPORT_Analisa {
             get {
-                return this.tableSP_LOAD_REPORT_TPencegahan;
+                return this.tableSP_LOAD_REPORT_Analisa;
             }
         }
         
@@ -127,7 +127,7 @@ namespace B7_CAPA_Online {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            B7_CAPA_ONLINEDataSetPencegahan cln = ((B7_CAPA_ONLINEDataSetPencegahan)(base.Clone()));
+            B7_CAPA_ONLINEDataSetAnalisa cln = ((B7_CAPA_ONLINEDataSetAnalisa)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -152,8 +152,8 @@ namespace B7_CAPA_Online {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["SP_LOAD_REPORT_TPencegahan"] != null)) {
-                    base.Tables.Add(new SP_LOAD_REPORT_TPencegahanDataTable(ds.Tables["SP_LOAD_REPORT_TPencegahan"]));
+                if ((ds.Tables["SP_LOAD_REPORT_Analisa"] != null)) {
+                    base.Tables.Add(new SP_LOAD_REPORT_AnalisaDataTable(ds.Tables["SP_LOAD_REPORT_Analisa"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,10 +188,10 @@ namespace B7_CAPA_Online {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableSP_LOAD_REPORT_TPencegahan = ((SP_LOAD_REPORT_TPencegahanDataTable)(base.Tables["SP_LOAD_REPORT_TPencegahan"]));
+            this.tableSP_LOAD_REPORT_Analisa = ((SP_LOAD_REPORT_AnalisaDataTable)(base.Tables["SP_LOAD_REPORT_Analisa"]));
             if ((initTable == true)) {
-                if ((this.tableSP_LOAD_REPORT_TPencegahan != null)) {
-                    this.tableSP_LOAD_REPORT_TPencegahan.InitVars();
+                if ((this.tableSP_LOAD_REPORT_Analisa != null)) {
+                    this.tableSP_LOAD_REPORT_Analisa.InitVars();
                 }
             }
         }
@@ -199,18 +199,18 @@ namespace B7_CAPA_Online {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "B7_CAPA_ONLINEDataSetPencegahan";
+            this.DataSetName = "B7_CAPA_ONLINEDataSetAnalisa";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/B7_CAPA_ONLINEDataSetPencegahan.xsd";
+            this.Namespace = "http://tempuri.org/B7_CAPA_ONLINEDataSetAnalisa.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableSP_LOAD_REPORT_TPencegahan = new SP_LOAD_REPORT_TPencegahanDataTable();
-            base.Tables.Add(this.tableSP_LOAD_REPORT_TPencegahan);
+            this.tableSP_LOAD_REPORT_Analisa = new SP_LOAD_REPORT_AnalisaDataTable();
+            base.Tables.Add(this.tableSP_LOAD_REPORT_Analisa);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private bool ShouldSerializeSP_LOAD_REPORT_TPencegahan() {
+        private bool ShouldSerializeSP_LOAD_REPORT_Analisa() {
             return false;
         }
         
@@ -225,7 +225,7 @@ namespace B7_CAPA_Online {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            B7_CAPA_ONLINEDataSetPencegahan ds = new B7_CAPA_ONLINEDataSetPencegahan();
+            B7_CAPA_ONLINEDataSetAnalisa ds = new B7_CAPA_ONLINEDataSetAnalisa();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -270,35 +270,27 @@ namespace B7_CAPA_Online {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void SP_LOAD_REPORT_TPencegahanRowChangeEventHandler(object sender, SP_LOAD_REPORT_TPencegahanRowChangeEvent e);
+        public delegate void SP_LOAD_REPORT_AnalisaRowChangeEventHandler(object sender, SP_LOAD_REPORT_AnalisaRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class SP_LOAD_REPORT_TPencegahanDataTable : global::System.Data.TypedTableBase<SP_LOAD_REPORT_TPencegahanRow> {
+        public partial class SP_LOAD_REPORT_AnalisaDataTable : global::System.Data.TypedTableBase<SP_LOAD_REPORT_AnalisaRow> {
             
-            private global::System.Data.DataColumn columnAreaLain;
+            private global::System.Data.DataColumn columnWAHType;
             
-            private global::System.Data.DataColumn columnWhyDesc;
+            private global::System.Data.DataColumn columnWSBHDesc;
             
-            private global::System.Data.DataColumn columnTindakan_Pencegahan;
+            private global::System.Data.DataColumn columnWAHDesc;
             
-            private global::System.Data.DataColumn columnDue_Date;
-            
-            private global::System.Data.DataColumn columnPelaksanaPerbaikan;
-            
-            private global::System.Data.DataColumn columnNama_Personil;
-            
-            private global::System.Data.DataColumn columnEmail;
-            
-            private global::System.Data.DataColumn columnSuperior;
+            private global::System.Data.DataColumn columnWAHStatus;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_LOAD_REPORT_TPencegahanDataTable() {
-                this.TableName = "SP_LOAD_REPORT_TPencegahan";
+            public SP_LOAD_REPORT_AnalisaDataTable() {
+                this.TableName = "SP_LOAD_REPORT_Analisa";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -306,7 +298,7 @@ namespace B7_CAPA_Online {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal SP_LOAD_REPORT_TPencegahanDataTable(global::System.Data.DataTable table) {
+            internal SP_LOAD_REPORT_AnalisaDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -323,72 +315,40 @@ namespace B7_CAPA_Online {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected SP_LOAD_REPORT_TPencegahanDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected SP_LOAD_REPORT_AnalisaDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn AreaLainColumn {
+            public global::System.Data.DataColumn WAHTypeColumn {
                 get {
-                    return this.columnAreaLain;
+                    return this.columnWAHType;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn WhyDescColumn {
+            public global::System.Data.DataColumn WSBHDescColumn {
                 get {
-                    return this.columnWhyDesc;
+                    return this.columnWSBHDesc;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn Tindakan_PencegahanColumn {
+            public global::System.Data.DataColumn WAHDescColumn {
                 get {
-                    return this.columnTindakan_Pencegahan;
+                    return this.columnWAHDesc;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn Due_DateColumn {
+            public global::System.Data.DataColumn WAHStatusColumn {
                 get {
-                    return this.columnDue_Date;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PelaksanaPerbaikanColumn {
-                get {
-                    return this.columnPelaksanaPerbaikan;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn Nama_PersonilColumn {
-                get {
-                    return this.columnNama_Personil;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn EmailColumn {
-                get {
-                    return this.columnEmail;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn SuperiorColumn {
-                get {
-                    return this.columnSuperior;
+                    return this.columnWAHStatus;
                 }
             }
             
@@ -403,52 +363,48 @@ namespace B7_CAPA_Online {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_LOAD_REPORT_TPencegahanRow this[int index] {
+            public SP_LOAD_REPORT_AnalisaRow this[int index] {
                 get {
-                    return ((SP_LOAD_REPORT_TPencegahanRow)(this.Rows[index]));
+                    return ((SP_LOAD_REPORT_AnalisaRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_LOAD_REPORT_TPencegahanRowChangeEventHandler SP_LOAD_REPORT_TPencegahanRowChanging;
+            public event SP_LOAD_REPORT_AnalisaRowChangeEventHandler SP_LOAD_REPORT_AnalisaRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_LOAD_REPORT_TPencegahanRowChangeEventHandler SP_LOAD_REPORT_TPencegahanRowChanged;
+            public event SP_LOAD_REPORT_AnalisaRowChangeEventHandler SP_LOAD_REPORT_AnalisaRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_LOAD_REPORT_TPencegahanRowChangeEventHandler SP_LOAD_REPORT_TPencegahanRowDeleting;
+            public event SP_LOAD_REPORT_AnalisaRowChangeEventHandler SP_LOAD_REPORT_AnalisaRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_LOAD_REPORT_TPencegahanRowChangeEventHandler SP_LOAD_REPORT_TPencegahanRowDeleted;
+            public event SP_LOAD_REPORT_AnalisaRowChangeEventHandler SP_LOAD_REPORT_AnalisaRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddSP_LOAD_REPORT_TPencegahanRow(SP_LOAD_REPORT_TPencegahanRow row) {
+            public void AddSP_LOAD_REPORT_AnalisaRow(SP_LOAD_REPORT_AnalisaRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_LOAD_REPORT_TPencegahanRow AddSP_LOAD_REPORT_TPencegahanRow(string AreaLain, string WhyDesc, string Tindakan_Pencegahan, System.DateTime Due_Date, string PelaksanaPerbaikan, string Nama_Personil, string Email, string Superior) {
-                SP_LOAD_REPORT_TPencegahanRow rowSP_LOAD_REPORT_TPencegahanRow = ((SP_LOAD_REPORT_TPencegahanRow)(this.NewRow()));
+            public SP_LOAD_REPORT_AnalisaRow AddSP_LOAD_REPORT_AnalisaRow(string WAHType, string WSBHDesc, string WAHDesc, string WAHStatus) {
+                SP_LOAD_REPORT_AnalisaRow rowSP_LOAD_REPORT_AnalisaRow = ((SP_LOAD_REPORT_AnalisaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        AreaLain,
-                        WhyDesc,
-                        Tindakan_Pencegahan,
-                        Due_Date,
-                        PelaksanaPerbaikan,
-                        Nama_Personil,
-                        Email,
-                        Superior};
-                rowSP_LOAD_REPORT_TPencegahanRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowSP_LOAD_REPORT_TPencegahanRow);
-                return rowSP_LOAD_REPORT_TPencegahanRow;
+                        WAHType,
+                        WSBHDesc,
+                        WAHDesc,
+                        WAHStatus};
+                rowSP_LOAD_REPORT_AnalisaRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowSP_LOAD_REPORT_AnalisaRow);
+                return rowSP_LOAD_REPORT_AnalisaRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                SP_LOAD_REPORT_TPencegahanDataTable cln = ((SP_LOAD_REPORT_TPencegahanDataTable)(base.Clone()));
+                SP_LOAD_REPORT_AnalisaDataTable cln = ((SP_LOAD_REPORT_AnalisaDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -456,76 +412,59 @@ namespace B7_CAPA_Online {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new SP_LOAD_REPORT_TPencegahanDataTable();
+                return new SP_LOAD_REPORT_AnalisaDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
-                this.columnAreaLain = base.Columns["AreaLain"];
-                this.columnWhyDesc = base.Columns["WhyDesc"];
-                this.columnTindakan_Pencegahan = base.Columns["Tindakan_Pencegahan"];
-                this.columnDue_Date = base.Columns["Due_Date"];
-                this.columnPelaksanaPerbaikan = base.Columns["PelaksanaPerbaikan"];
-                this.columnNama_Personil = base.Columns["Nama_Personil"];
-                this.columnEmail = base.Columns["Email"];
-                this.columnSuperior = base.Columns["Superior"];
+                this.columnWAHType = base.Columns["WAHType"];
+                this.columnWSBHDesc = base.Columns["WSBHDesc"];
+                this.columnWAHDesc = base.Columns["WAHDesc"];
+                this.columnWAHStatus = base.Columns["WAHStatus"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
-                this.columnAreaLain = new global::System.Data.DataColumn("AreaLain", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAreaLain);
-                this.columnWhyDesc = new global::System.Data.DataColumn("WhyDesc", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnWhyDesc);
-                this.columnTindakan_Pencegahan = new global::System.Data.DataColumn("Tindakan_Pencegahan", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTindakan_Pencegahan);
-                this.columnDue_Date = new global::System.Data.DataColumn("Due_Date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDue_Date);
-                this.columnPelaksanaPerbaikan = new global::System.Data.DataColumn("PelaksanaPerbaikan", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPelaksanaPerbaikan);
-                this.columnNama_Personil = new global::System.Data.DataColumn("Nama_Personil", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNama_Personil);
-                this.columnEmail = new global::System.Data.DataColumn("Email", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnEmail);
-                this.columnSuperior = new global::System.Data.DataColumn("Superior", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSuperior);
-                this.columnAreaLain.MaxLength = 2000;
-                this.columnWhyDesc.MaxLength = 500;
-                this.columnTindakan_Pencegahan.MaxLength = 500;
-                this.columnPelaksanaPerbaikan.ReadOnly = true;
-                this.columnPelaksanaPerbaikan.MaxLength = 100;
-                this.columnNama_Personil.MaxLength = 50;
-                this.columnEmail.MaxLength = 60;
-                this.columnSuperior.ReadOnly = true;
-                this.columnSuperior.MaxLength = 100;
+                this.columnWAHType = new global::System.Data.DataColumn("WAHType", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWAHType);
+                this.columnWSBHDesc = new global::System.Data.DataColumn("WSBHDesc", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWSBHDesc);
+                this.columnWAHDesc = new global::System.Data.DataColumn("WAHDesc", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWAHDesc);
+                this.columnWAHStatus = new global::System.Data.DataColumn("WAHStatus", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWAHStatus);
+                this.columnWAHType.MaxLength = 50;
+                this.columnWSBHDesc.MaxLength = 500;
+                this.columnWAHDesc.MaxLength = 500;
+                this.columnWAHStatus.MaxLength = 20;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_LOAD_REPORT_TPencegahanRow NewSP_LOAD_REPORT_TPencegahanRow() {
-                return ((SP_LOAD_REPORT_TPencegahanRow)(this.NewRow()));
+            public SP_LOAD_REPORT_AnalisaRow NewSP_LOAD_REPORT_AnalisaRow() {
+                return ((SP_LOAD_REPORT_AnalisaRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new SP_LOAD_REPORT_TPencegahanRow(builder);
+                return new SP_LOAD_REPORT_AnalisaRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(SP_LOAD_REPORT_TPencegahanRow);
+                return typeof(SP_LOAD_REPORT_AnalisaRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.SP_LOAD_REPORT_TPencegahanRowChanged != null)) {
-                    this.SP_LOAD_REPORT_TPencegahanRowChanged(this, new SP_LOAD_REPORT_TPencegahanRowChangeEvent(((SP_LOAD_REPORT_TPencegahanRow)(e.Row)), e.Action));
+                if ((this.SP_LOAD_REPORT_AnalisaRowChanged != null)) {
+                    this.SP_LOAD_REPORT_AnalisaRowChanged(this, new SP_LOAD_REPORT_AnalisaRowChangeEvent(((SP_LOAD_REPORT_AnalisaRow)(e.Row)), e.Action));
                 }
             }
             
@@ -533,8 +472,8 @@ namespace B7_CAPA_Online {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.SP_LOAD_REPORT_TPencegahanRowChanging != null)) {
-                    this.SP_LOAD_REPORT_TPencegahanRowChanging(this, new SP_LOAD_REPORT_TPencegahanRowChangeEvent(((SP_LOAD_REPORT_TPencegahanRow)(e.Row)), e.Action));
+                if ((this.SP_LOAD_REPORT_AnalisaRowChanging != null)) {
+                    this.SP_LOAD_REPORT_AnalisaRowChanging(this, new SP_LOAD_REPORT_AnalisaRowChangeEvent(((SP_LOAD_REPORT_AnalisaRow)(e.Row)), e.Action));
                 }
             }
             
@@ -542,8 +481,8 @@ namespace B7_CAPA_Online {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.SP_LOAD_REPORT_TPencegahanRowDeleted != null)) {
-                    this.SP_LOAD_REPORT_TPencegahanRowDeleted(this, new SP_LOAD_REPORT_TPencegahanRowChangeEvent(((SP_LOAD_REPORT_TPencegahanRow)(e.Row)), e.Action));
+                if ((this.SP_LOAD_REPORT_AnalisaRowDeleted != null)) {
+                    this.SP_LOAD_REPORT_AnalisaRowDeleted(this, new SP_LOAD_REPORT_AnalisaRowChangeEvent(((SP_LOAD_REPORT_AnalisaRow)(e.Row)), e.Action));
                 }
             }
             
@@ -551,14 +490,14 @@ namespace B7_CAPA_Online {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.SP_LOAD_REPORT_TPencegahanRowDeleting != null)) {
-                    this.SP_LOAD_REPORT_TPencegahanRowDeleting(this, new SP_LOAD_REPORT_TPencegahanRowChangeEvent(((SP_LOAD_REPORT_TPencegahanRow)(e.Row)), e.Action));
+                if ((this.SP_LOAD_REPORT_AnalisaRowDeleting != null)) {
+                    this.SP_LOAD_REPORT_AnalisaRowDeleting(this, new SP_LOAD_REPORT_AnalisaRowChangeEvent(((SP_LOAD_REPORT_AnalisaRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void RemoveSP_LOAD_REPORT_TPencegahanRow(SP_LOAD_REPORT_TPencegahanRow row) {
+            public void RemoveSP_LOAD_REPORT_AnalisaRow(SP_LOAD_REPORT_AnalisaRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -567,7 +506,7 @@ namespace B7_CAPA_Online {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                B7_CAPA_ONLINEDataSetPencegahan ds = new B7_CAPA_ONLINEDataSetPencegahan();
+                B7_CAPA_ONLINEDataSetAnalisa ds = new B7_CAPA_ONLINEDataSetAnalisa();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -585,7 +524,7 @@ namespace B7_CAPA_Online {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "SP_LOAD_REPORT_TPencegahanDataTable";
+                attribute2.FixedValue = "SP_LOAD_REPORT_AnalisaDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -629,242 +568,127 @@ namespace B7_CAPA_Online {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class SP_LOAD_REPORT_TPencegahanRow : global::System.Data.DataRow {
+        public partial class SP_LOAD_REPORT_AnalisaRow : global::System.Data.DataRow {
             
-            private SP_LOAD_REPORT_TPencegahanDataTable tableSP_LOAD_REPORT_TPencegahan;
+            private SP_LOAD_REPORT_AnalisaDataTable tableSP_LOAD_REPORT_Analisa;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal SP_LOAD_REPORT_TPencegahanRow(global::System.Data.DataRowBuilder rb) : 
+            internal SP_LOAD_REPORT_AnalisaRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableSP_LOAD_REPORT_TPencegahan = ((SP_LOAD_REPORT_TPencegahanDataTable)(this.Table));
+                this.tableSP_LOAD_REPORT_Analisa = ((SP_LOAD_REPORT_AnalisaDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string AreaLain {
+            public string WAHType {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_LOAD_REPORT_TPencegahan.AreaLainColumn]));
+                        return ((string)(this[this.tableSP_LOAD_REPORT_Analisa.WAHTypeColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'AreaLain\' in table \'SP_LOAD_REPORT_TPencegahan\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'WAHType\' in table \'SP_LOAD_REPORT_Analisa\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_LOAD_REPORT_TPencegahan.AreaLainColumn] = value;
+                    this[this.tableSP_LOAD_REPORT_Analisa.WAHTypeColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string WhyDesc {
+            public string WSBHDesc {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_LOAD_REPORT_TPencegahan.WhyDescColumn]));
+                        return ((string)(this[this.tableSP_LOAD_REPORT_Analisa.WSBHDescColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'WhyDesc\' in table \'SP_LOAD_REPORT_TPencegahan\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'WSBHDesc\' in table \'SP_LOAD_REPORT_Analisa\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_LOAD_REPORT_TPencegahan.WhyDescColumn] = value;
+                    this[this.tableSP_LOAD_REPORT_Analisa.WSBHDescColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Tindakan_Pencegahan {
+            public string WAHDesc {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_LOAD_REPORT_TPencegahan.Tindakan_PencegahanColumn]));
+                        return ((string)(this[this.tableSP_LOAD_REPORT_Analisa.WAHDescColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Tindakan_Pencegahan\' in table \'SP_LOAD_REPORT_TPencegahan\' " +
-                                "is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'WAHDesc\' in table \'SP_LOAD_REPORT_Analisa\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_LOAD_REPORT_TPencegahan.Tindakan_PencegahanColumn] = value;
+                    this[this.tableSP_LOAD_REPORT_Analisa.WAHDescColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public System.DateTime Due_Date {
+            public string WAHStatus {
                 get {
                     try {
-                        return ((global::System.DateTime)(this[this.tableSP_LOAD_REPORT_TPencegahan.Due_DateColumn]));
+                        return ((string)(this[this.tableSP_LOAD_REPORT_Analisa.WAHStatusColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Due_Date\' in table \'SP_LOAD_REPORT_TPencegahan\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'WAHStatus\' in table \'SP_LOAD_REPORT_Analisa\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_LOAD_REPORT_TPencegahan.Due_DateColumn] = value;
+                    this[this.tableSP_LOAD_REPORT_Analisa.WAHStatusColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string PelaksanaPerbaikan {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_LOAD_REPORT_TPencegahan.PelaksanaPerbaikanColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PelaksanaPerbaikan\' in table \'SP_LOAD_REPORT_TPencegahan\' i" +
-                                "s DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_LOAD_REPORT_TPencegahan.PelaksanaPerbaikanColumn] = value;
-                }
+            public bool IsWAHTypeNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_Analisa.WAHTypeColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Nama_Personil {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_LOAD_REPORT_TPencegahan.Nama_PersonilColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Nama_Personil\' in table \'SP_LOAD_REPORT_TPencegahan\' is DBN" +
-                                "ull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_LOAD_REPORT_TPencegahan.Nama_PersonilColumn] = value;
-                }
+            public void SetWAHTypeNull() {
+                this[this.tableSP_LOAD_REPORT_Analisa.WAHTypeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Email {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_LOAD_REPORT_TPencegahan.EmailColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Email\' in table \'SP_LOAD_REPORT_TPencegahan\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_LOAD_REPORT_TPencegahan.EmailColumn] = value;
-                }
+            public bool IsWSBHDescNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_Analisa.WSBHDescColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Superior {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_LOAD_REPORT_TPencegahan.SuperiorColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Superior\' in table \'SP_LOAD_REPORT_TPencegahan\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_LOAD_REPORT_TPencegahan.SuperiorColumn] = value;
-                }
+            public void SetWSBHDescNull() {
+                this[this.tableSP_LOAD_REPORT_Analisa.WSBHDescColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsAreaLainNull() {
-                return this.IsNull(this.tableSP_LOAD_REPORT_TPencegahan.AreaLainColumn);
+            public bool IsWAHDescNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_Analisa.WAHDescColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetAreaLainNull() {
-                this[this.tableSP_LOAD_REPORT_TPencegahan.AreaLainColumn] = global::System.Convert.DBNull;
+            public void SetWAHDescNull() {
+                this[this.tableSP_LOAD_REPORT_Analisa.WAHDescColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsWhyDescNull() {
-                return this.IsNull(this.tableSP_LOAD_REPORT_TPencegahan.WhyDescColumn);
+            public bool IsWAHStatusNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_Analisa.WAHStatusColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetWhyDescNull() {
-                this[this.tableSP_LOAD_REPORT_TPencegahan.WhyDescColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsTindakan_PencegahanNull() {
-                return this.IsNull(this.tableSP_LOAD_REPORT_TPencegahan.Tindakan_PencegahanColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetTindakan_PencegahanNull() {
-                this[this.tableSP_LOAD_REPORT_TPencegahan.Tindakan_PencegahanColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsDue_DateNull() {
-                return this.IsNull(this.tableSP_LOAD_REPORT_TPencegahan.Due_DateColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetDue_DateNull() {
-                this[this.tableSP_LOAD_REPORT_TPencegahan.Due_DateColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPelaksanaPerbaikanNull() {
-                return this.IsNull(this.tableSP_LOAD_REPORT_TPencegahan.PelaksanaPerbaikanColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPelaksanaPerbaikanNull() {
-                this[this.tableSP_LOAD_REPORT_TPencegahan.PelaksanaPerbaikanColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsNama_PersonilNull() {
-                return this.IsNull(this.tableSP_LOAD_REPORT_TPencegahan.Nama_PersonilColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetNama_PersonilNull() {
-                this[this.tableSP_LOAD_REPORT_TPencegahan.Nama_PersonilColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsEmailNull() {
-                return this.IsNull(this.tableSP_LOAD_REPORT_TPencegahan.EmailColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetEmailNull() {
-                this[this.tableSP_LOAD_REPORT_TPencegahan.EmailColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsSuperiorNull() {
-                return this.IsNull(this.tableSP_LOAD_REPORT_TPencegahan.SuperiorColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetSuperiorNull() {
-                this[this.tableSP_LOAD_REPORT_TPencegahan.SuperiorColumn] = global::System.Convert.DBNull;
+            public void SetWAHStatusNull() {
+                this[this.tableSP_LOAD_REPORT_Analisa.WAHStatusColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -872,22 +696,22 @@ namespace B7_CAPA_Online {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public class SP_LOAD_REPORT_TPencegahanRowChangeEvent : global::System.EventArgs {
+        public class SP_LOAD_REPORT_AnalisaRowChangeEvent : global::System.EventArgs {
             
-            private SP_LOAD_REPORT_TPencegahanRow eventRow;
+            private SP_LOAD_REPORT_AnalisaRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_LOAD_REPORT_TPencegahanRowChangeEvent(SP_LOAD_REPORT_TPencegahanRow row, global::System.Data.DataRowAction action) {
+            public SP_LOAD_REPORT_AnalisaRowChangeEvent(SP_LOAD_REPORT_AnalisaRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_LOAD_REPORT_TPencegahanRow Row {
+            public SP_LOAD_REPORT_AnalisaRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -903,7 +727,7 @@ namespace B7_CAPA_Online {
         }
     }
 }
-namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetPencegahanTableAdapters {
+namespace B7_CAPA_Online.DataSource.B7_CAPA_ONLINEDataSetAnalisaTableAdapters {
     
     
     /// <summary>
@@ -915,7 +739,7 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetPencegahanTableAdapters {
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class SP_LOAD_REPORT_TPencegahanTableAdapter : global::System.ComponentModel.Component {
+    public partial class SP_LOAD_REPORT_AnalisaTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -929,7 +753,7 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetPencegahanTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public SP_LOAD_REPORT_TPencegahanTableAdapter() {
+        public SP_LOAD_REPORT_AnalisaTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -1026,15 +850,11 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetPencegahanTableAdapters {
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "SP_LOAD_REPORT_TPencegahan";
-            tableMapping.ColumnMappings.Add("AreaLain", "AreaLain");
-            tableMapping.ColumnMappings.Add("WhyDesc", "WhyDesc");
-            tableMapping.ColumnMappings.Add("Tindakan_Pencegahan", "Tindakan_Pencegahan");
-            tableMapping.ColumnMappings.Add("Due_Date", "Due_Date");
-            tableMapping.ColumnMappings.Add("PelaksanaPerbaikan", "PelaksanaPerbaikan");
-            tableMapping.ColumnMappings.Add("Nama_Personil", "Nama_Personil");
-            tableMapping.ColumnMappings.Add("Email", "Email");
-            tableMapping.ColumnMappings.Add("Superior", "Superior");
+            tableMapping.DataSetTable = "SP_LOAD_REPORT_Analisa";
+            tableMapping.ColumnMappings.Add("WAHType", "WAHType");
+            tableMapping.ColumnMappings.Add("WSBHDesc", "WSBHDesc");
+            tableMapping.ColumnMappings.Add("WAHDesc", "WAHDesc");
+            tableMapping.ColumnMappings.Add("WAHStatus", "WAHStatus");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -1051,7 +871,7 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetPencegahanTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "dbo.SP_LOAD_REPORT_TPencegahan";
+            this._commandCollection[0].CommandText = "dbo.SP_LOAD_REPORT_Analisa";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@NoCAPA", global::System.Data.SqlDbType.VarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -1061,7 +881,7 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetPencegahanTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(B7_CAPA_ONLINEDataSetPencegahan.SP_LOAD_REPORT_TPencegahanDataTable dataTable, string NoCAPA) {
+        public virtual int Fill(B7_CAPA_ONLINEDataSetAnalisa.SP_LOAD_REPORT_AnalisaDataTable dataTable, string NoCAPA) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((NoCAPA == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -1080,7 +900,7 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetPencegahanTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual B7_CAPA_ONLINEDataSetPencegahan.SP_LOAD_REPORT_TPencegahanDataTable GetData(string NoCAPA) {
+        public virtual B7_CAPA_ONLINEDataSetAnalisa.SP_LOAD_REPORT_AnalisaDataTable GetData(string NoCAPA) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((NoCAPA == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -1088,7 +908,7 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetPencegahanTableAdapters {
             else {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((string)(NoCAPA));
             }
-            B7_CAPA_ONLINEDataSetPencegahan.SP_LOAD_REPORT_TPencegahanDataTable dataTable = new B7_CAPA_ONLINEDataSetPencegahan.SP_LOAD_REPORT_TPencegahanDataTable();
+            B7_CAPA_ONLINEDataSetAnalisa.SP_LOAD_REPORT_AnalisaDataTable dataTable = new B7_CAPA_ONLINEDataSetAnalisa.SP_LOAD_REPORT_AnalisaDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -1162,7 +982,7 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetPencegahanTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateUpdatedRows(B7_CAPA_ONLINEDataSetPencegahan dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(B7_CAPA_ONLINEDataSetAnalisa dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -1172,7 +992,7 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetPencegahanTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateInsertedRows(B7_CAPA_ONLINEDataSetPencegahan dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(B7_CAPA_ONLINEDataSetAnalisa dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -1182,7 +1002,7 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetPencegahanTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateDeletedRows(B7_CAPA_ONLINEDataSetPencegahan dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(B7_CAPA_ONLINEDataSetAnalisa dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
             return result;
         }
@@ -1216,7 +1036,7 @@ namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetPencegahanTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public virtual int UpdateAll(B7_CAPA_ONLINEDataSetPencegahan dataSet) {
+        public virtual int UpdateAll(B7_CAPA_ONLINEDataSetAnalisa dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }
