@@ -195,6 +195,8 @@
     <Compile Include="Scripts\SMTP\EmailSender.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\approve.png" />
+    <Content Include="Content\Images\approveHijau.png" />
     <Content Include="Content\Images\bg-b7.jpg" />
     <Content Include="Content\Images\logob7-white.png" />
     <Content Include="Content\Images\logob7.png" />

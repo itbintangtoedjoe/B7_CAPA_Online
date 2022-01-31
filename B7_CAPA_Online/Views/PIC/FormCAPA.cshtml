@@ -481,14 +481,12 @@
                     </div>
                 </div>
 
-
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Potential Root Cause </h4>
                         <input type="button" class="btn btn-primary" id="ShowDiag" data-toggle="modal" data-target="#Modal_Diag" data-backdrop="static" value="Show Diagram" />
                     </div>
                 </div>
-
 
                 <div class="card">
                     <div class="card-body">
@@ -2317,6 +2315,7 @@
                     Model: {
                         NO_CAPA: $('#input_NoCAPA').val(),
                         Option: 15,
+                        Create_By: $('#input_Requestor_NIK').val()
                     }
                 }),
                 contentType: 'application/json; charset=utf-8',
@@ -2331,25 +2330,7 @@
                                 Model: {
                                     NO_CAPA: $('#input_NoCAPA').val(),
                                     Option: 12,
-                                    Aspect: '',
-                                    WSBH: '',
-                                    WAH: '',
-                                    Status: '',
-                                    isParent: '',
-                                    WHY_Parent: '',
-                                    WHY: '',
-                                    Tindakan: '',
-                                    Pelaksana: '',
-                                    LineNumber: '',
-                                    NamaPersonil: '',
-                                    Email: '',
-                                    DueDate: '',
-                                    Is_AreaLain: '',
-                                    WhyID: '',
-                                    WhyParentID: '',
-                                    RootCause: '',
-                                    Create_By: $('#input_Requestor').val(),
-                                    RecordID: ''
+                                    Create_By: $('#input_Requestor_NIK').val()                                   
                                 }
                             }),
                             contentType: 'application/json; charset=utf-8',

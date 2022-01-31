@@ -1,6 +1,9 @@
 ﻿using B7_CAPA_Online.Models;
 using B7_CAPA_Online.Scripts.DataAccess;
+using B7_CAPA_Online.Scripts.SMTP;
 using Dapper;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -264,8 +267,57 @@ namespace B7_CAPA_Online.Controllers
         public ActionResult SubmitToAtasanPIC(DynamicModel Param)
         {
             DynamicParameters parameters = new DynamicParameters(Param.Model);
-            string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_FORM_CAPA]");
-            return Json(Return);
+            var Recipient = DAL.StoredProcedure(parameters, "[dbo].[SP_FORM_CAPA]");
+
+            var list = new List<Recipients>();
+            var objects = JsonConvert.DeserializeObject(Recipient.ToString()); // parse as array  
+
+            foreach (var item in ((JArray)objects))
+            {
+                list.Add(new Recipients
+                {
+                    NO_CAPA = item.Value<string>("NoCAPA")
+                    ,
+                    Email = item.Value<string>("Email")
+                    ,
+                    KategoriCAPA = item.Value<string>("KategoriCAPA")
+                    ,
+                    ToEmpName = item.Value<string>("ToEmpName")
+                    ,
+                    TriggerCAPA = item.Value<string>("TriggerCAPA")
+                    ,
+                    Lokasi = item.Value<string>("Lokasi")
+                    ,
+                    StatusCAPA = item.Value<string>("StatusCAPA")
+                    ,
+                    PIC = item.Value<string>("PIC")
+                    ,
+                    DeskripsiMasalah = item.Value<string>("DeskripsiMasalah")
+                    ,
+                    CreateBy = item.Value<string>("Requestor")
+                });
+            }
+
+            // Method SMTP Email
+            if (list[0].NO_CAPA != null)
+            {
+                EmailSender emailSender = new EmailSender();
+                emailSender.SendEmail(new Dictionary<string, object> {
+                    {"Nama_Aplikasi", "CAPA" },
+                    {"Kategori", "PICReminder" },
+                    {"KategoriCAPA", list[0].KategoriCAPA },
+                    {"ToEmpName", list[0].ToEmpName },
+                    {"Recipient", Recipient},
+                    {"TriggerCAPA", list[0].TriggerCAPA},
+                    {"Lokasi", list[0].Lokasi},
+                    {"StatusCAPA", "2"},
+                    {"PIC", list[0].PIC},
+                    {"CreateBy", list[0].CreateBy},
+                    {"DeskripsiMasalah", list[0].DeskripsiMasalah }
+                });
+            }
+
+            return Json(Recipient);
         }
 
         #endregion

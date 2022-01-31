@@ -89,7 +89,7 @@
             data: JSON.stringify({
                 Model: {
                     NO_CAPA: $('#input_NoCAPA').val(),
-                    Create_By: $('#TxtRequestor').val(),
+                    Create_By: '@Request.RequestContext.HttpContext.Session["NIK"]',
                     CurrentStatusID: CurrentStatsID,
                     Status: StatusApproval,
                     Reject_Reason: (StatusApproval == 'Approve') ? ('-') : ($('#txtRejectReason').val()),
@@ -100,14 +100,14 @@
             success: function (data) {
                 console.log(data);
                 if (JSON.parse(data)[0].VALID == "VALID") {
-                    Swal.fire(
-                        'Success',
-                        'CAPA berhasil di ' + StatusApproval + '.',
-                        'success'
-                    ).then(function (result) {
-                        if (result.value) {
-                            window.location.href = '/PendingTask/TaskList';
-                        }
+                    Swal.fire({
+                        title: 'Success',
+                        text: 'CAPA berhasil di ' + StatusApproval + '.',
+                        type: 'success',
+                        timer: 2000,
+                        showConfirmButton : false
+                    }).then(function (result) {
+                        window.location.href = '/PendingTask/TaskList';
                     });
                 }
                 else {
