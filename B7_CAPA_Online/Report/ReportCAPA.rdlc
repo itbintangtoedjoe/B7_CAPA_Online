@@ -322,6 +322,110 @@
         <rd:TableAdapterName>SP_LOAD_REPORT_PelaksanaTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
+    <DataSet Name="DataSetPerbaikan">
+      <Query>
+        <DataSourceName>B7_CAPA_ONLINEDataSetPerbaikan</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="WhyDesc">
+          <DataField>WhyDesc</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Tindakan_Perbaikan">
+          <DataField>Tindakan_Perbaikan</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Due_Date">
+          <DataField>Due_Date</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Pelaksana_Perbaikan">
+          <DataField>Pelaksana_Perbaikan</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Superior">
+          <DataField>Superior</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Nama_Personil">
+          <DataField>Nama_Personil</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Email">
+          <DataField>Email</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Creation_Date">
+          <DataField>Creation_Date</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Status_ID">
+          <DataField>Status_ID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>B7_CAPA_ONLINEDataSetPerbaikan</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\bened\OneDrive\Desktop\Capa\B7_CAPA_Online\B7_CAPA_ONLINEDataSetPerbaikan.xsd</rd:SchemaPath>
+        <rd:TableName>SP_LOAD_REPORT_TPerbaikan</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>SP_LOAD_REPORT_TPerbaikanTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DataSetPencegahan">
+      <Query>
+        <DataSourceName>B7_CAPA_ONLINEDataSetPencegahan</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="AreaLain">
+          <DataField>AreaLain</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="WhyDesc">
+          <DataField>WhyDesc</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Tindakan_Pencegahan">
+          <DataField>Tindakan_Pencegahan</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Due_Date">
+          <DataField>Due_Date</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PelaksanaPencegahan">
+          <DataField>PelaksanaPencegahan</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Nama_Personil">
+          <DataField>Nama_Personil</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Email">
+          <DataField>Email</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Superior">
+          <DataField>Superior</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Status_ID">
+          <DataField>Status_ID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>B7_CAPA_ONLINEDataSetPencegahan</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\bened\OneDrive\Desktop\Capa\B7_CAPA_Online\B7_CAPA_ONLINEDataSetPencegahan.xsd</rd:SchemaPath>
+        <rd:TableName>SP_LOAD_REPORT_TPencegahan</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>SP_LOAD_REPORT_TPencegahanTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
     <DataSet Name="DataSetKajian">
       <Query>
         <DataSourceName>B7_CAPA_ONLINEDataSetKajian</DataSourceName>
@@ -428,6 +532,10 @@
           <DataField>Status_ID</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="Evaluator">
+          <DataField>Evaluator</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>B7_CAPA_ONLINEDataSetKajian</rd:DataSetName>
@@ -436,110 +544,6 @@
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
         <rd:TableAdapterName>SP_LOAD_REPORT_KajianResikoTableAdapter</rd:TableAdapterName>
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="DataSetPerbaikan">
-      <Query>
-        <DataSourceName>B7_CAPA_ONLINEDataSetPerbaikan</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="WhyDesc">
-          <DataField>WhyDesc</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Tindakan_Perbaikan">
-          <DataField>Tindakan_Perbaikan</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Due_Date">
-          <DataField>Due_Date</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Pelaksana_Perbaikan">
-          <DataField>Pelaksana_Perbaikan</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Superior">
-          <DataField>Superior</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Nama_Personil">
-          <DataField>Nama_Personil</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Email">
-          <DataField>Email</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Creation_Date">
-          <DataField>Creation_Date</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="Status_ID">
-          <DataField>Status_ID</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>B7_CAPA_ONLINEDataSetPerbaikan</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\bened\OneDrive\Desktop\Capa\B7_CAPA_Online\B7_CAPA_ONLINEDataSetPerbaikan.xsd</rd:SchemaPath>
-        <rd:TableName>SP_LOAD_REPORT_TPerbaikan</rd:TableName>
-        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
-        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>SP_LOAD_REPORT_TPerbaikanTableAdapter</rd:TableAdapterName>
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="DataSetPencegahan">
-      <Query>
-        <DataSourceName>B7_CAPA_ONLINEDataSetPencegahan</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="AreaLain">
-          <DataField>AreaLain</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="WhyDesc">
-          <DataField>WhyDesc</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Tindakan_Pencegahan">
-          <DataField>Tindakan_Pencegahan</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Due_Date">
-          <DataField>Due_Date</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PelaksanaPencegahan">
-          <DataField>PelaksanaPencegahan</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Nama_Personil">
-          <DataField>Nama_Personil</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Email">
-          <DataField>Email</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Superior">
-          <DataField>Superior</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Status_ID">
-          <DataField>Status_ID</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>B7_CAPA_ONLINEDataSetPencegahan</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\bened\OneDrive\Desktop\Capa\B7_CAPA_Online\B7_CAPA_ONLINEDataSetPencegahan.xsd</rd:SchemaPath>
-        <rd:TableName>SP_LOAD_REPORT_TPencegahan</rd:TableName>
-        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
-        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>SP_LOAD_REPORT_TPencegahanTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
@@ -616,7 +620,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>No. CAPA       :</Value>
-                    <Style />
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -624,13 +630,14 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>3.75391cm</Top>
-            <Left>2.1219cm</Left>
+            <Left>2.14836cm</Left>
             <Height>0.86458cm</Height>
             <Width>3.00097cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
+                <Color>LightGrey</Color>
+                <Style>Solid</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
@@ -646,7 +653,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!NO_CAPA.Value, "DataSetHeader1")</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -660,6 +669,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
+                <Color>LightGrey</Color>
                 <Style>Solid</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
@@ -676,7 +686,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>Tanggal </Value>
-                    <Style />
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -685,7 +697,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>Permohonan   :</Value>
-                    <Style />
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -693,13 +707,14 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>4.81334cm</Top>
-            <Left>2.1219cm</Left>
+            <Left>2.14836cm</Left>
             <Height>1.18208cm</Height>
             <Width>3.00097cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
+                <Color>LightGrey</Color>
+                <Style>Solid</Style>
               </Border>
               <VerticalAlign>Middle</VerticalAlign>
               <PaddingLeft>2pt</PaddingLeft>
@@ -716,7 +731,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!CREATE_DATE.Value, "DataSetHeader1")</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -732,6 +749,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
+                <Color>LightGrey</Color>
                 <Style>Solid</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
@@ -748,7 +766,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>Requestor       :</Value>
-                    <Style />
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -756,13 +776,14 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>6.24209cm</Top>
-            <Left>2.12191cm</Left>
+            <Left>2.14837cm</Left>
             <Height>1.02332cm</Height>
             <Width>3.00096cm</Width>
             <ZIndex>5</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
+                <Color>LightGrey</Color>
+                <Style>Solid</Style>
               </Border>
               <VerticalAlign>Middle</VerticalAlign>
               <PaddingLeft>2pt</PaddingLeft>
@@ -779,7 +800,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!Requestor.Value, "DataSetHeader1")</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -793,6 +816,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <ZIndex>6</ZIndex>
             <Style>
               <Border>
+                <Color>LightGrey</Color>
                 <Style>Solid</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
@@ -809,7 +833,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>PIC CAPA      :</Value>
-                    <Style />
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -823,7 +849,8 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <ZIndex>7</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
+                <Color>LightGrey</Color>
+                <Style>Solid</Style>
               </Border>
               <VerticalAlign>Middle</VerticalAlign>
               <PaddingLeft>2pt</PaddingLeft>
@@ -840,7 +867,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!PIC_CAPA.Value, "DataSetHeader1")</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -854,6 +883,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <ZIndex>8</ZIndex>
             <Style>
               <Border>
+                <Color>LightGrey</Color>
                 <Style>Solid</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
@@ -870,7 +900,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>Data Vendor   :</Value>
-                    <Style />
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -884,7 +916,8 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <ZIndex>9</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
+                <Color>LightGrey</Color>
+                <Style>Solid</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
@@ -930,7 +963,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>Area      :</Value>
-                    <Style />
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -944,7 +979,8 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <ZIndex>11</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
+                <Color>LightGrey</Color>
+                <Style>Solid</Style>
               </Border>
               <VerticalAlign>Middle</VerticalAlign>
               <PaddingLeft>2pt</PaddingLeft>
@@ -961,7 +997,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!AreaRequestor.Value, "DataSetHeader1")</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -975,6 +1013,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <ZIndex>12</ZIndex>
             <Style>
               <Border>
+                <Color>LightGrey</Color>
                 <Style>Solid</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
@@ -991,7 +1030,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>Superior :</Value>
-                    <Style />
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -1005,7 +1046,8 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <ZIndex>13</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
+                <Color>LightGrey</Color>
+                <Style>Solid</Style>
               </Border>
               <VerticalAlign>Middle</VerticalAlign>
               <PaddingLeft>2pt</PaddingLeft>
@@ -1022,7 +1064,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!Superior.Value, "DataSetHeader1")</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -1036,6 +1080,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <ZIndex>14</ZIndex>
             <Style>
               <Border>
+                <Color>LightGrey</Color>
                 <Style>Solid</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
@@ -1052,7 +1097,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>Lokasi Site  :</Value>
-                    <Style />
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -1066,7 +1113,8 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <ZIndex>15</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
+                <Color>LightGrey</Color>
+                <Style>Solid</Style>
               </Border>
               <VerticalAlign>Middle</VerticalAlign>
               <PaddingLeft>2pt</PaddingLeft>
@@ -1083,7 +1131,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!LokasiRequestor.Value, "DataSetHeader1")</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -1097,6 +1147,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <ZIndex>16</ZIndex>
             <Style>
               <Border>
+                <Color>LightGrey</Color>
                 <Style>Solid</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
@@ -1113,7 +1164,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>Area           :</Value>
-                    <Style />
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -1127,7 +1180,8 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <ZIndex>17</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
+                <Color>LightGrey</Color>
+                <Style>Solid</Style>
               </Border>
               <VerticalAlign>Middle</VerticalAlign>
               <PaddingLeft>2pt</PaddingLeft>
@@ -1144,7 +1198,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!AREA_PIC.Value, "DataSetHeader1")</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -1158,6 +1214,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <ZIndex>18</ZIndex>
             <Style>
               <Border>
+                <Color>LightGrey</Color>
                 <Style>Solid</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
@@ -1186,7 +1243,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>Trigger CAPA  : </Value>
-                    <Style />
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -1217,7 +1276,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!TRIGGER_CAPA.Value, "DataSetHeader1")</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -1231,6 +1292,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <ZIndex>21</ZIndex>
             <Style>
               <Border>
+                <Color>LightGrey</Color>
                 <Style>Solid</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
@@ -1247,7 +1309,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>Lampiran </Value>
-                    <Style />
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -1256,7 +1320,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>Terkait            :</Value>
-                    <Style />
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -1287,7 +1353,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!Lampiran.Value, "DataSetHeader1")</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -1301,6 +1369,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <ZIndex>23</ZIndex>
             <Style>
               <Border>
+                <Color>LightGrey</Color>
                 <Style>Solid</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
@@ -1317,7 +1386,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>Kategori          :</Value>
-                    <Style />
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -1348,7 +1419,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!KATEGORI_CAPA.Value, "DataSetHeader1")</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -1362,6 +1435,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <ZIndex>25</ZIndex>
             <Style>
               <Border>
+                <Color>LightGrey</Color>
                 <Style>Solid</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
@@ -1377,8 +1451,10 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Bagian terkait yang perlu melakukan tindakan perbaikan dan pencegahan                   :</Value>
-                    <Style />
+                    <Value>Bagian terkait yang perlu melakukan tindakan perbaikan dan pencegahan :</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -1387,12 +1463,13 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>11.77589cm</Top>
             <Left>13.87049cm</Left>
-            <Height>1.77393cm</Height>
-            <Width>5.09181cm</Width>
+            <Height>1.50934cm</Height>
+            <Width>5.08459cm</Width>
             <ZIndex>26</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
+                <Color>LightGrey</Color>
+                <Style>Solid</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
@@ -1408,7 +1485,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!BagianTerkait.Value, "DataSetHeader1")</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -1417,11 +1496,12 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <rd:DefaultName>Textbox2</rd:DefaultName>
             <Top>11.77589cm</Top>
             <Left>20.0744cm</Left>
-            <Height>1.77393cm</Height>
+            <Height>1.50934cm</Height>
             <Width>3.91081cm</Width>
             <ZIndex>27</ZIndex>
             <Style>
               <Border>
+                <Color>LightGrey</Color>
                 <Style>Solid</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
@@ -1437,8 +1517,10 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Penyimpangan / Keluhan Pelanggan / No. QC terkait ATB/PMTMS/FKM                :</Value>
-                    <Style />
+                    <Value>Penyimpangan / Keluhan Pelanggan / No. QC terkait ATB/PMTMS/FKM                 :</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -1452,7 +1534,8 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <ZIndex>28</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
+                <Color>LightGrey</Color>
+                <Style>Solid</Style>
               </Border>
               <VerticalAlign>Middle</VerticalAlign>
               <PaddingLeft>2pt</PaddingLeft>
@@ -1469,7 +1552,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!Penyimpangan.Value, "DataSetHeader1")</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -1483,6 +1568,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <ZIndex>29</ZIndex>
             <Style>
               <Border>
+                <Color>LightGrey</Color>
                 <Style>Solid</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
@@ -1549,7 +1635,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>Analisa Kondisi</Value>
-                    <Style />
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -1579,7 +1667,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TextRuns>
                   <TextRun>
                     <Value>Potential Root Cause Analysis</Value>
-                    <Style />
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -1668,7 +1758,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
           <Rectangle Name="Rectangle13">
             <KeepTogether>true</KeepTogether>
             <OmitBorderOnPageBreak>true</OmitBorderOnPageBreak>
-            <Top>49.97612cm</Top>
+            <Top>47.11862cm</Top>
             <Left>0.24999cm</Left>
             <Height>0.65082cm</Height>
             <Width>26.4432cm</Width>
@@ -1683,7 +1773,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
           <Rectangle Name="Rectangle15">
             <KeepTogether>true</KeepTogether>
             <OmitBorderOnPageBreak>true</OmitBorderOnPageBreak>
-            <Top>54.40462cm</Top>
+            <Top>51.54712cm</Top>
             <Left>0.24999cm</Left>
             <Height>0.65082cm</Height>
             <Width>26.46549cm</Width>
@@ -1725,7 +1815,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>ASPECT</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -1755,7 +1847,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>WSBH</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -1785,7 +1879,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>WAH</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -1815,7 +1911,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>OK/NOK</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -1850,7 +1948,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!WAHType.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -1880,7 +1980,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!WSBHDesc.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -1910,7 +2012,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!WAHDesc.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -1940,7 +2044,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!WAHStatus.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -2027,7 +2133,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>ASPECT</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -2057,7 +2165,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>WAH</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -2087,7 +2197,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Why</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -2402,7 +2514,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Root Cause</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -2432,7 +2546,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Tindakan Perbaikan</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -2462,7 +2578,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Due Date</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -2492,7 +2610,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Pelaksana Tindakan Perbaikan</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -2522,7 +2642,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Superior</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -2552,7 +2674,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Nama Personil</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -2582,7 +2706,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Email</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -2642,7 +2768,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Status</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -2677,7 +2805,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!WhyDesc.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -2707,7 +2837,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Tindakan_Perbaikan.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -2737,7 +2869,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Due_Date.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -2767,7 +2901,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Pelaksana_Perbaikan.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -2797,7 +2933,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Superior.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -2827,7 +2965,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Nama_Personil.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -2857,7 +2997,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Email.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -2918,7 +3060,8 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                           </Visibility>
                           <Style>
                             <Border>
-                              <Style>None</Style>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
                             </Border>
                           </Style>
                         </Image>
@@ -3015,7 +3158,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Area Lain</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3045,7 +3190,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Why Desc</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3075,7 +3222,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Tindakan Pencegahan</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3105,7 +3254,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Due Date</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3135,7 +3286,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Pelaksana Pencegahan</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3165,7 +3318,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Nama Personil</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3195,7 +3350,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Email</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3225,7 +3382,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Superior</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3285,7 +3444,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Status</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3320,7 +3481,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!AreaLain.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3350,7 +3513,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!WhyDesc.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3380,7 +3545,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Tindakan_Pencegahan.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3410,7 +3577,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Due_Date.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3440,7 +3609,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!PelaksanaPencegahan.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3470,7 +3641,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Nama_Personil.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3500,7 +3673,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Email.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3530,7 +3705,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Superior.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3591,7 +3768,8 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                           </Visibility>
                           <Style>
                             <Border>
-                              <Style>None</Style>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
                             </Border>
                           </Style>
                         </Image>
@@ -3711,7 +3889,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
             <KeepTogether>true</KeepTogether>
-            <Top>53.93622cm</Top>
+            <Top>51.07872cm</Top>
             <Left>7.30341cm</Left>
             <Height>0.36005cm</Height>
             <Width>14.11033cm</Width>
@@ -3779,7 +3957,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Tindakan Perbaikan</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3809,7 +3989,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Pelaksana Perbaikan</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3869,7 +4051,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Status Perbaikan</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3899,7 +4083,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Tindakan Pencegahan</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3929,7 +4115,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Pelaksana Pencegahan</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3989,7 +4177,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Status Pencegahan</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4019,7 +4209,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Treatment</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4049,7 +4241,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>PIC</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4109,7 +4303,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Status Treatment</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4139,7 +4335,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Koordinator</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4174,7 +4372,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Tindakan_Perbaikan.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4204,7 +4404,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Pelaksana_Perbaikan.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4265,7 +4467,8 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                           </Visibility>
                           <Style>
                             <Border>
-                              <Style>None</Style>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
                             </Border>
                           </Style>
                         </Image>
@@ -4281,7 +4484,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Tindakan_Pencegahan.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4311,7 +4516,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!PelaksanaPencegahan.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4372,7 +4579,8 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                           </Visibility>
                           <Style>
                             <Border>
-                              <Style>None</Style>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
                             </Border>
                           </Style>
                         </Image>
@@ -4388,7 +4596,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Treatment.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4418,7 +4628,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!PIC.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4479,7 +4691,8 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                           </Visibility>
                           <Style>
                             <Border>
-                              <Style>None</Style>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
                             </Border>
                           </Style>
                         </Image>
@@ -4495,7 +4708,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Koordinator.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4504,7 +4719,8 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                           <rd:DefaultName>Koordinator</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>None</Style>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -4558,7 +4774,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSetPelaksana</DataSetName>
-            <Top>51.19528cm</Top>
+            <Top>48.33778cm</Top>
             <Left>0.39992cm</Left>
             <Height>2.12604cm</Height>
             <Width>26.2186cm</Width>
@@ -4608,7 +4824,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Rentang Verifikasi Efektifivitas</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4638,7 +4856,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Efektif / Tidak Efektif</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4668,7 +4888,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Catatan</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4698,7 +4920,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Evaluator</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4728,7 +4952,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Roles</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4788,7 +5014,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Status</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4823,7 +5051,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Rentang.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4853,7 +5083,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Efektif.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4883,7 +5115,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Catatan.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4913,7 +5147,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Evaluator.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -4943,7 +5179,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Roles.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -5003,6 +5241,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                           </Visibility>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                           </Style>
@@ -5039,7 +5278,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSetBukti</DataSetName>
-            <Top>55.71966cm</Top>
+            <Top>52.86216cm</Top>
             <Left>0.33379cm</Left>
             <Height>3.23729cm</Height>
             <Width>26.26246cm</Width>
@@ -5072,7 +5311,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>30.25329cm</Top>
             <Left>0.54783cm</Left>
             <Height>0.61509cm</Height>
-            <Width>26.15212cm</Width>
+            <Width>26.3458cm</Width>
             <ZIndex>48</ZIndex>
             <Style>
               <Border>
@@ -5107,7 +5346,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>36.53342cm</Top>
             <Left>0.54087cm</Left>
             <Height>0.95905cm</Height>
-            <Width>26.15232cm</Width>
+            <Width>26.24906cm</Width>
             <ZIndex>49</ZIndex>
             <Style>
               <Border>
@@ -5120,106 +5359,16 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Textbox Name="Textbox130">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Evaluator</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox130</rd:DefaultName>
-            <Top>46.22974cm</Top>
-            <Left>17.60963cm</Left>
-            <Height>0.85702cm</Height>
-            <Width>5.48594cm</Width>
-            <ZIndex>50</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox138">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=First(Fields!Evaluator.Value, "DataSetEvaluator")</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox138</rd:DefaultName>
-            <Top>47.26315cm</Top>
-            <Left>17.60103cm</Left>
-            <Height>0.67118cm</Height>
-            <Width>5.48594cm</Width>
-            <ZIndex>51</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox134">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=First(Fields!Column1.Value, "DataSetEvaluator")</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox131</rd:DefaultName>
-            <Top>48.07544cm</Top>
-            <Left>17.60103cm</Left>
-            <Height>0.77701cm</Height>
-            <Width>5.48594cm</Width>
-            <ZIndex>52</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
           <Rectangle Name="Rectangle30">
             <PageBreak>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
             <KeepTogether>true</KeepTogether>
-            <Top>49.43968cm</Top>
+            <Top>46.58218cm</Top>
             <Left>5.64288cm</Left>
             <Height>0.36005cm</Height>
             <Width>13.08503cm</Width>
-            <ZIndex>53</ZIndex>
+            <ZIndex>50</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -5230,70 +5379,70 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.21835cm</Width>
+                  <Width>1.22715cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.21835cm</Width>
+                  <Width>1.22715cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.21835cm</Width>
+                  <Width>1.22715cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.21835cm</Width>
+                  <Width>1.22715cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.21835cm</Width>
+                  <Width>1.22715cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.21835cm</Width>
+                  <Width>1.22715cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.21835cm</Width>
+                  <Width>1.22715cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.21835cm</Width>
+                  <Width>1.22715cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.21835cm</Width>
+                  <Width>1.22715cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.21835cm</Width>
+                  <Width>1.22715cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.21835cm</Width>
+                  <Width>1.22715cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.21835cm</Width>
+                  <Width>1.22715cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.21835cm</Width>
+                  <Width>1.22715cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.21835cm</Width>
+                  <Width>1.22715cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.21835cm</Width>
+                  <Width>1.22715cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.8864cm</Width>
+                  <Width>0.8952cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.21835cm</Width>
+                  <Width>1.22715cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.21835cm</Width>
+                  <Width>1.22715cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.79502cm</Width>
+                  <Width>0.80382cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.21835cm</Width>
+                  <Width>1.22715cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.21835cm</Width>
+                  <Width>1.22715cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.21835cm</Width>
+                  <Width>1.22715cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -5312,7 +5461,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Potensi Kegagalan / Penyimpangan yang mungkin terjadi ketika tindakan perbaikan/pencegahan diterapkan</Value>
                                   <Style>
                                     <FontSize>6pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5347,7 +5496,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Spesifikasi / Syarat</Value>
                                   <Style>
                                     <FontSize>6pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5384,6 +5533,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Dampak</Value>
                                   <Style>
                                     <FontSize>6pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5419,6 +5569,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Severity</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5455,6 +5606,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Penyebab Potensial</Value>
                                   <Style>
                                     <FontSize>6pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5491,7 +5643,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>6pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
@@ -5528,6 +5680,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Likelihood</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5564,6 +5717,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Mencegah Potensi Kegagalan Lolos Menimbulkan DampakMencegah Potensi Kegagalan Lolos Menimbulkan Dampak</Value>
                                   <Style>
                                     <FontSize>6pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5599,6 +5753,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Detectability</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5635,6 +5790,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>RPN</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5671,6 +5827,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Risk Level</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5707,6 +5864,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Target</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5744,7 +5902,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>6pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
@@ -5781,6 +5939,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Severity</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5818,7 +5977,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>6pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
@@ -5855,6 +6014,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Likelihood</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5892,7 +6052,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>6pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
@@ -5929,6 +6089,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Detectability</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5965,6 +6126,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>RPN</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -6001,6 +6163,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Risk Level</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -6037,6 +6200,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>PIC</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -6072,6 +6236,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Due Date</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -6917,8 +7082,8 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>31.12389cm</Top>
             <Left>0.54783cm</Left>
             <Height>5.01001cm</Height>
-            <Width>26.04842cm</Width>
-            <ZIndex>54</ZIndex>
+            <Width>26.24202cm</Width>
+            <ZIndex>51</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -6929,82 +7094,85 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.03786cm</Width>
+                  <Width>1.04144cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.03786cm</Width>
+                  <Width>1.04144cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.03786cm</Width>
+                  <Width>1.04144cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.03786cm</Width>
+                  <Width>1.04144cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.1751cm</Width>
+                  <Width>0.85267cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.32207cm</Width>
+                  <Width>1.03713cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.75365cm</Width>
+                  <Width>0.75723cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.51823cm</Width>
+                  <Width>1.19632cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.03786cm</Width>
+                  <Width>1.04144cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.03786cm</Width>
+                  <Width>1.04144cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.03786cm</Width>
+                  <Width>1.04144cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.03786cm</Width>
+                  <Width>1.04144cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.03786cm</Width>
+                  <Width>1.04144cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.03786cm</Width>
+                  <Width>1.04144cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.11618cm</Width>
+                  <Width>1.11976cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.70591cm</Width>
+                  <Width>0.70949cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.191cm</Width>
+                  <Width>1.19458cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.61297cm</Width>
+                  <Width>0.61655cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.61453cm</Width>
+                  <Width>0.61811cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.03786cm</Width>
+                  <Width>1.04144cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.03786cm</Width>
+                  <Width>0.89614cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.60217cm</Width>
+                  <Width>0.75285cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.18063cm</Width>
+                  <Width>0.07938cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.45165cm</Width>
+                  <Width>1.45523cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.25617cm</Width>
+                  <Width>1.25975cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.08178cm</Width>
+                  <Width>1.08536cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.22495cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -7023,7 +7191,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Potensi Kegagalan / Penyimpangan yang mungkin terjadi ketika tindakan perbaikan/pencegahan diterapkan</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7058,7 +7226,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Spesifikasi / Syarat</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7095,6 +7263,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Dampak</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7130,6 +7299,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Severity</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7166,6 +7336,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Penyebab Potensial</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7202,7 +7373,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>7pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
@@ -7239,6 +7410,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Likelihood</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7275,6 +7447,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Mencegah Potensi Kegagalan Lolos Menimbulkan DampakMencegah Potensi Kegagalan Lolos Menimbulkan Dampak</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7310,6 +7483,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Detectability</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7346,6 +7520,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>RPN</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7382,6 +7557,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Risk Level</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7418,6 +7594,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Target</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7455,7 +7632,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>7pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
@@ -7492,6 +7669,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Severity</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7529,7 +7707,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>7pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
@@ -7566,6 +7744,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Likelihood</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7603,7 +7782,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>7pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
@@ -7640,6 +7819,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Detectability</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7676,6 +7856,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>RPN</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7712,6 +7893,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Risk Level</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7748,6 +7930,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>PIC</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7783,6 +7966,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Due Date</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7853,6 +8037,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Status</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7888,6 +8073,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Superior PIC</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7923,6 +8109,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>Superior Pelaksana</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7932,6 +8119,42 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox73</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox53">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Evaluator</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>General</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox53</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -8767,7 +8990,8 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                           </Visibility>
                           <Style>
                             <Border>
-                              <Style>None</Style>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
                             </Border>
                           </Style>
                         </Image>
@@ -8783,7 +9007,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!SuperiorPIC.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -8792,7 +9018,8 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                           <rd:DefaultName>SuperiorPIC</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>None</Style>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -8812,7 +9039,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!SuperiorPelaksana.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -8821,7 +9050,40 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                           <rd:DefaultName>SuperiorPelaksana</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>None</Style>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Evaluator1">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Evaluator.Value</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Evaluator1</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -8867,6 +9129,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
+                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -8883,8 +9146,8 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>37.75083cm</Top>
             <Left>0.58223cm</Left>
             <Height>7.94687cm</Height>
-            <Width>26.03636cm</Width>
-            <ZIndex>55</ZIndex>
+            <Width>26.31134cm</Width>
+            <ZIndex>52</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -8914,7 +9177,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Left>9.32003cm</Left>
             <Height>0.60042cm</Height>
             <Width>9.71042cm</Width>
-            <ZIndex>56</ZIndex>
+            <ZIndex>53</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -8957,11 +9220,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>50.02652cm</Top>
+            <Top>47.16902cm</Top>
             <Left>3.98771cm</Left>
             <Height>0.60042cm</Height>
             <Width>17.11963cm</Width>
-            <ZIndex>57</ZIndex>
+            <ZIndex>54</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -8991,11 +9254,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>54.40462cm</Top>
+            <Top>51.54712cm</Top>
             <Left>5.09535cm</Left>
             <Height>0.60042cm</Height>
             <Width>17.11963cm</Width>
-            <ZIndex>58</ZIndex>
+            <ZIndex>55</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -9007,7 +9270,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>60cm</Height>
+        <Height>57cm</Height>
         <Style />
       </Body>
       <Width>27.7cm</Width>
@@ -9021,7 +9284,27 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
         <TopMargin>1cm</TopMargin>
         <BottomMargin>1cm</BottomMargin>
         <ColumnSpacing>0.13cm</ColumnSpacing>
-        <Style />
+        <Style>
+          <Border>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
+          </Border>
+          <TopBorder>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
+          </TopBorder>
+          <BottomBorder>
+            <Color>LightGrey</Color>
+          </BottomBorder>
+          <LeftBorder>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
+          </LeftBorder>
+          <RightBorder>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
+          </RightBorder>
+        </Style>
       </Page>
   <EmbeddedImages>
     <EmbeddedImage Name="logo">

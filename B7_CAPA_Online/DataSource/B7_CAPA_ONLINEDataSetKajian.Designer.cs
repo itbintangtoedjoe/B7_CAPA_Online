@@ -329,6 +329,8 @@ namespace B7_CAPA_Online.DataSource {
             
             private global::System.Data.DataColumn columnStatus_ID;
             
+            private global::System.Data.DataColumn columnEvaluator;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public SP_LOAD_REPORT_KajianResikoDataTable() {
@@ -564,6 +566,14 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn EvaluatorColumn {
+                get {
+                    return this.columnEvaluator;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -624,7 +634,8 @@ namespace B7_CAPA_Online.DataSource {
                         string DueDate, 
                         string SuperiorPIC, 
                         string SuperiorPelaksana, 
-                        int Status_ID) {
+                        int Status_ID, 
+                        string Evaluator) {
                 SP_LOAD_REPORT_KajianResikoRow rowSP_LOAD_REPORT_KajianResikoRow = ((SP_LOAD_REPORT_KajianResikoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         P_Kegagalan,
@@ -651,7 +662,8 @@ namespace B7_CAPA_Online.DataSource {
                         DueDate,
                         SuperiorPIC,
                         SuperiorPelaksana,
-                        Status_ID};
+                        Status_ID,
+                        Evaluator};
                 rowSP_LOAD_REPORT_KajianResikoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSP_LOAD_REPORT_KajianResikoRow);
                 return rowSP_LOAD_REPORT_KajianResikoRow;
@@ -699,6 +711,7 @@ namespace B7_CAPA_Online.DataSource {
                 this.columnSuperiorPIC = base.Columns["SuperiorPIC"];
                 this.columnSuperiorPelaksana = base.Columns["SuperiorPelaksana"];
                 this.columnStatus_ID = base.Columns["Status_ID"];
+                this.columnEvaluator = base.Columns["Evaluator"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -754,6 +767,8 @@ namespace B7_CAPA_Online.DataSource {
                 base.Columns.Add(this.columnSuperiorPelaksana);
                 this.columnStatus_ID = new global::System.Data.DataColumn("Status_ID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnStatus_ID);
+                this.columnEvaluator = new global::System.Data.DataColumn("Evaluator", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEvaluator);
                 this.columnP_Kegagalan.MaxLength = 500;
                 this.columnSpek.MaxLength = 500;
                 this.columnDampak.MaxLength = 500;
@@ -774,6 +789,8 @@ namespace B7_CAPA_Online.DataSource {
                 this.columnSuperiorPIC.MaxLength = 141;
                 this.columnSuperiorPelaksana.ReadOnly = true;
                 this.columnSuperiorPelaksana.MaxLength = 141;
+                this.columnEvaluator.ReadOnly = true;
+                this.columnEvaluator.MaxLength = 242;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1334,6 +1351,23 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Evaluator {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_LOAD_REPORT_KajianResiko.EvaluatorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Evaluator\' in table \'SP_LOAD_REPORT_KajianResiko\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_LOAD_REPORT_KajianResiko.EvaluatorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsP_KegagalanNull() {
                 return this.IsNull(this.tableSP_LOAD_REPORT_KajianResiko.P_KegagalanColumn);
             }
@@ -1631,6 +1665,18 @@ namespace B7_CAPA_Online.DataSource {
             public void SetStatus_IDNull() {
                 this[this.tableSP_LOAD_REPORT_KajianResiko.Status_IDColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsEvaluatorNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_KajianResiko.EvaluatorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetEvaluatorNull() {
+                this[this.tableSP_LOAD_REPORT_KajianResiko.EvaluatorColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -1817,6 +1863,7 @@ namespace B7_CAPA_Online.DataSource.B7_CAPA_ONLINEDataSetKajianTableAdapters {
             tableMapping.ColumnMappings.Add("SuperiorPIC", "SuperiorPIC");
             tableMapping.ColumnMappings.Add("SuperiorPelaksana", "SuperiorPelaksana");
             tableMapping.ColumnMappings.Add("Status_ID", "Status_ID");
+            tableMapping.ColumnMappings.Add("Evaluator", "Evaluator");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

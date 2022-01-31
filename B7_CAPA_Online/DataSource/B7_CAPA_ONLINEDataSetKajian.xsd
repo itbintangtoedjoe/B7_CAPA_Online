@@ -47,6 +47,7 @@
               <Mapping SourceColumn="SuperiorPIC" DataSetColumn="SuperiorPIC" />
               <Mapping SourceColumn="SuperiorPelaksana" DataSetColumn="SuperiorPelaksana" />
               <Mapping SourceColumn="Status_ID" DataSetColumn="Status_ID" />
+              <Mapping SourceColumn="Evaluator" DataSetColumn="Evaluator" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -182,6 +183,13 @@
                 </xs:simpleType>
               </xs:element>
               <xs:element name="Status_ID" msprop:Generator_ColumnVarNameInTable="columnStatus_ID" msprop:Generator_ColumnPropNameInRow="Status_ID" msprop:Generator_ColumnPropNameInTable="Status_IDColumn" msprop:Generator_UserColumnName="Status_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="Evaluator" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnEvaluator" msprop:Generator_ColumnPropNameInRow="Evaluator" msprop:Generator_ColumnPropNameInTable="EvaluatorColumn" msprop:Generator_UserColumnName="Evaluator" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="242" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
