@@ -426,7 +426,7 @@
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
                     var result = JSON.parse(data);
-                    if (!result.IS_VALID) {
+                    if (!result[0].IS_VALID) {
                         Swal.fire(
                             'Maaf',
                             'Mohon untuk mengisi field yang tersedia.',
@@ -438,7 +438,7 @@
                     Swal.fire({
                         title: 'Success!',
                         text: "Berhasil di submit.",
-                        icon: 'success',
+                        type: 'success',
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'Yes'
                     }).then((result) => {

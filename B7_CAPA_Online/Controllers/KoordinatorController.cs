@@ -540,11 +540,30 @@ namespace B7_CAPA_Online.Controllers
             var Path_DT = ToDataTable<Lampiran>(Model.LampiranTerkait);
 
             // Method Insert Data
-            Model.NO_CAPA = DAL.InsertData(Model, Departemen_DT, Penyimpangan_DT, Path_DT);
+            var Recipient = DAL.InsertData(Model, Departemen_DT, Penyimpangan_DT, Path_DT);
+
+            var list = new List<Recipients>();
+            var objects = JsonConvert.DeserializeObject(Recipient.ToString()); // parse as array  
+            foreach (var item in ((JArray)objects))
+            {
+                list.Add(new Recipients { KategoriCAPA = item.Value<string>("KategoriCAPA")});
+            }
 
             // Method SMTP Email
             EmailSender emailSender = new EmailSender();
-            emailSender.SendEmail(Model);            
+            emailSender.SendEmail(new Dictionary<string, object> {
+                {"Nama_Aplikasi", "CAPA" }, 
+                {"Kategori", "PICReminder" },
+                {"KategoriCAPA", list[0].KategoriCAPA },
+                {"ToEmpName", Model.PIC_CAPA },
+                {"Recipient", Recipient},
+                {"TriggerCAPA", Model.TriggerCAPA},
+                {"Lokasi", Model.Lokasi},
+                {"StatusCAPA", "1"},
+                {"PIC", Model.PIC_ID},                
+                {"CreateBy", Session["FullName"].ToString()}, 
+                {"DeskripsiMasalah", Model.Deskripsi }
+            });            
             
             return RedirectToAction("TaskList", "PendingTask", new { success = "succeed" });
         }
