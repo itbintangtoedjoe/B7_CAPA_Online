@@ -24,7 +24,6 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
-
         public ActionResult ApprovalPerubahanEvaluator()
         {
             return View();
@@ -94,7 +93,6 @@ namespace B7_CAPA_Online.Controllers
             return Json(Return);
         }
         #endregion
-
 
         public ActionResult DynamicController(DynamicModel Models, string spname)
         {

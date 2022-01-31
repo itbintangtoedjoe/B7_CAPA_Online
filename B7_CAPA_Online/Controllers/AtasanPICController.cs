@@ -82,8 +82,8 @@ namespace B7_CAPA_Online.Controllers
                     emailSender.SendEmail(new Dictionary<string, object> {
                         {"Nama_Aplikasi", "CAPA" }, // ini hardcode 
                         {"Kategori", "PICReminder" }, // ini hardcode
-                        {"KategoriCAPA", value.KategoriCAPA },
-                        {"ToEmpName", value.ToEmpName },
+                        {"KategoriCAPA", value.KategoriCAPA }, // dari list diatas
+                        {"ToEmpName", value.ToEmpName }, // dari list diatas
                         {"Recipient", Recipient}, // recipient object list dari atas
                         {"TriggerCAPA", value.TriggerCAPA}, // ini dari list diatas
                         {"Lokasi", value.Lokasi}, // dari list diatas
