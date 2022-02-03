@@ -504,9 +504,24 @@
                         $('#EvalList_DDL').attr('disabled', true);
                         $('#Eva_Plant_DDL').attr('disabled', true);
                         $('#Trigger_CAPA').attr('disabled', true);
-
+                        $.ajax({
+                            url: 'SubmitApproval',
+                            type: 'post',
+                            data: JSON.stringify({
+                                Model: {
+                                    NO_CAPA: $('#QS_NoCAPA').val(),
+                                    Temp_Status: 5
+                                }
+                            }),
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                            },
+                            error: function (ex) {
+                                alert(JSON.stringify(ex));
+                            }
+                        });
                     }
-
                     window.location.href('../PendingTask/TaskList');
                 },
                 error: function (errormessage) {
@@ -606,7 +621,23 @@
                                 'Reject Berhasil',
                                 'success'
                             )
-
+                            $.ajax({
+                                url: 'SubmitApproval',
+                                type: 'post',
+                                data: JSON.stringify({
+                                    Model: {
+                                        NO_CAPA: $('#QS_NoCAPA').val(),
+                                        Temp_Status: 1
+                                    }
+                                }),
+                                dataType: 'json',
+                                contentType: 'application/json; charset=utf-8',
+                                success: function (data) {
+                                },
+                                error: function (ex) {
+                                    alert(JSON.stringify(ex));
+                                }
+                            });
                             window.location.href('../PendingTask/TaskList');
                         },
                         error: function (errormessage) {
@@ -675,6 +706,23 @@
                                 'Cancel Berhasil',
                                 'success'
                             )
+                            $.ajax({
+                                url: 'SubmitApproval',
+                                type: 'post',
+                                data: JSON.stringify({
+                                    Model: {
+                                        NO_CAPA: $('#QS_NoCAPA').val(),
+                                        Temp_Status: 13
+                                    }
+                                }),
+                                dataType: 'json',
+                                contentType: 'application/json; charset=utf-8',
+                                success: function (data) {
+                                },
+                                error: function (ex) {
+                                    alert(JSON.stringify(ex));
+                                }
+                            });
                             window.location.href('../PendingTask/TaskList');
                         },
                         error: function (errormessage) {

@@ -729,7 +729,23 @@
                         buttons: false,
                         timer: 1000,
                     });
-
+                    $.ajax({
+                        url: 'SubmitApproval',
+                        type: 'post',
+                        data: JSON.stringify({
+                            Model: {
+                                NO_CAPA: noCAPA,
+                                Temp_Status: 7
+                            }
+                        }),
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                        },
+                        error: function (ex) {
+                            alert(JSON.stringify(ex));
+                        }
+                    });
                     window.location.href('../PendingTask/TaskList');
                 }
             },

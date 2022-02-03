@@ -1004,6 +1004,25 @@
                             'Perubahan berhasil di submit',
                             'success'
                         )
+                        $.ajax({
+                            url: 'SubmitApproval',
+                            type: 'post',
+                            data: JSON.stringify({
+                                Model: {
+                                    NO_CAPA: noCAPA,
+                                    Temp_Status: 10,
+                                    Tindakan: 'Perbaikan',
+                                    Tindakan_ID: referenceID
+                                }
+                            }),
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                            },
+                            error: function (ex) {
+                                alert(JSON.stringify(ex));
+                            }
+                        });
                         window.location.href('../PendingTask/TaskList');
                         $('#txtTindakanPerbaikanRev').attr("disabled", true);
                         $('#AlasanTindakanPerbaikan').attr("disabled", true);
@@ -1056,6 +1075,25 @@
                             'Perubahan berhasil di submit',
                             'success'
                         )
+                        $.ajax({
+                            url: 'SubmitApproval',
+                            type: 'post',
+                            data: JSON.stringify({
+                                Model: {
+                                    NO_CAPA: noCAPA,
+                                    Temp_Status: 10,
+                                    Tindakan: 'Pencegahan',
+                                    Tindakan_ID: referenceID
+                                }
+                            }),
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                            },
+                            error: function (ex) {
+                                alert(JSON.stringify(ex));
+                            }
+                        });
                         window.location.href('../PendingTask/TaskList');
                         $('#txtTindakanPencegahanRev').attr("disabled", true);
                         $('#AlasanTindakanPencegahan').attr("disabled", true);

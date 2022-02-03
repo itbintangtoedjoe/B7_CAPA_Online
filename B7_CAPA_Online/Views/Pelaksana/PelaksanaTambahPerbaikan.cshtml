@@ -820,7 +820,25 @@
                     else {
 
                         Swal.fire("Success!", "Submit Berhasil!", "success");
-
+                        $.ajax({
+                            url: 'SubmitApproval',
+                            type: 'post',
+                            data: JSON.stringify({
+                                Model: {
+                                    NO_CAPA: noCAPA,
+                                    Temp_Status: 10,
+                                    Tindakan: 'Penambahan Existing',
+                                    EmpID: nik
+                                }
+                            }),
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                            },
+                            error: function (ex) {
+                                alert(JSON.stringify(ex));
+                            }
+                        });
                         $("input[name='TambahPerbaikan']").prop("disabled", false);
 
                     }
@@ -862,7 +880,25 @@
                     }
                     else {
                         Swal.fire("Success!", "Submit Berhasil !", "Success");
-
+                        $.ajax({
+                            url: 'SubmitApproval',
+                            type: 'post',
+                            data: JSON.stringify({
+                                Model: {
+                                    NO_CAPA: noCAPA,
+                                    Temp_Status: 10,
+                                    Tindakan: 'Penambahan Baru',
+                                    EmpID: nik
+                                }
+                            }),
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                            },
+                            error: function (ex) {
+                                alert(JSON.stringify(ex));
+                            }
+                        });
                         $("input[name='TambahPerbaikan']").prop("disabled", false);
                     }
                 },

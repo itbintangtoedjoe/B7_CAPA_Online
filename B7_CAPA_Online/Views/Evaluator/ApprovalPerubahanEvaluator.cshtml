@@ -343,6 +343,25 @@
                 success: function (data) {
                     GetTindakanPerbaikan();
                     TableKajian();
+                    $.ajax({
+                        url: 'SubmitApproval',
+                        type: 'post',
+                        data: JSON.stringify({
+                            Model: {
+                                NO_CAPA: noCAPA,
+                                Temp_Status: 12,
+                                Tindakan: 'Perbaikan',
+                                Tindakan_ID: id
+                            }
+                        }),
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                        },
+                        error: function (ex) {
+                            alert(JSON.stringify(ex));
+                        }
+                    });
                     Swal.fire(
                         'Approve!',
                         'Approve Berhasil',
@@ -399,6 +418,25 @@
                             success: function (data) {
                                 GetTindakanPerbaikan();
                                 TableKajian();
+                                $.ajax({
+                                    url: 'SubmitApproval',
+                                    type: 'post',
+                                    data: JSON.stringify({
+                                        Model: {
+                                            NO_CAPA: noCAPA,
+                                            Temp_Status: 6,
+                                            Tindakan: 'Perbaikan',
+                                            Tindakan_ID: id
+                                        }
+                                    }),
+                                    dataType: 'json',
+                                    contentType: 'application/json; charset=utf-8',
+                                    success: function (data) {
+                                    },
+                                    error: function (ex) {
+                                        alert(JSON.stringify(ex));
+                                    }
+                                });
                                 Swal.fire(
                                     'Rejected!',
                                     'Reject Berhasil',
@@ -453,6 +491,25 @@
                 success: function (data) {
                     GetTindakanPencegahan();
                     TableKajian();
+                    $.ajax({
+                        url: 'SubmitApproval',
+                        type: 'post',
+                        data: JSON.stringify({
+                            Model: {
+                                NO_CAPA: noCAPA,
+                                Temp_Status: 12,
+                                Tindakan: 'Pencegahan',
+                                Tindakan_ID: id
+                            }
+                        }),
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                        },
+                        error: function (ex) {
+                            alert(JSON.stringify(ex));
+                        }
+                    });
                     Swal.fire(
                         'Approve!',
                         'Approve Berhasil',
@@ -510,6 +567,25 @@
                             success: function (data) {
                                 GetTindakanPencegahan();
                                 TableKajian();
+                                $.ajax({
+                                    url: 'SubmitApproval',
+                                    type: 'post',
+                                    data: JSON.stringify({
+                                        Model: {
+                                            NO_CAPA: noCAPA,
+                                            Temp_Status: 6,
+                                            Tindakan: 'Pencegahan',
+                                            Tindakan_ID: id
+                                        }
+                                    }),
+                                    dataType: 'json',
+                                    contentType: 'application/json; charset=utf-8',
+                                    success: function (data) {
+                                    },
+                                    error: function (ex) {
+                                        alert(JSON.stringify(ex));
+                                    }
+                                });
                                 Swal.fire(
                                     'Rejected!',
                                     'Reject Berhasil',
