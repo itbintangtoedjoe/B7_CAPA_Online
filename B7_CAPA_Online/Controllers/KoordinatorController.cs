@@ -66,7 +66,7 @@ namespace B7_CAPA_Online.Controllers
         {
             return View();
         }
-        public ActionResult PenilaianEfektivitas(string NoCAPA, string status)
+        public ActionResult MonitoringEfektivitas(string NoCAPA, string status)
         {
             ViewBag.NoCAPA = NoCAPA;
             ViewBag.status = status;

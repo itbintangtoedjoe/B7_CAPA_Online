@@ -235,7 +235,7 @@
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
 
-                        trhtml += '<Option value = "' + result[trav].EmpID + '" > ' + result[trav].EmpName;
+                        trhtml += '<Option value = "' + result[trav].NIK + '" > ' + result[trav].Username;
                     }
                 }
                 $("#Evaluator_DDL").empty();
@@ -330,7 +330,7 @@
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
 
-                        trhtml += '<Option value = "' + result[trav].EMPId + '" > ' + result[trav].EmpName;
+                        trhtml += '<Option value = "' + result[trav].EMPId + '" > ' + result[trav].Username;
                     }
                 }
                 $("#EvalList_DDL").empty();
@@ -407,7 +407,7 @@
                     "destroy": true,
                     "columns": [
                         { "data": "EMPID" },
-                        { "data": "EmpName" },
+                        { "data": "Username" },
                         { "data": "PlantFK" },
                         { "data": "Evaluator_RoleFK" },
                         { "data": "IsUtama" },
@@ -450,7 +450,7 @@
                     "destroy": true,
                     "columns": [
                         { "data": "EMPID" },
-                        { "data": "EmpName" },
+                        { "data": "Username" },
                         { "data": "PlantFK" },
                         { "data": "Evaluator_RoleFK" },
                         { "data": "IsUtama" },

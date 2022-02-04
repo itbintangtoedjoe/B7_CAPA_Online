@@ -145,6 +145,75 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="link_CAPA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group col-md-6">
+                        <label for="TxtTahunDeviation" class="col-form-label">Tahun:</label>
+                        <div class="input-group">
+                            <select class="form-control select2" name="TahunDeviation" id="Tahun_DDL_CAPA" required>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="TxtDepartemenDeviation" class="col-form-label">Departemen:</label>
+                        <div class="input-group ">
+                            <select class="form-control select2" id="DepartemenPelapor_CAPA" required>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="TxtKategoriDeviation" class="col-form-label">Kategori CAPA:</label>
+                        <div class="input-group">
+                            <select class="form-control select2" id="Kategori_CAPA" required>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="TxtJenisPenyimpangan" class="col-form-label">Kode CAPA:</label>
+                        <div class="input-group">
+                            <select class="form-control select2" id="Kode_CAPA" required>
+                                <option value="Yes">Terencana</option>
+                                <option value="No">Tidak Terencana</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <button type="button" class="btn btn-primary" id="btn_Search_CAPA">Search</button>
+                    </div>
+
+                    <table id="tblCAPA" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>No CAPA</th>
+                                <th>PIC CAPA</th>
+                                <th>Departemen</th>
+                                <th>Site</th>
+                                <th>Kategori CAPA</th>
+                                <th>Kode CAPA</th>
+                                <th>Deskripsi Singkat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn_Close_CAPA">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="card">
     <div class="card-body">
         <div class="row form-group-sm">
@@ -192,7 +261,7 @@
             </div>
         </div>
         <br />
-        <input type="button" class="btn btn-primary" id="Submit" value="Upload"/>
+        <input type="button" class="btn btn-primary" id="Submit" value="Upload" />
     </div>
 </div>
 
@@ -233,7 +302,6 @@
         });
 
         $('#btn_Close_CCC').click(function () {
-
             var Jsonobj = [];
             var status = false;
             var table = $('#Tbl_CCC').DataTable();
@@ -248,6 +316,50 @@
                     item["NoCapa"] = $('#QS_NoCAPA').val();
                     item["PenyimpanganID"] = PenyimpanganID;
                     item["Description"] = "CCC";
+                    item["Creator"] = creator;
+                    Jsonobj.push(item);
+                    console.log(item);
+                    status = true;
+                }
+            }
+            if (status == true) {
+                var dto = {
+                    Penyimpangan: Jsonobj
+                }
+                $.ajax({
+                    url: 'InsertAddAbleDeviation',
+                    type: 'post',
+                    dataType: 'json',
+                    data: JSON.stringify(dto),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        Swal.fire("Success!", "Transaction berhasil di Insert", "success");
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                });
+
+            }
+
+        });
+
+        $('#btn_Close_CAPA').click(function () {
+
+            var Jsonobj = [];
+            var status = false;
+            var table = $('#tblCAPA').DataTable();
+            for (var i = 1; i <= table.data().count(); i++) {
+
+                var row = $("#tblCAPA tr").eq(i);
+                var PenyimpanganID = $("TD", row).eq(1).html();
+                var creator = "";
+                // Mengecheck Checkbox apakah sudah di checklist
+                if ($("TD", row).eq(0).find("input[type='checkbox']").prop('checked')) {
+                    var item = {};
+                    item["NoCapa"] = $('#QS_NoCAPA').val();
+                    item["PenyimpanganID"] = PenyimpanganID;
+                    item["Description"] = "CAPA";
                     item["Creator"] = creator;
                     Jsonobj.push(item);
                     console.log(item);
@@ -582,8 +694,83 @@
                     });
                 }
             });
-        });
+        }); 
+        $('#btn_Search_CAPA').click(function () {
 
+            dto = {
+                Option: 5,
+                NoCapa: $('#QS_NoCAPA').val(),
+                Kode: $('#Kode_CAPA').val(),
+                Tahun: $('#Tahun_DDL_CAPA').val(),
+                Departemen: $('#DepartemenPelapor_CAPA').val(),
+                Kategori: $('#Kategori_CAPA').val()
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "ShowAddAbleDeviation",
+                data: JSON.stringify(dto),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    var table = $('#tblCAPA').DataTable({
+                        "pageLength": 5,
+                        "lengthChange": true,
+                        "searching": false,
+                        "data": JSON.parse(result),
+                        "select": true,
+                        "bDestroy": true,
+                        "scrollCollapse": true,
+                        "columns": [
+                            {
+                                "data": null,
+                                "defaultContent": "<input class='selected' type='checkbox' name='type' onchange=''>"
+                            },
+                            { "data": "NO_CAPA" },
+                            { "data": "PIC_CAPA" },
+                            { "data": "AREA_PIC" },
+                            { "data": "LOKASI_CAPA" },
+                            { "data": "KATEGORI_CAPA" },
+                            { "data": "KODE_CAPA" },
+                            { "data": "DESKRIPSI_MASALAH" }
+                        ],
+                        "order": [[1, 'asc']],
+                        "columnDefs": [
+                            {
+                                "targets": 0,
+                                "className": "text-center",
+                                "width": "1%"
+                            },
+                            {
+                                "targets": 1,
+                                "className": "text-center",
+                                "width": "5%"
+                            },
+                            {
+                                "targets": 2,
+                                "className": "text-center",
+                                "width": "6%"
+                            },
+                            {
+                                "targets": 3,
+                                "className": "text-center",
+                                "width": "6%"
+                            },
+                            {
+                                "targets": 4,
+                                "className": "text-center",
+                                "width": "4%"
+                            },
+                            {
+                                "targets": 5,
+                                "className": "text-left",
+                                "width": "15%"
+                            }
+                        ]
+                    });
+                }
+            });
+        });
         //checkbox Deviation
         var data = [];
         $(document).on("click", "#Tbl_Deviation input[name='type'][class='selected']", function () {
@@ -645,6 +832,7 @@
         for (var i = years; i >= 2018; i--) {
             $('#Tahun_DDL').append(new Option(i, i));
             $('#Tahun_DDL_Deviaton').append(new Option(i, i));
+            $('#Tahun_DDL_CAPA').append(new Option(i, i));
         }
     }
 
@@ -670,18 +858,20 @@
                 $('#Kategori_DDL').empty();
                 $('#Lokasi_DDL').empty();
                 $('#Trigger_CAPA').empty();
-                $('#Trigger_CAPA').append($('<option></option>').attr('value', '').text('*Pilih*'));
-                $('#Kategori_DDL').append($('<option></option>').attr('value', '').text('*Pilih*'));
-                $('#Lokasi_DDL').append($('<option></option>').attr('value', '').text('*Pilih*'));
+                $('#Trigger_CAPA').append('<option disabled selected hidden class="dropdown-header">Pilih</option>');
+                $('#Kategori_DDL').append('<option disabled selected hidden class="dropdown-header">Pilih</option>');
+                $('#Lokasi_DDL').append('<option disabled selected hidden class="dropdown-header">Pilih</option>');
                 $.each(JSON.parse(data), function (key, entry) {
                     if (entry.DDL_TYPE == 'TRIGGER') {
                         $('#Trigger_CAPA').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
                     }
                     if (entry.DDL_TYPE == 'KATEGORI') {
-                        $('#Kategori_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
+                        $('#KategoriPenyimpangan_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
+                        $('#KategoriCAPA_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
                     }
                     if (entry.DDL_TYPE == 'LOKASI') {
                         $('#Lokasi_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
+                        $('#LokasiCAPA_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
                     }
                     $('#Trigger_CAPA').select2();
                     $('#Kategori_DDL').select2();
@@ -706,6 +896,8 @@
                 $('#DepartemenPelapor_DDL').empty();
                 $.each(JSON.parse(data), function (key, entry) {
                     $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
+                    $('#DepartemenPelapor_CAPA').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
+
                 })
             },
             error: function (ex) {
@@ -724,9 +916,11 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 $('#KategoriPenyimpangan_DDL').empty();
-                //$('#KategoriPenyimpangan_DDL').append($('<option></option>').attr('value', '').text('*Pilih*'));
+                //$('#KategoriPenyimpangan_DDL').append($('<option></option>').attr('value', '').text('Pilih'));
                 $.each(JSON.parse(data), function (key, entry) {
                     $('#KategoriPenyimpangan_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
+                    $('#Kategori_CAPA').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
+                    
                 })
                 //$('#KategoriPenyimpangan_DDL').select2();
             },
@@ -755,6 +949,27 @@
             }
         });
 
+        $.ajax({
+            url: 'DynamicController?spname=[dbo].[SP_SHOW_DDL]',
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify({
+                Model: {
+                    Option: 18
+                }
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#Kode_CAPA').empty();
+                $('#Kode_CAPA').append('<option disabled selected hidden class="dropdown-header">Pilih</option>');
+                $.each(JSON.parse(data), function (key, entry) {
+                    $('#Kode_CAPA').append($('<option></option>').attr('value', entry.Code).text(entry.Code_Desc));
+                })
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
     }
     function AddDepartemen() {
         var departemen = $('#Departemen_DDL').val();
@@ -865,7 +1080,7 @@
 
             });
         }
-       
+
     }
 
 
