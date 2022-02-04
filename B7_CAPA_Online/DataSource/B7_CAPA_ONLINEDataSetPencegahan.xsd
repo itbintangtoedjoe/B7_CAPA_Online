@@ -31,6 +31,7 @@
               <Mapping SourceColumn="Email" DataSetColumn="Email" />
               <Mapping SourceColumn="Superior" DataSetColumn="Superior" />
               <Mapping SourceColumn="Status_ID" DataSetColumn="Status_ID" />
+              <Mapping SourceColumn="Approval_Date" DataSetColumn="Approval_Date" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -102,6 +103,7 @@
                 </xs:simpleType>
               </xs:element>
               <xs:element name="Status_ID" msprop:Generator_ColumnVarNameInTable="columnStatus_ID" msprop:Generator_ColumnPropNameInRow="Status_ID" msprop:Generator_ColumnPropNameInTable="Status_IDColumn" msprop:Generator_UserColumnName="Status_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="Approval_Date" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnApproval_Date" msprop:Generator_ColumnPropNameInRow="Approval_Date" msprop:Generator_ColumnPropNameInTable="Approval_DateColumn" msprop:Generator_UserColumnName="Approval_Date" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

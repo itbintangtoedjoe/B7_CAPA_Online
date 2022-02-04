@@ -148,6 +148,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="DataSource\B7_CAPA_ONLINEDataSetPerbaikan.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>B7_CAPA_ONLINEDataSetPerbaikan.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSource\B7_CAPA_ONLINEDataSetPencegahan.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>B7_CAPA_ONLINEDataSetPencegahan.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\ApprovalEvaluatorController.cs" />
     <Compile Include="Controllers\ApprovalKoordinatorController.cs" />
     <Compile Include="Controllers\AtasanPelaksanaAddCAPAController.cs" />
@@ -182,8 +192,6 @@
     <Compile Include="DataSource\B7_CAPA_ONLINEDataSetHeader1.Designer.cs" />
     <Compile Include="DataSource\B7_CAPA_ONLINEDataSetKajian.Designer.cs" />
     <Compile Include="DataSource\B7_CAPA_ONLINEDataSetPelaksana.Designer.cs" />
-    <Compile Include="DataSource\B7_CAPA_ONLINEDataSetPencegahan.Designer.cs" />
-    <Compile Include="DataSource\B7_CAPA_ONLINEDataSetPerbaikan.Designer.cs" />
     <Compile Include="DataSource\B7_CAPA_ONLINEDataSetRoot.Designer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -5153,18 +5161,6 @@
     <Content Include="DataSource\B7_CAPA_ONLINEDataSetPelaksana.xss">
       <DependentUpon>B7_CAPA_ONLINEDataSetPelaksana.xsd</DependentUpon>
     </Content>
-    <Content Include="DataSource\B7_CAPA_ONLINEDataSetPencegahan.xsc">
-      <DependentUpon>B7_CAPA_ONLINEDataSetPencegahan.xsd</DependentUpon>
-    </Content>
-    <Content Include="DataSource\B7_CAPA_ONLINEDataSetPencegahan.xss">
-      <DependentUpon>B7_CAPA_ONLINEDataSetPencegahan.xsd</DependentUpon>
-    </Content>
-    <Content Include="DataSource\B7_CAPA_ONLINEDataSetPerbaikan.xsc">
-      <DependentUpon>B7_CAPA_ONLINEDataSetPerbaikan.xsd</DependentUpon>
-    </Content>
-    <Content Include="DataSource\B7_CAPA_ONLINEDataSetPerbaikan.xss">
-      <DependentUpon>B7_CAPA_ONLINEDataSetPerbaikan.xsd</DependentUpon>
-    </Content>
     <Content Include="DataSource\B7_CAPA_ONLINEDataSetRoot.xsc">
       <DependentUpon>B7_CAPA_ONLINEDataSetRoot.xsd</DependentUpon>
     </Content>
@@ -5443,6 +5439,28 @@
     <Content Include="Content\Styles\icons\weather-icons\fonts\weathericons-regular-webfont.woff2" />
     <Content Include="Content\Styles\images\f-logo_tmp17117" />
     <Content Include="Content\Images\SD-QO-QS-1008 Kamus Kriteria Risiko.pdf" />
+    <Content Include="DataSource\B7_CAPA_ONLINEDataSetPencegahan.xsc">
+      <DependentUpon>B7_CAPA_ONLINEDataSetPencegahan.xsd</DependentUpon>
+    </Content>
+    <Content Include="DataSource\B7_CAPA_ONLINEDataSetPerbaikan.xsc">
+      <DependentUpon>B7_CAPA_ONLINEDataSetPerbaikan.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSource\B7_CAPA_ONLINEDataSetPerbaikan.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>B7_CAPA_ONLINEDataSetPerbaikan.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSource\B7_CAPA_ONLINEDataSetPerbaikan.xss">
+      <DependentUpon>B7_CAPA_ONLINEDataSetPerbaikan.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSource\B7_CAPA_ONLINEDataSetPencegahan.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>B7_CAPA_ONLINEDataSetPencegahan.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSource\B7_CAPA_ONLINEDataSetPencegahan.xss">
+      <DependentUpon>B7_CAPA_ONLINEDataSetPencegahan.xsd</DependentUpon>
+    </Content>
     <None Include="DataSource\B7_CAPA_ONLINEDataSetAnalisa.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -5472,16 +5490,6 @@
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>B7_CAPA_ONLINEDataSetPelaksana1.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="DataSource\B7_CAPA_ONLINEDataSetPencegahan.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>B7_CAPA_ONLINEDataSetPencegahan1.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="DataSource\B7_CAPA_ONLINEDataSetPerbaikan.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>B7_CAPA_ONLINEDataSetPerbaikan1.Designer.cs</LastGenOutput>
     </None>
     <None Include="DataSource\B7_CAPA_ONLINEDataSetRoot.xsd">
       <SubType>Designer</SubType>

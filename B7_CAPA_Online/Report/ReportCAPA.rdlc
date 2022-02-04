@@ -322,110 +322,6 @@
         <rd:TableAdapterName>SP_LOAD_REPORT_PelaksanaTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
-    <DataSet Name="DataSetPerbaikan">
-      <Query>
-        <DataSourceName>B7_CAPA_ONLINEDataSetPerbaikan</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="WhyDesc">
-          <DataField>WhyDesc</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Tindakan_Perbaikan">
-          <DataField>Tindakan_Perbaikan</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Due_Date">
-          <DataField>Due_Date</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Pelaksana_Perbaikan">
-          <DataField>Pelaksana_Perbaikan</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Superior">
-          <DataField>Superior</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Nama_Personil">
-          <DataField>Nama_Personil</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Email">
-          <DataField>Email</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Creation_Date">
-          <DataField>Creation_Date</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="Status_ID">
-          <DataField>Status_ID</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>B7_CAPA_ONLINEDataSetPerbaikan</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\bened\OneDrive\Desktop\Capa\B7_CAPA_Online\DataSource\B7_CAPA_ONLINEDataSetPerbaikan.xsd</rd:SchemaPath>
-        <rd:TableName>SP_LOAD_REPORT_TPerbaikan</rd:TableName>
-        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
-        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>SP_LOAD_REPORT_TPerbaikanTableAdapter</rd:TableAdapterName>
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="DataSetPencegahan">
-      <Query>
-        <DataSourceName>B7_CAPA_ONLINEDataSetPencegahan</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="AreaLain">
-          <DataField>AreaLain</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="WhyDesc">
-          <DataField>WhyDesc</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Tindakan_Pencegahan">
-          <DataField>Tindakan_Pencegahan</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Due_Date">
-          <DataField>Due_Date</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PelaksanaPencegahan">
-          <DataField>PelaksanaPencegahan</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Nama_Personil">
-          <DataField>Nama_Personil</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Email">
-          <DataField>Email</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Superior">
-          <DataField>Superior</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Status_ID">
-          <DataField>Status_ID</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>B7_CAPA_ONLINEDataSetPencegahan</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\bened\OneDrive\Desktop\Capa\B7_CAPA_Online\DataSource\B7_CAPA_ONLINEDataSetPencegahan.xsd</rd:SchemaPath>
-        <rd:TableName>SP_LOAD_REPORT_TPencegahan</rd:TableName>
-        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
-        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>SP_LOAD_REPORT_TPencegahanTableAdapter</rd:TableAdapterName>
-      </rd:DataSetInfo>
-    </DataSet>
     <DataSet Name="DataSetKajian">
       <Query>
         <DataSourceName>B7_CAPA_ONLINEDataSetKajian</DataSourceName>
@@ -546,6 +442,118 @@
         <rd:TableAdapterName>SP_LOAD_REPORT_KajianResikoTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
+    <DataSet Name="DataSetPencegahan">
+      <Query>
+        <DataSourceName>B7_CAPA_ONLINEDataSetPencegahan</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="AreaLain">
+          <DataField>AreaLain</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="WhyDesc">
+          <DataField>WhyDesc</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Tindakan_Pencegahan">
+          <DataField>Tindakan_Pencegahan</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Due_Date">
+          <DataField>Due_Date</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PelaksanaPencegahan">
+          <DataField>PelaksanaPencegahan</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Nama_Personil">
+          <DataField>Nama_Personil</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Email">
+          <DataField>Email</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Superior">
+          <DataField>Superior</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Status_ID">
+          <DataField>Status_ID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Approval_Date">
+          <DataField>Approval_Date</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>B7_CAPA_ONLINEDataSetPencegahan</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\bened\OneDrive\Desktop\Capa\B7_CAPA_Online\B7_CAPA_ONLINEDataSetPencegahan.xsd</rd:SchemaPath>
+        <rd:TableName>SP_LOAD_REPORT_TPencegahan</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>SP_LOAD_REPORT_TPencegahanTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DataSetPerbaikan">
+      <Query>
+        <DataSourceName>B7_CAPA_ONLINEDataSetPerbaikan</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="WhyDesc">
+          <DataField>WhyDesc</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Tindakan_Perbaikan">
+          <DataField>Tindakan_Perbaikan</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Due_Date">
+          <DataField>Due_Date</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Pelaksana_Perbaikan">
+          <DataField>Pelaksana_Perbaikan</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Superior">
+          <DataField>Superior</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Nama_Personil">
+          <DataField>Nama_Personil</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Email">
+          <DataField>Email</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Creation_Date">
+          <DataField>Creation_Date</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Status_ID">
+          <DataField>Status_ID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Approval_Date">
+          <DataField>Approval_Date</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>B7_CAPA_ONLINEDataSetPerbaikan</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\bened\OneDrive\Desktop\Capa\B7_CAPA_Online\B7_CAPA_ONLINEDataSetPerbaikan.xsd</rd:SchemaPath>
+        <rd:TableName>SP_LOAD_REPORT_TPerbaikan</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>SP_LOAD_REPORT_TPerbaikanTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
   </DataSets>
       <Body>
         <ReportItems>
@@ -574,6 +582,7 @@
                         <Value>PERMINTAAN TINDAKAN PERBAIKAN DAN PENCEGAHAN
 Corrective and  Preventive Action Request (CARPAR)</Value>
                         <Style>
+                          <FontSize>11pt</FontSize>
                           <FontWeight>Bold</FontWeight>
                         </Style>
                       </TextRun>
@@ -584,10 +593,10 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox1</rd:DefaultName>
-                <Top>0.635cm</Top>
-                <Left>8.94538cm</Left>
-                <Height>1.31479cm</Height>
-                <Width>9.71042cm</Width>
+                <Top>0.60854cm</Top>
+                <Left>7.99288cm</Left>
+                <Height>1.10312cm</Height>
+                <Width>12.42913cm</Width>
                 <ZIndex>1</ZIndex>
                 <Style>
                   <Border>
@@ -2092,7 +2101,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>17.89742cm</Top>
             <Left>0.58223cm</Left>
             <Height>1.54396cm</Height>
-            <Width>26.20762cm</Width>
+            <Width>26.20761cm</Width>
             <ZIndex>37</ZIndex>
             <Style>
               <Border>
@@ -2471,7 +2480,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>20.62263cm</Top>
             <Left>0.58223cm</Left>
             <Height>1.57042cm</Height>
-            <Width>26.20762cm</Width>
+            <Width>26.2076cm</Width>
             <ZIndex>38</ZIndex>
             <Style>
               <Border>
@@ -2781,7 +2790,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Tanggal</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3094,21 +3105,23 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox75">
+                        <Textbox Name="Approval_Date1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
-                                  <Style />
+                                  <Value>=Fields!Approval_Date.Value</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox75</rd:DefaultName>
+                          <rd:DefaultName>Approval_Date1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -3176,7 +3189,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>24.10465cm</Top>
             <Left>0.58223cm</Left>
             <Height>1.86146cm</Height>
-            <Width>25.99599cm</Width>
+            <Width>25.99598cm</Width>
             <ZIndex>39</ZIndex>
             <Style>
               <Border>
@@ -3521,7 +3534,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Tanggal</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3866,21 +3881,23 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox77">
+                        <Textbox Name="Approval_Date">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
-                                  <Style />
+                                  <Value>=Fields!Approval_Date.Value</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox77</rd:DefaultName>
+                          <rd:DefaultName>Approval_Date</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -3949,7 +3966,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>27.37837cm</Top>
             <Left>0.58223cm</Left>
             <Height>2.12655cm</Height>
-            <Width>25.99599cm</Width>
+            <Width>25.99597cm</Width>
             <ZIndex>40</ZIndex>
             <Style>
               <Border>
@@ -4915,7 +4932,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>45.79778cm</Top>
             <Left>0.54783cm</Left>
             <Height>2.12604cm</Height>
-            <Width>26.24202cm</Width>
+            <Width>26.242cm</Width>
             <ZIndex>46</ZIndex>
             <Style>
               <Border>
@@ -5419,7 +5436,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>50.32216cm</Top>
             <Left>0.58223cm</Left>
             <Height>2.65521cm</Height>
-            <Width>26.20762cm</Width>
+            <Width>26.20763cm</Width>
             <ZIndex>47</ZIndex>
             <Style>
               <Border>
@@ -9146,7 +9163,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                 <TextRun>
                                   <Value>=Fields!SuperiorPIC.Value</Value>
                                   <Style>
-                                    <FontSize>8pt</FontSize>
+                                    <FontSize>6pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -9159,6 +9176,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -9178,7 +9196,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                 <TextRun>
                                   <Value>=Fields!SuperiorPelaksana.Value</Value>
                                   <Style>
-                                    <FontSize>8pt</FontSize>
+                                    <FontSize>6pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -9191,6 +9209,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -9210,7 +9229,8 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                 <TextRun>
                                   <Value>=Fields!Evaluator.Value</Value>
                                   <Style>
-                                    <FontSize>8pt</FontSize>
+                                    <FontFamily />
+                                    <FontSize>6pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -9223,6 +9243,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -9284,7 +9305,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>37.75083cm</Top>
             <Left>0.58223cm</Left>
             <Height>6.01541cm</Height>
-            <Width>26.20762cm</Width>
+            <Width>26.20766cm</Width>
             <ZIndex>52</ZIndex>
             <Style>
               <Border>
@@ -9312,9 +9333,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>26.52218cm</Top>
-            <Left>9.50064cm</Left>
+            <Left>8.56062cm</Left>
             <Height>0.60042cm</Height>
-            <Width>9.52981cm</Width>
+            <Width>10.46983cm</Width>
             <ZIndex>53</ZIndex>
             <Style>
               <Border>
@@ -9361,7 +9382,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>44.62902cm</Top>
             <Left>3.98771cm</Left>
             <Height>0.60042cm</Height>
-            <Width>17.11963cm</Width>
+            <Width>19.84982cm</Width>
             <ZIndex>54</ZIndex>
             <Style>
               <Border>
