@@ -50,10 +50,10 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
-        public ActionResult ApprovalKoordinator2(string NoCAPA, string status)
+        public ActionResult ApprovalKoordinator2(string NoCAPA, string StatsID)
         {
             ViewBag.NoCAPA = NoCAPA;
-            ViewBag.status = status;
+            ViewBag.StatsID = StatsID;
             return View();
         }
 
@@ -311,7 +311,8 @@ namespace B7_CAPA_Online.Controllers
                 {"Departemen",Model.Departemen },
                 {"JenisKeluhan",Model.JenisKeluhan },
                 {"Plant",Model.Plant},
-                {"Tahun",Model.Tahun}
+                {"Tahun",Model.Tahun},
+                {"Kode",Model.Kode}
 
             };
             var spname = "[dbo].[SP_SHOW_ADDABLE_DEVIATION]";

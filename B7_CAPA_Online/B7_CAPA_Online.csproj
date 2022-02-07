@@ -149,13 +149,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="B7_CAPA_ONLINEDataSet.Designer.cs" />
-    <Compile Include="B7_CAPA_ONLINEDataSetAnalisa.Designer.cs" />
-    <Compile Include="B7_CAPA_ONLINEDataSetBukti.Designer.cs" />
-    <Compile Include="B7_CAPA_ONLINEDataSetPelaksana.Designer.cs" />
-    <Compile Include="B7_CAPA_ONLINEDataSetPencegahan.Designer.cs" />
-    <Compile Include="B7_CAPA_ONLINEDataSetPerbaikan.Designer.cs" />
-    <Compile Include="B7_CAPA_ONLINEDataSetRoot.Designer.cs" />
-    <Compile Include="B7_CAPA_ONLINEDataSource.Designer.cs" />
     <Compile Include="Controllers\ApprovalEvaluatorController.cs" />
     <Compile Include="Controllers\ApprovalKoordinatorController.cs" />
     <Compile Include="Controllers\AtasanPelaksanaAddCAPAController.cs" />
@@ -5395,62 +5388,6 @@
     <Content Include="Content\Styles\icons\weather-icons\fonts\weathericons-regular-webfont.woff" />
     <Content Include="Content\Styles\icons\weather-icons\fonts\weathericons-regular-webfont.woff2" />
     <Content Include="Content\Styles\images\f-logo_tmp17117" />
-    <Content Include="B7_CAPA_ONLINEDataSet.xsc">
-      <DependentUpon>B7_CAPA_ONLINEDataSet.xsd</DependentUpon>
-    </Content>
-    <None Include="B7_CAPA_ONLINEDataSet.xsd" />
-    <Content Include="B7_CAPA_ONLINEDataSet.xss">
-      <DependentUpon>B7_CAPA_ONLINEDataSet.xsd</DependentUpon>
-    </Content>
-    <Content Include="B7_CAPA_ONLINEDataSetAnalisa.xsc">
-      <DependentUpon>B7_CAPA_ONLINEDataSetAnalisa.xsd</DependentUpon>
-    </Content>
-    <None Include="B7_CAPA_ONLINEDataSetAnalisa.xsd" />
-    <Content Include="B7_CAPA_ONLINEDataSetAnalisa.xss">
-      <DependentUpon>B7_CAPA_ONLINEDataSetAnalisa.xsd</DependentUpon>
-    </Content>
-    <Content Include="B7_CAPA_ONLINEDataSetBukti.xsc">
-      <DependentUpon>B7_CAPA_ONLINEDataSetBukti.xsd</DependentUpon>
-    </Content>
-    <None Include="B7_CAPA_ONLINEDataSetBukti.xsd" />
-    <Content Include="B7_CAPA_ONLINEDataSetBukti.xss">
-      <DependentUpon>B7_CAPA_ONLINEDataSetBukti.xsd</DependentUpon>
-    </Content>
-    <Content Include="B7_CAPA_ONLINEDataSetPelaksana.xsc">
-      <DependentUpon>B7_CAPA_ONLINEDataSetPelaksana.xsd</DependentUpon>
-    </Content>
-    <None Include="B7_CAPA_ONLINEDataSetPelaksana.xsd" />
-    <Content Include="B7_CAPA_ONLINEDataSetPelaksana.xss">
-      <DependentUpon>B7_CAPA_ONLINEDataSetPelaksana.xsd</DependentUpon>
-    </Content>
-    <Content Include="B7_CAPA_ONLINEDataSetPencegahan.xsc">
-      <DependentUpon>B7_CAPA_ONLINEDataSetPencegahan.xsd</DependentUpon>
-    </Content>
-    <None Include="B7_CAPA_ONLINEDataSetPencegahan.xsd" />
-    <Content Include="B7_CAPA_ONLINEDataSetPencegahan.xss">
-      <DependentUpon>B7_CAPA_ONLINEDataSetPencegahan.xsd</DependentUpon>
-    </Content>
-    <Content Include="B7_CAPA_ONLINEDataSetPerbaikan.xsc">
-      <DependentUpon>B7_CAPA_ONLINEDataSetPerbaikan.xsd</DependentUpon>
-    </Content>
-    <None Include="B7_CAPA_ONLINEDataSetPerbaikan.xsd" />
-    <Content Include="B7_CAPA_ONLINEDataSetPerbaikan.xss">
-      <DependentUpon>B7_CAPA_ONLINEDataSetPerbaikan.xsd</DependentUpon>
-    </Content>
-    <Content Include="B7_CAPA_ONLINEDataSetRoot.xsc">
-      <DependentUpon>B7_CAPA_ONLINEDataSetRoot.xsd</DependentUpon>
-    </Content>
-    <None Include="B7_CAPA_ONLINEDataSetRoot.xsd" />
-    <Content Include="B7_CAPA_ONLINEDataSetRoot.xss">
-      <DependentUpon>B7_CAPA_ONLINEDataSetRoot.xsd</DependentUpon>
-    </Content>
-    <Content Include="B7_CAPA_ONLINEDataSource.xsc">
-      <DependentUpon>B7_CAPA_ONLINEDataSource.xsd</DependentUpon>
-    </Content>
-    <None Include="B7_CAPA_ONLINEDataSource.xsd" />
-    <Content Include="B7_CAPA_ONLINEDataSource.xss">
-      <DependentUpon>B7_CAPA_ONLINEDataSource.xsd</DependentUpon>
-    </Content>
     <Content Include="Content\Images\SD-QO-QS-1008 Kamus Kriteria Risiko.pdf" />
     <Content Include="DataSource\B7_CAPA_ONLINEDataSetAnalisa.xsc">
       <DependentUpon>B7_CAPA_ONLINEDataSetAnalisa.xsd</DependentUpon>
@@ -5669,8 +5606,6 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Report\ReportCAPA - Backup - Backup.rdlc" />
-    <EmbeddedResource Include="Report\ReportCAPA - Backup.rdlc" />
     <EmbeddedResource Include="Report\ReportCAPA - Copy.rdlc" />
     <EmbeddedResource Include="Report\ReportCAPA.rdlc" />
   </ItemGroup>

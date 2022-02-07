@@ -34,6 +34,7 @@ namespace B7_CAPA_Online.Models
             public string JenisKeluhan { get; set; }
             public string Plant { get; set; }
             public string Tahun { get; set; }
+            public string Kode { get; set; }
         }
         public class RejectAttribute
         {

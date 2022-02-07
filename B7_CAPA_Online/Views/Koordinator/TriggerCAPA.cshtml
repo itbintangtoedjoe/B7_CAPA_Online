@@ -162,6 +162,13 @@
                         </div>
                     </div>
                     <div class="form-group col-md-6">
+                        <label for="TxtJenisPenyimpangan" class="col-form-label">Lokasi CAPA:</label>
+                        <div class="input-group">
+                            <select class="form-control select2" id="Lokasi_CAPA" required>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
                         <label for="TxtDepartemenDeviation" class="col-form-label">Departemen:</label>
                         <div class="input-group ">
                             <select class="form-control select2" id="DepartemenPelapor_CAPA" required>
@@ -237,6 +244,17 @@
                 </div>
             </div>
         </div>
+        <div class="row form-group" id="Linked_CAPA" hidden="hidden">
+            <div class="col-md-6">
+                <label class="m-t-40">CAPA Terkait</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_CAPA" data-backdrop="static" data-keyboard="false">Browse</button>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Generate Link">
+                </div>
+            </div>
+        </div>
         <div class="row form-group" id="Linked_CCC" hidden="hidden">
             <div class="col-md-6">
                 <label class="m-t-40">Keluhan Pelanggan Terkait</label>
@@ -276,15 +294,14 @@
         $('#AreaPIC_DDL').select2();
         $('#PIC_DDL').select2();
         $('#Departemen_DDL').select2().append();
-
         $('#Trigger_CAPA').change(function () {
             clearHidden();
-            if ($('#Trigger_CAPA').val() == "ORACLE") {
+            if ($('#Trigger_CAPA').val() == "PENYIMPANGAN") {
                 $('#Linked_Oracle').prop('hidden', false);
             } else if ($('#Trigger_CAPA').val() == "CCC") {
                 $('#Linked_CCC').prop('hidden', false);
-            } else if ($('#Trigger_CAPA').val() == "DEVIATION") {
-                $('#Linked_Deviation').prop('hidden', false);
+            } else if ($('#Trigger_CAPA').val() == "CAPA") {
+                $('#Linked_CAPA').prop('hidden', false);
             }
         });
         $('#TxtFileInput').change(function () {
@@ -703,9 +720,15 @@
                 Kode: $('#Kode_CAPA').val(),
                 Tahun: $('#Tahun_DDL_CAPA').val(),
                 Departemen: $('#DepartemenPelapor_CAPA').val(),
-                Kategori: $('#Kategori_CAPA').val()
+                Kategori: $('#Kategori_CAPA').val(),
+                Lokasi: $('#Lokasi_CAPA').val()
             }
-
+            console.log($('#Lokasi_CAPA').val());
+            console.log($('#Kategori_CAPA').val());
+            console.log($('#DepartemenPelapor_CAPA').val());
+            console.log($('#Tahun_DDL_CAPA').val());
+            console.log($('#Kode_CAPA').val());
+            console.log($('#QS_NoCAPA').val());
             $.ajax({
                 type: "POST",
                 url: "ShowAddAbleDeviation",
@@ -713,6 +736,7 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (result) {
+                    console.log(result);
                     var table = $('#tblCAPA').DataTable({
                         "pageLength": 5,
                         "lengthChange": true,
@@ -857,25 +881,26 @@
                 $('#Trigger_CAPA').empty();
                 $('#Kategori_DDL').empty();
                 $('#Lokasi_DDL').empty();
+                $('#Lokasi_CAPA').empty();
                 $('#Trigger_CAPA').empty();
                 $('#Trigger_CAPA').append('<option disabled selected hidden class="dropdown-header">Pilih</option>');
                 $('#Kategori_DDL').append('<option disabled selected hidden class="dropdown-header">Pilih</option>');
                 $('#Lokasi_DDL').append('<option disabled selected hidden class="dropdown-header">Pilih</option>');
+                $('#Lokasi_CAPA').append('<option disabled selected hidden class="dropdown-header">Pilih</option>');
                 $.each(JSON.parse(data), function (key, entry) {
                     if (entry.DDL_TYPE == 'TRIGGER') {
                         $('#Trigger_CAPA').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
                     }
                     if (entry.DDL_TYPE == 'KATEGORI') {
                         $('#KategoriPenyimpangan_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
-                        $('#KategoriCAPA_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
+                        $('#Kategori_CAPA').append($('<option></option>').attr('value', entry.DDL_DESCRIPTION).text(entry.DDL_DESCRIPTION));
                     }
                     if (entry.DDL_TYPE == 'LOKASI') {
                         $('#Lokasi_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
-                        $('#LokasiCAPA_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
+                        $('#Lokasi_CAPA').append($('<option></option>').attr('value', entry.DDL_DESCRIPTION).text(entry.DDL_DESCRIPTION));
                     }
                     $('#Trigger_CAPA').select2();
                     $('#Kategori_DDL').select2();
-                    $('#Lokasi_DDL').select2();
                 })
             },
             error: function (ex) {
@@ -896,7 +921,7 @@
                 $('#DepartemenPelapor_DDL').empty();
                 $.each(JSON.parse(data), function (key, entry) {
                     $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
-                    $('#DepartemenPelapor_CAPA').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
+                    $('#DepartemenPelapor_CAPA').append($('<option></option>').attr('value', entry.SubDept).text(entry.SubDept));
 
                 })
             },
@@ -919,7 +944,6 @@
                 //$('#KategoriPenyimpangan_DDL').append($('<option></option>').attr('value', '').text('Pilih'));
                 $.each(JSON.parse(data), function (key, entry) {
                     $('#KategoriPenyimpangan_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
-                    $('#Kategori_CAPA').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
                     
                 })
                 //$('#KategoriPenyimpangan_DDL').select2();
