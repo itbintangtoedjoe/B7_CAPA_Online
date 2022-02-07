@@ -35,6 +35,7 @@ namespace B7_CAPA_Online.Models
         public string PenyimpanganTerkait { get; set; }
         public string KeluhanTerkait { get; set; }
         public string No_QC_Terkait { get; set; }
+        public string No_CAPA_Terkait { get; set; }
         [Required]
         public List<Lampiran> LampiranTerkait { get; set; }
         [Required]
