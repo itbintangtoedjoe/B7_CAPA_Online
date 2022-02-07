@@ -31,7 +31,8 @@ namespace B7_CAPA_Online.Scripts.DataAccess
                                     JenisKeluhan = Model.JenisKeluhan,
                                     Kategori = Model.Kategori,
                                     NO_CAPA = Model.NO_CAPA,
-                                    REG_ID = Model.REG_ID
+                                    REG_ID = Model.REG_ID,
+                                    KodeCAPA = Model.KodeCAPA
                                 },
                                 commandType: CommandType.StoredProcedure).ToList();
 
@@ -61,6 +62,7 @@ namespace B7_CAPA_Online.Scripts.DataAccess
                                     KeluhanTerkait = Model.KeluhanTerkait,
                                     LampiranTerkait = PathDT,
                                     No_QC_Terkait = Model.No_QC_Terkait,
+                                    No_CAPA_Terkait = Model.No_CAPA_Terkait,
                                     PIC_CAPA = Model.PIC_CAPA,
                                     PIC_ID = Model.PIC_ID,
                                     Create_By = Model.Create_By,
