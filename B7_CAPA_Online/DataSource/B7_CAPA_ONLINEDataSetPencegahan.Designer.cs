@@ -297,6 +297,8 @@ namespace B7_CAPA_Online.DataSource {
             
             private global::System.Data.DataColumn columnStatus_ID;
             
+            private global::System.Data.DataColumn columnApproval_Date;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public SP_LOAD_REPORT_TPencegahanDataTable() {
@@ -404,6 +406,14 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn Approval_DateColumn {
+                get {
+                    return this.columnApproval_Date;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -439,7 +449,7 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_LOAD_REPORT_TPencegahanRow AddSP_LOAD_REPORT_TPencegahanRow(string AreaLain, string WhyDesc, string Tindakan_Pencegahan, string Due_Date, string PelaksanaPencegahan, string Nama_Personil, string Email, string Superior, int Status_ID) {
+            public SP_LOAD_REPORT_TPencegahanRow AddSP_LOAD_REPORT_TPencegahanRow(string AreaLain, string WhyDesc, string Tindakan_Pencegahan, string Due_Date, string PelaksanaPencegahan, string Nama_Personil, string Email, string Superior, int Status_ID, System.DateTime Approval_Date) {
                 SP_LOAD_REPORT_TPencegahanRow rowSP_LOAD_REPORT_TPencegahanRow = ((SP_LOAD_REPORT_TPencegahanRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         AreaLain,
@@ -450,7 +460,8 @@ namespace B7_CAPA_Online.DataSource {
                         Nama_Personil,
                         Email,
                         Superior,
-                        Status_ID};
+                        Status_ID,
+                        Approval_Date};
                 rowSP_LOAD_REPORT_TPencegahanRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSP_LOAD_REPORT_TPencegahanRow);
                 return rowSP_LOAD_REPORT_TPencegahanRow;
@@ -482,6 +493,7 @@ namespace B7_CAPA_Online.DataSource {
                 this.columnEmail = base.Columns["Email"];
                 this.columnSuperior = base.Columns["Superior"];
                 this.columnStatus_ID = base.Columns["Status_ID"];
+                this.columnApproval_Date = base.Columns["Approval_Date"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -505,6 +517,8 @@ namespace B7_CAPA_Online.DataSource {
                 base.Columns.Add(this.columnSuperior);
                 this.columnStatus_ID = new global::System.Data.DataColumn("Status_ID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnStatus_ID);
+                this.columnApproval_Date = new global::System.Data.DataColumn("Approval_Date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnApproval_Date);
                 this.columnAreaLain.MaxLength = 2000;
                 this.columnWhyDesc.MaxLength = 500;
                 this.columnTindakan_Pencegahan.MaxLength = 500;
@@ -516,6 +530,7 @@ namespace B7_CAPA_Online.DataSource {
                 this.columnEmail.MaxLength = 60;
                 this.columnSuperior.ReadOnly = true;
                 this.columnSuperior.MaxLength = 100;
+                this.columnApproval_Date.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -806,6 +821,23 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime Approval_Date {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableSP_LOAD_REPORT_TPencegahan.Approval_DateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Approval_Date\' in table \'SP_LOAD_REPORT_TPencegahan\' is DBN" +
+                                "ull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_LOAD_REPORT_TPencegahan.Approval_DateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsAreaLainNull() {
                 return this.IsNull(this.tableSP_LOAD_REPORT_TPencegahan.AreaLainColumn);
             }
@@ -910,6 +942,18 @@ namespace B7_CAPA_Online.DataSource {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetStatus_IDNull() {
                 this[this.tableSP_LOAD_REPORT_TPencegahan.Status_IDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsApproval_DateNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_TPencegahan.Approval_DateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetApproval_DateNull() {
+                this[this.tableSP_LOAD_REPORT_TPencegahan.Approval_DateColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1081,6 +1125,7 @@ namespace B7_CAPA_Online.DataSource.B7_CAPA_ONLINEDataSetPencegahanTableAdapters
             tableMapping.ColumnMappings.Add("Email", "Email");
             tableMapping.ColumnMappings.Add("Superior", "Superior");
             tableMapping.ColumnMappings.Add("Status_ID", "Status_ID");
+            tableMapping.ColumnMappings.Add("Approval_Date", "Approval_Date");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
