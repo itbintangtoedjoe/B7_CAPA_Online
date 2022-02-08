@@ -66,7 +66,7 @@ namespace B7_CAPA_Online.Controllers
         {
             return View();
         }
-        public ActionResult MonitoringEfektivitas(string NoCAPA, string status)
+        public ActionResult PenilaianEfektivitas(string NoCAPA, string status)
         {
             ViewBag.NoCAPA = NoCAPA;
             ViewBag.status = status;
@@ -257,7 +257,7 @@ namespace B7_CAPA_Online.Controllers
             }
             var dictionary = new Dictionary<string, object>
             {
-                {"Option",0 }
+                {"Option",1}
 
             };
             var parameters = new DynamicParameters(dictionary);
@@ -268,7 +268,7 @@ namespace B7_CAPA_Online.Controllers
             return Json(DAL.StoredProcedure(parameters, spname));
 
         }
-        public ActionResult InsertAddAbleKoor4(InsertPenyimpangan Model, int Record)
+        public ActionResult InsertAddAbleKoor4(InsertPenyimpangan Model)
         {
             var pjg = Model.Penyimpangan.Count;
             DataTable dt = new DataTable();
@@ -286,12 +286,7 @@ namespace B7_CAPA_Online.Controllers
                 rowstype["Creator"] = Model.Penyimpangan[trav].Creator;
                 dt.Rows.Add(rowstype);
             }
-            var dictionary = new Dictionary<string, object>
-            {
-                {"Record",Record }
-
-            };
-            var parameters = new DynamicParameters(dictionary);
+            var parameters = new DynamicParameters();
             parameters.Add("InsertPenyimpangan", dt.AsTableValuedParameter("[dbo].[InsertPenyimpangan]"));
             parameters.Add("Option", 1);
             var spname = "SP_FORM_KOOR4";
@@ -312,7 +307,8 @@ namespace B7_CAPA_Online.Controllers
                 {"JenisKeluhan",Model.JenisKeluhan },
                 {"Plant",Model.Plant},
                 {"Tahun",Model.Tahun},
-                {"Kode",Model.Kode}
+                {"Kode",Model.Kode},
+                {"Lokasi",Model.Lokasi}
 
             };
             var spname = "[dbo].[SP_SHOW_ADDABLE_DEVIATION]";

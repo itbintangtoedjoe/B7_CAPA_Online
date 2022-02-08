@@ -215,9 +215,16 @@
             }
         });
     });
+
     function disableAll() {
         GetDisabledEvalTableList();
         $('#btn_Submit_Evaluator').attr('disabled', true);
+        $('#browse_CCC').attr('disabled', true);
+        $('#browse_Deviation').attr('disabled', true);
+        $('#browse_CAPA').attr('disabled', true);
+        $('#txt_CCC').attr('disabled', true);
+        $('#txt_Deviation').attr('disabled', true);
+        $('#txt_CAPA').attr('disabled', true);
         $('#Add_Eval').attr('disabled', true);
         $('#IsUtama').attr('disabled', true);
         $('#btn_Reject').attr('disabled', true);
@@ -409,12 +416,14 @@
             success: function (data) {
                 var table = $('#Tbl_Eval').DataTable({
                     "pageLength": 5,
-                    "lengthChange": true,
-                    "searching": false,
                     "data": JSON.parse(data),
+                    "lengthChange": true,
+                    "paging": true,
+                    "info": false,
+                    "searching": false,
                     "select": true,
+                    "bDestroy": true,
                     "scrollCollapse": true,
-                    "destroy": true,
                     "columns": [
                         { "data": "EMPID" },
                         { "data": "Username" },
@@ -452,12 +461,14 @@
             success: function (data) {
                 var table = $('#Tbl_Eval').DataTable({
                     "pageLength": 5,
-                    "lengthChange": true,
-                    "searching": false,
                     "data": JSON.parse(data),
+                    "lengthChange": true,
+                    "paging": true,
+                    "info": false,
+                    "searching": false,
                     "select": true,
-                    "scrollX": true,
-                    "destroy": true,
+                    "bDestroy": true,
+                    "scrollCollapse": true,
                     "columns": [
                         { "data": "EMPID" },
                         { "data": "Username" },
@@ -466,7 +477,7 @@
                         { "data": "IsUtama" },
                         {
                             "data": null,
-                            "defaultContent": "<input type='button' id='DeleteEval' class='btn btn-primary' onclick=Delete(this) value='Delete'style='background-color:red;' disabled/>"
+                            "defaultContent": "<input type='button' id='DeleteEval' class='btn btn-primary' onclick=Delete(this) value='Delete'style='background-color:red;' disabled ='disabled'/>"
                         },
                     ],
                     "order": [[1, 'asc']],
@@ -526,13 +537,13 @@
                             dataType: 'json',
                             contentType: 'application/json; charset=utf-8',
                             success: function (data) {
+                                window.location.href ='../PendingTask/TaskList';
                             },
                             error: function (ex) {
                                 alert(JSON.stringify(ex));
                             }
                         });
                     }
-                    window.location.href('../PendingTask/TaskList');
                 },
                 error: function (errormessage) {
                     $('#divLoading').attr("hidden", true);
@@ -643,12 +654,12 @@
                                 dataType: 'json',
                                 contentType: 'application/json; charset=utf-8',
                                 success: function (data) {
+                                    window.location.href = '../PendingTask/TaskList';
                                 },
                                 error: function (ex) {
                                     alert(JSON.stringify(ex));
                                 }
                             });
-                            window.location.href('../PendingTask/TaskList');
                         },
                         error: function (errormessage) {
                         }
@@ -728,12 +739,12 @@
                                 dataType: 'json',
                                 contentType: 'application/json; charset=utf-8',
                                 success: function (data) {
+                                    window.location.href = '../PendingTask/TaskList';
                                 },
                                 error: function (ex) {
                                     alert(JSON.stringify(ex));
                                 }
                             });
-                            window.location.href('../PendingTask/TaskList');
                         },
                         error: function (errormessage) {
                         }

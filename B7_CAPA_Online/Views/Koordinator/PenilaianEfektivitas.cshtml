@@ -285,7 +285,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="TxtDepartemenDeviation" class="col-form-label">Departemen:</label>
+                                <label for="TxtDepartemenDeviation" class="col-form-label">Departemen Pelapor:</label>
                                 <div class="input-group ">
                                     <select class="form-control select2" id="DepartemenPelapor_DDL" required>
                                     </select>
@@ -443,7 +443,7 @@
                     Penyimpangan: Jsonobj
                 }
                 $.ajax({
-                    url: 'InsertAddAbleKoor4?Record=' + $('#Kajian').val() + '',
+                    url: 'InsertAddAbleKoor4',
                     type: 'post',
                     dataType: 'json',
                     data: JSON.stringify(dto),
@@ -489,7 +489,7 @@
                     Penyimpangan: Jsonobj
                 }
                 $.ajax({
-                    url: 'InsertAddAbleKoor4?Record=' + $('#Kajian').val() + '',
+                    url: 'InsertAddAbleKoor4',
                     type: 'post',
                     dataType: 'json',
                     data: JSON.stringify(dto),
@@ -925,14 +925,14 @@
             type: 'post',
             dataType: 'json',
             data: JSON.stringify({
-                Option: 8,
+                Option: 21,
                 SP: "[dbo].[SP_SHOW_DDL]"
             }),
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 $('#DepartemenPelapor_DDL').empty();
                 $.each(JSON.parse(data), function (key, entry) {
-                    $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
+                    $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.Org_Group_Name).text(entry.Org_Group_Name));
                 })
             },
             error: function (ex) {
@@ -1043,7 +1043,7 @@
                                 alert(JSON.stringify(ex));
                             }
                         });
-                        window.location.href('../PendingTask/TaskList');
+                        window.location.href = '../PendingTask/TaskList';
                         disableAll();
                     },
                     error: function (errormessage) {

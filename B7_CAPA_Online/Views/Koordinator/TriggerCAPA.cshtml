@@ -4,7 +4,7 @@
     @@media (min-width: 768px) {
         .modal-xl {
             width: 900%;
-            max-width: 1300px;
+            max-width: 1350px;
         }
     }
 </style>
@@ -194,25 +194,26 @@
                     <div class="form-group col-md-6">
                         <button type="button" class="btn btn-primary" id="btn_Search_CAPA">Search</button>
                     </div>
-
-                    <table id="tblCAPA" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                        <thead>
-                            <tr>
-                                <th>Action</th>
-                                <th>No CAPA</th>
-                                <th>PIC CAPA</th>
-                                <th>Departemen</th>
-                                <th>Site</th>
-                                <th>Kategori CAPA</th>
-                                <th>Kode CAPA</th>
-                                <th>Deskripsi Singkat</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="col-md-10">
+                        <table id="tblCAPA" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>No CAPA</th>
+                                    <th>PIC CAPA</th>
+                                    <th>Departemen</th>
+                                    <th>Site</th>
+                                    <th>Kategori CAPA</th>
+                                    <th>Kode CAPA</th>
+                                    <th>Deskripsi Singkat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -238,9 +239,9 @@
                 <label class="m-t-20">Penyimpangan Terkait</label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_Deviation" data-backdrop="static" data-keyboard="false">Browse</button>
+                        <button class="btn btn-outline-dark" type="button" data-toggle="modal" id="browse_Deviation" data-target="#link_Deviation" data-backdrop="static" data-keyboard="false">Browse</button>
                     </div>
-                    <input type="text" class="form-control" placeholder="Generate Link">
+                    <input type="text" class="form-control" id="txt_Deviation" placeholder="Generate Link">
                 </div>
             </div>
         </div>
@@ -249,9 +250,9 @@
                 <label class="m-t-40">CAPA Terkait</label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_CAPA" data-backdrop="static" data-keyboard="false">Browse</button>
+                        <button class="btn btn-outline-dark" type="button" id="browse_CAPA" data-toggle="modal" data-target="#link_CAPA" data-backdrop="static" data-keyboard="false">Browse</button>
                     </div>
-                    <input type="text" class="form-control" placeholder="Generate Link">
+                    <input type="text" class="form-control" id="txt_CAPA" placeholder="Generate Link">
                 </div>
             </div>
         </div>
@@ -260,9 +261,9 @@
                 <label class="m-t-40">Keluhan Pelanggan Terkait</label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_CCC" data-backdrop="static" data-keyboard="false">Browse</button>
+                        <button class="btn btn-outline-dark" type="button" id="browse_CCC" data-toggle="modal" data-target="#link_CCC" data-backdrop="static" data-keyboard="false">Browse</button>
                     </div>
-                    <input type="text" class="form-control" placeholder="Generate Link">
+                    <input type="text" class="form-control" id="txt_CCC" placeholder="Generate Link">
                 </div>
             </div>
         </div>
@@ -913,15 +914,15 @@
             type: 'post',
             dataType: 'json',
             data: JSON.stringify({
-                Option: 8,
+                Option: 21,
                 SP: "[dbo].[SP_SHOW_DDL]"
             }),
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 $('#DepartemenPelapor_DDL').empty();
                 $.each(JSON.parse(data), function (key, entry) {
-                    $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
-                    $('#DepartemenPelapor_CAPA').append($('<option></option>').attr('value', entry.SubDept).text(entry.SubDept));
+                    $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.Org_Group_Name).text(entry.Org_Group_Name));
+                    $('#DepartemenPelapor_CAPA').append($('<option></option>').attr('value', entry.Org_Group_Name).text(entry.Org_Group_Name));
 
                 })
             },
@@ -994,7 +995,59 @@
                 alert(JSON.stringify(ex));
             }
         });
+
+        $.ajax({
+            url: 'DynamicController?spname=[dbo].[SP_SHOW_DDL]',
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify({
+                Model: {
+                    Option: 18
+                }
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#Kode_CAPA').empty();
+                $('#Kode_CAPA').append('<option disabled selected hidden class="dropdown-header">Pilih</option>');
+                $.each(JSON.parse(data), function (key, entry) {
+                    $('#Kode_CAPA').append($('<option></option>').attr('value', entry.Code).text(entry.Code_Desc));
+                })
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
+        $.ajax({
+            url: 'DynamicController?spname=[dbo].[SP_SHOW_ADDABLE_DEVIATION]',
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify({
+                Model: {
+                    Option: 6,
+                    NoCAPA: $('#QS_NoCAPA').val()
+                }
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var result = JSON.parse(data);
+                if (result[0].TRIGGER_CAPA  == "DEVIATION") {
+                    $('#Linked_Deviation').prop('hidden', false);
+                } else if (result[0].TRIGGER_CAPA  == "CCC") {
+                    $('#Linked_CCC').prop('hidden', false);
+                } else if (result[0].TRIGGER_CAPA == "CAPA") {
+                    $('#Linked_CAPA').prop('hidden', false);
+                }
+                $('#Trigger_CAPA').val(result[0].TRIGGER_CAPA);
+                $('#Trigger_CAPA').select2();
+                $('#Trigger_CAPA').attr("disabled", true);
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
     }
+
     function AddDepartemen() {
         var departemen = $('#Departemen_DDL').val();
         if (departemen.length > 0) {

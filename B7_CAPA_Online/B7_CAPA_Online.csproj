@@ -5567,7 +5567,6 @@
     <Content Include="Views\Pelaksana\PelaksanaCAPAPerubahan.cshtml" />
     <Content Include="Views\AtasanPelaksana\AtasanPelaksanaApprovalPerubahanTindakan.cshtml" />
     <Content Include="Views\Shared\CancelCAPA.cshtml" />
-    <Content Include="Views\Koordinator\PenilaianEfektivitas.cshtml" />
     <Content Include="Views\Evaluator\ApprovalPerubahanEvaluator.cshtml" />
     <Content Include="Views\AtasanPelaksana\AtasanPelaksanaPenambahanTindakan.cshtml" />
     <Content Include="Views\AtasanPelaksana\AtasanPelaksanaPembatalanTindakan.cshtml" />
@@ -5598,6 +5597,7 @@
     <Content Include="Views\Koordinator\PenentuanTindakanPerbaikan.cshtml" />
     <Content Include="Views\Koordinator\SubmitCARPAR.cshtml" />
     <Content Include="Views\ReportCAPA\Reporting.cshtml" />
+    <Content Include="Views\Koordinator\PenilaianEfektivitas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
