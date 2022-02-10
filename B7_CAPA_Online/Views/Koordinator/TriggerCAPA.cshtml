@@ -4,7 +4,7 @@
     @@media (min-width: 768px) {
         .modal-xl {
             width: 900%;
-            max-width: 1350px;
+            max-width: 1400px;
         }
     }
 </style>
@@ -59,10 +59,13 @@
                                 <tr>
                                     <th>Action</th>
                                     <th>No CCC</th>
-                                    <th>Nama Pelanggan</th>
-                                    <th>Jenis Kategori</th>
-                                    <th>Jenis Keluhan</th>
-                                    <th>Deskripsi Singkat</th>
+                                    <th>Tipe</th>
+                                    <th>Nama Produk</th>
+                                    <th>Batch</th>
+                                    <th>Keluhan</th>
+                                    <th>Site</th>
+                                    <th>Kategori</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -194,7 +197,7 @@
                     <div class="form-group col-md-6">
                         <button type="button" class="btn btn-primary" id="btn_Search_CAPA">Search</button>
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-md-8">
                         <table id="tblCAPA" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
@@ -671,9 +674,12 @@
                                 "defaultContent": "<input class='selected' type='checkbox' name='type' onchange=''>"
                             },
                             { "data": "No_CCC" },
-                            { "data": "Nama_Plgn" },
-                            { "data": "Kategori" },
+                            { "data": "Jenis_Keluhan" },
+                            { "data": "Nama_Produk" },
+                            { "data": "No_batch" },
                             { "data": "Keluhan_Plgn" },
+                            { "data": "PlantSC" },
+                            { "data": "Kategori" },
                             { "data": "StatusCCC" }
                         ],
                         "order": [[1, 'asc']],
