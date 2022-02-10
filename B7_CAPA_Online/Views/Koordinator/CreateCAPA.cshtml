@@ -8,6 +8,7 @@
 
 <link href="~/Content/Scripts/plugins/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
+<link href="~/Content/Scripts/plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css" rel="stylesheet" />
 
 
 <style>
@@ -143,7 +144,7 @@
                                     <tr>
                                         <th>Action</th>
                                         <th>No CCC</th>
-                                        <th>Nama Pelanggan</th>
+                                        @*<th>Nama Pelanggan</th>*@
                                         <th>Jenis Kategori</th>
                                         <th>Jenis Keluhan</th>
                                         <th>Deskripsi Singkat</th>
@@ -563,7 +564,7 @@
                                         <label class="m-t-20">Penyimpangan Terkait</label>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
-                                                <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_Deviation">Browse</button>
+                                                <button class="btn btn-outline-dark" type="button" id="btn_Deviation" data-toggle="modal" data-target="#link_Deviation">Browse</button>
                                             </div>
                                             <input type="text" class="form-control" id="TxtDeviation" name="TxtDeviation">
                                             <input type="text" class="form-control" name="PenyimpanganTerkait" id="PenyimpanganTerkait" value="" hidden>
@@ -602,7 +603,7 @@
                                         <label class="m-t-20">No CAPA Terkait</label>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
-                                                <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#link_NoCAPATerkait">Browse</button>
+                                                <button class="btn btn-outline-dark" type="button" id="btn_NoCAPATerkait" data-toggle="modal" data-target="#link_NoCAPATerkait">Browse</button>
                                             </div>
                                             <input type="text" class="form-control" id="TxtNoCAPATerkait" name="TxtNoCAPATerkait">
                                             <input type="text" class="form-control" name="No_CAPA_Terkait" id="No_CAPA_Terkait" value="" hidden>
@@ -624,7 +625,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="row form-group-sm mb-2">
+                                <div class="row form-group-sm mb-2 attachments">
                                     <div class="col-md-6">
                                         <label class="m-t-20">Lampiran Terkait</label>
                                         <div class="input-group mb-3">
@@ -674,7 +675,7 @@
                                 <div class="row form-group-sm mb-2" id="Div_KataKunci" hidden>
                                     <div class="col-md-6">
                                         <label class="m-t-20">Kata Kunci</label>
-                                        <input class="form-control form-control-sm" id="TxtKataKunci" name="KataKunci" />
+                                        <input class="form-control tags" id="TxtKataKunci" name="KataKunci" data-role="tagsinput" />
                                         @Html.HiddenFor(m => m.KataKunci)
                                     </div>
                                 </div>
@@ -798,9 +799,14 @@
 <script src="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.js" defer></script>
 <script src="~/Content/Scripts/plugins/datatables/jquery.dataTables.min.js" defer></script>
 <script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>
+<script src="~/Content/Scripts/plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.min.js" defer></script>
 
 <script>
     $(document).ready(function () {
+        $('.tags').tagsinput({
+            maxTags: 4
+        });
+
         //variable data untuk menampung data deviation dan ccc
         var data = [];
         $('#input_Requestor').val('@Request.RequestContext.HttpContext.Session["FullName"]');
@@ -811,6 +817,7 @@
         $('#Departemen_DDL').select2().append();
 
         $('#Trigger_CAPA').change(function () {
+            $('.attachments').prop("hidden", false);
             clearHidden();
             $('#Table_Penyimpangan').prop("hidden", true);
             data = [];
@@ -823,10 +830,13 @@
 
             if ($('#Trigger_CAPA').val() == "CAPA") {
                 $('#Linked_NoCAPATerkait').prop('hidden', false);
+                $('.attachments').prop("hidden", true);
             } else if ($('#Trigger_CAPA').val() == "CCC") {
                 $('#Linked_CCC').prop('hidden', false);
+                $('.attachments').prop("hidden", true);
             } else if ($('#Trigger_CAPA').val() == "DEVIATION"){
                 $('#Linked_Deviation').prop('hidden', false);
+                $('.attachments').prop("hidden", true);
             }
         });
 
@@ -868,11 +878,12 @@
                 }),
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
+                    //console.log(data);
                     resetTable(function _callback() {
                         $('#Departemen_DDL').empty();
                         $('#Departemen_DDL').append('<option disabled selected hidden class="dropdown-header">*Pilih*</option>');
                         $.each(JSON.parse(data), function (key, entry) {
-                            $('#Departemen_DDL').append($('<option></option>').attr('value', entry.SubDept).text(entry.SubDept));
+                            $('#Departemen_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
                             $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.Dept).text(entry.Dept));
 
                         })
@@ -993,9 +1004,9 @@
                             });
                         });
                     }
-                    if ($('#PIC_DDL').val() == null) {
-                        $('#PIC_DDL').append($('<option></option>').attr('value', '').text('None'));
-                    }
+                    //if ($('#PIC_DDL').val() == null) {
+                    //    $('#PIC_DDL').append($('<option></option>').attr('value', '').text('None'));
+                    //}
 
                     $('#PIC_DDL').select2();
                 },
@@ -1004,6 +1015,16 @@
                 }
             });
             //_callback();
+        });
+
+        //Browse button Deviation
+        $('#btn_Deviation').click(function () {
+            GetDeptPenyimpangan();
+        });
+
+        //Browse button No CAPA Terkait
+        $('#link_NoCAPATerkait').click(function () {
+            GetDeptNoCAPATerkait();
         });
 
         // Button search isi lampiran Deviation yang menyimpang.
@@ -1205,7 +1226,7 @@
                                 "defaultContent": "<input class='selected' type='checkbox' name='type' onchange=''>"
                             },
                             { "data": "No_CCC" },
-                            { "data": "Nama_Plgn" },
+                            //{ "data": "Nama_Plgn" },
                             { "data": "Kategori" },
                             { "data": "Keluhan_Plgn" },
                             { "data": "StatusCCC" }
@@ -1222,6 +1243,11 @@
                                 "className": "text-center",
                                 "width": "5%"
                             },
+                            //{
+                            //    "targets": 2,
+                            //    "className": "text-center",
+                            //    "width": "6%"
+                            //},
                             {
                                 "targets": 2,
                                 "className": "text-center",
@@ -1230,15 +1256,10 @@
                             {
                                 "targets": 3,
                                 "className": "text-center",
-                                "width": "6%"
-                            },
-                            {
-                                "targets": 4,
-                                "className": "text-center",
                                 "width": "4%"
                             },
                             {
-                                "targets": 5,
+                                "targets": 4,
                                 "className": "text-left",
                                 "width": "15%"
                             }
@@ -1383,7 +1404,7 @@
             if ($(this).prop('checked') == true) {
                 var columns = $(this).closest('tr');
                 var id = {};
-                id.NO_CAPA = columns.find('td:eq(1)').text();
+                id.PENYIMPANGAN_ID = columns.find('td:eq(1)').text();
                 id.NAMA_PIC = columns.find('td:eq(2)').text();
                 id.JENIS_KATEGORI = columns.find('td:eq(3)').text();
                 id.AREA_PIC = columns.find('td:eq(4)').text();
@@ -1416,7 +1437,7 @@
                 "scrollCollapse": true,
                 "columns": [
                     {
-                        "data": "NO_CAPA",
+                        "data": "PENYIMPANGAN_ID",
                         "title": "No CAPA"
                     },
                     {
@@ -1442,6 +1463,7 @@
                 ],
                 "order": [[1, 'asc']]
             });
+            //console.log(data)
         });
 
         requestPage();
@@ -1483,9 +1505,17 @@
 
     function validateInput() {
         var tableContent = (document.getElementById("Table_Departemen").rows.length > 1) ? (true) : (false);
+
+        var trigger = $("#Trigger_CAPA").val();
+
+        var isAttachment = true;
+
+        if (trigger == "DEVIATION" || trigger == "CCC" || trigger == "CAPA")
+            isAttachment = false;
+
         data = {
-            TriggerCAPA: $("#Trigger_CAPA").val(),
-            LampiranTerkait: $("#TxtFileInput").val(),
+            TriggerCAPA: trigger,
+            LampiranTerkait: isAttachment ? ($("#TxtFileInput").val()) : ("-"),
             Kategori: $("#Kategori_DDL").val(),
             Deskripsi: $("#TxtDeskripsi").val(),
             Lokasi: $("#Lokasi_DDL").val(),
@@ -1555,61 +1585,6 @@
             }
         });
 
-        function GetDeptNoCAPATerkait() {
-            $.ajax({
-                url: 'GetDepartments',
-                type: 'post',
-                dataType: 'json',
-                data: JSON.stringify({
-                    Option: 8,
-                    SP: "[dbo].[SP_SHOW_DDL]"
-                }),
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    $('#DepartemenPelapor_DDL').empty();
-                    $.each(JSON.parse(data), function (key, entry) {
-                        //$('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
-                        $('#AreaPICCAPA_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
-
-                    })
-                },
-                error: function (ex) {
-                    alert(JSON.stringify(ex));
-                }
-            });
-        }
-       
-        function GetDeptPenyimpangan() {
-            $.ajax({
-                url: 'GetDepartments',
-                type: 'post',
-                dataType: 'json',
-                data: JSON.stringify({
-                    Option: 21,
-                    SP: "[dbo].[SP_SHOW_DDL]"
-                }),
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    console.log(data)
-                    $('#DepartemenPelapor_DDL').empty();
-                    $.each(JSON.parse(data), function (key, entry) {
-                        $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.Org_Group_Name).text(entry.Org_Group_Name));
-                        // $('#AreaPICCAPA_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
-
-                    })
-                },
-                error: function (ex) {
-                    alert(JSON.stringify(ex));
-                }
-            });
-        }
-
-        $.when(
-            GetDeptNoCAPATerkait()
-        ).done(
-            GetDeptPenyimpangan()
-        )
-       
 
         $.ajax({
             url: 'GetKategoriPenyimpangan',
@@ -1670,7 +1645,7 @@
                 $.each(JSON.parse(data), function (key, entry) {
                     $('#Kode_DDL').append($('<option></option>').attr('value', entry.Code).text(entry.Code_Desc));
                     $('#KodeCAPA_DDL').append($('<option></option>').attr('value', entry.Code).text(entry.Code_Desc));
-                })                
+                })
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -1679,10 +1654,11 @@
     }
 
     function AddDepartemen() {
-        var departemen = $('#Departemen_DDL').val();
+        var departemen = $('#Departemen_DDL :selected').text();
         if (departemen.length > 0) {
             dto = {
-                Departemen: departemen
+                Departemen: departemen,
+                SubDeptCode: $('#Departemen_DDL').val()
             }
 
             $.ajax({
@@ -1692,6 +1668,7 @@
                 data: JSON.stringify(dto),
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
+                    console.log(data);
                     $('#List_Departemen').prop('hidden', false);
                     $("#Tbl_Departemen").empty();
                     $("#AreaPIC_DDL").empty().prop('disabled', false);
@@ -1699,7 +1676,7 @@
                     $('#AreaPIC_DDL').append('<option disabled selected hidden class="dropdown-header">*Select Area PIC*</option>');
                     $.each(data, function (key, entry) {
                         $('#Tbl_Departemen').append($('<tr><td>' + entry.Departemen + '</td><td><button type="button" class="form-control-sm delete">Delete</button></td></tr>'));
-                        $('#AreaPIC_DDL').append($('<option></option>').attr('value', entry.Departemen).text(entry.Departemen));
+                        $('#AreaPIC_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.Departemen));
                         getTableRow();
                     })
                     //$('#AreaPIC_DDL').append($('<option></option>').attr('value', 'Others').text('Others'));
@@ -1871,6 +1848,7 @@
 
                     $('#link_CCC').modal('hide');
                     $('#link_Deviation').modal('hide');
+                    $('#link_NoCAPATerkait').modal('hide');
 
                     $.each(data[0].FILELIST, function (key, value) {
                         $('#Tbl_Lampiran').append($('<tr><td><a href="' + value + '" ><span style="color:black;">' + data[0].FILE_NAME[key] + '</span></a></td></tr>'))
@@ -1938,6 +1916,55 @@
                 for (var code of val) {
                     $('#Kategori_DDL').append(new Option(code.DDL_DESCRIPTION, code.DDL_CODE));
                 }
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetDeptNoCAPATerkait() {
+        $.ajax({
+            url: 'GetDepartments',
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify({
+                Option: 8,
+                SP: "[dbo].[SP_SHOW_DDL]"
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#DepartemenPelapor_DDL').empty();
+                $.each(JSON.parse(data), function (key, entry) {
+                    //$('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
+                    $('#AreaPICCAPA_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
+
+                })
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetDeptPenyimpangan() {
+        $.ajax({
+            url: 'GetDepartments',
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify({
+                Option: 21,
+                SP: "[dbo].[SP_SHOW_DDL]"
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                //console.log(data)
+                $('#DepartemenPelapor_DDL').empty();
+                $.each(JSON.parse(data), function (key, entry) {
+                    $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.Org_Group_Name).text(entry.Org_Group_Name));
+                    // $('#AreaPICCAPA_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
+
+                })
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));

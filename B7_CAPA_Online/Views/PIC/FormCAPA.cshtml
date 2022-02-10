@@ -347,8 +347,10 @@
 
                 <div class="card" id="Div_RejectReason">
                     <div class="card-body">
-                        <h4 class="card-title">Reject Reason</h4>
-                        <label class="m-t-20" id="TxtRejectReason" readonly></label>
+                        <div class="form-group mb-2 col-sm-4">
+                            <h4 class="card-title">Reject Reason</h4>
+                            <textarea class="m-t-20 form-control " id="TxtRejectReason" readonly></textarea>
+                        </div>
                     </div>
                 </div>
 
@@ -639,7 +641,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div id="TblTindakanPencegahan">                            
+                        <div id="TblTindakanPencegahan">
                             @Html.Partial("TindakanPencegahanPV")
                         </div>
                     </div>
@@ -693,7 +695,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="Tbl_PRCA">
-                                    <tr>
+                                    @*<tr>
                                         <td>Tindakan</td>
                                         <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
                                         <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
@@ -766,7 +768,7 @@
                                         <td>Due Date</td>
                                         <td>Lainnya</td>
                                         <td><button class="form-control-sm">Delete</button></td>
-                                    </tr>
+                                    </tr>*@
                                 </tbody>
                             </table>
                         </div>
@@ -846,7 +848,7 @@
                 if (!hide) {
                     retrieveData();
                     retrieveData2();
-                }       
+                }
 
                 isHide = true;
             },
@@ -1180,7 +1182,7 @@
                     $('#btn_AddPencegahan').click(function () {
                         countAdd++;
                         if (countAdd > 1) {
-                            return;
+                            return false;
                         } else {
                             var dto = {};
                             var kategori = "Pencegahan";
@@ -1411,6 +1413,7 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
+                console.log(data);
                 $('#DepartemenPerbaikan_DDL').empty();
                 $('#DepartemenPencegahan_DDL').empty();
                 $('#DepartemenPerbaikan_DDL').append(new Option('*Pilih*', '-'));
@@ -1468,6 +1471,7 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
+                console.log(data);
                 $('#NamaPersonil' + kategori + '_DDL').empty();
                 $('#NamaPersonil' + kategori + '_DDL').append(new Option("*Pilih*", '-'));
                 $.each(JSON.parse(data), function (key, value) {
@@ -1782,43 +1786,8 @@
     }
 
     $(document).ready(function () {
-        GetAllRoot();
-        var a = function () {
-            var defer = $.Deferred();
-
-            checkStatusCAPA();                       
-
-            setTimeout(function () {
-                defer.resolve();
-            }, 500);
-
-            return defer;
-        }
-             
-        var b = function () {
-            var defer = $.Deferred();
-           
-            if (isHide) {
-                $(function () {
-                    @*var html = '@html.partial("~/views/shared/tindakanpencegahanpv.cshtml")';*@
-                    //$('#TblTindakanPencegahan').     
-                });                
-                   
-                //$(function () {
-                //    $('#TblTindakanPerbaikan').load();
-                //});
-            }
-            
-            setTimeout(function () {
-                defer.resolve();
-            }, 500);
-
-            return defer;
-        };
-
-        a().then(b);
-
-        //checkStatusCAPA(); 
+        GetAllRoot();        
+        checkStatusCAPA();
         KajianResikoDDL();
         //HideDeleteButton();
         DeleteKajianResiko();
@@ -2319,7 +2288,7 @@
                     }
                 }),
                 contentType: 'application/json; charset=utf-8',
-                success: function (data) {                    
+                success: function (data) {
                     isValid = JSON.parse(data)[0].IS_VALID;
                     if (isValid) {
                         $.ajax({
@@ -2330,7 +2299,7 @@
                                 Model: {
                                     NO_CAPA: $('#input_NoCAPA').val(),
                                     Option: 12,
-                                    Create_By: $('#input_Requestor_NIK').val()                                   
+                                    Create_By: $('#input_Requestor_NIK').val()
                                 }
                             }),
                             contentType: 'application/json; charset=utf-8',

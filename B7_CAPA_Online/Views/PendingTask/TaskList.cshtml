@@ -212,7 +212,7 @@
             alert(dataRow.STATUS_ID);
             window.open("/Koordinator/ApprovalKoordinator2?NoCAPA=" + dataRow.NO_CAPA + "&StatsID=" + dataRow.STATUS_ID);
         } else if (dataRow.STATUS_ID === 5) {
-
+            window.open("/Evaluator/ReviewCAPA?NoCAPA=" + dataRow.NO_CAPA + "&StatsID=" + dataRow.STATUS_ID);
         } else if (dataRow.STATUS_ID === 6) {
             //From CAPA
             /*if (dataRow.pending == NIK) {*/
