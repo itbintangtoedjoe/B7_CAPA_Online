@@ -1039,10 +1039,13 @@
                 var result = JSON.parse(data);
                 if (result[0].TRIGGER_CAPA  == "DEVIATION") {
                     $('#Linked_Deviation').prop('hidden', false);
+                    $('#Lampiran').prop('hidden', true);
                 } else if (result[0].TRIGGER_CAPA  == "CCC") {
                     $('#Linked_CCC').prop('hidden', false);
+                    $('#Lampiran').prop('hidden', true);
                 } else if (result[0].TRIGGER_CAPA == "CAPA") {
                     $('#Linked_CAPA').prop('hidden', false);
+                    $('#Lampiran').prop('hidden', true);
                 }
                 $('#Trigger_CAPA').val(result[0].TRIGGER_CAPA);
                 $('#Trigger_CAPA').select2();

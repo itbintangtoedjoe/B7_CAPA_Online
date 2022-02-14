@@ -361,9 +361,8 @@
         $('#Tahun_DDL').select2();
         $('#AreaPIC_DDL').select2();
         $('#PIC_DDL').select2();
-        GetAddedCCC();
         GetAddedDeviation();
-        GetLampiran();
+        GetAddedCCC();
         $('input[name="Devi_Radio"]').change(function () {
             if ($('input[name="Devi_Radio"]:checked').val() == 'Yes') {
                 chckboxstatus[0] = "1";
@@ -826,6 +825,7 @@
                     }
                     else
                     {
+                      $('input[name="Devi_Radio"]').attr("disabled", true);
                       document.getElementById("Devi_No").checked = true;
                     }
 
@@ -836,6 +836,7 @@
                     }
                     else
                     {
+                        $('input[name="CCC_Radio"]').attr("disabled", true);
                         document.getElementById("CCC_No").checked = true;
                     }
                     if ($('#Tabel_File').DataTable().data().count() > 0) {
@@ -846,6 +847,7 @@
                     }
                     else
                     {
+                        $('input[name="File_Radio"]').attr("disabled", true);
                         document.getElementById("File_No").checked = true;
                     }
                     checkStat();
@@ -933,6 +935,7 @@
                 $('#divLoading').attr("hidden", true);
             }
         });
+        GetLampiran();
     }
 
     function getDDL() {
