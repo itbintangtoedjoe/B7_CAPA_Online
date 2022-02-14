@@ -23,7 +23,7 @@ namespace B7_CAPA_Online.Models
         public string Create_By { get; set; }
         public string Email { get; set; }
         //25/10/2021
-        public string VDRUsername { get; set; }
+        public string UserSupVDRID { get; set; }
         public int RecordID { get; set; }
         public string Type { get; set; }
     }

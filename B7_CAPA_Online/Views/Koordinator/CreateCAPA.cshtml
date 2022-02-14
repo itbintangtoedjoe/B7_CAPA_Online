@@ -755,8 +755,8 @@
                                         <label class="m-t-40">PIC</label>
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" id="TxtPICVendor" name="TxtPICVendor" readonly>
-                                            <input type="text" class="form-control" id="TxtVendorUsername" name="VDRUsername" hidden>
-                                            @Html.HiddenFor(m => m.VDRUsername)
+                                            <input type="text" class="form-control" id="TxtVendorSupID" name="UserSupVDRID">
+                                            @Html.HiddenFor(m => m.UserSupVDRID)
                                         </div>
                                     </div>
                                 </div>
@@ -996,9 +996,11 @@
                             var PIC_Name = $('#PIC_DDL').val();
                             $.each(JSON.parse(data), function (key, entry) {
                                 if (PIC_Name == entry.UserVDRName) {
+                                    console.log(entry);
                                     $('#TxtEmailVendor').val(entry.email);
                                     $('#TxtPICVendor').val(entry.UserVDRName);
-                                    $('#TxtVendorUsername').val(entry.UserName);
+                                    $('#TxtVendorSupID').val(entry.SuperiorID);
+                                    $('#PIC_ID').val(entry.UserID);
                                     return false;
                                 }
                             });
