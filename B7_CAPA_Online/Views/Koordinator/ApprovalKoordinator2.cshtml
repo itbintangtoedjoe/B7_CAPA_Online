@@ -135,12 +135,10 @@
             </div>
         </div>
         @Html.Partial("TriggerCAPA")
-
-
         <input type="text"  id="QS_NoCAPA" value="@ViewBag.NoCAPA" hidden />
         <input type="text" id="QS_Status" value="@ViewBag.StatsID" hidden />
     </div>
-
+        
 
 </div>
 <script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
@@ -492,7 +490,6 @@
     function SubmitEvaluator() {
         var dictlist = {
             NoCAPA: $('#QS_NoCAPA').val(),
-            Creator: nik,
             Option: 8,
         }
         var dto1 = {
