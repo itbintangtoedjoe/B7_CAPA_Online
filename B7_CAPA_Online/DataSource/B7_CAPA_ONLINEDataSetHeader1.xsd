@@ -35,6 +35,8 @@
               <Mapping SourceColumn="KATEGORI_CAPA" DataSetColumn="KATEGORI_CAPA" />
               <Mapping SourceColumn="Penyimpangan" DataSetColumn="Penyimpangan" />
               <Mapping SourceColumn="BagianTerkait" DataSetColumn="BagianTerkait" />
+              <Mapping SourceColumn="KODE_CAPA" DataSetColumn="KODE_CAPA" />
+              <Mapping SourceColumn="KATA_KUNCI" DataSetColumn="KATA_KUNCI" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -78,10 +80,10 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="LokasiRequestor" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnLokasiRequestor" msprop:Generator_ColumnPropNameInRow="LokasiRequestor" msprop:Generator_ColumnPropNameInTable="LokasiRequestorColumn" msprop:Generator_UserColumnName="LokasiRequestor" minOccurs="0">
+              <xs:element name="LokasiRequestor" msprop:Generator_ColumnVarNameInTable="columnLokasiRequestor" msprop:Generator_ColumnPropNameInRow="LokasiRequestor" msprop:Generator_ColumnPropNameInTable="LokasiRequestorColumn" msprop:Generator_UserColumnName="LokasiRequestor" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="100" />
+                    <xs:maxLength value="50" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
@@ -131,6 +133,20 @@
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="KODE_CAPA" msprop:Generator_ColumnVarNameInTable="columnKODE_CAPA" msprop:Generator_ColumnPropNameInRow="KODE_CAPA" msprop:Generator_ColumnPropNameInTable="KODE_CAPAColumn" msprop:Generator_UserColumnName="KODE_CAPA" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="KATA_KUNCI" msprop:Generator_ColumnVarNameInTable="columnKATA_KUNCI" msprop:Generator_ColumnPropNameInRow="KATA_KUNCI" msprop:Generator_ColumnPropNameInTable="KATA_KUNCIColumn" msprop:Generator_UserColumnName="KATA_KUNCI" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
