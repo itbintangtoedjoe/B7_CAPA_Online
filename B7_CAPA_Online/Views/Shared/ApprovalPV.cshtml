@@ -92,7 +92,7 @@
                     Create_By: '@Request.RequestContext.HttpContext.Session["NIK"]',
                     CurrentStatusID: CurrentStatsID,
                     Status: StatusApproval,
-                    Reject_Reason: (StatusApproval == 'Approve') ? ('-') : ($('#txtRejectReason').val()),
+                    Reject_Reason: (StatusApproval == 'Approve') ? ('-') : ($('#txt' + StatusApproval + 'Reason').val()),
                     Option: 1
                 }
             }),

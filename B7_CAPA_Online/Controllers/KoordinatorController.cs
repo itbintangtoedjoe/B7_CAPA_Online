@@ -580,7 +580,12 @@ namespace B7_CAPA_Online.Controllers
                 for (int i = 0; i < values.Length; i++)
                 {
                     values[i] = properties[i].GetValue(item);
-                }
+                    //if (values[i].ToString().Contains("&amp;"))
+                    //{
+                    //    values[i].ToString().Replace("&amp;", "&");
+                    //}
+                }                
+                    
                 dt.Rows.Add(values);
             }
             return dt;

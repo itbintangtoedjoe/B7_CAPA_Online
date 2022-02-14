@@ -12,6 +12,7 @@ namespace B7_CAPA_Online.Models
     {
         public string Departemen { get; set; }
         public string Lokasi { get; set; }
+        public string SubDeptCode { get; set; }
     }
 
     partial class ListDepartemen

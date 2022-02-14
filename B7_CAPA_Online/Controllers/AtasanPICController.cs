@@ -73,13 +73,15 @@ namespace B7_CAPA_Online.Controllers
                     CreateBy = item.Value<string>("Requestor")
                 });
             }
-
-            if(list[0].NO_CAPA != null)
+            string values = Param.Model["Option"].ToString();
+            if (values != "7" && values != "8")
             {
-                EmailSender emailSender = new EmailSender();
-                foreach (var value in list)
+                if (list[0].NO_CAPA != null)
                 {
-                    emailSender.SendEmail(new Dictionary<string, object> {
+                    EmailSender emailSender = new EmailSender();
+                    foreach (var value in list)
+                    {
+                        emailSender.SendEmail(new Dictionary<string, object> {
                         {"Nama_Aplikasi", "CAPA" }, // ini hardcode 
                         {"Kategori", "PICReminder" }, // ini hardcode
                         {"KategoriCAPA", value.KategoriCAPA }, // dari list diatas
@@ -92,7 +94,8 @@ namespace B7_CAPA_Online.Controllers
                         {"CreateBy", value.CreateBy}, // ini dari list diatas
                         {"DeskripsiMasalah", value.DeskripsiMasalah } // ini dari list diatas
                     });
-                }              
+                    }
+                }
             }           
             return Json(Recipient);
         }
