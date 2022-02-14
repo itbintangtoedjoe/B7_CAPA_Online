@@ -147,16 +147,19 @@
     });
     function Filter() {
         var dictlist = {
-            Status: $('#Status').val(),
             Tahun: $('#Tahun').val(),
             Bulan: $('#Bulan').val(),
             Lokasi: $('#Lokasi').val(),
             Departemen: $('#Departemen').val(),
-            Kode: $('#Kode_CAPA').val(),
             Kategori: $('#Kategori').val(),
             Option: "Filter Leadtime",
-
         }
+        console.log($('#Tahun').val());
+        console.log($('#Bulan').val());
+        console.log($('#Lokasi').val());
+        console.log($('#Departemen').val());
+        console.log($('#Kategori').val());
+
         var dto1 = {
             Model: dictlist
         }
