@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="B7_CAPA_ONLINEDataSet">
@@ -555,6 +555,8 @@
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
+  <ReportSections>
+    <ReportSection>
       <Body>
         <ReportItems>
           <Rectangle Name="Rectangle1">
@@ -562,10 +564,10 @@
               <Image Name="Image4">
                 <Source>Embedded</Source>
                 <Value>ID2611073_c54316d092d44364b1f716d06aae4d2dremovebgpreview</Value>
-                <Sizing>FitProportional</Sizing>
-                <Left>4.51319cm</Left>
+                <Sizing>Fit</Sizing>
+                <Left>2.48024cm</Left>
                 <Height>2.135cm</Height>
-                <Width>2.77cm</Width>
+                <Width>5.16207cm</Width>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -1526,7 +1528,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Penyimpangan / Keluhan Pelanggan / No. QC terkait ATB/PMTMS/FKM                 :</Value>
+                    <Value>Penyimpangan / Keluhan Pelanggan                           :</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -9462,6 +9464,14 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
           </RightBorder>
         </Style>
       </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <EmbeddedImages>
     <EmbeddedImage Name="logo">
       <MIMEType>image/png</MIMEType>
