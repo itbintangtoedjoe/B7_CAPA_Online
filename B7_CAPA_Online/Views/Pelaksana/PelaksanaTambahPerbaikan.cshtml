@@ -60,7 +60,7 @@
                         <label class="m-t-40">--Please Select--<span style="color: red">*</span></label>
                         <div class="radio input-group">
                             <div class="col-sm-3">
-                                <label><input type="radio" value="Yes" name="TambahPerbaikan">&nbsp;&nbsp;Tambah Perbaikan Baru</label>
+                                <label><input type="radio" value="Yes" id="Yes" name="TambahPerbaikan">&nbsp;&nbsp;Tambah Perbaikan Baru</label>
                             </div>
                             <div class="col-sm-3">
                                 <label><input type="radio" value="No" name="TambahPerbaikan" checked>&nbsp;&nbsp;Tambah Pencegahan Existing</label>
@@ -287,6 +287,7 @@
     var departemen = '@Request.RequestContext.HttpContext.Session["Departemen"]';
     var email ='@Request.RequestContext.HttpContext.Session["Email"]';
     var superiorName = '@Request.RequestContext.HttpContext.Session["SuperiorName"]';
+    var tindakan = getQueryStrings()["Tindakan"];
     var dataPerbaikan;
     var newDataPerbaikan;
     var newKajianResiko = [];
@@ -326,9 +327,17 @@
         KajianDDLPencegahan();
         //$('#RootCause_KajianResikoDDL').prop("disabled", true);
         $('#tblHeaderTindakan').prop("hidden", true);
-        $('#btnback').click(function () {
-            window.location.href = '../Pelaksana/PelaksanaCAPA';
-        });
+        if (tindakan = 'Pencegahan')
+        {
+            $("input[name='TambahPerbaikan']").prop("disabled", true);
+            document.getElementById("Yes").checked = true;
+            $('#Div_TindakanPerbaikan').prop('hidden', false);
+            $('#PerbaikanExisting').prop('hidden', true);
+            $('#Div_Pencegahan').prop('hidden', true);
+            KajianDDLPerbaikanBaru();
+            TableKajianTambahTindakanBaru();
+            AreaLain();
+        }
         $("input[name='TambahPerbaikan']").change(function () {
             var tambahperbaikan = $('input[name="TambahPerbaikan"]:checked').val();
             if (tambahperbaikan == "Yes") {

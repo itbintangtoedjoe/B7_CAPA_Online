@@ -327,7 +327,7 @@
 
 
 <script>
-    var noCAPA = getQueryStrings()["NoCAPA"];
+    var QSNoCAPA = getQueryStrings()["NoCAPA"];
     function getQueryStrings() {
         var vars = [], hash;
         var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -381,7 +381,7 @@
                 // Mengecheck Checkbox apakah sudah di checklist
                 if ($("TD", row).eq(0).find("input[type='checkbox']").prop('checked')) {
                     var item = {};
-                    item["NoCapa"] = $('#QS_NoCAPA').val();
+                    item["NoCapa"] = QSNoCAPA;
                     item["PenyimpanganID"] = PenyimpanganID;
                     item["Description"] = "CCC";
                     item["Creator"] = creator;
@@ -425,7 +425,7 @@
                 // Mengecheck Checkbox apakah sudah di checklist
                 if ($("TD", row).eq(0).find("input[type='checkbox']").prop('checked')) {
                     var item = {};
-                    item["NoCapa"] = $('#QS_NoCAPA').val();
+                    item["NoCapa"] = QSNoCAPA;
                     item["PenyimpanganID"] = PenyimpanganID;
                     item["Description"] = "CAPA";
                     item["Creator"] = creator;
@@ -469,7 +469,7 @@
                 if ($("TD", row).eq(0).find("input[type='checkbox']").prop('checked')) {
                     var item = {};
 
-                    item["NoCapa"] = $('#QS_NoCAPA').val();
+                    item["NoCapa"] = QSNoCAPA;
                     item["PenyimpanganID"] = PenyimpanganID;
                     item["Description"] = "DEVIATION";
                     item["Creator"] = creator;
@@ -618,7 +618,7 @@
         $('#btn_Search_Deviation').click(function () {
             dto = {
                 Option: 1,
-                NoCapa: $('#QS_NoCAPA').val(),
+                NoCapa: QSNoCAPA,
                 Departemen: $('#DepartemenPelapor_DDL').val(),
                 JenisPenyimpangan: $('#JenisPenyimpangan_DDL').val(),
                 Kategori: $('#KategoriPenyimpangan_DDL').val(),
@@ -693,7 +693,7 @@
 
             dto = {
                 Option: 2,
-                NoCapa: $('#QS_NoCAPA').val(),
+                NoCapa: QSNoCAPA,
                 JenisKeluhan: $('#JenisKeluhan_DDL').val(),
                 Tahun: $('#Tahun_DDL').val(),
                 Plant: $('#Plant_DDL').val(),
@@ -770,7 +770,7 @@
 
             dto = {
                 Option: 5,
-                NoCapa: $('#QS_NoCAPA').val(),
+                NoCapa: QSNoCAPA,
                 Kode: $('#Kode_CAPA').val(),
                 Tahun: $('#Tahun_DDL_CAPA').val(),
                 Departemen: $('#DepartemenPelapor_CAPA').val(),
@@ -782,7 +782,7 @@
             console.log($('#DepartemenPelapor_CAPA').val());
             console.log($('#Tahun_DDL_CAPA').val());
             console.log($('#Kode_CAPA').val());
-            console.log($('#QS_NoCAPA').val());
+            console.log(QSNoCAPA);
             $.ajax({
                 type: "POST",
                 url: "ShowAddAbleDeviation",
@@ -1078,7 +1078,7 @@
             data: JSON.stringify({
                 Model: {
                     Option: 6,
-                    NoCAPA: $('#QS_NoCAPA').val()
+                    NoCAPA: QSNoCAPA
                 }
             }),
             contentType: 'application/json; charset=utf-8',
@@ -1116,14 +1116,14 @@
     }
 
     function GetPenyimpangan() {
-        $('#Tbl_Penyimpangan').prop("hidden", false);
+        $('#List_Penyimpangan').prop("hidden", false);
         $.ajax({
             url: 'DynamicController?spname=[dbo].[SP_SHOW_DDL]',
             type: 'post',
             dataType: 'json',
             data: JSON.stringify({
                 Model: {
-                    Option: 23,
+                    Option: 22,
                     NO_CAPA: noCAPA
                 }
             }),
@@ -1142,7 +1142,6 @@
                     "columns": [
                         { "data": "PENYIMPANGAN_ID" },
                     ],
-                    "order": [[1, 'asc']],
 
                 });
             },
@@ -1289,7 +1288,7 @@
                 //formData.append("NoCAPA", $('#txtNoCAPA').val());
             }
             $.ajax({
-                url: "InsertAttachment?NoCapa=" + $('#QS_NoCAPA').val() + "&spname=SP_Insert_Penyimpangan&Creator=&",
+                url: "InsertAttachment?NoCapa=" + QSNoCAPA + "&spname=SP_Insert_Penyimpangan&Creator=&",
                 type: "post",
                 data: formData,
                 dataType: 'json',
