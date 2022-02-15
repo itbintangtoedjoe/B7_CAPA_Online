@@ -37,6 +37,7 @@
               <Mapping SourceColumn="BagianTerkait" DataSetColumn="BagianTerkait" />
               <Mapping SourceColumn="KODE_CAPA" DataSetColumn="KODE_CAPA" />
               <Mapping SourceColumn="KATA_KUNCI" DataSetColumn="KATA_KUNCI" />
+              <Mapping SourceColumn="Vendor" DataSetColumn="Vendor" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -147,6 +148,13 @@
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Vendor" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnVendor" msprop:Generator_ColumnPropNameInRow="Vendor" msprop:Generator_ColumnPropNameInTable="VendorColumn" msprop:Generator_UserColumnName="Vendor" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>

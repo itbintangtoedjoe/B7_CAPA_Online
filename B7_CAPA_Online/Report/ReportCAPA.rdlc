@@ -552,6 +552,10 @@
           <DataField>KATA_KUNCI</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Vendor">
+          <DataField>Vendor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>B7_CAPA_ONLINEDataSetHeader1</rd:DataSetName>
@@ -928,7 +932,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>8.04125cm</Top>
             <Left>1.80441cm</Left>
-            <Height>0.6cm</Height>
+            <Height>0.94396cm</Height>
             <Width>3.00096cm</Width>
             <ZIndex>9</ZIndex>
             <Style>
@@ -949,7 +953,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value />
+                    <Value>=First(Fields!Vendor.Value, "DataSetHeader1")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -959,12 +963,13 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <rd:DefaultName>Textbox2</rd:DefaultName>
             <Top>8.04125cm</Top>
             <Left>5.49893cm</Left>
-            <Height>0.6cm</Height>
+            <Height>0.94396cm</Height>
             <Width>6.35744cm</Width>
             <ZIndex>10</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
+                <Color>LightGrey</Color>
+                <Style>Solid</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
@@ -1632,7 +1637,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
             <OmitBorderOnPageBreak>true</OmitBorderOnPageBreak>
-            <Top>20.19181cm</Top>
+            <Top>19.23931cm</Top>
             <Left>0.47616cm</Left>
             <Height>0.6798cm</Height>
             <Width>26.41747cm</Width>
@@ -1661,7 +1666,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox31</rd:DefaultName>
-            <Top>21.56603cm</Top>
+            <Top>20.61353cm</Top>
             <Left>0.58223cm</Left>
             <Height>0.6cm</Height>
             <Width>3.6641cm</Width>
@@ -1693,7 +1698,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox31</rd:DefaultName>
-            <Top>24.29124cm</Top>
+            <Top>23.33874cm</Top>
             <Left>0.5821cm</Left>
             <Height>0.6cm</Height>
             <Width>3.66412cm</Width>
@@ -1745,7 +1750,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
             <OmitBorderOnPageBreak>true</OmitBorderOnPageBreak>
-            <Top>27.35153cm</Top>
+            <Top>26.39903cm</Top>
             <Left>0.47616cm</Left>
             <Height>0.6798cm</Height>
             <Width>26.41747cm</Width>
@@ -1760,7 +1765,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
           <Rectangle Name="Rectangle7">
             <KeepTogether>true</KeepTogether>
             <OmitBorderOnPageBreak>true</OmitBorderOnPageBreak>
-            <Top>30.96718cm</Top>
+            <Top>30.01468cm</Top>
             <Left>0.47616cm</Left>
             <Height>0.6798cm</Height>
             <Width>26.41747cm</Width>
@@ -1775,7 +1780,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
           <Rectangle Name="Rectangle13">
             <KeepTogether>true</KeepTogether>
             <OmitBorderOnPageBreak>true</OmitBorderOnPageBreak>
-            <Top>49.02362cm</Top>
+            <Top>48.07112cm</Top>
             <Left>0.47616cm</Left>
             <Height>0.65082cm</Height>
             <Width>26.41747cm</Width>
@@ -1790,7 +1795,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
           <Rectangle Name="Rectangle15">
             <KeepTogether>true</KeepTogether>
             <OmitBorderOnPageBreak>true</OmitBorderOnPageBreak>
-            <Top>53.45212cm</Top>
+            <Top>52.49962cm</Top>
             <Left>0.47616cm</Left>
             <Height>0.65082cm</Height>
             <Width>26.41747cm</Width>
@@ -2106,7 +2111,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSetAnalisa</DataSetName>
-            <Top>22.34242cm</Top>
+            <Top>21.38992cm</Top>
             <Left>0.58223cm</Left>
             <Height>1.54396cm</Height>
             <Width>26.20761cm</Width>
@@ -2485,7 +2490,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSetRoot</DataSetName>
-            <Top>25.06763cm</Top>
+            <Top>24.11513cm</Top>
             <Left>0.58223cm</Left>
             <Height>1.57042cm</Height>
             <Width>26.2076cm</Width>
@@ -3194,7 +3199,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSetPerbaikan</DataSetName>
-            <Top>28.54965cm</Top>
+            <Top>27.59715cm</Top>
             <Left>0.58223cm</Left>
             <Height>1.86146cm</Height>
             <Width>25.99598cm</Width>
@@ -3971,7 +3976,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSetPencegahan</DataSetName>
-            <Top>31.82337cm</Top>
+            <Top>30.87087cm</Top>
             <Left>0.58223cm</Left>
             <Height>2.12655cm</Height>
             <Width>25.99597cm</Width>
@@ -3988,7 +3993,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             </PageBreak>
             <KeepTogether>true</KeepTogether>
             <OmitBorderOnPageBreak>true</OmitBorderOnPageBreak>
-            <Top>19.09725cm</Top>
+            <Top>18.14475cm</Top>
             <Left>11.93383cm</Left>
             <Height>0.48447cm</Height>
             <Width>3.70435cm</Width>
@@ -4004,7 +4009,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
             <KeepTogether>true</KeepTogether>
-            <Top>26.8409cm</Top>
+            <Top>25.8884cm</Top>
             <Left>7.10141cm</Left>
             <Height>0.36005cm</Height>
             <Width>12.81339cm</Width>
@@ -4020,7 +4025,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
             <KeepTogether>true</KeepTogether>
-            <Top>30.55222cm</Top>
+            <Top>29.59972cm</Top>
             <Left>6.99517cm</Left>
             <Height>0.36005cm</Height>
             <Width>13.03635cm</Width>
@@ -4036,7 +4041,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
             <KeepTogether>true</KeepTogether>
-            <Top>34.09103cm</Top>
+            <Top>33.13853cm</Top>
             <Left>6.99517cm</Left>
             <Height>0.36005cm</Height>
             <Width>13.03635cm</Width>
@@ -4052,7 +4057,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
             <KeepTogether>true</KeepTogether>
-            <Top>52.98372cm</Top>
+            <Top>52.03122cm</Top>
             <Left>7.30341cm</Left>
             <Height>0.36005cm</Height>
             <Width>14.11033cm</Width>
@@ -4937,7 +4942,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSetPelaksana</DataSetName>
-            <Top>50.24278cm</Top>
+            <Top>49.29028cm</Top>
             <Left>0.54783cm</Left>
             <Height>2.12604cm</Height>
             <Width>26.242cm</Width>
@@ -5441,7 +5446,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSetBukti</DataSetName>
-            <Top>54.76716cm</Top>
+            <Top>53.81466cm</Top>
             <Left>0.58223cm</Left>
             <Height>2.65521cm</Height>
             <Width>26.20763cm</Width>
@@ -5471,7 +5476,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>34.69829cm</Top>
+            <Top>33.74579cm</Top>
             <Left>0.47616cm</Left>
             <Height>0.61509cm</Height>
             <Width>26.41747cm</Width>
@@ -5506,7 +5511,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>40.97842cm</Top>
+            <Top>40.02592cm</Top>
             <Left>0.47616cm</Left>
             <Height>0.95905cm</Height>
             <Width>26.41747cm</Width>
@@ -5527,7 +5532,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
             <KeepTogether>true</KeepTogether>
-            <Top>48.48718cm</Top>
+            <Top>47.53468cm</Top>
             <Left>5.64288cm</Left>
             <Height>0.36005cm</Height>
             <Width>13.08503cm</Width>
@@ -7242,7 +7247,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <PageBreak>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
-            <Top>35.56889cm</Top>
+            <Top>34.61639cm</Top>
             <Left>0.54783cm</Left>
             <Height>5.01001cm</Height>
             <Width>26.24202cm</Width>
@@ -9310,7 +9315,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSetKajian</DataSetName>
-            <Top>42.19583cm</Top>
+            <Top>41.24333cm</Top>
             <Left>0.58223cm</Left>
             <Height>6.01541cm</Height>
             <Width>26.20766cm</Width>
@@ -9340,7 +9345,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>30.96718cm</Top>
+            <Top>30.01468cm</Top>
             <Left>8.56062cm</Left>
             <Height>0.60042cm</Height>
             <Width>10.46983cm</Width>
@@ -9387,7 +9392,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>49.07402cm</Top>
+            <Top>48.12152cm</Top>
             <Left>3.98771cm</Left>
             <Height>0.60042cm</Height>
             <Width>19.84982cm</Width>
@@ -9421,7 +9426,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>53.45212cm</Top>
+            <Top>52.49962cm</Top>
             <Left>5.09535cm</Left>
             <Height>0.60042cm</Height>
             <Width>17.11963cm</Width>

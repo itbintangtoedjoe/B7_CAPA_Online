@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace B7_CAPA_Online.DataSource {
+namespace B7_CAPA_Online {
     
     
     /// <summary>
@@ -309,6 +309,8 @@ namespace B7_CAPA_Online.DataSource {
             
             private global::System.Data.DataColumn columnKATA_KUNCI;
             
+            private global::System.Data.DataColumn columnVendor;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public SP_LOAD_REPORTDataTable() {
@@ -464,6 +466,14 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn VendorColumn {
+                get {
+                    return this.columnVendor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -499,7 +509,23 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_LOAD_REPORTRow AddSP_LOAD_REPORTRow(string NO_CAPA, System.DateTime CREATE_DATE, string Requestor, string AreaRequestor, string PIC_CAPA, string LokasiRequestor, string Superior, string AREA_PIC, string TRIGGER_CAPA, string Lampiran, string KATEGORI_CAPA, string Penyimpangan, string BagianTerkait, string KODE_CAPA, string KATA_KUNCI) {
+            public SP_LOAD_REPORTRow AddSP_LOAD_REPORTRow(
+                        string NO_CAPA, 
+                        System.DateTime CREATE_DATE, 
+                        string Requestor, 
+                        string AreaRequestor, 
+                        string PIC_CAPA, 
+                        string LokasiRequestor, 
+                        string Superior, 
+                        string AREA_PIC, 
+                        string TRIGGER_CAPA, 
+                        string Lampiran, 
+                        string KATEGORI_CAPA, 
+                        string Penyimpangan, 
+                        string BagianTerkait, 
+                        string KODE_CAPA, 
+                        string KATA_KUNCI, 
+                        string Vendor) {
                 SP_LOAD_REPORTRow rowSP_LOAD_REPORTRow = ((SP_LOAD_REPORTRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         NO_CAPA,
@@ -516,7 +542,8 @@ namespace B7_CAPA_Online.DataSource {
                         Penyimpangan,
                         BagianTerkait,
                         KODE_CAPA,
-                        KATA_KUNCI};
+                        KATA_KUNCI,
+                        Vendor};
                 rowSP_LOAD_REPORTRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSP_LOAD_REPORTRow);
                 return rowSP_LOAD_REPORTRow;
@@ -554,6 +581,7 @@ namespace B7_CAPA_Online.DataSource {
                 this.columnBagianTerkait = base.Columns["BagianTerkait"];
                 this.columnKODE_CAPA = base.Columns["KODE_CAPA"];
                 this.columnKATA_KUNCI = base.Columns["KATA_KUNCI"];
+                this.columnVendor = base.Columns["Vendor"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -589,6 +617,8 @@ namespace B7_CAPA_Online.DataSource {
                 base.Columns.Add(this.columnKODE_CAPA);
                 this.columnKATA_KUNCI = new global::System.Data.DataColumn("KATA_KUNCI", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnKATA_KUNCI);
+                this.columnVendor = new global::System.Data.DataColumn("Vendor", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnVendor);
                 this.columnNO_CAPA.MaxLength = 50;
                 this.columnRequestor.ReadOnly = true;
                 this.columnRequestor.MaxLength = 100;
@@ -609,6 +639,8 @@ namespace B7_CAPA_Online.DataSource {
                 this.columnBagianTerkait.MaxLength = 50;
                 this.columnKODE_CAPA.MaxLength = 50;
                 this.columnKATA_KUNCI.MaxLength = 100;
+                this.columnVendor.ReadOnly = true;
+                this.columnVendor.MaxLength = 255;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -991,6 +1023,22 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Vendor {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_LOAD_REPORT.VendorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Vendor\' in table \'SP_LOAD_REPORT\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_LOAD_REPORT.VendorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsNO_CAPANull() {
                 return this.IsNull(this.tableSP_LOAD_REPORT.NO_CAPAColumn);
             }
@@ -1168,6 +1216,18 @@ namespace B7_CAPA_Online.DataSource {
             public void SetKATA_KUNCINull() {
                 this[this.tableSP_LOAD_REPORT.KATA_KUNCIColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsVendorNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT.VendorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetVendorNull() {
+                this[this.tableSP_LOAD_REPORT.VendorColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -1205,7 +1265,7 @@ namespace B7_CAPA_Online.DataSource {
         }
     }
 }
-namespace B7_CAPA_Online.DataSource.B7_CAPA_ONLINEDataSetHeader1TableAdapters {
+namespace B7_CAPA_Online.B7_CAPA_ONLINEDataSetHeader1TableAdapters {
     
     
     /// <summary>
@@ -1344,6 +1404,7 @@ namespace B7_CAPA_Online.DataSource.B7_CAPA_ONLINEDataSetHeader1TableAdapters {
             tableMapping.ColumnMappings.Add("BagianTerkait", "BagianTerkait");
             tableMapping.ColumnMappings.Add("KODE_CAPA", "KODE_CAPA");
             tableMapping.ColumnMappings.Add("KATA_KUNCI", "KATA_KUNCI");
+            tableMapping.ColumnMappings.Add("Vendor", "Vendor");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
