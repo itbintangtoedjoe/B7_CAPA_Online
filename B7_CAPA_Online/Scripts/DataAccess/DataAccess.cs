@@ -67,7 +67,8 @@ namespace B7_CAPA_Online.Scripts.DataAccess
                                     PIC_ID = Model.PIC_ID,
                                     Create_By = Model.Create_By,
                                     KodeCAPA = Model.KodeCAPA,
-                                    KataKunci = Model.KataKunci
+                                    KataKunci = Model.KataKunci,
+                                    UserSupVDRID = Model.UserSupVDRID
 
                                 },
                                 commandType: CommandType.StoredProcedure).ToList();
