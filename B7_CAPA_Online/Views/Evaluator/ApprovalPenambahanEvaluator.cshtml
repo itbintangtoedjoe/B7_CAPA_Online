@@ -260,10 +260,10 @@
                                 if (evautama == 1 && row['Rentang'] == "") {
                                     return "<input type='button' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Add Rentang'style='background-color:green; margin-bottom:15px;'/>";
                                 }
-                                else if (row['Rentang'] != "" ) {
+                                else if (row['Rentang'] != "") {
                                     return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>";
                                 }
-                                else if(row['IsApproved'] == 1){
+                                else if (row['IsApproved'] == 1 && row['EMPID'] == nik) {
                                     return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                 }
                             }
@@ -278,6 +278,21 @@
                     ],
                     "order": [[1, 'asc']],
                 })
+
+                var result = JSON.parse(data);
+                for (var i = 0; i < result.length; i++)
+                {
+                    if (result[i].Rentang == "" && evautama == 0) {
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: 'Evaluator Utama Belum mengisi Rentang!',
+                            timer: 10000
+                        })
+                        window.location.href = '../PendingTask/TaskList'
+                    }
+                }
+
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -338,10 +353,19 @@
                             }
                         },
                         {
-                            "data": null,
-                            "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahan(this) value='Approve'style='background-color:green; '/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahan(this) value='Reject'style='background-color:red;'/>"
+                            "data": "Status_ID",
+                            "render": function (data, type, row, meta) {
+                                if (evautama == 1 && row['Rentang'] == "") {
+                                    return "<input type='button' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Add Rentang'style='background-color:green; margin-bottom:15px;'/>";
+                                }
+                                else if (row['Rentang'] != "" ) {
+                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahan(this) value='Approve'style='background-color:green; '/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahan(this) value='Reject'style='background-color:red;'/>"
+                                }
+                                else if (row['IsApproved'] == 1 && row['EMPID'] == nik) {
+                                    return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                                }
+                            }
                         }
-                       
                     ],
                     "columnDefs": [
                         {
@@ -353,7 +377,18 @@
                     "order": [[1, 'asc']],
 
                 });
-
+                var result = JSON.parse(data);
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i].Rentang == "" && evautama == 0) {
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: 'Evaluator Utama Belum mengisi Rentang!',
+                            timer: 10000
+                        })
+                        window.location.href = '../PendingTask/TaskList'
+                    }
+                }
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));

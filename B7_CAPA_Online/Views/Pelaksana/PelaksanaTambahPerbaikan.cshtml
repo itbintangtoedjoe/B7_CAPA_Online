@@ -765,7 +765,7 @@
             Model: dictlist
         }
         $.ajax({
-            url: '../Koordinator/DynamicController?spname=SP_SHOW_Tindakan_PV',
+            url: 'DynamicController?spname=SP_SHOW_Tindakan_PV',
             type: 'post',
             data: JSON.stringify(dto1),
             dataType: 'json',
@@ -859,6 +859,7 @@
                                     if (result.value) {
                                         GetTindakanPerbaikanPV();
                                         GetTindakanPencegahanPV();
+                                        KajianDDLPerbaikanBaru();
                                         retrieveData2();
                                     }
                                 });
@@ -912,6 +913,7 @@
                                 ).then((result) => {
                                     if (result.value) {
                                         GetTindakanPencegahanPV();
+                                        KajianDDLPerbaikanBaru();
                                     }
                                 });
                             }
@@ -967,6 +969,7 @@
                                     'success'
                                 )
                                 GetTindakanPencegahanExistingPV();
+                                KajianDDLPencegahan();
                             }
 
                         },
@@ -1227,7 +1230,7 @@
                                 Model: {
                                     NO_CAPA: noCAPA,
                                     Temp_Status: 10,
-                                    Tindakan: 'Penambahan Existing',
+                                    Tindakan: 'Penambahan Existing',    
                                     EmpID: nik
                                 }
                             }),
