@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="B7_CAPA_ONLINEDataSet">
@@ -196,62 +196,6 @@
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
         <rd:TableAdapterName>SP_LOAD_REPORT_VerifikasiTableAdapter</rd:TableAdapterName>
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="DataSetPelaksana">
-      <Query>
-        <DataSourceName>B7_CAPA_ONLINEDataSetPelaksana</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="Tindakan_Perbaikan">
-          <DataField>Tindakan_Perbaikan</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Pelaksana_Perbaikan">
-          <DataField>Pelaksana_Perbaikan</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="StatusPerbaikan">
-          <DataField>StatusPerbaikan</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="Tindakan_Pencegahan">
-          <DataField>Tindakan_Pencegahan</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PelaksanaPencegahan">
-          <DataField>PelaksanaPencegahan</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="StatusPencegahan">
-          <DataField>StatusPencegahan</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="Treatment">
-          <DataField>Treatment</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PIC">
-          <DataField>PIC</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="StatusTreatment">
-          <DataField>StatusTreatment</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="Koordinator">
-          <DataField>Koordinator</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>B7_CAPA_ONLINEDataSetPelaksana</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\bened\OneDrive\Desktop\Capa\B7_CAPA_Online\DataSource\B7_CAPA_ONLINEDataSetPelaksana.xsd</rd:SchemaPath>
-        <rd:TableName>SP_LOAD_REPORT_Pelaksana</rd:TableName>
-        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
-        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>SP_LOAD_REPORT_PelaksanaTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
     <DataSet Name="DataSetKajian">
@@ -566,7 +510,77 @@
         <rd:TableAdapterName>SP_LOAD_REPORTTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
+    <DataSet Name="DataSetPelaksana">
+      <Query>
+        <DataSourceName>B7_CAPA_ONLINEDataSetPelaksana</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Tindakan_Perbaikan">
+          <DataField>Tindakan_Perbaikan</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Pelaksana_Perbaikan">
+          <DataField>Pelaksana_Perbaikan</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="LampiranPerbaikan">
+          <DataField>LampiranPerbaikan</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="StatusPerbaikan">
+          <DataField>StatusPerbaikan</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Tindakan_Pencegahan">
+          <DataField>Tindakan_Pencegahan</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PelaksanaPencegahan">
+          <DataField>PelaksanaPencegahan</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="LampiranPencegahan">
+          <DataField>LampiranPencegahan</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="StatusPencegahan">
+          <DataField>StatusPencegahan</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Treatment">
+          <DataField>Treatment</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PIC">
+          <DataField>PIC</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="LampiranTreatment">
+          <DataField>LampiranTreatment</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="StatusTreatment">
+          <DataField>StatusTreatment</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Koordinator">
+          <DataField>Koordinator</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>B7_CAPA_ONLINEDataSetPelaksana</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\bened\OneDrive\Desktop\Capa\B7_CAPA_Online\B7_CAPA_ONLINEDataSetPelaksana.xsd</rd:SchemaPath>
+        <rd:TableName>SP_LOAD_REPORT_Pelaksana</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>SP_LOAD_REPORT_PelaksanaTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
   </DataSets>
+  <ReportSections>
+    <ReportSection>
       <Body>
         <ReportItems>
           <Rectangle Name="Rectangle1">
@@ -984,7 +998,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Area       :</Value>
+                    <Value>Area Requestor :</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -1051,7 +1065,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Superior :</Value>
+                    <Value>Superior   :</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -1185,7 +1199,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Area            :</Value>
+                    <Value>Area PIC      :</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -1539,7 +1553,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Penyimpangan / Keluhan Pelanggan                           :</Value>
+                    <Value>No Penyimpangan/ Keluhan Pelanggan/ No CAPA Terkait    :</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -2505,34 +2519,34 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.48017cm</Width>
+                  <Width>2.50134cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.80009cm</Width>
+                  <Width>4.82126cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.48017cm</Width>
+                  <Width>2.50134cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.26774cm</Width>
+                  <Width>4.28891cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.43437cm</Width>
+                  <Width>2.45554cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.48017cm</Width>
+                  <Width>2.50134cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.06348cm</Width>
+                  <Width>2.08465cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.07938cm</Width>
+                  <Width>0.10055cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>2.52117cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.41041cm</Width>
+                  <Width>2.43158cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -3202,7 +3216,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>27.59715cm</Top>
             <Left>0.58223cm</Left>
             <Height>1.86146cm</Height>
-            <Width>25.99598cm</Width>
+            <Width>26.20766cm</Width>
             <ZIndex>39</ZIndex>
             <Style>
               <Border>
@@ -3214,37 +3228,37 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.89767cm</Width>
+                  <Width>2.91691cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.89767cm</Width>
+                  <Width>2.91691cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.89767cm</Width>
+                  <Width>2.91691cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.89767cm</Width>
+                  <Width>2.91691cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.89767cm</Width>
+                  <Width>2.91691cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.69008cm</Width>
+                  <Width>2.70932cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.98806cm</Width>
+                  <Width>2.0073cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.83141cm</Width>
+                  <Width>1.85065cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.07938cm</Width>
+                  <Width>0.09862cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>2.51924cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.41869cm</Width>
+                  <Width>2.43793cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -3260,7 +3274,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Area Lain</Value>
+                                  <Value>Area / Proses Lain</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -3979,7 +3993,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>30.87087cm</Top>
             <Left>0.58223cm</Left>
             <Height>2.12655cm</Height>
-            <Width>25.99597cm</Width>
+            <Width>26.20766cm</Width>
             <ZIndex>40</ZIndex>
             <Style>
               <Border>
@@ -4072,43 +4086,52 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>3.0801cm</Width>
+                  <Width>1.76026cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.31341cm</Width>
+                  <Width>1.83988cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.10501cm</Width>
+                  <Width>2.21726cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.17812cm</Width>
+                  <Width>0.23931cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.38455cm</Width>
+                  <Width>1.95609cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.02039cm</Width>
+                  <Width>1.81765cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.13775cm</Width>
+                  <Width>1.46242cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.22181cm</Width>
+                  <Width>2.31917cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.69378cm</Width>
+                  <Width>0.10424cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.12502cm</Width>
+                  <Width>1.87587cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.1489cm</Width>
+                  <Width>1.90348cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.33136cm</Width>
+                  <Width>1.51979cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5018cm</Width>
+                  <Width>2.13735cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.12202cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.95163cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.92662cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -4166,6 +4189,38 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox62</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox75">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Lampiran Perbaikan</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox75</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -4307,6 +4362,38 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox78">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Lampiran Pencegahan</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox78</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox72">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -4418,6 +4505,38 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox67</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox81">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Lampiran Treatment</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox81</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -4596,6 +4715,38 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="LampiranPerbaikan">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!LampiranPerbaikan.Value</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>LampiranPerbaikan</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="StatusPerbaikan">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -4693,6 +4844,38 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>PelaksanaPencegahan</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="LampiranPencegahan">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!LampiranPencegahan.Value</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>LampiranPencegahan</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -4820,6 +5003,38 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="LampiranTreatment">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!LampiranTreatment.Value</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>LampiranTreatment</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="StatusTreatment">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -4906,19 +5121,22 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <TablixMembers>
                 <TablixMember />
                 <TablixMember />
-                <TablixMember>
-                  <Visibility>
-                    <Hidden>true</Hidden>
-                  </Visibility>
-                </TablixMember>
-                <TablixMember />
-                <TablixMember />
                 <TablixMember />
                 <TablixMember>
                   <Visibility>
                     <Hidden>true</Hidden>
                   </Visibility>
                 </TablixMember>
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember>
+                  <Visibility>
+                    <Hidden>true</Hidden>
+                  </Visibility>
+                </TablixMember>
+                <TablixMember />
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
@@ -4945,7 +5163,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>49.29028cm</Top>
             <Left>0.54783cm</Left>
             <Height>2.12604cm</Height>
-            <Width>26.242cm</Width>
+            <Width>26.15304cm</Width>
             <ZIndex>46</ZIndex>
             <Style>
               <Border>
@@ -9607,6 +9825,14 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
           </RightBorder>
         </Style>
       </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <EmbeddedImages>
     <EmbeddedImage Name="logo">
       <MIMEType>image/png</MIMEType>

@@ -24,12 +24,15 @@
             <Mappings>
               <Mapping SourceColumn="Tindakan_Perbaikan" DataSetColumn="Tindakan_Perbaikan" />
               <Mapping SourceColumn="Pelaksana_Perbaikan" DataSetColumn="Pelaksana_Perbaikan" />
+              <Mapping SourceColumn="LampiranPerbaikan" DataSetColumn="LampiranPerbaikan" />
               <Mapping SourceColumn="StatusPerbaikan" DataSetColumn="StatusPerbaikan" />
               <Mapping SourceColumn="Tindakan_Pencegahan" DataSetColumn="Tindakan_Pencegahan" />
               <Mapping SourceColumn="PelaksanaPencegahan" DataSetColumn="PelaksanaPencegahan" />
+              <Mapping SourceColumn="LampiranPencegahan" DataSetColumn="LampiranPencegahan" />
               <Mapping SourceColumn="StatusPencegahan" DataSetColumn="StatusPencegahan" />
               <Mapping SourceColumn="Treatment" DataSetColumn="Treatment" />
               <Mapping SourceColumn="PIC" DataSetColumn="PIC" />
+              <Mapping SourceColumn="LampiranTreatment" DataSetColumn="LampiranTreatment" />
               <Mapping SourceColumn="StatusTreatment" DataSetColumn="StatusTreatment" />
               <Mapping SourceColumn="Koordinator" DataSetColumn="Koordinator" />
             </Mappings>
@@ -60,6 +63,13 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="LampiranPerbaikan" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnLampiranPerbaikan" msprop:Generator_ColumnPropNameInRow="LampiranPerbaikan" msprop:Generator_ColumnPropNameInTable="LampiranPerbaikanColumn" msprop:Generator_UserColumnName="LampiranPerbaikan" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element name="StatusPerbaikan" msprop:Generator_ColumnVarNameInTable="columnStatusPerbaikan" msprop:Generator_ColumnPropNameInRow="StatusPerbaikan" msprop:Generator_ColumnPropNameInTable="StatusPerbaikanColumn" msprop:Generator_UserColumnName="StatusPerbaikan" type="xs:int" minOccurs="0" />
               <xs:element name="Tindakan_Pencegahan" msprop:Generator_ColumnVarNameInTable="columnTindakan_Pencegahan" msprop:Generator_ColumnPropNameInRow="Tindakan_Pencegahan" msprop:Generator_ColumnPropNameInTable="Tindakan_PencegahanColumn" msprop:Generator_UserColumnName="Tindakan_Pencegahan" minOccurs="0">
                 <xs:simpleType>
@@ -75,6 +85,13 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="LampiranPencegahan" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnLampiranPencegahan" msprop:Generator_ColumnPropNameInRow="LampiranPencegahan" msprop:Generator_ColumnPropNameInTable="LampiranPencegahanColumn" msprop:Generator_UserColumnName="LampiranPencegahan" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element name="StatusPencegahan" msprop:Generator_ColumnVarNameInTable="columnStatusPencegahan" msprop:Generator_ColumnPropNameInRow="StatusPencegahan" msprop:Generator_ColumnPropNameInTable="StatusPencegahanColumn" msprop:Generator_UserColumnName="StatusPencegahan" type="xs:int" minOccurs="0" />
               <xs:element name="Treatment" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTreatment" msprop:Generator_ColumnPropNameInRow="Treatment" msprop:Generator_ColumnPropNameInTable="TreatmentColumn" msprop:Generator_UserColumnName="Treatment" minOccurs="0">
                 <xs:simpleType>
@@ -84,6 +101,13 @@
                 </xs:simpleType>
               </xs:element>
               <xs:element name="PIC" msprop:Generator_ColumnVarNameInTable="columnPIC" msprop:Generator_ColumnPropNameInRow="PIC" msprop:Generator_ColumnPropNameInTable="PICColumn" msprop:Generator_UserColumnName="PIC" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LampiranTreatment" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnLampiranTreatment" msprop:Generator_ColumnPropNameInRow="LampiranTreatment" msprop:Generator_ColumnPropNameInTable="LampiranTreatmentColumn" msprop:Generator_UserColumnName="LampiranTreatment" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
