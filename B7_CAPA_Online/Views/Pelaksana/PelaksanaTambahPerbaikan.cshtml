@@ -327,7 +327,8 @@
         KajianDDLPencegahan();
         //$('#RootCause_KajianResikoDDL').prop("disabled", true);
         $('#tblHeaderTindakan').prop("hidden", true);
-        if (tindakan = 'Pencegahan')
+
+        if (tindakan == 'Pencegahan')
         {
             $("input[name='TambahPerbaikan']").prop("disabled", true);
             document.getElementById("Yes").checked = true;
@@ -338,6 +339,7 @@
             TableKajianTambahTindakanBaru();
             AreaLain();
         }
+
         $("input[name='TambahPerbaikan']").change(function () {
             var tambahperbaikan = $('input[name="TambahPerbaikan"]:checked').val();
             if (tambahperbaikan == "Yes") {
@@ -823,7 +825,8 @@
             var dictlist = {
                 NoCAPA: noCAPA,
                 Option: 5,
-                RecordID: data.RecordID
+                RecordID: data.RecordID,
+                TypeTindakan: 'Perbaikan Baru'
             }
             var dto1 = {
                 Model: dictlist
@@ -840,7 +843,7 @@
             }).then((result) => {
                 if (result.value) {
                     $.ajax({
-                        url: '../Koordinator/DynamicController?spname=SP_SHOW_Tindakan_PV',
+                        url: 'DynamicController?spname=SP_SHOW_Tindakan_PV',
                         type: 'post',
                         data: JSON.stringify(dto1),
                         dataType: 'json',
@@ -877,7 +880,8 @@
             var dictlist = {
                 NoCAPA: noCAPA,
                 Option: 6,
-                RecordID: data.RecordID
+                RecordID: data.RecordID,
+                TypeTindakan: 'Pencegahan Baru'
             }
             var dto1 = {
                 Model: dictlist
@@ -932,7 +936,8 @@
             var dictlist = {
                 NoCAPA: noCAPA,
                 Option: 6,
-                RecordID: data.RecordID
+                RecordID: data.RecordID,
+                TypeTindakan:'Pencegahan Existing'
             }
             var dto1 = {
                 Model: dictlist
@@ -960,11 +965,8 @@
                                     'Success',
                                     'Tindakan berhasil di hapus.',
                                     'success'
-                                ).then((result) => {
-                                    if (result.value) {
-                                        GetTindakanPencegahanPV();
-                                    }
-                                });
+                                )
+                                GetTindakanPencegahanExistingPV();
                             }
 
                         },
@@ -1823,7 +1825,8 @@
             IsAreaLain: 1,
             KajianResikoList: newKajianResiko,
             RecordID: referenceID,
-            EmpId: nik
+            EmpId: nik,
+            NoCAPA: noCAPA
         }
         var dto = {
             Model: dictionarylist

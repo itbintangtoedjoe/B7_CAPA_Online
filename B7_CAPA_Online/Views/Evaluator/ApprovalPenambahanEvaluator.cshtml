@@ -257,13 +257,13 @@
                         {
                             "data": "Status_ID",
                             "render": function (data, type, row, meta) {
-                                if (evautama == 1) {
-
+                                if (evautama == 1 && row['Rentang'] == "") {
+                                    return "<input type='button' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Add Rentang'style='background-color:green; margin-bottom:15px;'/>";
                                 }
-                                else if (evautama != 1 && data === 11) {
+                                else if (row['Rentang'] != "" ) {
                                     return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>";
                                 }
-                                else {
+                                else if(row['IsApproved'] == 1){
                                     return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                 }
                             }
@@ -441,7 +441,7 @@
                     var data = $('#Tbl_Perbaikan').DataTable().row(row).data();
                     var id = data['RecordID'];
                     var dictlist = {
-                        NoCAPA: $('#QS_NoCAPA').val(),
+                        NoCAPA: noCAPA,
                         Option: 12,
                         RecordID: id,
                         RejectReason: reject,
@@ -512,13 +512,15 @@
         var row = $(button).closest("TR");
         var data = $('#Tbl_Pencegahan').DataTable().row(row).data();
         var id = data['RecordID'];
+        var kategori = data['Status_Pencegahan'];
         var rentang = $("TD", row).eq(5).find("select").val();
         var dictlist = {
             NoCAPA: noCAPA,
             Empid: nik,
             RecordID: id,
             Option: 15,
-            Rentang: rentang
+            Rentang: rentang,
+            Kategori: kategori
         }
         var dto1 = {
             Model: dictlist
