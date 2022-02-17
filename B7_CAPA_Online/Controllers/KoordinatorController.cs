@@ -507,6 +507,7 @@ namespace B7_CAPA_Online.Controllers
         #endregion  
 
         #region Execute
+        [HttpPost]
         public ActionResult InsertCAPA(DALModel Model)
         {
             for (int i = 0; i < Request.Files.Count; i++)

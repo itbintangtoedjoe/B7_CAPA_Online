@@ -74,7 +74,7 @@ namespace B7_CAPA_Online.Controllers
                 });
             }
             string values = Param.Model["Option"].ToString();
-            if (values != "7" && values != "8")
+            if (values != "7" && Session["NIK"].ToString() != "")
             {
                 if (list[0].NO_CAPA != null)
                 {
