@@ -135,18 +135,18 @@
             </div>
         </div>
         @Html.Partial("TriggerCAPA")
-
-
         <input type="text"  id="QS_NoCAPA" value="@ViewBag.NoCAPA" hidden />
         <input type="text" id="QS_Status" value="@ViewBag.StatsID" hidden />
     </div>
-
+        
 
 </div>
 <script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
 <script>
 
     var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
+    var namaUser = '@Request.RequestContext.HttpContext.Session["NamaUser"]';
+    var superiorName = '@Request.RequestContext.HttpContext.Session["SuperiorName"]';
     var stat = getQueryStrings()["StatsID"];
     function getQueryStrings() {
         var vars = [], hash;
@@ -160,15 +160,18 @@
     }
     $(document).ready(function () {
         //$('#QS_NoCAPA').val("CPA/SIA/HOF/MK/0921/009");
+        $('#TxtNoCAPA').val(noCAPA);
+        $('#input_Requestor').val(namaUser);
+        $('#input_Departemen').val('@Request.RequestContext.HttpContext.Session["Departemen"]');
         GetEvaluator();
-        GetDepartemen();
         GetPlant();
+        GetDepartemen();
         GetEvalTableList();
         if (stat != 4) {
             disableAll();
         }
         $('#Eva_Plant_DDL').change(function () {
-            if ($('#Eva_Departemen_DDL').val() == undefined || $('#Eva_Departemen_DDL').val().trim() == "") {
+            if ($('#Eva_Departemen_DDL').val() != undefined || $('#Eva_Departemen_DDL').val() != "") {
                 $('#EvalList_DDL').removeAttr("disabled");
                 GetEvaList();
             }
@@ -177,7 +180,7 @@
             }
         });
         $('#Eva_Departemen_DDL').change(function () {
-            if ($('#Eva_Plant_DDL').val() != undefined || $('#Eva_Plant_DDL').val().trim() == "") {
+            if ($('#Eva_Plant_DDL').val() != undefined || $('#Eva_Plant_DDL').val() != "") {
                 $('#EvalList_DDL').removeAttr("disabled");
                 GetEvaList();
             }
