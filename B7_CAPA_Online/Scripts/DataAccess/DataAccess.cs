@@ -118,7 +118,7 @@ namespace B7_CAPA_Online.Scripts.DataAccess
 
             using (IDbConnection db = new SqlConnection(dbDFIS.ConnectionString))
             {
-                    var StoredProcedure = db.Query<dynamic>(Spname, parameters,
+                var StoredProcedure = db.Query<dynamic>(Spname, parameters,
                                 commandType: CommandType.StoredProcedure).ToList();
 
                 var json = JsonConvert.SerializeObject(StoredProcedure, Formatting.Indented);
