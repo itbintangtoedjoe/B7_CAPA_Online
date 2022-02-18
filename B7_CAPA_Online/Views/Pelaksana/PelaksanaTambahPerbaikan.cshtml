@@ -1195,12 +1195,10 @@
 
     function SubmitTindakanExisting()
     {
-            var referenceID = getQueryStrings()["ReferenceID"];
-            referenceID = referenceID.replace('#', '');
-
+            
             var dictionarylist = {
                 kategori: "Penambahan Submit Existing",
-                RecordID: referenceID,
+                recordID: referenceID,
                 empID: nik,
                 NoCAPA: noCAPA
             }
@@ -1439,7 +1437,6 @@
                         });
                         addTindakan(dto, kategori);
 
-                        retrieveData2();
                 });
 
             },
