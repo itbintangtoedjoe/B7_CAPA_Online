@@ -338,13 +338,7 @@
             getRootCausePencegahan();
         }
         $('#RootCause_KajianResikoDDL').attr("disabled", true);
-        $('#AlasanTindakanPerbaikan').on('click',function () {
-
-
-            $('#RootCause_KajianResikoDDL').empty();
-
-            $('#RootCause_KajianResikoDDL').append(new Option($('#txtTindakanPerbaikan').val(), $('#txtTindakanPerbaikan').val()));
-        });
+       
         $('#UpdatePerbaikan').click(function () {
 
             UpdatePerbaikan();
@@ -747,7 +741,6 @@
                         $('#btn_AddKajian').attr("disabled", false);
                         $('#RootCause_KajianResikoDDL').append(new Option(dataPerbaikan.Tindakan_PerbaikanRev, dataPerbaikan.Tindakan_PerbaikanRev));
                         $('#RootCause_KajianResikoDDL').val(dataPerbaikan.Tindakan_PerbaikanRev);
-
                     }
                     else
                     {
@@ -824,7 +817,6 @@
 
                 }
                 @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
-
             }, error: function (ex) {
                 alert(JSON.stringify(ex));
             }
@@ -838,7 +830,6 @@
         var alasanDueDate = $('#AlasanDueDate').val();
         var alasantindakanperbaikan = $('#AlasanTindakanPerbaikan').val();
         var dueDaterev = $('#dueDatePerbaikanRev').val();
-        alert(dueDaterev);
         var dateperbaikan = new Date($('#dueDatePerbaikanRev').val());
         var dictlist = {
             Kategori: "Update Perbaikan",
@@ -889,7 +880,7 @@
                         'Update berhasil di submit',
                         'success'
                     )
-
+                    getRootCausePerbaikan();
             },
                 error: function (ex) {
                     alert(JSON.stringify(ex));
@@ -959,7 +950,7 @@
                     'success'
                 )
                 @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
-
+                getRootCausePencegahan();
                 }, error: function (ex) {
                 alert(JSON.stringify(ex));
             }
@@ -1094,7 +1085,7 @@
                                 alert(JSON.stringify(ex));
                             }
                         });
-                        window.location.href('../PendingTask/TaskList');
+                        window.location.href = '../PendingTask/TaskList';
                         $('#txtTindakanPencegahanRev').attr("disabled", true);
                         $('#AlasanTindakanPencegahan').attr("disabled", true);
                         $('#UpdatePencegahan').attr("disabled", true);

@@ -258,14 +258,15 @@
                             "data": null,
                             "render": function (data, type, row,meta) {
                                     if (row["IsUtama"] === true && row["Rentang"] === 0) {
-                                        return "<input type='button' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Add Rentang'style='background-color:green;'/>";
+                                        return "<input type='button' class='btn btn-primary' onclick=AddRentangPerbaikan(this) value='Add Rentang'style='background-color:green;'/>";
+                                    }
+                                    else if (row["IsApproved"] == true) {
+                                        return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                     }
                                     else if (row["Rentang"]!= 0) {
                                         return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>";
                                     }
-                                    else if (row["IsApproved"] == 1 && row["EMPID"] == nik) {
-                                        return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
-                                    }
+                                    
                                 }
 
                             
@@ -361,7 +362,7 @@
                                 console.log(row["Rentang"]);
                                 console.log(row["IsUtama"]);
                                 if (row["IsUtama"] === true && row["Rentang"] === 0){
-                                    return "<input type='button' class='btn btn-primary' onclick=AddRentang(this) value='Add Rentang'style='background-color:green;'/>";
+                                    return "<input type='button' class='btn btn-primary' onclick=AddRentangPencegahan(this) value='Add Rentang'style='background-color:green;'/>";
                                 }
                                 else if (row["Rentang"] != 0    ) {
                                     return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahan(this) value='Approve'style='background-color:green; '/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahan(this) value='Reject'style='background-color:red;'/>"
@@ -400,6 +401,35 @@
             }
         });
     }
+
+    function AddRentangPerbaikan(button) {  
+        var row = $(button).closest("TR");
+        var data = $('#Tbl_Perbaikan').DataTable().row(row).data();
+        var id = data['RecordID'];
+        var rentang = $("TD", row).eq(5).find("select").val();
+        var dictlist = {
+            RecordID: id,
+            Option: 25,
+            Rentang: rentang
+        }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: 'DynamicController?spname=SP_FORM_Perubahan',
+            type: 'post',
+            data: JSON.stringify(dto),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                GetTindakanPerbaikan();
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
     function ApprovePerbaikan(button)
     {
         var row = $(button).closest("TR");
@@ -410,8 +440,7 @@
             NoCAPA: noCAPA,
             Empid: nik,
             RecordID: id,
-            Option: 14,
-            Rentang: rentang
+            Option: 14
         }
         var dto1 = {
             Model: dictlist
@@ -548,18 +577,45 @@
             )
         }
     }
+
+    function AddRentangPencegahan(button) {
+        var row = $(button).closest("TR");
+        var data = $('#Tbl_Pencegahan').DataTable().row(row).data();
+        var id = data['RecordID'];
+        var rentang = $("TD", row).eq(5).find("select").val();
+        var dictlist = {
+            RecordID: id,
+            Option: 26,
+            Rentang: rentang
+        }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: 'DynamicController?spname=SP_FORM_Perubahan',
+            type: 'post',
+            data: JSON.stringify(dto),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                GetTindakanPerbaikan();
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
     function ApprovePencegahan(button) {
         var row = $(button).closest("TR");
         var data = $('#Tbl_Pencegahan').DataTable().row(row).data();
         var id = data['RecordID'];
         var kategori = data['Status_Pencegahan'];
-        var rentang = $("TD", row).eq(5).find("select").val();
         var dictlist = {
             NoCAPA: noCAPA,
             Empid: nik,
             RecordID: id,
             Option: 15,
-            Rentang: rentang,
             Kategori: kategori
         }
         var dto1 = {

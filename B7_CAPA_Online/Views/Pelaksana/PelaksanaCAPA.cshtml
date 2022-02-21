@@ -1398,8 +1398,6 @@
                 $('#ddlPencegahan').append('<option value="' + dataPencegahan[i].RecordID + '">' + dataPencegahan[i].Tindakan_Pencegahan + '</option>');
             }
             if (dataPencegahan[i].Status_ID == 6 && dataPencegahan[i].Pelaksana_Pencegahan == nik) {
-                alert(dataPencegahan[i].Status_ID);
-                alert(dataPencegahan[i].Pelaksana_Pencegahan);
                 checkPencegahan +=1;
             }
         }
@@ -1443,9 +1441,6 @@
 
             $('#txtStatusPencegahan').html('<strong>Status: ' + status + '</strong>');
             $('#txtRootCausePencegahan').val(objPencegahan[0].WhyDesc);
-        }
-        else {
-            $('#btnPilihPencegahan').prop("disabled", true);
         }
 
         var textperb = $('#ddlPencegahan option:selected').text();
