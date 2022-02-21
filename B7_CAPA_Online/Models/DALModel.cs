@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 
 namespace B7_CAPA_Online.Models
@@ -30,7 +32,7 @@ namespace B7_CAPA_Online.Models
 
     public partial class DALModel
     {
-        [Required]         
+        [Required]
         public string TriggerCAPA { get; set; }
         public string PenyimpanganTerkait { get; set; }
         public string KeluhanTerkait { get; set; }
@@ -43,7 +45,7 @@ namespace B7_CAPA_Online.Models
         [Required]
         public string KodeCAPA { get; set; }
         [Required]
-        public string KataKunci{ get; set; }
+        public string KataKunci { get; set; }
         [Required]
         public string Deskripsi { get; set; }
         [Required]
@@ -74,4 +76,5 @@ namespace B7_CAPA_Online.Models
         public string LAMPIRAN_TERKAIT { get; set; }
         public string FILE_NAME { get; set; }
     }
+
 }

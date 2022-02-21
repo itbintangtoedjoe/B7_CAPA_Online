@@ -74,9 +74,9 @@ namespace B7_CAPA_Online.Controllers
                 });
             }
             string values = Param.Model["Option"].ToString();
-            if (values != "7" && values != "8")
+            if (values != "7" && Session["NIK"].ToString() != "") // ketika option sp != 7 kalau 7 itu untuk approval ReviewCAPA 
             {
-                if (list[0].NO_CAPA != null)
+                if (list[0].NO_CAPA != null) // kirim email setiap status header berubah
                 {
                     EmailSender emailSender = new EmailSender();
                     foreach (var value in list)

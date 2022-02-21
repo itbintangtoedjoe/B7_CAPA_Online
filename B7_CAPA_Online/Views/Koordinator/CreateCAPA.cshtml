@@ -293,21 +293,21 @@
                             <div class="row">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-20">Tanggal</label>
-                                    <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly>
+                                    <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly disabled>
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">Requestor</label>
-                                    <input class="form-control form-control-sm" type="text" id="input_Requestor" value="" readonly>
+                                    <input class="form-control form-control-sm" type="text" id="input_Requestor" value="" readonly disabled>
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-20">Nomor CAPA</label>
-                                    <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["NoCAPA"]" readonly />
+                                    <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["NoCAPA"]" readonly disabled />
                                     <input class="form-control form-control-sm" type="text" id="input_REG_ID" value="@Request.QueryString["REG"]" hidden />
-                                    <input class="form-control form-control-sm" type="text" id="input_NIK" value="@Request.RequestContext.HttpContext.Session["NIK"]" hidden />
+                                    <input class="form-control form-control-sm" type="text" id="input_NIK" value="@Request.RequestContext.HttpContext.Session["NIK"]" hidden disabled />
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">Departemen</label>
-                                    <input class="form-control form-control-sm" type="text" id="input_Departemen" value="@Request.RequestContext.HttpContext.Session["Departemen"]" readonly>
+                                    <input class="form-control form-control-sm" type="text" id="input_Departemen" value="@Request.RequestContext.HttpContext.Session["Departemen"]" readonly disabled>
                                 </div>
                             </div>
                         </form>
@@ -634,6 +634,9 @@
                                                 @Html.HiddenFor(m => m.LampiranTerkait)
                                                 <label id="TxtLampiranCount" class="custom-file-label"></label>
                                             </div>
+                                            @*<div class="input-group-append" style="padding-left:10px">
+                                                <button class="btn btn-outline-dark rounded btn-sm" type="button" id="btn_AddFile">Add</button>
+                                            </div>*@
                                         </div>
                                     </div>
                                 </div>
@@ -643,6 +646,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Filename</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="tb_File">
@@ -802,7 +806,9 @@
 <script src="~/Content/Scripts/plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.min.js" defer></script>
 
 <script>
+    var formData = new FormData();
     $(document).ready(function () {
+    
         $('.tags').tagsinput({
             maxTags: 4
         });
@@ -827,16 +833,27 @@
             $('#TxtDeviation').val("");
             $('#TxtCCC').val("");
             $('#TxtNoCAPATerkait').val("");
+            $('#Table_File').prop("hidden", false);
+            $('#TxtFileInput').val("");
+            $('#tb_File').empty();
+            $('#TxtLampiranCount').text("");
+            //formData.forEach(function (val, key, fD) {
+            //    console.log(key);
+            //});                       
+            //UpdateLampiran();
 
             if ($('#Trigger_CAPA').val() == "CAPA") {
                 $('#Linked_NoCAPATerkait').prop('hidden', false);
                 $('.attachments').prop("hidden", true);
+                $('#Table_File').prop("hidden", true);
             } else if ($('#Trigger_CAPA').val() == "CCC") {
                 $('#Linked_CCC').prop('hidden', false);
                 $('.attachments').prop("hidden", true);
+                $('#Table_File').prop("hidden", true);
             } else if ($('#Trigger_CAPA').val() == "DEVIATION"){
                 $('#Linked_Deviation').prop('hidden', false);
                 $('.attachments').prop("hidden", true);
+                $('#Table_File').prop("hidden", true);
             }
         });
 
@@ -1032,7 +1049,7 @@
         // Button search isi lampiran Deviation yang menyimpang.
         $('#btn_Search_Deviation').click(function () {
             $('#Tbl_Deviation').prop("hidden", false);
-            data = [];
+            //data = [];
             dto = {
                 Option: 4,
                 Departemen: $('#DepartemenPelapor_DDL').val(),
@@ -1111,7 +1128,7 @@
         // Button search isi lampiran Deviation yang menyimpang.
         $('#btn_Search_NoCAPATerkait').click(function () {
             $('#Tbl_NoCAPATerkait').prop("hidden", false);
-            data = [];
+            //data = [];
             dto = {
                 Option: 20,
                 Departemen: $('#AreaPICCAPA_DDL').val(),
@@ -1197,7 +1214,7 @@
         // Button search untuk menampilkan CCC yang menyimpang.
         $('#btn_Search_CCC').click(function () {
             $('#Tbl_CCC').prop("hidden", false);
-            data = [];
+            //data = [];
             dto = {
                 Option: 7,
                 Plant: $('#Plant_DDL').val(),
@@ -1470,15 +1487,16 @@
 
         requestPage();
 
+       
         $('#TxtFileInput').change(function () {
             $('#tb_File').empty();
             fileCount = this.files.length;
             var names = $.map(this.files, function (val) { return val.name; });
-            console.log(names);
+            //console.log(names);
             var teks = (fileCount != 0) ? (fileCount + " Lampiran telah dipilih.") : ("");
-            //$('#Table_File').prop("hidden", true);
+            $('#Table_File').prop("hidden", true);
             if (fileCount > 0) {
-                //$('#Table_File').prop("hidden", false);
+                $('#Table_File').prop("hidden", false);
                 $.each(names, function (key, value) {
                     $('#tb_File').append('<tr><td>' + value + '</td><tr>')
                 });
@@ -1495,11 +1513,63 @@
             //});
         })
 
+      
+        //$("#btn_AddFile").click(function () {
+        //    var isValid = false;
+        //    var fileCount = document.getElementById("TxtFileInput").files.length;            
+        //    if (fileCount > 0) {
+        //        $.map(document.getElementById("TxtFileInput").files, function (val) {                   
+        //            if (formData.getAll(val.name)[0] == undefined) {
+        //                formData.append(val.name, val);
+        //                $('#tb_File').append('<tr><td value='+ val.name +'>' + val.name + '</td><td><button type="button" class="deleteFile form-control-sm">Delete</button></td><tr>')
+        //                //return val.name;
+        //                //console.log(formData.getAll(val.name)[0].name)
+        //                isValid = true;
+        //            } else {
+        //                Swal.fire(
+        //                    'Warning!',
+        //                    'File : ' + val.name + ' sudah pernah ditambahkan.',
+        //                    'warning'
+        //                );
+        //                isValid = false;
+        //                return false;
+        //            }
+        //        });
+
+        //        if (isValid) {
+        //            UpdateLampiran();
+        //        }
+                
+        //        //document.getElementById("TxtFileInput").value = "";
+        //        $('#TxtLampiranCount').text("");
+        //        //$('#LampiranTerkait').val(formData);
+        //        console.log($('#LampiranTerkait').val());
+        //        console.log($('#TxtFileInput').val());
+        //    }            
+        //});
+
+        //$(document).on("click", "#tb_File button.deleteFile", function (e) {
+        //    e.preventDefault();
+        //    var temp = [];
+        //    var columns = $(this).closest('tr').find('td');
+        //    $.each(columns, function (i, item) {
+        //        var obj = {};
+        //        obj.name = item.innerHTML;
+        //        temp.push(obj);
+        //    });
+        //    formData.delete(temp[0].name);          
+        //    columns.remove();
+
+        //    UpdateLampiran();
+        //    //$('#LampiranTerkait').val(formData);
+        //});
+
         $("#btn_Submit").click(function () {
             var status = validateInput();
             if (status) {
                 return $('#SubmitData').submit();
             }
+            $('#SubmitData').submit();
         });
 
         checkUser($('#input_NIK').val());
@@ -1967,6 +2037,23 @@
                     // $('#AreaPICCAPA_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
 
                 })
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function UpdateLampiran() {
+        $.ajax({
+            url: "./Lampiran",
+            type: "post",
+            data: formData,
+            dataType: "json",
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                console.log(data);
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));

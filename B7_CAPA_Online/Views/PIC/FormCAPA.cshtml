@@ -18,247 +18,39 @@
 
 <div class="content-body">
     <!--Modal-->
-    <div class="modal fade" id="KajianResikoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="Modal_Diag" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Form Kajian Resiko</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <form>
-                                <div class="container">
-                                    <div class="row form-group col-md-12">
-                                        <div class="col-md-6">
-                                            <label for="TxtPotensiKegagalan" class="col-form-label">Potensi Kegagalan / Penyimpangan yang mungkin terjadi ketika tindakan perbaikan/pencegahan diterapkan</label>
-                                            <div class="input-group">
-                                                <textarea type="text" class="form-control" name="TxtPotensiKegagalan" id="TxtPotensiKegagalan"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group col-md-12">
-                                        <div class="col-md-6">
-                                            <label for="TxtDampak" class="col-form-label">Dampak</label>
-                                            <div class="input-group">
-                                                <textarea type="text" class="form-control" name="TxtDampak" id="TxtDampak"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="TxtSpesifikasi" class="col-form-label">Spesifikasi / Syarat</label>
-                                            <div class="input-group">
-                                                <textarea type="text" class="form-control" name="TxtSpesifikasi" id="TxtSpesifikasi"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group col-md-12">
-                                        <div class="col-md-6">
-                                            <label for="TxtPenyebabPotensial" class="col-form-label">Penyebab Potensial</label>
-                                            <div class="input-group">
-                                                <textarea type="text" class="form-control" name="TxtPenyebabPotensial" id="TxtPenyebabPotensial"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="TxtMPenyebabPotensial" class="col-form-label">Mengatasi Penyebab Potensial</label>
-                                            <div class="input-group">
-                                                <textarea type="text" class="form-control" name="TxtMPenyebabPotensial" id="TxtMPenyebabPotensial"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group col-md-12">
-                                        <div class="col-md-6">
-                                            <label for="TxtMPotensi_KLMD" class="col-form-label">Mencegah Potensi Kegagalan Lolos Menimbulkan Dampak</label>
-                                            <div class="input-group">
-                                                <textarea type="text" class="form-control" name="TxtMPotensi_KLMD" id="TxtMPotensi_KLMD"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group col-md-12">
-                                        <div class="col-md-4">
-                                            <label for="Severity_DDL" class="col-form-label">Severity</label>
-                                            <div class="input-group">
-                                                <select class="form-control select2" id="Severity_DDL" required>
-                                                    <option selected disabled value="-">*Pilih*</option>
-                                                    <option value="1">1</option>
-                                                    <option value="4">4</option>
-                                                    <option value="7">7</option>
-                                                    <option value="10">10</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="Likelihood_DDL" class="col-form-label">Likelihood</label>
-                                            <div class="input-group">
-                                                <select class="form-control select2" id="Likelihood_DDL" required>
-                                                    <option selected disabled value="-">*Pilih*</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="4">4</option>
-                                                    <option value="8">8</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="Detectability_DDL" class="col-form-label">Detectability</label>
-                                            <div class="input-group">
-                                                <select class="form-control select2" id="Detectability_DDL" required>
-                                                    <option selected disabled value="-">*Pilih*</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group col-md-12">
-                                        <div class="form-group col-md-6">
-                                            <label for="TxtRPN" class="col-form-label">RPN</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" name="TxtRPN" id="TxtRPN" readonly />
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="TxtRiskLevel" class="col-form-label">Risk Level</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" name="TxtRiskLevel" id="TxtRiskLevel" readonly />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="container" id="Div_KajianResikoModal" hidden>
-                                    <div class="form-group col-md-3">
-                                        <label for="Target_DDL" class="col-form-label">Target</label>
-                                        <div class="input-group">
-                                            <select class="form-control select2" id="Target_DDL" required>
-                                                <option selected disabled value="">*Pilih*</option>
-                                                <option value="Low">Low</option>
-                                                <option value="Medium">Medium</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                    <label style="color:black"><b>Manusia</b></label>
+                    <div id="DiagManusia"
+                         style="width:100%; height:300px; background-color: #DAE4E4;"></div>
+                    <br />
 
-                                    <div class="row form-group col-md-12">
-                                        <div class="col-md-6">
-                                            <label for="TxtMPotensi_K" class="col-form-label">Menghilangkan Potensi Kegagalan/ Penyimpangan</label>
-                                            <div class="input-group">
-                                                <textarea type="text" class="form-control" name="TxtMPotensi_K" id="TxtMPotensi_K"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="TxtMPenyebab_P" class="col-form-label">Perbaikan untuk mengatasi Penyebab Potensial</label>
-                                            <div class="input-group">
-                                                <textarea type="text" class="form-control" name="TxtMPenyebab_P" id="TxtMPenyebab_P"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <label style="color:black"><b>Material/Produk</b></label>
+                    <div id="DiagMaterial"
+                         style="width:100%; height:300px; background-color: #DAE4E4;"></div>
+                    <br />
 
-                                    <div class="row form-group col-md-12">
-                                        <div class="col-md-6">
-                                            <label for="TxtDPotensi_K" class="col-form-label">Perbaikan untuk meningkatkan deteksi potensi kegagalan</label>
-                                            <div class="input-group">
-                                                <textarea type="text" class="form-control" name="TxtDPotensi_K" id="TxtDPotensi_K"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <label style="color:black"><b>Lingkungan</b></label>
+                    <div id="DiagLingkungan"
+                         style="width:100%; height:300px; background-color: #DAE4E4;"></div>
+                    <br />
 
-                                    <div class="row form-group col-md-12">
-                                        <div class="col-md-4">
-                                            <label for="Severity2_DDL" class="col-form-label">Severity</label>
-                                            <div class="input-group">
-                                                <select class="form-control select2" id="Severity2_DDL" required>
-                                                    <option selected disabled value="-">*Pilih*</option>
-                                                    <option value="1">1</option>
-                                                    <option value="4">4</option>
-                                                    <option value="7">7</option>
-                                                    <option value="10">10</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                    <label style="color:black"><b>Machine</b></label>
+                    <div id="DiagMesin"
+                         style="width:100%; height:300px; background-color: #DAE4E4;"></div>
+                    <br />
 
-                                        <div class="col-md-4">
-                                            <label for="Likelihood2_DDL" class="col-form-label">Likelihood</label>
-                                            <div class="input-group">
-                                                <select class="form-control select2" id="Likelihood2_DDL" required>
-                                                    <option selected disabled value="-">*Pilih*</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="4">4</option>
-                                                    <option value="8">8</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <label for="Detectability2_DDL" class="col-form-label">Detectability</label>
-                                            <div class="input-group">
-                                                <select class="form-control select2" id="Detectability2_DDL" required>
-                                                    <option selected disabled value="-">*Pilih*</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row form-group col-md-12">
-                                        <div class="col-md-6">
-                                            <label for="TxtRPN2" class="col-form-label">RPN</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" name="TxtRPN2" id="TxtRPN2" readonly />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="TxtRiskLevel2" class="col-form-label">Risk Level</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" name="TxtRiskLevel2" id="TxtRiskLevel2" readonly />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="container" id="Div_TxtPIC" hidden>
-                                    <div class="row form-group col-md-12">
-                                        <div class="col-md-4">
-                                            <label for="TxtPIC" class="col-form-label">PIC</label>
-                                            <div class="input-group">
-                                                <input type="text" id="TxtPICName" name="TxtPICName" class="form-control form-control-sm" readonly>
-                                                <input type="text" id="TxtPIC" name="TxtPIC" class="form-control form-control-sm" hidden>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row form-group col-md-12">
-                                        <div class="col-md-4">
-                                            <label for="TxtLainnya" class="col-form-label">Lainnya</label>
-                                            <div class="input-group">
-                                                <textarea type="text" class="form-control" name="TxtLainnya" id="TxtLainnya"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <label for="DueDate_Kajian" class="col-form-label">Due Date</label>
-                                            <div class="input-group">
-                                                <input type="date" id="DueDate_Kajian" class="form-control form-control-sm">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="container">
-                                    <div class="form-group col-md-6">
-                                        <button type="button" class="btn btn-primary" id="btn_KajianResiko">Tambahkan</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                    <label style="color:black"><b>Metode</b></label>
+                    <div id="DiagMetode"
+                         style="width:100%; height:300px; background-color: #DAE4E4;"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn_Close_Diag">Close</button>
                 </div>
             </div>
         </div>
@@ -316,22 +108,22 @@
                             <div class="row">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-20">Tanggal</label>
-                                    <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly>
+                                    <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly disabled>
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">PIC CAPA</label>
-                                    <input class="form-control form-control-sm" type="text" id="input_Requestor" value="@Request.RequestContext.HttpContext.Session["FullName"]" readonly>
+                                    <input class="form-control form-control-sm" type="text" id="input_Requestor" value="@Request.RequestContext.HttpContext.Session["FullName"]" readonly disabled>
                                     @*<input class="form-control form-control-sm" type="text" id="input_Requestor_NIK" value="HARDCODE_NIK" hidden>*@
                                     <input class="form-control form-control-sm" type="text" id="input_Requestor_NIK" value="@Request.RequestContext.HttpContext.Session["NIK"]" hidden>
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-20">Nomor CAPA</label>
-                                    <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["NoCAPA"]" readonly>
+                                    <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["NoCAPA"]" readonly disabled>
 
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">Departemen</label>
-                                    <input class="form-control form-control-sm" type="text" id="input_Departemen" value="@Request.RequestContext.HttpContext.Session["Departemen"]" readonly>
+                                    <input class="form-control form-control-sm" type="text" id="input_Departemen" value="@Request.RequestContext.HttpContext.Session["Departemen"]" readonly disabled>
                                 </div>
                             </div>
                         </form>
@@ -576,7 +368,7 @@
                         <h4 class="card-title">Penentuan Tindakan Pencegahan </h4>
                         <div>
                             <form>
-                                <div class="row form-group-sm">
+                                <div class="row form-group-sm" hidden>
                                     <div class="col-md-6">
                                         <label class="m-t-20">Tindakan Perbaikan</label>
                                         <select id="AreaLain_DDL" class="form-control">
@@ -1176,15 +968,15 @@
             success: function (area_lain) {
                 var countAdd = 0;
                 var data = JSON.parse(area_lain);
-                if (data.length == 0) {
-                    $('#Div_TindakanPencegahan').prop('hidden', true);
-                } else {
+                //if (data.length == 0) {
+                //    $('#Div_TindakanPencegahan').prop('hidden', true);
+                //} else {
                     $('#Div_TindakanPencegahan').prop('hidden', false);
-                    $('#AreaLain_DDL').empty();
-                    $('#AreaLain_DDL').append(new Option("*Pilih*", ""));
-                    $.each(JSON.parse(area_lain), function (key, value) {
-                        $('#AreaLain_DDL').append(new Option(value.Tindakan_Perbaikan, value.Tindakan_Perbaikan));
-                    });
+                    //$('#AreaLain_DDL').empty();
+                    //$('#AreaLain_DDL').append(new Option("*Pilih*", ""));
+                    //$.each(JSON.parse(area_lain), function (key, value) {
+                    //    $('#AreaLain_DDL').append(new Option(value.Tindakan_Perbaikan, value.Tindakan_Perbaikan));
+                    //});
                     area_lains = JSON.parse(area_lain);      
                     //$('#btn_AddPencegahan').click(function () {
                     //    countAdd++;
@@ -1223,7 +1015,7 @@
                     //        addTindakan(dto, kategori);
                     //    }
                     //});
-                }
+                //}
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -1532,17 +1324,18 @@
     }
 
     function GetRootManusia() {
+
         $.ajax({
             type: "POST",
-            url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Manusia",
+            url: "../Koordinator/GetRoot?NoCapa=" + $('#QS_NoCAPA').val() + "&Type=Manusia",
             dataType: 'json',
             async: true,
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 var result = JSON.parse(data);
-                //myDiagram.model = new go.TreeModel();
                 var $ = go.GraphObject.make;
-                myDiagram =
+
+                var myDiagram =
                     $(go.Diagram, "DiagManusia",
                         {
                             "undoManager.isEnabled": true,
@@ -1551,15 +1344,27 @@
                                 { angle: 90, layerSpacing: 35 })
                         });
 
+                //var node1 =
+                //    $(go.Node, "Horizontal",
+                //        { background: "#44CCFF" },
+                //        $(go.TextBlock, "Manusia",
+                //            {
+                //                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                //                verticalAlignment: go.Spot.Center
+                //            },
+                //        )
+                //    );
+                //myDiagram.add(node1);
+
                 myDiagram.nodeTemplate =
                     $(go.Node, "Horizontal",
                         { background: "#44CCFF", locationSpot: go.Spot.Center },
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "type")),
+                        //$(go.TextBlock, "Default Text",
+                        //    {
+                        //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                        //        verticalAlignment: go.Spot.Center
+                        //    },
+                        //    new go.Binding("text", "type")),
                         $(go.TextBlock, "Default Text",
                             {
                                 margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -1568,23 +1373,23 @@
                             new go.Binding("text", "desc"))
                     );
 
-
                 myDiagram.model = new go.TreeModel(result);
             }
         });
     }
-
     function GetRootMaterial() {
+
         $.ajax({
             type: "POST",
-            url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Material/Produk",
+            url: "../Koordinator/GetRoot?NoCapa=" + $('#QS_NoCAPA').val() + "&Type=Material/Produk",
             async: true,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 var result = JSON.parse(data);
                 var $ = go.GraphObject.make;
-                myDiagram =
+
+                var myDiagram =
                     $(go.Diagram, "DiagMaterial",
                         {
                             "undoManager.isEnabled": true,
@@ -1594,16 +1399,26 @@
 
                         });
 
-
+                //var node1 =
+                //    $(go.Node, "Horizontal",
+                //        { background: "#44CCFF" },
+                //        $(go.TextBlock, "Material",
+                //            {
+                //                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                //                verticalAlignment: go.Spot.Center
+                //            },
+                //        )
+                //    );
+                //myDiagram.add(node1);
                 myDiagram.nodeTemplate =
                     $(go.Node, "Horizontal",
                         { background: "#44CCFF" },
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "type")),
+                        //$(go.TextBlock, "Default Text",
+                        //    {
+                        //        margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                        //        verticalAlignment: go.Spot.Center
+                        //    },
+                        //    new go.Binding("text", "type")),
                         $(go.TextBlock, "Default Text",
                             {
                                 margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -1616,18 +1431,19 @@
             }
         });
     }
-
     function GetRootLingkungan() {
+
         $.ajax({
             type: "POST",
-            url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Lingkungan",
+            url: "../Koordinator/GetRoot?NoCapa=" + $('#QS_NoCAPA').val() + "&Type=Lingkungan",
             dataType: 'json',
             async: true,
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 var result = JSON.parse(data);
                 var $ = go.GraphObject.make;
-                myDiagram =
+
+                var myDiagram =
                     $(go.Diagram, "DiagLingkungan",
                         {
                             "undoManager.isEnabled": true,
@@ -1635,17 +1451,27 @@
                             layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
                                 { angle: 90, layerSpacing: 35 })
                         });
-
+                //var node1 =
+                //    $(go.Node, "Horizontal",
+                //        { background: "#44CCFF" },
+                //        $(go.TextBlock, "Lingkungan",
+                //            {
+                //                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                //                verticalAlignment: go.Spot.Center
+                //            },
+                //        )
+                //    );
+                //myDiagram.add(node1);
 
                 myDiagram.nodeTemplate =
                     $(go.Node, "Horizontal",
                         { background: "#44CCFF" },
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "type")),
+                        //$(go.TextBlock, "Default Text",
+                        //    {
+                        //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                        //        verticalAlignment: go.Spot.Center
+                        //    },
+                        //    new go.Binding("text", "type")),
                         $(go.TextBlock, "Default Text",
                             {
                                 margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -1658,11 +1484,11 @@
             }
         });
     }
-
     function GetRootMesin() {
+
         $.ajax({
             type: "POST",
-            url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Mesin",
+            url: "../Koordinator/GetRoot?NoCapa=" + $('#QS_NoCAPA').val() + "&Type=Mesin",
             dataType: 'json',
             async: true,
             contentType: 'application/json; charset=utf-8',
@@ -1670,7 +1496,7 @@
                 var result = JSON.parse(data);
                 var $ = go.GraphObject.make;
 
-                myDiagram =
+                var myDiagram =
                     $(go.Diagram, "DiagMesin",
                         {
                             "undoManager.isEnabled": true,
@@ -1678,17 +1504,27 @@
                             layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
                                 { angle: 90, layerSpacing: 35 })
                         });
-
+                //var node1 =
+                //    $(go.Node, "Horizontal",
+                //        { background: "#44CCFF" },
+                //        $(go.TextBlock, "Mesin",
+                //            {
+                //                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                //                verticalAlignment: go.Spot.Center
+                //            },
+                //        )
+                //    );
+                //myDiagram.add(node1);
 
                 myDiagram.nodeTemplate =
                     $(go.Node, "Horizontal",
                         { background: "#44CCFF" },
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "type")),
+                        //$(go.TextBlock, "Default Text",
+                        //    {
+                        //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                        //        verticalAlignment: go.Spot.Center
+                        //    },
+                        //    new go.Binding("text", "type")),
                         $(go.TextBlock, "Default Text",
                             {
                                 margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -1701,11 +1537,11 @@
             }
         });
     }
-
     function GetRootMetode() {
+
         $.ajax({
             type: "POST",
-            url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Metode",
+            url: "../Koordinator/GetRoot?NoCapa=" + $('#QS_NoCAPA').val() + "&Type=Metode",
             dataType: 'json',
             async: true,
             contentType: 'application/json; charset=utf-8',
@@ -1713,7 +1549,7 @@
                 var result = JSON.parse(data);
                 var $ = go.GraphObject.make;
 
-                myDiagram =
+                var myDiagram =
                     $(go.Diagram, "DiagMetode",
                         {
                             "undoManager.isEnabled": true,
@@ -1721,17 +1557,27 @@
                             layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
                                 { angle: 90, layerSpacing: 35 })
                         });
-
+                //var node1 =
+                //    $(go.Node, "Horizontal",
+                //        { background: "#44CCFF" },
+                //        $(go.TextBlock, "Metode",
+                //            {
+                //                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                //                verticalAlignment: go.Spot.Center
+                //            },
+                //        )
+                //    );
+                //myDiagram.add(node1);
 
                 myDiagram.nodeTemplate =
                     $(go.Node, "Horizontal",
                         { background: "#44CCFF" },
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "type")),
+                        //$(go.TextBlock, "Default Text",
+                        //    {
+                        //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                        //        verticalAlignment: go.Spot.Center
+                        //    },
+                        //    new go.Binding("text", "type")),
                         $(go.TextBlock, "Default Text",
                             {
                                 margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -2372,59 +2218,61 @@
                 }),
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    isValid = JSON.parse(data)[0].IS_VALID;
-                    if (isValid) {
-                        $.ajax({
-                            url: 'SubmitToAtasanPIC',
-                            type: 'post',
-                            dataType: 'json',
-                            data: JSON.stringify({
-                                Model: {
-                                    NO_CAPA: $('#input_NoCAPA').val(),
-                                    Option: 12,
-                                    Create_By: $('#input_Requestor_NIK').val()
-                                }
-                            }),
-                            contentType: 'application/json; charset=utf-8',
-                            success: function (data) {
-                                var mData = JSON.parse(data);
-                                $.each(mData, function (key, value) {
-                                    var attr = Object.keys(value)[0];
-                                    var icon;
-                                    if (attr == "WAITING")
-                                        icon = 'warning';
-                                    else if (attr == 'SUCCESS')
-                                        icon = 'success';
-                                    else
-                                        icon = 'error';
-                                    Swal.fire(
-                                        attr,
-                                        value[attr],
-                                        icon
-                                    ).then(function (result) {
-                                        if (result.value) {
-                                            window.location.href = '/PendingTask/TaskList';
-                                        }
-                                    });
-                                    return false;
-                                });
-                            },
-                            error: function (ex) {
-                                alert(JSON.stringify(ex));
-                            }
-                        });
-                    } else {
-                        Swal.fire(
-                            'WARNING',
-                            'Masih ada Tindakan yang belum dikaji.',
-                            'warning'
-                        );
-                    }
+                    isValid = JSON.parse(data)[0].IS_VALID;                   
                 },
                 error: function (ex) {
                     alert(JSON.stringify(ex));
                 }
             });
+
+
+            if (isValid) {
+                $.ajax({
+                    url: 'SubmitToAtasanPIC',
+                    type: 'post',
+                    dataType: 'json',
+                    data: JSON.stringify({
+                        Model: {
+                            NO_CAPA: $('#input_NoCAPA').val(),
+                            Option: 12,
+                            Create_By: $('#input_Requestor_NIK').val()
+                        }
+                    }),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        var mData = JSON.parse(data);
+                        $.each(mData, function (key, value) {
+                            var attr = Object.keys(value)[0];
+                            var icon;
+                            if (attr == "WAITING")
+                                icon = 'warning';
+                            else if (attr == 'SUCCESS')
+                                icon = 'success';
+                            else
+                                icon = 'error';
+                            Swal.fire(
+                                attr,
+                                value[attr],
+                                icon
+                            ).then(function (result) {
+                                if (result.value) {
+                                    window.location.href = '/PendingTask/TaskList';
+                                }
+                            });
+                            return false;
+                        });
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                });
+            } else {
+                Swal.fire(
+                    'WARNING',
+                    'Masih ada Tindakan yang belum dikaji.',
+                    'warning'
+                );
+            }
         });
 
         $('#btn_Request').click(function () {
