@@ -33,6 +33,7 @@ namespace B7_CAPA_Online.Report
                 DataTable DT6 = new DataTable();
                 DataTable DT7 = new DataTable();
                 DataTable DT8 = new DataTable();
+                DataTable DT9 = new DataTable();
                 string NoCAPA = Request.QueryString.Get("NoCAPA");
 
                 try
@@ -107,7 +108,7 @@ namespace B7_CAPA_Online.Report
                         dataAdapt.Fill(DT4);
                     }
 
-                    using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_Pelaksana", conn))
+                    using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_Pelaksana_Pencegahan", conn))
                     {
                         command.CommandType = CommandType.StoredProcedure;
 
@@ -166,6 +167,21 @@ namespace B7_CAPA_Online.Report
                         dataAdapt.Fill(DT8);
                     }
 
+                    using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_Pelaksana_Perbaikan", conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
+                        command.Parameters["@NoCAPA"].Value = NoCAPA;
+
+
+
+                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                        dataAdapt.SelectCommand = command;
+
+                        dataAdapt.Fill(DT9);
+                    }
+
                     conn.Close();
                 }
                 catch (Exception ex)
@@ -194,13 +210,13 @@ namespace B7_CAPA_Online.Report
                 this.ReportViewer1.LocalReport.DataSources.Add(DataSource4);
                 ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DataSetPencegahan", DT4));
 
-                ReportDataSource DataSource5 = new ReportDataSource("~/DataSource/B7_CAPA_ONLINEDataSetPelaksana.Designer.cs", DT5);
+                ReportDataSource DataSource5 = new ReportDataSource("~/DataSource/B7_CAPA_ONLINEDataSetPelaksanaPencegahan.Designer.cs", DT5);
                 this.ReportViewer1.LocalReport.DataSources.Add(DataSource5);
-                ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DataSetPelaksana", DT5));
+                ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DataSetPelaksanaPencegahan", DT5));
 
-                ReportDataSource DataSource6 = new ReportDataSource("~/DataSource/B7_CAPA_ONLINEDataSetBukti", DT6);
+                ReportDataSource DataSource6 = new ReportDataSource("~/DataSource/B7_CAPA_ONLINEDataSetVerifikasi", DT6);
                 this.ReportViewer1.LocalReport.DataSources.Add(DataSource6);
-                ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DataSetBukti", DT6));
+                ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DataSetVerifikasi", DT6));
 
                 ReportDataSource DataSource7 = new ReportDataSource("~/DataSource/B7_CAPA_ONLINEDataSetKajian.Designer.cs", DT7);
                 this.ReportViewer1.LocalReport.DataSources.Add(DataSource7);
@@ -209,6 +225,10 @@ namespace B7_CAPA_Online.Report
                 ReportDataSource DataSource8 = new ReportDataSource("~/DataSource/B7_CAPA_ONLINEDataSetEvaluator.Designer.cs", DT8);
                 this.ReportViewer1.LocalReport.DataSources.Add(DataSource8);
                 ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DataSetEvaluator", DT8));
+
+                ReportDataSource DataSource9 = new ReportDataSource("~/DataSource/B7_CAPA_ONLINEDataSetPelaksanaPerbaikan.Designer.cs", DT9);
+                this.ReportViewer1.LocalReport.DataSources.Add(DataSource9);
+                ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DataSetPelaksanaPerbaikan", DT9));
             }
         }
     }

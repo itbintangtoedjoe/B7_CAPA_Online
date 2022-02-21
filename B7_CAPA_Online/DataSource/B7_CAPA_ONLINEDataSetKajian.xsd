@@ -42,12 +42,8 @@
               <Mapping SourceColumn="Detectability2" DataSetColumn="Detectability2" />
               <Mapping SourceColumn="RPN2" DataSetColumn="RPN2" />
               <Mapping SourceColumn="RiskLevel2" DataSetColumn="RiskLevel2" />
-              <Mapping SourceColumn="Column1" DataSetColumn="Column1" />
+              <Mapping SourceColumn="PIC" DataSetColumn="PIC" />
               <Mapping SourceColumn="DueDate" DataSetColumn="DueDate" />
-              <Mapping SourceColumn="SuperiorPIC" DataSetColumn="SuperiorPIC" />
-              <Mapping SourceColumn="SuperiorPelaksana" DataSetColumn="SuperiorPelaksana" />
-              <Mapping SourceColumn="Status_ID" DataSetColumn="Status_ID" />
-              <Mapping SourceColumn="Evaluator" DataSetColumn="Evaluator" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -62,13 +58,7 @@
         <xs:element name="SP_LOAD_REPORT_KajianResiko" msprop:Generator_TableClassName="SP_LOAD_REPORT_KajianResikoDataTable" msprop:Generator_TableVarName="tableSP_LOAD_REPORT_KajianResiko" msprop:Generator_TablePropName="SP_LOAD_REPORT_KajianResiko" msprop:Generator_RowDeletingName="SP_LOAD_REPORT_KajianResikoRowDeleting" msprop:Generator_RowChangingName="SP_LOAD_REPORT_KajianResikoRowChanging" msprop:Generator_RowEvHandlerName="SP_LOAD_REPORT_KajianResikoRowChangeEventHandler" msprop:Generator_RowDeletedName="SP_LOAD_REPORT_KajianResikoRowDeleted" msprop:Generator_UserTableName="SP_LOAD_REPORT_KajianResiko" msprop:Generator_RowChangedName="SP_LOAD_REPORT_KajianResikoRowChanged" msprop:Generator_RowEvArgName="SP_LOAD_REPORT_KajianResikoRowChangeEvent" msprop:Generator_RowClassName="SP_LOAD_REPORT_KajianResikoRow">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="P_Kegagalan" msprop:Generator_ColumnVarNameInTable="columnP_Kegagalan" msprop:Generator_ColumnPropNameInRow="P_Kegagalan" msprop:Generator_ColumnPropNameInTable="P_KegagalanColumn" msprop:Generator_UserColumnName="P_Kegagalan" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="500" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
+              <xs:element name="P_Kegagalan" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnP_Kegagalan" msprop:Generator_ColumnPropNameInRow="P_Kegagalan" msprop:Generator_ColumnPropNameInTable="P_KegagalanColumn" msprop:Generator_UserColumnName="P_Kegagalan" type="xs:long" />
               <xs:element name="Spek" msprop:Generator_ColumnVarNameInTable="columnSpek" msprop:Generator_ColumnPropNameInRow="Spek" msprop:Generator_ColumnPropNameInTable="SpekColumn" msprop:Generator_UserColumnName="Spek" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -115,14 +105,14 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Target" msprop:Generator_ColumnVarNameInTable="columnTarget" msprop:Generator_ColumnPropNameInRow="Target" msprop:Generator_ColumnPropNameInTable="TargetColumn" msprop:Generator_UserColumnName="Target" minOccurs="0">
+              <xs:element name="Target" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTarget" msprop:Generator_ColumnPropNameInRow="Target" msprop:Generator_ColumnPropNameInTable="TargetColumn" msprop:Generator_UserColumnName="Target" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="M_PKegagalan" msprop:Generator_ColumnVarNameInTable="columnM_PKegagalan" msprop:Generator_ColumnPropNameInRow="M_PKegagalan" msprop:Generator_ColumnPropNameInTable="M_PKegagalanColumn" msprop:Generator_UserColumnName="M_PKegagalan" minOccurs="0">
+              <xs:element name="M_PKegagalan" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnM_PKegagalan" msprop:Generator_ColumnPropNameInRow="M_PKegagalan" msprop:Generator_ColumnPropNameInTable="M_PKegagalanColumn" msprop:Generator_UserColumnName="M_PKegagalan" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="500" />
@@ -130,7 +120,7 @@
                 </xs:simpleType>
               </xs:element>
               <xs:element name="Severity2" msprop:Generator_ColumnVarNameInTable="columnSeverity2" msprop:Generator_ColumnPropNameInRow="Severity2" msprop:Generator_ColumnPropNameInTable="Severity2Column" msprop:Generator_UserColumnName="Severity2" type="xs:int" minOccurs="0" />
-              <xs:element name="P_MPenyebab" msprop:Generator_ColumnVarNameInTable="columnP_MPenyebab" msprop:Generator_ColumnPropNameInRow="P_MPenyebab" msprop:Generator_ColumnPropNameInTable="P_MPenyebabColumn" msprop:Generator_UserColumnName="P_MPenyebab" minOccurs="0">
+              <xs:element name="P_MPenyebab" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnP_MPenyebab" msprop:Generator_ColumnPropNameInRow="P_MPenyebab" msprop:Generator_ColumnPropNameInTable="P_MPenyebabColumn" msprop:Generator_UserColumnName="P_MPenyebab" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="500" />
@@ -138,7 +128,7 @@
                 </xs:simpleType>
               </xs:element>
               <xs:element name="Likelihood2" msprop:Generator_ColumnVarNameInTable="columnLikelihood2" msprop:Generator_ColumnPropNameInRow="Likelihood2" msprop:Generator_ColumnPropNameInTable="Likelihood2Column" msprop:Generator_UserColumnName="Likelihood2" type="xs:int" minOccurs="0" />
-              <xs:element name="P_MDPKegagalan" msprop:Generator_ColumnVarNameInTable="columnP_MDPKegagalan" msprop:Generator_ColumnPropNameInRow="P_MDPKegagalan" msprop:Generator_ColumnPropNameInTable="P_MDPKegagalanColumn" msprop:Generator_UserColumnName="P_MDPKegagalan" minOccurs="0">
+              <xs:element name="P_MDPKegagalan" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnP_MDPKegagalan" msprop:Generator_ColumnPropNameInRow="P_MDPKegagalan" msprop:Generator_ColumnPropNameInTable="P_MDPKegagalanColumn" msprop:Generator_UserColumnName="P_MDPKegagalan" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="500" />
@@ -147,17 +137,17 @@
               </xs:element>
               <xs:element name="Detectability2" msprop:Generator_ColumnVarNameInTable="columnDetectability2" msprop:Generator_ColumnPropNameInRow="Detectability2" msprop:Generator_ColumnPropNameInTable="Detectability2Column" msprop:Generator_UserColumnName="Detectability2" type="xs:int" minOccurs="0" />
               <xs:element name="RPN2" msprop:Generator_ColumnVarNameInTable="columnRPN2" msprop:Generator_ColumnPropNameInRow="RPN2" msprop:Generator_ColumnPropNameInTable="RPN2Column" msprop:Generator_UserColumnName="RPN2" type="xs:int" minOccurs="0" />
-              <xs:element name="RiskLevel2" msprop:Generator_ColumnVarNameInTable="columnRiskLevel2" msprop:Generator_ColumnPropNameInRow="RiskLevel2" msprop:Generator_ColumnPropNameInTable="RiskLevel2Column" msprop:Generator_UserColumnName="RiskLevel2" minOccurs="0">
+              <xs:element name="RiskLevel2" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnRiskLevel2" msprop:Generator_ColumnPropNameInRow="RiskLevel2" msprop:Generator_ColumnPropNameInTable="RiskLevel2Column" msprop:Generator_UserColumnName="RiskLevel2" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Column1" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnColumn1" msprop:Generator_ColumnPropNameInRow="Column1" msprop:Generator_ColumnPropNameInTable="Column1Column" msprop:Generator_UserColumnName="Column1" minOccurs="0">
+              <xs:element name="PIC" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnPIC" msprop:Generator_ColumnPropNameInRow="PIC" msprop:Generator_ColumnPropNameInTable="PICColumn" msprop:Generator_UserColumnName="PIC" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="100" />
+                    <xs:maxLength value="50" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
@@ -165,28 +155,6 @@
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="30" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="SuperiorPIC" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnSuperiorPIC" msprop:Generator_ColumnPropNameInRow="SuperiorPIC" msprop:Generator_ColumnPropNameInTable="SuperiorPICColumn" msprop:Generator_UserColumnName="SuperiorPIC" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="141" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="SuperiorPelaksana" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnSuperiorPelaksana" msprop:Generator_ColumnPropNameInRow="SuperiorPelaksana" msprop:Generator_ColumnPropNameInTable="SuperiorPelaksanaColumn" msprop:Generator_UserColumnName="SuperiorPelaksana" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="141" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="Status_ID" msprop:Generator_ColumnVarNameInTable="columnStatus_ID" msprop:Generator_ColumnPropNameInRow="Status_ID" msprop:Generator_ColumnPropNameInTable="Status_IDColumn" msprop:Generator_UserColumnName="Status_ID" type="xs:int" minOccurs="0" />
-              <xs:element name="Evaluator" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnEvaluator" msprop:Generator_ColumnPropNameInRow="Evaluator" msprop:Generator_ColumnPropNameInTable="EvaluatorColumn" msprop:Generator_UserColumnName="Evaluator" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="242" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>

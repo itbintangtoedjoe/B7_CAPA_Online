@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="B7_CAPA_ONLINEDataSetBukti" targetNamespace="http://tempuri.org/B7_CAPA_ONLINEDataSetBukti.xsd" xmlns:mstns="http://tempuri.org/B7_CAPA_ONLINEDataSetBukti.xsd" xmlns="http://tempuri.org/B7_CAPA_ONLINEDataSetBukti.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+<xs:schema id="B7_CAPA_ONLINEDataSetVerifikasi" targetNamespace="http://tempuri.org/B7_CAPA_ONLINEDataSetVerifikasi.xsd" xmlns:mstns="http://tempuri.org/B7_CAPA_ONLINEDataSetVerifikasi.xsd" xmlns="http://tempuri.org/B7_CAPA_ONLINEDataSetVerifikasi.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
@@ -22,12 +22,11 @@
               </DbSource>
             </MainSource>
             <Mappings>
-              <Mapping SourceColumn="Rentang" DataSetColumn="Rentang" />
+              <Mapping SourceColumn="STATUS_ID" DataSetColumn="STATUS_ID" />
               <Mapping SourceColumn="Efektif" DataSetColumn="Efektif" />
               <Mapping SourceColumn="Catatan" DataSetColumn="Catatan" />
               <Mapping SourceColumn="Evaluator" DataSetColumn="Evaluator" />
               <Mapping SourceColumn="Roles" DataSetColumn="Roles" />
-              <Mapping SourceColumn="Status_ID" DataSetColumn="Status_ID" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -36,27 +35,21 @@
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="B7_CAPA_ONLINEDataSetBukti" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="B7_CAPA_ONLINEDataSetBukti" msprop:Generator_UserDSName="B7_CAPA_ONLINEDataSetBukti">
+  <xs:element name="B7_CAPA_ONLINEDataSetVerifikasi" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="B7_CAPA_ONLINEDataSetVerifikasi" msprop:Generator_UserDSName="B7_CAPA_ONLINEDataSetVerifikasi">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element name="SP_LOAD_REPORT_Verifikasi" msprop:Generator_TableClassName="SP_LOAD_REPORT_VerifikasiDataTable" msprop:Generator_TableVarName="tableSP_LOAD_REPORT_Verifikasi" msprop:Generator_TablePropName="SP_LOAD_REPORT_Verifikasi" msprop:Generator_RowDeletingName="SP_LOAD_REPORT_VerifikasiRowDeleting" msprop:Generator_RowChangingName="SP_LOAD_REPORT_VerifikasiRowChanging" msprop:Generator_RowEvHandlerName="SP_LOAD_REPORT_VerifikasiRowChangeEventHandler" msprop:Generator_RowDeletedName="SP_LOAD_REPORT_VerifikasiRowDeleted" msprop:Generator_UserTableName="SP_LOAD_REPORT_Verifikasi" msprop:Generator_RowChangedName="SP_LOAD_REPORT_VerifikasiRowChanged" msprop:Generator_RowEvArgName="SP_LOAD_REPORT_VerifikasiRowChangeEvent" msprop:Generator_RowClassName="SP_LOAD_REPORT_VerifikasiRow">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="Rentang" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnRentang" msprop:Generator_ColumnPropNameInRow="Rentang" msprop:Generator_ColumnPropNameInTable="RentangColumn" msprop:Generator_UserColumnName="Rentang" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
+              <xs:element name="STATUS_ID" msprop:Generator_ColumnVarNameInTable="columnSTATUS_ID" msprop:Generator_ColumnPropNameInRow="STATUS_ID" msprop:Generator_ColumnPropNameInTable="STATUS_IDColumn" msprop:Generator_UserColumnName="STATUS_ID" type="xs:int" minOccurs="0" />
               <xs:element name="Efektif" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnEfektif" msprop:Generator_ColumnPropNameInRow="Efektif" msprop:Generator_ColumnPropNameInTable="EfektifColumn" msprop:Generator_UserColumnName="Efektif" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="150" />
+                    <xs:maxLength value="29" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Catatan" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnCatatan" msprop:Generator_ColumnPropNameInRow="Catatan" msprop:Generator_ColumnPropNameInTable="CatatanColumn" msprop:Generator_UserColumnName="Catatan" minOccurs="0">
+              <xs:element name="Catatan" msprop:Generator_ColumnVarNameInTable="columnCatatan" msprop:Generator_ColumnPropNameInRow="Catatan" msprop:Generator_ColumnPropNameInTable="CatatanColumn" msprop:Generator_UserColumnName="Catatan" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="200" />
@@ -66,18 +59,17 @@
               <xs:element name="Evaluator" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnEvaluator" msprop:Generator_ColumnPropNameInRow="Evaluator" msprop:Generator_ColumnPropNameInTable="EvaluatorColumn" msprop:Generator_UserColumnName="Evaluator" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="141" />
+                    <xs:maxLength value="131" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
               <xs:element name="Roles" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnRoles" msprop:Generator_ColumnPropNameInRow="Roles" msprop:Generator_ColumnPropNameInTable="RolesColumn" msprop:Generator_UserColumnName="Roles" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="100" />
+                    <xs:maxLength value="50" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Status_ID" msprop:Generator_ColumnVarNameInTable="columnStatus_ID" msprop:Generator_ColumnPropNameInRow="Status_ID" msprop:Generator_ColumnPropNameInTable="Status_IDColumn" msprop:Generator_UserColumnName="Status_ID" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
