@@ -512,7 +512,6 @@ namespace B7_CAPA_Online.Controllers
         {
             for (int i = 0; i < Request.Files.Count; i++)
             {
-
                 HttpPostedFileBase file = Request.Files[i];
                 int fileSize = file.ContentLength;
                 string mimeType = file.ContentType;

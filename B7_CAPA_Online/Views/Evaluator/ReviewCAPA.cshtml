@@ -324,7 +324,7 @@
                                         else
                                             return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                     } else {
-                                        if (data === false && result[counts].StatusDetail === 5 && result[counts].Rentang != null)
+                                        if (data === false && result[counts].StatusDetail === 5 && result[counts].Rentang != 0)
                                             return "<button type='button' id='Perbaikan' class='btn btn-primary approve' style='background-color:green;'>Approve</button><button type='button' id='Perbaikan' class='btn btn-primary reject' style='background-color:red;'>Reject</button>";
                                         else if (result[counts].StatusDetail === 1)
                                             return '<img id="imgReject" src="../Content/Images/rejected.png" style="width: 80px"/>';
@@ -437,7 +437,7 @@
                                         else
                                             return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                     } else {
-                                        if (data === false && result[counts].StatusDetail === 5 && result[counts].Rentang != null)
+                                        if (data === false && result[counts].StatusDetail === 5 && result[counts].Rentang != 0)
                                             return "<button type='button' id='Pencegahan' class='btn btn-primary approve' style='background-color:green;'>Approve</button><button type='button' id='Pencegahan' class='btn btn-primary reject' style='background-color:red;'>Reject</button>";
                                         else if (result[counts].StatusDetail === 1)
                                             return '<img id="imgReject" src="../Content/Images/rejected.png" style="width: 80px"/>';
