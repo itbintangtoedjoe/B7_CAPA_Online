@@ -273,6 +273,11 @@
         $(document).ready(function () {
             var usernameAktif = '@Request.RequestContext.HttpContext.Session["Username"]';
             $('#UserLoginXd').text(usernameAktif);
+
+            if ($('#UserLoginXd').text().length == 0) {
+                window.location.href = '@Url.Action("Index", "Login")';
+            }
+
         });
         (function ($) {
             "use strict"

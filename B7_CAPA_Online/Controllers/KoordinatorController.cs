@@ -183,7 +183,7 @@ namespace B7_CAPA_Online.Controllers
                 System.IO.Stream fileContent = file.InputStream;
                 //string filePath = Path.Combine("@"\\kalbox-b7.bintang7.com\Intranetportal\Intranet Attachment\HRCostUpload\", Path.GetFileName(file.FileName));
                 string filePath = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
-                //file.SaveAs(filePath);
+                file.SaveAs(filePath);
                 DataRow rowstype = dt.NewRow();
                 rowstype["LAMPIRAN_TERKAIT"] = filePath;
                 rowstype["FILE_NAME"] = file.FileName;
