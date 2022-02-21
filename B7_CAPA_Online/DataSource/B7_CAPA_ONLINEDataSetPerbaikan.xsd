@@ -29,7 +29,6 @@
               <Mapping SourceColumn="Superior" DataSetColumn="Superior" />
               <Mapping SourceColumn="Nama_Personil" DataSetColumn="Nama_Personil" />
               <Mapping SourceColumn="Email" DataSetColumn="Email" />
-              <Mapping SourceColumn="Creation_Date" DataSetColumn="Creation_Date" />
               <Mapping SourceColumn="Status_ID" DataSetColumn="Status_ID" />
               <Mapping SourceColumn="Approval_Date" DataSetColumn="Approval_Date" />
             </Mappings>
@@ -81,23 +80,28 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Nama_Personil" msprop:Generator_ColumnVarNameInTable="columnNama_Personil" msprop:Generator_ColumnPropNameInRow="Nama_Personil" msprop:Generator_ColumnPropNameInTable="Nama_PersonilColumn" msprop:Generator_UserColumnName="Nama_Personil" minOccurs="0">
+              <xs:element name="Nama_Personil" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNama_Personil" msprop:Generator_ColumnPropNameInRow="Nama_Personil" msprop:Generator_ColumnPropNameInTable="Nama_PersonilColumn" msprop:Generator_UserColumnName="Nama_Personil" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Email" msprop:Generator_ColumnVarNameInTable="columnEmail" msprop:Generator_ColumnPropNameInRow="Email" msprop:Generator_ColumnPropNameInTable="EmailColumn" msprop:Generator_UserColumnName="Email" minOccurs="0">
+              <xs:element name="Email" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnEmail" msprop:Generator_ColumnPropNameInRow="Email" msprop:Generator_ColumnPropNameInTable="EmailColumn" msprop:Generator_UserColumnName="Email" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="60" />
+                    <xs:maxLength value="50" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Creation_Date" msprop:Generator_ColumnVarNameInTable="columnCreation_Date" msprop:Generator_ColumnPropNameInRow="Creation_Date" msprop:Generator_ColumnPropNameInTable="Creation_DateColumn" msprop:Generator_UserColumnName="Creation_Date" type="xs:dateTime" minOccurs="0" />
               <xs:element name="Status_ID" msprop:Generator_ColumnVarNameInTable="columnStatus_ID" msprop:Generator_ColumnPropNameInRow="Status_ID" msprop:Generator_ColumnPropNameInTable="Status_IDColumn" msprop:Generator_UserColumnName="Status_ID" type="xs:int" minOccurs="0" />
-              <xs:element name="Approval_Date" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnApproval_Date" msprop:Generator_ColumnPropNameInRow="Approval_Date" msprop:Generator_ColumnPropNameInTable="Approval_DateColumn" msprop:Generator_UserColumnName="Approval_Date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Approval_Date" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnApproval_Date" msprop:Generator_ColumnPropNameInRow="Approval_Date" msprop:Generator_ColumnPropNameInTable="Approval_DateColumn" msprop:Generator_UserColumnName="Approval_Date" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
