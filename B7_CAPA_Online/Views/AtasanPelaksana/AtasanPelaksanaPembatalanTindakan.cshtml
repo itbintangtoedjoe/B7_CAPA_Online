@@ -382,7 +382,7 @@
                 var data = $('#Tbl_Perbaikan').DataTable().row(row).data();
                 var id = data['RecordID'];
                 var dictlist = {
-                    NoCAPA: $('#QS_NoCAPA').val(),
+                    NoCAPA: noCAPA,
                     Option: 5,
                     RecordID: id,
                     RejectReason: reject,
