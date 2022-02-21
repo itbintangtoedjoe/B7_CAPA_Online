@@ -239,11 +239,18 @@
                         { "data": "tanggal" },
                         { "data": "tanggalRev" },
                         { "data": "Alasan_Due_Date" },
-                        { "data": "Stat" },
                         {
-                            "data": null,
-                            "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>"
-                        },
+                            "data": "Status_ID",
+                            "render": function (data, type, row, meta) {
+                                if (row['IsApproved'] == 1 && row['EMPID'] == nik) {
+                                    return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                                }
+                                else {
+                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>"
+                                }
+                            }
+                        }
+                        
                     ],
                     "columnDefs": [
                         {
@@ -296,11 +303,17 @@
                         { "data": "tanggal" },
                         { "data": "tanggalRev" },
                         { "data": "Alasan_Due_Date" },
-                        { "data": "Stat" },
                         {
-                            "data": null,
-                            "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahan(this) value='Reject'style='background-color:red;'/>"
-                       },
+                            "data": "Status_ID",
+                            "render": function (data, type, row, meta) {
+                                if (row['IsApproved'] == 1 && row['EMPID'] == nik) {
+                                    return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                                }
+                                else {
+                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahan(this) value='Reject'style='background-color:red;'/>";
+                                }
+                            }
+                        }
                     ],
                     "columnDefs": [
                         {

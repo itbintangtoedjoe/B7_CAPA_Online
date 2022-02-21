@@ -85,7 +85,7 @@
                     <div class="card-body">
                         <h4 class="card-title">Tindakan Pencegahan</h4>
                         <div>
-                            <table class="table table-hover table-bordered zero-configuration " cellpadding="0" cellspacing="0"style="color: black" id="Tbl_Pencegahan">
+                            <table class="table table-hover table-bordered zero-configuration " cellpadding="0" cellspacing="0" style="color: black" id="Tbl_Pencegahan">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -164,15 +164,15 @@
                     var listuser = result[i].EMPID;
                     if (listuser == nik) {
                         valid = true;
-                        break;
                         if (result[i].IsUtama == 1) {
-                            evautama = true;
+                            evautama = 1;
                         }
+                        break;
                     }
                     else {
                         valid = false;
                     }
-                    
+
                 }
 
             },
@@ -255,18 +255,20 @@
                         },
 
                         {
-                            "data": "Status_ID",
-                            "render": function (data, type, row, meta) {
-                                if (evautama == 1) {
+                            "data": null,
+                            "render": function (data, type, row,meta) {
+                                    if (row["IsUtama"] === true && row["Rentang"] === 0) {
+                                        return "<input type='button' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Add Rentang'style='background-color:green;'/>";
+                                    }
+                                    else if (row["Rentang"]!= 0) {
+                                        return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>";
+                                    }
+                                    else if (row["IsApproved"] == 1 && row["EMPID"] == nik) {
+                                        return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                                    }
+                                }
 
-                                }
-                                else if (evautama != 1 && data === 11) {
-                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>";
-                                }
-                                else {
-                                    return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
-                                }
-                            }
+                            
                         }
                     ],
                     "columnDefs": [
@@ -278,6 +280,21 @@
                     ],
                     "order": [[1, 'asc']],
                 })
+
+                var result = JSON.parse(data);
+                for (var i = 0; i < result.length; i++)
+                {
+                    if (result[i].Rentang == "" && evautama == 0) {
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: 'Evaluator Utama Belum mengisi Rentang!',
+                            timer: 10000
+                        })
+                        window.location.href = '../PendingTask/TaskList'
+                    }
+                }
+
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -287,6 +304,7 @@
     function GetTindakanPencegahan() {
         var dictlist = {
             NoCAPA: noCAPA,
+            Empid: nik,
             Option: 24,
             Stat: 11
         }
@@ -339,9 +357,20 @@
                         },
                         {
                             "data": null,
-                            "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahan(this) value='Approve'style='background-color:green; '/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahan(this) value='Reject'style='background-color:red;'/>"
+                            "render": function (data, type, row, meta) {
+                                console.log(row["Rentang"]);
+                                console.log(row["IsUtama"]);
+                                if (row["IsUtama"] === true && row["Rentang"] === 0){
+                                    return "<input type='button' class='btn btn-primary' onclick=AddRentang(this) value='Add Rentang'style='background-color:green;'/>";
+                                }
+                                else if (row["Rentang"] != 0    ) {
+                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahan(this) value='Approve'style='background-color:green; '/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahan(this) value='Reject'style='background-color:red;'/>"
+                                }
+                                else if (row["IsApproved"] == 1 && row["EMPID"] == nik) {
+                                    return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                                }
+                            }
                         }
-                       
                     ],
                     "columnDefs": [
                         {
@@ -353,7 +382,18 @@
                     "order": [[1, 'asc']],
 
                 });
-
+                var result = JSON.parse(data);
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i].Rentang == "" && evautama == 0) {
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: 'Evaluator Utama Belum mengisi Rentang!',
+                            timer: 10000
+                        })
+                        window.location.href = '../PendingTask/TaskList'
+                    }
+                }
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -441,7 +481,7 @@
                     var data = $('#Tbl_Perbaikan').DataTable().row(row).data();
                     var id = data['RecordID'];
                     var dictlist = {
-                        NoCAPA: $('#QS_NoCAPA').val(),
+                        NoCAPA: noCAPA,
                         Option: 12,
                         RecordID: id,
                         RejectReason: reject,
@@ -512,13 +552,15 @@
         var row = $(button).closest("TR");
         var data = $('#Tbl_Pencegahan').DataTable().row(row).data();
         var id = data['RecordID'];
+        var kategori = data['Status_Pencegahan'];
         var rentang = $("TD", row).eq(5).find("select").val();
         var dictlist = {
             NoCAPA: noCAPA,
             Empid: nik,
             RecordID: id,
             Option: 15,
-            Rentang: rentang
+            Rentang: rentang,
+            Kategori: kategori
         }
         var dto1 = {
             Model: dictlist

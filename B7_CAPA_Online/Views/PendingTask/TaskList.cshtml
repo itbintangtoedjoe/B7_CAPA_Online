@@ -28,16 +28,14 @@
                                     <tr>
                                         <th>Action</th>
                                         <th></th>
-                                        <th>REG_ID</th>
-                                        <th>No_CAPA</th>
-                                        @*<th>Trigger CAPA</th>*@
+                                        <th hidden>REG_ID</th>
+                                        <th>No CAPA</th>
                                         <th>Kategori CAPA</th>
-                                        <th>Deskripsi</th>
-                                        <th>Area PIC</th>
-                                        @*<th>PIC CAPA</th>
-                                          <th>Alasan Penolakan</th>*@
+                                        <th hidden>Deskripsi</th>
                                         <th>Status</th>
                                         <th>Detail Status</th>
+                                        <th>Nama Requestor CAPA</th>
+                                        <th>PIC CAPA</th>
                                         <th hidden>ID</th>
                                     </tr>
                                 </thead>
@@ -176,16 +174,19 @@
                             "data": null,
                             "defaultContent": ''
                         },
-                        { "data": "REG_ID" },
+                        {
+                            "data": "REG_ID",
+                            "visible": false
+                        },
                         { "data": "NO_CAPA" },
-                     @* { "data": "TRIGGER_CAPA" },*@
                         { "data": "KATEGORI_CAPA" },
-                        { "data": "DESKRIPSI_MASALAH" },
-                        { "data": "AREA_PIC" },
-                     @* { "data": "PIC_CAPA" },
-                        { "data": "REJECT_REASON" },*@
+                        {
+                            "data": "DESKRIPSI_MASALAH",
+                            "visible": false},
                         { "data": "STATUS_CAPA" },
                         { "data": "STATUS_DESKRIPSI" },
+                        { "data": "CREATED_BY" },
+                        { "data": "PIC_CAPA" },
                         {
                             "data": "STATUS_ID",
                             "visible": false
@@ -196,6 +197,7 @@
             }
         });
     }
+
        
 
     function SelectedTask(param) {

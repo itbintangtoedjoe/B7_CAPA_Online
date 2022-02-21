@@ -197,6 +197,8 @@
     });
 
     function GetTindakanPerbaikan() {
+        console.log(nik);
+        console.log(noCAPA);
         var dictlist = {
             NoCAPA: noCAPA,
             Empid: nik,
@@ -252,6 +254,8 @@
     }
 
     function GetTindakanPencegahan() {
+        console.log(nik);
+        console.log(noCAPA);
         var dictlist = {
             NoCAPA: noCAPA,
             Empid: nik,
@@ -373,11 +377,13 @@
                 var row = $(button).closest("TR");
                 var data = $('#Tbl_Perbaikan').DataTable().row(row).data();
                 var id = data['RecordID'];
+                var tipe = data['Status_Perbaikan'];
                 var dictlist = {
-                    NoCAPA: $('#QS_NoCAPA').val(),
+                    NoCAPA: noCAPA,
                     Option: 12,
                     RecordID: id,
                     RejectReason: reject,
+                    Tipe: tipe,
                     Empid: nik
                 }
                 var dto1 = {
