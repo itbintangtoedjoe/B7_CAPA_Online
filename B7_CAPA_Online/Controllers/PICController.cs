@@ -94,6 +94,12 @@ namespace B7_CAPA_Online.Controllers
             string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_FORM_CAPA]");
             return Json(Return);
         }
+        public ActionResult GetWhyList(DynamicModel Param)
+        {
+            DynamicParameters parameters = new DynamicParameters(Param.Model);
+            string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_FORM_CAPA]");
+            return Json(Return);
+        }
         #endregion
 
         #region Execute

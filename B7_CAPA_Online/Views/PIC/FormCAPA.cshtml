@@ -487,7 +487,22 @@
                                 </div>
                             </div>
                         </form>
-
+                        <div>
+                            <table class="table table-hover table-bordered zero-configuration" id="Table_WhyDescription" style="color: black">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>RecordID</th>
+                                        <th>Aspect</th>
+                                        <th>Parent Description</th>
+                                        <th>Why Description</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="Tbl_WhyDescription">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
@@ -498,18 +513,30 @@
                     </div>
                 </div>
 
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row form-group-sm">
+                            <div class="col-md-6">
+                                <label class="m-t-20">Root Cause</label>
+                                <select id="RootCause_DDL" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="card" id="Div_TindakanPerbaikan">
                     <div class="card-body">
                         <h4 class="card-title">Penentuan Tindakan Perbaikan</h4>
                         <div>
                             <form>
-                                <div class="row form-group-sm">
-                                    <div class="col-md-6">
-                                        <label class="m-t-20">Root Cause</label>
-                                        <select id="RootCause_DDL" class="form-control">
-                                        </select>
-                                    </div>
-                                </div>
+                                @*<div class="row form-group-sm">
+                                        <div class="col-md-6">
+                                            <label class="m-t-20">Root Cause</label>
+                                            <select id="RootCause_DDL" class="form-control">
+                                            </select>
+                                        </div>
+                                    </div>*@
                                 <div class="row form-group-sm">
                                     <div class="col-md-6">
                                         <label class="m-t-20">Tindakan Perbaikan<span style="color: red">*</span></label>
@@ -583,6 +610,23 @@
                         </div>
                         <div id="TblTindakanPerbaikan">
                             @Html.Partial("TindakanPerbaikanPV")
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-md-12">
+                            <label class="m-t-40">Apakah ada proses / area lain yang berpotensi sama ?</label>
+                            <div class="radio input-group">
+                                <div class="col-sm-3">
+                                    <label><input type="radio" value="Yes" name="Potensi">Ya</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label><input type="radio" value="No" name="Potensi">Tidak</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1259,8 +1303,9 @@
 
     function addTindakan(dto, kategori) {
         var valid = false;
+        console.log(dto);
+        console.log(kategori);
         $.each(dto, function (key, value) {
-            console.log(value);
             if (value == '' || value == '-' || value == null) {
                 if (value == 0 || typeof value === "undefined")
                     valid = true;
@@ -1450,7 +1495,7 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 $('#DepartemenPerbaikan_DDL').empty();
                 $('#DepartemenPencegahan_DDL').empty();
                 $('#DepartemenPerbaikan_DDL').append(new Option('*Pilih*', '-'));
@@ -1508,7 +1553,7 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 $('#NamaPersonil' + kategori + '_DDL').empty();
                 $('#NamaPersonil' + kategori + '_DDL').append(new Option("*Pilih*", '-'));
                 $.each(JSON.parse(data), function (key, value) {
@@ -1840,6 +1885,7 @@
         $('#Departemen' + kategori + '_DDL').val("-").trigger("change");
         $('#TxtAreaLain' + kategori).val("");
         $('input[name="Potensi"]').prop("checked", false);
+        $('#TxtSuperior' + kategori).val("");
     }
 
     function RemoveModalInput() {
@@ -1876,12 +1922,62 @@
         return isHide = true;
     }
 
+    function GetWhyTable() {
+        $.ajax({
+            url: 'GetWhyList',
+            type: 'post',
+            data: JSON.stringify({
+                Model: {
+                    Option: 17,
+                    NO_CAPA: $('#input_NoCAPA').val()
+                }
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log(data);
+                $('#Table_WhyDescription').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": true,
+                    "searching": false,
+                    "paging": false,
+                    "info": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "bDestroy": true,
+                    "scrollCollapse": true,
+                    "columns": [
+                        { "data": "row_num" },
+                        { "data": "RecordID" },
+                        { "data": "WAHType_FK" },
+                        { "data": "ParentDesc" },
+                        { "data": "WhyDescription" },
+                        {
+                            "data": null,
+                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onchange=''>Delete</button> "
+                        },
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": 1,
+                            "visible": false
+                        }
+                    ],
+                    "order": [[1, 'asc']]                   
+                });
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
     $(document).ready(function () {
 
         //isHide = false;
         GetAllRoot();
         checkStatusCAPA();
         KajianResikoDDL();
+        GetWhyTable();
         //HideDeleteButton();
         DeleteKajianResiko();
         UnhideKajianResikoModal();
@@ -1929,32 +2025,34 @@
         $('#btn_AddPencegahan').click(function () {
             var dto = {};
             var kategori = "Pencegahan";
-            var obj = area_lains;
+            var obj = rootcauses;
+            console.log(obj);
             $.each(obj, function (key, value) {
-                //if (value.Tindakan_Perbaikan == $('#AreaLain_DDL').val()) {
-                dto = {
-                    Option: 9,
-                    NO_CAPA: $('#input_NoCAPA').val(),
-                    //Aspect: value.WAHType_FK,
-                    //WhyID: value.WhyID,
-                    //WhyParentID: value.WhyParentID,
-                    //RootCause: value.Tindakan_Perbaikan,
-                    AreaLain: $('#TxtAreaLainPencegahan').val(),
-                    Tindakan: $('#TxtDeskripsiPencegahan').val(),
-                    Pelaksana: $('#NamaPersonilPencegahan_DDL').val(),
-                    Departemen: $('#DepartemenPencegahan_DDL').val(),
-                    //LineNumber: value.LineNumber,
-                    DueDate: $('#duedate_pencegahan').val(),
-                    NamaPersonil: $('#NamaPersonilPencegahan_DDL option:selected').text(),
-                    Email: $('#TxtEmailPencegahan').val(),
-                    Create_By: $('#input_Requestor_NIK').val(),
-                    Status: "Active",
-                    Status_ID: 1,
-                    SP: "[dbo].[SP_FORM_CAPA]"
+                if (value.WhyDesc == $('#RootCause_DDL').val()) {
+                    dto = {
+                        Option: 9,
+                        NO_CAPA: $('#input_NoCAPA').val(),
+                        Aspect: value.WAHType_FK,
+                        WhyID: value.WhyID,
+                        WhyParentID: value.WhyParentID,
+                        RootCause: value.WhyDesc,
+                        AreaLain: $('#TxtAreaLainPencegahan').val(),
+                        Tindakan: $('#TxtDeskripsiPencegahan').val(),
+                        Pelaksana: $('#NamaPersonilPencegahan_DDL').val(),
+                        Departemen: $('#DepartemenPencegahan_DDL').val(),
+                        //LineNumber: value.LineNumber,
+                        DueDate: $('#duedate_pencegahan').val(),
+                        NamaPersonil: $('#NamaPersonilPencegahan_DDL option:selected').text(),
+                        Email: $('#TxtEmailPencegahan').val(),
+                        Create_By: $('#input_Requestor_NIK').val(),
+                        Status: "Active",
+                        Status_ID: 1,
+                        SP: "[dbo].[SP_FORM_CAPA]"
+                    }
+                    return false;
                 }
-                return false;
-                //}
             });
+
             //console.log(dto)
             addTindakan(dto, kategori);
         });
@@ -2076,6 +2174,7 @@
                                     retrieveData();
                                     getWhyParent();
                                     GetAllRoot();
+                                    GetWhyTable();
                                 }
                             })
                         } else {
