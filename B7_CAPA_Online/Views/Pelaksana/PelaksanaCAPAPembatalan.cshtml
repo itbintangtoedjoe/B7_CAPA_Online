@@ -698,7 +698,7 @@
     function CancelPencegahan() {
         var dictlist = {
             Kategori: "Cancel Pencegahan",
-            RecordID: referenceID,
+            recordID: referenceID,
             alasan_batal: $('#AlasanBatalPencegahan').val()
         }
         var dto = {
@@ -897,7 +897,9 @@
         var dictlist = {
             Kategori: "Batal Perbaikan",
             RecordID: referenceID,
-            Tipe: jenis
+            NoCAPA: noCAPA,
+            Tipe: jenis,
+            empID: nik
         }
         var dto = {
             Model: dictlist
@@ -962,8 +964,10 @@
     function SubmitPencegahan() {
         var dictlist = {
             Kategori: "Batal Pencegahan",
+            NoCAPA: noCAPA,
             RecordID: referenceID,
-            Tipe: jenis
+            Tipe: jenis,
+            empID: nik
         }
         var dto = {
             Model: dictlist

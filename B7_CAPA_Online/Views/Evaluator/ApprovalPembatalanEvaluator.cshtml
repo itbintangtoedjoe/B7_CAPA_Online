@@ -65,7 +65,6 @@
                                         <th>Tindakan Perbaikan</th>
                                         <th>Due Date</th>
                                         <th>Alasan Pembatalan</th>
-                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -94,7 +93,6 @@
                                         <th>Tindakan Pencegahan</th>
                                         <th>Due Date</th>
                                         <th>Alasan Pembatalan</th>
-                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -244,7 +242,7 @@
                                     return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                 }
                                 else if (row["Rentang"] != 0) {
-                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>";
+                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; margin-left:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>";
                                 }
 
                             }
@@ -309,7 +307,7 @@
                                     return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                 }
                                 else {
-                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahan(this) value='Reject'style='background-color:red;'/>";
+                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahan(this) value='Approve'style='background-color:green; margin-left:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahan(this) value='Reject'style='background-color:red;'/>";
                                 }
                             }
                         }
