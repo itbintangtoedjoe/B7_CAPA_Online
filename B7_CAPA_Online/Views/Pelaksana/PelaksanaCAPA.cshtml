@@ -13,6 +13,9 @@
     }
 </style>
 
+<link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
+<script src="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.js" defer></script>
+
 <div class="content-body">
     <!--Modal-->
     <div class="row page-titles mx-0">
@@ -105,10 +108,10 @@
                             </div>
 
                             @*<div class="row form-group">
-            <div class="col-sm-2">
-                <button type="button" class="btn btn-primary" id="btnTambahPerbaikan">Tambah Tindakan Perbaikan</button>
-            </div>
-        </div>*@
+                                    <div class="col-sm-2">
+                                        <button type="button" class="btn btn-primary" id="btnTambahPerbaikan">Tambah Tindakan Perbaikan</button>
+                                    </div>
+                                </div>*@
                             <hr />
                             <div class="row form-group">
                                 <div class="col-sm-6">
@@ -235,8 +238,8 @@
 
                             <div class="row form-group">
                                 @*<div class="col-sm-2">
-                <button type="button" class="btn btn-primary">Tambah Tindakan Pencegahan</button>
-            </div>*@
+                                        <button type="button" class="btn btn-primary">Tambah Tindakan Pencegahan</button>
+                                    </div>*@
                             </div>
                             <hr />
                             <div class="row form-group">
@@ -295,16 +298,16 @@
                                     </div>
                                 </div>
                                 @*<div class="col-md-6">
-                <label class="m-t-40" style="visibility:hidden">Hasil tindakan perbaikan yang sudah dilakukan</label>
-                <div class="input-group mb-3">
-                    <button type=   "button" class="btn mb-1 btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
-                    <div class="dropdown-menu" style="width:auto">
-                        <a class="dropdown-item" href="#">Ubah Tindakan Pencegahan</a>
-                        <a class="dropdown-item" href="#">Cancel Tindakan Pencegahan</a>
-                        <a class="dropdown-item" href="#">Tambah Tindakan Pencegahan</a>
-                    </div>
-                </div>
-            </div>*@
+                                        <label class="m-t-40" style="visibility:hidden">Hasil tindakan perbaikan yang sudah dilakukan</label>
+                                        <div class="input-group mb-3">
+                                            <button type=   "button" class="btn mb-1 btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
+                                            <div class="dropdown-menu" style="width:auto">
+                                                <a class="dropdown-item" href="#">Ubah Tindakan Pencegahan</a>
+                                                <a class="dropdown-item" href="#">Cancel Tindakan Pencegahan</a>
+                                                <a class="dropdown-item" href="#">Tambah Tindakan Pencegahan</a>
+                                            </div>
+                                        </div>
+                                    </div>*@
                                 <div class="col-md-4">
                                     <label class="m-t-20">Upload Bukti Tindakan Pencegahan<span style="color: red">*</span></label>
                                     <div class="input-group mb-3">
@@ -314,8 +317,8 @@
                                         <label id="TxtLampiranCountPencegahan" class="custom-file-label">Tidak ada File Yang Dipilih</label>
 
                                         @*<div class="input-group-append">
-                        <button id="btnAddAttPerbaikan" class="btn-dark input-group-text center" style="cursor:pointer" type="button">Add<span style="visibility:hidden">..</span><i class="fa fa-plus color-success"></i></button>
-                    </div>*@
+                                                <button id="btnAddAttPerbaikan" class="btn-dark input-group-text center" style="cursor:pointer" type="button">Add<span style="visibility:hidden">..</span><i class="fa fa-plus color-success"></i></button>
+                                            </div>*@
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -569,10 +572,10 @@
         <!-- #/ container -->
         @*@Html.Partial("KajianResikoPV")*@
         @*<div class="row form-group-sm">
-            <div class="col-md-6 mt-3">
-                <button class="btn mb-1 btn-primary" id="SubmitVerif">Submit</button>
-            </div>
-        </div>*@
+                <div class="col-md-6 mt-3">
+                    <button class="btn mb-1 btn-primary" id="SubmitVerif">Submit</button>
+                </div>
+            </div>*@
     </div>
     <input type="text" id="input_NoCAPA" value="@ViewBag.NoCAPA" hidden>
 </div>
@@ -882,11 +885,12 @@
             processData: false,
             async: false,
             success: function (data) {
-                swal("File Berhasil di Upload!", {
-                    icon: "success",
-                    buttons: false,
-                    timer: 100000,
-                });
+                Swal.fire({
+                    title: "File Berhasil di Upload!",
+                    type: "success",
+                    showConfirmButton: false,
+                    timer: 1000,
+                })
                 $('#TxtLampiranCountPerbaikan').text("Tidak ada File Yang Dipilih");
                 GetPerbaikanAttachments();
                 PopulateTableAttPerbaikan();
@@ -920,11 +924,12 @@
             processData: false,
             async: false,
             success: function (data) {
-                swal("File Berhasil di Upload!", {
-                    icon: "success",
-                    buttons: false,
-                    timer: 100000,
-                });
+                Swal.fire({
+                    title: "File Berhasil di Upload!",
+                    type: "success",
+                    showConfirmButton: false,
+                    timer: 1000,
+                })
 
                 $('#TxtLampiranCountPencegahan').text("Tidak ada File Yang Dipilih");
                 GetPencegahanAttachments();
@@ -958,11 +963,12 @@
             processData: false,
             async: false,
             success: function (data) {
-                swal("File Berhasil di Upload!", {
-                    icon: "success",
-                    buttons: false,
-                    timer: 100000,
-                });
+                Swal.fire({
+                    title: "File Berhasil di Upload!",
+                    type: "success",
+                    showConfirmButton: false,
+                    timer: 1000,
+                })
 
                 $('#TxtLampiranCountTreatment').text("Tidak ada File Yang Dipilih");
                 GetTreatmentAttachments();
@@ -1248,12 +1254,13 @@
         //pelaksanaID = pelaksanaID.replace('#', '');
         idPerbaikan = parseInt(idPerbaikan);
         if (hasilPerbaikan.trim() == "" || $('#tblAttachmentPerbaikan td:last-child').text() == "Belum ada file terpilih") {
-                swal('Hasil perbaikan dan attachment wajib diisi!', {
-                    icon: "warning",
-                    buttons: false,
-                    timer: 1000,
-                });
-                return;
+
+            Swal.fire({
+                title: "Hasil perbaikan dan attachment wajib diisi!",
+                type: "warning",
+                showConfirmButton: false
+            })
+
             }
         var dictlist = {
            kategori: kategori ,
@@ -1273,12 +1280,14 @@
             data: JSON.stringify(dto1),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-               swal("Data perbaikan berhasil diupdate!", {
-                    icon: "success",
-                    buttons: false,
-                    timer: 100000,
-               });
-                ReloadPage();
+                Swal.fire({
+                    title: "Data perbaikan berhasil diupdate!",
+                    type: "success",
+                    showConfirmButton: false,
+                    timer: 1000,
+                }).then(() => {
+                    ReloadPage();
+                })
                 $('#ddlPerbaikan').attr("disabled", false);
             },
             error: function (errormessage) {
@@ -1636,11 +1645,12 @@
         //pelaksanaID = pelaksanaID.replace('#', '');
         idPencegahan = parseInt(idPencegahan);
         if (hasilPencegahan.trim() == "" || $('#tblAttachmentPencegahan td:last-child').text() == "Belum ada file terpilih") {
-                swal('Hasil pencegahan dan attachment wajib diisi!', {
-                    icon: "warning",
-                    buttons: false,
-                    timer: 1000,
-                });
+
+            Swal.fire({
+                title: "Hasil pencegahan dan attachment wajib diisi!",
+                type: "error",
+                showConfirmButton: false
+            })
                 return;
          }
         var dictlist = {
@@ -1661,11 +1671,12 @@
             data: JSON.stringify(dto1),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-                swal("Data perbaikan berhasil diupdate!", {
-                    icon: "success",
-                    buttons: false,
-                    timer: 100000,
-                });
+                Swal.fire({
+                    title: "Data pencegahan berhasil diupdate!",
+                    type: "error",
+                    showConfirmButton: false,
+                    timer: 1000,
+                }).then
                 ReloadPage();
 
                 $('#ddlPencegahan').attr("disabled", false);
@@ -1960,11 +1971,13 @@
 
         //pelaksanaID = pelaksanaID.replace('#', '');
         if (MDPKegagalan.trim() == "" || $('#tblAttachmentTreatment td:last-child').text() == "Belum ada file terpilih") {
-            swal('Hasil treatment dan attachment wajib diisi!', {
-                icon: "warning",
-                buttons: false,
-                timer: 1000,
-            });
+            Swal.fire({
+                title: "Hasil treatment dan attachment wajib diisi!",
+                type: "warning",
+                showConfirmButton: false
+            }).then(() => {
+                ReloadPage();
+            })
             return;
         }
 
@@ -1972,10 +1985,12 @@
             kategori = "Treatment";
             status = "Pending Review Superior Pelaksana";
             if (potensiKegagalan.trim() == "" || penyebabPotensi.trim() == "") {
-                swal('Semua field wajib diisi!', {
-                    icon: "warning",
-                    buttons: false,
-                    timer: 1000,
+                Swal.fire({
+                    title: "Semua field wajib diisi!",
+                    type: "warning",
+                    showConfirmButton: false
+                }).then(() => {
+                    ReloadPage();
                 })
                 return;
             }
@@ -1999,11 +2014,14 @@
             data: JSON.stringify(dto1),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-                swal("Treatment Berhasil Di Simpan!", {
-                    icon: "success",
-                    buttons: false,
-                    timer: 100000,
-                });
+                Swal.fire({
+                    title: "Data Treatment berhasil diupdate!",
+                    type: "success",
+                    showConfirmButton: false,
+                    timer: 1000,
+                }).then(() => {
+                    ReloadPage();
+                })
                 FindKajian();
                 $('#txtPotensiKegagalan').val("");
                 $('#txtPenyebabPotensi').val("");
@@ -2088,14 +2106,15 @@
 
 
 
-    function DeleteAttachment(attID,kategori) {
-        swal({
+    function DeleteAttachment(attID, kategori) {
+        Swal.fire({
             title: "Anda yakin menghapus lampiran?",
-            icon: "warning",
-            buttons: ["Tidak", "Ya"],
-            dangerMode: true,
-        })
-        .then((willDelete) => {
+            type: "warning",
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Delete!',
+            timer: 1000,
+        }).then((willDelete) => {
             if (willDelete) {
                 var formData = {
                     "IDAttachment": attID
@@ -2108,11 +2127,11 @@
                     contentType: "application/json",
                     dataType: 'json',
                     success: function (data) {
-                        swal("Attachment berhasil dihapus!", {
-                            icon: "success",
-                            buttons: false,
-                            timer: 1000,
-                        });
+                        Swal.fire({
+                            title: "Attachment berhasil dihapus!",
+                            type: "success",
+                            showConfirmButton: false,
+                        })
                         if (kategori == 1) {
                             GetPerbaikanAttachments();
                             PopulateTableAttPerbaikan();
@@ -2121,18 +2140,18 @@
                             GetPencegahanAttachments();
                             PopulateTableAttPencegahan();
                         }
-                        else
-                        {
+                        else {
                             GetTreatmentAttachments();
                             PopulateTableAttTreatment();
                         }
-            },
+                    },
                     error: function (xhr, error, status) {
                         console.log(error, status);
                     }
                 });
             }
         });
+        
         @*swal("Att Perbaikan " + attID+ " deleted", {
             icon: "success",
             buttons: false,
