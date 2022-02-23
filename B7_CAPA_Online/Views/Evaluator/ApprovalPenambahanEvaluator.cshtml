@@ -65,7 +65,6 @@
                                         <th>Nama Pelaksana</th>
                                         <th>Tindakan Perbaikan</th>
                                         <th>Due Date</th>
-                                        <th>Status</th>
                                         <th>Rentang</th>
                                         <th>Action</th>
                                     </tr>
@@ -94,7 +93,6 @@
                                         <th>Nama Pelaksana</th>
                                         <th>Tindakan Pencegahan</th>
                                         <th>Due Date</th>
-                                        <th>Status</th>
                                         <th>Rentang</th>
                                         <th>Action</th>
                                     </tr>
@@ -133,6 +131,7 @@
     var laststate = false;
     var valid = false;
     var referenceID = getQueryStrings()["ReferenceID"];
+    var evautama;
     //function untuk ambil semua query string
     function getQueryStrings() {
         var vars = [], hash;
@@ -166,10 +165,14 @@
                     if (listuser == nik) {
                         valid = true;
                         break;
+                        if (result[i].IsUtama == 1) {
+                            evautama = true;
+                        }
                     }
                     else {
                         valid = false;
                     }
+                    
                 }
 
             },
@@ -232,7 +235,6 @@
                         { "data": "PelaksanaName" },
                         { "data": "Tindakan_Perbaikan" },
                         { "data": "tanggal" },
-                        { "data": "Stat" },
                         {
                             "data": "Rentang",
                             "render": function (data, type, row, meta) {
@@ -253,8 +255,18 @@
                         },
 
                         {
-                            "data": null,
-                            "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>"
+                            "data": "Status_ID",
+                            "render": function (data, type, row, meta) {
+                                if (evautama == 1) {
+
+                                }
+                                else if (evautama != 1 && data === 11) {
+                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>";
+                                }
+                                else {
+                                    return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                                }
+                            }
                         }
                     ],
                     "columnDefs": [
@@ -304,7 +316,6 @@
                         { "data": "PelaksanaName" },
                         { "data": "Tindakan_Pencegahan" },
                         { "data": "tanggal" },
-                        { "data": "Stat" },
                         {
                             "data": "Rentang",
                             "render": function (data, type, row, meta) {

@@ -490,10 +490,10 @@
                     </div>
                 </div>
 
-                <div class="card">
+                <div class="card" id="Div_TindakanPerbaikan">
                     <div class="card-body">
                         <h4 class="card-title">Penentuan Tindakan Perbaikan</h4>
-                        <div id="Div_TindakanPerbaikan">
+                        <div>
                             <form>
                                 <div class="row form-group-sm">
                                     <div class="col-md-6">
@@ -571,10 +571,10 @@
                     </div>
                 </div>
 
-                <div class="card">
+                <div class="card" id="Div_TindakanPencegahan">
                     <div class="card-body">
                         <h4 class="card-title">Penentuan Tindakan Pencegahan </h4>
-                        <div id="Div_TindakanPencegahan">
+                        <div>
                             <form>
                                 <div class="row form-group-sm">
                                     <div class="col-md-6">
@@ -794,6 +794,8 @@
 <script src="https://unpkg.com/gojs/release/go-debug.js" defer></script>
 
 <script>
+    var rootcauses;
+    var area_lains;
     var myDiagram;
     //Check Jika status 1 maka button submit disabled.
     function checkStatusCAPA() {
@@ -827,10 +829,12 @@
             }),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            success: function (data) {
+            success: function (data) {            
                 var result = JSON.parse(data)[0];
+               
                 var hide = (result.STATUS_ID == 1) ? (false) : (true); // jika status CAPA = 1 maka, hide = false , sebaliknya.
                 btnDelete = hide; //btn Delete di dalam Table KajianResiko dan AnalisaKondisi switch on/off berdasarkan variable hide.
+               
 
                 $('#btn_Submit').prop('hidden', hide);
                 $('#Div_AnalisaKondisiInput').prop('hidden', hide);
@@ -840,17 +844,19 @@
                 if (result.REJECT_REASON == '-') {
                     $('#Div_RejectReason').prop('hidden', true);
                 }
-                getTable(!hide);
-                TableKajian(!hide);
+                
                 $('#Div_TindakanPerbaikan').prop('hidden', hide);
                 $('#Div_TindakanPencegahan').prop('hidden', hide);
+                //$('#TblTindakanPencegahan').prop('hidden', hide);
+                //$('#TblTindakanPerbaikan').prop('hidden', hide);
 
                 if (!hide) {
                     retrieveData();
                     retrieveData2();
                 }
-
-                isHide = true;
+                getTable(!hide);
+                TableKajian(!hide);
+                //isHide = true;
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -1109,45 +1115,46 @@
                 $.each(JSON.parse(rootcause), function (key, value) {
                     $('#RootCause_DDL').append(new Option(value.WhyDesc, value.WhyDesc));
                 });
+                rootcauses = JSON.parse(rootcause);                
+                //$('#btn_AddPerbaikan').click(function () {
+                //    countAdd++;
+                //    if (countAdd > 1) {
+                //        return;
+                //    }
+                //    else {
+                //        var dto = {};
+                //        var kategori = "Perbaikan";
+                //        var obj = JSON.parse(rootcause);
 
-                $('#btn_AddPerbaikan').click(function () {
-                    countAdd++;
-                    if (countAdd > 1) {
-                        return;
-                    }
-                    else {
-                        var dto = {};
-                        var kategori = "Perbaikan";
-                        var obj = JSON.parse(rootcause);
+                //        $.each(obj, function (key, value) {
+                //            if (value.WhyDesc == $('#RootCause_DDL').val()) {
+                //                dto = {
+                //                    Option: 7,
+                //                    NO_CAPA: $('#input_NoCAPA').val(),
+                //                    Aspect: value.Aspect,
+                //                    WhyID: value.WhyID,
+                //                    WhyParentID: value.ParentID,
+                //                    RootCause: value.WhyDesc,
+                //                    Tindakan: $('#TxtDeskripsiPerbaikan').val(),
+                //                    Pelaksana: $('#NamaPersonilPerbaikan_DDL').val(),
+                //                    Departemen: $('#DepartemenPerbaikan_DDL').val(),
+                //                    LineNumber: value.LineNumber,
+                //                    DueDate: $('#duedate_perbaikan').val(),
+                //                    NamaPersonil: $('#NamaPersonilPerbaikan_DDL option:selected').text(),
+                //                    Email: $('#TxtEmailPerbaikan').val(),
+                //                    Is_AreaLain: $('input[name="Potensi"]:checked').val(),
+                //                    Create_By: $('#input_Requestor_NIK').val(),
+                //                    Status: "Active",
+                //                    Status_ID: 1,
+                //                    SP: "[dbo].[SP_FORM_CAPA]"
+                //                }
+                //                return false;
+                //            }
+                //        });
 
-                        $.each(obj, function (key, value) {
-                            if (value.WhyDesc == $('#RootCause_DDL').val()) {
-                                dto = {
-                                    Option: 7,
-                                    NO_CAPA: $('#input_NoCAPA').val(),
-                                    Aspect: value.Aspect,
-                                    WhyID: value.WhyID,
-                                    WhyParentID: value.ParentID,
-                                    RootCause: value.WhyDesc,
-                                    Tindakan: $('#TxtDeskripsiPerbaikan').val(),
-                                    Pelaksana: $('#NamaPersonilPerbaikan_DDL').val(),
-                                    Departemen: $('#DepartemenPerbaikan_DDL').val(),
-                                    LineNumber: value.LineNumber,
-                                    DueDate: $('#duedate_perbaikan').val(),
-                                    NamaPersonil: $('#NamaPersonilPerbaikan_DDL option:selected').text(),
-                                    Email: $('#TxtEmailPerbaikan').val(),
-                                    Is_AreaLain: $('input[name="Potensi"]:checked').val(),
-                                    Create_By: $('#input_Requestor_NIK').val(),
-                                    Status: "Active",
-                                    Status_ID: 1,
-                                    SP: "[dbo].[SP_FORM_CAPA]"
-                                }
-                                return false;
-                            }
-                        });
-                        addTindakan(dto, kategori);
-                    }
-                });
+                //        addTindakan(dto, kategori);
+                //    }
+                //});
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -1178,44 +1185,44 @@
                     $.each(JSON.parse(area_lain), function (key, value) {
                         $('#AreaLain_DDL').append(new Option(value.Tindakan_Perbaikan, value.Tindakan_Perbaikan));
                     });
-
-                    $('#btn_AddPencegahan').click(function () {
-                        countAdd++;
-                        if (countAdd > 1) {
-                            return false;
-                        } else {
-                            var dto = {};
-                            var kategori = "Pencegahan";
-                            var obj = JSON.parse(area_lain);
-                            $.each(obj, function (key, value) {
-                                if (value.Tindakan_Perbaikan == $('#AreaLain_DDL').val()) {
-                                    dto = {
-                                        Option: 9,
-                                        NO_CAPA: $('#input_NoCAPA').val(),
-                                        Aspect: value.WAHType_FK,
-                                        WhyID: value.WhyID,
-                                        WhyParentID: value.WhyParentID,
-                                        RootCause: value.Tindakan_Perbaikan,
-                                        AreaLain: $('#TxtAreaLainPencegahan').val(),
-                                        Tindakan: $('#TxtDeskripsiPencegahan').val(),
-                                        Pelaksana: $('#NamaPersonilPencegahan_DDL').val(),
-                                        Departemen: $('#DepartemenPencegahan_DDL').val(),
-                                        LineNumber: value.LineNumber,
-                                        DueDate: $('#duedate_pencegahan').val(),
-                                        NamaPersonil: $('#NamaPersonilPencegahan_DDL option:selected').text(),
-                                        Email: $('#TxtEmailPencegahan').val(),
-                                        Create_By: $('#input_Requestor_NIK').val(),
-                                        Status: "Active",
-                                        Status_ID: 1,
-                                        SP: "[dbo].[SP_FORM_CAPA]"
-                                    }
-                                    return false;
-                                }
-                            });
-                            addTindakan(dto, kategori);
-                        }
-
-                    });
+                    area_lains = JSON.parse(area_lain);      
+                    //$('#btn_AddPencegahan').click(function () {
+                    //    countAdd++;
+                    //    if (countAdd > 1) {
+                    //        return false;
+                    //    } else {
+                    //        //console.log()
+                    //        var dto = {};
+                    //        var kategori = "Pencegahan";
+                    //        var obj = JSON.parse(area_lain);
+                    //        $.each(obj, function (key, value) {
+                    //            if (value.Tindakan_Perbaikan == $('#AreaLain_DDL').val()) {
+                    //                dto = {
+                    //                    Option: 9,
+                    //                    NO_CAPA: $('#input_NoCAPA').val(),
+                    //                    Aspect: value.WAHType_FK,
+                    //                    WhyID: value.WhyID,
+                    //                    WhyParentID: value.WhyParentID,
+                    //                    RootCause: value.Tindakan_Perbaikan,
+                    //                    AreaLain: $('#TxtAreaLainPencegahan').val(),
+                    //                    Tindakan: $('#TxtDeskripsiPencegahan').val(),
+                    //                    Pelaksana: $('#NamaPersonilPencegahan_DDL').val(),
+                    //                    Departemen: $('#DepartemenPencegahan_DDL').val(),
+                    //                    LineNumber: value.LineNumber,
+                    //                    DueDate: $('#duedate_pencegahan').val(),
+                    //                    NamaPersonil: $('#NamaPersonilPencegahan_DDL option:selected').text(),
+                    //                    Email: $('#TxtEmailPencegahan').val(),
+                    //                    Create_By: $('#input_Requestor_NIK').val(),
+                    //                    Status: "Active",
+                    //                    Status_ID: 1,
+                    //                    SP: "[dbo].[SP_FORM_CAPA]"
+                    //                }
+                    //                return false;
+                    //            }
+                    //        });
+                    //        addTindakan(dto, kategori);
+                    //    }
+                    //});
                 }
             },
             error: function (ex) {
@@ -1254,8 +1261,11 @@
                             'success'
                         ).then((result) => {
                             if (result.value) {
-                                retrieveData();
-                                retrieveData2();
+                                if (status[0].Status_Inserted == 'Tindakan Pencegahan') {
+                                    retrieveData();
+                                } else {
+                                     retrieveData2();
+                                }                                                               
                                 KajianResikoDDL();
                                 RemoveInputField(kategori);
                                 GetTindakanPencegahanPV();
@@ -1786,6 +1796,8 @@
     }
 
     $(document).ready(function () {
+        
+        //isHide = false;
         GetAllRoot();        
         checkStatusCAPA();
         KajianResikoDDL();
@@ -1794,6 +1806,77 @@
         UnhideKajianResikoModal();
         getDDLDeptKajianResiko();
         getVendorDDL();
+
+        //console.log(rootcauses);
+
+        $('#btn_AddPerbaikan').click(function () {
+            var dto = {};
+            var kategori = "Perbaikan";
+            var obj = rootcauses;
+
+            $.each(obj, function (key, value) {
+                if (value.WhyDesc == $('#RootCause_DDL').val()) {
+                    dto = {
+                        Option: 7,
+                        NO_CAPA: $('#input_NoCAPA').val(),
+                        Aspect: value.Aspect,
+                        WhyID: value.WhyID,
+                        WhyParentID: value.ParentID,
+                        RootCause: value.WhyDesc,
+                        Tindakan: $('#TxtDeskripsiPerbaikan').val(),
+                        Pelaksana: $('#NamaPersonilPerbaikan_DDL').val(),
+                        Departemen: $('#DepartemenPerbaikan_DDL').val(),
+                        LineNumber: value.LineNumber,
+                        DueDate: $('#duedate_perbaikan').val(),
+                        NamaPersonil: $('#NamaPersonilPerbaikan_DDL option:selected').text(),
+                        Email: $('#TxtEmailPerbaikan').val(),
+                        Is_AreaLain: $('input[name="Potensi"]:checked').val(),
+                        Create_By: $('#input_Requestor_NIK').val(),
+                        Status: "Active",
+                        Status_ID: 1,
+                        SP: "[dbo].[SP_FORM_CAPA]"
+                    }
+                    return false;
+                }
+            });
+
+            //console.log(dto);
+
+            addTindakan(dto, kategori);
+        });
+
+        $('#btn_AddPencegahan').click(function () {
+            var dto = {};
+            var kategori = "Pencegahan";
+            var obj = area_lains;
+            $.each(obj, function (key, value) {
+                if (value.Tindakan_Perbaikan == $('#AreaLain_DDL').val()) {
+                    dto = {
+                        Option: 9,
+                        NO_CAPA: $('#input_NoCAPA').val(),
+                        Aspect: value.WAHType_FK,
+                        WhyID: value.WhyID,
+                        WhyParentID: value.WhyParentID,
+                        RootCause: value.Tindakan_Perbaikan,
+                        AreaLain: $('#TxtAreaLainPencegahan').val(),
+                        Tindakan: $('#TxtDeskripsiPencegahan').val(),
+                        Pelaksana: $('#NamaPersonilPencegahan_DDL').val(),
+                        Departemen: $('#DepartemenPencegahan_DDL').val(),
+                        LineNumber: value.LineNumber,
+                        DueDate: $('#duedate_pencegahan').val(),
+                        NamaPersonil: $('#NamaPersonilPencegahan_DDL option:selected').text(),
+                        Email: $('#TxtEmailPencegahan').val(),
+                        Create_By: $('#input_Requestor_NIK').val(),
+                        Status: "Active",
+                        Status_ID: 1,
+                        SP: "[dbo].[SP_FORM_CAPA]"
+                    }
+                    return false;
+                }
+            });
+            //console.log(dto)
+            addTindakan(dto, kategori);                        
+        });
 
         $('#DepartemenPerbaikan_DDL').change(function () {
             $('#TxtEmailPerbaikan').val("");

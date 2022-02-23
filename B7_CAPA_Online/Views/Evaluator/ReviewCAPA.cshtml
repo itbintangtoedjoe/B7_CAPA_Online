@@ -75,7 +75,7 @@
                                     <th>Tindakan Pencegahan</th>
                                     <th>Due Date</th>
                                     <th>Rentang</th>
-                                    <th>Action</th>
+                                   <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody id="Table_RentangPencegahan">
@@ -92,6 +92,7 @@
 <script src="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.js" defer></script>
 
 <script>
+    var isUtama = false;
     var CurrentStatsID = 5;
 
     function checkStatusCAPA() {
@@ -112,10 +113,48 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 var result = JSON.parse(data);
-                $('#btn_Submit').prop('hidden', true);                
-                if (result[0].Status_Detail == 6 && result[0].Status_Header != 6) {
+                $('#btn_Submit').prop('hidden', true);
+                if (result[0].IsApproved == false) {
                     $('#btn_Submit').prop('hidden', false);
                 }
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function checkEvaluatorCAPA() {
+        $.ajax({
+            url: '/AtasanPIC/SubmitApproval',
+            type: 'post',
+            data: JSON.stringify({
+                Model: {
+                    NO_CAPA: $('#input_NoCAPA').val(),
+                    Create_By: '@Request.RequestContext.HttpContext.Session["NIK"]',
+                    CurrentStatusID: CurrentStatsID,
+                    Status: "Approve",
+                    Reject_Reason: '-',
+                    Option: 10
+                }
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var result = JSON.parse(data);
+                console.log(result);
+                $.each(result, function (key, value) {
+                    $('#btn_Submit').prop('hidden', true);
+                    if (value.Emp == '@Request.RequestContext.HttpContext.Session["NIK"]') {
+                        $('#btn_Submit').prop('hidden', false);
+                        if (value.IsUtama) {
+                            isUtama = value.IsUtama;
+                        }
+                        GetTindakanPerbaikan();
+                        GetTindakanPencegahan();
+                        return false;
+                    }
+                });
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -193,7 +232,6 @@
             }),
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                console.log(data);
                 $('#RentangPerbaikan_DDL').empty();
                 $('#RentangPencegahan_DDL').empty();
                 $.each(JSON.parse(data), function (key, entry) {
@@ -208,6 +246,7 @@
     }
 
     function GetTindakanPerbaikan() {
+
         var dictlist = {
             NO_CAPA: $('#input_NoCAPA').val(),
             Option: 5,
@@ -224,7 +263,6 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 var result = JSON.parse(data);
-                console.log(data)
                 var table = $('#Tbl_RentangPerbaikan').DataTable({
                     "pageLength": 5,
                     "lengthChange": false,
@@ -245,10 +283,14 @@
                         {
                             "data": "Rentang",
                             "render": function (data, type, row, meta) {
+                                var rentang;
+                                if (isUtama) {
+                                    rentang = $("<select class='form-control' style='padding:0px;'></select>");
+                                } else {
+                                    rentang = $("<select class='form-control' style='padding:0px;' disabled></select>");
+                                }
                                 var valrentang = data;
-                                var rentang = $("<select class='form-control' style='padding:0px;'></select>");
                                 for (var i = 1; i <= 12; i++) {
-
                                     var option = $("<option />");
                                     option.html(i + " Bulan");
                                     option.val(i);
@@ -265,12 +307,17 @@
                             "data": "Status_ID",
                             "render": function (data, type, row, meta) {
                                 if (data != null) {
-                                    if (data === 5)
-                                        return "<button type='button' id='Perbaikan' class='btn btn-primary approve' style='background-color:green;'>Approve</button><button type='button' id='Perbaikan' class='btn btn-primary reject' style='background-color:red;'>Reject</button>";
-                                    else if (data === 1)
-                                        return '<img id="imgReject" src="../Content/Images/rejected.png" style="width: 80px"/>';
-                                    else
-                                        return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                                    if (isUtama) {
+                                        return "<button type='button' id='Perbaikan' class='btn btn-primary add' style='background-color:green;'>Add</button><button type='button' id='Perbaikan' class='btn btn-primary reject' style='background-color:red;'>Reject</button>";
+                                    } else {
+                                        if (data === 5)
+                                            return "<button type='button' id='Perbaikan' class='btn btn-primary approve' style='background-color:green;'>Approve</button><button type='button' id='Perbaikan' class='btn btn-primary reject' style='background-color:red;'>Reject</button>";
+                                        else if (data === 1)
+                                            return '<img id="imgReject" src="../Content/Images/rejected.png" style="width: 80px"/>';
+                                        else
+                                            return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                                    }
+
                                 }
 
                             }
@@ -287,6 +334,7 @@
                     "order": [[1, 'asc']],
 
                 });
+
 
             },
             error: function (ex) {
@@ -330,10 +378,14 @@
                         {
                             "data": "Rentang",
                             "render": function (data, type, row, meta) {
+                                var rentang;
+                                if (isUtama) {
+                                    rentang = $("<select class='form-control' style='padding:0px;'></select>");
+                                } else {
+                                    rentang = $("<select class='form-control' style='padding:0px;' disabled></select>");
+                                }
                                 var valrentang = data;
-                                var rentang = $("<select class='form-control' style='padding:0px;'></select>");
                                 for (var i = 1; i <= 12; i++) {
-
                                     var option = $("<option />");
                                     option.html(i + " Bulan");
                                     option.val(i);
@@ -350,12 +402,17 @@
                             "data": "Status_ID",
                             "render": function (data, type, row, meta) {
                                 if (data != null) {
-                                    if (data === 5)
-                                        return "<button type='button' id='Pencegahan' class='btn btn-primary approve' style='background-color:green;'>Approve</button><button type='button' id='Pencegahan' class='btn btn-primary reject' style='background-color:red;'>Reject</button>";
-                                    else if (data === 1)
-                                        return '<img id="imgReject" src="../Content/Images/rejected.png" style="width: 80px"/>';
-                                    else
-                                        return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                                    if (isUtama) {
+                                        return "<button type='button' id='Pencegahan' class='btn btn-primary add' style='background-color:green;'>Add</button><button type='button' id='Pencegahan' class='btn btn-primary reject' style='background-color:red;'>Reject</button>";
+                                    } else {
+                                        if (data === 5)
+                                            return "<button type='button' id='Pencegahan' class='btn btn-primary approve' style='background-color:green;'>Approve</button><button type='button' id='Pencegahan' class='btn btn-primary reject' style='background-color:red;'>Reject</button>";
+                                        else if (data === 1)
+                                            return '<img id="imgReject" src="../Content/Images/rejected.png" style="width: 80px"/>';
+                                        else
+                                            return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                                    }
+
                                 }
 
                             }
@@ -372,7 +429,6 @@
                     "order": [[1, 'asc']],
 
                 });
-
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -382,9 +438,9 @@
 
     function getTable(id) {
         checkStatusCAPA();
-            GetTindakanPerbaikan();
-            GetTindakanPencegahan();
-        }
+        GetTindakanPerbaikan();
+        GetTindakanPencegahan();
+    }
 
     function Approval(event, option) {
         var rows = $(event).closest('tr');
@@ -444,8 +500,35 @@
                 alert(JSON.stringify(ex));
             }
         });
-}
+    }
 
+    function Addition(event, option) {
+        var rows = $(event).closest('tr');
+        var data = $('#Tbl_Rentang' + $(event).attr("id")).DataTable().row(rows).data();        
+        $.ajax({
+            url: '/AtasanPIC/SubmitApproval',
+            type: 'post',
+            data: JSON.stringify({
+                Model: {
+                    NO_CAPA: $('#input_NoCAPA').val(),
+                    Create_By: '@Request.RequestContext.HttpContext.Session["NIK"]',
+                    CurrentStatusID: CurrentStatsID,
+                    Status: "Add" + $(event).attr("id"),
+                    Reject_Reason: '-',
+                    Option: option,
+                    RecordID: $('#Tbl_Rentang' + $(event).attr("id")).DataTable().row(rows).data().RecordID
+                }
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                getTable($(event).attr("id"));
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
 
     $(document).ready(function () {
         getDDL();
@@ -471,8 +554,17 @@
             Rejection(this, option);
         });
 
-        GetTindakanPerbaikan();
-        GetTindakanPencegahan();
+        $(document).on("click", "#Tbl_RentangPerbaikan button.add", function () {
+            var option = 11 // option in SP_APPROVAL_CAPA
+            Addition(this, option);
+        });
+
+        $(document).on("click", "#Tbl_RentangPencegahan button.add", function () {
+            var option = 11 // option in SP_APPROVAL_CAPA
+            Addition(this, option);
+        });
+
+        checkEvaluatorCAPA();
 
         $('#btn_Submit').click(function () {
                 $.ajax({
@@ -490,7 +582,7 @@
                         }
                     }),
                     contentType: 'application/json; charset=utf-8',
-                    success: function (data) {                        
+                    success: function (data) {
                         if (JSON.parse(data)[0].VALID == "VALID") {
                             Swal.fire({
                                 title: 'Success',

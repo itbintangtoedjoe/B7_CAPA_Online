@@ -148,6 +148,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="B7_CAPA_ONLINEDataSetHeader1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>B7_CAPA_ONLINEDataSetHeader1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DataSource\B7_CAPA_ONLINEDataSetPerbaikan.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -189,7 +194,6 @@
     <Compile Include="DataSource\B7_CAPA_ONLINEDataSetAnalisa.Designer.cs" />
     <Compile Include="DataSource\B7_CAPA_ONLINEDataSetBukti.Designer.cs" />
     <Compile Include="DataSource\B7_CAPA_ONLINEDataSetEvaluator.Designer.cs" />
-    <Compile Include="DataSource\B7_CAPA_ONLINEDataSetHeader1.Designer.cs" />
     <Compile Include="DataSource\B7_CAPA_ONLINEDataSetKajian.Designer.cs" />
     <Compile Include="DataSource\B7_CAPA_ONLINEDataSetPelaksana.Designer.cs" />
     <Compile Include="DataSource\B7_CAPA_ONLINEDataSetRoot.Designer.cs" />
@@ -5143,12 +5147,6 @@
     <Content Include="DataSource\B7_CAPA_ONLINEDataSetEvaluator.xss">
       <DependentUpon>B7_CAPA_ONLINEDataSetEvaluator.xsd</DependentUpon>
     </Content>
-    <Content Include="DataSource\B7_CAPA_ONLINEDataSetHeader1.xsc">
-      <DependentUpon>B7_CAPA_ONLINEDataSetHeader1.xsd</DependentUpon>
-    </Content>
-    <Content Include="DataSource\B7_CAPA_ONLINEDataSetHeader1.xss">
-      <DependentUpon>B7_CAPA_ONLINEDataSetHeader1.xsd</DependentUpon>
-    </Content>
     <Content Include="DataSource\B7_CAPA_ONLINEDataSetKajian.xsc">
       <DependentUpon>B7_CAPA_ONLINEDataSetKajian.xsd</DependentUpon>
     </Content>
@@ -5445,6 +5443,17 @@
     <Content Include="DataSource\B7_CAPA_ONLINEDataSetPerbaikan.xsc">
       <DependentUpon>B7_CAPA_ONLINEDataSetPerbaikan.xsd</DependentUpon>
     </Content>
+    <Content Include="B7_CAPA_ONLINEDataSetHeader1.xsc">
+      <DependentUpon>B7_CAPA_ONLINEDataSetHeader1.xsd</DependentUpon>
+    </Content>
+    <None Include="B7_CAPA_ONLINEDataSetHeader1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>B7_CAPA_ONLINEDataSetHeader1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="B7_CAPA_ONLINEDataSetHeader1.xss">
+      <DependentUpon>B7_CAPA_ONLINEDataSetHeader1.xsd</DependentUpon>
+    </Content>
     <None Include="DataSource\B7_CAPA_ONLINEDataSetPerbaikan.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>B7_CAPA_ONLINEDataSetPerbaikan.Designer.cs</LastGenOutput>
@@ -5475,11 +5484,6 @@
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>B7_CAPA_ONLINEDataSetEvaluator1.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="DataSource\B7_CAPA_ONLINEDataSetHeader1.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>B7_CAPA_ONLINEDataSetHeader11.Designer.cs</LastGenOutput>
     </None>
     <None Include="DataSource\B7_CAPA_ONLINEDataSetKajian.xsd">
       <SubType>Designer</SubType>
