@@ -364,6 +364,31 @@ namespace B7_CAPA_Online.Controllers
             }
             return Json(rows);
         }
+
+        public ActionResult DeleteAttachment(SPUpdatePelaksanaanParams data)
+        {
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            var dictionary = new Dictionary<string, object>{
+                { "Action", "Delete" },
+                { "IDAttachment", data.IDAttachment },
+            };
+            var parameters = new DynamicParameters(dictionary);
+            var result = DAL.StoredProcedure(parameters, "SP_Attachment_Pelaksanaan");
+
+            //hapus dari b7drive belum dibuat
+            return Json(result);
+        }
+
+        public ActionResult DeleteAttachmentKoor4(DynamicModel data,string spname)
+        {
+            
+            var parameters = new DynamicParameters(data);
+            var result = DAL.StoredProcedure(parameters,spname);
+
+            //hapus dari b7drive belum dibuat
+            return Json(result);
+        }
+
         public ActionResult GetCAPA(DALModel Model)
         {
             FindCAPAModel findModel = new FindCAPAModel();

@@ -291,7 +291,9 @@
                     <table class="table table-hover table-bordered zero-configuration" id="Tbl_Penyimpangan" style="color: black">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>Penyimpangan</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -310,7 +312,9 @@
                     <table class="table table-hover table-bordered zero-configuration" id="Tbl_Lampiran" style="color: black">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>Lampiran</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody style="color: black">
@@ -402,6 +406,7 @@
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
                         Swal.fire("Success!", "Transaction berhasil di Insert", "success");
+                        GetPenyimpangan();
                     },
                     error: function (ex) {
                         alert(JSON.stringify(ex));
@@ -446,6 +451,7 @@
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
                         Swal.fire("Success!", "Transaction berhasil di Insert", "success");
+                        GetPenyimpangan();
                     },
                     error: function (ex) {
                         alert(JSON.stringify(ex));
@@ -490,6 +496,7 @@
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
                         Swal.fire("Success!", "Transaction berhasil di Insert", "success");
+                        GetPenyimpangan();
                     },
                     error: function (ex) {
                         alert(JSON.stringify(ex));
@@ -1141,9 +1148,23 @@
                     "bDestroy": true,
                     "scrollCollapse": true,
                     "columns": [
+                        { "data": "RecordID" },
                         { "data": "PENYIMPANGAN_ID" },
-                    ],
+                        {
+                            "data": null,
+                            "render": function (data, type, row, meta) {
+                                return "<input type='button' class='btn btn-primary' onclick=DeletePenyimpangan(this) value='Delete'style='background-color:red;'/>";
+                            }
+                        }
 
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": [0],
+                            "visible": false,
+                            "searchable": false
+                        },
+                    ],
                 });
             },
             error: function (ex) {
@@ -1178,6 +1199,7 @@
                     "bDestroy": true,
                     "scrollCollapse": true,
                     "columns": [
+                        {"data":"RecordID"},
                         {
                             "data": "FILE_NAME",
                             "render": function (nTd, sData, oData, iRow, iCol) {
@@ -1185,9 +1207,20 @@
                                 return '<a href = "' + oData.FILE_PATH + '" >' + oData.FILE_NAME + '</a >';
                             }
                         },
-
+                        {
+                            "data": null,
+                            "render": function (data, type, row, meta) {
+                                return "<input type='button' class='btn btn-primary' onclick=DeleteLampiran(this) value='Delete'style='background-color:red;'/>";
+                            }
+                        }
                     ],
-
+                    "columnDefs": [
+                        {
+                            "targets": [0],
+                            "visible": false,
+                            "searchable": false
+                        },
+                    ],
                 });
             },
             error: function (ex) {
@@ -1196,6 +1229,89 @@
         });
     }
 
+    function DeleteLampiran(button) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Delete!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                var row = $(button).closest("TR");
+                var data = $('#Tbl_Lampiran').DataTable().row(row).data();
+                var id = data['RecordID'];
+
+                var formData = {
+                    "IDAttachment": id
+                };
+
+                $.ajax({
+                    url: "DeleteAttachment",
+                    type: "post",
+                    dataType: "json",
+                    data: JSON.stringify(formData),
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Lampiran Berhasil Di Hapus!',
+                            'success'
+                        )
+                        GetLampiran();
+                    },
+                    error: function (errormessage) {
+                    }
+                });
+            }
+        })
+    }
+
+    function DeletePenyimpangan(button) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Delete!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                var row = $(button).closest("TR");
+                var data = $('#Tbl_Penyimpangan').DataTable().row(row).data();
+                var id = data['RecordID'];
+                var dictlist = {
+                    Option: 24,
+                    RecID: id
+                }
+                var dto1 = {
+                    Model: dictlist
+                }
+                $.ajax({
+                    url: "DynamicController?spname=[dbo].[SP_SHOW_DDL]",
+                    type: "post",
+                    dataType: "json",
+                    data: JSON.stringify(dto1),
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Penyimpangan Berhasil Di Hapus!',
+                            'success'
+                        )
+                        GetPenyimpangan();
+                    },
+                    error: function (errormessage) {
+                    }
+                });
+            }
+        })
+    }
 
     function AddDepartemen() {
         var departemen = $('#Departemen_DDL').val();
@@ -1298,7 +1414,7 @@
                 success: function (data) {
 
                     Swal.fire("Success!", "Upload Berhasil!", "success");
-
+                    GetLampiran();
                 },
                 error: function (errormessage) {
                     $('#divLoading').attr("hidden", true);

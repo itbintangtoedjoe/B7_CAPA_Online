@@ -391,6 +391,15 @@
                     if (result[0].Stat == "Valid") {
                         Swal.fire("Success!", "Add Berhasil", "success");
                         GetEvalTableList();
+                        var trhtml = '';
+                        trhtml += '<option disabled selected hidden class="dropdown-header" value="">--Please Select--</option>'
+                        $("#EvalList_DDL").append(trhtml);
+                        $("#Eva_Plant_DDL").append(trhtml);
+                        $("#Eva_Departemen_DDL").append(trhtml);
+                        $("#EvalList_DDL").val("");
+                        $('#Eva_Plant_DDL').val("");
+                        $('#Eva_Departemen_DDL').val("");
+                        $("#EvalList_DDL").attr("disabled",true);
                     }
                     else {
                         Swal.fire("Error!", "Evaluator Utama sudah Ada", "error");
@@ -555,6 +564,7 @@
         }
 
     }
+
     function Delete(button) {
         Swal.fire({
             title: 'Are you sure?',
