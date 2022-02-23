@@ -11,6 +11,7 @@ namespace B7_CAPA_Online.Models
         public string VendorName { get; set; }
         public int TypeID { get; set; }
         public string VendorType { get; set; }
+        public string SuperiorName { get; set; }
         public string SuperiorGroupName { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }

@@ -5598,6 +5598,8 @@
     <Content Include="Views\Koordinator\SubmitCARPAR.cshtml" />
     <Content Include="Views\ReportCAPA\Reporting.cshtml" />
     <Content Include="Views\Koordinator\PenilaianEfektivitas.cshtml" />
+    <Content Include="Views\Vendor\TipeVendorIndex.cshtml" />
+    <Content Include="Views\Vendor\EditTipeVendor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
