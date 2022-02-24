@@ -34,6 +34,7 @@ namespace B7_CAPA_Online.Report
                 DataTable DT7 = new DataTable();
                 DataTable DT8 = new DataTable();
                 DataTable DT9 = new DataTable();
+                DataTable DT10 = new DataTable();
                 string NoCAPA = Request.QueryString.Get("NoCAPA");
 
                 try
@@ -182,6 +183,21 @@ namespace B7_CAPA_Online.Report
                         dataAdapt.Fill(DT9);
                     }
 
+                    using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_KajianResiko_Perubahan", conn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
+                        command.Parameters["@NoCAPA"].Value = NoCAPA;
+
+
+
+                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                        dataAdapt.SelectCommand = command;
+
+                        dataAdapt.Fill(DT10);
+                    }
+
                     conn.Close();
                 }
                 catch (Exception ex)
@@ -229,6 +245,10 @@ namespace B7_CAPA_Online.Report
                 ReportDataSource DataSource9 = new ReportDataSource("~/DataSource/B7_CAPA_ONLINEDataSetPelaksanaPerbaikan.Designer.cs", DT9);
                 this.ReportViewer1.LocalReport.DataSources.Add(DataSource9);
                 ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DataSetPelaksanaPerbaikan", DT9));
+
+                ReportDataSource DataSource10 = new ReportDataSource("~/DataSource/B7_CAPA_ONLINEDataSetKajianPerubahan.Designer.cs", DT10);
+                this.ReportViewer1.LocalReport.DataSources.Add(DataSource10);
+                ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DataSetKajianPerubahan", DT10));
             }
         }
     }

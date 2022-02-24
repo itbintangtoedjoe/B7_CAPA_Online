@@ -148,6 +148,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="DataSource\B7_CAPA_ONLINEDataSetKajianPerubahan.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>B7_CAPA_ONLINEDataSetKajianPerubahan.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DataSource\B7_CAPA_ONLINEDataSetPerbaikan.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -279,6 +284,17 @@
     </Content>
     <Content Include="DataSource\B7_CAPA_ONLINEDataSetPerbaikan.xsc">
       <DependentUpon>B7_CAPA_ONLINEDataSetPerbaikan.xsd</DependentUpon>
+    </Content>
+    <Content Include="DataSource\B7_CAPA_ONLINEDataSetKajianPerubahan.xsc">
+      <DependentUpon>B7_CAPA_ONLINEDataSetKajianPerubahan.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSource\B7_CAPA_ONLINEDataSetKajianPerubahan.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>B7_CAPA_ONLINEDataSetKajianPerubahan.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSource\B7_CAPA_ONLINEDataSetKajianPerubahan.xss">
+      <DependentUpon>B7_CAPA_ONLINEDataSetKajianPerubahan.xsd</DependentUpon>
     </Content>
     <None Include="DataSource\B7_CAPA_ONLINEDataSetPerbaikan.xsd">
       <Generator>MSDataSetGenerator</Generator>
