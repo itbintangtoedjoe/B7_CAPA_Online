@@ -983,7 +983,7 @@
                     $('#PIC_DDL').empty();
                     $('#PIC_DDL').append('<option disabled selected hidden class="dropdown-header">*Pilih*</option>');
                     if ($('#AreaPIC_DDL').val() != 'Others') {
-                        $('#VendorDiv').prop('hidden', false);
+                        //$('#VendorDiv').prop('hidden', false);
                         clearInputEmail();
 
                         $.each(JSON.parse(data), function (key, entry) {
