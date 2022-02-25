@@ -4,12 +4,13 @@
     <div class="card-body">
         <h4 class="card-title">Tindakan Pencegahan</h4>
         <div>
-            <table class="table table-hover table-bordered zero-configuration" style="color: black" id="Tbl_Pencegahan">
+            <table class="table table-hover table-bordered" style="color: black" id="Tbl_Pencegahan">
                 <thead>
                     <tr>
                         <th></th>
                         <th></th>
-                        <th></th>                        
+                        <th></th>
+                        <th>Root Cause</th>
                         <th>Tindakan Pencegahan</th>
                         <th>Nama Pelaksana</th>
                         <th>Due_Date</th>
@@ -59,7 +60,8 @@
                     "columns": [
                         { "data": "RecordID" },
                         { "data": "WhyID" },
-                        { "data": "WhyParentID" },                        
+                        { "data": "WhyParentID" },    
+                        { "data": "WhyDesc" },    
                         { "data": "Tindakan_Pencegahan" },
                         { "data": "Nama_Personil" },
                         { "data": "Due_Date" },

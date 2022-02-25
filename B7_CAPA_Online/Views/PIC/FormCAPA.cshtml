@@ -587,17 +587,17 @@
                                     </div>
                                 </div>
                                 <div class="row form-group">
-                                    <div class="col-md-12">
-                                        <label class="m-t-40">Apakah ada proses / area lain yang berpotensi sama ?</label>
-                                        <div class="radio input-group">
-                                            <div class="col-sm-3">
-                                                <label><input type="radio" value="Yes" name="Potensi">Ya</label>
+                                    @*<div class="col-md-12">
+                                            <label class="m-t-40">Apakah ada proses / area lain yang berpotensi sama ?</label>
+                                            <div class="radio input-group">
+                                                <div class="col-sm-3">
+                                                    <label><input type="radio" value="Yes" name="Potensi">Ya</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label><input type="radio" value="No" name="Potensi">Tidak</label>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-3">
-                                                <label><input type="radio" value="No" name="Potensi">Tidak</label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        </div>*@
 
                                     <div class="col-md-12 mb-3">
                                         <label class="m-t-40" style="visibility: hidden">_</label>
@@ -631,7 +631,7 @@
                     </div>
                 </div>
 
-                <div class="card" id="Div_TindakanPencegahan">
+                <div class="card" id="Div_TindakanPencegahan" hidden>
                     <div class="card-body">
                         <h4 class="card-title">Penentuan Tindakan Pencegahan </h4>
                         <div>
@@ -914,7 +914,7 @@
                 }
 
                 $('#Div_TindakanPerbaikan').prop('hidden', hide);
-                $('#Div_TindakanPencegahan').prop('hidden', hide);
+                //$('#Div_TindakanPencegahan').prop('hidden', hide);
                 //$('#TblTindakanPencegahan').prop('hidden', hide);
                 //$('#TblTindakanPerbaikan').prop('hidden', hide);
 
@@ -924,7 +924,14 @@
                 }
                 getTable(!hide);
                 TableKajian(!hide);
-                //isHide = true;
+                if (result.IS_AREALAIN) {
+                    $('#Div_TindakanPencegahan').prop('hidden', false);
+                    $('input[name="Potensi"][value="Yes"]').prop("checked", true);
+                } else {
+                    $('input[name="Potensi"][value="No"]').prop("checked", true);
+                    $('#Div_TindakanPencegahan').prop('hidden', true);
+                }
+
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -999,7 +1006,7 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 $('#Tbl_KajianResiko').DataTable({
                     "pageLength": 5,
                     "lengthChange": true,
@@ -1248,13 +1255,13 @@
                 //if (data.length == 0) {
                 //    $('#Div_TindakanPencegahan').prop('hidden', true);
                 //} else {
-                $('#Div_TindakanPencegahan').prop('hidden', false);
+                //$('#Div_TindakanPencegahan').prop('hidden', false);
                 //$('#AreaLain_DDL').empty();
                 //$('#AreaLain_DDL').append(new Option("*Pilih*", ""));
                 //$.each(JSON.parse(area_lain), function (key, value) {
                 //    $('#AreaLain_DDL').append(new Option(value.Tindakan_Perbaikan, value.Tindakan_Perbaikan));
                 //});
-                console.log(area_lain)
+                //console.log(area_lain)
                 area_lains = JSON.parse(area_lain);
                 //$('#btn_AddPencegahan').click(function () {
                 //    countAdd++;
@@ -1303,9 +1310,10 @@
 
     function addTindakan(dto, kategori) {
         var valid = false;
-        console.log(dto);
-        console.log(kategori);
+        //console.log(dto);
+        //console.log(kategori);
         $.each(dto, function (key, value) {
+            //console.log(value)
             if (value == '' || value == '-' || value == null) {
                 if (value == 0 || typeof value === "undefined")
                     valid = true;
@@ -1884,7 +1892,7 @@
         $('#duedate_' + kategori.toLowerCase()).val("");
         $('#Departemen' + kategori + '_DDL').val("-").trigger("change");
         $('#TxtAreaLain' + kategori).val("");
-        $('input[name="Potensi"]').prop("checked", false);
+        //$('input[name="Potensi"]').prop("checked", false);
         $('#TxtSuperior' + kategori).val("");
     }
 
@@ -1935,7 +1943,7 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 $('#Table_WhyDescription').DataTable({
                     "pageLength": 5,
                     "lengthChange": true,
@@ -1963,7 +1971,7 @@
                             "visible": false
                         }
                     ],
-                    "order": [[1, 'asc']]                   
+                    "order": [[1, 'asc']]
                 });
             },
             error: function (ex) {
@@ -1971,6 +1979,52 @@
             }
         });
     }
+
+    function UpdateIsArealain(isArealain) {
+        $.ajax({
+            url: 'UpdateIsArealain',
+            type: 'post',
+            data: JSON.stringify({
+                Model: {
+                    Option: 18,
+                    Is_AreaLain: isArealain,
+                    NO_CAPA: $('#input_NoCAPA').val()
+                }
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function CheckTindakanPencegahan() {
+        var result = $.ajax({
+            url: 'GetDataPIC',
+            type: 'post',
+            data: JSON.stringify({
+                Option: 19,
+                NO_CAPA: $('#input_NoCAPA').val(),
+                SP: "[dbo].[SP_FORM_CAPA]"
+            }),
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            //success: function (data) {
+            //    return result = JSON.parse(data).IS_VALID;
+
+            //},
+            //error: function (ex) {
+            //    alert(JSON.stringify(ex));
+            //}
+        });
+        return JSON.parse(result.responseText);
+    }
+
     $(document).ready(function () {
 
         //isHide = false;
@@ -1983,6 +2037,7 @@
         UnhideKajianResikoModal();
         getDDLDeptKajianResiko();
         getVendorDDL();
+
 
         //console.log(rootcauses);
 
@@ -2007,7 +2062,7 @@
                         DueDate: $('#duedate_perbaikan').val(),
                         NamaPersonil: $('#NamaPersonilPerbaikan_DDL option:selected').text(),
                         Email: $('#TxtEmailPerbaikan').val(),
-                        Is_AreaLain: $('input[name="Potensi"]:checked').val(),
+                        //Is_AreaLain: $('input[name="Potensi"]:checked').val(),
                         Create_By: $('#input_Requestor_NIK').val(),
                         Status: "Active",
                         Status_ID: 1,
@@ -2015,18 +2070,28 @@
                     }
                     return false;
                 }
+                dto = null;
             });
 
             //console.log(dto);
+            if (dto != null) {
+                addTindakan(dto, kategori);
+            }
+            else {
+                Swal.fire(
+                    'Maaf',
+                    'Mohon pilih Rootcause terlebih dahulu.',
+                    'error'
+                )
+            }
 
-            addTindakan(dto, kategori);
         });
 
         $('#btn_AddPencegahan').click(function () {
             var dto = {};
             var kategori = "Pencegahan";
             var obj = rootcauses;
-            console.log(obj);
+            //console.log(obj);
             $.each(obj, function (key, value) {
                 if (value.WhyDesc == $('#RootCause_DDL').val()) {
                     dto = {
@@ -2051,10 +2116,20 @@
                     }
                     return false;
                 }
+                dto = null;
             });
 
             //console.log(dto)
-            addTindakan(dto, kategori);
+            if (dto != null) {
+                addTindakan(dto, kategori);
+            }
+            else {
+                Swal.fire(
+                    'Maaf',
+                    'Mohon pilih Rootcause terlebih dahulu.',
+                    'error'
+                )
+            }
         });
 
         $('#DepartemenPerbaikan_DDL').change(function () {
@@ -2310,18 +2385,59 @@
         var countYes = 0;
         var countNo = 0;
         $('input[name="Potensi"]').click(function () {
+            var isArealain = "No";
+            var isValid = JSON.parse(CheckTindakanPencegahan());
             if ($('input[name="Potensi"]:checked').val() == 'Yes') {
                 countNo = 0;
                 countYes++;
+                $('#Div_TindakanPencegahan').prop('hidden', false);
+                isArealain = "Yes";
             } else {
-                countYes = 0;
-                countNo++;
+                if (isValid[0].IS_VALID == "VALID") {
+                    $('#Div_TindakanPencegahan').prop('hidden', false);
+                    $('input[name="Potensi"][value="Yes"]').prop("checked", true);
+                    isArealain = "Yes";
+                    Swal.fire(
+                        'Maaf',
+                        'Mohon Tindakan Pencegahan yang sudah di-input dihapus terlebih dahulu.',
+                        'warning'
+                    )
+                } else {
+                    $('#Div_TindakanPencegahan').prop('hidden', true);
+                    countYes = 0;
+                    countNo++;
+                    isArealain = "No";
+                }
+                //$('#Div_TindakanPencegahan').prop('hidden', true);
+                //console.log(valid)
             }
             if (countYes == 2 || countNo == 2) {
-                countYes = 0;
-                countNo = 0;
-                $('input[name="Potensi"]').prop("checked", false);
+                if (isValid[0].IS_VALID == "VALID") {
+                    countYes = 0;
+                    countNo = 0;
+                    $('#Div_TindakanPencegahan').prop('hidden', false);
+                    $('input[name="Potensi"][value="Yes"]').prop("checked", true);
+                    isArealain = "Yes";
+                    Swal.fire(
+                        'Maaf',
+                        'Mohon Tindakan Pencegahan yang sudah di-input dihapus terlebih dahulu.',
+                        'warning'
+                    )
+                }
+                else {
+                    //$('#Div_TindakanPencegahan').prop('hidden', true);
+                    //countYes = 0;
+                    //countNo++;
+                    //isArealain = "No";
+                    countYes = 0;
+                    countNo = 0;
+                    $('input[name="Potensi"]').prop("checked", false);
+                    $('#Div_TindakanPencegahan').prop('hidden', true);
+                    isArealain = "No";
+                }
+              
             }
+            UpdateIsArealain(isArealain);
 
         });
 
@@ -2343,7 +2459,7 @@
 
         $('#btn_AddKajian').click(function () {
             recTindakan(0);
-            console.log(values)
+            //console.log(values)
             $('#TxtPIC').val(values.Nama_Personil);
             $('#TxtPICName').val(values.FullName);
         });
