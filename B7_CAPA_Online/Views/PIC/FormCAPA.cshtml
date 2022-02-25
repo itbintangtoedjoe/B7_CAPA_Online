@@ -13,6 +13,7 @@
     }
 </style>
 
+
 <link href="~/Content/Scripts/plugins/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
 
@@ -860,6 +861,7 @@
 <script src="~/Content/Scripts/plugins/datatables/jquery.dataTables.min.js" defer></script>
 <script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>
 <script src="https://unpkg.com/gojs/release/go-debug.js" defer></script>
+<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
 
 <script>
     var rootcauses;
@@ -1394,8 +1396,7 @@
     var objTindakan;
     function getDataTindakan(data) {
         return objTindakan = data;
-    }// refer to KajianResikoDDL();
-
+    }// refer to KajianResikoDDL(); 
     //search Tindakan get record_id and Tipe
     var values; //objTindakan filtered.
     function recTindakan(increments) {
@@ -1665,6 +1666,7 @@
             }
         });
     }
+
     function GetRootMaterial() {
 
         $.ajax({
@@ -1719,6 +1721,7 @@
             }
         });
     }
+
     function GetRootLingkungan() {
 
         $.ajax({
@@ -1772,6 +1775,7 @@
             }
         });
     }
+
     function GetRootMesin() {
 
         $.ajax({
@@ -1825,6 +1829,7 @@
             }
         });
     }
+
     function GetRootMetode() {
 
         $.ajax({
@@ -2026,7 +2031,6 @@
     }
 
     $(document).ready(function () {
-
         //isHide = false;
         GetAllRoot();
         checkStatusCAPA();
@@ -2037,8 +2041,6 @@
         UnhideKajianResikoModal();
         getDDLDeptKajianResiko();
         getVendorDDL();
-
-
         //console.log(rootcauses);
 
         $('#btn_AddPerbaikan').click(function () {
@@ -2435,7 +2437,7 @@
                     $('#Div_TindakanPencegahan').prop('hidden', true);
                     isArealain = "No";
                 }
-              
+
             }
             UpdateIsArealain(isArealain);
 
@@ -2460,7 +2462,7 @@
         $('#btn_AddKajian').click(function () {
             recTindakan(0);
             //console.log(values)
-            $('#TxtPIC').val(values.Nama_Personil);
+            $('#TxtPIC').val(values.Pelaksana);
             $('#TxtPICName').val(values.FullName);
         });
 
@@ -2508,7 +2510,7 @@
                     PIC: pic,
                     DueDate: $('#DueDate_Kajian').val(),
                     Lainnya: $('#TxtLainnya').val(),
-                    EmpID: $('#input_Requestor_NIK').val()
+                    EmpID: $('#input_Requestor_NIK').val()                    
                 }
             }
 
@@ -2654,9 +2656,8 @@
 
         $("#btn_Submit").click(function () {
             //window.location.replace('/PendingTask/TaskList');
-            var isValid = false;
-
-            $.ajax({
+            $.blockUI();
+            var isValid = $.ajax({
                 url: 'SubmitToAtasanPIC',
                 type: 'post',
                 dataType: 'json',
@@ -2667,16 +2668,19 @@
                         Create_By: $('#input_Requestor_NIK').val()
                     }
                 }),
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    isValid = JSON.parse(data)[0].IS_VALID;
-                },
-                error: function (ex) {
-                    alert(JSON.stringify(ex));
-                }
+                async: false,
+                contentType: 'application/json; charset=utf-8'
+                //success: function (data) {
+                //    isValid = JSON.parse(data.responseText);
+                //    console.log()
+                //},
+                //error: function (ex) {
+                //    alert(JSON.stringify(ex));
+                //}
             });
 
-
+            isValid = (JSON.parse(JSON.parse(isValid.responseText)))[0].IS_VALID;
+            
             if (isValid) {
                 $.ajax({
                     url: 'SubmitToAtasanPIC',
@@ -2691,6 +2695,7 @@
                     }),
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
+                        $.unblockUI();
                         var mData = JSON.parse(data);
                         $.each(mData, function (key, value) {
                             var attr = Object.keys(value)[0];

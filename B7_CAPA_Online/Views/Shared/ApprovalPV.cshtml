@@ -79,6 +79,7 @@
 </div>
 
 <script src="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.js" defer></script>
+<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
 <script>
     //Submit Approval
     function SubmitApprovalPV(StatusApproval, CurrentStatsID) {
@@ -107,10 +108,12 @@
                         timer: 2000,
                         showConfirmButton : false
                     }).then(function (result) {
+                        $.unblockUI();
                         window.location.href = '/PendingTask/TaskList';
                     });
                 }
                 else {
+                    $.unblockUI();
                     Swal.fire(
                         'Maaf',
                         'CAPA ini sudah pernah di Submit.',
@@ -141,22 +144,27 @@
         //});
 
         $("#btn_ApproveCAPA").click(function () {
+            $.blockUI();
             SubmitApprovalPV("Approve", CurrentStatsID);//Approve Approval EventClick
         });
 
         $("#btnSubmitReject").click(function () {
+            $.blockUI();
             SubmitApprovalPV("Reject", CurrentStatsID);//Reject Approval EventClick
         });
 
         $("#btnSubmitCancel").click(function () {
+            $.blockUI();
             SubmitApprovalPV("Cancel", CurrentStatsID);//Reject Approval EventClick
         });
 
         $("#btnCloseCancel").click(function () {
+            $.blockUI();
             ClearRejectReason();//Remove Reason Field EventClick
         });
 
         $("#btnCloseReject").click(function () {
+            $.blockUI();
             ClearRejectReason();//Remove Reason Field EventClick
         });
     });

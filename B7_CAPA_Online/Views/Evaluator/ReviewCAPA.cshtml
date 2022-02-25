@@ -54,7 +54,7 @@
                                     <th>Tindakan Perbaikan</th>
                                     <th>Due Date</th>
                                     <th>Rentang</th>
-                                    <th>Action</th>
+                                    <th style="width: 120px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="Table_RentangPerbaikan">
@@ -90,6 +90,7 @@
 </div>
 
 <script src="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.js" defer></script>
+<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
 
 <script>
     var isUtama = false;
@@ -477,6 +478,7 @@
     }
 
     function Approval(event, option) {
+        $.blockUI();
         var rows = $(event).closest('tr');
         var rentang = $("TD", rows).eq(4).find("select").val();
         var data = $('#Tbl_Rentang' + $(event).attr("id")).DataTable().row(rows).data();
@@ -506,6 +508,7 @@
                     timer: 2000,
                     showConfirmButton : false
                 }).then(() => {
+                    $.unblockUI();
                     getTable($(event).attr("id"));
                 });
             },
@@ -516,6 +519,7 @@
     }
 
     function Rejection(event, option, alasan) {
+        $.blockUI();
         var rows = $(event).closest('tr');
         var data = $('#Tbl_Rentang' + $(event).attr("id")).DataTable().row(rows).data();
 
@@ -542,6 +546,7 @@
                     'Your record has been approved.',
                     'success'
                 ).then(() => {
+                    $.unblockUI();
                     getTable($(event).attr("id"));
                 });
             },
@@ -583,7 +588,7 @@
         getDDL();
         checkStatusCAPA();
 
-        $(document).on("click", "#Tbl_RentangPerbaikan button.approve", function () {
+        $(document).on("click", "#Tbl_RentangPerbaikan button.approve", function () {          
             var option = 7 // option in SP_APPROVAL_CAPA
             Swal.fire({
                 title: 'Apakah anda yakin?',
@@ -678,6 +683,7 @@
         checkEvaluatorCAPA();
 
         $('#btn_Submit').click(function () {
+            $.blockUI();
             $.ajax({
                 url: '/AtasanPIC/SubmitApproval',
                 type: 'post',
@@ -702,10 +708,12 @@
                             timer: 2000,
                             showConfirmButton : false
                         }).then(function (result) {
+                            $.unblockUI();
                             window.location.href = '/PendingTask/TaskList';
                         });
                     }
                     else {
+                        $.unblockUI();
                         Swal.fire(
                             'Maaf',
                             'CAPA ini sudah pernah di Submit.',
