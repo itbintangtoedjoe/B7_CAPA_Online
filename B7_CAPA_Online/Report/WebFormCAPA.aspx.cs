@@ -40,162 +40,249 @@ namespace B7_CAPA_Online.Report
                 try
                 {
                     conn.Open();
-                    using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT", conn))
+                    try
                     {
-                        command.CommandType = CommandType.StoredProcedure;
+                        using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT", conn))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
 
-                        command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
-                        command.Parameters["@NoCAPA"].Value = NoCAPA;
+                            command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
+                            command.Parameters["@NoCAPA"].Value = NoCAPA;
 
-                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                        dataAdapt.SelectCommand = command;
+                            SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                            dataAdapt.SelectCommand = command;
 
-                        dataAdapt.Fill(DT);
+                            dataAdapt.Fill(DT);
+                        }
+                    }
+                    catch (Exception ex0)
+                    {
+
+                        throw ex0;
                     }
 
-                    using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_Analisa", conn))
+                    try
                     {
-                        command.CommandType = CommandType.StoredProcedure;
+                        using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_Analisa", conn))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
 
-                        command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
-                        command.Parameters["@NoCAPA"].Value = NoCAPA;
+                            command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
+                            command.Parameters["@NoCAPA"].Value = NoCAPA;
 
-                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                        dataAdapt.SelectCommand = command;
+                            SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                            dataAdapt.SelectCommand = command;
 
-                        dataAdapt.Fill(DT1);
+                            dataAdapt.Fill(DT1);
+                        }
+                    }
+                    catch (Exception ex1)
+                    {
+
+                        throw ex1;
                     }
 
-                    using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_Root", conn))
+                    try
                     {
-                        command.CommandType = CommandType.StoredProcedure;
+                        using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_Root", conn))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
 
-                        command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
-                        command.Parameters["@NoCAPA"].Value = NoCAPA;
+                            command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
+                            command.Parameters["@NoCAPA"].Value = NoCAPA;
 
 
-                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                        dataAdapt.SelectCommand = command;
+                            SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                            dataAdapt.SelectCommand = command;
 
-                        dataAdapt.Fill(DT2);
+                            dataAdapt.Fill(DT2);
+                        }
+                    }
+                    catch (Exception ex2)
+                    {
+
+                        throw ex2;
                     }
 
-                    using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_TPerbaikan", conn))
+                    try
                     {
-                        command.CommandType = CommandType.StoredProcedure;
+                        using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_TPerbaikan", conn))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
 
-                        command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
-                        command.Parameters["@NoCAPA"].Value = NoCAPA;
+                            command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
+                            command.Parameters["@NoCAPA"].Value = NoCAPA;
 
 
-                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                        dataAdapt.SelectCommand = command;
+                            SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                            dataAdapt.SelectCommand = command;
 
-                        dataAdapt.Fill(DT3);
+                            dataAdapt.Fill(DT3);
+                        }
+                    }
+                    catch (Exception ex3)
+                    {
+
+                        throw ex3;
                     }
 
-                    using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_TPencegahan", conn))
+                    try
                     {
-                        command.CommandType = CommandType.StoredProcedure;
+                        using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_TPencegahan", conn))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
 
-                        command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
-                        command.Parameters["@NoCAPA"].Value = NoCAPA;
+                            command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
+                            command.Parameters["@NoCAPA"].Value = NoCAPA;
 
 
 
-                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                        dataAdapt.SelectCommand = command;
+                            SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                            dataAdapt.SelectCommand = command;
 
-                        dataAdapt.Fill(DT4);
+                            dataAdapt.Fill(DT4);
+                        }
+                    }
+                    catch (Exception ex4)
+                    {
+
+                        throw ex4;
                     }
 
-                    using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_Pelaksana_Pencegahan", conn))
+                    try
                     {
-                        command.CommandType = CommandType.StoredProcedure;
+                        using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_Pelaksana_Pencegahan", conn))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
 
-                        command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
-                        command.Parameters["@NoCAPA"].Value = NoCAPA;
+                            command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
+                            command.Parameters["@NoCAPA"].Value = NoCAPA;
 
 
 
-                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                        dataAdapt.SelectCommand = command;
+                            SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                            dataAdapt.SelectCommand = command;
 
-                        dataAdapt.Fill(DT5);
+                            dataAdapt.Fill(DT5);
+                        }
+                    }
+                    catch (Exception ex5)
+                    {
+
+                        throw ex5;
                     }
 
-                    using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_Verifikasi", conn))
+
+                    try
                     {
-                        command.CommandType = CommandType.StoredProcedure;
+                        using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_Verifikasi", conn))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
 
-                        command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
-                        command.Parameters["@NoCAPA"].Value = NoCAPA;
+                            command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
+                            command.Parameters["@NoCAPA"].Value = NoCAPA;
 
 
 
-                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                        dataAdapt.SelectCommand = command;
+                            SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                            dataAdapt.SelectCommand = command;
 
-                        dataAdapt.Fill(DT6);
+                            dataAdapt.Fill(DT6);
+                        }
                     }
-                    using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_KajianResiko", conn))
+                    catch (Exception ex6)
                     {
-                        command.CommandType = CommandType.StoredProcedure;
 
-                        command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
-                        command.Parameters["@NoCAPA"].Value = NoCAPA;
-
-
-
-                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                        dataAdapt.SelectCommand = command;
-
-                        dataAdapt.Fill(DT7);
+                        throw ex6;
                     }
-
-                    using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_Evaluator", conn))
+                    try
                     {
-                        command.CommandType = CommandType.StoredProcedure;
+                        using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_KajianResiko", conn))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
 
-                        command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
-                        command.Parameters["@NoCAPA"].Value = NoCAPA;
+                            command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
+                            command.Parameters["@NoCAPA"].Value = NoCAPA;
 
 
 
-                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                        dataAdapt.SelectCommand = command;
+                            SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                            dataAdapt.SelectCommand = command;
 
-                        dataAdapt.Fill(DT8);
+                            dataAdapt.Fill(DT7);
+                        }
                     }
-
-                    using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_Pelaksana_Perbaikan", conn))
+                    catch (Exception ex7)
                     {
-                        command.CommandType = CommandType.StoredProcedure;
 
-                        command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
-                        command.Parameters["@NoCAPA"].Value = NoCAPA;
-
-
-
-                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                        dataAdapt.SelectCommand = command;
-
-                        dataAdapt.Fill(DT9);
+                        throw ex7;
                     }
 
-                    using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_KajianResiko_Perubahan", conn))
+                    try
                     {
-                        command.CommandType = CommandType.StoredProcedure;
+                        using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_Evaluator", conn))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
 
-                        command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
-                        command.Parameters["@NoCAPA"].Value = NoCAPA;
+                            command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
+                            command.Parameters["@NoCAPA"].Value = NoCAPA;
 
 
 
-                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                        dataAdapt.SelectCommand = command;
+                            SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                            dataAdapt.SelectCommand = command;
 
-                        dataAdapt.Fill(DT10);
+                            dataAdapt.Fill(DT8);
+                        }
+                    }
+                    catch (Exception ex8)
+                    {
+
+                        throw ex8;
+                    }
+
+                    try
+                    {
+                        using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_Pelaksana_Perbaikan", conn))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
+
+                            command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
+                            command.Parameters["@NoCAPA"].Value = NoCAPA;
+
+
+
+                            SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                            dataAdapt.SelectCommand = command;
+
+                            dataAdapt.Fill(DT9);
+                        }
+                    }
+                    catch (Exception ex9)
+                    {
+                        throw ex9;
+                    }
+
+                    try
+                    {
+                        using (SqlCommand command = new SqlCommand("SP_LOAD_REPORT_KajianResiko_Perubahan", conn))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
+
+                            command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
+                            command.Parameters["@NoCAPA"].Value = NoCAPA;
+
+
+
+                            SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                            dataAdapt.SelectCommand = command;
+
+                            dataAdapt.Fill(DT10);
+                        }
+                    }
+                    catch (Exception ex10)
+                    {
+                        throw ex10;
                     }
 
                     conn.Close();
