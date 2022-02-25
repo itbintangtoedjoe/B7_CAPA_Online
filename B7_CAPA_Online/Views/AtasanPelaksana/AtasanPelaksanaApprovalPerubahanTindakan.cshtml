@@ -184,6 +184,14 @@
             }
         });
     }
+    function CheckPending() {
+        var tableperbaikan = $('#Tbl_Perbaikan').DataTable().data().count();
+        var tablepencegahan = $('#Tbl_Pencegahan').DataTable().data().count();
+        if (tableperbaikan == 0 && tablepencegahan == 0) {
+
+            window.location.href = '../PendingTask/TaskList'
+        }
+    }
     $(document).ready(function () {
         $('#TxtDepartemen').val('@Request.RequestContext.HttpContext.Session["Departemen"]');
         $('#TxtNoCAPA').val(noCAPA);
@@ -256,6 +264,7 @@
                     ],
                     "order": [[1, 'asc']],
                 })
+                CheckPending();
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -315,6 +324,7 @@
                     "order": [[1, 'asc']],
 
                 });
+                CheckPending();
 
             },
             error: function (ex) {
@@ -362,13 +372,15 @@
                         alert(JSON.stringify(ex));
                     }
                 });
-                Swal.fire(
-                    'Approve!',
-                    'Approve Berhasil',
-                    'success'
-                )
-                GetTindakanPerbaikan();
-                TableKajian();
+                Swal.fire({
+                    title: "Approve Berhasil!",
+                    type: "success",
+                    showConfirmButton: false,
+                    timer: 1000,
+                }).then(() => {
+                    GetTindakanPerbaikan();
+                    TableKajian();
+                })
             }
         });
     }
@@ -430,11 +442,15 @@
                                     alert(JSON.stringify(ex));
                                 }
                             });
-                            Swal.fire(
-                                'Rejected!',
-                                'Reject Berhasil',
-                                'success'
-                            )
+                            Swal.fire({
+                                title: "Reject Berhasil!",
+                                type: "success",
+                                showConfirmButton: false,
+                                timer: 1000,
+                            }).then(() => {
+                                GetTindakanPerbaikan();
+                                TableKajian();
+                            })
                         },
                         error: function (errormessage) {
                         }
@@ -471,13 +487,16 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                GetTindakanPencegahan();
-                TableKajian();
-                Swal.fire(
-                    'Approve!',
-                    'Approve Berhasil',
-                    'success'
-                )
+
+                Swal.fire({
+                    title: "Approve Berhasil!",
+                    type: "success",
+                    showConfirmButton: false,
+                    timer: 1000,
+                }).then(() => {
+                    GetTindakanPencegahan();
+                    TableKajian();
+                })
                 $.ajax({
                     url: 'SubmitApproval',
                     type: 'post',
@@ -558,11 +577,15 @@
                                     alert(JSON.stringify(ex));
                                 }
                             });
-                            Swal.fire(
-                                'Rejected!',
-                                'Reject Berhasil',
-                                'success'
-                            )
+                            Swal.fire({
+                                title: "Reject Berhasil!",
+                                type: "success",
+                                showConfirmButton: false,
+                                timer: 1000,
+                            }).then(() => {
+                                GetTindakanPencegahan();
+                                TableKajian();
+                            })
                         },
                         error: function (errormessage) {
                         }

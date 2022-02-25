@@ -251,7 +251,11 @@ namespace B7_CAPA_Online.Controllers
             var parameters = new DynamicParameters(dictionary);
             var result = DAL.StoredProcedure(parameters, "SP_Attachment_Pelaksanaan");
 
+            string path;
             //hapus dari b7drive belum dibuat
+
+            path = data.Updater;
+            System.IO.File.Delete(path);
             return Json(result);
         }
 

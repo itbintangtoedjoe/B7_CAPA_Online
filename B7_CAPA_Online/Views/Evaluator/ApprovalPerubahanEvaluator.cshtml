@@ -136,6 +136,8 @@
     var laststate = false;
     var valid;
     var referenceID = getQueryStrings()["ReferenceID"];
+    var countPerbaikan;
+    var countPencegahan;
     $('#input_NoCAPA').val(noCAPA);
     //function untuk ambil semua query string
     function getQueryStrings() {
@@ -204,6 +206,14 @@
         });
     });
 
+    function CheckPending() {
+        var tableperbaikan = $('#Tbl_Perbaikan').DataTable().data().count();
+        var tablepencegahan = $('#Tbl_Pencegahan').DataTable().data().count();
+        if (tableperbaikan == countPerbaikan && tablepencegahan == countPencegahan) {
+
+            window.location.href = '../PendingTask/TaskList'
+        }
+    }
     function GetTindakanPerbaikan() {
         var dictlist = {
             NoCAPA: noCAPA,
@@ -268,6 +278,14 @@
                     ],
                     "order": [[1, 'asc']],
                 })
+                var result = JSON.parse(data);
+                var temp = 0;
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i].IsApproved == true) {
+                        temp += 1
+                    }
+                }
+                countPerbaikan = temp;
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -336,6 +354,15 @@
 
                 });
 
+                var result = JSON.parse(data);
+                var temp = 0;
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i].IsApproved == true) {
+                        temp += 1
+                    }
+                }
+                countPencegahan = temp;
+                CheckPending();
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -365,8 +392,6 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    GetTindakanPerbaikan();
-                    TableKajian();
                     $.ajax({
                         url: 'SubmitApproval',
                         type: 'post',
@@ -386,11 +411,15 @@
                             alert(JSON.stringify(ex));
                         }
                     });
-                    Swal.fire(
-                        'Approve!',
-                        'Approve Berhasil',
-                        'success'
-                    )
+                    Swal.fire({
+                        title: "Approve Berhasil!",
+                        type: "success",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    }).then(() => {
+                        GetTindakanPerbaikan();
+                        TableKajian();
+                    })
                 }
             });
         }
@@ -440,8 +469,6 @@
                             data: JSON.stringify(dto1),
                             contentType: "application/json;charset=utf-8",
                             success: function (data) {
-                                GetTindakanPerbaikan();
-                                TableKajian();
                                 $.ajax({
                                     url: 'SubmitApproval',
                                     type: 'post',
@@ -461,20 +488,26 @@
                                         alert(JSON.stringify(ex));
                                     }
                                 });
-                                Swal.fire(
-                                    'Rejected!',
-                                    'Reject Berhasil',
-                                    'success'
-                                )
+                                Swal.fire({
+                                    title: "Reject Berhasil!",
+                                    type: "success",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                }).then(() => {
+                                    GetTindakanPerbaikan();
+                                    TableKajian();
+                                })
+                               
                             },
                             error: function (errormessage) {
                             }
                         });
                     }
                     else {
+
                         Swal.fire(
                             'Error!',
-                            'Alasan tidak boleh kosong.',
+                            'Alasan Reject Harus di isi!',
                             'error'
                         )
                     }
@@ -514,8 +547,6 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    GetTindakanPencegahan();
-                    TableKajian();
                     $.ajax({
                         url: 'SubmitApproval',
                         type: 'post',
@@ -535,11 +566,15 @@
                             alert(JSON.stringify(ex));
                         }
                     });
-                    Swal.fire(
-                        'Approve!',
-                        'Approve Berhasil',
-                        'success'
-                    )
+                    Swal.fire({
+                        title: "Reject Berhasil!",
+                        type: "success",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    }).then(() => {
+                        GetTindakanPencegahan();
+                        TableKajian();
+                    })
                 }
             });
         }
@@ -590,8 +625,6 @@
                             data: JSON.stringify(dto1),
                             contentType: "application/json;charset=utf-8",
                             success: function (data) {
-                                GetTindakanPencegahan();
-                                TableKajian();
                                 $.ajax({
                                     url: 'SubmitApproval',
                                     type: 'post',
@@ -611,11 +644,16 @@
                                         alert(JSON.stringify(ex));
                                     }
                                 });
-                                Swal.fire(
-                                    'Rejected!',
-                                    'Reject Berhasil',
-                                    'success'
-                                )
+
+                                Swal.fire({
+                                    title: "Reject Berhasil!",
+                                    type: "success",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                }).then(() => {
+                                    GetTindakanPencegahan();
+                                    TableKajian();
+                                })
 
                             },
                             error: function (errormessage) {

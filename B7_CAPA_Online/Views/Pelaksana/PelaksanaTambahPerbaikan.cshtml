@@ -140,7 +140,7 @@
                             <div class="row form-group-sm">
                                 <div class="col-md-6">
                                     <label class="m-t-20">Area / Proses lain yang Berpotensi</label>
-                                    <textarea type="text" class="form-control" id="txtRootCauseExisting" readonly></textarea>
+                                    <textarea type="text" class="form-control" id="txtRootCausePencegahan"></textarea>
                                 </div>
                             </div>
                             <div class="row form-group-sm">
@@ -171,7 +171,7 @@
                                         <th></th>
                                         <th></th>
                                         <th></th>
-                                        <th>Tindakan Perbaikan</th>
+                                        <th>Root Cause</th>
                                         <th>Tindakan Pencegahan</th>
                                         <th>Supervisor</th>
                                         <th>Due_Date</th>
@@ -240,7 +240,7 @@
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th>Tindakan Perbaikan</th>
+                                    <th>Root Cause</th>
                                     <th>Tindakan Pencegahan</th>
                                     <th>Supervisor</th>
                                     <th>Due_Date</th>
@@ -360,11 +360,14 @@
             }
         });
 
-        $("input[name='radioPotensi']").change(function () {
-            var berpotensi = $('input[name="radioPotensi"]:checked').val();
+        $("input[name='Potensi']").change(function () {
+            var berpotensi = $('input[name="Potensi"]:checked').val();
             if (berpotensi == "Yes") {
-                $('#Div_Pencegahan').prop('hidden', false);
-            } else {
+                $('#Div_TindakanPencegahan').prop('hidden', false);
+            }
+            else
+            {
+                $('#Div_TindakanPencegahan').prop('hidden', true);
             }
         });
 
@@ -1194,7 +1197,7 @@
 
     function SubmitTindakanExisting()
     {
-            
+
             var dictionarylist = {
                 kategori: "Penambahan Submit Existing",
                 recordID: referenceID,
@@ -1227,7 +1230,7 @@
                                 Model: {
                                     NO_CAPA: noCAPA,
                                     Temp_Status: 10,
-                                    Tindakan: 'Penambahan Existing',    
+                                    Tindakan: 'Penambahan Existing',
                                     EmpID: nik
                                 }
                             }),
@@ -1506,12 +1509,14 @@
                     $.each(JSON.parse(area_lain), function (key, value) {
                         $('#AreaLain_DDL').append(new Option(value.Tindakan_Perbaikan, value.Tindakan_Perbaikan));
                     });
-                    $('#btn_AddPencegahan').click(function () {
+                        $('#btn_AddPencegahan').click(function () {
                             var dto = {};
                             var kategori = "Pencegahan";
                             var obj = JSON.parse(area_lain);
                             $.each(obj, function (key, value) {
-                                if (value.Tindakan_Perbaikan == $('#AreaLain_DDL').val()) {
+                                console.log($('#RootCause_DDL').val());
+                                console.log(value.WhyDesc);
+                                if (value.WhyDesc == $('#RootCause_DDL').val()) {
                                     dto = {
                                         Option: 9,
                                         NO_CAPA: noCAPA,
@@ -1519,8 +1524,8 @@
                                         WhyID: value.WhyID,
                                         WhyDesc: value.WhyDesc,
                                         WhyParentID: value.WhyParentID,
-                                        RootCause: value.Tindakan_Perbaikan,
-                                        AreaLain: $('#TxtAreaLainPencegahan').val(),
+                                        RootCause: $('#RootCause_DDL').val(),
+                                        AreaLain: $('#txtRootCausePencegahan').val(),
                                         Tindakan: $('#TxtDeskripsiPencegahan').val(),
                                         Pelaksana: nik,
                                         Departemen: departemen,
@@ -1537,7 +1542,7 @@
                                 }
                             });
                             addTindakan(dto, kategori);
-
+                        
 
                     });
                 }

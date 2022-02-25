@@ -885,15 +885,22 @@
             processData: false,
             async: false,
             success: function (data) {
-                Swal.fire({
-                    title: "File Berhasil di Upload!",
-                    type: "success",
-                    showConfirmButton: false,
-                    timer: 1000,
-                })
-                $('#TxtLampiranCountPerbaikan').text("Tidak ada File Yang Dipilih");
-                GetPerbaikanAttachments();
-                PopulateTableAttPerbaikan();
+                var result = JSON.parse(data);
+                if (result[0].Validate == "Invalid") {
+
+                    Swal.fire("Error!", "File sudah ada!", "error");
+                }
+                else {
+                    Swal.fire({
+                        title: "File Berhasil di Upload!",
+                        type: "success",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    })
+                    $('#TxtLampiranCountPerbaikan').text("Tidak ada File Yang Dipilih");
+                    GetPerbaikanAttachments();
+                    PopulateTableAttPerbaikan();
+                }
             },
             error: function (xhr, error, status) {
                 console.log(error, status);
@@ -924,16 +931,23 @@
             processData: false,
             async: false,
             success: function (data) {
-                Swal.fire({
-                    title: "File Berhasil di Upload!",
-                    type: "success",
-                    showConfirmButton: false,
-                    timer: 1000,
-                })
+                var result = JSON.parse(data);
+                if (result[0].Validate == "Invalid") {
 
-                $('#TxtLampiranCountPencegahan').text("Tidak ada File Yang Dipilih");
-                GetPencegahanAttachments();
-                PopulateTableAttPencegahan();
+                    Swal.fire("Error!", "File sudah ada!", "error");
+                }
+                else {
+                    Swal.fire({
+                        title: "File Berhasil di Upload!",
+                        type: "success",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    })
+                    $('#TxtLampiranCountPencegahan').text("Tidak ada File Yang Dipilih");
+                    GetPencegahanAttachments();
+                    PopulateTableAttPencegahan();
+                }
+
             },
             error: function (xhr, error, status) {
                 console.log(error, status);
@@ -963,16 +977,23 @@
             processData: false,
             async: false,
             success: function (data) {
-                Swal.fire({
-                    title: "File Berhasil di Upload!",
-                    type: "success",
-                    showConfirmButton: false,
-                    timer: 1000,
-                })
+                var result = JSON.parse(data);
+                if (result[0].Validate == "Invalid") {
 
-                $('#TxtLampiranCountTreatment').text("Tidak ada File Yang Dipilih");
-                GetTreatmentAttachments();
-                PopulateTableAttTreatment();
+                    Swal.fire("Error!", "File sudah ada!", "error");
+                }
+                else {
+                    Swal.fire({
+                        title: "File Berhasil di Upload!",
+                        type: "success",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    })
+                    $('#TxtLampiranCountTreatment').text("Tidak ada File Yang Dipilih");
+                    GetTreatmentAttachments();
+                    PopulateTableAttTreatment();
+                }
+
             },
             error: function (xhr, error, status) {
                 console.log(error, status);
@@ -1072,7 +1093,7 @@
             for (i = 0; i < fileCount; i++) {
                 console.log(attachmentPerbaikan[i].FILE_PATH);
                 trhtml += '<tr><td><a href="' + attachmentPerbaikan[i].FILE_PATH + '" style="color:blue;text-decoration:underline">' + attachmentPerbaikan[i].FILE_NAME + '</a></td>' +
-                    '<td> <button class="btn-dark input-group-text center" type="button" onclick=" DeleteAttachment(' + attachmentPerbaikan[i].RecordID + ',1)" id="btnDeletePerbaikan'+i+'" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
+                    '<td> <button class="btn-dark input-group-text center" type="button" onclick=" DeleteAttachment(' + attachmentPerbaikan[i].RecordID + ',' + attachmentPerbaikan[i].FILE_PATH+',1)" id="btnDeletePerbaikan'+i+'" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
             }
         } else {
             trhtml += '<tr><td>Belum ada file terpilih</td></tr>';
@@ -1479,7 +1500,7 @@
         if (fileCount > 0) {
             for (i = 0; i < fileCount; i++) {
                 trhtml += '<tr><td><a href="' + attachmentPencegahan[i].FILE_PATH + '" style="color:blue;text-decoration:underline">' + attachmentPencegahan[i].FILE_NAME + '</a></td>' +
-                    '<td> <button class="btn-dark input-group-text center" type="button" onclick=" DeleteAttachment(' + attachmentPencegahan[i].RecordID + ',2)" id="btnDeletePencegahan' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
+                    '<td> <button class="btn-dark input-group-text center" type="button" onclick=" DeleteAttachment(' + attachmentPencegahan[i].RecordID + ',' + attachmentPencegahan[i].FILE_PATH+',2)" id="btnDeletePencegahan' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
             }
         } else {
             trhtml += '<tr><td>Belum ada file terpilih</td></tr>';
@@ -1839,7 +1860,7 @@
             for (i = 0; i < fileCount; i++) {
                 console.log(attachmentKajian[i].FILE_PATH);
                 trhtml += '<tr><td><a href="' + attachmentKajian[i].FILE_PATH + '" style="color:blue;text-decoration:underline">' + attachmentKajian[i].FILE_NAME + '</a></td>' +
-                    '<td> <button class="btn-dark input-group-text center" type="button" onclick=" DeleteAttachment(' + attachmentKajian[i].RecordID + ',3)" id="btnDeletePerbaikan' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
+                    '<td> <button class="btn-dark input-group-text center" type="button" onclick=" DeleteAttachment(' + attachmentKajian[i].RecordID + ',' + attachmentKajian[i].FILE_PATH+',3)" id="btnDeletePerbaikan' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
             }
         } else {
             trhtml += '<tr><td>Belum ada file terpilih</td></tr>';
@@ -1870,7 +1891,7 @@
                 if (result.length > 0) {
                     for (i = 0; i < result.length; i++) {
                         trhtml += '<tr><td><a href="' + result[i].FILE_PATH + '" style="color:blue;text-decoration:underline">' + result[i].FILE_NAME + '</a></td>' +
-                            '<td> <button class="btn-dark input-group-text center" type="button" onclick=" DeleteAttachment(' + result[i].RecordID + ',3)" id="btnDeleteTreatment' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
+                            '<td> <button class="btn-dark input-group-text center" type="button" onclick=" DeleteAttachment(' + result[i].RecordID + ',' + result[i].FILE_PATH + ',3)" id="btnDeleteTreatment' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
                     }
                 }
                 else
@@ -2106,7 +2127,7 @@
 
 
 
-    function DeleteAttachment(attID, kategori) {
+    function DeleteAttachment(attID,path, kategori) {
         Swal.fire({
             title: "Anda yakin menghapus lampiran?",
             type: "warning",
@@ -2117,7 +2138,8 @@
         }).then((willDelete) => {
             if (willDelete) {
                 var formData = {
-                    "IDAttachment": attID
+                    "IDAttachment": attID,
+                    "Updater": path
                 };
 
                 $.ajax({

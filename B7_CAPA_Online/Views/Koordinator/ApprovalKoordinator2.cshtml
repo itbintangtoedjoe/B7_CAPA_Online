@@ -279,7 +279,7 @@
                 var trhtml = '';
                 var trav = 0;
 
-                trhtml += '<option disabled selected hidden class="dropdown-header">--Please Select--</option>';
+                trhtml += '<option disabled selected hidden class="dropdown-header" value="-">--Please Select--</option>';
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
 
@@ -307,7 +307,7 @@
                 var trhtml = '';
                 var trav = 0;
 
-                trhtml += '<option disabled selected hidden class="dropdown-header">--Please Select--</option>';
+                trhtml += '<option disabled selected hidden class="dropdown-header" value="-">--Please Select--</option>';
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
 
@@ -346,7 +346,7 @@
                 var trhtml = '';
                 var trav = 0;
 
-                trhtml += '<option disabled selected hidden class="dropdown-header">--Please Select--</option>';
+                trhtml += '<option disabled selected hidden class="dropdown-header" value="-">--Please Select--</option>';
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
 
@@ -391,14 +391,12 @@
                     if (result[0].Stat == "Valid") {
                         Swal.fire("Success!", "Add Berhasil", "success");
                         GetEvalTableList();
-                        var trhtml = '';
-                        trhtml += '<option disabled selected hidden class="dropdown-header" value="">--Please Select--</option>'
-                        $("#EvalList_DDL").append(trhtml);
-                        $("#Eva_Plant_DDL").append(trhtml);
-                        $("#Eva_Departemen_DDL").append(trhtml);
-                        $("#EvalList_DDL").val("");
-                        $('#Eva_Plant_DDL').val("");
-                        $('#Eva_Departemen_DDL').val("");
+                        $("#EvalList_DDL").val("-");
+                        $('#Eva_Plant_DDL').val("-");
+                        $('#Eva_Departemen_DDL').val("-");
+                        $("#EvalList_DDL").select2();
+                        $("#Eva_Plant_DDL").select2();
+                        $("#Eva_Departemen_DDL").select2();
                         $("#EvalList_DDL").attr("disabled",true);
                     }
                     else {

@@ -1244,9 +1244,10 @@
                 var row = $(button).closest("TR");
                 var data = $('#Tbl_Lampiran').DataTable().row(row).data();
                 var id = data['RecordID'];
-
+                var path = data['FILE_PATH'];
                 var formData = {
-                    "IDAttachment": id
+                    "IDAttachment": id,
+                    "Updater": path
                 };
 
                 $.ajax({
@@ -1412,9 +1413,15 @@
                 contentType: false,
                 processData: false,
                 success: function (data) {
+                    var result = JSON.parse(data);
+                    if (result[0].Validate == "Invalid") {
 
-                    Swal.fire("Success!", "Upload Berhasil!", "success");
-                    GetLampiran();
+                        Swal.fire("Error!", "File sudah ada!", "error");
+                    }
+                    else {
+                        Swal.fire("Success!", "Upload Berhasil!", "success");
+                        GetLampiran();
+                    }
                 },
                 error: function (errormessage) {
                     $('#divLoading').attr("hidden", true);
