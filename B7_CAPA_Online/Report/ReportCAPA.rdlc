@@ -7953,7 +7953,6 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                             </Border>
                           </Style>
                         </Image>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -10245,7 +10244,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.07938cm</Width>
+                  <Width>0.23582cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>5.97931cm</Width>
@@ -10337,9 +10336,6 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>STATUS_ID</rd:DefaultName>
-                          <Visibility>
-                            <Hidden>true</Hidden>
-                          </Visibility>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -10360,7 +10356,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                           <Value>Picture18</Value>
                           <Sizing>Fit</Sizing>
                           <Visibility>
-                            <Hidden>=IIF(Fields!STATUS_ID.Value = 12, False, True) or IIF(Fields!STATUS_ID.Value = 14, False, True)</Hidden>
+                            <Hidden>=IIF(Fields!STATUS_ID.Value = 12 or Fields!STATUS_ID.Value = 14, False, True)</Hidden>
                           </Visibility>
                           <Style>
                             <Border>
@@ -10376,7 +10372,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             </TablixBody>
             <TablixColumnHierarchy>
               <TablixMembers>
-                <TablixMember />
+                <TablixMember>
+                  <Visibility>
+                    <Hidden>true</Hidden>
+                  </Visibility>
+                </TablixMember>
                 <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
@@ -10397,7 +10397,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>59.74884cm</Top>
             <Left>11.5128cm</Left>
             <Height>1.6848cm</Height>
-            <Width>6.05869cm</Width>
+            <Width>6.21513cm</Width>
             <ZIndex>67</ZIndex>
             <Style>
               <Border>
