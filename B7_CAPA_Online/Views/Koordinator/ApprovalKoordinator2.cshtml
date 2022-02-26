@@ -142,6 +142,7 @@
 
 </div>
 <script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
+
 <script>
 
     var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
@@ -194,7 +195,7 @@
         });
 
         $('#btn_Submit_Evaluator').click(function () {
-
+            $.blockUI();
             SubmitEvaluator();
         });
         $('#btn_Reject').click(function () {
@@ -520,6 +521,7 @@
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
                     var result = JSON.parse(data);
+                    $.unblockUI();
                     if (result[0].Stat == "Invalid") {
                         Swal.fire("Error!", "Silahkan pilih Evaluator Utama terlebih dahulu!", "error");
                     }
@@ -619,6 +621,7 @@
             confirmButtonText: 'Reject!',
             reverseButtons: true
         }).then((result) => {
+            $.blockUI();
             if (result.value) {
                 var reject = $('#txtReject').val();
                 var dictlist = {
@@ -638,6 +641,7 @@
                         data: JSON.stringify(dto1),
                         contentType: "application/json;charset=utf-8",
                         success: function (data) {
+                            $.unblockUI();
                             GetDisabledEvalTableList();
                             $('#btn_Submit_Evaluator').attr('disabled', true);
                             $('#Add_Eval').attr('disabled', true);
@@ -704,6 +708,7 @@
             confirmButtonText: 'Batalkan!',
             reverseButtons: true
         }).then((result) => {
+            $.blockUI();
             if (result.value) {
                 var cancel = $('#txtCancel').val();
                 var dictlist = {
@@ -723,6 +728,7 @@
                         data: JSON.stringify(dto1),
                         contentType: "application/json;charset=utf-8",
                         success: function (data) {
+                            $.unblockUI();
                             GetDisabledEvalTableList();
                             $('#btn_Submit_Evaluator').attr('disabled', true);
                             $('#Add_Eval').attr('disabled', true);

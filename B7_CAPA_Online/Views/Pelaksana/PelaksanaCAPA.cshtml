@@ -434,18 +434,31 @@
 
 
                             <div class="row form-group-sm">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label class="m-t-20">Menghilangkan Potensi Kegagalan/ Penyimpangan<span style="color: red">*</span></label>
                                     <textarea type="text" id="txtPotensiKegagalan" class="form-control" placeholder="" disabled></textarea>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Menghilangkan Potensi Kegagalan/ Penyimpangan Hasil<span style="color: red">*</span></label>
+                                    <textarea type="text" id="txtPotensiKegagalanHasil" class="form-control" placeholder="" disabled></textarea>
+                                </div>
+
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-6">
                                     <label class="m-t-40">PERBAIKAN untuk mengatasi Penyebab Potensial<span style="color: red">*</span></label>
                                     <div class="input-group mb-3">
                                         <textarea type="text" id="txtPenyebabPotensi" class="form-control" placeholder="" disabled></textarea>
                                     </div>
                                 </div>
 
+                                <div class="col-md-6">
+                                    <label class="m-t-40">PERBAIKAN untuk mengatasi Penyebab Potensial Hasil<span style="color: red">*</span></label>
+                                    <div class="input-group mb-3">
+                                        <textarea type="text" id="txtPenyebabPotensiHasil" class="form-control" placeholder="" disabled></textarea>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-6">
@@ -454,19 +467,18 @@
                                         <textarea type="text" class="form-control" placeholder="" id="txtMDPKegagalan" disabled></textarea>
                                     </div>
                                 </div>
-                                @*<div class="col-md-6">
-                                        <label class="m-t-40" style="visibility:hidden">Hasil tindakan perbaikan yang sudah dilakukan</label>
-                                        <div class="input-group mb-3">
-                                            <button type="button" class="btn mb-1 btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
-                                            <div class="dropdown-menu" style="width:auto">
-                                                <a class="dropdown-item" href="#">Ubah Tindakan Pencegahan</a>
-                                                <a class="dropdown-item" href="#">Cancel Tindakan Pencegahan</a>
-                                                <a class="dropdown-item" href="#">Tambah Tindakan Pencegahan</a>
-                                            </div>
-                                        </div>
-                                    </div>*@
-                                <div class="col-md-4">
-                                    <label class="m-t-20">Upload Bukti Treatment Plan Kajian Resiko<span style="color: red">*</span></label>
+                                <div class="col-md-6">
+                                    <label class="m-t-40">PERBAIKAN untuk meningkatkan deteksi potensi kegagalan Hasil<span style="color: red;">*</span></label>
+                                    <div class="input-group mb-3">
+                                        <textarea type="text" class="form-control" placeholder="" id="txtMDPKegagalanHasil" disabled></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-md-6">
+                                    <label class="m-t-40">Upload Bukti Treatment Plan Kajian Resiko<span style="color: red;">*</span></label>
                                     <div class="input-group mb-3">
                                         <div class="custom-file" style="border: 1px solid #dee0df; padding:5px;">
                                             <input type="file" class="custom-file-input" name="UploadAttachment" id="uploadAttachmentTreatment" disabled="disabled" multiple />
@@ -474,15 +486,37 @@
                                         <label id="TxtLampiranCountTreatment" class="custom-file-label">Tidak ada File Yang Dipilih</label>
 
                                     </div>
-
                                 </div>
+
+
                                 <div class="col-md-2">
                                     <br />
                                     <input type="button" class="btn btn-primary" id="UploadTreatment" style="margin-top:5px;" value="Upload" disabled />
                                 </div>
+
+                                <div class="col-md-4 ">
+                                    
+                                </div>
+                                <div class="col-md-6 ">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered zero-configuration" id="tblAttachmentTreatment">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nama File</th>
+                                                    <th hidden></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbodyAttachmentTreatment">
+                                                <tr>
+                                                    <td>Belum ada file terpilih</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="table-responsive">
+                            @*<div class="table-responsive">
                                 <table class="table table-bordered zero-configuration" id="tblAttachmentTreatment">
                                     <thead>
                                         <tr>
@@ -496,7 +530,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
+                            </div>*@
                             <br />
                             <div class="row form-group">
                                 <div class="col-sm-2">
@@ -589,10 +623,14 @@
     var namaUser = '@Request.RequestContext.HttpContext.Session["NamaUser"]';
     var superiorName = '@Request.RequestContext.HttpContext.Session["SuperiorName"]';
     var dataPerbaikan, attachmentPerbaikan, dataPencegahan, attachmentPencegahan;
+    var dataKajian;
+    var attachmentKajian;
     var statuser = false;
     var stataction = false;
     var action;
-    var checkPerbaikan, checkPencegahan,checkTreatment;
+    var checkPerbaikan, checkPencegahan, checkTreatment;
+    var totalvalidasiTreatment;
+    var TreatmentTerisi;
     //function untuk ambil semua query string
     function getQueryStrings() {
         var vars = [], hash;
@@ -631,12 +669,13 @@
         });
 
         $('#ddlKajianTreatment').change(function () {
-            $('#txtPotensiKegagalan').prop("disabled", false);
-            $('#txtPenyebabPotensi').prop("disabled", false);
-            $('#txtMDPKegagalan').prop("disabled", false);
+            $('#txtPotensiKegagalanHasil').prop("disabled", false);
+            $('#txtPenyebabPotensiHasil').prop("disabled", false);
+            $('#txtMDPKegagalanHasil').prop("disabled", false);
             $("#uploadAttachmentTreatment").prop("disabled", false);
             $('#btnSimpanTreatment').prop("disabled", false);
             $('#UploadTreatment').prop("disabled", false);
+            DisplayKajian();
             GetTreatmentAttachments();
 
         });
@@ -1825,22 +1864,30 @@
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var result = JSON.parse(data);
+                dataKajian = result;
                 var count = result.length;
                 var trhtml = '';
                 var trav = 0;
 
                 trhtml += '<option disabled selected hidden class="dropdown-header">--Please Select--</option>';
                 if (count > 0) {
+                    var tipe = result[trav].Tipe;
                     for (trav = 0; trav < count; trav++) {
+                        if (tipe.indexOf('Perbaikan') >= 0) {
 
-                        trhtml += '<Option value = "' + result[trav].RecordID + '" > ' + result[trav].Tindakan;
+                            trhtml += '<Option value = "' + result[trav].RecordID + '" > '+ 'Perbaikan - ' + result[trav].Tindakan;
+                        }
+                        else if (tipe.indexOf('Pencegahan') >= 0) {
+
+                            trhtml += '<Option value = "' + result[trav].RecordID + '" > ' + 'Pencegahan - ' + result[trav].Tindakan;
+                        }
                     }
                     checkTreatment = count;
                 }
                 else
                 {
                     checkTreatment = 0;
-                    $('#Div_Treatment').attr("hidden", true);
+                    //$('#Div_Treatment').attr("hidden", true);
                     checkCAPA();
                 }
                 $("#ddlKajianTreatment").empty();
@@ -1852,6 +1899,26 @@
             }
         });
 
+    }
+    function DisplayKajian() {
+        var idkajian = $('#ddlKajianTreatment').val();
+        let objKajian = dataKajian.filter(item => item.RecordID == idkajian);
+        $('#txtPotensiKegagalan').val(objKajian[0].M_PKegagalan);
+        $('#txtPenyebabPotensi').val(objKajian[0].P_MPenyebab);
+        $('#txtMDPKegagalan').val(objKajian[0].P_MDPKegagalan);
+
+        if (objKajian[0].P_MDPKegagalan == "" || objKajian[0].P_MDPKegagalan == null ) {
+
+            $('#txtPotensiKegagalanHasil').prop("disabled", true);
+        }
+        if (objKajian[0].P_MPenyebab == "" || objKajian[0].P_MPenyebab == null) {
+
+            $('#txtPenyebabPotensiHasil').prop("disabled", true);
+        }
+        if (objKajian[0].P_MDPKegagalan == "" || objKajian[0].P_MDPKegagalan == null) {
+
+            $('#txtMDPKegagalanHasil').prop("disabled", true);
+        }
     }
     function PopulateTableAttTreatment() {
         var fileCount = attachmentKajian.length;
@@ -1977,10 +2044,35 @@
     //        }
     //    });
     //}
+    function ValidasiTreatment() {
+        var potensikegagalan = $('#txtPotensiKegagalan').val();
+        var penyebabpotensi = $('#txtPenyebabPotensi').val();
+        var MDPKegagalan = $('#txtMDPKegagalan').val();
+        totalvalidasiTreatment = 0;
+        TreatmentTerisi = 0;
+        if (potensikegagalan != "") {
+            totalvalidasiTreatment += 1;
+        }
+        if (penyebabpotensi != "") {
+            totalvalidasiTreatment += 1;
+        }
+        if (MDPKegagalan != "") {
+            totalvalidasiTreatment += 1;
+        }
 
+        if ($('#txtPotensiKegagalanHasil').val().trim() != "") {
+            TreatmentTerisi += 1;
+        }
+        if ($('#txtPenyebabPotensiHasil').val().trim() != "") {
+            TreatmentTerisi += 1;
+        }
+        if ($('#txtMDPKegagalanHasil').val().trim() != "") {
+            TreatmentTerisi += 1;
+        }
+        
+    }
     $('#btnSimpanTreatment').click(function (e) {
         var modeTreatment = $("#modeTreatment").val();
-
         var idKajian = $('#ddlKajianTreatment').val();
         var M_PKegagalan_Hasil = $('#txtPotensiKegagalan').val();
         var P_MPenyebab_HasiL = $('#txtPenyebabPotensi').val();
@@ -1989,11 +2081,11 @@
         //var pelaksanaID = getQueryStrings()["PelaksanaID"];
         var status = 7;
         var kategori = "Treatment";
-
+        ValidasiTreatment();
         //pelaksanaID = pelaksanaID.replace('#', '');
-        if (MDPKegagalan.trim() == "" || $('#tblAttachmentTreatment td:last-child').text() == "Belum ada file terpilih") {
+        if ($('#tblAttachmentTreatment td:last-child').text() == "Belum ada file terpilih") {
             Swal.fire({
-                title: "Hasil treatment dan attachment wajib diisi!",
+                title: "attachment wajib diisi!",
                 type: "warning",
                 showConfirmButton: false
             }).then(() => {
@@ -2005,7 +2097,9 @@
         else {
             kategori = "Treatment";
             status = "Pending Review Superior Pelaksana";
-            if (potensiKegagalan.trim() == "" || penyebabPotensi.trim() == "") {
+            alert(totalvalidasiTreatment);
+            alert(TreatmentTerisi);
+            if (totalvalidasiTreatment != TreatmentTerisi) {
                 Swal.fire({
                     title: "Semua field wajib diisi!",
                     type: "warning",
@@ -2044,9 +2138,9 @@
                     ReloadPage();
                 })
                 FindKajian();
-                $('#txtPotensiKegagalan').val("");
-                $('#txtPenyebabPotensi').val("");
-                $('#txtMDPKegagalan').val("");
+                $('#txtPotensiKegagalanHasil').val("");
+                $('#txtPenyebabPotensiHasil').val("");
+                $('#txtMDPKegagalanHasil').val("");
                 $('#UploadTreatment').prop("disabled", true);
             },
             error: function (errormessage) {

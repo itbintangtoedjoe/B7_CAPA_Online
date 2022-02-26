@@ -51,7 +51,7 @@
             </div>
             <br />
             <div class="col-sm-3" style="margin-left:15px;">
-                <button id="ViewAllBukti" class="btn btn-primary">View Rentang</button>
+                <button id="ViewRentang" class="btn btn-primary">View Rentang</button>
             </div>
             <div class="card-body">
                 <form>
@@ -178,9 +178,12 @@
                                 <table class="table table-hover table-bordered zero-configuration" id="Tabel_File">
                                     <thead>
                                         <tr>
+                                            <th></th>
+                                            <th></th>
                                             <th>No CAPA</th>
                                             <th>Type</th>
                                             <th>Nama File</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -359,6 +362,9 @@
     $(document).ready(function () {
         $('#ViewAllBukti').click(function () {
             window.open('../Koordinator/VerifikasiPelaksanaCAPA?NoCAPA=' + nocapa)
+        })
+        $('#ViewRentang').click(function () {
+            window.open('../Evaluator/ReviewCAPA?NoCAPA=' + nocapa);
         })
         getDDL();
         TahunDDL();
@@ -715,10 +721,11 @@
 
                                 return '<a href = "' + oData.ValueEvaluasi + '" >' + oData.Nama_File + '</a >';
                             }
-                        },
+                        }
+                        ,
                         {
                             "data": null,
-                            "defaultContent": "<input type='button'  class='btn btn-primary' onclick=DeleteLampiran(this) value='Delete'style='background-color:red;'/>"
+                            "defaultContent": "<input type='button'  class='btn btn-primary' onclick=DeleteLampiran(this) value='Delete' style='background-color:red;'/>"
                         }
                     ],
 
@@ -898,7 +905,10 @@
                 else {
                     $('#Submit').removeAttr('disabled');
                     $('#Submit').removeAttr('hidden');
-                    if ($('#Tbl_Devi').DataTable().data().count() > 0) {
+                    var countdevi = $('#Tbl_Devi').DataTable().data().count();
+                    var countfile = $('#Tabel_File').DataTable().data().count();
+                    var countccc = $('#Tabel_CCC').DataTable().data().count()
+                    if (countdevi > 0) {
                         document.getElementById("Devi_Yes").checked = true;
                         $('#Deviation').removeAttr('hidden');
                         $('#Browse_Devi').attr('disabled', true);
@@ -909,7 +919,7 @@
                       document.getElementById("Devi_No").checked = true;
                     }
 
-                    if ($('#Tabel_CCC').DataTable().data().count() > 0) {
+                    if (countccc> 0) {
                         document.getElementById("CCC_Yes").checked = true;
                         $('#CCC').removeAttr('hidden');
                         $('#Browse_CCC').attr('disabled', true);
@@ -919,7 +929,7 @@
                         $('input[name="CCC_Radio"]').attr("disabled", true);
                         document.getElementById("CCC_No").checked = true;
                     }
-                    if ($('#Tabel_File').DataTable().data().count() > 0) {
+                    if (countfile > 0) {
                         document.getElementById("File_Yes").checked = true;
                         $('#Lampiran').removeAttr('hidden');
                         $('#TxtFileInput').attr('disabled', true);

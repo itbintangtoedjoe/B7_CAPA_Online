@@ -484,7 +484,7 @@
                         { "data": "Lainnya" },
                         {
                             "data": null,
-                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onchange=''>Delete</button> ",
+                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onclick=Delete(this)>Delete</button> ",
                             "visible": (!isHide) ? (true) : (false)
                         },
                     ],
@@ -572,10 +572,10 @@
     }
 
     function DeleteKajianResiko() {
-        $(document).on("click", "#Tbl_KajianResiko button.delete", function () {
             var rows = $(this).closest('tr');
             var data = $('#Tbl_KajianResiko').DataTable().row(rows).data();
-            data.Option = 13;
+            var id = data['RecordID'];
+       
             //console.log(data);
             //console.log({
             //    Model: {
@@ -587,14 +587,12 @@
             //});
 
             $.ajax({
-                url: '/PIC/DeleteKajianResiko',
+                url: '../Koordinator/DynamicController?spname=[dbo].[SP_FORM_Perubahan]',
                 type: 'post',
                 dataType: 'json',
                 data: JSON.stringify({
-                    Option: data.Option,
-                    NO_CAPA: data.NoCAPA_FK,
-                    LineNumber: data.LineNumber,
-                    RecordID: data.RecordID
+                    Option: 27,
+                    RecordID: id
                 }),
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
@@ -605,7 +603,6 @@
                     alert(JSON.stringify(ex));
                 }
             });
-        });
     }
 
     function getDataTindakan(data) {
