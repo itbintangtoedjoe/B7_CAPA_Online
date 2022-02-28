@@ -13,11 +13,50 @@
     }
 </style>
 
+
 <link href="~/Content/Scripts/plugins/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
 
 <div class="content-body">
     <!--Modal-->
+    <div class="modal fade" id="Modal_Diag" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                </div>
+                <div class="modal-body">
+                    <label style="color:black"><b>Manusia</b></label>
+                    <div id="DiagManusia"
+                         style="width:100%; height:300px; background-color: #DAE4E4;"></div>
+                    <br />
+
+                    <label style="color:black"><b>Material/Produk</b></label>
+                    <div id="DiagMaterial"
+                         style="width:100%; height:300px; background-color: #DAE4E4;"></div>
+                    <br />
+
+                    <label style="color:black"><b>Lingkungan</b></label>
+                    <div id="DiagLingkungan"
+                         style="width:100%; height:300px; background-color: #DAE4E4;"></div>
+                    <br />
+
+                    <label style="color:black"><b>Machine</b></label>
+                    <div id="DiagMesin"
+                         style="width:100%; height:300px; background-color: #DAE4E4;"></div>
+                    <br />
+
+                    <label style="color:black"><b>Metode</b></label>
+                    <div id="DiagMetode"
+                         style="width:100%; height:300px; background-color: #DAE4E4;"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn_Close_Diag">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="KajianResikoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
@@ -33,7 +72,7 @@
                             <form>
                                 <div class="container">
                                     <div class="row form-group col-md-12">
-                                        <div class="col-md-6">
+                                        <div class="col-md-8">
                                             <label for="TxtPotensiKegagalan" class="col-form-label">Potensi Kegagalan / Penyimpangan yang mungkin terjadi ketika tindakan perbaikan/pencegahan diterapkan</label>
                                             <div class="input-group">
                                                 <textarea type="text" class="form-control" name="TxtPotensiKegagalan" id="TxtPotensiKegagalan"></textarea>
@@ -41,42 +80,18 @@
                                         </div>
                                     </div>
                                     <div class="row form-group col-md-12">
-                                        <div class="col-md-6">
-                                            <label for="TxtDampak" class="col-form-label">Dampak</label>
-                                            <div class="input-group">
-                                                <textarea type="text" class="form-control" name="TxtDampak" id="TxtDampak"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <label for="TxtSpesifikasi" class="col-form-label">Spesifikasi / Syarat</label>
                                             <div class="input-group">
                                                 <textarea type="text" class="form-control" name="TxtSpesifikasi" id="TxtSpesifikasi"></textarea>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row form-group col-md-12">
-                                        <div class="col-md-6">
-                                            <label for="TxtPenyebabPotensial" class="col-form-label">Penyebab Potensial</label>
+                                        <div class="col-md-4">
+                                            <label for="TxtDampak" class="col-form-label">Dampak</label>
                                             <div class="input-group">
-                                                <textarea type="text" class="form-control" name="TxtPenyebabPotensial" id="TxtPenyebabPotensial"></textarea>
+                                                <textarea type="text" class="form-control" name="TxtDampak" id="TxtDampak"></textarea>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="TxtMPenyebabPotensial" class="col-form-label">Mengatasi Penyebab Potensial</label>
-                                            <div class="input-group">
-                                                <textarea type="text" class="form-control" name="TxtMPenyebabPotensial" id="TxtMPenyebabPotensial"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group col-md-12">
-                                        <div class="col-md-6">
-                                            <label for="TxtMPotensi_KLMD" class="col-form-label">Mencegah Potensi Kegagalan Lolos Menimbulkan Dampak</label>
-                                            <div class="input-group">
-                                                <textarea type="text" class="form-control" name="TxtMPotensi_KLMD" id="TxtMPotensi_KLMD"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group col-md-12">
                                         <div class="col-md-4">
                                             <label for="Severity_DDL" class="col-form-label">Severity</label>
                                             <div class="input-group">
@@ -89,6 +104,20 @@
                                                 </select>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row form-group col-md-12">
+                                        <div class="col-md-4">
+                                            <label for="TxtPenyebabPotensial" class="col-form-label">Penyebab Potensial</label>
+                                            <div class="input-group">
+                                                <textarea type="text" class="form-control" name="TxtPenyebabPotensial" id="TxtPenyebabPotensial"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="TxtMPenyebabPotensial" class="col-form-label">Mengatasi Penyebab Potensial</label>
+                                            <div class="input-group">
+                                                <textarea type="text" class="form-control" name="TxtMPenyebabPotensial" id="TxtMPenyebabPotensial"></textarea>
+                                            </div>
+                                        </div>
                                         <div class="col-md-4">
                                             <label for="Likelihood_DDL" class="col-form-label">Likelihood</label>
                                             <div class="input-group">
@@ -99,6 +128,14 @@
                                                     <option value="4">4</option>
                                                     <option value="8">8</option>
                                                 </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group col-md-12">
+                                        <div class="col-md-8">
+                                            <label for="TxtMPotensi_KLMD" class="col-form-label">Mencegah Potensi Kegagalan Lolos Menimbulkan Dampak</label>
+                                            <div class="input-group">
+                                                <textarea type="text" class="form-control" name="TxtMPotensi_KLMD" id="TxtMPotensi_KLMD"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -114,6 +151,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @*<div class="row form-group col-md-12">
+
+                                        </div>*@
                                     <div class="row form-group col-md-12">
                                         <div class="form-group col-md-6">
                                             <label for="TxtRPN" class="col-form-label">RPN</label>
@@ -148,24 +188,7 @@
                                                 <textarea type="text" class="form-control" name="TxtMPotensi_K" id="TxtMPotensi_K"></textarea>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="TxtMPenyebab_P" class="col-form-label">Perbaikan untuk mengatasi Penyebab Potensial</label>
-                                            <div class="input-group">
-                                                <textarea type="text" class="form-control" name="TxtMPenyebab_P" id="TxtMPenyebab_P"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="row form-group col-md-12">
-                                        <div class="col-md-6">
-                                            <label for="TxtDPotensi_K" class="col-form-label">Perbaikan untuk meningkatkan deteksi potensi kegagalan</label>
-                                            <div class="input-group">
-                                                <textarea type="text" class="form-control" name="TxtDPotensi_K" id="TxtDPotensi_K"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row form-group col-md-12">
                                         <div class="col-md-4">
                                             <label for="Severity2_DDL" class="col-form-label">Severity</label>
                                             <div class="input-group">
@@ -176,6 +199,15 @@
                                                     <option value="7">7</option>
                                                     <option value="10">10</option>
                                                 </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group col-md-12">
+                                        <div class="col-md-6">
+                                            <label for="TxtMPenyebab_P" class="col-form-label">Perbaikan untuk mengatasi Penyebab Potensial</label>
+                                            <div class="input-group">
+                                                <textarea type="text" class="form-control" name="TxtMPenyebab_P" id="TxtMPenyebab_P"></textarea>
                                             </div>
                                         </div>
 
@@ -189,6 +221,15 @@
                                                     <option value="4">4</option>
                                                     <option value="8">8</option>
                                                 </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group col-md-12">
+                                        <div class="col-md-6">
+                                            <label for="TxtDPotensi_K" class="col-form-label">Perbaikan untuk meningkatkan deteksi potensi kegagalan</label>
+                                            <div class="input-group">
+                                                <textarea type="text" class="form-control" name="TxtDPotensi_K" id="TxtDPotensi_K"></textarea>
                                             </div>
                                         </div>
 
@@ -264,38 +305,6 @@
         </div>
     </div>
 
-    <div class="modal fade" id="Modal_Diag" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Fishbone Diagram</h5>
-                </div>
-                <div class="modal-body">
-                    <div id="DiagManusia"
-                         style="width:100%; height:300px; background-color: #DAE4E4;"></div>
-                    <br />
-
-                    <div id="DiagMaterial"
-                         style="width:100%; height:300px; background-color: #DAE4E4;"></div>
-                    <br />
-                    <div id="DiagLingkungan"
-                         style="width:100%; height:300px; background-color: #DAE4E4;"></div>
-                    <br />
-
-                    <div id="DiagMesin"
-                         style="width:100%; height:300px; background-color: #DAE4E4;"></div>
-                    <br />
-
-                    <div id="DiagMetode"
-                         style="width:100%; height:300px; background-color: #DAE4E4;"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn_Close_Diag">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="row page-titles mx-0">
         <div class="col p-md-0">
             <ol class="breadcrumb">
@@ -316,22 +325,22 @@
                             <div class="row">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-20">Tanggal</label>
-                                    <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly>
+                                    <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly disabled>
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">PIC CAPA</label>
-                                    <input class="form-control form-control-sm" type="text" id="input_Requestor" value="@Request.RequestContext.HttpContext.Session["FullName"]" readonly>
+                                    <input class="form-control form-control-sm" type="text" id="input_Requestor" value="@Request.RequestContext.HttpContext.Session["FullName"]" readonly disabled>
                                     @*<input class="form-control form-control-sm" type="text" id="input_Requestor_NIK" value="HARDCODE_NIK" hidden>*@
                                     <input class="form-control form-control-sm" type="text" id="input_Requestor_NIK" value="@Request.RequestContext.HttpContext.Session["NIK"]" hidden>
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-20">Nomor CAPA</label>
-                                    <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["NoCAPA"]" readonly>
+                                    <input class="form-control form-control-sm" type="text" id="input_NoCAPA" value="@Request.QueryString["NoCAPA"]" readonly disabled>
 
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">Departemen</label>
-                                    <input class="form-control form-control-sm" type="text" id="input_Departemen" value="@Request.RequestContext.HttpContext.Session["Departemen"]" readonly>
+                                    <input class="form-control form-control-sm" type="text" id="input_Departemen" value="@Request.RequestContext.HttpContext.Session["Departemen"]" readonly disabled>
                                 </div>
                             </div>
                         </form>
@@ -479,7 +488,22 @@
                                 </div>
                             </div>
                         </form>
-
+                        <div>
+                            <table class="table table-hover table-bordered zero-configuration" id="Table_WhyDescription" style="color: black">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>RecordID</th>
+                                        <th>Aspect</th>
+                                        <th>Parent Description</th>
+                                        <th>Why Description</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="Tbl_WhyDescription">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
@@ -490,18 +514,30 @@
                     </div>
                 </div>
 
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row form-group-sm">
+                            <div class="col-md-6">
+                                <label class="m-t-20">Root Cause</label>
+                                <select id="RootCause_DDL" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="card" id="Div_TindakanPerbaikan">
                     <div class="card-body">
                         <h4 class="card-title">Penentuan Tindakan Perbaikan</h4>
                         <div>
                             <form>
-                                <div class="row form-group-sm">
-                                    <div class="col-md-6">
-                                        <label class="m-t-20">Root Cause</label>
-                                        <select id="RootCause_DDL" class="form-control">
-                                        </select>
-                                    </div>
-                                </div>
+                                @*<div class="row form-group-sm">
+                                        <div class="col-md-6">
+                                            <label class="m-t-20">Root Cause</label>
+                                            <select id="RootCause_DDL" class="form-control">
+                                            </select>
+                                        </div>
+                                    </div>*@
                                 <div class="row form-group-sm">
                                     <div class="col-md-6">
                                         <label class="m-t-20">Tindakan Perbaikan<span style="color: red">*</span></label>
@@ -542,18 +578,27 @@
                                             <input type="text" class="form-control" id="TxtEmailPerbaikan" readonly>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-12">
-                                        <label class="m-t-40">Apakah ada proses / area lain yang berpotensi sama ?</label>
-                                        <div class="radio input-group">
-                                            <div class="col-sm-3">
-                                                <label><input type="radio" value="Yes" name="Potensi">Ya</label>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <label><input type="radio" value="No" name="Potensi">Tidak</label>
-                                            </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-3">
+                                        <label class="m-t-40">Superior Pelaksana</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name="TxtSuperiorPerbaikan" id="TxtSuperiorPerbaikan" readonly />
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row form-group">
+                                    @*<div class="col-md-12">
+                                            <label class="m-t-40">Apakah ada proses / area lain yang berpotensi sama ?</label>
+                                            <div class="radio input-group">
+                                                <div class="col-sm-3">
+                                                    <label><input type="radio" value="Yes" name="Potensi">Ya</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label><input type="radio" value="No" name="Potensi">Tidak</label>
+                                                </div>
+                                            </div>
+                                        </div>*@
 
                                     <div class="col-md-12 mb-3">
                                         <label class="m-t-40" style="visibility: hidden">_</label>
@@ -561,7 +606,6 @@
                                             <button type="button" id="btn_AddPerbaikan" class="btn mb-1 btn-primary ">Tambahkan Tindakan Perbaikan</button>
                                         </div>
                                     </div>
-
                                 </div>
                             </form>
                         </div>
@@ -571,12 +615,29 @@
                     </div>
                 </div>
 
-                <div class="card" id="Div_TindakanPencegahan">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-md-12">
+                            <label class="m-t-40">Apakah ada proses / area lain yang berpotensi sama ?</label>
+                            <div class="radio input-group">
+                                <div class="col-sm-3">
+                                    <label><input type="radio" value="Yes" name="Potensi">Ya</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label><input type="radio" value="No" name="Potensi">Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="Div_TindakanPencegahan" hidden>
                     <div class="card-body">
                         <h4 class="card-title">Penentuan Tindakan Pencegahan </h4>
                         <div>
                             <form>
-                                <div class="row form-group-sm">
+                                <div class="row form-group-sm" hidden>
                                     <div class="col-md-6">
                                         <label class="m-t-20">Tindakan Perbaikan</label>
                                         <select id="AreaLain_DDL" class="form-control">
@@ -630,14 +691,22 @@
                                             <input type="text" class="form-control" id="TxtEmailPencegahan" readonly>
                                         </div>
                                     </div>
-
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-3">
+                                        <label class="m-t-40">Superior Pelaksana</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name="TxtSuperiorPencegahan" id="TxtSuperiorPencegahan" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
                                     <div class="col-md-12 mb-3">
                                         <label class="m-t-40" style="visibility: hidden">_</label>
                                         <div class="input-group">
                                             <button type="button" id="btn_AddPencegahan" class="btn mb-1 btn-primary ">Tambahkan Tindakan Pencegahan</button>
                                         </div>
                                     </div>
-
                                 </div>
                             </form>
                         </div>
@@ -696,79 +765,79 @@
                                 </thead>
                                 <tbody id="Tbl_PRCA">
                                     @*<tr>
-                                        <td>Tindakan</td>
-                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                        <td>
-                                            <select id="SaverityDDL" class="form-control">
-                                                <option value="1">1</option>
-                                                <option value="4">4</option>
-                                                <option value="7">7</option>
-                                                <option value="10">10</option>
-                                            </select>
-                                        </td>
-                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                        <td>
-                                            <select id="LikelihoodDDL" class="form-control">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="4">4</option>
-                                                <option value="8">8</option>
-                                            </select>
-                                        </td>
-                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                        <td>
-                                            <select id="DetectabilityDDL" class="form-control">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                            </select>
-                                        </td>
-                                        <td>SxLxD</td>
-                                        <td>Level Risk Color</td>
-                                        <td>
-                                            <select id="DetectabilityDDL" class="form-control">
-                                                <option value="Low">Low</option>
-                                                <option value="Medium">Medium</option>
-                                            </select>
-                                        </td>
-                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                        <td>
-                                            <select id="LikelihoodDDL" class="form-control">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="4">4</option>
-                                                <option value="8">8</option>
-                                            </select>
-                                        </td>
-                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                        <td>
-                                            <select id="DetectabilityDDL" class="form-control">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                            </select>
-                                        </td>
-                                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                        <td>
-                                            <select id="DetectabilityDDL" class="form-control">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                            </select>
-                                        </td>
-                                        <td>SxLxD</td>
-                                        <td>Level Risk Color</td>
-                                        <td>PIC</td>
-                                        <td>Due Date</td>
-                                        <td>Lainnya</td>
-                                        <td><button class="form-control-sm">Delete</button></td>
-                                    </tr>*@
+                                            <td>Tindakan</td>
+                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                            <td>
+                                                <select id="SaverityDDL" class="form-control">
+                                                    <option value="1">1</option>
+                                                    <option value="4">4</option>
+                                                    <option value="7">7</option>
+                                                    <option value="10">10</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                            <td>
+                                                <select id="LikelihoodDDL" class="form-control">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="4">4</option>
+                                                    <option value="8">8</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                            <td>
+                                                <select id="DetectabilityDDL" class="form-control">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                </select>
+                                            </td>
+                                            <td>SxLxD</td>
+                                            <td>Level Risk Color</td>
+                                            <td>
+                                                <select id="DetectabilityDDL" class="form-control">
+                                                    <option value="Low">Low</option>
+                                                    <option value="Medium">Medium</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                            <td>
+                                                <select id="LikelihoodDDL" class="form-control">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="4">4</option>
+                                                    <option value="8">8</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                            <td>
+                                                <select id="DetectabilityDDL" class="form-control">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                            <td>
+                                                <select id="DetectabilityDDL" class="form-control">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                </select>
+                                            </td>
+                                            <td>SxLxD</td>
+                                            <td>Level Risk Color</td>
+                                            <td>PIC</td>
+                                            <td>Due Date</td>
+                                            <td>Lainnya</td>
+                                            <td><button class="form-control-sm">Delete</button></td>
+                                        </tr>*@
                                 </tbody>
                             </table>
                         </div>
@@ -792,6 +861,7 @@
 <script src="~/Content/Scripts/plugins/datatables/jquery.dataTables.min.js" defer></script>
 <script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>
 <script src="https://unpkg.com/gojs/release/go-debug.js" defer></script>
+<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
 
 <script>
     var rootcauses;
@@ -829,12 +899,12 @@
             }),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            success: function (data) {            
+            success: function (data) {
                 var result = JSON.parse(data)[0];
-               
+
                 var hide = (result.STATUS_ID == 1) ? (false) : (true); // jika status CAPA = 1 maka, hide = false , sebaliknya.
                 btnDelete = hide; //btn Delete di dalam Table KajianResiko dan AnalisaKondisi switch on/off berdasarkan variable hide.
-               
+
 
                 $('#btn_Submit').prop('hidden', hide);
                 $('#Div_AnalisaKondisiInput').prop('hidden', hide);
@@ -844,9 +914,9 @@
                 if (result.REJECT_REASON == '-') {
                     $('#Div_RejectReason').prop('hidden', true);
                 }
-                
+
                 $('#Div_TindakanPerbaikan').prop('hidden', hide);
-                $('#Div_TindakanPencegahan').prop('hidden', hide);
+                //$('#Div_TindakanPencegahan').prop('hidden', hide);
                 //$('#TblTindakanPencegahan').prop('hidden', hide);
                 //$('#TblTindakanPerbaikan').prop('hidden', hide);
 
@@ -856,7 +926,14 @@
                 }
                 getTable(!hide);
                 TableKajian(!hide);
-                //isHide = true;
+                if (result.IS_AREALAIN) {
+                    $('#Div_TindakanPencegahan').prop('hidden', false);
+                    $('input[name="Potensi"][value="Yes"]').prop("checked", true);
+                } else {
+                    $('input[name="Potensi"][value="No"]').prop("checked", true);
+                    $('#Div_TindakanPencegahan').prop('hidden', true);
+                }
+
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -931,6 +1008,7 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
+                //console.log(data);
                 $('#Tbl_KajianResiko').DataTable({
                     "pageLength": 5,
                     "lengthChange": true,
@@ -1115,7 +1193,7 @@
                 $.each(JSON.parse(rootcause), function (key, value) {
                     $('#RootCause_DDL').append(new Option(value.WhyDesc, value.WhyDesc));
                 });
-                rootcauses = JSON.parse(rootcause);                
+                rootcauses = JSON.parse(rootcause);
                 //$('#btn_AddPerbaikan').click(function () {
                 //    countAdd++;
                 //    if (countAdd > 1) {
@@ -1176,54 +1254,55 @@
             success: function (area_lain) {
                 var countAdd = 0;
                 var data = JSON.parse(area_lain);
-                if (data.length == 0) {
-                    $('#Div_TindakanPencegahan').prop('hidden', true);
-                } else {
-                    $('#Div_TindakanPencegahan').prop('hidden', false);
-                    $('#AreaLain_DDL').empty();
-                    $('#AreaLain_DDL').append(new Option("*Pilih*", ""));
-                    $.each(JSON.parse(area_lain), function (key, value) {
-                        $('#AreaLain_DDL').append(new Option(value.Tindakan_Perbaikan, value.Tindakan_Perbaikan));
-                    });
-                    area_lains = JSON.parse(area_lain);      
-                    //$('#btn_AddPencegahan').click(function () {
-                    //    countAdd++;
-                    //    if (countAdd > 1) {
-                    //        return false;
-                    //    } else {
-                    //        //console.log()
-                    //        var dto = {};
-                    //        var kategori = "Pencegahan";
-                    //        var obj = JSON.parse(area_lain);
-                    //        $.each(obj, function (key, value) {
-                    //            if (value.Tindakan_Perbaikan == $('#AreaLain_DDL').val()) {
-                    //                dto = {
-                    //                    Option: 9,
-                    //                    NO_CAPA: $('#input_NoCAPA').val(),
-                    //                    Aspect: value.WAHType_FK,
-                    //                    WhyID: value.WhyID,
-                    //                    WhyParentID: value.WhyParentID,
-                    //                    RootCause: value.Tindakan_Perbaikan,
-                    //                    AreaLain: $('#TxtAreaLainPencegahan').val(),
-                    //                    Tindakan: $('#TxtDeskripsiPencegahan').val(),
-                    //                    Pelaksana: $('#NamaPersonilPencegahan_DDL').val(),
-                    //                    Departemen: $('#DepartemenPencegahan_DDL').val(),
-                    //                    LineNumber: value.LineNumber,
-                    //                    DueDate: $('#duedate_pencegahan').val(),
-                    //                    NamaPersonil: $('#NamaPersonilPencegahan_DDL option:selected').text(),
-                    //                    Email: $('#TxtEmailPencegahan').val(),
-                    //                    Create_By: $('#input_Requestor_NIK').val(),
-                    //                    Status: "Active",
-                    //                    Status_ID: 1,
-                    //                    SP: "[dbo].[SP_FORM_CAPA]"
-                    //                }
-                    //                return false;
-                    //            }
-                    //        });
-                    //        addTindakan(dto, kategori);
-                    //    }
-                    //});
-                }
+                //if (data.length == 0) {
+                //    $('#Div_TindakanPencegahan').prop('hidden', true);
+                //} else {
+                //$('#Div_TindakanPencegahan').prop('hidden', false);
+                //$('#AreaLain_DDL').empty();
+                //$('#AreaLain_DDL').append(new Option("*Pilih*", ""));
+                //$.each(JSON.parse(area_lain), function (key, value) {
+                //    $('#AreaLain_DDL').append(new Option(value.Tindakan_Perbaikan, value.Tindakan_Perbaikan));
+                //});
+                //console.log(area_lain)
+                area_lains = JSON.parse(area_lain);
+                //$('#btn_AddPencegahan').click(function () {
+                //    countAdd++;
+                //    if (countAdd > 1) {
+                //        return false;
+                //    } else {
+                //        //console.log()
+                //        var dto = {};
+                //        var kategori = "Pencegahan";
+                //        var obj = JSON.parse(area_lain);
+                //        $.each(obj, function (key, value) {
+                //            if (value.Tindakan_Perbaikan == $('#AreaLain_DDL').val()) {
+                //                dto = {
+                //                    Option: 9,
+                //                    NO_CAPA: $('#input_NoCAPA').val(),
+                //                    Aspect: value.WAHType_FK,
+                //                    WhyID: value.WhyID,
+                //                    WhyParentID: value.WhyParentID,
+                //                    RootCause: value.Tindakan_Perbaikan,
+                //                    AreaLain: $('#TxtAreaLainPencegahan').val(),
+                //                    Tindakan: $('#TxtDeskripsiPencegahan').val(),
+                //                    Pelaksana: $('#NamaPersonilPencegahan_DDL').val(),
+                //                    Departemen: $('#DepartemenPencegahan_DDL').val(),
+                //                    LineNumber: value.LineNumber,
+                //                    DueDate: $('#duedate_pencegahan').val(),
+                //                    NamaPersonil: $('#NamaPersonilPencegahan_DDL option:selected').text(),
+                //                    Email: $('#TxtEmailPencegahan').val(),
+                //                    Create_By: $('#input_Requestor_NIK').val(),
+                //                    Status: "Active",
+                //                    Status_ID: 1,
+                //                    SP: "[dbo].[SP_FORM_CAPA]"
+                //                }
+                //                return false;
+                //            }
+                //        });
+                //        addTindakan(dto, kategori);
+                //    }
+                //});
+                //}
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -1233,7 +1312,10 @@
 
     function addTindakan(dto, kategori) {
         var valid = false;
+        //console.log(dto);
+        //console.log(kategori);
         $.each(dto, function (key, value) {
+            //console.log(value)
             if (value == '' || value == '-' || value == null) {
                 if (value == 0 || typeof value === "undefined")
                     valid = true;
@@ -1264,8 +1346,8 @@
                                 if (status[0].Status_Inserted == 'Tindakan Pencegahan') {
                                     retrieveData();
                                 } else {
-                                     retrieveData2();
-                                }                                                               
+                                    retrieveData2();
+                                }
                                 KajianResikoDDL();
                                 RemoveInputField(kategori);
                                 GetTindakanPencegahanPV();
@@ -1314,8 +1396,7 @@
     var objTindakan;
     function getDataTindakan(data) {
         return objTindakan = data;
-    }// refer to KajianResikoDDL();
-
+    }// refer to KajianResikoDDL(); 
     //search Tindakan get record_id and Tipe
     var values; //objTindakan filtered.
     function recTindakan(increments) {
@@ -1423,7 +1504,7 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 $('#DepartemenPerbaikan_DDL').empty();
                 $('#DepartemenPencegahan_DDL').empty();
                 $('#DepartemenPerbaikan_DDL').append(new Option('*Pilih*', '-'));
@@ -1481,7 +1562,7 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 $('#NamaPersonil' + kategori + '_DDL').empty();
                 $('#NamaPersonil' + kategori + '_DDL').append(new Option("*Pilih*", '-'));
                 $.each(JSON.parse(data), function (key, value) {
@@ -1491,6 +1572,7 @@
                 $('#NamaPersonil' + kategori + '_DDL').change(function () {
                     $.each(JSON.parse(data), function (key, value) {
                         if ($('#NamaPersonil' + kategori + '_DDL').val() == value.EmpID) {
+                            $('#TxtSuperior' + kategori).val(value.SupName);
                             if (value.Email_1 == null)
                                 $('#TxtEmail' + kategori).val(value.Email_2);
                             else
@@ -1540,9 +1622,9 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 var result = JSON.parse(data);
-                //myDiagram.model = new go.TreeModel();
                 var $ = go.GraphObject.make;
-                myDiagram =
+
+                var myDiagram =
                     $(go.Diagram, "DiagManusia",
                         {
                             "undoManager.isEnabled": true,
@@ -1551,15 +1633,27 @@
                                 { angle: 90, layerSpacing: 35 })
                         });
 
+                //var node1 =
+                //    $(go.Node, "Horizontal",
+                //        { background: "#44CCFF" },
+                //        $(go.TextBlock, "Manusia",
+                //            {
+                //                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                //                verticalAlignment: go.Spot.Center
+                //            },
+                //        )
+                //    );
+                //myDiagram.add(node1);
+
                 myDiagram.nodeTemplate =
                     $(go.Node, "Horizontal",
                         { background: "#44CCFF", locationSpot: go.Spot.Center },
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "type")),
+                        //$(go.TextBlock, "Default Text",
+                        //    {
+                        //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                        //        verticalAlignment: go.Spot.Center
+                        //    },
+                        //    new go.Binding("text", "type")),
                         $(go.TextBlock, "Default Text",
                             {
                                 margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -1568,13 +1662,13 @@
                             new go.Binding("text", "desc"))
                     );
 
-
                 myDiagram.model = new go.TreeModel(result);
             }
         });
     }
 
     function GetRootMaterial() {
+
         $.ajax({
             type: "POST",
             url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Material/Produk",
@@ -1584,7 +1678,8 @@
             success: function (data) {
                 var result = JSON.parse(data);
                 var $ = go.GraphObject.make;
-                myDiagram =
+
+                var myDiagram =
                     $(go.Diagram, "DiagMaterial",
                         {
                             "undoManager.isEnabled": true,
@@ -1594,16 +1689,26 @@
 
                         });
 
-
+                //var node1 =
+                //    $(go.Node, "Horizontal",
+                //        { background: "#44CCFF" },
+                //        $(go.TextBlock, "Material",
+                //            {
+                //                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                //                verticalAlignment: go.Spot.Center
+                //            },
+                //        )
+                //    );
+                //myDiagram.add(node1);
                 myDiagram.nodeTemplate =
                     $(go.Node, "Horizontal",
                         { background: "#44CCFF" },
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "type")),
+                        //$(go.TextBlock, "Default Text",
+                        //    {
+                        //        margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                        //        verticalAlignment: go.Spot.Center
+                        //    },
+                        //    new go.Binding("text", "type")),
                         $(go.TextBlock, "Default Text",
                             {
                                 margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -1618,6 +1723,7 @@
     }
 
     function GetRootLingkungan() {
+
         $.ajax({
             type: "POST",
             url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Lingkungan",
@@ -1627,7 +1733,8 @@
             success: function (data) {
                 var result = JSON.parse(data);
                 var $ = go.GraphObject.make;
-                myDiagram =
+
+                var myDiagram =
                     $(go.Diagram, "DiagLingkungan",
                         {
                             "undoManager.isEnabled": true,
@@ -1635,17 +1742,27 @@
                             layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
                                 { angle: 90, layerSpacing: 35 })
                         });
-
+                //var node1 =
+                //    $(go.Node, "Horizontal",
+                //        { background: "#44CCFF" },
+                //        $(go.TextBlock, "Lingkungan",
+                //            {
+                //                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                //                verticalAlignment: go.Spot.Center
+                //            },
+                //        )
+                //    );
+                //myDiagram.add(node1);
 
                 myDiagram.nodeTemplate =
                     $(go.Node, "Horizontal",
                         { background: "#44CCFF" },
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "type")),
+                        //$(go.TextBlock, "Default Text",
+                        //    {
+                        //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                        //        verticalAlignment: go.Spot.Center
+                        //    },
+                        //    new go.Binding("text", "type")),
                         $(go.TextBlock, "Default Text",
                             {
                                 margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -1660,6 +1777,7 @@
     }
 
     function GetRootMesin() {
+
         $.ajax({
             type: "POST",
             url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Mesin",
@@ -1670,7 +1788,7 @@
                 var result = JSON.parse(data);
                 var $ = go.GraphObject.make;
 
-                myDiagram =
+                var myDiagram =
                     $(go.Diagram, "DiagMesin",
                         {
                             "undoManager.isEnabled": true,
@@ -1678,17 +1796,27 @@
                             layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
                                 { angle: 90, layerSpacing: 35 })
                         });
-
+                //var node1 =
+                //    $(go.Node, "Horizontal",
+                //        { background: "#44CCFF" },
+                //        $(go.TextBlock, "Mesin",
+                //            {
+                //                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                //                verticalAlignment: go.Spot.Center
+                //            },
+                //        )
+                //    );
+                //myDiagram.add(node1);
 
                 myDiagram.nodeTemplate =
                     $(go.Node, "Horizontal",
                         { background: "#44CCFF" },
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "type")),
+                        //$(go.TextBlock, "Default Text",
+                        //    {
+                        //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                        //        verticalAlignment: go.Spot.Center
+                        //    },
+                        //    new go.Binding("text", "type")),
                         $(go.TextBlock, "Default Text",
                             {
                                 margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -1703,6 +1831,7 @@
     }
 
     function GetRootMetode() {
+
         $.ajax({
             type: "POST",
             url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Metode",
@@ -1713,7 +1842,7 @@
                 var result = JSON.parse(data);
                 var $ = go.GraphObject.make;
 
-                myDiagram =
+                var myDiagram =
                     $(go.Diagram, "DiagMetode",
                         {
                             "undoManager.isEnabled": true,
@@ -1721,17 +1850,27 @@
                             layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
                                 { angle: 90, layerSpacing: 35 })
                         });
-
+                //var node1 =
+                //    $(go.Node, "Horizontal",
+                //        { background: "#44CCFF" },
+                //        $(go.TextBlock, "Metode",
+                //            {
+                //                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                //                verticalAlignment: go.Spot.Center
+                //            },
+                //        )
+                //    );
+                //myDiagram.add(node1);
 
                 myDiagram.nodeTemplate =
                     $(go.Node, "Horizontal",
                         { background: "#44CCFF" },
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "type")),
+                        //$(go.TextBlock, "Default Text",
+                        //    {
+                        //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                        //        verticalAlignment: go.Spot.Center
+                        //    },
+                        //    new go.Binding("text", "type")),
                         $(go.TextBlock, "Default Text",
                             {
                                 margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -1758,7 +1897,8 @@
         $('#duedate_' + kategori.toLowerCase()).val("");
         $('#Departemen' + kategori + '_DDL').val("-").trigger("change");
         $('#TxtAreaLain' + kategori).val("");
-        $('input[name="Potensi"]').prop("checked", false);
+        //$('input[name="Potensi"]').prop("checked", false);
+        $('#TxtSuperior' + kategori).val("");
     }
 
     function RemoveModalInput() {
@@ -1795,18 +1935,112 @@
         return isHide = true;
     }
 
+    function GetWhyTable() {
+        $.ajax({
+            url: 'GetWhyList',
+            type: 'post',
+            data: JSON.stringify({
+                Model: {
+                    Option: 17,
+                    NO_CAPA: $('#input_NoCAPA').val()
+                }
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                //console.log(data);
+                $('#Table_WhyDescription').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": true,
+                    "searching": false,
+                    "paging": false,
+                    "info": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "bDestroy": true,
+                    "scrollCollapse": true,
+                    "columns": [
+                        { "data": "row_num" },
+                        { "data": "RecordID" },
+                        { "data": "WAHType_FK" },
+                        { "data": "ParentDesc" },
+                        { "data": "WhyDescription" },
+                        {
+                            "data": null,
+                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onchange=''>Delete</button> "
+                        },
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": 1,
+                            "visible": false
+                        }
+                    ],
+                    "order": [[1, 'asc']]
+                });
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function UpdateIsArealain(isArealain) {
+        $.ajax({
+            url: 'UpdateIsArealain',
+            type: 'post',
+            data: JSON.stringify({
+                Model: {
+                    Option: 18,
+                    Is_AreaLain: isArealain,
+                    NO_CAPA: $('#input_NoCAPA').val()
+                }
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function CheckTindakanPencegahan() {
+        var result = $.ajax({
+            url: 'GetDataPIC',
+            type: 'post',
+            data: JSON.stringify({
+                Option: 19,
+                NO_CAPA: $('#input_NoCAPA').val(),
+                SP: "[dbo].[SP_FORM_CAPA]"
+            }),
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            //success: function (data) {
+            //    return result = JSON.parse(data).IS_VALID;
+
+            //},
+            //error: function (ex) {
+            //    alert(JSON.stringify(ex));
+            //}
+        });
+        return JSON.parse(result.responseText);
+    }
+
     $(document).ready(function () {
-        
         //isHide = false;
-        GetAllRoot();        
+        GetAllRoot();
         checkStatusCAPA();
         KajianResikoDDL();
+        GetWhyTable();
         //HideDeleteButton();
         DeleteKajianResiko();
         UnhideKajianResikoModal();
         getDDLDeptKajianResiko();
         getVendorDDL();
-
         //console.log(rootcauses);
 
         $('#btn_AddPerbaikan').click(function () {
@@ -1830,7 +2064,7 @@
                         DueDate: $('#duedate_perbaikan').val(),
                         NamaPersonil: $('#NamaPersonilPerbaikan_DDL option:selected').text(),
                         Email: $('#TxtEmailPerbaikan').val(),
-                        Is_AreaLain: $('input[name="Potensi"]:checked').val(),
+                        //Is_AreaLain: $('input[name="Potensi"]:checked').val(),
                         Create_By: $('#input_Requestor_NIK').val(),
                         Status: "Active",
                         Status_ID: 1,
@@ -1838,31 +2072,42 @@
                     }
                     return false;
                 }
+                dto = null;
             });
 
             //console.log(dto);
+            if (dto != null) {
+                addTindakan(dto, kategori);
+            }
+            else {
+                Swal.fire(
+                    'Maaf',
+                    'Mohon pilih Rootcause terlebih dahulu.',
+                    'error'
+                )
+            }
 
-            addTindakan(dto, kategori);
         });
 
         $('#btn_AddPencegahan').click(function () {
             var dto = {};
             var kategori = "Pencegahan";
-            var obj = area_lains;
+            var obj = rootcauses;
+            //console.log(obj);
             $.each(obj, function (key, value) {
-                if (value.Tindakan_Perbaikan == $('#AreaLain_DDL').val()) {
+                if (value.WhyDesc == $('#RootCause_DDL').val()) {
                     dto = {
                         Option: 9,
                         NO_CAPA: $('#input_NoCAPA').val(),
                         Aspect: value.WAHType_FK,
                         WhyID: value.WhyID,
                         WhyParentID: value.WhyParentID,
-                        RootCause: value.Tindakan_Perbaikan,
+                        RootCause: value.WhyDesc,
                         AreaLain: $('#TxtAreaLainPencegahan').val(),
                         Tindakan: $('#TxtDeskripsiPencegahan').val(),
                         Pelaksana: $('#NamaPersonilPencegahan_DDL').val(),
                         Departemen: $('#DepartemenPencegahan_DDL').val(),
-                        LineNumber: value.LineNumber,
+                        //LineNumber: value.LineNumber,
                         DueDate: $('#duedate_pencegahan').val(),
                         NamaPersonil: $('#NamaPersonilPencegahan_DDL option:selected').text(),
                         Email: $('#TxtEmailPencegahan').val(),
@@ -1873,9 +2118,20 @@
                     }
                     return false;
                 }
+                dto = null;
             });
+
             //console.log(dto)
-            addTindakan(dto, kategori);                        
+            if (dto != null) {
+                addTindakan(dto, kategori);
+            }
+            else {
+                Swal.fire(
+                    'Maaf',
+                    'Mohon pilih Rootcause terlebih dahulu.',
+                    'error'
+                )
+            }
         });
 
         $('#DepartemenPerbaikan_DDL').change(function () {
@@ -1995,6 +2251,7 @@
                                     retrieveData();
                                     getWhyParent();
                                     GetAllRoot();
+                                    GetWhyTable();
                                 }
                             })
                         } else {
@@ -2130,18 +2387,59 @@
         var countYes = 0;
         var countNo = 0;
         $('input[name="Potensi"]').click(function () {
+            var isArealain = "No";
+            var isValid = JSON.parse(CheckTindakanPencegahan());
             if ($('input[name="Potensi"]:checked').val() == 'Yes') {
                 countNo = 0;
                 countYes++;
+                $('#Div_TindakanPencegahan').prop('hidden', false);
+                isArealain = "Yes";
             } else {
-                countYes = 0;
-                countNo++;
+                if (isValid[0].IS_VALID == "VALID") {
+                    $('#Div_TindakanPencegahan').prop('hidden', false);
+                    $('input[name="Potensi"][value="Yes"]').prop("checked", true);
+                    isArealain = "Yes";
+                    Swal.fire(
+                        'Maaf',
+                        'Mohon Tindakan Pencegahan yang sudah di-input dihapus terlebih dahulu.',
+                        'warning'
+                    )
+                } else {
+                    $('#Div_TindakanPencegahan').prop('hidden', true);
+                    countYes = 0;
+                    countNo++;
+                    isArealain = "No";
+                }
+                //$('#Div_TindakanPencegahan').prop('hidden', true);
+                //console.log(valid)
             }
             if (countYes == 2 || countNo == 2) {
-                countYes = 0;
-                countNo = 0;
-                $('input[name="Potensi"]').prop("checked", false);
+                if (isValid[0].IS_VALID == "VALID") {
+                    countYes = 0;
+                    countNo = 0;
+                    $('#Div_TindakanPencegahan').prop('hidden', false);
+                    $('input[name="Potensi"][value="Yes"]').prop("checked", true);
+                    isArealain = "Yes";
+                    Swal.fire(
+                        'Maaf',
+                        'Mohon Tindakan Pencegahan yang sudah di-input dihapus terlebih dahulu.',
+                        'warning'
+                    )
+                }
+                else {
+                    //$('#Div_TindakanPencegahan').prop('hidden', true);
+                    //countYes = 0;
+                    //countNo++;
+                    //isArealain = "No";
+                    countYes = 0;
+                    countNo = 0;
+                    $('input[name="Potensi"]').prop("checked", false);
+                    $('#Div_TindakanPencegahan').prop('hidden', true);
+                    isArealain = "No";
+                }
+
             }
+            UpdateIsArealain(isArealain);
 
         });
 
@@ -2163,7 +2461,8 @@
 
         $('#btn_AddKajian').click(function () {
             recTindakan(0);
-            $('#TxtPIC').val(values.Nama_Personil);
+            //console.log(values)
+            $('#TxtPIC').val(values.Pelaksana);
             $('#TxtPICName').val(values.FullName);
         });
 
@@ -2211,7 +2510,7 @@
                     PIC: pic,
                     DueDate: $('#DueDate_Kajian').val(),
                     Lainnya: $('#TxtLainnya').val(),
-                    EmpID: $('#input_Requestor_NIK').val()
+                    EmpID: $('#input_Requestor_NIK').val()                    
                 }
             }
 
@@ -2357,9 +2656,8 @@
 
         $("#btn_Submit").click(function () {
             //window.location.replace('/PendingTask/TaskList');
-            var isValid = false;
-
-            $.ajax({
+            $.blockUI();
+            var isValid = $.ajax({
                 url: 'SubmitToAtasanPIC',
                 type: 'post',
                 dataType: 'json',
@@ -2370,61 +2668,67 @@
                         Create_By: $('#input_Requestor_NIK').val()
                     }
                 }),
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    isValid = JSON.parse(data)[0].IS_VALID;
-                    if (isValid) {
-                        $.ajax({
-                            url: 'SubmitToAtasanPIC',
-                            type: 'post',
-                            dataType: 'json',
-                            data: JSON.stringify({
-                                Model: {
-                                    NO_CAPA: $('#input_NoCAPA').val(),
-                                    Option: 12,
-                                    Create_By: $('#input_Requestor_NIK').val()
-                                }
-                            }),
-                            contentType: 'application/json; charset=utf-8',
-                            success: function (data) {
-                                var mData = JSON.parse(data);
-                                $.each(mData, function (key, value) {
-                                    var attr = Object.keys(value)[0];
-                                    var icon;
-                                    if (attr == "WAITING")
-                                        icon = 'warning';
-                                    else if (attr == 'SUCCESS')
-                                        icon = 'success';
-                                    else
-                                        icon = 'error';
-                                    Swal.fire(
-                                        attr,
-                                        value[attr],
-                                        icon
-                                    ).then(function (result) {
-                                        if (result.value) {
-                                            window.location.href = '/PendingTask/TaskList';
-                                        }
-                                    });
-                                    return false;
-                                });
-                            },
-                            error: function (ex) {
-                                alert(JSON.stringify(ex));
-                            }
-                        });
-                    } else {
-                        Swal.fire(
-                            'WARNING',
-                            'Masih ada Tindakan yang belum dikaji.',
-                            'warning'
-                        );
-                    }
-                },
-                error: function (ex) {
-                    alert(JSON.stringify(ex));
-                }
+                async: false,
+                contentType: 'application/json; charset=utf-8'
+                //success: function (data) {
+                //    isValid = JSON.parse(data.responseText);
+                //    console.log()
+                //},
+                //error: function (ex) {
+                //    alert(JSON.stringify(ex));
+                //}
             });
+
+            isValid = (JSON.parse(JSON.parse(isValid.responseText)))[0].IS_VALID;
+            
+            if (isValid) {
+                $.ajax({
+                    url: 'SubmitToAtasanPIC',
+                    type: 'post',
+                    dataType: 'json',
+                    data: JSON.stringify({
+                        Model: {
+                            NO_CAPA: $('#input_NoCAPA').val(),
+                            Option: 12,
+                            Create_By: $('#input_Requestor_NIK').val()
+                        }
+                    }),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        $.unblockUI();
+                        var mData = JSON.parse(data);
+                        $.each(mData, function (key, value) {
+                            var attr = Object.keys(value)[0];
+                            var icon;
+                            if (attr == "WAITING")
+                                icon = 'warning';
+                            else if (attr == 'SUCCESS')
+                                icon = 'success';
+                            else
+                                icon = 'error';
+                            Swal.fire(
+                                attr,
+                                value[attr],
+                                icon
+                            ).then(function (result) {
+                                if (result.value) {
+                                    window.location.href = '/PendingTask/TaskList';
+                                }
+                            });
+                            return false;
+                        });
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                });
+            } else {
+                Swal.fire(
+                    'WARNING',
+                    'Masih ada Tindakan yang belum dikaji.',
+                    'warning'
+                );
+            }
         });
 
         $('#btn_Request').click(function () {

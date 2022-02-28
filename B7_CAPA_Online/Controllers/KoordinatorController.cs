@@ -21,8 +21,7 @@ using System.Web.UI;
 using static B7_CAPA_Online.Models.KoordinatorModel;
 
 namespace B7_CAPA_Online.Controllers
-{
-
+{   
     public class KoordinatorController : Controller
     {
         // GET: Koordinator
@@ -31,8 +30,8 @@ namespace B7_CAPA_Online.Controllers
         //SqlDataAdapter dataAdapter = new SqlDataAdapter();
         //string Result;
         public DataTable DT = new DataTable();
+        readonly DataTable dtLampiran = new DataTable();
         DataAccess DAL = new DataAccess();
-
 
         #region View
         public ActionResult Index()
@@ -442,7 +441,8 @@ namespace B7_CAPA_Online.Controllers
             return Json(CAPA);
         }
 
-        public ActionResult CheckUser(DynamicModel Param){
+        public ActionResult CheckUser(DynamicModel Param)
+        {
             DynamicParameters dynamicParameters = new DynamicParameters(Param.Model);
             string Result = DAL.StoredProcedure(dynamicParameters, "[dbo].[SP_SHOW_DDL]");
             return Json(Result);
@@ -537,11 +537,11 @@ namespace B7_CAPA_Online.Controllers
         #endregion  
 
         #region Execute
+        [HttpPost]
         public ActionResult InsertCAPA(DALModel Model)
         {
             for (int i = 0; i < Request.Files.Count; i++)
             {
-
                 HttpPostedFileBase file = Request.Files[i];
                 int fileSize = file.ContentLength;
                 string mimeType = file.ContentType;
@@ -573,13 +573,13 @@ namespace B7_CAPA_Online.Controllers
             var objects = JsonConvert.DeserializeObject(Recipient.ToString()); // parse as array  
             foreach (var item in ((JArray)objects))
             {
-                list.Add(new Recipients { KategoriCAPA = item.Value<string>("KategoriCAPA")});
+                list.Add(new Recipients { KategoriCAPA = item.Value<string>("KategoriCAPA") });
             }
 
             // Method SMTP Email
             EmailSender emailSender = new EmailSender();
             emailSender.SendEmail(new Dictionary<string, object> {
-                {"Nama_Aplikasi", "CAPA" }, 
+                {"Nama_Aplikasi", "CAPA" },
                 {"Kategori", "PICReminder" },
                 {"KategoriCAPA", list[0].KategoriCAPA },
                 {"ToEmpName", Model.PIC_CAPA },
@@ -587,13 +587,44 @@ namespace B7_CAPA_Online.Controllers
                 {"TriggerCAPA", Model.TriggerCAPA},
                 {"Lokasi", Model.Lokasi},
                 {"StatusCAPA", "1"},
-                {"PIC", Model.PIC_ID},                
-                {"CreateBy", Session["FullName"].ToString()}, 
+                {"PIC", Model.PIC_ID},
+                {"CreateBy", Session["FullName"].ToString()},
                 {"DeskripsiMasalah", Model.Deskripsi }
-            });            
-            
+            });
+
             return RedirectToAction("TaskList", "PendingTask", new { success = "succeed" });
         }
+
+        //public DataTable Lampiran()
+        //{
+           
+        //    PropertyInfo[] Props = typeof(Lampiran).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+        //    if (dtLampiran.Columns.Count <= 0)
+        //    {
+        //        foreach (PropertyInfo prop in Props)
+        //        {
+        //            dtLampiran.Columns.Add(prop.Name);
+        //        }
+        //    }
+
+        //    for (int i = 0; i < Request.Files.Count; i++)
+        //    {
+        //        HttpPostedFileBase file = Request.Files[i];
+        //        int fileSize = file.ContentLength;
+        //        string mimeType = file.ContentType;
+        //        System.IO.Stream fileContent = file.InputStream;
+        //        string filePath = Path.Combine(@"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Koordinator\", Path.GetFileName(file.FileName));
+        //        DataRow rowstype = dtLampiran.NewRow();
+        //        rowstype["LAMPIRAN_TERKAIT"] = filePath;
+        //        rowstype["FILE_NAME"] = file.FileName;
+        //        dtLampiran.Rows.Add(rowstype);
+
+        //        //string filePath = Path.Combine(@"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Koordinator\", Path.GetFileName(file.FileName));
+        //        //string filePath = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName)); 
+        //        //file.SaveAs(filePath);
+        //    }
+        //    return dtLampiran;
+        //}
 
         public DataTable ToDataTable<T>(IList<T> data)
         {
@@ -614,8 +645,8 @@ namespace B7_CAPA_Online.Controllers
                     //{
                     //    values[i].ToString().Replace("&amp;", "&");
                     //}
-                }                
-                    
+                }
+
                 dt.Rows.Add(values);
             }
             return dt;
@@ -689,7 +720,7 @@ namespace B7_CAPA_Online.Controllers
         {
             Model.SP = "[dbo].[SP_VERIFIKASI_PELAKSANA_CAPA]";
             Model.Option = 1;
-            
+
             return Json(DAL.GetDataPrint(Model));
         }
 
@@ -713,13 +744,14 @@ namespace B7_CAPA_Online.Controllers
                 dictionary.Add("NO_CAPA", Model.NO_CAPA);
                 dictionary.Add("RecordID", Model.RecordID);
             }
-            else {
+            else
+            {
                 dictionary.Add("Option", 4);
                 dictionary.Add("Create_By", Model.Create_By);
                 dictionary.Add("NO_CAPA", Model.NO_CAPA);
                 dictionary.Add("RecordID", Model.RecordID);
             }
-            
+
             var spname = "SP_VERIFIKASI_PELAKSANA_CAPA";
 
             var parameters = new DynamicParameters(dictionary);
@@ -728,7 +760,7 @@ namespace B7_CAPA_Online.Controllers
 
         public ActionResult RejectPelaksanaCAPA(DALModel Model)
         {
-            
+
             var dictionary = new Dictionary<string, object>();
             if (Model.Type == "Perbaikan")
             {
@@ -748,7 +780,8 @@ namespace B7_CAPA_Online.Controllers
                 dictionary.Add("RecordID", Model.RecordID);
                 dictionary.Add("AlasanReject", Model.AlasanReject);
             }
-            else {
+            else
+            {
                 dictionary.Add("Option", 7);
                 dictionary.Add("Create_By", Model.Create_By);
                 dictionary.Add("NO_CAPA", Model.NO_CAPA);

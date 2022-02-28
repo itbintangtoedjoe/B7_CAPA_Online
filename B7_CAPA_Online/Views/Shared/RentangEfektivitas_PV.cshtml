@@ -42,6 +42,7 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
+                console.log(data);
                 var NumberPerbaikan = 0, NumberPencegahan = 0;
                 $.each(JSON.parse(data), function (key, value) {
                     if (value.Tipe == "Perbaikan") {
