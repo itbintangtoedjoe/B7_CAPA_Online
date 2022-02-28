@@ -182,7 +182,7 @@ namespace B7_CAPA_Online.Controllers
                 int fileSize = file.ContentLength;
                 string mimeType = file.ContentType;
                 System.IO.Stream fileContent = file.InputStream;
-                //string filePath = Path.Combine("@"\\kalbox-b7.bintang7.com\Intranetportal\Intranet Attachment\HRCostUpload\", Path.GetFileName(file.FileName));
+                //string filePath = Path.Combine("\\kalbox-b7.bintang7.com\\Intranetportal\\Intranet Attachment\\HRCostUpload\"", Path.GetFileName(file.FileName));
                 string filePath = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
                 file.SaveAs(filePath);
                 DataRow rowstype = dt.NewRow();
@@ -364,6 +364,36 @@ namespace B7_CAPA_Online.Controllers
             }
             return Json(rows);
         }
+
+        public ActionResult DeleteAttachment(SPUpdatePelaksanaanParams data)
+        {
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            var dictionary = new Dictionary<string, object>{
+                { "Action", "Delete" },
+                { "IDAttachment", data.IDAttachment },
+            };
+            var parameters = new DynamicParameters(dictionary);
+            var result = DAL.StoredProcedure(parameters, "SP_Attachment_Pelaksanaan");
+            string path;
+            //hapus dari b7drive belum dibuat
+
+            path = data.Updater;
+            System.IO.File.Delete(path);
+            return Json(result);
+        }
+
+        public ActionResult DeleteAttachmentKoor4(DynamicModel data,string spname, string path)
+        {
+            
+            var parameters = new DynamicParameters(data);
+            var result = DAL.StoredProcedure(parameters,spname);
+            
+            //hapus dari b7drive belum dibuat
+            System.IO.File.Delete(path);
+
+            return Json(result);
+        }
+
         public ActionResult GetCAPA(DALModel Model)
         {
             FindCAPAModel findModel = new FindCAPAModel();

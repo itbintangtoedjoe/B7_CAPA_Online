@@ -51,7 +51,7 @@
             </div>
             <br />
             <div class="col-sm-3" style="margin-left:15px;">
-                <button id="ViewAllBukti" class="btn btn-primary">View Rentang</button>
+                <button id="ViewRentang" class="btn btn-primary">View Rentang</button>
             </div>
             <div class="card-body">
                 <form>
@@ -85,9 +85,11 @@
                             <table class="table table-hover table-bordered zero-configuration" id="Tbl_Devi">
                                 <thead>
                                     <tr>
+                                        <th></th>
                                         <th>No CAPA</th>
                                         <th>Type</th>
                                         <th>Lampiran</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -123,9 +125,11 @@
                             <table class="table table-hover table-bordered zero-configuration" id="Tabel_CCC">
                                 <thead>
                                     <tr>
+                                        <th></th>
                                         <th>No CAPA</th>
                                         <th>Type</th>
                                         <th>Lampiran</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -174,9 +178,12 @@
                                 <table class="table table-hover table-bordered zero-configuration" id="Tabel_File">
                                     <thead>
                                         <tr>
+                                            <th></th>
+                                            <th></th>
                                             <th>No CAPA</th>
                                             <th>Type</th>
                                             <th>Nama File</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -355,6 +362,9 @@
     $(document).ready(function () {
         $('#ViewAllBukti').click(function () {
             window.open('../Koordinator/VerifikasiPelaksanaCAPA?NoCAPA=' + nocapa)
+        })
+        $('#ViewRentang').click(function () {
+            window.open('../Evaluator/ReviewCAPA?NoCAPA=' + nocapa);
         })
         getDDL();
         TahunDDL();
@@ -701,9 +711,35 @@
                     "scrollCollapse": true,
                     "destroy": true,
                     "columns": [
+                        { "data": "RecordID" },
+                        { "data": "ValueEvaluasi"},
                         { "data": "NO_CAPA_FK" },
                         { "data": "Type" },
-                        { "data": "Nama_File" }
+                        {
+                            "data": "Nama_File",
+                            "render": function (nTd, sData, oData, iRow, iCol) {
+
+                                return '<a href = "' + oData.ValueEvaluasi + '" >' + oData.Nama_File + '</a >';
+                            }
+                        }
+                        ,
+                        {
+                            "data": null,
+                            "defaultContent": "<input type='button'  class='btn btn-primary' onclick=DeleteLampiran(this) value='Delete' style='background-color:red;'/>"
+                        }
+                    ],
+
+                    "columnDefs": [
+                        {
+                            "targets": [0],
+                            "visible": false,
+                            "searchable": false
+                        },
+                        {
+                            "targets": [1],
+                            "visible": false,
+                            "searchable": false
+                        },
                     ],
                     "order": [[1, 'asc']],
 
@@ -716,6 +752,50 @@
         });
     }
 
+    function DeleteLampiran(button) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Delete!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                var row = $(button).closest("TR");
+                var data = $('#Tabel_File').DataTable().row(row).data();
+                var id = data['RecordID'];
+                var path = data['ValueEvaluasi'];
+                var dictlist = {
+                    NoCAPA: QSNoCAPA,
+                    Option: 9,
+                    Record: id
+                }
+                var dto1 = {
+                    Model: dictlist
+                }
+                $.ajax({
+                    url: "DeleteAttachmentKoor4?spname=[dbo].[SP_FORM_KOOR4]&?path=" + path+"",
+                    type: "post",
+                    dataType: "json",
+                    data: JSON.stringify(dto1),
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Lampiran Berhasil Di Hapus!',
+                            'success'
+                        )
+                        GetLampiran();
+                    },
+                    error: function (errormessage) {
+                    }
+                });
+            }
+        })
+    }
     function UploadFile() {
         var formData = new FormData();
         var totalFiles = document.getElementById("TxtFileInput").files.length;
@@ -736,8 +816,15 @@
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    GetLampiran();
-                    Swal.fire("Success!", "Upload Berhasil!", "success");
+                    var result = JSON.parse(data);
+                    if (result[0].Validate == "Invalid") {
+
+                        Swal.fire("Error!", "File Sudah ada!", "error");
+                    }
+                    else {
+                        GetLampiran();
+                        Swal.fire("Success!", "Upload Berhasil!", "success");
+                    }
                 },
                 error: function (errormessage) {
                     $('#divLoading').attr("hidden", true);
@@ -818,7 +905,10 @@
                 else {
                     $('#Submit').removeAttr('disabled');
                     $('#Submit').removeAttr('hidden');
-                    if ($('#Tbl_Devi').DataTable().data().count() > 0) {
+                    var countdevi = $('#Tbl_Devi').DataTable().data().count();
+                    var countfile = $('#Tabel_File').DataTable().data().count();
+                    var countccc = $('#Tabel_CCC').DataTable().data().count()
+                    if (countdevi > 0) {
                         document.getElementById("Devi_Yes").checked = true;
                         $('#Deviation').removeAttr('hidden');
                         $('#Browse_Devi').attr('disabled', true);
@@ -829,7 +919,7 @@
                       document.getElementById("Devi_No").checked = true;
                     }
 
-                    if ($('#Tabel_CCC').DataTable().data().count() > 0) {
+                    if (countccc> 0) {
                         document.getElementById("CCC_Yes").checked = true;
                         $('#CCC').removeAttr('hidden');
                         $('#Browse_CCC').attr('disabled', true);
@@ -839,7 +929,7 @@
                         $('input[name="CCC_Radio"]').attr("disabled", true);
                         document.getElementById("CCC_No").checked = true;
                     }
-                    if ($('#Tabel_File').DataTable().data().count() > 0) {
+                    if (countfile > 0) {
                         document.getElementById("File_Yes").checked = true;
                         $('#Lampiran').removeAttr('hidden');
                         $('#TxtFileInput').attr('disabled', true);
@@ -885,9 +975,21 @@
                     "scrollCollapse": true,
                     "destroy": true,
                     "columns": [
+                        { "data": "RecordID"},
                         { "data": "NO_CAPA_FK" },
                         { "data": "Type" },
-                        { "data": "ValueEvaluasi" }
+                        { "data": "ValueEvaluasi" },
+                        {
+                            "data": null,
+                            "defaultContent": "<input type='button'  class='btn btn-primary' onclick=DeletePenyimpangan(this) value='Delete'style='background-color:red;'/>"
+                        }
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": [0],
+                            "visible": false,
+                            "searchable": false
+                        },
                     ],
                     "order": [[1, 'asc']],
 
@@ -899,6 +1001,52 @@
         });
         //alert($('#Tbl_Devi').DataTable().data().count());
     }
+
+
+    function DeletePenyimpangan(button) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Delete!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                var row = $(button).closest("TR");
+                var data = $('#Tbl_Devi').DataTable().row(row).data();
+                var id = data['RecordID'];
+                var dictlist = {
+                    NoCAPA: QSNoCAPA,
+                    Option: 9,
+                    Record: id
+                }
+                var dto1 = {
+                    Model: dictlist
+                }
+                $.ajax({
+                    url: "DynamicController?spname=[dbo].[SP_FORM_KOOR4]",
+                    type: "post",
+                    dataType: "json",
+                    data: JSON.stringify(dto1),
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Penyimpangan Berhasil Di Hapus!',
+                            'success'
+                        )
+                        GetAddedDeviation();
+                    },
+                    error: function (errormessage) {
+                    }
+                });
+            }
+        })
+    }
+
     function GetAddedCCC() {
         var dictlist = {
             NoCAPA: $('#QS_NoCAPA').val(),
@@ -923,9 +1071,21 @@
                     "scrollCollapse": true,
                     "destroy": true,
                     "columns": [
+                        { "data": "RecordID" },
                         { "data": "NO_CAPA_FK" },
                         { "data": "Type" },
-                        { "data": "ValueEvaluasi" }
+                        { "data": "ValueEvaluasi" },
+                        {
+                            "data": null,
+                            "defaultContent": "<input type='button'  class='btn btn-primary' onclick=DeleteCCC(this) value='Delete'style='background-color:red;'/>"
+                        }
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": [0],
+                            "visible": false,
+                            "searchable": false
+                        },
                     ],
                     "order": [[1, 'asc']],
 
@@ -936,6 +1096,50 @@
             }
         });
         GetLampiran();
+    }
+
+    function DeleteCCC(button) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Delete!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                var row = $(button).closest("TR");
+                var data = $('#Tbl_Devi').DataTable().row(row).data();
+                var id = data['RecordID'];
+                var dictlist = {
+                    NoCAPA: QSNoCAPA,
+                    Option: 9,
+                    Record: id
+                }
+                var dto1 = {
+                    Model: dictlist
+                }
+                $.ajax({
+                    url: "DynamicController?spname=[dbo].[SP_FORM_KOOR4]",
+                    type: "post",
+                    dataType: "json",
+                    data: JSON.stringify(dto1),
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Penyimpangan Berhasil Di Hapus!',
+                            'success'
+                        )
+                        GetAddedCCC();
+                    },
+                    error: function (errormessage) {
+                    }
+                });
+            }
+        })
     }
 
     function getDDL() {

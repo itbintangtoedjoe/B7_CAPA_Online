@@ -65,7 +65,6 @@
                                         <th>Tindakan Perbaikan</th>
                                         <th>Due Date</th>
                                         <th>Alasan Pembatalan</th>
-                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -94,7 +93,6 @@
                                         <th>Tindakan Pencegahan</th>
                                         <th>Due Date</th>
                                         <th>Alasan Pembatalan</th>
-                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -132,6 +130,8 @@
     var laststate = false;
     var valid = '';
     var referenceID = getQueryStrings()["ReferenceID"];
+    var countPerbaikan;
+    var countPencegahan;
     $('#input_NoCAPA').val(noCAPA);
     //function untuk ambil semua query string
     function getQueryStrings() {
@@ -143,6 +143,15 @@
             vars[hash[0]] = hash[1];
         }
         return vars;
+    }
+
+    function CheckPending() {
+        var tableperbaikan = $('#Tbl_Perbaikan').DataTable().data().count();
+        var tablepencegahan = $('#Tbl_Pencegahan').DataTable().data().count();
+        if (tableperbaikan == countPerbaikan && tablepencegahan == countPencegahan) {
+
+            window.location.href = '../PendingTask/TaskList'
+        }
     }
     function checkUser()
     {
@@ -237,12 +246,16 @@
                         {
                             "data": "Status_ID",
                             "render": function (data, type, row, meta) {
-                                if (row['IsApproved'] == 1 && row['EMPID'] == nik) {
+                                if (row["IsUtama"] === true && row["Rentang"] === 0) {
+                                    return "<input type='button' class='btn btn-primary' onclick=AddRentangPerbaikan(this) value='Add Rentang'style='background-color:green;'/>";
+                                }
+                                else if (row["IsApproved"] === true) {
                                     return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                 }
-                                else {
-                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>"
+                                else if (row["Rentang"] != 0) {
+                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; margin-left:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>";
                                 }
+
                             }
                         }
                     ],
@@ -254,7 +267,18 @@
                         },
                     ],
                     "order": [[1, 'asc']],
+
                 })
+
+                var result = JSON.parse(data);
+                var temp = 0;
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i].IsApproved == true) {
+                        temp += 1
+                    }
+                }
+                countPerbaikan = temp;
+                CheckPending();
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -298,11 +322,14 @@
                         {
                             "data": "Status_ID",
                             "render": function (data, type, row, meta) {
-                                if (row['IsApproved'] == 1 && row['EMPID'] == nik) {
+                                if (row["IsUtama"] === true && row["Rentang"] === 0) {
+                                    return "<input type='button' class='btn btn-primary' onclick=AddRentangPerbaikan(this) value='Add Rentang'style='background-color:green;'/>";
+                                }
+                                else if (row["IsApproved"] === true) {
                                     return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                 }
                                 else {
-                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahan(this) value='Reject'style='background-color:red;'/>"
+                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahan(this) value='Approve'style='background-color:green; margin-left:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahan(this) value='Reject'style='background-color:red;'/>";
                                 }
                             }
                         }
@@ -318,7 +345,15 @@
                     "order": [[1, 'asc']],
 
                 });
-
+                var result = JSON.parse(data);
+                var temp = 0;
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i].IsApproved == true) {
+                        temp +=1
+                    }
+                }
+                countPencegahan = temp;
+                CheckPending();
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -347,8 +382,6 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    GetTindakanPerbaikan();
-                    TableKajian();
                     $.ajax({
                         url: 'SubmitApproval',
                         type: 'post',
@@ -368,11 +401,15 @@
                             alert(JSON.stringify(ex));
                         }
                     });
-                    Swal.fire(
-                        'Approve!',
-                        'Approve Berhasil',
-                        'success'
-                    )
+                    Swal.fire({
+                        title: "Approve Berhasil!",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    }).then(() => {
+                        GetTindakanPerbaikan();
+                        TableKajian();
+                    })
                 }
             });
         }
@@ -423,8 +460,6 @@
                             data: JSON.stringify(dto1),
                             contentType: "application/json;charset=utf-8",
                             success: function (data) {
-                                GetTindakanPerbaikan();
-                                TableKajian();
                                 $.ajax({
                                     url: 'SubmitApproval',
                                     type: 'post',
@@ -444,11 +479,16 @@
                                         alert(JSON.stringify(ex));
                                     }
                                 });
-                                Swal.fire(
-                                    'Rejected!',
-                                    'Reject Berhasil',
-                                    'success'
-                                )
+
+                                Swal.fire({
+                                    title: "Reject Berhasil!",
+                                    icon: "success",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                }).then(() => {
+                                    GetTindakanPerbaikan();
+                                    TableKajian();
+                                })
                             },
                             error: function (errormessage) {
                             }
@@ -496,8 +536,6 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    TableKajian();
-                    GetTindakanPencegahan();
                     $.ajax({
                         url: 'SubmitApproval',
                         type: 'post',
@@ -517,11 +555,15 @@
                             alert(JSON.stringify(ex));
                         }
                     });
-                    Swal.fire(
-                        'Approve!',
-                        'Approve Berhasil',
-                        'success'
-                    )
+                    Swal.fire({
+                        title: "Approve Berhasil!",
+                        type: "success",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    }).then(() => {
+                        TableKajian();
+                        GetTindakanPencegahan();
+                    })
                 }
             });
         }
@@ -554,7 +596,7 @@
                     var data = $('#Tbl_Pencegahan').DataTable().row(row).data();
                     var id = data['RecordID'];
                     var dictlist = {
-                        NoCAPA: $('#QS_NoCAPA').val(),
+                        NoCAPA: noCAPA,
                         Option: 6,
                         RecordID: id,
                         RejectReason: reject,
@@ -592,11 +634,16 @@
                                         alert(JSON.stringify(ex));
                                     }
                                 });
-                                Swal.fire(
-                                    'Rejected!',
-                                    'Reject Berhasil',
-                                    'success'
-                                )
+
+                                Swal.fire({
+                                    title: "Reject Berhasil!",
+                                    type: "success",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                }).then(() => {
+                                    TableKajian();
+                                    GetTindakanPencegahan();
+                                })
                             },
                             error: function (errormessage) {
                             }

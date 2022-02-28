@@ -148,6 +148,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="B7_CAPA_ONLINEDataSetPelaksanaPencegahan.Designer.cs" />
     <Compile Include="DataSource\B7_CAPA_ONLINEDataSetVerifikasi.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -280,6 +281,8 @@
     <Content Include="DataSource\B7_CAPA_ONLINEDataSetVerifikasi.xsc">
       <DependentUpon>B7_CAPA_ONLINEDataSetVerifikasi.xsd</DependentUpon>
     </Content>
+    <Content Include="B7_CAPA_ONLINEDataSetPelaksanaPencegahan.xsc" />
+    <Content Include="B7_CAPA_ONLINEDataSetPelaksanaPencegahan.xss" />
     <None Include="DataSource\B7_CAPA_ONLINEDataSetVerifikasi.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>B7_CAPA_ONLINEDataSetVerifikasi.Designer.cs</LastGenOutput>

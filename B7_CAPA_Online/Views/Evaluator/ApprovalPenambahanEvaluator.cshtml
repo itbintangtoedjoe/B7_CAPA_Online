@@ -131,6 +131,8 @@
     var laststate = false;
     var valid = false;
     var referenceID = getQueryStrings()["ReferenceID"];
+    var countPerbaikan;
+    var countPencegahan;
     var evautama;
     //function untuk ambil semua query string
     function getQueryStrings() {
@@ -201,6 +203,14 @@
             Approve();
         });
     });
+    function CheckPending() {
+        var tableperbaikan = $('#Tbl_Perbaikan').DataTable().data().count();
+        var tablepencegahan = $('#Tbl_Pencegahan').DataTable().data().count();
+        if (tableperbaikan == countPerbaikan && tablepencegahan == countPencegahan) {
+
+            window.location.href = '../PendingTask/TaskList'
+        }
+    }
 
     function GetTindakanPerbaikan() {
         var dictlist = {
@@ -258,17 +268,20 @@
                             "data": null,
                             "render": function (data, type, row,meta) {
                                     if (row["IsUtama"] === true && row["Rentang"] === 0) {
-                                        return "<input type='button' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Add Rentang'style='background-color:green;'/>";
+                                        return "<input type='button' class='btn btn-primary' onclick=AddRentangPerbaikan(this) value='Add Rentang'style='background-color:green;'/>";
+                                    }
+                                    else if (row["IsApproved"] == true) {
+                                        return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                     }
                                     else if (row["Rentang"]!= 0) {
                                         return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>";
                                     }
-                                    else if (row["IsApproved"] == 1 && row["EMPID"] == nik) {
-                                        return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                                    else if (row["IsUtama"] === false && row["Rentang"] === 0) {
+                                        return "Waiting Evaluator Mengisi Rentang";
                                     }
                                 }
 
-                            
+
                         }
                     ],
                     "columnDefs": [
@@ -282,18 +295,14 @@
                 })
 
                 var result = JSON.parse(data);
+                var temp = 0;
                 for (var i = 0; i < result.length; i++)
                 {
-                    if (result[i].Rentang == "" && evautama == 0) {
-                        Swal.fire({
-                            type: 'error',
-                            title: 'Oops...',
-                            text: 'Evaluator Utama Belum mengisi Rentang!',
-                            timer: 10000
-                        })
-                        window.location.href = '../PendingTask/TaskList'
+                    if (result[i].IsApproved == true) {
+                        temp += 1;
                     }
                 }
+                countPerbaikan = temp;
 
             },
             error: function (ex) {
@@ -361,13 +370,16 @@
                                 console.log(row["Rentang"]);
                                 console.log(row["IsUtama"]);
                                 if (row["IsUtama"] === true && row["Rentang"] === 0){
-                                    return "<input type='button' class='btn btn-primary' onclick=AddRentang(this) value='Add Rentang'style='background-color:green;'/>";
+                                    return "<input type='button' class='btn btn-primary' onclick=AddRentangPencegahan(this) value='Add Rentang'style='background-color:green;'/>";
                                 }
                                 else if (row["Rentang"] != 0    ) {
                                     return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahan(this) value='Approve'style='background-color:green; '/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahan(this) value='Reject'style='background-color:red;'/>"
                                 }
                                 else if (row["IsApproved"] == 1 && row["EMPID"] == nik) {
                                     return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                                }
+                                else if (row["IsUtama"] === false && row["Rentang"] === 0) {
+                                    return "Waiting Evaluator Mengisi Rentang";
                                 }
                             }
                         }
@@ -383,35 +395,58 @@
 
                 });
                 var result = JSON.parse(data);
+                var temp = 0;
                 for (var i = 0; i < result.length; i++) {
-                    if (result[i].Rentang == "" && evautama == 0) {
-                        Swal.fire({
-                            type: 'error',
-                            title: 'Oops...',
-                            text: 'Evaluator Utama Belum mengisi Rentang!',
-                            timer: 10000
-                        })
-                        window.location.href = '../PendingTask/TaskList'
+                    if (result[i].IsApproved == true) {
+                        temp += 1;
                     }
                 }
+                countPencegahan = temp;
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
             }
         });
     }
-    function ApprovePerbaikan(button)
-    {
+
+    function AddRentangPerbaikan(button) {
         var row = $(button).closest("TR");
         var data = $('#Tbl_Perbaikan').DataTable().row(row).data();
         var id = data['RecordID'];
         var rentang = $("TD", row).eq(5).find("select").val();
         var dictlist = {
+            RecordID: id,
+            Option: 25,
+            Rentang: rentang
+        }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: 'DynamicController?spname=SP_FORM_Perubahan',
+            type: 'post',
+            data: JSON.stringify(dto),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                GetTindakanPerbaikan();
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function ApprovePerbaikan(button)
+    {
+        var row = $(button).closest("TR");
+        var data = $('#Tbl_Perbaikan').DataTable().row(row).data();
+        var id = data['RecordID'];
+        var dictlist = {
             NoCAPA: noCAPA,
             Empid: nik,
             RecordID: id,
-            Option: 14,
-            Rentang: rentang
+            Option: 14
         }
         var dto1 = {
             Model: dictlist
@@ -445,11 +480,15 @@
                             alert(JSON.stringify(ex));
                         }
                     });
-                    Swal.fire(
-                        'Approve!',
-                        'Approve Berhasil',
-                        'success'
-                    )
+                    Swal.fire({
+                        title: "Approve Berhasil!",
+                        type: "success",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    }).then(() => {
+                        CheckPending();
+                    })
+
                 }
             });
         }
@@ -485,6 +524,7 @@
                         Option: 12,
                         RecordID: id,
                         RejectReason: reject,
+                        Tipe: 'Perbaikan Baru',
                         Empid: nik
                     }
                     var dto1 = {
@@ -519,11 +559,14 @@
                                         alert(JSON.stringify(ex));
                                     }
                                 });
-                                Swal.fire(
-                                    'Rejected!',
-                                    'Reject Berhasil',
-                                    'success'
-                                )
+                                Swal.fire({
+                                    title: "Reject Berhasil!",
+                                    type: "success",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                }).then(() => {
+                                    CheckPending();
+                                })
                             },
                             error: function (errormessage) {
                             }
@@ -548,18 +591,45 @@
             )
         }
     }
+
+    function AddRentangPencegahan(button) {
+        var row = $(button).closest("TR");
+        var data = $('#Tbl_Pencegahan').DataTable().row(row).data();
+        var id = data['RecordID'];
+        var rentang = $("TD", row).eq(5).find("select").val();
+        var dictlist = {
+            RecordID: id,
+            Option: 26,
+            Rentang: rentang
+        }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: 'DynamicController?spname=SP_FORM_Perubahan',
+            type: 'post',
+            data: JSON.stringify(dto),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                GetTindakanPerbaikan();
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
     function ApprovePencegahan(button) {
         var row = $(button).closest("TR");
         var data = $('#Tbl_Pencegahan').DataTable().row(row).data();
         var id = data['RecordID'];
         var kategori = data['Status_Pencegahan'];
-        var rentang = $("TD", row).eq(5).find("select").val();
         var dictlist = {
             NoCAPA: noCAPA,
             Empid: nik,
             RecordID: id,
             Option: 15,
-            Rentang: rentang,
             Kategori: kategori
         }
         var dto1 = {
@@ -594,11 +664,15 @@
                             alert(JSON.stringify(ex));
                         }
                     });
-                    Swal.fire(
-                        'Approve!',
-                        'Approve Berhasil',
-                        'success'
-                    )
+
+                    Swal.fire({
+                        title: "Approve Berhasil!",
+                        type: "success",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    }).then(() => {
+                        CheckPending();
+                    })
                 }
             });
         }
@@ -668,11 +742,15 @@
                                         alert(JSON.stringify(ex));
                                     }
                                 });
-                                Swal.fire(
-                                    'Rejected!',
-                                    'Reject Berhasil',
-                                    'success'
-                                )
+
+                                Swal.fire({
+                                    title: "Reject Berhasil!",
+                                    type: "success",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                }).then(() => {
+                                    CheckPending();
+                                })
                             },
                             error: function (errormessage) {
                             }

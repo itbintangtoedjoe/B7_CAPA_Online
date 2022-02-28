@@ -68,7 +68,6 @@
                                         <th>Due Date</th>
                                         <th>Due Date Revisi</th>
                                         <th>Alasan Perubahan Due Date </th>
-                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -100,7 +99,6 @@
                                         <th>Due Date</th>
                                         <th>Due Date Revisi</th>
                                         <th>Alasan Perubahan Due Date </th>
-                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -136,7 +134,10 @@
     var statuser = false;
     var stataction = false;
     var laststate = false;
+    var valid;
     var referenceID = getQueryStrings()["ReferenceID"];
+    var countPerbaikan;
+    var countPencegahan;
     $('#input_NoCAPA').val(noCAPA);
     //function untuk ambil semua query string
     function getQueryStrings() {
@@ -165,9 +166,11 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 var result = JSON.parse(data);
+                console.log(nik);
+                console.log(result);
                 for (var i = 0; i < result.length; i++) {
-                    var listuser = result[i].EMPID;
-                    if (listuser == nik) {
+
+                    if (result[i].EMPID == nik) {
                         valid = true;
                         break;
                     }
@@ -186,9 +189,9 @@
         $('#TxtDepartemen').val('@Request.RequestContext.HttpContext.Session["Departemen"]');
         $('#TxtNoCAPA').val(noCAPA);
         $('#TxtRequestor').val(superiorName);
-        checkUser();
         $('#RootCause_KajianResikoDDL').attr('disabled', true);
         $('#btn_AddKajian').attr('disabled', true);
+        checkUser();
         GetTindakanPerbaikan();
         GetTindakanPencegahan();
         TableKajian();
@@ -203,6 +206,14 @@
         });
     });
 
+    function CheckPending() {
+        var tableperbaikan = $('#Tbl_Perbaikan').DataTable().data().count();
+        var tablepencegahan = $('#Tbl_Pencegahan').DataTable().data().count();
+        if (tableperbaikan == countPerbaikan && tablepencegahan == countPencegahan) {
+
+            window.location.href = '../PendingTask/TaskList'
+        }
+    }
     function GetTindakanPerbaikan() {
         var dictlist = {
             NoCAPA: noCAPA,
@@ -240,15 +251,21 @@
                         { "data": "tanggalRev" },
                         { "data": "Alasan_Due_Date" },
                         {
-                            "data": "Status_ID",
+                            "data": null,
                             "render": function (data, type, row, meta) {
-                                if (row['IsApproved'] == 1 && row['EMPID'] == nik) {
+                                if (row["IsUtama"] === true && row["Rentang"] === 0) {
+                                    return "<input type='button' class='btn btn-primary' onclick=AddRentangPerbaikan(this) value='Add Rentang'style='background-color:green;'/>";
+                                }
+                                else if (row["IsApproved"] === true) {
                                     return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                 }
-                                else {
-                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>"
+                                else if (row["Rentang"] != 0) {
+                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>";
                                 }
+                                
                             }
+
+
                         }
                         
                     ],
@@ -261,6 +278,14 @@
                     ],
                     "order": [[1, 'asc']],
                 })
+                var result = JSON.parse(data);
+                var temp = 0;
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i].IsApproved == true) {
+                        temp += 1
+                    }
+                }
+                countPerbaikan = temp;
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -306,7 +331,10 @@
                         {
                             "data": "Status_ID",
                             "render": function (data, type, row, meta) {
-                                if (row['IsApproved'] == 1 && row['EMPID'] == nik) {
+                                if (row["IsUtama"] === true && row["Rentang"] === 0) {
+                                    return "<input type='button' class='btn btn-primary' onclick=AddRentangPerbaikan(this) value='Add Rentang'style='background-color:green;'/>";
+                                }
+                                else if (row["IsApproved"] === true) {
                                     return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                 }
                                 else {
@@ -326,6 +354,15 @@
 
                 });
 
+                var result = JSON.parse(data);
+                var temp = 0;
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i].IsApproved == true) {
+                        temp += 1
+                    }
+                }
+                countPencegahan = temp;
+                CheckPending();
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -342,6 +379,7 @@
             NoCAPA: noCAPA,
             RecordID: id,
             Option: 9,
+            Empid: nik
         }
         var dto1 = {
             Model: dictlist
@@ -354,8 +392,6 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    GetTindakanPerbaikan();
-                    TableKajian();
                     $.ajax({
                         url: 'SubmitApproval',
                         type: 'post',
@@ -375,11 +411,15 @@
                             alert(JSON.stringify(ex));
                         }
                     });
-                    Swal.fire(
-                        'Approve!',
-                        'Approve Berhasil',
-                        'success'
-                    )
+                    Swal.fire({
+                        title: "Approve Berhasil!",
+                        type: "success",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    }).then(() => {
+                        GetTindakanPerbaikan();
+                        TableKajian();
+                    })
                 }
             });
         }
@@ -429,8 +469,6 @@
                             data: JSON.stringify(dto1),
                             contentType: "application/json;charset=utf-8",
                             success: function (data) {
-                                GetTindakanPerbaikan();
-                                TableKajian();
                                 $.ajax({
                                     url: 'SubmitApproval',
                                     type: 'post',
@@ -450,20 +488,26 @@
                                         alert(JSON.stringify(ex));
                                     }
                                 });
-                                Swal.fire(
-                                    'Rejected!',
-                                    'Reject Berhasil',
-                                    'success'
-                                )
+                                Swal.fire({
+                                    title: "Reject Berhasil!",
+                                    type: "success",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                }).then(() => {
+                                    GetTindakanPerbaikan();
+                                    TableKajian();
+                                })
+                               
                             },
                             error: function (errormessage) {
                             }
                         });
                     }
                     else {
+
                         Swal.fire(
                             'Error!',
-                            'Alasan tidak boleh kosong.',
+                            'Alasan Reject Harus di isi!',
                             'error'
                         )
                     }
@@ -485,6 +529,7 @@
         var row = $(button).closest("TR");
         var data = $('#Tbl_Pencegahan').DataTable().row(row).data();
         var id = data['RecordID'];
+        alert(id);
         var dictlist = {
             NoCAPA: noCAPA,
             Empid: nik,
@@ -502,8 +547,6 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    GetTindakanPencegahan();
-                    TableKajian();
                     $.ajax({
                         url: 'SubmitApproval',
                         type: 'post',
@@ -523,11 +566,15 @@
                             alert(JSON.stringify(ex));
                         }
                     });
-                    Swal.fire(
-                        'Approve!',
-                        'Approve Berhasil',
-                        'success'
-                    )
+                    Swal.fire({
+                        title: "Reject Berhasil!",
+                        type: "success",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    }).then(() => {
+                        GetTindakanPencegahan();
+                        TableKajian();
+                    })
                 }
             });
         }
@@ -578,8 +625,6 @@
                             data: JSON.stringify(dto1),
                             contentType: "application/json;charset=utf-8",
                             success: function (data) {
-                                GetTindakanPencegahan();
-                                TableKajian();
                                 $.ajax({
                                     url: 'SubmitApproval',
                                     type: 'post',
@@ -599,11 +644,16 @@
                                         alert(JSON.stringify(ex));
                                     }
                                 });
-                                Swal.fire(
-                                    'Rejected!',
-                                    'Reject Berhasil',
-                                    'success'
-                                )
+
+                                Swal.fire({
+                                    title: "Reject Berhasil!",
+                                    type: "success",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                }).then(() => {
+                                    GetTindakanPencegahan();
+                                    TableKajian();
+                                })
 
                             },
                             error: function (errormessage) {
@@ -649,7 +699,6 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                console.log(data);
                 $('#Tbl_KajianResiko').DataTable({
                     "pageLength": 5,
                     "lengthChange": true,

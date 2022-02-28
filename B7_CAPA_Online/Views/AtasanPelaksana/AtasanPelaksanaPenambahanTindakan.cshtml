@@ -127,6 +127,8 @@
     var statuser = false;
     var stataction = false;
     var laststate = false;
+    var countPerbaikan;
+    var countPencegahan;
     var referenceID = getQueryStrings()["ReferenceID"];
     $('#input_NoCAPA').val(noCAPA);
     //function untuk ambil semua query string
@@ -139,6 +141,15 @@
             vars[hash[0]] = hash[1];
         }
         return vars;
+    }
+
+    function CheckPending() {
+        var tableperbaikan = $('#Tbl_Perbaikan').DataTable().data().count();
+        var tablepencegahan = $('#Tbl_Pencegahan').DataTable().data().count();
+        if (tableperbaikan == 0 && tablepencegahan == 0) {
+
+            window.location.href = '../PendingTask/TaskList'
+        }
     }
     function checkUser()
     {
@@ -244,8 +255,9 @@
                             "searchable": false
                         },
                     ],
-                    "order": [[1, 'asc']],
+                    "order": [[1, 'asc']],z
                 })
+                CheckPending();
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -302,7 +314,7 @@
                     "order": [[1, 'asc']],
 
                 });
-
+                CheckPending();
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
