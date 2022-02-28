@@ -293,8 +293,6 @@ namespace B7_CAPA_Online.DataSource {
             
             private global::System.Data.DataColumn columnEmail;
             
-            private global::System.Data.DataColumn columnCreation_Date;
-            
             private global::System.Data.DataColumn columnStatus_ID;
             
             private global::System.Data.DataColumn columnApproval_Date;
@@ -390,14 +388,6 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn Creation_DateColumn {
-                get {
-                    return this.columnCreation_Date;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn Status_IDColumn {
                 get {
                     return this.columnStatus_ID;
@@ -449,7 +439,7 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_LOAD_REPORT_TPerbaikanRow AddSP_LOAD_REPORT_TPerbaikanRow(string WhyDesc, string Tindakan_Perbaikan, string Due_Date, string Pelaksana_Perbaikan, string Superior, string Nama_Personil, string Email, System.DateTime Creation_Date, int Status_ID, System.DateTime Approval_Date) {
+            public SP_LOAD_REPORT_TPerbaikanRow AddSP_LOAD_REPORT_TPerbaikanRow(string WhyDesc, string Tindakan_Perbaikan, string Due_Date, string Pelaksana_Perbaikan, string Superior, string Nama_Personil, string Email, int Status_ID, string Approval_Date) {
                 SP_LOAD_REPORT_TPerbaikanRow rowSP_LOAD_REPORT_TPerbaikanRow = ((SP_LOAD_REPORT_TPerbaikanRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         WhyDesc,
@@ -459,7 +449,6 @@ namespace B7_CAPA_Online.DataSource {
                         Superior,
                         Nama_Personil,
                         Email,
-                        Creation_Date,
                         Status_ID,
                         Approval_Date};
                 rowSP_LOAD_REPORT_TPerbaikanRow.ItemArray = columnValuesArray;
@@ -491,7 +480,6 @@ namespace B7_CAPA_Online.DataSource {
                 this.columnSuperior = base.Columns["Superior"];
                 this.columnNama_Personil = base.Columns["Nama_Personil"];
                 this.columnEmail = base.Columns["Email"];
-                this.columnCreation_Date = base.Columns["Creation_Date"];
                 this.columnStatus_ID = base.Columns["Status_ID"];
                 this.columnApproval_Date = base.Columns["Approval_Date"];
             }
@@ -513,11 +501,9 @@ namespace B7_CAPA_Online.DataSource {
                 base.Columns.Add(this.columnNama_Personil);
                 this.columnEmail = new global::System.Data.DataColumn("Email", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnEmail);
-                this.columnCreation_Date = new global::System.Data.DataColumn("Creation_Date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCreation_Date);
                 this.columnStatus_ID = new global::System.Data.DataColumn("Status_ID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnStatus_ID);
-                this.columnApproval_Date = new global::System.Data.DataColumn("Approval_Date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                this.columnApproval_Date = new global::System.Data.DataColumn("Approval_Date", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnApproval_Date);
                 this.columnWhyDesc.MaxLength = 500;
                 this.columnTindakan_Perbaikan.MaxLength = 500;
@@ -527,9 +513,12 @@ namespace B7_CAPA_Online.DataSource {
                 this.columnPelaksana_Perbaikan.MaxLength = 100;
                 this.columnSuperior.ReadOnly = true;
                 this.columnSuperior.MaxLength = 100;
+                this.columnNama_Personil.ReadOnly = true;
                 this.columnNama_Personil.MaxLength = 50;
-                this.columnEmail.MaxLength = 60;
+                this.columnEmail.ReadOnly = true;
+                this.columnEmail.MaxLength = 50;
                 this.columnApproval_Date.ReadOnly = true;
+                this.columnApproval_Date.MaxLength = 30;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -787,23 +776,6 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public System.DateTime Creation_Date {
-                get {
-                    try {
-                        return ((global::System.DateTime)(this[this.tableSP_LOAD_REPORT_TPerbaikan.Creation_DateColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Creation_Date\' in table \'SP_LOAD_REPORT_TPerbaikan\' is DBNu" +
-                                "ll.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_LOAD_REPORT_TPerbaikan.Creation_DateColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public int Status_ID {
                 get {
                     try {
@@ -820,10 +792,10 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public System.DateTime Approval_Date {
+            public string Approval_Date {
                 get {
                     try {
-                        return ((global::System.DateTime)(this[this.tableSP_LOAD_REPORT_TPerbaikan.Approval_DateColumn]));
+                        return ((string)(this[this.tableSP_LOAD_REPORT_TPerbaikan.Approval_DateColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'Approval_Date\' in table \'SP_LOAD_REPORT_TPerbaikan\' is DBNu" +
@@ -917,18 +889,6 @@ namespace B7_CAPA_Online.DataSource {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetEmailNull() {
                 this[this.tableSP_LOAD_REPORT_TPerbaikan.EmailColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsCreation_DateNull() {
-                return this.IsNull(this.tableSP_LOAD_REPORT_TPerbaikan.Creation_DateColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetCreation_DateNull() {
-                this[this.tableSP_LOAD_REPORT_TPerbaikan.Creation_DateColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1122,7 +1082,6 @@ namespace B7_CAPA_Online.DataSource.B7_CAPA_ONLINEDataSetPerbaikanTableAdapters 
             tableMapping.ColumnMappings.Add("Superior", "Superior");
             tableMapping.ColumnMappings.Add("Nama_Personil", "Nama_Personil");
             tableMapping.ColumnMappings.Add("Email", "Email");
-            tableMapping.ColumnMappings.Add("Creation_Date", "Creation_Date");
             tableMapping.ColumnMappings.Add("Status_ID", "Status_ID");
             tableMapping.ColumnMappings.Add("Approval_Date", "Approval_Date");
             this._adapter.TableMappings.Add(tableMapping);
