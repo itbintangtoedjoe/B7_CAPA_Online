@@ -98,8 +98,7 @@
                 }
             }),
             contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                console.log(data);
+            success: function (data) {                 
                 if (JSON.parse(data)[0].VALID == "VALID") {
                     Swal.fire({
                         title: 'Success',

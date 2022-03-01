@@ -41,47 +41,50 @@ namespace B7_CAPA_Online.Controllers
 
         #region Execute
         public ActionResult SubmitApproval(DynamicModel Param)
-        {
-            DynamicParameters parameters = new DynamicParameters(Param.Model);
-            string Recipient = DAL.StoredProcedure(parameters, "[dbo].[SP_APPROVAL_CAPA]");
-
-            var list = new List<Recipients>();
-            var objects = JsonConvert.DeserializeObject(Recipient.ToString()); // parse as array  
-
-            foreach (var item in ((JArray)objects))
+        {            
+            if (!string.IsNullOrEmpty(Session["NIK"] as string))
             {
-                list.Add(new Recipients
+                DynamicParameters parameters = new DynamicParameters(Param.Model);
+
+                string Recipient = DAL.StoredProcedure(parameters, "[dbo].[SP_APPROVAL_CAPA]");
+
+                var list = new List<Recipients>();
+                var objects = JsonConvert.DeserializeObject(Recipient.ToString()); // parse as array  
+
+                foreach (var item in ((JArray)objects))
                 {
-                    NO_CAPA = item.Value<string>("NoCAPA")
-                    ,
-                    Email = item.Value<string>("Email")
-                    ,
-                    KategoriCAPA = item.Value<string>("KategoriCAPA")
-                    ,
-                    ToEmpName = item.Value<string>("ToEmpName")
-                    ,
-                    TriggerCAPA = item.Value<string>("TriggerCAPA")
-                    ,
-                    Lokasi = item.Value<string>("Lokasi")
-                    ,
-                    StatusCAPA = item.Value<string>("StatusCAPA")
-                    ,
-                    PIC = item.Value<string>("PIC")
-                    ,
-                    DeskripsiMasalah = item.Value<string>("DeskripsiMasalah")
-                    ,
-                    CreateBy = item.Value<string>("Requestor")
-                });
-            }
-            string values = Param.Model["Option"].ToString();
-            if (values != "7" && Session["NIK"].ToString() != "") // ketika option sp != 7 kalau 7 itu untuk approval ReviewCAPA 
-            {
-                if (list[0].NO_CAPA != null) // kirim email setiap status header berubah
-                {
-                    EmailSender emailSender = new EmailSender();
-                    foreach (var value in list)
+                    list.Add(new Recipients
                     {
-                        emailSender.SendEmail(new Dictionary<string, object> {
+                        NO_CAPA = item.Value<string>("NoCAPA")
+                        ,
+                        Email = item.Value<string>("Email")
+                        ,
+                        KategoriCAPA = item.Value<string>("KategoriCAPA")
+                        ,
+                        ToEmpName = item.Value<string>("ToEmpName")
+                        ,
+                        TriggerCAPA = item.Value<string>("TriggerCAPA")
+                        ,
+                        Lokasi = item.Value<string>("Lokasi")
+                        ,
+                        StatusCAPA = item.Value<string>("StatusCAPA")
+                        ,
+                        PIC = item.Value<string>("PIC")
+                        ,
+                        DeskripsiMasalah = item.Value<string>("DeskripsiMasalah")
+                        ,
+                        CreateBy = item.Value<string>("Requestor")
+                    });
+                }
+                string values = Param.Model["Option"].ToString();
+                if (values != "7") // ketika option sp != 7 kalau 7 itu untuk approval ReviewCAPA 
+                {
+                    if (list[0].NO_CAPA != null) // kirim email setiap status header berubah
+                    {
+                        EmailSender emailSender = new EmailSender();
+                        foreach (var value in list)
+                        {
+                            emailSender.SendEmail(new Dictionary<string, object> {
                         {"Nama_Aplikasi", "CAPA" }, // ini hardcode 
                         {"Kategori", "PICReminder" }, // ini hardcode
                         {"KategoriCAPA", value.KategoriCAPA }, // dari list diatas
@@ -94,10 +97,14 @@ namespace B7_CAPA_Online.Controllers
                         {"CreateBy", value.CreateBy}, // ini dari list diatas
                         {"DeskripsiMasalah", value.DeskripsiMasalah } // ini dari list diatas
                     });
+                        }
                     }
                 }
-            }           
-            return Json(Recipient);
+                return Json(Recipient);
+            }
+
+            return Json("unauthorized");
+
         }
         #endregion
     }

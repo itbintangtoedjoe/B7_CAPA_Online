@@ -122,12 +122,17 @@
             }),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                var result = JSON.parse(data);                              
-                if (result[0].PIC_SUPERIOR_ID != $('#TxtRequestor_NIK').val()) {
-                    $('#Div_Approval_PV').hide();
-                    return;
+            success: function (data) {            
+                if (data != "unauthorized") {
+                    var result = JSON.parse(data);
+                    if (result[0].PIC_SUPERIOR_ID != $('#TxtRequestor_NIK').val()) {
+                        $('#Div_Approval_PV').hide();
+                        return;
+                    }
+                } else {
+                    window.location.href = '../Login';
                 }
+             
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
