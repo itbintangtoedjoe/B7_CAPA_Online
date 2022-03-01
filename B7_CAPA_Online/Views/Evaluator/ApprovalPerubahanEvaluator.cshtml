@@ -14,7 +14,7 @@
 </style>
 
 <link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
-<script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
+<script src="~/Content/Scripts/js/sweetalert2.all.min.js" defer></script>
 
 <div class="content-body">
     <!--Modal-->
@@ -138,6 +138,7 @@
     var referenceID = getQueryStrings()["ReferenceID"];
     var countPerbaikan;
     var countPencegahan;
+    var count = 0;
     $('#input_NoCAPA').val(noCAPA);
     //function untuk ambil semua query string
     function getQueryStrings() {
@@ -209,10 +210,11 @@
     function CheckPending() {
         var tableperbaikan = $('#Tbl_Perbaikan').DataTable().data().count();
         var tablepencegahan = $('#Tbl_Pencegahan').DataTable().data().count();
-        if (tableperbaikan == countPerbaikan && tablepencegahan == countPencegahan) {
+        if (tableperbaikan == countPerbaikan && tablepencegahan == countPencegahan && count != 0) {
 
             window.location.href = '../PendingTask/TaskList'
         }
+        count++;
     }
     function GetTindakanPerbaikan() {
         var dictlist = {
@@ -262,12 +264,12 @@
                                 else if (row["Rentang"] != 0) {
                                     return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>";
                                 }
-                                
+
                             }
 
 
                         }
-                        
+
                     ],
                     "columnDefs": [
                         {
@@ -497,7 +499,7 @@
                                     GetTindakanPerbaikan();
                                     TableKajian();
                                 })
-                               
+
                             },
                             error: function (errormessage) {
                             }
@@ -742,7 +744,7 @@
                         { "data": "Lainnya" },
                         {
                             "data": null,
-                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onchange=''>Delete</button> ",
+                            "defaultContent": "<button class='btn btn-primary' type='button' name='delete' onchange='' style='background-color:gray' disabled>Delete</button> ",
                             "visible": (!isHide) ? (true) : (false)
                         },
                     ],
