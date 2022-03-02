@@ -25,18 +25,20 @@
 </div>
 
 @*Hidden Input*@
-<input class="form-control form-control-sm" type="text" id="input_NIK" value="@Request.QueryString["NIK"]" hidden />
+<input class="form-control form-control-sm" type="text" id="input_NIK" value="@Request.RequestContext.HttpContext.Session["NIK"]" hidden />
 
 <script src="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.js" defer></script>
 
 <script>
     var isHide = false;
+    var queryStatus = ('@string.IsNullOrEmpty(Request.QueryString.Get("StatsID"))' == "True") ? ("") : ('@Request.QueryString.Get("StatsID")');
     function GetTindakanPencegahanPV() {
         var dictlist = {
             NoCAPA: $('#input_NoCAPA').val(),
-            Option: 3,            
-            NIK: $('#input_NIK').val()
+            Option: 3,
+            NIK: (queryStatus == 3) ? ('@Request.RequestContext.HttpContext.Session["NIK"]') : ("")
         }
+
         var dto1 = {
             Model: dictlist
         }
@@ -47,6 +49,7 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
+                console.log(data);
                 var table = $('#Tbl_Pencegahan').DataTable({
                     "pageLength": 5,
                     "lengthChange": false,
@@ -60,8 +63,8 @@
                     "columns": [
                         { "data": "RecordID" },
                         { "data": "WhyID" },
-                        { "data": "WhyParentID" },    
-                        { "data": "WhyDesc" },    
+                        { "data": "WhyParentID" },
+                        { "data": "WhyDesc" },
                         { "data": "Tindakan_Pencegahan" },
                         { "data": "Nama_Personil" },
                         { "data": "Due_Date" },
@@ -96,7 +99,7 @@
 
     function DeleteTindakanPencegahanPV() {
         $(document).on("click", "#Tbl_Pencegahan button.delete", function () {
-            var rows = $(this).closest('tr');            
+            var rows = $(this).closest('tr');
             var data = $('#Tbl_Pencegahan').DataTable().row(rows).data();
 
             var dictlist = {
@@ -107,7 +110,7 @@
             var dto1 = {
                 Model: dictlist
             }
-            
+
             $.ajax({
                 url: '../Koordinator/DynamicController?spname=SP_SHOW_Tindakan_PV',
                 type: 'post',
@@ -122,7 +125,7 @@
                              'Tindakan berhasil di hapus.',
                             'success'
                         ).then((result) => {
-                            if (result.value) {                               
+                            if (result.value) {
                                 GetTindakanPencegahanPV();
                             }
                         });
@@ -134,7 +137,7 @@
                 }
             });
         });
-       
+
     }
 
     $(document).ready(function () {

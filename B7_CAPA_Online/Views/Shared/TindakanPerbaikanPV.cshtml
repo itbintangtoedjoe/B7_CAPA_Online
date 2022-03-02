@@ -31,12 +31,14 @@
 
 <script>
     var isHide = false;
-    function GetTindakanPerbaikanPV() {
+    var queryStatus = ('@string.IsNullOrEmpty(Request.QueryString.Get("StatsID"))' == "True") ? ("") : ('@Request.QueryString.Get("StatsID")');
+    function GetTindakanPerbaikanPV(dictlist) {
         var dictlist = {
             NoCAPA: $('#input_NoCAPA').val(),
             Option: 4,
-            NIK: $('#input_NIK').val()
+            NIK: (queryStatus == 3) ? ('@Request.RequestContext.HttpContext.Session["NIK"]') : ("")
         }
+
         var dto1 = {
             Model: dictlist
         }
@@ -47,6 +49,7 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
+                console.log(data);
                 var table = $('#Tbl_Perbaikan').DataTable({
                     "pageLength": 5,
                     "lengthChange": false,

@@ -635,8 +635,8 @@
                                                 <label id="TxtLampiranCount" class="custom-file-label"></label>
                                             </div>
                                             @*<div class="input-group-append" style="padding-left:10px">
-                                                <button class="btn btn-outline-dark rounded btn-sm" type="button" id="btn_AddFile">Add</button>
-                                            </div>*@
+                                                    <button class="btn btn-outline-dark rounded btn-sm" type="button" id="btn_AddFile">Add</button>
+                                                </div>*@
                                         </div>
                                     </div>
                                 </div>
@@ -804,11 +804,11 @@
 <script src="~/Content/Scripts/plugins/datatables/jquery.dataTables.min.js" defer></script>
 <script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>
 <script src="~/Content/Scripts/plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.min.js" defer></script>
+<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
 
-<script>
+<script>    
     var formData = new FormData();
-    $(document).ready(function () {
-    
+    $(document).ready(function () {               
         $('.tags').tagsinput({
             maxTags: 4
         });
@@ -839,7 +839,7 @@
             $('#TxtLampiranCount').text("");
             //formData.forEach(function (val, key, fD) {
             //    console.log(key);
-            //});                       
+            //});
             //UpdateLampiran();
 
             if ($('#Trigger_CAPA').val() == "CAPA") {
@@ -1487,7 +1487,6 @@
 
         requestPage();
 
-       
         $('#TxtFileInput').change(function () {
             $('#tb_File').empty();
             fileCount = this.files.length;
@@ -1513,12 +1512,12 @@
             //});
         })
 
-      
+
         //$("#btn_AddFile").click(function () {
         //    var isValid = false;
-        //    var fileCount = document.getElementById("TxtFileInput").files.length;            
+        //    var fileCount = document.getElementById("TxtFileInput").files.length;
         //    if (fileCount > 0) {
-        //        $.map(document.getElementById("TxtFileInput").files, function (val) {                   
+        //        $.map(document.getElementById("TxtFileInput").files, function (val) {
         //            if (formData.getAll(val.name)[0] == undefined) {
         //                formData.append(val.name, val);
         //                $('#tb_File').append('<tr><td value='+ val.name +'>' + val.name + '</td><td><button type="button" class="deleteFile form-control-sm">Delete</button></td><tr>')
@@ -1539,13 +1538,13 @@
         //        if (isValid) {
         //            UpdateLampiran();
         //        }
-                
+
         //        //document.getElementById("TxtFileInput").value = "";
         //        $('#TxtLampiranCount').text("");
         //        //$('#LampiranTerkait').val(formData);
         //        console.log($('#LampiranTerkait').val());
         //        console.log($('#TxtFileInput').val());
-        //    }            
+        //    }
         //});
 
         //$(document).on("click", "#tb_File button.deleteFile", function (e) {
@@ -1557,7 +1556,7 @@
         //        obj.name = item.innerHTML;
         //        temp.push(obj);
         //    });
-        //    formData.delete(temp[0].name);          
+        //    formData.delete(temp[0].name);
         //    columns.remove();
 
         //    UpdateLampiran();
@@ -1565,14 +1564,14 @@
         //});
 
         $("#btn_Submit").click(function () {
+            $.blockUI();
             var status = validateInput();
             if (status) {
                 return $('#SubmitData').submit();
             }
-            $('#SubmitData').submit();
+            //$('#SubmitData').submit();
         });
-
-        checkUser($('#input_NIK').val());
+      
     });
 
     function validateInput() {
@@ -1598,6 +1597,7 @@
 
         for (var key in data) {
             if (data[key] === "" || data[key] === false) {
+                $.unblockUI();
                 Swal.fire({
                     type: 'warning',
                     title: 'Maaf',
@@ -1656,7 +1656,6 @@
                 alert(JSON.stringify(ex));
             }
         });
-
 
         $.ajax({
             url: 'GetKategoriPenyimpangan',
@@ -1723,6 +1722,7 @@
                 alert(JSON.stringify(ex));
             }
         });
+        return "done";
     }
 
     function AddDepartemen() {
@@ -1866,22 +1866,34 @@
         _callback();
     }
 
-    function requestPage() {
-        getDDL();
-        TahunDDL();
-        DeleteDepartemen();
-        getRequestPageData();
+    function requestPage() {        
+        var defer = $.Deferred();
+        if (@Request.QueryString.Count == 1) {          
+            $.blockUI();
+            isHide = true;
+            setTimeout(function () {
+                getRequestPageData();
+                defer.resolve();
+            }, 1000);           
+        } else {
+            getDDL();
+            TahunDDL();
+            DeleteDepartemen();
+            checkUser($('#input_NIK').val());
+        }                 
+        return defer;
     }
 
     function getRequestPageData() {
-        if (@Request.QueryString.Count == 1) {
+        $.unblockUI();
+        if (@Request.QueryString.Count == 1) {           
             TableKajianPV();
 
             isHide = true;
 
             $('#Div_KajianResikoInput').prop('hidden', true);
 
-            $.ajax({
+            var result = $.ajax({
                 url: 'GetCAPA',
                 type: 'post',
                 data: JSON.stringify({
@@ -1892,81 +1904,68 @@
                 }),
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    //console.log(data);
-                    $("#Trigger_CAPA").empty().append(new Option(data[0].TRIGGER_CAPA, data[0].TRIGGER_CAPA));
-                    $("#Kategori_DDL").empty().append(new Option(data[0].KATEGORI_CAPA, data[0].KATEGORI_CAPA2));
-                    $("#Lokasi_DDL").empty().append(new Option(data[0].LOKASI_CAPA, data[0].LOKASI_CAPA2));
-                    $("#Kode_DDL").empty().append(new Option(data[0].Kode_CAPA2, data[0].Kode_CAPA));
-                    $("#TxtEmailVendor").val(data[0].EMAIL);
+                async: false
+                //success: function (data) {
 
-
-                    $("#Kategori_DDL").select2();
-                    $("#Trigger_CAPA").select2();
-                    $("#Lokasi_DDL").select2();
-
-                    $('#input_Requestor').val(data[0].FullName);
-                    //$('#Trigger_CAPA').val(data[0].TRIGGER_CAPA).trigger("change");
-                    //$('#Kategori_DDL').val(data[0].KATEGORI_CAPA).trigger("change");
-
-                    $('#TxtKataKunci').val(data[0].Kata_Kunci).trigger("change");
-                    $('#TxtDeskripsi').val(data[0].DESKRIPSI_MASALAH).trigger("change");
-
-                    $.each(JSON.parse(data[0].DEPTLIST), function (key, value) {
-                        $("#AreaPIC_DDL").append(new Option(value.Departemen.trim(), value.Departemen.trim()));
-                    });
-                    $("#PIC_DDL").empty().append(new Option(data[0].PIC_CAPA, data[0].PIC_CAPA));
-                    $("#PIC_DDL").val(data[0].PIC_CAPA).trigger("change");
-
-                    $('#link_CCC').modal('hide');
-                    $('#link_Deviation').modal('hide');
-                    $('#link_NoCAPATerkait').modal('hide');
-
-                    $.each(data[0].FILELIST, function (key, value) {
-                        $('#Tbl_Lampiran').append($('<tr><td><a href="' + value + '" ><span style="color:black;">' + data[0].FILE_NAME[key] + '</span></a></td></tr>'))
-                    });
-
-                    $.each(data[0].PENYIMPANGANLIST, function (key, value) {
-                        $('#Tbl_Penyimpangan').append($('<tr><td>' + value + '</td></tr>'))
-                    });
-
-                    var table = $('#Table_Departemen').DataTable({
-                        "pageLength": 4,
-                        "lengthChange": true,
-                        "paging": false,
-                        "info": false,
-                        "searching": false,
-                        "data": JSON.parse(data[0].DEPTLIST),
-                        "select": true,
-                        "bDestroy": true,
-                        "scrollCollapse": true,
-                        "columns": [
-                            { "data": "Departemen" }
-                        ]
-                        //"order": [[1, 'asc']]
-                    });
-
-                    //var Counter = 0;
-                    //var Trav = 0;
-                    //$.each(JSON.parse(data), function (i, item) {
-                    //    var value = item.DEPARTEMEN;
-                    //    jQuery.trim(value);
-                    //    const testing = value.split(",");
-
-                    //    var Count = testing.length;
-
-                    //    for (Trav = 0; Trav < Count; Trav++) {
-                    //        $('#Tbl_Departemen').append($('<tr><td>' + testing[Trav] + '</td><td><button type="button" class="form-control-sm delete">Delete</button></td></tr>'));
-                    //    }
-                    //    Counter++;
-                    //});
-                },
-                error: function (ex) {
-                    alert(JSON.stringify(ex));
-                }
+                //error: function (ex) {
+                //    alert(JSON.stringify(ex));
+                //}
             });
-        }
+            var data = JSON.parse(result.responseText);
+            console.log(data);
+            if (data != null) {
+                $("#Kategori_DDL").select2();
+                $("#Trigger_CAPA").select2();
+                $("#Lokasi_DDL").select2();
 
+                $("#Trigger_CAPA").empty().append(new Option(data[0].TRIGGER_CAPA, data[0].TRIGGER_CAPA));
+                $("#Kategori_DDL").empty().append(new Option(data[0].KATEGORI_CAPA, data[0].KATEGORI_CAPA2));
+                $("#Lokasi_DDL").empty().append(new Option(data[0].LOKASI_CAPA, data[0].LOKASI_CAPA2));
+                $("#Kode_DDL").empty().append(new Option(data[0].Kode_CAPA2, data[0].Kode_CAPA));
+                $("#TxtEmailVendor").val(data[0].EMAIL);
+
+                $('#input_Requestor').val(data[0].FullName);
+                //$('#Trigger_CAPA').val(data[0].TRIGGER_CAPA).trigger("change");
+                //$('#Kategori_DDL').val(data[0].KATEGORI_CAPA).trigger("change");
+
+                $('#TxtKataKunci').val(data[0].Kata_Kunci).trigger("change");
+                $('#TxtDeskripsi').val(data[0].DESKRIPSI_MASALAH).trigger("change");
+
+                $.each(JSON.parse(data[0].DEPTLIST), function (key, value) {
+                    $("#AreaPIC_DDL").append(new Option(value.Departemen.trim(), value.Departemen.trim()));
+                });
+                $("#PIC_DDL").empty().append(new Option(data[0].PIC_CAPA, data[0].PIC_CAPA));
+                $("#PIC_DDL").val(data[0].PIC_CAPA).trigger("change");
+
+                $('#link_CCC').modal('hide');
+                $('#link_Deviation').modal('hide');
+                $('#link_NoCAPATerkait').modal('hide');
+
+                $.each(data[0].FILELIST, function (key, value) {
+                    $('#Tbl_Lampiran').append($('<tr><td><a href="' + value + '" ><span style="color:black;">' + data[0].FILE_NAME[key] + '</span></a></td></tr>'))
+                });
+
+                $.each(data[0].PENYIMPANGANLIST, function (key, value) {
+                    $('#Tbl_Penyimpangan').append($('<tr><td>' + value + '</td></tr>'))
+                });
+
+                var table = $('#Table_Departemen').DataTable({
+                    "pageLength": 4,
+                    "lengthChange": true,
+                    "paging": false,
+                    "info": false,
+                    "searching": false,
+                    "data": JSON.parse(data[0].DEPTLIST),
+                    "select": true,
+                    "bDestroy": true,
+                    "scrollCollapse": true,
+                    "columns": [
+                        { "data": "Departemen" }
+                    ]
+                    //"order": [[1, 'asc']]
+                });
+            }
+        }
     }
 
     function checkUser(NIK) {
