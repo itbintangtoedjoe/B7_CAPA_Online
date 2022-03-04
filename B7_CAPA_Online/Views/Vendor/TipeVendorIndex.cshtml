@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewBag.Title = "Tipe Vendor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*@using (Html.BeginForm("Index", "Vendor", FormMethod.Get, new { enctype = "multipart/form-data" }))*@
+{
+<div class="content-body">
+    @*<div class="row page-titles mx-0">
+        <div class="col p-md-0">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Tipe Vendor</a></li>
+            </ol>
+        </div>
+    </div>*@
+    <!-- row -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">List Tipe Vendor</h4>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered zero-configuration" id="table_vendor">
+                                    <thead>
+                                        <tr>
+                                            <th>Action</th>
+                                            <th>Tipe Vendor</th>
+                                            <th>Superior</th>
+                                            @*<th>Atasan</th>*@
+                                            @*<th>Created By</th>
+                                                <th>Creation Date</th>
+                                                <th>Updated By</th>*@
+                                            <th>Last Updated on</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var type in ViewBag.AllVendorTypes)
+                                        {
+                                            <tr>
+                                                <td><button class="btn btn-primary" onclick="Edit(@type.ID)">Edit</button><button class="btn btn-danger" onclick="Delete(@type.ID)">Delete</button></td>
+                                                <td>@type.Type</td>
+                                                <td>@type.SuperiorName</td>
+                                                @*<td>@type.SuperiorGroupName</td>*@
+                                                @*<td>@vendor.CreatedBy</td>
+                                                    <td>@vendor.CreationDate.ToString("dd MMM yyyy HH:mm")</td>
+                                                    <td>@vendor.UpdatedBy</td>*@
+                                                <td>@type.LastUpdatedOn.ToString("dd MMM yyyy HH:mm")</td>
+                                                @*<td><a href="@Url.Action("Details", "Vendor", new { namaRole = @vendor})" class="link-label">@vendor.nama_vendor</a></td>
+                                                    <td class="center-align"><a href="@Url.Action("EditRoleName", "Vendor", new { namaRole = @vendor})" class="link-label"><i class="icon-note"></i></a></td>*@
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #/ container -->
+    </div>
+</div>
+}
+
+<script>
+    $(document).ready(function () {
+        $('#table_vendor').DataTable();
+    });
+
+    function Edit(id) {
+        var link = "@Html.Raw(@Url.Action("EditTipeVendor", "Vendor", new { tipeVendorID = "param1"}))";
+        link = link.replace("param1", id);
+        window.open(link, '_self');
+    }
+
+    function Delete(id) {
+        swal({
+            title: "Anda yakin menghapus vendor terpilih?",
+            icon: "warning",
+            buttons: ["Tidak", "Ya"],
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                var link = "@Url.Action("DeleteVendor", "Vendor", new { vendorID = "param1" })";
+                link = link.replace("param1", id);
+                console.log(link);
+                swal("Data vendor berhasil dihapus", {
+                    icon: "success",
+                    buttons: false,
+                    timer: 1000,
+                }).then(() => {
+                    window.location = link;
+                });
+            }
+        });
+
+    @*var link = "@Html.Raw(@Url.Action("DeleteVendor", "Vendor", new { vendorID = "param1",}))";
+    link = link.replace("param1", id);
+    window.open(link, '_self');*@
+
+    }
+</script>

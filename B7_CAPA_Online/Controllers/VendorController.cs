@@ -1,4 +1,6 @@
 ﻿using B7_CAPA_Online.Models;
+using B7_CAPA_Online.Scripts.DataAccess;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,6 +14,7 @@ namespace B7_CAPA_Online.Controllers
 {
     public class VendorController : Controller
     {
+        readonly DataAccess DAL = new DataAccess();
         private readonly SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["MASTERVENDOR"].ToString());
         public List<Vendor> GetAllVendors()
         {
@@ -20,8 +23,9 @@ namespace B7_CAPA_Online.Controllers
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("sp_select_all_vendors", conn);
+                SqlCommand cmd = new SqlCommand("sp_vendor_data", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Option", "GET ALL VENDORS");
                 SqlDataAdapter dataAdapter = new SqlDataAdapter();
                 dataAdapter.SelectCommand = cmd;
 
@@ -34,7 +38,8 @@ namespace B7_CAPA_Online.Controllers
                     vendor.VendorName = ds.Tables[0].Rows[i]["vendor_name"].ToString();
                     vendor.TypeID = Convert.ToInt32(ds.Tables[0].Rows[i]["type_id"].ToString());
                     vendor.VendorType = ds.Tables[0].Rows[i]["vendor_type"].ToString();
-                    vendor.SuperiorGroupName = ds.Tables[0].Rows[i]["superior_group_name"].ToString();
+                    vendor.SuperiorName = ds.Tables[0].Rows[i]["superior_name"].ToString();
+                    //vendor.SuperiorGroupName = ds.Tables[0].Rows[i]["superior_group_name"].ToString();
                     vendor.CreatedBy = ds.Tables[0].Rows[i]["created_by"].ToString();
                     vendor.UpdatedBy = ds.Tables[0].Rows[i]["updated_by"].ToString();
                     vendor.CreationDate = DateTime.Parse(ds.Tables[0].Rows[i]["creation_date"].ToString());
@@ -77,6 +82,51 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
+        public ActionResult TipeVendorIndex()
+        {
+            List<VendorType> allVendorTypes = GetAllVendorTypes();
+            ViewBag.AllVendorTypes = allVendorTypes;
+            return View();
+        }
+
+        public ActionResult EditTipeVendor(int tipeVendorID)
+        {
+            List<VendorType> allVendorTypes = GetAllVendorTypes();
+            VendorType type = allVendorTypes.Find(v => v.ID == tipeVendorID);
+            ViewBag.ActiveVendorType = type;
+            return View();
+        }
+
+        public ActionResult UpdateTipeVendor(VendorType vendorType)
+        {
+            try
+            {
+                var dictionary = new Dictionary<string, object>{
+                    { "@Option", "UPDATE VENDOR TYPE" },
+                    { "@type_id", vendorType.ID },
+                    { "@superior_id", vendorType.SuperiorID },
+                    { "@updated_by", vendorType.UpdatedBy },
+                };
+                var parameters = new DynamicParameters(dictionary);
+                var result = DAL.VendorStoredProcedure(parameters, "sp_vendor_data");
+                return Json("success");
+            }
+            catch(Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
+
+        public ActionResult GetListManagerUp()
+        {
+            var dictionary = new Dictionary<string, object>{
+                { "Option", "LIST MANAGER UP" },
+            };
+            var parameters = new DynamicParameters(dictionary);
+            var result = DAL.VendorStoredProcedure(parameters, "sp_vendor_data");
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         public List<VendorType> GetAllVendorTypes()
         {
             DataSet ds = new DataSet();
@@ -84,8 +134,9 @@ namespace B7_CAPA_Online.Controllers
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("sp_select_all_vendor_types", conn);
+                SqlCommand cmd = new SqlCommand("sp_vendor_data", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Option", "GET VENDOR TYPES");
                 SqlDataAdapter dataAdapter = new SqlDataAdapter();
                 dataAdapter.SelectCommand = cmd;
 
@@ -96,6 +147,8 @@ namespace B7_CAPA_Online.Controllers
                     VendorType vendorType = new VendorType();
                     vendorType.ID = Convert.ToInt32(ds.Tables[0].Rows[i]["RecordID"].ToString());
                     vendorType.Type = ds.Tables[0].Rows[i]["type"].ToString();
+                    vendorType.SuperiorID = ds.Tables[0].Rows[i]["superior_id"].ToString();
+                    vendorType.SuperiorName = ds.Tables[0].Rows[i]["superior_name"].ToString();
                     vendorType.CreatedBy = ds.Tables[0].Rows[i]["created_by"].ToString();
                     vendorType.UpdatedBy = ds.Tables[0].Rows[i]["updated_by"].ToString();
                     vendorType.CreationDate = DateTime.Parse(ds.Tables[0].Rows[i]["creation_date"].ToString());
@@ -114,6 +167,23 @@ namespace B7_CAPA_Online.Controllers
             finally
             {
                 conn.Close();
+            }
+        }
+
+        public ActionResult GetOracleVendors()
+        {
+            try
+            {
+                var dictionary = new Dictionary<string, object>{
+                    { "@Option", "GET ALL ORACLE VENDORS" },
+                };
+                var parameters = new DynamicParameters(dictionary);
+                var result = DAL.VendorStoredProcedure(parameters, "sp_vendor_data");
+                return Json(result,JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
             }
         }
 
@@ -139,8 +209,9 @@ namespace B7_CAPA_Online.Controllers
             //Session["nik_active"].ToString()
             try
             {
-                SqlCommand cmd = new SqlCommand("sp_create_vendor", conn);
+                SqlCommand cmd = new SqlCommand("sp_vendor_data", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Option", "CREATE VENDOR");
                 cmd.Parameters.AddWithValue("@vendor_name", vendor.VendorName);
                 cmd.Parameters.AddWithValue("@type_id", vendor.TypeID);
                 //use session
@@ -164,8 +235,9 @@ namespace B7_CAPA_Online.Controllers
             //Session["nik_active"].ToString()
             try
             {
-                SqlCommand cmd = new SqlCommand("sp_update_vendor", conn);
+                SqlCommand cmd = new SqlCommand("sp_vendor_data", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Option", "UPDATE VENDOR");
                 cmd.Parameters.AddWithValue("@id", vendor.ID);
                 cmd.Parameters.AddWithValue("@vendor_name", vendor.VendorName);
                 cmd.Parameters.AddWithValue("@type_id", vendor.TypeID);

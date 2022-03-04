@@ -9,6 +9,8 @@ namespace B7_CAPA_Online.Models
     {
         public int ID { get; set; }
         public string Type { get; set; }
+        public string SuperiorID { get; set; }
+        public string SuperiorName { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
         public DateTime CreationDate { get; set; }

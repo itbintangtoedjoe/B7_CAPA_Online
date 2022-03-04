@@ -14,6 +14,7 @@ namespace B7_CAPA_Online.Scripts.DataAccess
     public class DataAccess
     {
         readonly ConnectionStringSettings dbDFIS = ConfigurationManager.ConnectionStrings["CAPAONLINE"];
+        readonly ConnectionStringSettings dbVendor = ConfigurationManager.ConnectionStrings["MASTERVENDOR"];
         public string GetDataPrint(DALModel Model)
         {
             string result;
@@ -117,6 +118,22 @@ namespace B7_CAPA_Online.Scripts.DataAccess
             string result;
 
             using (IDbConnection db = new SqlConnection(dbDFIS.ConnectionString))
+            {
+                var StoredProcedure = db.Query<dynamic>(Spname, parameters,
+                                commandType: CommandType.StoredProcedure).ToList();
+
+                var json = JsonConvert.SerializeObject(StoredProcedure, Formatting.Indented);
+                result = json;
+            }
+
+            return result;
+        }
+
+        public string VendorStoredProcedure(DynamicParameters parameters, String Spname)
+        {
+            string result;
+
+            using (IDbConnection db = new SqlConnection(dbVendor.ConnectionString))
             {
                 var StoredProcedure = db.Query<dynamic>(Spname, parameters,
                                 commandType: CommandType.StoredProcedure).ToList();

@@ -7,14 +7,14 @@
 @using (Html.BeginForm("CreateVendor", "Vendor", FormMethod.Get, new { enctype = "multipart/form-data" }))
 {
     <div class="content-body">
-        <div class="row page-titles mx-0">
+        @*<div class="row page-titles mx-0">
             <div class="col p-md-0">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
                     <li class="breadcrumb-item active"><a href="javascript:void(0)">Create Vendor</a></li>
                 </ol>
             </div>
-        </div>
+        </div>*@
         <!-- row -->
 
         <div class="container-fluid">
@@ -27,16 +27,46 @@
                                 <form id="form-upload" enctype="multipart/form-data" action="@Url.Action("SaveVendor", "Vendor")" method="POST">
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-lg-2 col-form-label right-aligned" for="nama_vendor">
+                                        <label class="col-lg-3 col-form-label right-aligned" for="jenis_vendor">
+                                            Terdaftar di Oracle? <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-lg-1" style="margin-top:10px;">
+                                            <input type="radio" name="jenis_vendor" value="1" checked>
+                                            <label for="xs">Ya</label>
+                                        </div>
+                                        <div class="col-lg-2" style="margin-top:10px;">
+                                            <input type="radio" name="jenis_vendor" value="0">
+                                            <label for="xs">Tidak</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row align-items-center" id="div_doesnt_exist" hidden>
+                                        <label class="col-lg-3 col-form-label right-aligned" for="nama_vendor">
                                             Nama Vendor <span class="text-danger">*</span>
                                         </label>
-                                        <div class="col-lg-10">
-                                            <input type="text" class="form-control input-default" id="nama_vendor" name="nama_vendor" placeholder="Masukkan nama vendor..">
+                                        <div class="col-lg-9">
+                                            <input type="text" class="form-control input-default" id="nama_vendor" name="nama_vendor" placeholder="Masukkan nama vendor.." style="text-transform:uppercase">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row align-items-center" id="div_exists">
+                                        <label class="col-lg-3 col-form-label right-aligned" for="nama_vendor">
+                                            Nama Vendor <span class="text-danger">*</span>
+                                        </label>
+
+                                        <div class="col-lg-6">
+                                            <select class="form-control" id="nama_vendor_exists" name="vendor_exists">
+                                                <option value="" disabled selected>Pilih Vendor</option>
+                                                @*@foreach (var vendor in ViewBag.AllVendorTypes)
+            {
+                <option value="@vendor.ID">@vendor.Type</option>
+            }*@
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="form-group row align-items-center">
-                                        <label class="col-lg-2 col-form-label right-aligned" for="tipe_vendor">
+                                        <label class="col-lg-3 col-form-label right-aligned" for="tipe_vendor">
                                             Tipe Vendor <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
@@ -49,8 +79,8 @@
                                             </select>
                                         </div>
                                         @*<div class="col-lg-3 no-padding">
-                                            <label class="col-form-label link-label"><a href="@Url.Action("CreateVendorType", "Vendor")" target="_blank">Tambah tipe vendor +</a></label>
-                                        </div>*@
+            <label class="col-form-label link-label"><a href="@Url.Action("CreateVendorType", "Vendor")" target="_blank">Tambah tipe vendor +</a></label>
+        </div>*@
                                     </div>
 
                                     <div class="form-group-row align-items-center">
@@ -58,7 +88,7 @@
                                             <button type="submit" class="btn btn-primary" style="width:100px" id="simpan">Simpan</button>
                                         </div>
                                     </div>
-                                </form>
+</form>
                             </div>
                         </div>
                     </div>
@@ -71,10 +101,22 @@
 
 <script>
     $(document).ready(function () {
+        GetOracleVendors();
         $('#create').click(function (e) {
             window.location = "Vendor/CreateVendor";
         })
         $('#tipe_vendor').select2();
+
+        $('input:radio[name="jenis_vendor"]').change(function () {
+            if ($(this).val() == '1') {
+                @*GetOracleVendors();*@
+                $('#div_doesnt_exist').attr("hidden", true);
+                $('#div_exists').attr("hidden", false);
+            } else {
+                $('#div_doesnt_exist').attr("hidden", false);
+                $('#div_exists').attr("hidden", true);
+            }
+        });
         GetVendorInfo();
     });
 
@@ -117,16 +159,41 @@
         }
     }
 
+    function GetOracleVendors() {
+        $.ajax({
+            url: "GetOracleVendors",
+            type: "get",
+            async: false,
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                $.each(JSON.parse(data), function (key, entry) {
+                    $('#nama_vendor_exists').append($('<option></option>').attr('value', entry.SUPPLIER_NAME).text(entry.SUPPLIER_NAME));
+                    $('#nama_vendor_exists').select2();
+                })
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
     $('#simpan').click(function (e) {
         e.preventDefault();
 
-        var nama_vendor = $.trim($("#nama_vendor").val());
+        var jenis_vendor = $("input[type='radio'][name='jenis_vendor']:checked").val();
+        var nama_vendor = '';
+        if (jenis_vendor == 1) {
+            nama_vendor = $.trim($("#nama_vendor_exists").val());
+        }
+        else {
+            nama_vendor = $.trim($("#nama_vendor").val().toUpperCase());
+        }
         var tipe_vendor = $("#tipe_vendor").val();
 
         if (nama_vendor == "" || tipe_vendor == null) {
             swal({
                 title: "Semua field wajib terisi!",
-                type: "error",
+                icon: "error",
                 buttons: false,
                 timer: 1000,
             });
