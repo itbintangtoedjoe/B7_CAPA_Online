@@ -202,6 +202,7 @@
 <script>
     let dataPerbaikan;
     let noCAPA = getQueryStrings()["NoCAPA"];
+    let typeParam = getQueryStrings()["Type"];
     let nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
     let Username = '@Request.RequestContext.HttpContext.Session["Username"]';
     let objPencegahan, objTreatment, objLampiran;
@@ -386,10 +387,19 @@
         });
     }
 
+    function CheckType() {
+        if (typeParam = 'View') {
+
+        }
+        else {
+            CheckStatus()
+        }
+    }
+
     function GetAllBukti() {
 
         $.when(
-            CheckStatus()
+            CheckType()
         ).done(
             $.when(
                 $.when(
