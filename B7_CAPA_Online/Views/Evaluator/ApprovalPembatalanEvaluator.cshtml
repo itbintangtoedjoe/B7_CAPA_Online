@@ -14,7 +14,6 @@
 </style>
 
 <link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
-<script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
 
 <div class="content-body">
     <!--Modal-->
@@ -114,6 +113,7 @@
 
 <input type="text" id="input_NoCAPA" value="@ViewBag.NoCAPA" hidden>
 
+<script src="~/Content/Scripts/js/sweetalert2.all.min.js" defer></script>
 
 <script>
     var noCAPA = getQueryStrings()["NoCAPA"];
@@ -132,6 +132,7 @@
     var referenceID = getQueryStrings()["ReferenceID"];
     var countPerbaikan;
     var countPencegahan;
+    var count = 0;
     $('#input_NoCAPA').val(noCAPA);
     //function untuk ambil semua query string
     function getQueryStrings() {
@@ -148,10 +149,11 @@
     function CheckPending() {
         var tableperbaikan = $('#Tbl_Perbaikan').DataTable().data().count();
         var tablepencegahan = $('#Tbl_Pencegahan').DataTable().data().count();
-        if (tableperbaikan == countPerbaikan && tablepencegahan == countPencegahan) {
+        if (tableperbaikan == countPerbaikan && tablepencegahan == countPencegahan && count!= 0) {
 
             window.location.href = '../PendingTask/TaskList'
         }
+        count++;
     }
     function checkUser()
     {
@@ -333,7 +335,7 @@
                                 }
                             }
                         }
-                        
+
                     ],
                     "columnDefs": [
                         {
@@ -403,7 +405,7 @@
                     });
                     Swal.fire({
                         title: "Approve Berhasil!",
-                        icon: "success",
+                        type: "success",
                         showConfirmButton: false,
                         timer: 1000,
                     }).then(() => {
@@ -482,7 +484,7 @@
 
                                 Swal.fire({
                                     title: "Reject Berhasil!",
-                                    icon: "success",
+                                    type: "success",
                                     showConfirmButton: false,
                                     timer: 1000,
                                 }).then(() => {
@@ -731,7 +733,7 @@
                         { "data": "Lainnya" },
                         {
                             "data": null,
-                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onchange=''>Delete</button> ",
+                            "defaultContent": "<button class='btn btn-primary' type='button' name='delete' onchange='' style='background-color:gray' disabled>Delete</button> ",
                             "visible": (!isHide) ? (true) : (false)
                         },
                     ],

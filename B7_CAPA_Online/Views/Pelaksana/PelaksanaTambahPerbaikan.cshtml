@@ -1177,7 +1177,7 @@
                         { "data": "Lainnya" },
                         {
                             "data": null,
-                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onchange=''>Delete</button> ",
+                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onclick=DeleteKajianResiko(this) onchange=''>Delete</button> ",
                             "visible": (!isHide) ? (true) : (false)
                         },
                     ],
@@ -1194,6 +1194,39 @@
         });
     }
 
+    function DeleteKajianResiko(button) {
+        var rows = $(button).closest('tr');
+        var data = $('#Tbl_KajianResiko').DataTable().row(rows).data();
+        var id = data['RecordID'];
+
+        //console.log(data);
+        //console.log({
+        //    Model: {
+        //        Option: data.Option,
+        //        NO_CAPA: data.NoCAPA_FK,
+        //        LineNumber: data.LineNumber,
+        //        RecordID: data.RecordID
+        //    }
+        //});
+
+        $.ajax({
+            url: 'DynamicController?spname=[dbo].[SP_FORM_Perubahan]',
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify({
+                Option: 27,
+                RecordID: id
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                TableKajian();
+                return true;
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
 
     function SubmitTindakanExisting()
     {

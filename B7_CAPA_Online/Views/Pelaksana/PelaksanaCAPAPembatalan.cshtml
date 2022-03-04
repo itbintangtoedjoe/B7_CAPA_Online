@@ -531,12 +531,12 @@
                                     'success'
                                 ).then(function (result) {
                                     if (result.value) {
+                                        TableKajian();
                                         //close modal
                                         RemoveModalInput();
                                         // fetch to table
                                     }
                                 });
-                                TableKajian();
                             }
                         },
                         error: function (ex) {
@@ -678,8 +678,7 @@
                         { "data": "Lainnya" },
                         {
                             "data": null,
-                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onchange=''>Delete</button> ",
-                            "visible": (!isHide) ? (true) : (false)
+                            "defaultContent": "<input type='button'  class='btn btn-primary' onclick=DeleteKajianResiko(this) value='Delete'style='background-color:red;'/>"
                         },
                     ],
                     "order": [[1, 'asc']],
@@ -693,6 +692,53 @@
                 alert(JSON.stringify(ex));
             }
         });
+    }
+
+    function DeleteKajianResiko(button) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Delete!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                var rows = $(button).closest('tr');
+                var data = $('#Tbl_KajianResiko').DataTable().row(rows).data();
+                var id = data['RecordID'];
+                console.log(id);
+                console.log(data);
+                var dictlist = {
+                    Option: 27,
+                    RecordID: id
+                };
+                var dto = {
+                    Model: dictlist
+                }
+                $.ajax({
+                    url: 'DynamicController?spname=[dbo].[SP_FORM_Perubahan]',
+                    type: 'post',
+                    dataType: 'json',
+                    data: JSON.stringify(dto),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Kajian Resiko Berhasil Di Hapus!',
+                            'success'
+                        )
+                        TableKajian();
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                });
+            }
+        })
+       
     }
 
     function CancelPencegahan() {

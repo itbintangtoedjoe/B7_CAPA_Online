@@ -13,7 +13,7 @@
 </style>
 
 <link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
-<script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
+<script src="~/Content/Scripts/js/sweetalert2.all.min.js" defer></script>
 
 <div class="content-body">
     <!--Modal-->
@@ -136,6 +136,7 @@
     var stataction = false;
     var laststate = false;
     var referenceID = getQueryStrings()["ReferenceID"];
+    var count = 0;
     $('#input_NoCAPA').val(noCAPA);
     //function untuk ambil semua query string
     function getQueryStrings() {
@@ -187,10 +188,11 @@
     function CheckPending() {
         var tableperbaikan = $('#Tbl_Perbaikan').DataTable().data().count();
         var tablepencegahan = $('#Tbl_Pencegahan').DataTable().data().count();
-        if (tableperbaikan == 0 && tablepencegahan == 0) {
+        if (tableperbaikan == 0 && tablepencegahan == 0 && count!=0) {
 
             window.location.href = '../PendingTask/TaskList'
         }
+        count++;
     }
     $(document).ready(function () {
         $('#TxtDepartemen').val('@Request.RequestContext.HttpContext.Session["Departemen"]');
@@ -663,7 +665,7 @@
                         { "data": "Lainnya" },
                         {
                             "data": null,
-                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onchange=''>Delete</button> ",
+                            "defaultContent": "<button class='btn btn-primary' type='button' name='delete' onchange='' style='background-color:gray' disabled>Delete</button> ",
                             "visible": (!isHide) ? (true) : (false)
                         },
                     ],
