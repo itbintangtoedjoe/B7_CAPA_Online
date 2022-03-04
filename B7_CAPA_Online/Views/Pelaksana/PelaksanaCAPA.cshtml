@@ -716,7 +716,7 @@
         }
     }
     $('#btnViewCAPA').click(function () {
-        window.open("/PIC/FormCAPA?CAPA=" + noCAPA);
+        window.location.href = '../Koordinator/CreateCAPA?NoCAPA=' + noCAPA;
     });
     $('#SubmitVerif').click(function () {
         var dictlist =
@@ -1736,8 +1736,9 @@
                     type: "error",
                     showConfirmButton: false,
                     timer: 1000,
-                }).then
-                ReloadPage();
+                }).then(() => {
+                    ReloadPage();
+                })
 
                 $('#ddlPencegahan').attr("disabled", false);
             },
