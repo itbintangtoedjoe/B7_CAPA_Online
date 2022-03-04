@@ -5586,6 +5586,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>=Fields!RiskLevel.Value</Value>
                                   <Style>
                                     <FontSize>6pt</FontSize>
+                                    <Color>LightBlue</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5600,6 +5601,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <BackgroundColor>=IIF(Fields!RiskLevel.Value = "High", "Red", IIF(Fields!RiskLevel.Value = "Low", "Green", IIF(Fields!RiskLevel.Value = "Medium", "Yellow", IIF(Fields!RiskLevel.Value = "Very High", "Black", "White"))))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -5901,6 +5903,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>=Fields!RiskLevel2.Value</Value>
                                   <Style>
                                     <FontSize>6pt</FontSize>
+                                    <Color>LightBlue</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5915,6 +5918,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <BackgroundColor>=IIF(Fields!RiskLevel2.Value = "High", "Red", IIF(Fields!RiskLevel2.Value = "Low", "Green", IIF(Fields!RiskLevel2.Value = "Medium", "Yellow", IIF(Fields!RiskLevel2.Value = "Very High", "Black", IIF(Fields!RiskLevel2.Value = "N/A", "White", "White")))))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -7495,6 +7499,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>=Fields!RiskLevel.Value</Value>
                                   <Style>
                                     <FontSize>6pt</FontSize>
+                                    <Color>LightBlue</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7509,6 +7514,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <BackgroundColor>=IIF(Fields!RiskLevel.Value = "High", "Red", IIF(Fields!RiskLevel.Value = "Low", "Green", IIF(Fields!RiskLevel.Value = "Medium", "Yellow", IIF(Fields!RiskLevel.Value = "Very High", "Black", "White"))))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -7810,6 +7816,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                                   <Value>=Fields!RiskLevel2.Value</Value>
                                   <Style>
                                     <FontSize>6pt</FontSize>
+                                    <Color>LightBlue</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7824,6 +7831,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <BackgroundColor>=IIF(Fields!RiskLevel2.Value = "High", "Red", IIF(Fields!RiskLevel2.Value = "Low", "Green", IIF(Fields!RiskLevel2.Value = "Medium", "Yellow", IIF(Fields!RiskLevel2.Value = "Very High", "Black", IIF(Fields!RiskLevel2.Value = "N/A", "White", "White")))))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -7949,7 +7957,8 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                           </Visibility>
                           <Style>
                             <Border>
-                              <Style>None</Style>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
                             </Border>
                           </Style>
                         </Image>
@@ -9064,7 +9073,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Image Name="Image11">
+                        <Image Name="Image4">
                           <Source>Embedded</Source>
                           <Value>Picture2</Value>
                           <Sizing>FitProportional</Sizing>

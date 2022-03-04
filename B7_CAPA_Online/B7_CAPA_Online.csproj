@@ -5460,6 +5460,28 @@
     <Content Include="Content\Styles\icons\weather-icons\fonts\weathericons-regular-webfont.woff" />
     <Content Include="Content\Styles\icons\weather-icons\fonts\weathericons-regular-webfont.woff2" />
     <Content Include="Content\Styles\images\f-logo_tmp17117" />
+    <Content Include="DataSource\B7_CAPA_ONLINEDataSetKajianPerubahan.xsc">
+      <DependentUpon>B7_CAPA_ONLINEDataSetKajianPerubahan.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSource\B7_CAPA_ONLINEDataSetKajianPerubahan.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>B7_CAPA_ONLINEDataSetKajianPerubahan1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSource\B7_CAPA_ONLINEDataSetKajianPerubahan.xss">
+      <DependentUpon>B7_CAPA_ONLINEDataSetKajianPerubahan.xsd</DependentUpon>
+    </Content>
+    <Content Include="DataSource\B7_CAPA_ONLINEDataSetPerbaikan.xsc">
+      <DependentUpon>B7_CAPA_ONLINEDataSetPerbaikan.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSource\B7_CAPA_ONLINEDataSetPerbaikan.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>B7_CAPA_ONLINEDataSetPerbaikan1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSource\B7_CAPA_ONLINEDataSetPerbaikan.xss">
+      <DependentUpon>B7_CAPA_ONLINEDataSetPerbaikan.xsd</DependentUpon>
+    </Content>
     <None Include="DataSource\B7_CAPA_ONLINEDataSetVerifikasi.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>B7_CAPA_ONLINEDataSetVerifikasi.Designer.cs</LastGenOutput>
