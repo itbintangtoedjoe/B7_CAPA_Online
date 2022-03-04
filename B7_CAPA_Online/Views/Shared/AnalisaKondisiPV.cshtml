@@ -69,7 +69,7 @@
         $('#Tbl_Analisa').empty();
 
         $.ajax({
-            url: '/PIC/GetDataPIC',
+            url: '../PIC/GetDataPIC',
             type: 'post',
             data: JSON.stringify({
                 Option: 2,
@@ -130,7 +130,7 @@
     var isHide = false;
     function retrieveDataPV() {
         $.ajax({
-            url: '/PIC/GetDataPIC',
+            url: '../PIC/GetDataPIC',
             type: 'post',
             data: JSON.stringify({
                 Option: 6,
@@ -179,7 +179,7 @@
     }
     function retrieveData2PV() {
         $.ajax({
-            url: '/PIC/GetDataPIC',
+            url: '../PIC/GetDataPIC',
             type: 'post',
             data: JSON.stringify({
                 Option: 8,

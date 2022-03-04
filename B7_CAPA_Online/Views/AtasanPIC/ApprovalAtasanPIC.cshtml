@@ -81,7 +81,7 @@
     var CurrentStatsID = 2;
     function checkStatusCAPA() {
         $.ajax({
-            url: '/PIC/CheckStatusCAPA',
+            url: '../PIC/CheckStatusCAPA',
             type: 'post',
             data: JSON.stringify({
                 Model: {
@@ -164,7 +164,7 @@
 
         //Request CAPA Details
         $('#btn_Request').click(function () {
-            window.open('/Koordinator/CreateCAPA?NoCAPA=' + $('#input_NoCAPA').val());
+            window.open('../Koordinator/CreateCAPA?NoCAPA=' + $('#input_NoCAPA').val());
         });
 
         //Radio button on/off
