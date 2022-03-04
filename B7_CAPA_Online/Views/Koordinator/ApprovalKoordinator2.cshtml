@@ -124,10 +124,10 @@
                         <div class="col-md-2">
                             <button type="button" class="btn btn-primary" id="btn_Submit_Evaluator">Submit To Evaluator</button>
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-2">
                             <button type="button" class="btn btn-primary" id="btn_Reject" style="background-color:red;">Reject CAPA</button>
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-2">
                             <button type="button" class="btn btn-primary" id="btn_Cancel" style="background-color:orange;">Cancel CAPA</button>
                         </div>
                     </div>
@@ -142,7 +142,7 @@
 
 </div>
 <script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
-
+<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
 <script>
 
     var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
@@ -390,7 +390,13 @@
                 success: function (data) {
                     var result = JSON.parse(data);
                     if (result[0].Stat == "Valid") {
-                        Swal.fire("Success!", "Add Berhasil", "success");
+                        Swal.fire({
+                            title: "Add Berhasil!",
+                            text: "Evaluator berhasil ditambahkan",
+                            type: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                         GetEvalTableList();
                         $("#EvalList_DDL").val("-");
                         $('#Eva_Plant_DDL').val("-");
@@ -401,7 +407,13 @@
                         $("#EvalList_DDL").attr("disabled",true);
                     }
                     else {
-                        Swal.fire("Error!", "Evaluator Utama sudah Ada", "error");
+                        Swal.fire({
+                            title: "Error!",
+                            text: "Evaluator Utama sudah Ada",
+                            type: "error",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                     }
                 },
                 error: function (errormessage) {
@@ -510,7 +522,13 @@
         }
         var row = $('#Tbl_Eval').DataTable();
         if (row.data().count() == 0) {
-            Swal.fire("Error!", "Silahkan pilih Evaluator terlebih dahulu!", "error");
+            Swal.fire({
+                title: "Error!",
+                text: "Silahkan pilih Evaluator terlebih dahulu!",
+                type: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
         }
         else {
             $.ajax({
@@ -523,10 +541,23 @@
                     var result = JSON.parse(data);
                     $.unblockUI();
                     if (result[0].Stat == "Invalid") {
-                        Swal.fire("Error!", "Silahkan pilih Evaluator Utama terlebih dahulu!", "error");
+                        Swal.fire({
+                            title: "Error!",
+                            text: "Silahkan pilih Evaluator Utama terlebih dahulu!",
+                            type: "error",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                     }
                     else {
-                        Swal.fire("Success!", "Submit Berhasil", "success");
+
+                        Swal.fire({
+                            title: "Success!",
+                            text: "Submit Berhasil",
+                            type: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                         GetDisabledEvalTableList();
                         $('#btn_Submit_Evaluator').attr('disabled', true);
                         $('#Add_Eval').attr('disabled', true);
@@ -596,11 +627,13 @@
                     success: function (data) {
                         GetEvaList();
                         GetEvalTableList();
-                        Swal.fire(
-                            'Deleted!',
-                            'Evaluator Berhasil Di Hapus!',
-                            'success'
-                        )
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Evaluator Berhasil Di Hapus!",
+                            type: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
 
                     },
                     error: function (errormessage) {
@@ -652,11 +685,13 @@
                             $('#EvalList_DDL').attr('disabled', true);
                             $('#Eva_Plant_DDL').attr('disabled', true);
                             $('#Trigger_CAPA').attr('disabled', true);
-                            Swal.fire(
-                                'Rejected!',
-                                'Reject Berhasil',
-                                'success'
-                            )
+                            Swal.fire({
+                                title: "Rejected!",
+                                text: "Reject Berhasil",
+                                type: "success",
+                                showConfirmButton: false,
+                                timer: 1000,
+                            })
                             $.ajax({
                                 url: 'SubmitApproval',
                                 type: 'post',
@@ -681,12 +716,13 @@
                     });
                 }
                 else {
-
-                    Swal.fire(
-                        'Error!',
-                        'Alasan tidak boleh kosong.',
-                        'error'
-                    )
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Alasan tidak boleh kosong.",
+                        type: "error",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    })
                 }
 
 
@@ -739,11 +775,15 @@
                             $('#EvalList_DDL').attr('disabled', true);
                             $('#Eva_Plant_DDL').attr('disabled', true);
                             $('#Trigger_CAPA').attr('disabled', true);
-                            Swal.fire(
-                                'Cancelled!',
-                                'Cancel Berhasil',
-                                'success'
-                            )
+
+                            Swal.fire({
+                                title: "Cancelled!",
+                                text: "Cancel Berhasil",
+                                type: "success",
+                                showConfirmButton: false,
+                                timer: 1000,
+                            })
+                          
                             $.ajax({
                                 url: 'SubmitApproval',
                                 type: 'post',
@@ -768,12 +808,14 @@
                     });
                 }
                 else {
-
-                    Swal.fire(
-                        'Error!',
-                        'Alasan tidak boleh kosong.',
-                        'error'
-                    )
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Alasan tidak boleh kosong.",
+                        type: "error",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    })
+                   
                 }
 
 

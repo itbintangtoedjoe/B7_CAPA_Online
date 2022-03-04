@@ -355,16 +355,19 @@
 
 <script>
     var nocapa = $('#QS_NoCAPA').val();
+    var namaUser = '@Request.RequestContext.HttpContext.Session["NamaUser"]';
     var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
     $('#input_NoCAPA').val(nocapa);
     var status;
     var chckboxstatus = [];
     $(document).ready(function () {
+        $('#input_Requestor').val(namaUser);
+        $('#input_Departemen').val('@Request.RequestContext.HttpContext.Session["Departemen"]');
         $('#ViewAllBukti').click(function () {
-            window.open('../Koordinator/VerifikasiPelaksanaCAPA?NoCAPA=' + nocapa)
+            window.open('../Koordinator/VerifikasiPelaksanaCAPA?NoCAPA=' + nocapa+'&Type=View')
         })
         $('#ViewRentang').click(function () {
-            window.open('../Evaluator/ReviewCAPA?NoCAPA=' + nocapa);
+            window.open('../Evaluator/ReviewCAPA?NoCAPA=' + nocapa+'&StatsID=8');
         })
         getDDL();
         TahunDDL();
@@ -459,7 +462,14 @@
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
                         GetAddedCCC();
-                        Swal.fire("Success!", "Transaction berhasil di Insert", "success");
+
+                        Swal.fire({
+                            title: "Success!",
+                            text: "Transaction berhasil di Insert",
+                            type: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                     },
                     error: function (ex) {
                         alert(JSON.stringify(ex));
@@ -505,7 +515,13 @@
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
                         GetAddedDeviation();
-                        Swal.fire("Success!", "Transaction berhasil di Insert", "success");
+                        Swal.fire({
+                            title: "Success!",
+                            text: "Transaction berhasil di Insert",
+                            type: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                     },
                     error: function (ex) {
                         alert(JSON.stringify(ex));
@@ -783,11 +799,13 @@
                     data: JSON.stringify(dto1),
                     contentType: "application/json;charset=utf-8",
                     success: function (data) {
-                        Swal.fire(
-                            'Deleted!',
-                            'Lampiran Berhasil Di Hapus!',
-                            'success'
-                        )
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Lampiran Berhasil Di Hapus!",
+                            type: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                         GetLampiran();
                     },
                     error: function (errormessage) {
@@ -819,11 +837,24 @@
                     var result = JSON.parse(data);
                     if (result[0].Validate == "Invalid") {
 
-                        Swal.fire("Error!", "File Sudah ada!", "error");
+                        Swal.fire({
+                            title: "Error!",
+                            text: "File Sudah ada!",
+                            type: "error",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
+
                     }
                     else {
                         GetLampiran();
-                        Swal.fire("Success!", "Upload Berhasil!", "success");
+                        Swal.fire({
+                            title: "Success!",
+                            text: "Upload Berhasil!",
+                            type: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                     }
                 },
                 error: function (errormessage) {
@@ -1033,11 +1064,14 @@
                     data: JSON.stringify(dto1),
                     contentType: "application/json;charset=utf-8",
                     success: function (data) {
-                        Swal.fire(
-                            'Deleted!',
-                            'Penyimpangan Berhasil Di Hapus!',
-                            'success'
-                        )
+
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Penyimpangan Berhasil Di Hapus!",
+                            type: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                         GetAddedDeviation();
                     },
                     error: function (errormessage) {
@@ -1128,11 +1162,14 @@
                     data: JSON.stringify(dto1),
                     contentType: "application/json;charset=utf-8",
                     success: function (data) {
-                        Swal.fire(
-                            'Deleted!',
-                            'Penyimpangan Berhasil Di Hapus!',
-                            'success'
-                        )
+
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "CCC Berhasil Di Hapus!",
+                            type: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                         GetAddedCCC();
                     },
                     error: function (errormessage) {
@@ -1279,7 +1316,15 @@
                     dataType: 'json',
                     contentType: "application/json;charset=utf-8",
                     success: function (data) {
-                        Swal.fire("Success!", "Submit Berhasil!", "success");
+
+                        Swal.fire({
+                            title: "Success!",
+                            text: "Submit Berhasil!",
+                            type: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
+                       
                         $.ajax({
                             url: 'SubmitApproval',
                             type: 'post',
@@ -1306,7 +1351,13 @@
                 });
         }
         else {
-            Swal.fire("Error!", "Silahkan Jawab Semua Pertanyaan terlebih dahulu!", "error");
+            Swal.fire({
+                title: "Error!",
+                text: "Silahkan Jawab Semua Pertanyaan terlebih dahulu!",
+                type: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
         }
 
 
