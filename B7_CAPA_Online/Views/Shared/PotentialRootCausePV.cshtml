@@ -78,7 +78,7 @@
         $('#WAH_DDL').change(function () {
             $('#WhyParent_DDL').empty();
             $.ajax({
-                url: '/PIC/GetDataPIC',
+                url: '../PIC/GetDataPIC',
                 type: 'post',
                 data: JSON.stringify({
                     Option: 4,

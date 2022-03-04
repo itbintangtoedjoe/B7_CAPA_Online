@@ -81,7 +81,7 @@
                             <tbody id="Table_RentangPencegahan">
                             </tbody>
                         </table>
-                        <button type="button" class="btn btn-primary" id="btn_Submit">Submit</button>
+                        <button type="button" class="btn btn-primary" id="btn_Submit" hidden>Submit</button>
                     </div>
                 </div>
             </div>
@@ -98,7 +98,7 @@
 
     function checkStatusCAPA() {
         $.ajax({
-            url: '/AtasanPIC/SubmitApproval',
+            url: '../AtasanPIC/SubmitApproval',
             type: 'post',
             data: JSON.stringify({
                 Model: {
@@ -127,7 +127,7 @@
 
     function checkEvaluatorCAPA() {
         $.ajax({
-            url: '/AtasanPIC/SubmitApproval',
+            url: '../AtasanPIC/SubmitApproval',
             type: 'post',
             data: JSON.stringify({
                 Model: {
@@ -202,7 +202,7 @@
                     "lengthChange": true,
                     "searching": false,
                     "processing": true,
-                    "select": true,
+                    "selecRequest": true,
                     "bDestroy": true,
                     "scrollCollapse": true,
                 }
@@ -224,14 +224,14 @@
             Model: dictlist
         }
         $.ajax({
-            url: '/Koordinator/DynamicController',
+            url: '../Koordinator/DynamicController',
             type: 'post',
             dataType: 'json',
             data: JSON.stringify({
                 Models: dto,
                 spname: "[dbo].[SP_SHOW_DDL]"
             }),
-            contentType: 'application/json; charset=utf-8',
+            contentType: 'applicRequesttQueryStringueryStringtringion/json; charset=utf-8',
             success: function (data) {
                 $('#RentangPerbaikan_DDL').empty();
                 $('#RentangPencegahan_DDL').empty();
@@ -252,7 +252,7 @@
             NO_CAPA: $('#input_NoCAPA').val(),
             Option: 5,
             CurrentStatusID: CurrentStatsID,
-            Create_By : '@Request.RequestContext.HttpContext.Session["NIK"]'
+            Create_By: ('@Request.QueryString.Get("StatsID")' === '8') ? ("") : ('@Request.RequestContext.HttpContext.Session["NIK"]')
         }
         var dto1 = {
             Model: dictlist
@@ -370,7 +370,7 @@
             NO_CAPA: $('#input_NoCAPA').val(),
             Option: 6,
             CurrentStatusID: CurrentStatsID,
-            Create_By : '@Request.RequestContext.HttpContext.Session["NIK"]'
+            Create_By: ('@Request.QueryString.Get("StatsID")' === '8') ? ("") : ('@Request.RequestContext.HttpContext.Session["NIK"]')
         }
         var dto1 = {
             Model: dictlist
@@ -483,7 +483,7 @@
         var rentang = $("TD", rows).eq(4).find("select").val();
         var data = $('#Tbl_Rentang' + $(event).attr("id")).DataTable().row(rows).data();
         $.ajax({
-            url: '/AtasanPIC/SubmitApproval',
+            url: '../AtasanPIC/SubmitApproval',
             type: 'post',
             data: JSON.stringify({
                 Model: {
@@ -524,7 +524,7 @@
         var data = $('#Tbl_Rentang' + $(event).attr("id")).DataTable().row(rows).data();
 
         $.ajax({
-            url: '/AtasanPIC/SubmitApproval',
+            url: '../AtasanPIC/SubmitApproval',
             type: 'post',
             data: JSON.stringify({
                 Model: {
@@ -585,10 +585,18 @@
     }*@
 
     $(document).ready(function () {
-        getDDL();
-        checkStatusCAPA();
+           //console.log('@Request.QueryString.Get("StatsID")' != '8')
+        if ('@Request.QueryString.Get("StatsID")' != '8') {
+            getDDL();
+            checkStatusCAPA();
+            checkEvaluatorCAPA();
+        } else {
+            GetTindakanPerbaikan();
+            GetTindakanPencegahan();
+        }
 
-        $(document).on("click", "#Tbl_RentangPerbaikan button.approve", function () {          
+
+        $(document).on("click", "#Tbl_RentangPerbaikan button.approve", function () {
             var option = 7 // option in SP_APPROVAL_CAPA
             Swal.fire({
                 title: 'Apakah anda yakin?',
@@ -680,12 +688,12 @@
         //    Addition(this, option);
         //});
 
-        checkEvaluatorCAPA();
+
 
         $('#btn_Submit').click(function () {
             $.blockUI();
             $.ajax({
-                url: '/AtasanPIC/SubmitApproval',
+                url: '../AtasanPIC/SubmitApproval',
                 type: 'post',
                 dataType: 'json',
                 data: JSON.stringify({
@@ -709,7 +717,7 @@
                             showConfirmButton : false
                         }).then(function (result) {
                             $.unblockUI();
-                            window.location.href = '/PendingTask/TaskList';
+                            window.location.href = '../PendingTask/TaskList';
                         });
                     }
                     else {

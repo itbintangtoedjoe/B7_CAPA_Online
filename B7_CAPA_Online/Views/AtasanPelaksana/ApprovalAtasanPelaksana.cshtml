@@ -98,7 +98,7 @@
     var CurrentStatsID = 3;
     function checkStatusCAPA() {
         $.ajax({
-            url: '/PIC/CheckStatusCAPA',
+            url: '../PIC/CheckStatusCAPA',
             type: 'post',
             data: JSON.stringify({
                 Model: {
@@ -134,7 +134,7 @@
     function getSuperiorNIK() {
         var NIK = '@Request.RequestContext.HttpContext.Session["NIK"]';
         $.ajax({
-            url: '/AtasanPIC/SubmitApproval',
+            url: '../AtasanPIC/SubmitApproval',
             type: 'post',
             data: JSON.stringify({
                 Model: {
@@ -207,7 +207,7 @@
         });
 
         $('#btn_Request').click(function () {
-            window.open('/Koordinator/CreateCAPA?NoCAPA=' + $('#input_NoCAPA').val());
+            window.open('../Koordinator/CreateCAPA?NoCAPA=' + $('#input_NoCAPA').val());
         });
 
     });
