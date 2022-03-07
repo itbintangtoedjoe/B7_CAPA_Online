@@ -185,7 +185,7 @@
                             <div class="col-md-6">
                                 <label class="m-t-20">Status CAR-PAR</label>
                                 <div class="rounded-button">
-                                    <button type="button" class="btn mb-1 btn-rounded btn-primary disabled" id="StatusBadge" style="pointer-events: none">Closed</button>
+                                    <button type="button" class="btn mb-1 btn-rounded btn-success disabled" id="StatusBadge" style="pointer-events: none">Closed</button>
                                 </div>
                             </div>
                         </div>
@@ -362,7 +362,7 @@
 
     function checkStatusCAPA() {
         $.ajax({
-            url: '/PIC/CheckStatusCAPA',
+            url: '../PIC/CheckStatusCAPA',
             type: 'post',
             data: JSON.stringify({
                 Model: {
@@ -373,7 +373,7 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 var result = JSON.parse(data)[0];
                 var valid = (result.STATUS_ID == CurrentStatsID) ? (true) : (false); // jika status CAPA = 2 maka, hide = false , sebaliknya.
                 if (!valid) //Jika hide true maka di hidden.
@@ -392,11 +392,11 @@
         CCCTable();
         LampiranTable();
         $('#btn_ViewBukti').click(function () {
-            window.open('/Evaluator/ViewBukti?NoCAPA=' + $('#input_NoCAPA').val());
+            window.open('../Koordinator/VerifikasiPelaksanaCAPA?NoCAPA=' + $('#input_NoCAPA').val() + '&Type=View');
         });
 
         $('#btn_ViewCAPA').click(function () {
-            window.open('/Evaluator/ViewCAPA?NoCAPA=' + $('#input_NoCAPA').val());
+            window.open('../Koordinator/CreateCAPA?NoCAPA=' + $('#input_NoCAPA').val());
         });
 
         $('#btn_Submit').click(function () {
@@ -410,7 +410,7 @@
             }
             
             $.ajax({
-                url: '/AtasanPIC/SubmitApproval',
+                url: '../AtasanPIC/SubmitApproval',
                 type: 'post',
                 dataType: 'json',
                 data: JSON.stringify({
@@ -439,11 +439,12 @@
                         title: 'Success!',
                         text: "Berhasil di submit.",
                         type: 'success',
+                        showConfirmButton: false,
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'Yes'
                     }).then((result) => {
                         if (result.value) {
-                            window.location.href = '/PendingTask/TaskList';
+                            window.location.href = '../PendingTask/TaskList';
                         }
                     })
 
@@ -462,13 +463,13 @@
         $('input[name="Efektivitas"]').click(function () {
             if ($('input[name="Efektivitas"]:checked').val() == 'Efektif') {
                 $("#Div_StatusCARPAR").prop('hidden', false);
-                $('#StatusBadge').removeClass(['btn-primary', 'btn-danger']).addClass('btn-primary');
+                $('#StatusBadge').removeClass(['btn-success', 'btn-danger']).addClass('btn-success');
                 $('#StatusBadge').text("Closed");
                 countNo = 0;
                 countYes++;
             } else {
                 $("#Div_StatusCARPAR").prop('hidden', false);
-                $('#StatusBadge').removeClass(['btn-primary', 'btn-danger']).addClass('btn-danger');
+                $('#StatusBadge').removeClass(['btn-success', 'btn-danger']).addClass('btn-danger');
                 $('#StatusBadge').text("Closed with Initiate New CAPA");
                 countYes = 0;
                 countNo++;
@@ -478,7 +479,7 @@
                 countNo = 0;
                 $('input[name="Efektivitas"]').prop("checked", false);
                 $("#Div_StatusCARPAR").prop('hidden', true);
-                $('#StatusBadge').removeClass(['btn-primary', 'btn-danger']);
+                $('#StatusBadge').removeClass(['btn-success', 'btn-danger']);
             }
 
         });

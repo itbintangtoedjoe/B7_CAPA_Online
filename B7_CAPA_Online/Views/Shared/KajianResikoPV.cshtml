@@ -387,7 +387,7 @@
 
     function KajianResikoDDLPV() {
         $.ajax({
-            url: '/PIC/GetDataPIC',
+            url: '../PIC/GetDataPIC',
             type: 'post',
             data: JSON.stringify({
                 Option: 10,
@@ -414,7 +414,7 @@
 
     function TableKajianPV() {
         $.ajax({
-            url: '/PIC/GetKajianResiko',
+            url: '../PIC/GetKajianResiko',
             type: 'post',
             data: JSON.stringify({
                 Model: {
@@ -572,9 +572,7 @@
         else
             return "Very High";
     }
-
     
-
     function getDataTindakan(data) {
         return objTindakan = data;
     }// refer to KajianResikoDDL();
@@ -637,7 +635,7 @@
         $('#RootCause_KajianResikoDDL').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
 
         $('#btn_Load').click(function () {
-            console.log(objTindakan);
+            //console.log(objTindakan);
         });
       
 
@@ -671,14 +669,12 @@
         $('#btn_AddKajian').click(function () {          
             recTindakan();
             //console.log(values);
-        });
-
-       
+        });       
 
         $("#btn_Submit").click(function () {
             //window.location.replace('/PendingTask/TaskList');
             $.ajax({
-                url: '/PIC/SubmitToAtasanPIC',
+                url: '../PIC/SubmitToAtasanPIC',
                 type: 'post',
                 dataType: 'json',
                 data: JSON.stringify({
@@ -724,7 +720,7 @@
                             icon
                         ).then(function (result) {
                             if (result.value) {
-                                window.location.href = '/PendingTask/TaskList';
+                                window.location.href = '../PendingTask/TaskList';
                             }
                         });
                         return false;

@@ -32,7 +32,7 @@
                                                 <th>Action</th>
                                                 <th>Nama Vendor</th>
                                                 <th>Tipe</th>
-                                                <th>Atasan</th>
+                                                <th>Superior</th>
                                                 @*<th>Created By</th>
                                                     <th>Creation Date</th>
                                                     <th>Updated By</th>*@
@@ -46,7 +46,7 @@
                                                     <td><button class="btn btn-primary" onclick="Edit(@vendor.ID)">Edit</button><button class="btn btn-danger" onclick="Delete(@vendor.ID)">Delete</button></td>
                                                     <td>@vendor.VendorName</td>
                                                     <td>@vendor.VendorType</td>
-                                                    <td>@vendor.SuperiorGroupName</td>
+                                                    <td>@vendor.SuperiorName</td>
                                                     @*<td>@vendor.CreatedBy</td>
                                                         <td>@vendor.CreationDate.ToString("dd MMM yyyy HH:mm")</td>
                                                         <td>@vendor.UpdatedBy</td>*@
