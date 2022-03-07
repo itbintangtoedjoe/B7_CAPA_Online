@@ -205,26 +205,26 @@
 
         if (dataRow.STATUS_ID === 1) {
             // PIC
-            window.open("/PIC/FormCAPA?NoCAPA=" + dataRow.NO_CAPA);
+            window.open("../PIC/FormCAPA?NoCAPA=" + dataRow.NO_CAPA);
         } else if (dataRow.STATUS_ID === 2) {
-            window.open("/AtasanPIC/ApprovalAtasanPIC?NoCAPA=" + dataRow.NO_CAPA + "&StatsID=" + dataRow.STATUS_ID);
+            window.open("../AtasanPIC/ApprovalAtasanPIC?NoCAPA=" + dataRow.NO_CAPA + "&StatsID=" + dataRow.STATUS_ID);
         } else if (dataRow.STATUS_ID === 3) {
-            window.open("/AtasanPelaksana/ApprovalAtasanPelaksana?NoCAPA=" + dataRow.NO_CAPA + "&StatsID=" + dataRow.STATUS_ID);
+            window.open("../AtasanPelaksana/ApprovalAtasanPelaksana?NoCAPA=" + dataRow.NO_CAPA + "&StatsID=" + dataRow.STATUS_ID);
         } else if (dataRow.STATUS_ID === 4) {
-            window.open("/Koordinator/ApprovalKoordinator2?NoCAPA=" + dataRow.NO_CAPA + "&StatsID=" + dataRow.STATUS_ID);
+            window.open("../Koordinator/ApprovalKoordinator2?NoCAPA=" + dataRow.NO_CAPA + "&StatsID=" + dataRow.STATUS_ID);
         } else if (dataRow.STATUS_ID === 5) {
-            window.open("/Evaluator/ReviewCAPA?NoCAPA=" + dataRow.NO_CAPA + "&StatsID=" + dataRow.STATUS_ID);
+            window.open("../Evaluator/ReviewCAPA?NoCAPA=" + dataRow.NO_CAPA + "&StatsID=" + dataRow.STATUS_ID);
         } else if (dataRow.STATUS_ID === 6) {
             //From CAPA
             /*if (dataRow.pending == NIK) {*/
-                window.open("/Pelaksana/PelaksanaCAPA?NoCAPA=" + dataRow.NO_CAPA + "&PelaksanaID=" + NIK);
+                window.open("../Pelaksana/PelaksanaCAPA?NoCAPA=" + dataRow.NO_CAPA + "&PelaksanaID=" + NIK);
             //}
         } else if (dataRow.STATUS_ID === 7) {
-            window.open("/Koordinator/VerifikasiPelaksanaCAPA?NoCAPA=" + dataRow.NO_CAPA);
+            window.open("../Koordinator/VerifikasiPelaksanaCAPA?NoCAPA=" + dataRow.NO_CAPA);
         } else if (dataRow.STATUS_ID === 8) {
-            window.open("/Koordinator/PenilaianEfektivitas?NoCAPA=" + dataRow.NO_CAPA + "&status=" + dataRow.STATUS_ID);
+            window.open("../Koordinator/PenilaianEfektivitas?NoCAPA=" + dataRow.NO_CAPA + "&status=" + dataRow.STATUS_ID);
         } else if (dataRow.STATUS_ID === 9) {
-            window.open("/Evaluator/KonfirmasiEfektivitas?NoCAPA=" + dataRow.NO_CAPA + "&status=" + dataRow.STATUS_ID);
+            window.open("../Evaluator/KonfirmasiEfektivitas?NoCAPA=" + dataRow.NO_CAPA + "&status=" + dataRow.STATUS_ID);
         } else if (dataRow.STATUS_ID === 10 ) {
 
         }         
