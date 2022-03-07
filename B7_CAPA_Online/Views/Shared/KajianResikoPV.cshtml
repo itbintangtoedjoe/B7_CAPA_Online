@@ -15,55 +15,31 @@
                         <form>
                             <div class="container">
                                 <div class="row form-group col-md-12">
-                                    <div class="col-md-6" >
+                                    <div class="col-md-8">
                                         <label for="TxtPotensiKegagalan" class="col-form-label">Potensi Kegagalan / Penyimpangan yang mungkin terjadi ketika tindakan perbaikan/pencegahan diterapkan</label>
                                         <div class="input-group">
-                                            <textarea type="text" class="form-control" name="TxtPotensiKegagalan" id="TxtPotensiKegagalan" z-index = 1000></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row form-group col-md-12">
-                                    <div class="col-md-6">
-                                        <label for="TxtDampak" class="col-form-label">Dampak</label>
-                                        <div class="input-group">
-                                            <textarea type="text" class="form-control" name="TxtDampak" id="TxtDampak" z-index = 900 ></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="TxtSpesifikasi" class="col-form-label">Spesifikasi / Syarat</label>
-                                        <div class="input-group">
-                                            <textarea type="text" class="form-control" name="TxtSpesifikasi" id="TxtSpesifikasi" z-index = 800></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row form-group col-md-12">
-                                    <div class="col-md-6">
-                                        <label for="TxtPenyebabPotensial" class="col-form-label">Penyebab Potensial</label>
-                                        <div class="input-group">
-                                            <textarea type="text" class="form-control" name="TxtPenyebabPotensial" id="TxtPenyebabPotensial" z-index = 700></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="TxtMPenyebabPotensial" class="col-form-label">Mengatasi Penyebab Potensial</label>
-                                        <div class="input-group">
-                                            <textarea type="text" class="form-control" name="TxtMPenyebabPotensial" id="TxtMPenyebabPotensial"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row form-group col-md-12">
-                                    <div class="col-md-6">
-                                        <label for="TxtMPotensi_KLMD" class="col-form-label">Mencegah Potensi Kegagalan Lolos Menimbulkan Dampak</label>
-                                        <div class="input-group">
-                                            <textarea type="text" class="form-control" name="TxtMPotensi_KLMD" id="TxtMPotensi_KLMD"></textarea>
+                                            <textarea type="text" class="form-control" name="TxtPotensiKegagalan" id="TxtPotensiKegagalan"></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row form-group col-md-12">
                                     <div class="col-md-4">
+                                        <label for="TxtSpesifikasi" class="col-form-label">Spesifikasi / Syarat</label>
+                                        <div class="input-group">
+                                            <textarea type="text" class="form-control" name="TxtSpesifikasi" id="TxtSpesifikasi"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="TxtDampak" class="col-form-label">Dampak</label>
+                                        <div class="input-group">
+                                            <textarea type="text" class="form-control" name="TxtDampak" id="TxtDampak"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
                                         <label for="Severity_DDL" class="col-form-label">Severity</label>
                                         <div class="input-group">
                                             <select class="form-control select2" id="Severity_DDL" required>
-                                                <option value="-">*Pilih*</option>
+                                                <option selected disabled value="-">*Pilih*</option>
                                                 <option value="1">1</option>
                                                 <option value="4">4</option>
                                                 <option value="7">7</option>
@@ -71,11 +47,25 @@
                                             </select>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row form-group col-md-12">
+                                    <div class="col-md-4">
+                                        <label for="TxtPenyebabPotensial" class="col-form-label">Penyebab Potensial</label>
+                                        <div class="input-group">
+                                            <textarea type="text" class="form-control" name="TxtPenyebabPotensial" id="TxtPenyebabPotensial"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="TxtMPenyebabPotensial" class="col-form-label">Mengatasi Penyebab Potensial</label>
+                                        <div class="input-group">
+                                            <textarea type="text" class="form-control" name="TxtMPenyebabPotensial" id="TxtMPenyebabPotensial"></textarea>
+                                        </div>
+                                    </div>
                                     <div class="col-md-4">
                                         <label for="Likelihood_DDL" class="col-form-label">Likelihood</label>
                                         <div class="input-group">
                                             <select class="form-control select2" id="Likelihood_DDL" required>
-                                                <option value="-">*Pilih*</option>
+                                                <option selected disabled value="-">*Pilih*</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="4">4</option>
@@ -83,11 +73,19 @@
                                             </select>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row form-group col-md-12">
+                                    <div class="col-md-8">
+                                        <label for="TxtMPotensi_KLMD" class="col-form-label">Mencegah Potensi Kegagalan Lolos Menimbulkan Dampak</label>
+                                        <div class="input-group">
+                                            <textarea type="text" class="form-control" name="TxtMPotensi_KLMD" id="TxtMPotensi_KLMD"></textarea>
+                                        </div>
+                                    </div>
                                     <div class="col-md-4">
                                         <label for="Detectability_DDL" class="col-form-label">Detectability</label>
                                         <div class="input-group">
                                             <select class="form-control select2" id="Detectability_DDL" required>
-                                                <option value="-">*Pilih*</option>
+                                                <option selected disabled value="-">*Pilih*</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -96,6 +94,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                @*<div class="row form-group col-md-12">
+
+                                    </div>*@
                                 <div class="row form-group col-md-12">
                                     <div class="form-group col-md-6">
                                         <label for="TxtRPN" class="col-form-label">RPN</label>
@@ -116,7 +117,7 @@
                                     <label for="Target_DDL" class="col-form-label">Target</label>
                                     <div class="input-group">
                                         <select class="form-control select2" id="Target_DDL" required>
-                                            <option value="">*Pilih*</option>
+                                            <option selected disabled value="">*Pilih*</option>
                                             <option value="Low">Low</option>
                                             <option value="Medium">Medium</option>
                                         </select>
@@ -130,10 +131,39 @@
                                             <textarea type="text" class="form-control" name="TxtMPotensi_K" id="TxtMPotensi_K"></textarea>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-4">
+                                        <label for="Severity2_DDL" class="col-form-label">Severity</label>
+                                        <div class="input-group">
+                                            <select class="form-control select2" id="Severity2_DDL" required>
+                                                <option selected disabled value="-">*Pilih*</option>
+                                                <option value="1">1</option>
+                                                <option value="4">4</option>
+                                                <option value="7">7</option>
+                                                <option value="10">10</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group col-md-12">
                                     <div class="col-md-6">
                                         <label for="TxtMPenyebab_P" class="col-form-label">Perbaikan untuk mengatasi Penyebab Potensial</label>
                                         <div class="input-group">
                                             <textarea type="text" class="form-control" name="TxtMPenyebab_P" id="TxtMPenyebab_P"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="Likelihood2_DDL" class="col-form-label">Likelihood</label>
+                                        <div class="input-group">
+                                            <select class="form-control select2" id="Likelihood2_DDL" required>
+                                                <option selected disabled value="-">*Pilih*</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="4">4</option>
+                                                <option value="8">8</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -145,40 +175,12 @@
                                             <textarea type="text" class="form-control" name="TxtDPotensi_K" id="TxtDPotensi_K"></textarea>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="row form-group col-md-12">
-                                    <div class="col-md-4">
-                                        <label for="Severity2_DDL" class="col-form-label">Severity</label>
-                                        <div class="input-group">
-                                            <select class="form-control select2" id="Severity2_DDL" required>
-                                                <option value="-">*Pilih*</option>
-                                                <option value="1">1</option>
-                                                <option value="4">4</option>
-                                                <option value="7">7</option>
-                                                <option value="10">10</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label for="Likelihood2_DDL" class="col-form-label">Likelihood</label>
-                                        <div class="input-group">
-                                            <select class="form-control select2" id="Likelihood2_DDL" required>
-                                                <option value="-">*Pilih*</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="4">4</option>
-                                                <option value="8">8</option>
-                                            </select>
-                                        </div>
-                                    </div>
 
                                     <div class="col-md-4">
                                         <label for="Detectability2_DDL" class="col-form-label">Detectability</label>
                                         <div class="input-group">
                                             <select class="form-control select2" id="Detectability2_DDL" required>
-                                                <option value="-">*Pilih*</option>
+                                                <option selected disabled value="-">*Pilih*</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -204,20 +206,13 @@
                                 </div>
                             </div>
 
-                            <div class="container">
-                                <div class="row form-group col-md-12" id="Div_TxtPIC" hidden>
-                                    <div class="col-md-2">
+                            <div class="container" id="Div_TxtPIC" hidden>
+                                <div class="row form-group col-md-12">
+                                    <div class="col-md-4">
                                         <label for="TxtPIC" class="col-form-label">PIC</label>
                                         <div class="input-group">
                                             <input type="text" id="TxtPICName" name="TxtPICName" class="form-control form-control-sm" readonly>
                                             <input type="text" id="TxtPIC" name="TxtPIC" class="form-control form-control-sm" hidden>
-                                        </div>
-
-                                    </div> 
-                                    <div class="col-md-2">
-                                        <label for="DueDate_Kajian" class="col-form-label">Due Date</label>
-                                        <div class="input-group">
-                                            <input type="date" id="DueDate_Kajian" class="form-control form-control-sm">
                                         </div>
                                     </div>
                                 </div>
@@ -229,8 +224,15 @@
                                             <textarea type="text" class="form-control" name="TxtLainnya" id="TxtLainnya"></textarea>
                                         </div>
                                     </div>
+                                    <div class="col-md-2">
+                                        <label for="DueDate_Kajian" class="col-form-label">Due Date</label>
+                                        <div class="input-group">
+                                            <input type="date" id="DueDate_Kajian" class="form-control form-control-sm">
+                                        </div>
+                                    </div>
                                 </div>
-
+                            </div>
+                            <div class="container">
                                 <div class="form-group col-md-6">
                                     <button type="button" class="btn btn-primary" id="btn_KajianResiko">Tambahkan</button>
                                 </div>
