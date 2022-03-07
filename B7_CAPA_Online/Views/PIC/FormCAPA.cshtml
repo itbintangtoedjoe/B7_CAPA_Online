@@ -356,10 +356,8 @@
 
                 <div class="card" id="Div_RejectReason">
                     <div class="card-body">
-                        <div class="form-group mb-2 col-sm-4">
-                            <h4 class="card-title">Reject Reason</h4>
-                            <textarea class="m-t-20 form-control " id="TxtRejectReason" readonly></textarea>
-                        </div>
+                        <h4 class="card-title">Reject Reason</h4>
+                        <textarea class="m-t-20 form-control " id="TxtRejectReason" readonly></textarea>
                     </div>
                 </div>
 
@@ -474,6 +472,7 @@
                                     <label class="m-t-20">Why Parent<span style="color: red">*</span></label>
                                     <select class="form-control form-control-sm" id="WhyParent_DDL" name="WhyParent_DDL">
                                     </select>
+                                    <input type="text" value="" id="WhyRecordID" disabled hidden />
                                 </div>
                             </div>
                             <div class="row form-group-sm mb-2">
@@ -840,6 +839,11 @@
                                         </tr>*@
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="row form-group col-12" style="float: left;">
+                            @*<div class="col-md-12">*@
+                            <button class="btn mb-1 btn-primary" id="Kamus" onclick="window.open('../Content/Images/SD-QO-QS-1008 Kamus Kriteria Risiko.pdf', '_blank', 'fullscreen=yes'); return false;" style="background-color:orange;">Lihat Kamus Kriteria Resiko</button>
+                            @*</div>*@
                         </div>
                         <div class="row form-group" style="float: left">
                             <div class="col-md-3">
@@ -1337,22 +1341,22 @@
                 success: function (data) {
                     var status = JSON.parse(data);
                     if (status[0].Status_Inserted != 'Tindakan Perbaikan' || status[0].Status_Inserted != 'Tindakan Pencegahan') {
-                        Swal.fire(
-                            'Success',
-                            status[0].Status_Inserted + ' berhasil di-input.',
-                            'success'
-                        ).then((result) => {
-                            if (result.value) {
-                                if (status[0].Status_Inserted == 'Tindakan Pencegahan') {
-                                    retrieveData();
-                                } else {
-                                    retrieveData2();
-                                }
-                                KajianResikoDDL();
-                                RemoveInputField(kategori);
-                                GetTindakanPencegahanPV();
-                                GetTindakanPerbaikanPV();
+                        Swal.fire({
+                            title: 'Success',
+                            text: status[0].Status_Inserted + ' berhasil di-input.',
+                            showConfirmButton: false,
+                            timer: 2000,
+                            type: 'success'
+                        }).then(() => {
+                            if (status[0].Status_Inserted == 'Tindakan Pencegahan') {
+                                retrieveData();
+                            } else {
+                                retrieveData2();
                             }
+                            KajianResikoDDL();
+                            RemoveInputField(kategori);
+                            GetTindakanPencegahanPV();
+                            GetTindakanPerbaikanPV();
                         });
                     }
                 },
@@ -1361,11 +1365,13 @@
                 }
             });
         } else {
-            Swal.fire(
-                'Maaf',
-                'Input tidak boleh kosong.',
-                'warning'
-            )
+            Swal.fire({
+                title: 'Maaf',
+                text: 'Input tidak boleh kosong.',
+                timer: 2000,
+                showConfirmButton: false,
+                type: 'warning'
+            })
         }
     }
 
@@ -1396,7 +1402,7 @@
     var objTindakan;
     function getDataTindakan(data) {
         return objTindakan = data;
-    }// refer to KajianResikoDDL(); 
+    }// refer to KajianResikoDDL();
     //search Tindakan get record_id and Tipe
     var values; //objTindakan filtered.
     function recTindakan(increments) {
@@ -1490,7 +1496,7 @@
                 }
             });
 
-          
+
         });
     }
 
@@ -1616,8 +1622,21 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 $('#WhyParent_DDL').empty();
+
+                $('#WhyParent_DDL').append(' <option selected disabled value="-">*Pilih*</option>');
                 $.each(JSON.parse(data), function (key, value) {
                     $('#WhyParent_DDL').append(new Option(value.WhyDescription, value.WhyDescription));
+                });
+                $('#WhyParent_DDL').change(function () {
+
+                    $.each(JSON.parse(data), function (key, value) {
+                        //console.log(value)
+                        if ($('#WhyParent_DDL').val() == value.WhyDescription) {
+                            $('#WhyRecordID').val(value.RecordID);
+                            return false;
+
+                        }
+                    });
                 });
             },
             error: function (ex) {
@@ -1979,8 +1998,14 @@
                         { "data": "ParentDesc" },
                         { "data": "WhyDescription" },
                         {
-                            "data": null,
-                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onchange=''>Delete</button> "
+                            "data": "DeleteActions",
+                            "render": function (data, type, row, meta) {
+                                if (data != 0) {
+                                    return "<button class='btn btn-danger delete' type='button' name='delete' onchange=''>Delete</button> "
+                                } else {
+                                    return "<button class='btn btn-secondary' type='button' name='delete' onchange='' disabled style='background-color: grey; cursor: not-allowed;'>Delete</button> "
+                                }
+                            }
                         },
                     ],
                     "columnDefs": [
@@ -2093,11 +2118,13 @@
                 addTindakan(dto, kategori);
             }
             else {
-                Swal.fire(
-                    'Maaf',
-                    'Mohon pilih Rootcause terlebih dahulu.',
-                    'error'
-                )
+                Swal.fire({
+                    title: 'Maaf',
+                    text: 'Mohon pilih Rootcause terlebih dahulu.',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    type: 'error'
+                });
             }
 
         });
@@ -2139,11 +2166,13 @@
                 addTindakan(dto, kategori);
             }
             else {
-                Swal.fire(
-                    'Maaf',
-                    'Mohon pilih Rootcause terlebih dahulu.',
-                    'error'
-                )
+                Swal.fire({
+                    title: 'Maaf',
+                    text: 'Mohon pilih Rootcause terlebih dahulu.',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    type: 'error'
+                });
             }
         });
 
@@ -2225,12 +2254,13 @@
                 isParent: ($("#isParent[type='checkbox']:checked").val() == "Yes") ? (1) : (0),
                 WHY_Parent: $('#WhyParent_DDL').val(),
                 WHY: $('#TxtWhy').val(),
+                RecordID: $('#WhyRecordID').val(),
                 SP: "[dbo].[SP_FORM_CAPA]"
             }
 
             $.each(dto, function (key, value) {
                 if (dto.isParent == 1) {
-                    if (key != "isParent" && key != "WHY_Parent") {
+                    if (key != "isParent" && key != "WHY_Parent" && key != "RecordID") {
                         if (value == null || value == "") {
                             isValid = false;
                             return false;
@@ -2256,26 +2286,28 @@
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
                         if (JSON.parse(data)[0].VALID == "VALID") {
-                            Swal.fire(
-                                'Success',
-                                'Data berhasil di-input.',
-                                'success'
-                            ).then((result) => {
-                                if (result.value) {
-                                    $('#TxtWhy').val("");
-                                    status++;
-                                    retrieveData();
-                                    getWhyParent();
-                                    GetAllRoot();
-                                    GetWhyTable();
-                                }
+                            Swal.fire({
+                                title: 'Success',
+                                text: 'Data berhasil di-input.',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                type: 'success'
+                            }).then(() => {
+                                $('#TxtWhy').val("");
+                                status++;
+                                retrieveData();
+                                getWhyParent();
+                                GetAllRoot();
+                                GetWhyTable();
                             })
                         } else {
-                            Swal.fire(
-                                'Failed',
-                                'Data tidak berhasil di-input.',
-                                'error'
-                            )
+                            Swal.fire({
+                                title: 'Failed',
+                                text: 'Data tidak berhasil di-input.',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                type: 'error'
+                            });
                         }
                     },
                     error: function (ex) {
@@ -2322,24 +2354,26 @@
                     success: function (data) {
                         //console.log(data);
                         if (JSON.parse(data)[0].VALID == 'VALID') {
-                            Swal.fire(
-                                'Success',
-                                'Data berhasil di-input.',
-                                'success'
-                            ).then((result) => {
-                                if (result.value) {
-                                    $('#TxtWSBH').val("");
-                                    $('#TxtWAH').val("");
-                                    $('input[name="optradio"]').prop('checked', false);
-                                    getTable(true);
-                                }
-                            })
+                            Swal.fire({
+                                title: 'Success',
+                                text: 'Data berhasil di-input.',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                type: 'success'
+                            }).then(() => {
+                                $('#TxtWSBH').val("");
+                                $('#TxtWAH').val("");
+                                $('input[name="optradio"]').prop('checked', false);
+                                getTable(true);
+                            });
                         } else {
-                            Swal.fire(
-                                'Failed',
-                                'Data tidak berhasil di-input.',
-                                'error'
-                            )
+                            Swal.fire({
+                                title: 'Failed',
+                                text: 'Data tidak berhasil di-input.',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                type: 'error'
+                            });
                         }
                         //$.each(data, function (key, value) {
                         //    if (Object.keys(value)[3] == "Aspect") {
@@ -2398,6 +2432,50 @@
                     alert(JSON.stringify(ex));
                 }
             });
+        });
+
+        $(document).on("click", "#Table_WhyDescription button.delete", function () {
+            // var temp = [];
+
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Why Description yang dihapus tidak dapat dikembalikan lagi.",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                if (result.value) {
+                    var rows = $(this).closest('tr');
+                    var data = $('#Table_WhyDescription').DataTable().row(rows).data();
+                    //console.log(data.RecordID)
+                    var dto = {
+                        Model: {
+                            Option: 20,
+                            No_CAPA: $('#input_NoCAPA').val(),
+                            RecordID: data.RecordID
+                        }
+                    }
+
+                    $.ajax({
+                        url: 'DeleteWhy',
+                        type: 'post',
+                        dataType: 'json',
+                        data: JSON.stringify(dto),
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            GetWhyTable();
+                            return true;
+                        },
+                        error: function (ex) {
+                            alert(JSON.stringify(ex));
+                        }
+                    });
+                }
+            });
+
+
         });
 
         var countYes = 0;
@@ -2527,7 +2605,7 @@
                     DueDate: $('#DueDate_Kajian').val(),
                     Lainnya: $('#TxtLainnya').val(),
                     EmpID: $('#input_Requestor_NIK').val(),
-                    Status : 1
+                    Status: 1
                 }
             }
 
@@ -2741,6 +2819,7 @@
                     }
                 });
             } else {
+                $.unblockUI();
                 Swal.fire(
                     'WARNING',
                     'Masih ada Tindakan yang belum dikaji.',

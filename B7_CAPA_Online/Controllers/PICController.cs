@@ -332,6 +332,12 @@ namespace B7_CAPA_Online.Controllers
 
             return Json(Recipient);
         }
+        public ActionResult DeleteWhy(DynamicModel Param)
+        {
+            DynamicParameters parameters = new DynamicParameters(Param.Model);
+            string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_FORM_CAPA]");
+            return Json(Return);
+        }
 
         #endregion
 

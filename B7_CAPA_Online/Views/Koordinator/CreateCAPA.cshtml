@@ -1013,7 +1013,7 @@
                             var PIC_Name = $('#PIC_DDL').val();
                             $.each(JSON.parse(data), function (key, entry) {
                                 if (PIC_Name == entry.UserVDRName) {
-                                    console.log(entry);
+                                    //console.log(entry);
                                     $('#TxtEmailVendor').val(entry.email);
                                     $('#TxtPICVendor').val(entry.UserVDRName);
                                     $('#TxtVendorSupID').val(entry.SuperiorID);
@@ -1740,7 +1740,7 @@
                 data: JSON.stringify(dto),
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    console.log(data);
+                    //console.log(data);
                     $('#List_Departemen').prop('hidden', false);
                     $("#Tbl_Departemen").empty();
                     $("#AreaPIC_DDL").empty().prop('disabled', false);
