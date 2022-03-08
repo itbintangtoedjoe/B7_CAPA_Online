@@ -178,7 +178,13 @@
                             "data": "REG_ID",
                             "visible": false
                         },
-                        { "data": "NO_CAPA" },
+                        {
+                            "data": "NO_CAPA",
+                            "render": function (nTd, sData, oData, iRow, iCol) {
+
+                                return '<a href = "' + oData.FILE_PATH + '" >' + oData.FILE_NAME + '</a >';
+                            }
+                        },
                         { "data": "KATEGORI_CAPA" },
                         {
                             "data": "DESKRIPSI_MASALAH",
