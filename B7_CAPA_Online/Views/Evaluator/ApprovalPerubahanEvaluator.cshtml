@@ -31,7 +31,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Evaluator</h4>
+                <h4 class="card-title">Atasan Pelaksana</h4>
                 <form>
                     <div class="row">
                         <div class="form-group mb-2 col-sm-3">
@@ -54,7 +54,9 @@
             <div class="card-body">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Tindakan Perbaikan</h4>
+                        <h2>Approval Perubahan</h2>
+                        <hr />
+                        <h4 class="card-title">Tindakan Perbaikan </h4>
                         <div>
                             <table class="table table-hover table-bordered zero-configuration" style="color: black" id="Tbl_Perbaikan">
                                 <thead>
@@ -68,6 +70,7 @@
                                         <th>Due Date</th>
                                         <th>Due Date Revisi</th>
                                         <th>Alasan Perubahan Due Date </th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -75,16 +78,7 @@
                                 </tbody>
                             </table>
                         </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-body">
-                <div class="card">
-                    <div class="card-body">
+                        <br />
                         <h4 class="card-title">Tindakan Pencegahan</h4>
                         <div>
                             <table class="table table-hover table-bordered zero-configuration" style="color: black" id="Tbl_Pencegahan">
@@ -99,6 +93,7 @@
                                         <th>Due Date</th>
                                         <th>Due Date Revisi</th>
                                         <th>Alasan Perubahan Due Date </th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -106,15 +101,116 @@
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
+
+
+        <div class="card">
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-body">
+                        <h2>Approval Penambahan</h2>
+                        <hr />
+                        <h4 class="card-title">Tindakan Perbaikan </h4>
+                        <div>
+                            <table class="table table-hover table-bordered zero-configuration" style="color: black" id="Tbl_PerbaikanPenambahan">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Root Cause</th>
+                                        <th>Nama Pelaksana</th>
+                                        <th>Tindakan Perbaikan</th>
+                                        <th>Due Date</th>
+                                        <th>Rentang</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br />
+                        <h4 class="card-title">Tindakan Pencegahan </h4>
+                        <div>
+                            <div>
+                                <table class="table table-hover table-bordered zero-configuration " cellpadding="0" cellspacing="0" style="color: black" id="Tbl_PencegahanPenambahan">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Root Cause</th>
+                                            <th>Nama Pelaksana</th>
+                                            <th>Tindakan Pencegahan</th>
+                                            <th>Due Date</th>
+                                            <th>Rentang</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-body">
+                        <h2>Approval Pembatalan</h2>
+                        <hr />
+                        <h4 class="card-title">Tindakan Perbaikan Pembatalan</h4>
+                        <div>
+                            <table class="table table-hover table-bordered zero-configuration" style="color: black" id="Tbl_PerbaikanPembatalan">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Root Cause</th>
+                                        <th>Nama Pelaksana</th>
+                                        <th>Tindakan Perbaikan</th>
+                                        <th>Due Date</th>
+                                        <th>Alasan Pembatalan</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br />
+                        <h4 class="card-title">Tindakan Pencegahan Pembatalan</h4>
+                        <div>
+                            <table class="table table-hover table-bordered zero-configuration" style="color: black" id="Tbl_PencegahanPembatalan">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Root Cause</th>
+                                        <th>Nama Pelaksana</th>
+                                        <th>Tindakan Pencegahan</th>
+                                        <th>Due Date</th>
+                                        <th>Alasan Pembatalan</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         @Html.Partial("KajianResikoPV")
 
 
-    </div>
+    </div>  
 </div>
 <!-- #/ container -->
 
@@ -136,8 +232,7 @@
     var laststate = false;
     var valid;
     var referenceID = getQueryStrings()["ReferenceID"];
-    var countPerbaikan;
-    var countPencegahan;
+    var countPerbaikan, countPencegahan, countPerbaikanPenambahan, countPencegahanPenambahan, countPerbaikanPembatalan, countPencegahanPembatalan;
     var count = 0;
     $('#input_NoCAPA').val(noCAPA);
     //function untuk ambil semua query string
@@ -195,6 +290,11 @@
         checkUser();
         GetTindakanPerbaikan();
         GetTindakanPencegahan();
+        GetTindakanPerbaikanPenambahan
+        GetTindakanPencegahanPenambahan();
+        GetTindakanPerbaikanPembatalan();
+        GetTindakanPencegahanPembatalan();
+        
         TableKajian();
         $('#Reject').click(function () {
 
@@ -208,9 +308,14 @@
     });
 
     function CheckPending() {
-        var tableperbaikan = $('#Tbl_Perbaikan').DataTable().data().count();
-        var tablepencegahan = $('#Tbl_Pencegahan').DataTable().data().count();
-        if (tableperbaikan == countPerbaikan && tablepencegahan == countPencegahan && count != 0) {
+        var tableperbaikanperubahan = $('#Tbl_Perbaikan').DataTable().data().count();
+        var tablepencegahanperubahan = $('#Tbl_Pencegahan').DataTable().data().count();
+        var tableperbaikanpenambahan = $('#Tbl_PerbaikanPenambahan').DataTable().data().count();
+        var tablepencegahanpenambahan = $('#Tbl_PencegahanPenambahan').DataTable().data().count();
+        var tableperbaikanpembatalan = $('#Tbl_PerbaikanPembatalan').DataTable().data().count();
+        var tablepencegahanpembatalan = $('#Tbl_PencegahanPembatalan').DataTable().data().count();
+        if (tableperbaikanperubahan == countPerbaikan && tablepencegahanperubahan == countPencegahan && tableperbaikanpenambahan == countPerbaikanPenambahan
+            && tablepencegahanpenambahan == countPencegahanPenambahan && tableperbaikanpembatalan == countPerbaikanPembatalan && tablepencegahanpembatalan == countPencegahanPembatalan && count != 0) {
 
             window.location.href = '../PendingTask/TaskList'
         }
@@ -771,7 +876,1040 @@
         });
     }
 
+    function GetTindakanPerbaikanPenambahan() {
+        var dictlist = {
+            NoCAPA: noCAPA,
+            Empid: nik,
+            Option: 19,
+            Stat: 11,
+            Status_Perbaikan: "Perbaikan Baru"
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: 'DynamicController?spname=SP_FORM_Perubahan',
+            type: 'post',
+            data: JSON.stringify(dto1),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var table = $('#Tbl_PerbaikanPenambahan').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": false,
+                    "searching": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "scrollCollapse": true,
+                    "responsive": true,
+                    "destroy": true,
+                    "columns": [
+                        { "data": "RecordID" },
+                        { "data": "WhyDesc" },
+                        { "data": "PelaksanaName" },
+                        { "data": "Tindakan_Perbaikan" },
+                        { "data": "tanggal" },
+                        {
+                            "data": "Rentang",
+                            "render": function (data, type, row, meta) {
+                                var valrentang = data;
+                                var rentang = $("<select class='form-control' style='padding:0px;'></select>");
+                                for (var i = 1; i <= 12; i++) {
+                                    var option = $("<option />");
+                                    option.html(i + " Bulan");
+                                    option.val(i);
+                                    rentang.append(option);
+                                    if (i == valrentang) {
+                                        option.attr("selected", "selected")
+                                        rentang.attr("disabled", true);
+                                    }
+                                }
+                                return rentang[0].outerHTML;
+                            }
+                        },
 
+                        {
+                            "data": null,
+                            "render": function (data, type, row, meta) {
+                                if (row["IsUtama"] === true && row["Rentang"] === 0) {
+                                    return "<input type='button' class='btn btn-primary' onclick=AddRentangPerbaikan(this) value='Add Rentang'style='background-color:green;'/>";
+                                }
+                                else if (row["IsApproved"] == true) {
+                                    return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                                }
+                                else if (row["Rentang"] != 0) {
+                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikanPenambahan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikanPenambahan(this) value='Reject'style='background-color:red;'/>";
+                                }
+                                else if (row["IsUtama"] === false && row["Rentang"] === 0) {
+                                    return "Waiting Evaluator Mengisi Rentang";
+                                }
+                            }
+
+
+                        }
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": [0],
+                            "visible": false,
+                            "searchable": false
+                        },
+                    ],
+                    "order": [[1, 'asc']],
+                })
+
+                var result = JSON.parse(data);
+                var temp = 0;
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i].IsApproved == true) {
+                        temp += 1;
+                    }
+                }
+                countPerbaikanPenambahan = temp;
+
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+    function GetTindakanPencegahanPenambahan() {
+        var dictlist = {
+            NoCAPA: noCAPA,
+            Empid: nik,
+            Option: 24,
+            Stat: 11
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: 'DynamicController?spname=SP_FORM_Perubahan',
+            type: 'post',
+            data: JSON.stringify(dto1),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var result = JSON.parse(data);
+                var table = $('#Tbl_PencegahanPenambahan').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": false,
+                    "searching": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "scrollCollapse": true,
+                    "destroy": true,
+
+                    "columns": [
+                        { "data": "RecordID" },
+                        { "data": "WhyDesc" },
+                        { "data": "PelaksanaName" },
+                        { "data": "Tindakan_Pencegahan" },
+                        { "data": "tanggal" },
+                        {
+                            "data": "Rentang",
+                            "render": function (data, type, row, meta) {
+                                var valrentang = data;
+                                //var div = $('<div class="dropdown"></div>')
+                                var rentang = $("<select class='form-control' style='padding:0px;'></select>");
+                                for (var i = 1; i <= 12; i++) {
+
+                                    var option = $("<option/>");
+                                    option.html(i + " Bulan");
+                                    option.val(i);
+                                    rentang.append(option);
+                                    if (i == valrentang) {
+                                        option.attr("selected", "selected")
+                                        rentang.attr("disabled", true);
+                                    }
+                                }
+                                return rentang[0].outerHTML;
+                            }
+                        },
+                        {
+                            "data": null,
+                            "render": function (data, type, row, meta) {
+                                console.log(row["Rentang"]);
+                                console.log(row["IsUtama"]);
+                                if (row["IsUtama"] === true && row["Rentang"] === 0) {
+                                    return "<input type='button' class='btn btn-primary' onclick=AddRentangPencegahan(this) value='Add Rentang'style='background-color:green;'/>";
+                                }
+                                else if (row["Rentang"] != 0) {
+                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahanPenambahan(this) value='Approve'style='background-color:green; '/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahanPenambahan(this) value='Reject'style='background-color:red;'/>"
+                                }
+                                else if (row["IsApproved"] == 1 && row["EMPID"] == nik) {
+                                    return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                                }
+                                else if (row["IsUtama"] === false && row["Rentang"] === 0) {
+                                    return "Waiting Evaluator Mengisi Rentang";
+                                }
+                            }
+                        }
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": [0],
+                            "visible": false,
+                            "searchable": false
+                        },
+                    ],
+                    "order": [[1, 'asc']],
+
+                });
+                var result = JSON.parse(data);
+                var temp = 0;
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i].IsApproved == true) {
+                        temp += 1;
+                    }
+                }
+                countPencegahanPenambahan = temp;
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function AddRentangPerbaikan(button) {
+        var row = $(button).closest("TR");
+        var data = $('#Tbl_PerbaikanPenambahan').DataTable().row(row).data();
+        var id = data['RecordID'];
+        var rentang = $("TD", row).eq(5).find("select").val();
+        var dictlist = {
+            RecordID: id,
+            Option: 25,
+            Rentang: rentang
+        }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: 'DynamicController?spname=SP_FORM_Perubahan',
+            type: 'post',
+            data: JSON.stringify(dto),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                GetTindakanPerbaikanPenambahan();
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function ApprovePerbaikanPenambahan(button) {
+        var row = $(button).closest("TR");
+        var data = $('#Tbl_PerbaikanPenambahan').DataTable().row(row).data();
+        var id = data['RecordID'];
+        var dictlist = {
+            NoCAPA: noCAPA,
+            Empid: nik,
+            RecordID: id,
+            Option: 14
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        if (valid == true) {
+            $.ajax({
+                url: 'DynamicController?spname=SP_FORM_Perubahan',
+                type: 'post',
+                data: JSON.stringify(dto1),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    GetTindakanPerbaikanPenambahan();
+                    TableKajian();
+                    $.ajax({
+                        url: 'SubmitApproval',
+                        type: 'post',
+                        data: JSON.stringify({
+                            Model: {
+                                NO_CAPA: noCAPA,
+                                Temp_Status: 12,
+                                Tindakan: 'Perbaikan',
+                                Tindakan_ID: id
+                            }
+                        }),
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                        },
+                        error: function (ex) {
+                            alert(JSON.stringify(ex));
+                        }
+                    });
+                    Swal.fire({
+                        title: "Approve Berhasil!",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    }).then(() => {
+                        CheckPending();
+                    })
+
+                }
+            });
+        }
+        else {
+            Swal.fire({
+                title: "Error!",
+                text: 'Khusus Evaluator yang Ditunjuk!',
+                icon: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
+
+        }
+    }
+
+    function RejectPerbaikanPenambahan(button) {
+        if (valid == true) {
+            Swal.fire({
+                title: 'Alasan Reject',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                html: '<textarea id="txtReject" class="form form-control" ></textarea>',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Reject!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    var reject = $('#txtReject').val();
+                    var row = $(button).closest("TR");
+                    var data = $('#Tbl_PerbaikanPenambahan').DataTable().row(row).data();
+                    var id = data['RecordID'];
+                    var dictlist = {
+                        NoCAPA: noCAPA,
+                        Option: 12,
+                        RecordID: id,
+                        RejectReason: reject,
+                        Tipe: 'Perbaikan Baru',
+                        Empid: nik
+                    }
+                    var dto1 = {
+                        Model: dictlist
+                    }
+                    if (reject != null && reject.trim() != '') {
+                        $.ajax({
+                            url: "DynamicController?spname=SP_FORM_Perubahan",
+                            type: "post",
+                            dataType: "json",
+                            data: JSON.stringify(dto1),
+                            contentType: "application/json;charset=utf-8",
+                            success: function (data) {
+                                GetTindakanPerbaikanPenambahan();
+                                TableKajian();
+                                $.ajax({
+                                    url: 'SubmitApproval',
+                                    type: 'post',
+                                    data: JSON.stringify({
+                                        Model: {
+                                            NO_CAPA: noCAPA,
+                                            Temp_Status: 6,
+                                            Tindakan: 'Perbaikan',
+                                            Tindakan_ID: id
+                                        }
+                                    }),
+                                    dataType: 'json',
+                                    contentType: 'application/json; charset=utf-8',
+                                    success: function (data) {
+                                    },
+                                    error: function (ex) {
+                                        alert(JSON.stringify(ex));
+                                    }
+                                });
+                                Swal.fire({
+                                    title: "Reject Berhasil!",
+                                    icon: "success",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                }).then(() => {
+                                    CheckPending();
+                                })
+                            },
+                            error: function (errormessage) {
+                            }
+                        });
+                    }
+                    else {
+                        Swal.fire({
+                            title: "Error!",
+                            text: 'Alasan tidak boleh kosong!',
+                            icon: "error",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
+                    }
+                }
+            })
+        }
+        else {
+            Swal.fire({
+                title: "Error!",
+                text: 'Khusus Evaluator yang Ditunjuk!',
+                icon: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
+        }
+    }
+
+    function AddRentangPencegahan(button) {
+        var row = $(button).closest("TR");
+        var data = $('#Tbl_PencegahanPenambahan').DataTable().row(row).data();
+        var id = data['RecordID'];
+        var rentang = $("TD", row).eq(5).find("select").val();
+        var dictlist = {
+            RecordID: id,
+            Option: 26,
+            Rentang: rentang
+        }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: 'DynamicController?spname=SP_FORM_Perubahan',
+            type: 'post',
+            data: JSON.stringify(dto),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                GetTindakanPerbaikanPenambahan();
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function ApprovePencegahanPenambahan(button) {
+        var row = $(button).closest("TR");
+        var data = $('#Tbl_PencegahanPenambahan').DataTable().row(row).data();
+        var id = data['RecordID'];
+        var kategori = data['Status_Pencegahan'];
+        var dictlist = {
+            NoCAPA: noCAPA,
+            Empid: nik,
+            RecordID: id,
+            Option: 15,
+            Kategori: kategori
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        if (valid == true) {
+            $.ajax({
+                url: 'DynamicController?spname=SP_FORM_Perubahan',
+                type: 'post',
+                data: JSON.stringify(dto1),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    GetTindakanPencegahanPenambahan();
+                    TableKajian();
+                    $.ajax({
+                        url: 'SubmitApproval',
+                        type: 'post',
+                        data: JSON.stringify({
+                            Model: {
+                                NO_CAPA: noCAPA,
+                                Temp_Status: 12,
+                                Tindakan: 'Pencegahan',
+                                Tindakan_ID: id
+                            }
+                        }),
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                        },
+                        error: function (ex) {
+                            alert(JSON.stringify(ex));
+                        }
+                    });
+
+                    Swal.fire({
+                        title: "Approve Berhasil!",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    }).then(() => {
+                        CheckPending();
+                    })
+                }
+            });
+        }
+        else {
+            Swal.fire({
+                title: "Error!",
+                text: 'Khusus Evaluator yang Ditunjuk!',
+                icon: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
+        }
+    }
+
+    function RejectPencegahanPenambahan(button) {
+        if (valid == true) {
+            Swal.fire({
+                title: 'Alasan Reject',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                html: '<textarea id="txtReject" class="form form-control" ></textarea>',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Reject!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    var reject = $('#txtReject').val();
+                    var row = $(button).closest("TR");
+                    var data = $('#Tbl_PencegahanPenambahan').DataTable().row(row).data();
+                    var id = data['RecordID'];
+                    var dictlist = {
+                        NoCAPA: noCAPA,
+                        Option: 13,
+                        RecordID: id,
+                        RejectReason: reject,
+                        Empid: nik
+                    }
+                    var dto1 = {
+                        Model: dictlist
+                    }
+                    if (reject != null && reject.trim() != '') {
+                        $.ajax({
+                            url: "DynamicController?spname=SP_FORM_Perubahan",
+                            type: "post",
+                            dataType: "json",
+                            data: JSON.stringify(dto1),
+                            contentType: "application/json;charset=utf-8",
+                            success: function (data) {
+                                $.ajax({
+                                    url: 'SubmitApproval',
+                                    type: 'post',
+                                    data: JSON.stringify({
+                                        Model: {
+                                            NO_CAPA: noCAPA,
+                                            Temp_Status: 6,
+                                            Tindakan: 'Pencegahan',
+                                            Tindakan_ID: id
+                                        }
+                                    }),
+                                    dataType: 'json',
+                                    contentType: 'application/json; charset=utf-8',
+                                    success: function (data) {
+                                    },
+                                    error: function (ex) {
+                                        alert(JSON.stringify(ex));
+                                    }
+                                });
+
+                                Swal.fire({
+                                    title: "Reject Berhasil!",
+                                    icon: "success",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                }).then(() => {
+                                    CheckPending();
+                                    GetTindakanPencegahanPenambahan();
+                                    TableKajian();
+                                })
+                            },
+                            error: function (errormessage) {
+                            }
+                        });
+                    }
+                    else {
+
+                        Swal.fire({
+                            title: "Error!",
+                            text: 'Alasan tidak boleh kosong!',
+                            icon: "error",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
+                    }
+                }
+            })
+        }
+        else {
+            Swal.fire({
+                title: "Error!",
+                text: 'Khusus Evaluator yang Ditunjuk!',
+                icon: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
+        }
+    }
+
+    function GetTindakanPerbaikanPembatalan() {
+        var dictlist = {
+            NoCAPA: noCAPA,
+            Empid: nik,
+            Option: 19,
+            Stat: 11,
+            Status_Perbaikan: "Pembatalan Perbaikan"
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: 'DynamicController?spname=SP_FORM_Perubahan',
+            type: 'post',
+            data: JSON.stringify(dto1),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var table = $('#Tbl_PerbaikanPembatalan').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": false,
+                    "searching": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "scrollCollapse": true,
+                    "responsive": true,
+                    "destroy": true,
+                    "columns": [
+                        { "data": "RecordID" },
+                        { "data": "WhyDesc" },
+                        { "data": "PelaksanaName" },
+                        { "data": "Tindakan_Perbaikan" },
+                        { "data": "tanggal" },
+                        { "data": "Alasan_Pembatalan" },
+                        {
+                            "data": "Status_ID",
+                            "render": function (data, type, row, meta) {
+                                if (row["IsApproved"] === true) {
+                                    return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                                }
+                                else if (row["Rentang"] != 0) {
+                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikanPembatalan(this) value='Approve'style='background-color:green; margin-left:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikanPembatalan(this) value='Reject'style='background-color:red;'/>";
+                                }
+
+                            }
+                        }
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": [0],
+                            "visible": false,
+                            "searchable": false
+                        },
+                    ],
+                    "order": [[1, 'asc']],
+
+                })
+
+                var result = JSON.parse(data);
+                var temp = 0;
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i].IsApproved == true) {
+                        temp += 1
+                    }
+                }
+                countPerbaikanPembatalan = temp;
+                CheckPending();
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+    function GetTindakanPencegahanPembatalan() {
+        var dictlist = {
+            NoCAPA: noCAPA,
+            Empid: nik,
+            Option: 20,
+            Stat: 11,
+            Status_Pencegahan: "Pembatalan Pencegahan"
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: 'DynamicController?spname=SP_FORM_Perubahan',
+            type: 'post',
+            data: JSON.stringify(dto1),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var table = $('#Tbl_PencegahanPembatalan').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": false,
+                    "searching": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "scrollCollapse": true,
+                    "destroy": true,
+
+                    "columns": [
+                        { "data": "RecordID" },
+                        { "data": "WhyDesc" },
+                        { "data": "PelaksanaName" },
+                        { "data": "Tindakan_Pencegahan" },
+                        { "data": "tanggal" },
+                        { "data": "Alasan_Pembatalan" },
+                        {
+                            "data": "Status_ID",
+                            "render": function (data, type, row, meta) {
+                               if (row["IsApproved"] === true) {
+                                    return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                                }
+                                else {
+                                   return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahanPembatalan(this) value='Approve'style='background-color:green; margin-left:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahanPembatalan(this) value='Reject'style='background-color:red;'/>";
+                                }
+                            }
+                        }
+
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": [0],
+                            "visible": false,
+                            "searchable": false
+                        },
+                    ],
+                    "order": [[1, 'asc']],
+
+                });
+                var result = JSON.parse(data);
+                var temp = 0;
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i].IsApproved == true) {
+                        temp += 1
+                    }
+                }
+                countPencegahanPembatalan = temp;
+                CheckPending();
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function ApprovePerbaikanPembatalan(button) {
+        var row = $(button).closest("TR");
+        var data = $('#Tbl_PerbaikanPembatalan').DataTable().row(row).data();
+        var id = data['RecordID'];
+        var dictlist = {
+            NoCAPA: noCAPA,
+            Empid: nik,
+            RecordID: id,
+            Option: 16,
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        if (valid == true) {
+            $.ajax({
+                url: 'DynamicController?spname=SP_FORM_Perubahan',
+                type: 'post',
+                data: JSON.stringify(dto1),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    $.ajax({
+                        url: 'SubmitApproval',
+                        type: 'post',
+                        data: JSON.stringify({
+                            Model: {
+                                NO_CAPA: noCAPA,
+                                Temp_Status: 12,
+                                Tindakan: 'Perbaikan',
+                                Tindakan_ID: id
+                            }
+                        }),
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                        },
+                        error: function (ex) {
+                            alert(JSON.stringify(ex));
+                        }
+                    });
+                    Swal.fire({
+                        title: "Approve Berhasil!",
+                        type: "success",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    }).then(() => {
+                        GetTindakanPerbaikanPembatalan();
+                        TableKajian();
+                    })
+                }
+            });
+        }
+        else {
+            Swal.fire({
+                title: "Error!",
+                text: 'Khusus Evaluator yang Ditunjuk!',
+                icon: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
+        }
+
+    }
+
+    function RejectPerbaikanPembatalan(button) {
+        if (valid == true) {
+            Swal.fire({
+                title: 'Alasan Reject',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                html: '<textarea id="txtReject" class="form form-control" ></textarea>',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Reject!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    var reject = $('#txtReject').val();
+                    var row = $(button).closest("TR");
+                    var data = $('#Tbl_PerbaikanPembatalan').DataTable().row(row).data();
+                    var id = data['RecordID'];
+                    var dictlist = {
+                        NoCAPA: $('#QS_NoCAPA').val(),
+                        Option: 5,
+                        RecordID: id,
+                        RejectReason: reject,
+                        Empid: nik
+                    }
+                    var dto1 = {
+                        Model: dictlist
+                    }
+                    if (reject != null && reject.trim() != '') {
+                        $.ajax({
+                            url: "DynamicController?spname=SP_FORM_Perubahan",
+                            type: "post",
+                            dataType: "json",
+                            data: JSON.stringify(dto1),
+                            contentType: "application/json;charset=utf-8",
+                            success: function (data) {
+                                $.ajax({
+                                    url: 'SubmitApproval',
+                                    type: 'post',
+                                    data: JSON.stringify({
+                                        Model: {
+                                            NO_CAPA: noCAPA,
+                                            Temp_Status: 6,
+                                            Tindakan: 'Perbaikan',
+                                            Tindakan_ID: id
+                                        }
+                                    }),
+                                    dataType: 'json',
+                                    contentType: 'application/json; charset=utf-8',
+                                    success: function (data) {
+                                    },
+                                    error: function (ex) {
+                                        alert(JSON.stringify(ex));
+                                    }
+                                });
+
+                                Swal.fire({
+                                    title: "Reject Berhasil!",
+                                    icon: "success",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                }).then(() => {
+                                    GetTindakanPerbaikanPembatalan();
+                                    TableKajian();
+                                })
+                            },
+                            error: function (errormessage) {
+                            }
+                        });
+                    }
+                    else {
+
+                        Swal.fire({
+                            title: "Error!",
+                            text: 'Alasan tidak boleh kosong!',
+                            icon: "error",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
+                    }
+                }
+            })
+        }
+        else {
+            Swal.fire({
+                title: "Error!",
+                text: 'Khusus Evaluator yang Ditunjuk!',
+                icon: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
+        }
+
+    }
+    function ApprovePencegahanPembatalan(button) {
+        var row = $(button).closest("TR");
+        var data = $('#Tbl_PencegahanPembatalan').DataTable().row(row).data();
+        var id = data['RecordID'];
+        var dictlist = {
+            NoCAPA: noCAPA,
+            Empid: nik,
+            RecordID: id,
+            Option: 17,
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        if (valid = true) {
+            $.ajax({
+                url: 'DynamicController?spname=SP_FORM_Perubahan',
+                type: 'post',
+                data: JSON.stringify(dto1),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    $.ajax({
+                        url: 'SubmitApproval',
+                        type: 'post',
+                        data: JSON.stringify({
+                            Model: {
+                                NO_CAPA: noCAPA,
+                                Temp_Status: 12,
+                                Tindakan: 'Pencegahan',
+                                Tindakan_ID: id
+                            }
+                        }),
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                        },
+                        error: function (ex) {
+                            alert(JSON.stringify(ex));
+                        }
+                    });
+                    Swal.fire({
+                        title: "Approve Berhasil!",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    }).then(() => {
+                        TableKajian();
+                        GetTindakanPencegahanPembatalan();
+                    })
+                }
+            });
+        }
+        else {
+            Swal.fire({
+                title: "Error!",
+                text: 'Khusus Evaluator yang Ditunjuk!',
+                icon: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
+        }
+    }
+
+    function RejectPencegahanPembatalan(button) {
+        if (valid = true) {
+            Swal.fire({
+                title: 'Alasan Reject',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                html: '<textarea id="txtReject" class="form form-control" ></textarea>',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Reject!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    var reject = $('#txtReject').val();
+                    var row = $(button).closest("TR");
+                    var data = $('#Tbl_PencegahanPembatalan').DataTable().row(row).data();
+                    var id = data['RecordID'];
+                    var dictlist = {
+                        NoCAPA: noCAPA,
+                        Option: 6,
+                        RecordID: id,
+                        RejectReason: reject,
+                        Empid: nik
+                    }
+                    var dto1 = {
+                        Model: dictlist
+                    }
+                    if (reject != null && reject.trim() != '') {
+                        $.ajax({
+                            url: "DynamicController?spname=SP_FORM_Perubahan",
+                            type: "post",
+                            dataType: "json",
+                            data: JSON.stringify(dto1),
+                            contentType: "application/json;charset=utf-8",
+                            success: function (data) {
+                                $.ajax({
+                                    url: 'SubmitApproval',
+                                    type: 'post',
+                                    data: JSON.stringify({
+                                        Model: {
+                                            NO_CAPA: noCAPA,
+                                            Temp_Status: 6,
+                                            Tindakan: 'Pencegahan',
+                                            Tindakan_ID: id
+                                        }
+                                    }),
+                                    dataType: 'json',
+                                    contentType: 'application/json; charset=utf-8',
+                                    success: function (data) {
+                                    },
+                                    error: function (ex) {
+                                        alert(JSON.stringify(ex));
+                                    }
+                                });
+
+                                Swal.fire({
+                                    title: "Reject Berhasil!",
+                                    icon: "success",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                }).then(() => {
+                                    TableKajian();
+                                    GetTindakanPencegahanPembatalan();
+                                })
+                            },
+                            error: function (errormessage) {
+                            }
+                        });
+                    }
+                    else {
+
+                        Swal.fire({
+                            title: "Error!",
+                            text: 'Alasan tidak boleh kosong!',
+                            icon: "error",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
+                    }
+                }
+            })
+        }
+        else {
+            Swal.fire({
+                title: "Error!",
+                text: 'Khusus Evaluator yang Ditunjuk!',
+                icon: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
+        }
+
+    }
 
 </script>
 
