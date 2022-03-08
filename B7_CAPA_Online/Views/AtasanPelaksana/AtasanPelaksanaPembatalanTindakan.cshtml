@@ -368,7 +368,7 @@
                 });
                 Swal.fire({
                     title: "Approve Berhasil!",
-                    type: "success",
+                    icon: "success",
                     showConfirmButton: false,
                     timer: 1000,
                 }).then(() => {
@@ -436,7 +436,7 @@
                             });
                             Swal.fire({
                                 title: "Reject Berhasil!",
-                                type: "success",
+                                icon: "success",
                                 showConfirmButton: false,
                                 timer: 1000,
                             }).then(() => {
@@ -450,11 +450,13 @@
                 }
                 else {
 
-                    Swal.fire(
-                        'Error!',
-                        'Alasan tidak boleh kosong.',
-                        'error'
-                    )
+                    Swal.fire({
+                        title: "Error!",
+                        text: 'Alasan tidak boleh kosong!',
+                        icon: "error",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    })
                 }
             }
         })
@@ -500,7 +502,7 @@
                 });
                 Swal.fire({
                     title: "Approve Berhasil!",
-                    type: "success",
+                    icon: "success",
                     showConfirmButton: false,
                     timer: 1000,
                 }).then(() => {
@@ -570,7 +572,7 @@
                             });
                             Swal.fire({
                                 title: "Reject Berhasil!",
-                                type: "success",
+                                icon: "success",
                                 showConfirmButton: false,
                                 timer: 1000,
                             }).then(() => {
@@ -584,11 +586,13 @@
                 }
                 else {
 
-                    Swal.fire(
-                        'Error!',
-                        'Alasan tidak boleh kosong.',
-                        'error'
-                    )
+                    Swal.fire({
+                        title: "Error!",
+                        text: 'Alasan tidak boleh kosong!',
+                        icon: "error",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    })
                 }
             }
         })
