@@ -2728,17 +2728,17 @@
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
                         if (data != null) {
-                            Swal.fire(
-                                'Success',
-                                'Data berhasil di-input.',
-                                'success'
-                            ).then(function (result) {
-                                if (result.value) {
-                                    //close modal
-                                    RemoveModalInput();
-                                    // fetch to table
-                                    TableKajian(true);
-                                }
+                            Swal.fire({
+                                title: 'Success',
+                                text: 'Data berhasil di-input.',
+                                type: 'success',
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(function () {
+                                //close modal
+                                RemoveModalInput();
+                                // fetch to table
+                                TableKajian(true);
                             });
                         }
                     },
@@ -2802,14 +2802,14 @@
                                 icon = 'success';
                             else
                                 icon = 'error';
-                            Swal.fire(
-                                attr,
-                                value[attr],
-                                icon
-                            ).then(function (result) {
-                                if (result.value) {
-                                    window.location.href = '/PendingTask/TaskList';
-                                }
+                            Swal.fire({
+                                title: attr,
+                                text: value[attr],
+                                type: icon,
+                                timer: 2000,
+                                showConfirmButton: false
+                            }).then(function () {
+                                window.location.href = '/PendingTask/TaskList';
                             });
                             return false;
                         });
@@ -2820,11 +2820,13 @@
                 });
             } else {
                 $.unblockUI();
-                Swal.fire(
-                    'WARNING',
-                    'Masih ada Tindakan yang belum dikaji.',
-                    'warning'
-                );
+                Swal.fire({
+                    title: 'WARNING',
+                    text: 'Masih ada Tindakan yang belum dikaji.',
+                    type: 'warning',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
             }
         });
 
