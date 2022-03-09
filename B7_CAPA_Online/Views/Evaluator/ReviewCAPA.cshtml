@@ -113,16 +113,6 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             async: false
-            //success: function (data) {
-            //    var result = JSON.parse(data);
-            //    $('#btn_Submit').prop('hidden', true);
-            //    if (result[0].IsApproved === true) {
-            //        $('#btn_Submit').prop('hidden', false);
-            //    }
-            //},
-            //error: function (ex) {
-            //    alert(JSON.stringify(ex));
-            //}
         }).responseText;
         return JSON.parse(JSON.parse(result));
     }
