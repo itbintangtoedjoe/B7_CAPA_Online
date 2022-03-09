@@ -8,6 +8,7 @@
         }
     }
 </style>
+
 <div class="card" id="Div_AnalisaKondisi">
     <div class="card-body">
         <h4 class="card-title">Analisa Kondisi</h4>
@@ -37,6 +38,7 @@
     </div>
 </div>
 <br />
+
 <div class="modal fade" id="Modal_Diag" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
@@ -44,21 +46,27 @@
                 <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
             </div>
             <div class="modal-body">
+                <label style="color:black"><b>Manusia</b></label>
                 <div id="DiagManusia"
                      style="width:100%; height:300px; background-color: #DAE4E4;"></div>
                 <br />
 
+                <label style="color:black"><b>Material/Produk</b></label>
                 <div id="DiagMaterial"
                      style="width:100%; height:300px; background-color: #DAE4E4;"></div>
                 <br />
+
+                <label style="color:black"><b>Lingkungan</b></label>
                 <div id="DiagLingkungan"
                      style="width:100%; height:300px; background-color: #DAE4E4;"></div>
                 <br />
 
+                <label style="color:black"><b>Machine</b></label>
                 <div id="DiagMesin"
                      style="width:100%; height:300px; background-color: #DAE4E4;"></div>
                 <br />
 
+                <label style="color:black"><b>Metode</b></label>
                 <div id="DiagMetode"
                      style="width:100%; height:300px; background-color: #DAE4E4;"></div>
             </div>
@@ -68,6 +76,7 @@
         </div>
     </div>
 </div>
+
 <script>
     $(document).ready(function () {
         GetRootManusia();
@@ -85,222 +94,6 @@
         });
     });
 
-    function GetRootManusia() {
-
-        $.ajax({
-            type: "POST",
-            url: "../Koordinator/GetRoot?NoCapa=" + $('#QS_NoCAPA').val()+"&Type=Manusia",
-            dataType: 'json',
-            async: true,
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                var result = JSON.parse(data);
-                var $ = go.GraphObject.make;
-
-                var myDiagram =
-                    $(go.Diagram, "DiagManusia",
-                        {
-                            "undoManager.isEnabled": true,
-                            contentAlignment: go.Spot.Center,
-                            layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
-                                { angle: 90, layerSpacing: 35 })
-                        });
-
-
-                myDiagram.nodeTemplate =
-                    $(go.Node, "Horizontal",
-                        { background: "#44CCFF", locationSpot: go.Spot.Center },
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "type")),
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "desc"))
-                    );
-
-                myDiagram.model = new go.TreeModel(result);
-            }
-        });
-    }
-    function GetRootMaterial() {
-
-        $.ajax({
-            type: "POST",
-            url: "../Koordinator/GetRoot?NoCapa=" + $('#QS_NoCAPA').val() +"&Type=Material/Produk",
-            async: true,
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                var result = JSON.parse(data);
-                var $ = go.GraphObject.make;
-
-                var myDiagram =
-                    $(go.Diagram, "DiagMaterial",
-                        {
-                            "undoManager.isEnabled": true,
-                            contentAlignment: go.Spot.Center,
-                            layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
-                                { angle: 90, layerSpacing: 35 })
-
-                        });
-
-
-                myDiagram.nodeTemplate =
-                    $(go.Node, "Horizontal",
-                        { background: "#44CCFF" },
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "type")),
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "desc"))
-                    );
-
-                myDiagram.model = new go.TreeModel(result);
-            }
-        });
-    }
-    function GetRootLingkungan() {
-
-        $.ajax({
-            type: "POST",
-            url: "../Koordinator/GetRoot?NoCapa=" + $('#QS_NoCAPA').val() +"&Type=Lingkungan",
-            dataType: 'json',
-            async: true,
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                var result = JSON.parse(data);
-                var $ = go.GraphObject.make;
-
-                var myDiagram =
-                    $(go.Diagram, "DiagLingkungan",
-                        {
-                            "undoManager.isEnabled": true,
-                            contentAlignment: go.Spot.Center,
-                            layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
-                                { angle: 90, layerSpacing: 35 })
-                        });
-
-
-                myDiagram.nodeTemplate =
-                    $(go.Node, "Horizontal",
-                        { background: "#44CCFF" },
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "type")),
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "desc"))
-                    );
-
-                myDiagram.model = new go.TreeModel(result);
-            }
-        });
-    }
-    function GetRootMesin() {
-
-        $.ajax({
-            type: "POST",
-            url: "../Koordinator/GetRoot?NoCapa=" + $('#QS_NoCAPA').val() +"&Type=Mesin",
-            dataType: 'json',
-            async: true,
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                var result = JSON.parse(data);
-                var $ = go.GraphObject.make;
-
-                var myDiagram =
-                    $(go.Diagram, "DiagMesin",
-                        {
-                            "undoManager.isEnabled": true,
-                            contentAlignment: go.Spot.Center,
-                            layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
-                                { angle: 90, layerSpacing: 35 })
-                        });
-
-
-                myDiagram.nodeTemplate =
-                    $(go.Node, "Horizontal",
-                        { background: "#44CCFF" },
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "type")),
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "desc"))
-                    );
-
-                myDiagram.model = new go.TreeModel(result);
-            }
-        });
-    }
-    function GetRootMetode() {
-
-        $.ajax({
-            type: "POST",
-            url: "../Koordinator/GetRoot?NoCapa=" + $('#QS_NoCAPA').val() +"&Type=Metode",
-            dataType: 'json',
-            async: true,
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                var result = JSON.parse(data);
-                var $ = go.GraphObject.make;
-
-                var myDiagram =
-                    $(go.Diagram, "DiagMetode",
-                        {
-                            "undoManager.isEnabled": true,
-                            contentAlignment: go.Spot.Center,
-                            layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
-                                { angle: 90, layerSpacing: 35 })
-                        });
-
-
-                myDiagram.nodeTemplate =
-                    $(go.Node, "Horizontal",
-                        { background: "#44CCFF" },
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "type")),
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "desc"))
-                    );
-
-                myDiagram.model = new go.TreeModel(result);
-            }
-        });
-    }
     function GetAnalisaKondisi() {
         $.ajax({
             type: "POST",
@@ -325,6 +118,277 @@
                     "order": [[0, 'asc']],
                 });
 
+            }
+        });
+    }
+
+    function GetRootManusia() {
+        $.ajax({
+            type: "POST",
+            url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Manusia",
+            dataType: 'json',
+            async: true,
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var result = JSON.parse(data);
+                var $ = go.GraphObject.make;
+
+                var myDiagram =
+                    $(go.Diagram, "DiagManusia",
+                        {
+                            "undoManager.isEnabled": true,
+                            contentAlignment: go.Spot.Center,
+                            layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
+                                { angle: 90, layerSpacing: 35 })
+                        });
+
+                //var node1 =
+                //    $(go.Node, "Horizontal",
+                //        { background: "#44CCFF" },
+                //        $(go.TextBlock, "Manusia",
+                //            {
+                //                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                //                verticalAlignment: go.Spot.Center
+                //            },
+                //        )
+                //    );
+                //myDiagram.add(node1);
+
+                myDiagram.nodeTemplate =
+                    $(go.Node, "Horizontal",
+                        { background: "#44CCFF", locationSpot: go.Spot.Center },
+                        //$(go.TextBlock, "Default Text",
+                        //    {
+                        //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                        //        verticalAlignment: go.Spot.Center
+                        //    },
+                        //    new go.Binding("text", "type")),
+                        $(go.TextBlock, "Default Text",
+                            {
+                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                verticalAlignment: go.Spot.Center
+                            },
+                            new go.Binding("text", "desc"))
+                    );
+
+                myDiagram.model = new go.TreeModel(result);
+            }
+        });
+    }
+
+    function GetRootMaterial() {
+
+        $.ajax({
+            type: "POST",
+            url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Material/Produk",
+            async: true,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var result = JSON.parse(data);
+                var $ = go.GraphObject.make;
+
+                var myDiagram =
+                    $(go.Diagram, "DiagMaterial",
+                        {
+                            "undoManager.isEnabled": true,
+                            contentAlignment: go.Spot.Center,
+                            layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
+                                { angle: 90, layerSpacing: 35 })
+
+                        });
+
+                //var node1 =
+                //    $(go.Node, "Horizontal",
+                //        { background: "#44CCFF" },
+                //        $(go.TextBlock, "Material",
+                //            {
+                //                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                //                verticalAlignment: go.Spot.Center
+                //            },
+                //        )
+                //    );
+                //myDiagram.add(node1);
+                myDiagram.nodeTemplate =
+                    $(go.Node, "Horizontal",
+                        { background: "#44CCFF" },
+                        //$(go.TextBlock, "Default Text",
+                        //    {
+                        //        margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                        //        verticalAlignment: go.Spot.Center
+                        //    },
+                        //    new go.Binding("text", "type")),
+                        $(go.TextBlock, "Default Text",
+                            {
+                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                verticalAlignment: go.Spot.Center
+                            },
+                            new go.Binding("text", "desc"))
+                    );
+
+                myDiagram.model = new go.TreeModel(result);
+            }
+        });
+    }
+
+    function GetRootLingkungan() {
+
+        $.ajax({
+            type: "POST",
+            url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Lingkungan",
+            dataType: 'json',
+            async: true,
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var result = JSON.parse(data);
+                var $ = go.GraphObject.make;
+
+                var myDiagram =
+                    $(go.Diagram, "DiagLingkungan",
+                        {
+                            "undoManager.isEnabled": true,
+                            contentAlignment: go.Spot.Center,
+                            layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
+                                { angle: 90, layerSpacing: 35 })
+                        });
+                //var node1 =
+                //    $(go.Node, "Horizontal",
+                //        { background: "#44CCFF" },
+                //        $(go.TextBlock, "Lingkungan",
+                //            {
+                //                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                //                verticalAlignment: go.Spot.Center
+                //            },
+                //        )
+                //    );
+                //myDiagram.add(node1);
+
+                myDiagram.nodeTemplate =
+                    $(go.Node, "Horizontal",
+                        { background: "#44CCFF" },
+                        //$(go.TextBlock, "Default Text",
+                        //    {
+                        //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                        //        verticalAlignment: go.Spot.Center
+                        //    },
+                        //    new go.Binding("text", "type")),
+                        $(go.TextBlock, "Default Text",
+                            {
+                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                verticalAlignment: go.Spot.Center
+                            },
+                            new go.Binding("text", "desc"))
+                    );
+
+                myDiagram.model = new go.TreeModel(result);
+            }
+        });
+    }
+
+    function GetRootMesin() {
+
+        $.ajax({
+            type: "POST",
+            url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Mesin",
+            dataType: 'json',
+            async: true,
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var result = JSON.parse(data);
+                var $ = go.GraphObject.make;
+
+                var myDiagram =
+                    $(go.Diagram, "DiagMesin",
+                        {
+                            "undoManager.isEnabled": true,
+                            contentAlignment: go.Spot.Center,
+                            layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
+                                { angle: 90, layerSpacing: 35 })
+                        });
+                //var node1 =
+                //    $(go.Node, "Horizontal",
+                //        { background: "#44CCFF" },
+                //        $(go.TextBlock, "Mesin",
+                //            {
+                //                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                //                verticalAlignment: go.Spot.Center
+                //            },
+                //        )
+                //    );
+                //myDiagram.add(node1);
+
+                myDiagram.nodeTemplate =
+                    $(go.Node, "Horizontal",
+                        { background: "#44CCFF" },
+                        //$(go.TextBlock, "Default Text",
+                        //    {
+                        //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                        //        verticalAlignment: go.Spot.Center
+                        //    },
+                        //    new go.Binding("text", "type")),
+                        $(go.TextBlock, "Default Text",
+                            {
+                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                verticalAlignment: go.Spot.Center
+                            },
+                            new go.Binding("text", "desc"))
+                    );
+
+                myDiagram.model = new go.TreeModel(result);
+            }
+        });
+    }
+
+    function GetRootMetode() {
+
+        $.ajax({
+            type: "POST",
+            url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Metode",
+            dataType: 'json',
+            async: true,
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var result = JSON.parse(data);
+                var $ = go.GraphObject.make;
+
+                var myDiagram =
+                    $(go.Diagram, "DiagMetode",
+                        {
+                            "undoManager.isEnabled": true,
+                            contentAlignment: go.Spot.Center,
+                            layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
+                                { angle: 90, layerSpacing: 35 })
+                        });
+                //var node1 =
+                //    $(go.Node, "Horizontal",
+                //        { background: "#44CCFF" },
+                //        $(go.TextBlock, "Metode",
+                //            {
+                //                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                //                verticalAlignment: go.Spot.Center
+                //            },
+                //        )
+                //    );
+                //myDiagram.add(node1);
+
+                myDiagram.nodeTemplate =
+                    $(go.Node, "Horizontal",
+                        { background: "#44CCFF" },
+                        //$(go.TextBlock, "Default Text",
+                        //    {
+                        //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                        //        verticalAlignment: go.Spot.Center
+                        //    },
+                        //    new go.Binding("text", "type")),
+                        $(go.TextBlock, "Default Text",
+                            {
+                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                verticalAlignment: go.Spot.Center
+                            },
+                            new go.Binding("text", "desc"))
+                    );
+
+                myDiagram.model = new go.TreeModel(result);
             }
         });
     }

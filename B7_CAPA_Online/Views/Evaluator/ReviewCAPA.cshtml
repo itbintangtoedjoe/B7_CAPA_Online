@@ -81,7 +81,7 @@
                             <tbody id="Table_RentangPencegahan">
                             </tbody>
                         </table>
-                        <button type="button" class="btn btn-primary" id="btn_Submit" hidden>Submit</button>
+                        <button type="button" class="btn btn-primary" id="btn_Submit">Submit</button>
                     </div>
                 </div>
             </div>
@@ -97,7 +97,7 @@
     var CurrentStatsID = 5;
 
     function checkStatusCAPA() {
-        $.ajax({
+        var result = $.ajax({
             url: '../AtasanPIC/SubmitApproval',
             type: 'post',
             data: JSON.stringify({
@@ -112,17 +112,19 @@
             }),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                var result = JSON.parse(data);
-                $('#btn_Submit').prop('hidden', true);
-                if (result[0].IsApproved === true) {
-                    $('#btn_Submit').prop('hidden', false);
-                }
-            },
-            error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
-        });
+            async: false
+            //success: function (data) {
+            //    var result = JSON.parse(data);
+            //    $('#btn_Submit').prop('hidden', true);
+            //    if (result[0].IsApproved === true) {
+            //        $('#btn_Submit').prop('hidden', false);
+            //    }
+            //},
+            //error: function (ex) {
+            //    alert(JSON.stringify(ex));
+            //}
+        }).responseText;
+        return JSON.parse(JSON.parse(result));
     }
 
     function checkEvaluatorCAPA() {
@@ -224,12 +226,11 @@
             Model: dictlist
         }
         $.ajax({
-            url: '../Koordinator/DynamicController',
+            url: '../Koordinator/DynamicController?spname=[dbo].[SP_SHOW_DDL]',
             type: 'post',
             dataType: 'json',
             data: JSON.stringify({
-                Models: dto,
-                spname: "[dbo].[SP_SHOW_DDL]"
+                Models: dto
             }),
             contentType: 'applicRequesttQueryStringueryStringtringion/json; charset=utf-8',
             success: function (data) {
@@ -265,7 +266,7 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 var result = JSON.parse(data);
-                //console.log(result)
+                console.log(result)
                 var table = $('#Tbl_RentangPerbaikan').DataTable({
                     "pageLength": 5,
                     "lengthChange": false,
@@ -318,12 +319,13 @@
                                     //        return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                     //} else {
                                     if (isUtama) {
-                                        if (data === false && result[counts].StatusDetail === 5)
-                                            return "<button type='button' id='Perbaikan' class='btn btn-primary approve' style='background-color:green;'>Approve</button><button type='button' id='Perbaikan' class='btn btn-primary reject' style='background-color:red;'>Reject</button>";
+                                        //if (data === true && result[counts].StatusDetail === 6)
+                                        if (data === true)
+                                            return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                         else if (result[counts].StatusDetail === 1)
                                             return '<img id="imgReject" src="../Content/Images/rejected.png" style="width: 80px"/>';
                                         else
-                                            return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                                            return "<button type='button' id='Perbaikan' class='btn btn-primary approve' style='background-color:green;'>Approve</button><button type='button' id='Perbaikan' class='btn btn-primary reject' style='background-color:red;'>Reject</button>";
                                     } else {
                                         if (data === false && result[counts].StatusDetail === 5 && result[counts].Rentang != 0)
                                             return "<button type='button' id='Perbaikan' class='btn btn-primary approve' style='background-color:green;'>Approve</button><button type='button' id='Perbaikan' class='btn btn-primary reject' style='background-color:red;'>Reject</button>";
@@ -334,9 +336,6 @@
                                         else
                                             return "<td>Waiting Evaluator Utama Input Rentang</td>";
                                     }
-
-
-
                                     //}
                                     counts++;
                                 }
@@ -502,8 +501,8 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 Swal.fire({
-                    title :'Approved!',
-                    text: 'Your record has been approved.',
+                    title :'Success!',
+                    text: 'Tindakan berhasil di Approved.',
                     type: 'success',
                     timer: 2000,
                     showConfirmButton : false
@@ -541,13 +540,16 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                Swal.fire(
-                    'Approved!',
-                    'Your record has been approved.',
-                    'success'
-                ).then(() => {
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Semua Tindakan berhasil di Rejected.',
+                    type: 'success',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(() => {
                     $.unblockUI();
                     getTable($(event).attr("id"));
+                    window.location.href = '../PendingTask/TaskList';
                 });
             },
             error: function (ex) {
@@ -588,9 +590,9 @@
            //console.log('@Request.QueryString.Get("StatsID")' != '8')
         if ('@Request.QueryString.Get("StatsID")' != '8') {
             getDDL();
-            checkStatusCAPA();
             checkEvaluatorCAPA();
         } else {
+            $('#btn_Submit').prop('hidden', true);
             GetTindakanPerbaikan();
             GetTindakanPencegahan();
         }
@@ -622,17 +624,21 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes'
+                confirmButtonText: 'Yes',
+                showConfirmButton: true
             }).then((result) => {
-                if (result.value != "") {
-                    var alasan = result.value;
-                    Rejection(this, option, alasan);
-                } else {
-                    Swal.fire(
-                        'Warning!',
-                        'Mohon berikan alasan reject.',
-                        'warning'
-                    )
+                if (!result.dismiss) {
+                    if (result.value != "") {
+                        var alasan = result.value;
+                         Rejection(this, option, alasan);
+                    }
+                    else {
+                        Swal.fire(
+                            'Warning!',
+                            'Mohon berikan alasan reject.',
+                            'warning'
+                        )
+                    }
                 }
             });
         });
@@ -665,15 +671,18 @@
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes'
             }).then((result) => {
-                if (result.value != "") {
-                    var alasan = result.value;
-                    Rejection(this, option, alasan);
-                } else {
-                    Swal.fire(
-                        'Warning!',
-                        'Mohon berikan alasan reject.',
-                        'warning'
-                    )
+                if (!result.dismiss) {
+                    if (result.value != "") {
+                        var alasan = result.value;
+                        Rejection(this, option, alasan);
+                    }
+                    else {
+                        Swal.fire(
+                            'Warning!',
+                            'Mohon berikan alasan reject.',
+                            'warning'
+                        )
+                    }
                 }
             });
         });
@@ -692,48 +701,61 @@
 
         $('#btn_Submit').click(function () {
             $.blockUI();
-            $.ajax({
-                url: '../AtasanPIC/SubmitApproval',
-                type: 'post',
-                dataType: 'json',
-                data: JSON.stringify({
-                    Model: {
-                        NO_CAPA: $('#input_NoCAPA').val(),
-                        Create_By: '@Request.RequestContext.HttpContext.Session["NIK"]',
-                        CurrentStatusID: CurrentStatsID,
-                        Status: 'Approve',
-                        Reject_Reason: '-',
-                        Option: 1
-                    }
-                }),
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    if (JSON.parse(data)[0].VALID == "VALID") {
-                        Swal.fire({
-                            title: 'Success',
-                            text: 'CAPA berhasil di Submit.',
-                            type: 'success',
-                            timer: 2000,
-                            showConfirmButton : false
-                        }).then(function (result) {
+            var status = checkStatusCAPA();
+            if (status[0].IsApproved) {
+                $.ajax({
+                    url: '../AtasanPIC/SubmitApproval',
+                    type: 'post',
+                    dataType: 'json',
+                    data: JSON.stringify({
+                        Model: {
+                            NO_CAPA: $('#input_NoCAPA').val(),
+                            Create_By: '@Request.RequestContext.HttpContext.Session["NIK"]',
+                            CurrentStatusID: CurrentStatsID,
+                            Status: 'Approve',
+                            Reject_Reason: '-',
+                            Option: 1
+                        }
+                    }),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        if (JSON.parse(data)[0].VALID == "VALID") {
+                            Swal.fire({
+                                title: 'Success',
+                                text: 'CAPA berhasil di Submit.',
+                                type: 'success',
+                                timer: 2000,
+                                showConfirmButton: false
+                            }).then(function (result) {
+                                $.unblockUI();
+                                window.location.href = '../PendingTask/TaskList';
+                            });
+                        }
+                        else {
                             $.unblockUI();
-                            window.location.href = '../PendingTask/TaskList';
-                        });
+                            Swal.fire({
+                                title: 'Maaf',
+                                text: 'CAPA ini sudah pernah di Submit.',
+                                type: 'warning',
+                                timer: 2000,
+                                showConfirmButton: false
+                            })
+                        }
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
                     }
-                    else {
-                        $.unblockUI();
-                        Swal.fire(
-                            'Maaf',
-                            'CAPA ini sudah pernah di Submit.',
-                            'warning'
-                        )
-                    }
-                },
-                error: function (ex) {
-                    alert(JSON.stringify(ex));
-                }
-            });
-
+                });
+            } else {
+                $.unblockUI();
+                Swal.fire({
+                    title: 'Maaf',
+                    text: 'Mohon untuk Approve semua Tindakan terlebih dahulu.',
+                    type: 'error',
+                    timer: 2000,
+                    showConfirmButton: false
+                })
+            }
         });
 
         $('#btn_CancelCAPA').click(function () {
