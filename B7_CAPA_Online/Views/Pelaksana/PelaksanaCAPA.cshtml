@@ -15,6 +15,7 @@
 
 <link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
 <script src="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.js" defer></script>
+<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
 
 <div class="content-body">
     <!--Modal-->
@@ -495,7 +496,7 @@
                                 </div>
 
                                 <div class="col-md-4 ">
-                                    
+
                                 </div>
                                 <div class="col-md-6 ">
                                     <div class="table-responsive">
@@ -517,20 +518,20 @@
                             </div>
 
                             @*<div class="table-responsive">
-                                <table class="table table-bordered zero-configuration" id="tblAttachmentTreatment">
-                                    <thead>
-                                        <tr>
-                                            <th>Nama File</th>
-                                            <th hidden></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tbodyAttachmentTreatment">
-                                        <tr>
-                                            <td>Belum ada file terpilih</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>*@
+                                    <table class="table table-bordered zero-configuration" id="tblAttachmentTreatment">
+                                        <thead>
+                                            <tr>
+                                                <th>Nama File</th>
+                                                <th hidden></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbodyAttachmentTreatment">
+                                            <tr>
+                                                <td>Belum ada file terpilih</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>*@
                             <br />
                             <div class="row form-group">
                                 <div class="col-sm-2">
@@ -613,7 +614,6 @@
     </div>
     <input type="text" id="input_NoCAPA" value="@ViewBag.NoCAPA" hidden>
 </div>
-
 
 <script>
     var noCAPA = getQueryStrings()["NoCAPA"];
@@ -2070,7 +2070,7 @@
         if ($('#txtMDPKegagalanHasil').val().trim() != "") {
             TreatmentTerisi += 1;
         }
-        
+
     }
     $('#btnSimpanTreatment').click(function (e) {
         var modeTreatment = $("#modeTreatment").val();
@@ -2268,7 +2268,7 @@
                 });
             }
         });
-        
+
         @*swal("Att Perbaikan " + attID+ " deleted", {
             icon: "success",
             buttons: false,

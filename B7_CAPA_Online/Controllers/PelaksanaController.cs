@@ -204,13 +204,16 @@ namespace B7_CAPA_Online.Controllers
             var attResult = "";
             var action = "Insert Perbaikan";
             var tipe = "Perbaikan";
+            var b7path = @"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Perbaikan";
             if (kategori.Contains("Pencegahan"))
             {
+                b7path = @"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Pencegahan";
                 action = "Insert Pencegahan";
                 tipe = "Pencegahan";
             }
             else if (kategori.Contains("Treatment"))
             {
+                b7path = @"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Treatment";
                 action = "Insert Treatment";
                 tipe = "Treatment";
             }
@@ -221,9 +224,9 @@ namespace B7_CAPA_Online.Controllers
                 var file = Request.Files[i];
                 var fileName = file.FileName;
 
-                //var path = Path.Combine(@"\\b7-drive.bintang7.com\IntranetPortal\Intranet Attachment\QS\CAPA\"+tipe, fileName);
-                string path = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
-                //file.SaveAs(path);
+                var path = Path.Combine(b7path+tipe, fileName);
+                //string path = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
+                file.SaveAs(path);
 
                 var attDictionary = new Dictionary<string, object>{
                     { "Action", action },
@@ -253,7 +256,7 @@ namespace B7_CAPA_Online.Controllers
 
             string path;
             //hapus dari b7drive belum dibuat
-
+            // Updater = path file dari ajax
             path = data.Updater;
             System.IO.File.Delete(path);
             return Json(result);

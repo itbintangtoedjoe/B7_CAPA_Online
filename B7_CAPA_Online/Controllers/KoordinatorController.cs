@@ -65,7 +65,7 @@ namespace B7_CAPA_Online.Controllers
         {
             return View();
         }
-        public ActionResult PenilaianEfektivitas(string NoCAPA, string status)
+        public ActionResult MonitoringEfektivitas(string NoCAPA, string status)
         {
             ViewBag.NoCAPA = NoCAPA;
             ViewBag.status = status;
@@ -180,9 +180,8 @@ namespace B7_CAPA_Online.Controllers
                 HttpPostedFileBase file = Request.Files[i];
                 int fileSize = file.ContentLength;
                 string mimeType = file.ContentType;
-                System.IO.Stream fileContent = file.InputStream;
-                //string filePath = Path.Combine("\\kalbox-b7.bintang7.com\\Intranetportal\\Intranet Attachment\\HRCostUpload\"", Path.GetFileName(file.FileName));
-                string filePath = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
+                System.IO.Stream fileContent = file.InputStream; 
+                string filePath = Path.Combine(@"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Koordinator\", Path.GetFileName(file.FileName));
                 file.SaveAs(filePath);
                 DataRow rowstype = dt.NewRow();
                 rowstype["LAMPIRAN_TERKAIT"] = filePath;
@@ -380,7 +379,6 @@ namespace B7_CAPA_Online.Controllers
             System.IO.File.Delete(path);
             return Json(result);
         }
-
         public ActionResult DeleteAttachmentKoor4(DynamicModel data,string spname, string path)
         {
             

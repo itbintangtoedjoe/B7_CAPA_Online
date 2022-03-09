@@ -344,8 +344,6 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                GetTindakanPerbaikan();
-                TableKajian();
                 $.ajax({
                     url: 'SubmitApproval',
                     type: 'post',
@@ -365,11 +363,15 @@
                         alert(JSON.stringify(ex));
                     }
                 });
-                Swal.fire(
-                    'Approve!',
-                    'Approve Berhasil',
-                    'success'
-                )
+                Swal.fire({
+                    title: "Approve Berhasil!",
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 1000,
+                }).then(() => {
+                    GetTindakanPerbaikan();
+                    TableKajian();
+                })
             }
         });
     }
@@ -411,8 +413,6 @@
                         data: JSON.stringify(dto1),
                         contentType: "application/json;charset=utf-8",
                         success: function (data) {
-                            GetTindakanPerbaikan();
-                            TableKajian();
                             $.ajax({
                                 url: 'SubmitApproval',
                                 type: 'post',
@@ -432,11 +432,15 @@
                                     alert(JSON.stringify(ex));
                                 }
                             });
-                            Swal.fire(
-                                'Rejected!',
-                                'Reject Berhasil',
-                                'success'
-                            )
+                            Swal.fire({
+                                title: "Reject Berhasil!",
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1000,
+                            }).then(() => {
+                                GetTindakanPerbaikan();
+                                TableKajian();
+                            })
                         },
                         error: function (errormessage) {
                         }
@@ -473,8 +477,6 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                GetTindakanPencegahan();
-                TableKajian();
                 $.ajax({
                     url: 'SubmitApproval',
                     type: 'post',
@@ -494,11 +496,15 @@
                         alert(JSON.stringify(ex));
                     }
                 });
-                Swal.fire(
-                    'Approve!',
-                    'Approve Berhasil',
-                    'success'
-                )
+                Swal.fire({
+                    title: "Approve Berhasil!",
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 1000,
+                }).then(() => {
+                    GetTindakanPencegahan();
+                    TableKajian();
+                })
             }
         });
     }
@@ -540,8 +546,6 @@
                         data: JSON.stringify(dto1),
                         contentType: "application/json;charset=utf-8",
                         success: function (data) {
-                            GetTindakanPencegahan();
-                            TableKajian();
                             $.ajax({
                                 url: 'SubmitApproval',
                                 type: 'post',
@@ -561,11 +565,15 @@
                                     alert(JSON.stringify(ex));
                                 }
                             });
-                            Swal.fire(
-                                'Rejected!',
-                                'Reject Berhasil',
-                                'success'
-                            )
+                            Swal.fire({
+                                title: "Reject Berhasil!",
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1000,
+                            }).then(() => {
+                                GetTindakanPencegahan();
+                                TableKajian();
+                            })
                         },
                         error: function (errormessage) {
                         }
@@ -573,11 +581,13 @@
                 }
                 else {
 
-                    Swal.fire(
-                        'Error!',
-                        'Alasan tidak boleh kosong.',
-                        'error'
-                    )
+                    Swal.fire({
+                        title: "Error!",
+                        text: 'Alasan tidak boleh kosong!',
+                        icon: "error",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    })
                 }
             }
         })

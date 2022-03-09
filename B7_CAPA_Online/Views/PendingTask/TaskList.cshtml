@@ -178,7 +178,9 @@
                             "data": "REG_ID",
                             "visible": false
                         },
-                        { "data": "NO_CAPA" },
+                        {
+                            "data": "NO_CAPA"
+                        },
                         { "data": "KATEGORI_CAPA" },
                         {
                             "data": "DESKRIPSI_MASALAH",
@@ -226,8 +228,8 @@
         } else if (dataRow.STATUS_ID === 9) {
             window.open("../Evaluator/KonfirmasiEfektivitas?NoCAPA=" + dataRow.NO_CAPA + "&status=" + dataRow.STATUS_ID);
         } else if (dataRow.STATUS_ID === 10 ) {
-
-        }         
+        }
+          
     }
 
 

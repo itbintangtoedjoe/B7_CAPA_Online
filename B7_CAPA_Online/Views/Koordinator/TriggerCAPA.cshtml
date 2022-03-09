@@ -332,6 +332,7 @@
 
 <script>
     var QSNoCAPA = getQueryStrings()["NoCAPA"];
+    var loginusernik = '@Request.RequestContext.HttpContext.Session["NIK"]';
     function getQueryStrings() {
         var vars = [], hash;
         var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -405,7 +406,14 @@
                     data: JSON.stringify(dto),
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
-                        Swal.fire("Success!", "Transaction berhasil di Insert", "success");
+
+                        Swal.fire({
+                            title: "Success!",
+                            text: 'Transaction berhasil di Insert!',
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                         GetPenyimpangan();
                     },
                     error: function (ex) {
@@ -450,7 +458,14 @@
                     data: JSON.stringify(dto),
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
-                        Swal.fire("Success!", "Transaction berhasil di Insert", "success");
+
+                        Swal.fire({
+                            title: "Success!",
+                            text: 'Transaction berhasil di Insert!',
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                         GetPenyimpangan();
                     },
                     error: function (ex) {
@@ -495,7 +510,14 @@
                     data: JSON.stringify(dto),
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
-                        Swal.fire("Success!", "Transaction berhasil di Insert", "success");
+
+                        Swal.fire({
+                            title: "Success!",
+                            text: 'Transaction berhasil di Insert!',
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                         GetPenyimpangan();
                     },
                     error: function (ex) {
@@ -772,7 +794,7 @@
                     });
                 }
             });
-        }); 
+        });
         $('#btn_Search_CAPA').click(function () {
 
             dto = {
@@ -1005,7 +1027,7 @@
                 //$('#KategoriPenyimpangan_DDL').append($('<option></option>').attr('value', '').text('Pilih'));
                 $.each(JSON.parse(data), function (key, entry) {
                     $('#KategoriPenyimpangan_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
-                    
+
                 })
                 //$('#KategoriPenyimpangan_DDL').select2();
             },
@@ -1257,11 +1279,14 @@
                     data: JSON.stringify(formData),
                     contentType: "application/json;charset=utf-8",
                     success: function (data) {
-                        Swal.fire(
-                            'Deleted!',
-                            'Lampiran Berhasil Di Hapus!',
-                            'success'
-                        )
+
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: 'Lampiran Berhasil Di Hapus!',
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                         GetLampiran();
                     },
                     error: function (errormessage) {
@@ -1300,11 +1325,13 @@
                     data: JSON.stringify(dto1),
                     contentType: "application/json;charset=utf-8",
                     success: function (data) {
-                        Swal.fire(
-                            'Deleted!',
-                            'Penyimpangan Berhasil Di Hapus!',
-                            'success'
-                        )
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: 'Penyimpangan Berhasil Di Hapus!',
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                         GetPenyimpangan();
                     },
                     error: function (errormessage) {
@@ -1346,11 +1373,13 @@
                 }
             });
         } else {
-            Swal.fire(
-                'Maaf',
-                'Mohon dipilih kembali.',
-                'warning'
-            )
+            Swal.fire({
+                title: "Warning!",
+                text: 'Mohon dipilih kembali.',
+                icon: "warning",
+                showConfirmButton: false,
+                timer: 1000,
+            })
         }
     }
 
@@ -1397,7 +1426,13 @@
         var formData = new FormData();
         var totalFiles = document.getElementById("TxtFileInput").files.length;
         if (totalFiles == 0 || totalFiles == undefined) {
-            Swal.fire("Error!", "Silahkan Memilih File Attachment terlebih dahulu!", "error");
+            Swal.fire({
+                title: "Error!",
+                text: 'Silahkan Memilih File Attachment terlebih dahulu!',
+                icon: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
         }
         else {
             for (var i = 0; i < totalFiles; i++) {
@@ -1406,7 +1441,7 @@
                 //formData.append("NoCAPA", $('#txtNoCAPA').val());
             }
             $.ajax({
-                url: "InsertAttachment?NoCapa=" + QSNoCAPA + "&spname=SP_Insert_Penyimpangan&Creator=&",
+                url: "InsertAttachment?NoCapa=" + QSNoCAPA + "&spname=SP_Insert_Penyimpangan&Creator=" + loginusernik+"",
                 type: "post",
                 data: formData,
                 dataType: 'json',
@@ -1415,11 +1450,22 @@
                 success: function (data) {
                     var result = JSON.parse(data);
                     if (result[0].Validate == "Invalid") {
-
-                        Swal.fire("Error!", "File sudah ada!", "error");
+                        Swal.fire({
+                            title: "Error!",
+                            text: 'File sudah ada!',
+                            icon: "error",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                     }
                     else {
-                        Swal.fire("Success!", "Upload Berhasil!", "success");
+                        Swal.fire({
+                            title: "Success!",
+                            text: 'Upload Berhasil!',
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                         GetLampiran();
                     }
                 },

@@ -68,19 +68,20 @@
                         </div>
                     </div>
                 </div>
-
-
+                <div class="card" id="RootCause" hidden>
+                    <div class="card-body">
+                        <div class="col-md-4">
+                            <label class="m-t-20">Root Cause</label>
+                            <select id="RootCause_DDL" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="card" id="Div_TindakanPerbaikan" hidden>
                     <div class="card-body">
                         <h4 class="card-title">Penambahan Tindakan Perbaikan</h4>
                         <form>
-                            <div class="row form-group-sm">
-                                <div class="col-md-6">
-                                    <label class="m-t-20">Root Cause</label>
-                                    <select id="RootCause_DDL" class="form-control">
-                                    </select>
-                                </div>
-                            </div>
+
                             <div class="row form-group-sm">
                                 <div class="col-md-6">
                                     <label class="m-t-20">Tindakan Perbaikan<span style="color: red">*</span></label>
@@ -92,17 +93,7 @@
                                 </div>
                             </div>
                             <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label class="m-t-40">Apakah ada proses / area lain yang berpotensi sama ?</label>
-                                    <div class="radio input-group">
-                                        <div class="col-sm-3">
-                                            <label><input type="radio" value="Yes" name="Potensi">Ya</label>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <label><input type="radio" value="No" name="Potensi" checked>Tidak</label>
-                                        </div>
-                                    </div>
-                                </div>
+                               
                                 <div class="col-md-12 mb-3">
                                     <label class="m-t-40" style="visibility: hidden">_</label>
                                     <div class="input-group">
@@ -133,6 +124,21 @@
                     </div>
                 </div>
 
+                <div class="card" id="btnPencegahan" hidden>
+                    <div class="card-body">
+                        <div class="col-md-12">
+                            <label class="m-t-40">Apakah ada proses / area lain yang berpotensi sama ?</label>
+                            <div class="radio input-group">
+                                <div class="col-sm-3">
+                                    <label><input type="radio" value="Yes" name="Potensi">Ya</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label><input type="radio" value="No" name="Potensi" checked>Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="card" id="Div_TindakanPencegahan" hidden="hidden">
                     <div class="card-body">
                         <h4 class="card-title">Penambahan Tindakan Pencegahan</h4>
@@ -345,6 +351,8 @@
                 $('#Div_TindakanPerbaikan').prop('hidden', false);
                 $('#PerbaikanExisting').prop('hidden', true);
                 $('#Div_Pencegahan').prop('hidden', true);
+                $('#RootCause').prop('hidden', false);
+                $('#btnPencegahan').prop('hidden', false);
                 KajianDDLPerbaikanBaru();
                 TableKajianTambahTindakanBaru();
                 AreaLain();
@@ -355,6 +363,8 @@
                 $('#btnSimpan').prop('hidden', false);
                 $('#Div_TindakanPerbaikan').prop('hidden', true);
                 $('#Div_TindakanPencegahan').prop('hidden', true);
+                $('#RootCause').prop('hidden', true);
+                $('#btnPencegahan').prop('hidden', true);
                 KajianDDLPencegahan();
                 TableKajian();
             }
@@ -1499,12 +1509,6 @@
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var result = JSON.parse(data);
-                if (result.length == 0) {
-                    $('#Div_TindakanPencegahan').prop('hidden', true);
-                }
-                else {
-                    $('#Div_TindakanPencegahan').prop('hidden', false);
-                }
                 $('#AreaLain_DDL').empty();
                 $('#AreaLain_DDL').append(new Option("*Pilih*", ""));
                 $.each(JSON.parse(data), function (key, value) {
