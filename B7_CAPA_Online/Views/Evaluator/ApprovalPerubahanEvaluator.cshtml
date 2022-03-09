@@ -231,8 +231,14 @@
     var stataction = false;
     var laststate = false;
     var valid;
+    var evautama;
     var referenceID = getQueryStrings()["ReferenceID"];
-    var countPerbaikan, countPencegahan, countPerbaikanPenambahan, countPencegahanPenambahan, countPerbaikanPembatalan, countPencegahanPembatalan;
+    var countPerbaikan;
+    var countPencegahan;
+    var countPerbaikanPenambahan;
+    var countPencegahanPenambahan;
+    var countPerbaikanPembatalan;
+    var countPencegahanPembatalan;
     var count = 0;
     $('#input_NoCAPA').val(noCAPA);
     //function untuk ambil semua query string
@@ -268,13 +274,25 @@
 
                     if (result[i].EMPID == nik) {
                         valid = true;
+                        if (result[i].IsUtama == true) {
+                            evautama = true;
+                        }
+                        else {
+                            evautama = false;
+                        }
                         break;
                     }
                     else {
                         valid = false;
                     }
+                    
                 }
-
+                GetTindakanPerbaikan();
+                GetTindakanPencegahan();
+                GetTindakanPerbaikanPenambahan();
+                GetTindakanPencegahanPenambahan();
+                GetTindakanPerbaikanPembatalan();
+                GetTindakanPencegahanPembatalan();
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -288,12 +306,6 @@
         $('#RootCause_KajianResikoDDL').attr('disabled', true);
         $('#btn_AddKajian').attr('disabled', true);
         checkUser();
-        GetTindakanPerbaikan();
-        GetTindakanPencegahan();
-        GetTindakanPerbaikanPenambahan
-        GetTindakanPencegahanPenambahan();
-        GetTindakanPerbaikanPembatalan();
-        GetTindakanPencegahanPembatalan();
         
         TableKajian();
         $('#Reject').click(function () {
@@ -314,12 +326,14 @@
         var tablepencegahanpenambahan = $('#Tbl_PencegahanPenambahan').DataTable().data().count();
         var tableperbaikanpembatalan = $('#Tbl_PerbaikanPembatalan').DataTable().data().count();
         var tablepencegahanpembatalan = $('#Tbl_PencegahanPembatalan').DataTable().data().count();
-        if (tableperbaikanperubahan == countPerbaikan && tablepencegahanperubahan == countPencegahan && tableperbaikanpenambahan == countPerbaikanPenambahan
-            && tablepencegahanpenambahan == countPencegahanPenambahan && tableperbaikanpembatalan == countPerbaikanPembatalan && tablepencegahanpembatalan == countPencegahanPembatalan && count != 0) {
+        
 
-            window.location.href = '../PendingTask/TaskList'
+        if (tableperbaikanperubahan == countPerbaikan && tablepencegahanperubahan == countPencegahan
+            && tableperbaikanpenambahan == countPerbaikanPenambahan && tablepencegahanpenambahan == countPencegahanPenambahan
+            && tableperbaikanpembatalan == countPerbaikanPembatalan && tablepencegahanpembatalan == countPencegahanPembatalan) {
+
+            window.location.href = '../PendingTask/TaskList';
         }
-        count++;
     }
     function GetTindakanPerbaikan() {
         var dictlist = {
@@ -941,7 +955,7 @@
                                     return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikanPenambahan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikanPenambahan(this) value='Reject'style='background-color:red;'/>";
                                 }
                                 else if (row["IsUtama"] === false && row["Rentang"] === 0) {
-                                    return "Waiting Evaluator Mengisi Rentang";
+                                    return "Waiting Evaluator Utama Mengisi Rentang";
                                 }
                             }
 
@@ -960,13 +974,26 @@
 
                 var result = JSON.parse(data);
                 var temp = 0;
+                var countRentangPerbaikan = 0;
+                console.log(result);
                 for (var i = 0; i < result.length; i++) {
                     if (result[i].IsApproved == true) {
                         temp += 1;
                     }
+                    if (result[i].Rentang == 0) {
+                        countRentangPerbaikan += 1;
+                    }
                 }
-                countPerbaikanPenambahan = temp;
+                alert(evautama);
+                if (evautama == false) {
 
+                    countPerbaikanPenambahan = temp + countRentangPerbaikan;
+
+                }
+                else {
+
+                    countPerbaikanPenambahan = temp;
+                }
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -1058,12 +1085,23 @@
                 });
                 var result = JSON.parse(data);
                 var temp = 0;
+                var countRentangPencegahan = 0;
                 for (var i = 0; i < result.length; i++) {
                     if (result[i].IsApproved == true) {
                         temp += 1;
                     }
+                    if (result[i].Rentang == 0) {
+                        countRentangPencegahan += 1;
+                    }
                 }
-                countPencegahanPenambahan = temp;
+                if (evautama == false) {
+
+                    countPencegahanPenambahan = temp + countRentangPencegahan;
+                }
+                else {
+
+                    countPencegahanPenambahan = temp;
+                }
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -1587,6 +1625,7 @@
                     }
                 }
                 countPencegahanPembatalan = temp;
+                count++;
                 CheckPending();
             },
             error: function (ex) {
