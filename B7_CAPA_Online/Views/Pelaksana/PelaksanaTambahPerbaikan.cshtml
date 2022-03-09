@@ -14,6 +14,7 @@
 
 <link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
 <script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
+<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
 
 <div class="content-body">
     <!--Modal-->
@@ -93,7 +94,7 @@
                                 </div>
                             </div>
                             <div class="row form-group">
-                               
+
                                 <div class="col-md-12 mb-3">
                                     <label class="m-t-40" style="visibility: hidden">_</label>
                                     <div class="input-group">
@@ -300,6 +301,7 @@
     var tipe;
     var jenis;
     var values;
+    var rootPencegahan;
     var laststate = false;
     function getQueryStrings() {
         var vars = [], hash;
@@ -406,10 +408,12 @@
             var berpotensi = $('input[name="TambahPerbaikan"]:checked').val();
 
             if (berpotensi == "Yes") {
+                $.blockUI();
                 SubmitTindakanBaru();
             }
             else
             {
+                $.blockUI();
                 SubmitTindakanExisting();
             }
         })
@@ -436,7 +440,43 @@
             console.log(namauser);
             //console.log(values);
         });
+        $('#btn_AddPencegahan').click(function () {
+            var dto = {};
+            var kategori = "Pencegahan";
+            var obj = rootPencegahan;
+            console.log(rootPencegahan);
+            $.each(obj, function (key, value) {
+                console.log($('#RootCause_DDL').val());
+                console.log(value.WhyDesc);
+                if (value.WhyDesc == $('#RootCause_DDL').val()) {
+                    dto = {
+                        Option: 9,
+                        NO_CAPA: noCAPA,
+                        Aspect: value.WAHType_FK,
+                        WhyID: value.WhyID,
+                        WhyDesc: value.WhyDesc,
+                        WhyParentID: value.WhyParentID,
+                        RootCause: $('#RootCause_DDL').val(),
+                        AreaLain: $('#txtRootCausePencegahan').val(),
+                        Tindakan: $('#TxtDeskripsiPencegahan').val(),
+                        Pelaksana: nik,
+                        Departemen: departemen,
+                        LineNumber: value.LineNumber,
+                        DueDate: $('#duedate_pencegahan').val(),
+                        NamaPersonil: namauser,
+                        Email: email,
+                        Create_By: nik,
+                        Status: "Pencegahan Baru",
+                        Status_ID: 0,
+                        SP: "[dbo].[SP_FORM_CAPA]"
+                    }
 
+                }
+            });
+            addTindakan(dto, kategori);
+
+
+        });
         $('#btn_KajianResiko').click(function () {
             //recTindakan(0);
             if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
@@ -1024,12 +1064,8 @@
     }
 
     function recTindakan() {
-        console.log(objTindakan);
-        //console.log(tipe);
-        console.log($('#RootCause_KajianResikoDDL').val());
         var tambahperbaikan = $('input[name="TambahPerbaikan"]:checked').val();
-        console.log(tambahperbaikan);
-        console.log(tipe);
+
         for (var i = 0; i < objTindakan.length; i++) {
             if (tambahperbaikan == "Yes") {
                 if (objTindakan[i].RecordID == $('#RootCause_KajianResikoDDL').val() && objTindakan[i].Tipe == tipe) {
@@ -1110,7 +1146,7 @@
                         { "data": "Lainnya" },
                         {
                             "data": null,
-                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onchange=''>Delete</button> ",
+                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onclick=DeleteKajianResiko(this) >Delete</button> ",
                             "visible": (!isHide) ? (true) : (false)
                         },
                     ],
@@ -1187,7 +1223,7 @@
                         { "data": "Lainnya" },
                         {
                             "data": null,
-                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onclick=DeleteKajianResiko(this) onchange=''>Delete</button> ",
+                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onclick=DeleteKajianResiko(this) >Delete</button> ",
                             "visible": (!isHide) ? (true) : (false)
                         },
                     ],
@@ -1205,37 +1241,66 @@
     }
 
     function DeleteKajianResiko(button) {
-        var rows = $(button).closest('tr');
-        var data = $('#Tbl_KajianResiko').DataTable().row(rows).data();
-        var id = data['RecordID'];
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Delete!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                var rows = $(button).closest('tr');
+                var data = $('#Tbl_KajianResiko').DataTable().row(rows).data();
+                var id = data['RecordID'];
+                var tipe = data['Tipe'];
+                //console.log(data);
+                //console.log({
+                //    Model: {
+                //        Option: data.Option,
+                //        NO_CAPA: data.NoCAPA_FK,
+                //        LineNumber: data.LineNumber,
+                //        RecordID: data.RecordID
+                //    }
+                //});
 
-        //console.log(data);
-        //console.log({
-        //    Model: {
-        //        Option: data.Option,
-        //        NO_CAPA: data.NoCAPA_FK,
-        //        LineNumber: data.LineNumber,
-        //        RecordID: data.RecordID
-        //    }
-        //});
+                $.ajax({
+                    url: 'DynamicController?spname=[dbo].[SP_FORM_Perubahan]',
+                    type: 'post',
+                    dataType: 'json',
+                    data: JSON.stringify({
+                        Model: {
+                            Option: 27,
+                            RecordID: id
+                        }
+                    }),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: 'Kajian Berhasil Di Hapus!',
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
+                        if (tipe == 'Perbaikan Baru') {
+                            TableKajianTambahTindakanBaru();
+                        }
+                        else {
+                            TableKajian();
+                        }
+                        return true;
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                });
 
-        $.ajax({
-            url: 'DynamicController?spname=[dbo].[SP_FORM_Perubahan]',
-            type: 'post',
-            dataType: 'json',
-            data: JSON.stringify({
-                Option: 27,
-                RecordID: id
-            }),
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                TableKajian();
-                return true;
-            },
-            error: function (ex) {
-                alert(JSON.stringify(ex));
+
             }
-        });
+        })
     }
 
     function SubmitTindakanExisting()
@@ -1260,12 +1325,24 @@
                     var result = JSON.parse(data);
                     if (result[0].Validate == "Invalid Pencegahan")
                     {
-                        Swal.fire("Error!", "Masih ada Tindakan Pencegahan yang belum dikaji !", "error");
-
+                        Swal.fire({
+                            title: "Error!",
+                            text: "Masih ada Tindakan Pencegahan yang belum dikaji !",
+                            icon: "error",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                     }
                     else {
 
-                        Swal.fire("Success!", "Submit Berhasil!", "success");
+                        $.unblockUI();
+                        Swal.fire({
+                            title: "Success!",
+                            text: "Submit Berhasil!",
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                         $.ajax({
                             url: 'SubmitApproval',
                             type: 'post',
@@ -1319,15 +1396,36 @@
                     var result = JSON.parse(data);
                     if (result[0].Validate == "Invalid Perbaikan") {
 
-                        Swal.fire("Error!", "Masih ada Tindakan Perbaikan yang belum dikaji !", "error");
+
+                        Swal.fire({
+                            title: "Error!",
+                            text: "Masih ada Tindakan Pencegahan yang belum dikaji !",
+                            icon: "error",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                     }
                     else if (result[0].Validate == "Invalid Pencegahan") {
 
-                        Swal.fire("Error!", "Masih ada Tindakan Pencegahan yang belum dikaji !", "error");
+
+                        Swal.fire({
+                            title: "Error!",
+                            text: "Masih ada Tindakan Pencegahan yang belum dikaji !",
+                            icon: "error",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
 
                     }
                     else {
-                        Swal.fire("Success!", "Submit Berhasil !", "Success");
+                        $.unblockUI();
+                        Swal.fire({
+                            title: "Success!",
+                            text: "Submit Berhasil!",
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                         $.ajax({
                             url: 'SubmitApproval',
                             type: 'post',
@@ -1523,9 +1621,8 @@
     function retrieveData2() {
         var dictlist =
         {
-            Option: 8,
-            NO_CAPA: noCAPA,
-            Status_Perbaikan: 'Perbaikan Baru'
+            Option: 6,
+            NO_CAPA: noCAPA
         }
         var dto1 = {
             Model: dictlist
@@ -1538,51 +1635,8 @@
             contentType: 'application/json; charset=utf-8',
             success: function (area_lain) {
                 var data = JSON.parse(area_lain);
-                if (data.length == 0) {
-                    $('#Div_TindakanPencegahan').prop('hidden', true);
-                } else {
-                    $('#AreaLain_DDL').empty();
-                    $('#AreaLain_DDL').append(new Option("*Pilih*", ""));
-                    $.each(JSON.parse(area_lain), function (key, value) {
-                        $('#AreaLain_DDL').append(new Option(value.Tindakan_Perbaikan, value.Tindakan_Perbaikan));
-                    });
-                        $('#btn_AddPencegahan').click(function () {
-                            var dto = {};
-                            var kategori = "Pencegahan";
-                            var obj = JSON.parse(area_lain);
-                            $.each(obj, function (key, value) {
-                                console.log($('#RootCause_DDL').val());
-                                console.log(value.WhyDesc);
-                                if (value.WhyDesc == $('#RootCause_DDL').val()) {
-                                    dto = {
-                                        Option: 9,
-                                        NO_CAPA: noCAPA,
-                                        Aspect: value.WAHType_FK,
-                                        WhyID: value.WhyID,
-                                        WhyDesc: value.WhyDesc,
-                                        WhyParentID: value.WhyParentID,
-                                        RootCause: $('#RootCause_DDL').val(),
-                                        AreaLain: $('#txtRootCausePencegahan').val(),
-                                        Tindakan: $('#TxtDeskripsiPencegahan').val(),
-                                        Pelaksana: nik,
-                                        Departemen: departemen,
-                                        LineNumber: value.LineNumber,
-                                        DueDate: $('#duedate_pencegahan').val(),
-                                        NamaPersonil: namauser,
-                                        Email: email,
-                                        Create_By: nik,
-                                        Status: "Pencegahan Baru",
-                                        Status_ID: 0,
-                                        SP: "[dbo].[SP_FORM_CAPA]"
-                                    }
-
-                                }
-                            });
-                            addTindakan(dto, kategori);
-                        
-
-                    });
-                }
+                console.log(data);
+                rootPencegahan = data;
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -1625,6 +1679,7 @@
     function addTindakan(dto, kategori) {
         var valid = false;
         $.each(dto, function (key, value) {
+            console.log(value);
             if (value == '' || value == '-' || value == null) {
                 if (value == 0 || typeof value === "undefined")
                     valid = true;

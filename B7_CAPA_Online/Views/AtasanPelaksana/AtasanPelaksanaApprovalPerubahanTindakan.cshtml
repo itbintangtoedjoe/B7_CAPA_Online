@@ -286,8 +286,15 @@
         var tablepencegahanpenambahan = $('#Tbl_PencegahanPenambahan').DataTable().data().count();
         var tableperbaikanpembatalan = $('#Tbl_PerbaikanPembatalan').DataTable().data().count();
         var tablepencegahanpembatalan = $('#Tbl_PencegahanPembatalan').DataTable().data().count();
+        console.log(tableperbaikanperubahan);
+        console.log(tablepencegahanperubahan);
+        console.log(tableperbaikanpenambahan);
+        console.log(tablepencegahanpenambahan);
+        console.log(tableperbaikanpembatalan);
+        console.log(tablepencegahanpembatalan);
+
         if (tableperbaikanperubahan == 0 && tablepencegahanperubahan == 0 && tableperbaikanpenambahan == 0
-            && tablepencegahanpenambahan == 0 && tableperbaikanpembatalan == 0 && tablepencegahanpembatalan == 0 && count != 0) {
+            && tablepencegahanpenambahan == 0 && tableperbaikanpembatalan == 0 && tablepencegahanpembatalan == 0 && count >6) {
 
             window.location.href = '../PendingTask/TaskList'
         }
