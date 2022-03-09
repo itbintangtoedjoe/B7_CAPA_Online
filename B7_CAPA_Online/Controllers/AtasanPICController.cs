@@ -76,8 +76,15 @@ namespace B7_CAPA_Online.Controllers
                         CreateBy = item.Value<string>("Requestor")
                     });
                 }
-                string values = Param.Model["Option"].ToString();
-                if (values != "7" || values != "9") // ketika option sp != 7 kalau 7 itu untuk approval ReviewCAPA 
+                int values = int.Parse(Param.Model["Option"].ToString());
+                bool isValid = true;
+
+                if (values > 6 && values < 10 && values != 8)
+                {
+                    isValid = false;
+                }
+                
+                if (isValid) // ketika option sp != 7 atau 9 kalau 7 itu untuk approval ReviewCAPA 
                 {
                     if (list[0].NO_CAPA != null) // kirim email setiap status header berubah
                     {
@@ -85,20 +92,21 @@ namespace B7_CAPA_Online.Controllers
                         foreach (var value in list)
                         {
                             emailSender.SendEmail(new Dictionary<string, object> {
-                                {"Nama_Aplikasi", "CAPA" }, // ini hardcode 
-                                {"Kategori", "PICReminder" }, // ini hardcode
-                                {"KategoriCAPA", value.KategoriCAPA }, // dari list diatas
-                                {"ToEmpName", value.ToEmpName }, // dari list diatas
-                                {"Recipient", Recipient}, // recipient object list dari atas
-                                {"TriggerCAPA", value.TriggerCAPA}, // ini dari list diatas
-                                {"Lokasi", value.Lokasi}, // dari list diatas
-                                {"StatusCAPA", value.StatusCAPA}, // ini dari list diatas
-                                {"PIC", value.PIC}, // ini dari list diatas
-                                {"CreateBy", value.CreateBy}, // ini dari list diatas
-                                {"DeskripsiMasalah", value.DeskripsiMasalah } // ini dari list diatas
-                            });
+                            {"Nama_Aplikasi", "CAPA" }, // ini hardcode 
+                            {"Kategori", "PICReminder" }, // ini hardcode
+                            {"KategoriCAPA", value.KategoriCAPA }, // dari list diatas
+                            {"ToEmpName", value.ToEmpName }, // dari list diatas
+                            {"Recipient", Recipient}, // recipient object list dari atas
+                            {"TriggerCAPA", value.TriggerCAPA}, // ini dari list diatas
+                            {"Lokasi", value.Lokasi}, // dari list diatas
+                            {"StatusCAPA", value.StatusCAPA}, // ini dari list diatas
+                            {"PIC", value.PIC}, // ini dari list diatas
+                            {"CreateBy", value.CreateBy}, // ini dari list diatas
+                            {"DeskripsiMasalah", value.DeskripsiMasalah } // ini dari list diatas
+                        });
                         }
-                    }
+                    }                    
+                    
                 }
                 return Json(Recipient);
             }
