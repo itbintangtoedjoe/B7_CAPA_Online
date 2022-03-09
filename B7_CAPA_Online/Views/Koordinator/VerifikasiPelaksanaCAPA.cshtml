@@ -388,7 +388,7 @@
     }
 
     function CheckType() {
-        if (typeParam = 'View') {
+        if (typeParam == 'View') {
 
         }
         else {
@@ -821,7 +821,7 @@
                 $.each(JSON.parse(data), function (key, value) {
                     console.log(value.HasilCek)
                     if (value.HasilCek == 0) {
-                        window.location.href ="/Koordinator/PenilaianEfektivitas?NoCAPA=" + noCAPA + "&status=" + value.StatusID;
+                        window.location.href ="../Koordinator/MonitoringEfektivitas?NoCAPA=" + noCAPA + "&status=" + value.StatusID;
                     }
                 });
             },
