@@ -21,7 +21,7 @@ using System.Web.UI;
 using static B7_CAPA_Online.Models.KoordinatorModel;
 
 namespace B7_CAPA_Online.Controllers
-{   
+{
     public class KoordinatorController : Controller
     {
         // GET: Koordinator
@@ -379,12 +379,13 @@ namespace B7_CAPA_Online.Controllers
             System.IO.File.Delete(path);
             return Json(result);
         }
-        public ActionResult DeleteAttachmentKoor4(DynamicModel data,string spname, string path)
+
+        public ActionResult DeleteAttachmentKoor4(DynamicModel data, string spname, string path)
         {
-            
+
             var parameters = new DynamicParameters(data);
-            var result = DAL.StoredProcedure(parameters,spname);
-            
+            var result = DAL.StoredProcedure(parameters, spname);
+
             //hapus dari b7drive belum dibuat
             System.IO.File.Delete(path);
 
@@ -408,13 +409,16 @@ namespace B7_CAPA_Online.Controllers
                     var val = str.GetType()
                     .GetProperty(prop)
                     .GetValue(str);
-                    string[] value = val.ToString().Split(',');
                     List<string> newList = new List<string>();
-                    foreach (string temp in value)
+                    if (val != null)
                     {
-                        newList.Add(temp.Trim());
-                        arrListDept.Add(new ListDepartemenModel { Departemen = temp.Trim() });
-                    }
+                        string[] value = val.ToString().Split(',');                      
+                        foreach (string temp in value)
+                        {
+                            newList.Add(temp.Trim());
+                            arrListDept.Add(new ListDepartemenModel { Departemen = temp.Trim() });
+                        }
+                    }                    
                     switch (Count)
                     {
                         case 0:
@@ -538,18 +542,25 @@ namespace B7_CAPA_Online.Controllers
         [HttpPost]
         public ActionResult InsertCAPA(DALModel Model)
         {
-            for (int i = 0; i < Request.Files.Count; i++)
+            int fileCount = Request.Files.Count;
+
+            for (int i = 0; i < fileCount; i++)
             {
                 HttpPostedFileBase file = Request.Files[i];
                 int fileSize = file.ContentLength;
                 string mimeType = file.ContentType;
                 System.IO.Stream fileContent = file.InputStream;
-                string filePath = Path.Combine(@"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Koordinator\", Path.GetFileName(file.FileName));
+                string fileName = Path.GetFileName(file.FileName);
+                string filePath = Path.Combine(@"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Koordinator\", fileName);
                 //string filePath = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
                 Model.LampiranTerkait.Add(new Lampiran { LAMPIRAN_TERKAIT = filePath, FILE_NAME = Path.GetFileName(file.FileName) });
-                Model.SP = "[dbo].[SP_CAPA_ID]";
-                //file.SaveAs(filePath);
+                Model.SP = "[dbo].[SP_CAPA_ID]";       
+                if(fileName != "")
+                {
+                    file.SaveAs(filePath);
+                }                
             }
+
             string jsonObj = string.Join(",", Model.DepartemenCollection.ToArray());
             dynamic deptList = JsonConvert.DeserializeObject<List<Dept>>(jsonObj);
 
@@ -595,7 +606,7 @@ namespace B7_CAPA_Online.Controllers
 
         //public DataTable Lampiran()
         //{
-           
+
         //    PropertyInfo[] Props = typeof(Lampiran).GetProperties(BindingFlags.Public | BindingFlags.Instance);
         //    if (dtLampiran.Columns.Count <= 0)
         //    {
@@ -803,7 +814,7 @@ namespace B7_CAPA_Online.Controllers
             var spname = "SP_VERIFIKASI_PELAKSANA_CAPA";
             var parameters = new DynamicParameters(dictionary);
             return Json(DAL.StoredProcedure(parameters, spname));
-        }
+        }       
         #endregion
     }
 }
