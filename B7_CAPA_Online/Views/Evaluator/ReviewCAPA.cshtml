@@ -135,7 +135,7 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 var result = JSON.parse(data);
-                console.log(result);
+                //console.log(result);
                 $.each(result, function (key, value) {
                     //$('#btn_Submit').prop('hidden', true);
                     if (value.Emp == '@Request.RequestContext.HttpContext.Session["NIK"]') {
@@ -256,7 +256,7 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 var result = JSON.parse(data);
-                console.log(result)
+                //console.log(result)
                 var table = $('#Tbl_RentangPerbaikan').DataTable({
                     "pageLength": 5,
                     "lengthChange": false,
@@ -372,7 +372,7 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 var result = JSON.parse(data);
-                console.log(result);
+                //console.log(result);
                 var table = $('#Tbl_RentangPencegahan').DataTable({
                     "pageLength": 5,
                     "lengthChange": false,
@@ -756,9 +756,9 @@
             $('#Reject_Page').removeAttr("hidden");
         });
 
-        $('#btn_Request_Page').click(function () {
-            window.open('../Koordinator/CreateCAPA?NoCAPA=' + $("#input_NoCAPA").val());
-        });
+        //$('#btn_Request_Page').click(function () {
+        //    window.open('../Koordinator/CreateCAPA?NoCAPA=' + $("#input_NoCAPA").val());
+        //});
     });
 
 
