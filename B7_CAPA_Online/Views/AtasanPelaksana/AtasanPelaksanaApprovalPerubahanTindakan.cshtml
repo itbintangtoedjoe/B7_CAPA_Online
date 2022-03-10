@@ -280,6 +280,7 @@
         });
     }
     function CheckPending() {
+        count++;
         var tableperbaikanperubahan = $('#Tbl_Perbaikan').DataTable().data().count();
         var tablepencegahanperubahan = $('#Tbl_Pencegahan').DataTable().data().count();
         var tableperbaikanpenambahan = $('#Tbl_PerbaikanPenambahan').DataTable().data().count();
@@ -292,13 +293,12 @@
         console.log(tablepencegahanpenambahan);
         console.log(tableperbaikanpembatalan);
         console.log(tablepencegahanpembatalan);
-
+        console.log(count);
         if (tableperbaikanperubahan == 0 && tablepencegahanperubahan == 0 && tableperbaikanpenambahan == 0
-            && tablepencegahanpenambahan == 0 && tableperbaikanpembatalan == 0 && tablepencegahanpembatalan == 0 && count >6) {
+            && tablepencegahanpenambahan == 0 && tableperbaikanpembatalan == 0 && tablepencegahanpembatalan == 0 && count >5) {
 
             window.location.href = '../PendingTask/TaskList'
         }
-        count++;
     }
     $(document).ready(function () {
         $('#TxtDepartemen').val('@Request.RequestContext.HttpContext.Session["Departemen"]');
@@ -447,7 +447,8 @@
             NoCAPA: noCAPA,
             RecordID: id,
             Option: 7,
-            Empid: nik
+            Empid: nik,
+            Tipe: "Perubahan Perbaikan"
         }
         var dto1 = {
             Model: dictlist
@@ -550,7 +551,7 @@
                             });
                             Swal.fire({
                                 title: "Reject Berhasil!",
-                                type: "success",
+                                icon: "success",
                                 showConfirmButton: false,
                                 timer: 1000,
                             }).then(() => {
@@ -583,7 +584,8 @@
             NoCAPA: noCAPA,
             RecordID: id,
             Option: 8,
-            Empid: nik
+            Empid: nik,
+            Tipe: "Perubahan Pencegahan"
         }
         var dto1 = {
             Model: dictlist
@@ -721,9 +723,7 @@
                     NoCAPA: noCAPA,
                     Empid: nik,
                     Option: 3,
-                    Stat: 10,
-                    Status_Perbaikan: "Perubahan Perbaikan",
-                    Status_Pencegahan: "Perubahan Pencegahan"
+                    Stat: 10
                 }
             }),
             dataType: 'json',
@@ -916,6 +916,7 @@
             Empid: nik,
             RecordID: id,
             Option: 7,
+            Tipe: "Pembatalan Perbaikan"
         }
         var dto1 = {
             Model: dictlist
@@ -1050,6 +1051,7 @@
             Empid: nik,
             RecordID: id,
             Option: 8,
+            Tipe: "Pembatalan Pencegahan"
         }
         var dto1 = {
             Model: dictlist
@@ -1298,11 +1300,13 @@
         var row = $(button).closest("TR");
         var data = $('#Tbl_PerbaikanPenambahan').DataTable().row(row).data();
         var id = data['RecordID'];
+        var tipe = data['Status_Perbaikan'];
         var dictlist = {
             NoCAPA: noCAPA,
             Empid: nik,
             RecordID: id,
             Option: 7,
+            Tipe: tipe
         }
         var dto1 = {
             Model: dictlist
@@ -1435,11 +1439,13 @@
         var row = $(button).closest("TR");
         var data = $('#Tbl_PencegahanPenambahan').DataTable().row(row).data();
         var id = data['RecordID'];
+        var tipe = data['Status_Pencegahan'];
         var dictlist = {
             NoCAPA: noCAPA,
             Empid: nik,
             RecordID: id,
             Option: 8,
+            Tipe: tipe
         }
         var dto1 = {
             Model: dictlist

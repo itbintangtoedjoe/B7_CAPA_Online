@@ -366,7 +366,13 @@
 
     function AddEvaluator() {
         if ($("#EvalList_DDL").val().trim() == "" || $("#EvalList_DDL").val() == undefined) {
-            Swal.fire("Error!", "Evaluator harus dipilih dahulu", "error");
+            Swal.fire({
+                title: "Error!",
+                text: "Evaluator harus dipilih dahulu",
+                icon: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
         }
         else {
 
@@ -393,7 +399,7 @@
                         Swal.fire({
                             title: "Add Berhasil!",
                             text: "Evaluator berhasil ditambahkan",
-                            type: "success",
+                            icon: "success",
                             showConfirmButton: false,
                             timer: 1000,
                         })
@@ -410,7 +416,7 @@
                         Swal.fire({
                             title: "Error!",
                             text: "Evaluator Utama sudah Ada",
-                            type: "error",
+                            icon: "error",
                             showConfirmButton: false,
                             timer: 1000,
                         })
@@ -522,10 +528,11 @@
         }
         var row = $('#Tbl_Eval').DataTable();
         if (row.data().count() == 0) {
+            $.unblockUI();
             Swal.fire({
                 title: "Error!",
                 text: "Silahkan pilih Evaluator terlebih dahulu!",
-                type: "error",
+                icon: "error",
                 showConfirmButton: false,
                 timer: 1000,
             })
@@ -539,22 +546,23 @@
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
                     var result = JSON.parse(data);
-                    $.unblockUI();
                     if (result[0].Stat == "Invalid") {
+                        $.unblockUI();
                         Swal.fire({
                             title: "Error!",
                             text: "Silahkan pilih Evaluator Utama terlebih dahulu!",
-                            type: "error",
+                            icon: "error",
                             showConfirmButton: false,
                             timer: 1000,
                         })
                     }
                     else {
 
+                        $.unblockUI();
                         Swal.fire({
                             title: "Success!",
                             text: "Submit Berhasil",
-                            type: "success",
+                            icon: "success",
                             showConfirmButton: false,
                             timer: 1000,
                         })
@@ -600,7 +608,7 @@
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
-            type: 'warning',
+            icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
@@ -630,7 +638,7 @@
                         Swal.fire({
                             title: "Deleted!",
                             text: "Evaluator Berhasil Di Hapus!",
-                            type: "success",
+                            icon: "success",
                             showConfirmButton: false,
                             timer: 1000,
                         })
@@ -646,7 +654,7 @@
         Swal.fire({
             title: 'Alasan Reject',
             text: "You won't be able to revert this!",
-            type: 'warning',
+            icon: 'warning',
             html: '<textarea id="txtReject" class="form form-control" ></textarea>',
             showCancelButton: true,
             confirmButtonColor: '#d33',
@@ -688,7 +696,7 @@
                             Swal.fire({
                                 title: "Rejected!",
                                 text: "Reject Berhasil",
-                                type: "success",
+                                icon: "success",
                                 showConfirmButton: false,
                                 timer: 1000,
                             })
@@ -719,7 +727,7 @@
                     Swal.fire({
                         title: "Error!",
                         text: "Alasan tidak boleh kosong.",
-                        type: "error",
+                        icon: "error",
                         showConfirmButton: false,
                         timer: 1000,
                     })
@@ -736,7 +744,7 @@
         Swal.fire({
             title: 'Alasan Cancel',
             text: "You won't be able to revert this!",
-            type: 'warning',
+            icon: 'warning',
             html: '<textarea id="txtCancel" class="form form-control" ></textarea>',
             showCancelButton: true,
             confirmButtonColor: '#d33',
@@ -779,7 +787,7 @@
                             Swal.fire({
                                 title: "Cancelled!",
                                 text: "Cancel Berhasil",
-                                type: "success",
+                                icon: "success",
                                 showConfirmButton: false,
                                 timer: 1000,
                             })
@@ -811,7 +819,7 @@
                     Swal.fire({
                         title: "Error!",
                         text: "Alasan tidak boleh kosong.",
-                        type: "error",
+                        icon: "error",
                         showConfirmButton: false,
                         timer: 1000,
                     })

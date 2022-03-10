@@ -70,7 +70,6 @@
                                         <th>Due Date</th>
                                         <th>Due Date Revisi</th>
                                         <th>Alasan Perubahan Due Date </th>
-                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -93,7 +92,6 @@
                                         <th>Due Date</th>
                                         <th>Due Date Revisi</th>
                                         <th>Alasan Perubahan Due Date </th>
-                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -326,11 +324,12 @@
         var tablepencegahanpenambahan = $('#Tbl_PencegahanPenambahan').DataTable().data().count();
         var tableperbaikanpembatalan = $('#Tbl_PerbaikanPembatalan').DataTable().data().count();
         var tablepencegahanpembatalan = $('#Tbl_PencegahanPembatalan').DataTable().data().count();
-        
+        count++;
 
+        console.log(count);
         if (tableperbaikanperubahan == countPerbaikan && tablepencegahanperubahan == countPencegahan
             && tableperbaikanpenambahan == countPerbaikanPenambahan && tablepencegahanpenambahan == countPencegahanPenambahan
-            && tableperbaikanpembatalan == countPerbaikanPembatalan && tablepencegahanpembatalan == countPencegahanPembatalan) {
+            && tableperbaikanpembatalan == countPerbaikanPembatalan && tablepencegahanpembatalan == countPencegahanPembatalan && count > 5) {
 
             window.location.href = '../PendingTask/TaskList';
         }
@@ -408,6 +407,7 @@
                     }
                 }
                 countPerbaikan = temp;
+                CheckPending();
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -996,6 +996,7 @@
 
                     countPerbaikanPenambahan = temp;
                 }
+                CheckPending();
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -1105,6 +1106,7 @@
 
                     countPencegahanPenambahan = temp;
                 }
+                CheckPending();
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -1163,8 +1165,6 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    GetTindakanPerbaikanPenambahan();
-                    TableKajian();
                     $.ajax({
                         url: 'SubmitApproval',
                         type: 'post',
@@ -1190,7 +1190,8 @@
                         showConfirmButton: false,
                         timer: 1000,
                     }).then(() => {
-                        CheckPending();
+                        GetTindakanPerbaikanPenambahan();
+                        TableKajian();
                     })
 
                 }
@@ -1245,8 +1246,6 @@
                             data: JSON.stringify(dto1),
                             contentType: "application/json;charset=utf-8",
                             success: function (data) {
-                                GetTindakanPerbaikanPenambahan();
-                                TableKajian();
                                 $.ajax({
                                     url: 'SubmitApproval',
                                     type: 'post',
@@ -1272,7 +1271,8 @@
                                     showConfirmButton: false,
                                     timer: 1000,
                                 }).then(() => {
-                                    CheckPending();
+                                    GetTindakanPerbaikanPenambahan();
+                                    TableKajian();
                                 })
                             },
                             error: function (errormessage) {
@@ -1335,7 +1335,6 @@
         var data = $('#Tbl_PencegahanPenambahan').DataTable().row(row).data();
         var id = data['RecordID'];
         var kategori = data['Status_Pencegahan'];
-        alert(kategori);
         var dictlist = {
             NoCAPA: noCAPA,
             Empid: nik,
@@ -1354,8 +1353,6 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    GetTindakanPencegahanPenambahan();
-                    TableKajian();
                     $.ajax({
                         url: 'SubmitApproval',
                         type: 'post',
@@ -1382,7 +1379,8 @@
                         showConfirmButton: false,
                         timer: 1000,
                     }).then(() => {
-                        CheckPending();
+                        GetTindakanPencegahanPenambahan();
+                        TableKajian();
                     })
                 }
             });
@@ -1460,7 +1458,6 @@
                                     showConfirmButton: false,
                                     timer: 1000,
                                 }).then(() => {
-                                    CheckPending();
                                     GetTindakanPencegahanPenambahan();
                                     TableKajian();
                                 })

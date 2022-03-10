@@ -1912,17 +1912,26 @@
         $('#txtPenyebabPotensi').val(objKajian[0].P_MPenyebab);
         $('#txtMDPKegagalan').val(objKajian[0].P_MDPKegagalan);
 
-        if (objKajian[0].P_MDPKegagalan == "" || objKajian[0].P_MDPKegagalan == null ) {
+        if (objKajian[0].P_MDPKegagalan == "" || objKajian[0].P_MDPKegagalan == null) {
 
             $('#txtPotensiKegagalanHasil').prop("disabled", true);
+        } else {
+
+            $('#txtPotensiKegagalanHasil').prop("disabled", false);
         }
         if (objKajian[0].P_MPenyebab == "" || objKajian[0].P_MPenyebab == null) {
 
             $('#txtPenyebabPotensiHasil').prop("disabled", true);
+        } else {
+
+            $('#txtPotensiKegagalanHasil').prop("disabled", false);
         }
         if (objKajian[0].P_MDPKegagalan == "" || objKajian[0].P_MDPKegagalan == null) {
 
             $('#txtMDPKegagalanHasil').prop("disabled", true);
+        } else {
+
+            $('#txtPotensiKegagalanHasil').prop("disabled", false);
         }
     }
     function PopulateTableAttTreatment() {

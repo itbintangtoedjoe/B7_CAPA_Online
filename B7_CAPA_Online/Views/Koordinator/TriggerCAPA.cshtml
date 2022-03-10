@@ -414,6 +414,7 @@
                             showConfirmButton: false,
                             timer: 1000,
                         })
+                        $('#Tbl_CCC').DataTable().clear().destroy();
                         GetPenyimpangan();
                     },
                     error: function (ex) {
@@ -466,7 +467,8 @@
                             showConfirmButton: false,
                             timer: 1000,
                         })
-                        GetPenyimpangan();
+                        $('#tblCAPA').DataTable().clear().destroy();
+                       
                     },
                     error: function (ex) {
                         alert(JSON.stringify(ex));
@@ -518,6 +520,7 @@
                             showConfirmButton: false,
                             timer: 1000,
                         })
+                        $('#tblDeviation').DataTable().clear().destroy();
                         GetPenyimpangan();
                     },
                     error: function (ex) {
