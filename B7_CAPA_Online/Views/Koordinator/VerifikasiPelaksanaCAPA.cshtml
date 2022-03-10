@@ -202,10 +202,12 @@
 <script>
     let dataPerbaikan;
     let noCAPA = getQueryStrings()["NoCAPA"];
-    let typeParam = getQueryStrings()["Type"];
+    let typeParam = '';
     let nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
     let Username = '@Request.RequestContext.HttpContext.Session["Username"]';
     let objPencegahan, objTreatment, objLampiran;
+
+    typeParam = getQueryStrings()["Type"];
 
     $(document).ready(function () {
         $('#Div_Treatment').hide();
@@ -388,7 +390,7 @@
     }
 
     function CheckType() {
-        if (typeParam = 'View') {
+        if (typeParam == 'View') {
 
         }
         else {
@@ -396,10 +398,11 @@
         }
     }
 
-    function GetAllBukti() {
-
+    function GetAllBukti() {       
         $.when(
-            CheckType()
+            CheckType(),
+            alert('masuk'),
+            alert(noCAPA)
         ).done(
             $.when(
                 $.when(
@@ -409,7 +412,7 @@
                         data: JSON.stringify({
                             Model: {
                                 Option: 9,
-                                NO_CAPA: $('#input_NoCAPA').val(),
+                                NO_CAPA: noCAPA,
                                 Status: 7
                             }
                         }),
@@ -437,7 +440,7 @@
                                     {
                                         "data": "Status_ID",
                                         "render": function (data) {
-                                            if (data === 8) {
+                                            if (data === 8 || data === 9) {
                                                 return '<img id="imgApprove" src="../Content/Images/approveHijau.png"  style="width: 80px"/>';
                                             }
                                             else
@@ -499,7 +502,7 @@
                         data: JSON.stringify({
                             Model: {
                                 Option: 8,
-                                NO_CAPA: $('#input_NoCAPA').val(),
+                                NO_CAPA: noCAPA,
                                 Status: 7
                             }
                         }),
@@ -526,7 +529,7 @@
                                     {
                                         "data": "Status_ID",
                                         "render": function (data) {
-                                            if (data === 8) {
+                                            if (data === 8 || data === 9) {
                                                 return '<img id="imgApprove" src="../Content/Images/approveHijau.png"  style="width: 80px"/>';
                                             }
                                             else
@@ -596,7 +599,7 @@
                         data: JSON.stringify({
                             Model: {
                                 Option: 5,
-                                NO_CAPA: $('#input_NoCAPA').val()
+                                NO_CAPA: noCAPA
                             }
                         }),
                         dataType: 'json',
@@ -615,7 +618,7 @@
                         data: JSON.stringify({
                             Model: {
                                 Option: 7,
-                                NO_CAPA: $('#input_NoCAPA').val()
+                                NO_CAPA: noCAPA
                             }
                         }),
                         dataType: 'json',
@@ -641,7 +644,7 @@
                                     {
                                         "data": "Status_ID",
                                         "render": function (data) {
-                                            if (data === 8) {
+                                            if (data === 8 || data === 9) {
                                                 return '<img id="imgApprove" src="../Content/Images/approveHijau.png"  style="width: 80px"/>';
                                             }
                                             else
@@ -757,7 +760,7 @@
             data: JSON.stringify({
                 Model: {
                     RecordID: RecordID,
-                    NO_CAPA: $('#input_NoCAPA').val(),
+                    NO_CAPA: noCAPA,
                     Type: type,
                     Create_By: nik,
                     AlasanReject: Alasan
@@ -790,7 +793,7 @@
             data: JSON.stringify({
                 Model: {
                     RecordID: RecordID,
-                    NO_CAPA: $('#input_NoCAPA').val(),
+                    NO_CAPA: noCAPA,
                     Type: type,
                     Create_By: nik
                 }
@@ -812,7 +815,7 @@
             type: 'post',
             data: JSON.stringify({
                 Model: {
-                    NO_CAPA: $('#input_NoCAPA').val()
+                    NO_CAPA: noCAPA
                 }
             }),
             dataType: 'json',
