@@ -54,12 +54,13 @@
                                     <input class="form-control form-control-sm" type="text" id="TxtDepartemen" readonly>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="form-group mb-2 col-sm-3">
-                                    <button class="btn btn-dark" id="btnViewCAPA">View CAPA</button>
-                                </div>
+
+                        </form> 
+                        <div class="row">
+                            <div class="form-group mb-2 col-sm-3">
+                                <button class="btn btn-dark" id="btnViewCAPA">View CAPA</button>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
 
@@ -716,7 +717,7 @@
         }
     }
     $('#btnViewCAPA').click(function () {
-        window.location.href = '../Koordinator/CreateCAPA?NoCAPA=' + noCAPA;
+        window.open( '../Koordinator/CreateCAPA?NoCAPA=' + noCAPA);
     });
     $('#SubmitVerif').click(function () {
         var dictlist =
@@ -938,7 +939,6 @@
                     })
                     $('#TxtLampiranCountPerbaikan').text("Tidak ada File Yang Dipilih");
                     GetPerbaikanAttachments();
-                    PopulateTableAttPerbaikan();
                 }
             },
             error: function (xhr, error, status) {
@@ -984,7 +984,6 @@
                     })
                     $('#TxtLampiranCountPencegahan').text("Tidak ada File Yang Dipilih");
                     GetPencegahanAttachments();
-                    PopulateTableAttPencegahan();
                 }
 
             },
@@ -1030,7 +1029,6 @@
                     })
                     $('#TxtLampiranCountTreatment').text("Tidak ada File Yang Dipilih");
                     GetTreatmentAttachments();
-                    PopulateTableAttTreatment();
                 }
 
             },
@@ -1076,7 +1074,6 @@
         $('#txtRootCausePerbaikan').val(objPerbaikan[0].WhyDesc);
 
         GetPerbaikanAttachments();
-        PopulateTableAttPerbaikan();
         ToggleBtnDeleteAttPerbaikan("Disable");
         var ddlText = $("#ddlPerbaikan option:selected").text();
         var status = "Menunggu Input Pelaksana";
@@ -1128,11 +1125,12 @@
     function PopulateTableAttPerbaikan() {
         var fileCount = attachmentPerbaikan.length;
         var trhtml = '';
+        var kategori = 1;
         if (fileCount > 0) {
             for (i = 0; i < fileCount; i++) {
                 console.log(attachmentPerbaikan[i].FILE_PATH);
                 trhtml += '<tr><td><a href="' + attachmentPerbaikan[i].FILE_PATH + '" style="color:blue;text-decoration:underline">' + attachmentPerbaikan[i].FILE_NAME + '</a></td>' +
-                    '<td> <button class="btn-dark input-group-text center" type="button" onclick=" DeleteAttachment(' + attachmentPerbaikan[i].RecordID + ',' + attachmentPerbaikan[i].FILE_PATH+',1)" id="btnDeletePerbaikan'+i+'" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
+                    '<td> <button class="btn-dark input-group-text center" type="button" onclick=" DeleteAttachment(\'' + attachmentPerbaikan[i].RecordID + '\',\'' + attachmentPerbaikan[i].FILE_PATH + '\',\''+ kategori+'\' )" id="btnDeletePerbaikan' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
             }
         } else {
             trhtml += '<tr><td>Belum ada file terpilih</td></tr>';
@@ -1210,6 +1208,8 @@
                 alert(JSON.stringify(ex));
             }
         });
+
+        PopulateTableAttPerbaikan();
     }
 
     //$('#uploadAttachmentPerbaikan').change(function () {
@@ -1320,8 +1320,8 @@
                 type: "warning",
                 showConfirmButton: false
             })
-
-            }
+            return
+        }
         var dictlist = {
            kategori: kategori ,
            recordID: idPerbaikan,
@@ -1483,7 +1483,6 @@
         $('#dueDatePencegahan').val(DueDate.format("YYYY-MM-DD"));
         $('#txtHasilPencegahan').val(objPencegahan[0].Hasil_Pencegahan);
         GetPencegahanAttachments();
-        PopulateTableAttPencegahan();
         ToggleBtnDeleteAttPencegahan("Disable");
 
         var ddlText = $("#ddlPencegahan option:selected").text();
@@ -1536,10 +1535,13 @@
     function PopulateTableAttPencegahan() {
         var fileCount = attachmentPencegahan.length;
         var trhtml = '';
+        var kategori = 2;
         if (fileCount > 0) {
             for (i = 0; i < fileCount; i++) {
+
+                console.log(attachmentPencegahan[i].FILE_PATH);
                 trhtml += '<tr><td><a href="' + attachmentPencegahan[i].FILE_PATH + '" style="color:blue;text-decoration:underline">' + attachmentPencegahan[i].FILE_NAME + '</a></td>' +
-                    '<td> <button class="btn-dark input-group-text center" type="button" onclick=" DeleteAttachment(' + attachmentPencegahan[i].RecordID + ',' + attachmentPencegahan[i].FILE_PATH+',2)" id="btnDeletePencegahan' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
+                    '<td> <button class="btn-dark input-group-text center" type="button" onclick=" DeleteAttachment(\'' + attachmentPencegahan[i].RecordID + '\',\'' + attachmentPencegahan[i].FILE_PATH + '\',\'' + kategori +'\')" id="btnDeletePencegahan' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
             }
         } else {
             trhtml += '<tr><td>Belum ada file terpilih</td></tr>';
@@ -1601,10 +1603,12 @@
             success: function (data) {
                 var result = JSON.parse(data);
                 attachmentPencegahan = result;
+                PopulateTableAttPencegahan();
             }, error: function (ex) {
                 alert(JSON.stringify(ex));
             }
         });
+
     }
 
     //$('#uploadAttachmentPencegahan').change(function () {
@@ -1733,7 +1737,7 @@
             success: function (data) {
                 Swal.fire({
                     title: "Data pencegahan berhasil diupdate!",
-                    type: "error",
+                    type: "success",
                     showConfirmButton: false,
                     timer: 1000,
                 }).then(() => {
@@ -1924,11 +1928,13 @@
     function PopulateTableAttTreatment() {
         var fileCount = attachmentKajian.length;
         var trhtml = '';
+        var kategori = 3;
         if (fileCount > 0) {
             for (i = 0; i < fileCount; i++) {
+                var temp = ""+ attachmentKajian[i].RecordID +" ',' "+ attachmentKajian[i].FILE_PATH+"',3";
                 console.log(attachmentKajian[i].FILE_PATH);
                 trhtml += '<tr><td><a href="' + attachmentKajian[i].FILE_PATH + '" style="color:blue;text-decoration:underline">' + attachmentKajian[i].FILE_NAME + '</a></td>' +
-                    '<td> <button class="btn-dark input-group-text center" type="button" onclick=" DeleteAttachment(' + attachmentKajian[i].RecordID + ',' + attachmentKajian[i].FILE_PATH+',3)" id="btnDeletePerbaikan' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
+                    '<td> <button class="btn-dark input-group-text center" type="button" onclick="DeleteAttachment(\'' + attachmentKajian[i].RecordID + '\',\'' + attachmentKajian[i].FILE_PATH + '\',\'' + kategori +'\')" id="btnDeletePerbaikan' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
             }
         } else {
             trhtml += '<tr><td>Belum ada file terpilih</td></tr>';
@@ -1955,20 +1961,8 @@
             success: function (data) {
                 var result = JSON.parse(data);
                 attachmentKajian = result;
-                var trhtml = "";
-                if (result.length > 0) {
-                    for (i = 0; i < result.length; i++) {
-                        trhtml += '<tr><td><a href="' + result[i].FILE_PATH + '" style="color:blue;text-decoration:underline">' + result[i].FILE_NAME + '</a></td>' +
-                            '<td> <button class="btn-dark input-group-text center" type="button" onclick=" DeleteAttachment(' + result[i].RecordID + ',' + result[i].FILE_PATH + ',3)" id="btnDeleteTreatment' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
-                    }
-                }
-                else
-                {
-                    trhtml += '<tr><td>Belum ada file terpilih</td></tr>';
-                }
 
-                $("#tbodyAttachmentTreatment").empty();
-                $("#tblAttachmentTreatment").append(trhtml);
+                PopulateTableAttTreatment();
             }, error: function (ex) {
                 alert(JSON.stringify(ex));
             }
@@ -2089,8 +2083,6 @@
                 title: "attachment wajib diisi!",
                 type: "warning",
                 showConfirmButton: false
-            }).then(() => {
-                ReloadPage();
             })
             return;
         }
@@ -2098,15 +2090,11 @@
         else {
             kategori = "Treatment";
             status = "Pending Review Superior Pelaksana";
-            alert(totalvalidasiTreatment);
-            alert(TreatmentTerisi);
             if (totalvalidasiTreatment != TreatmentTerisi) {
                 Swal.fire({
                     title: "Semua field wajib diisi!",
                     type: "warning",
                     showConfirmButton: false
-                }).then(() => {
-                    ReloadPage();
                 })
                 return;
             }
@@ -2226,17 +2214,18 @@
         Swal.fire({
             title: "Anda yakin menghapus lampiran?",
             type: "warning",
+            showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
             confirmButtonText: 'Delete!',
-            timer: 1000,
+            reverseButtons: true
         }).then((willDelete) => {
-            if (willDelete) {
+            if (willDelete.value) {
+                var id = parseInt(attID);
                 var formData = {
-                    "IDAttachment": attID,
+                    "IDAttachment": id,
                     "Updater": path
                 };
-
                 $.ajax({
                     url: "DeleteAttachment",
                     type: "POST",
@@ -2251,15 +2240,12 @@
                         })
                         if (kategori == 1) {
                             GetPerbaikanAttachments();
-                            PopulateTableAttPerbaikan();
                         }
                         else if (kategori == 2) {
                             GetPencegahanAttachments();
-                            PopulateTableAttPencegahan();
                         }
                         else {
                             GetTreatmentAttachments();
-                            PopulateTableAttTreatment();
                         }
                     },
                     error: function (xhr, error, status) {

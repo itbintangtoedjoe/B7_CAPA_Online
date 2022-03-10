@@ -286,8 +286,15 @@
         var tablepencegahanpenambahan = $('#Tbl_PencegahanPenambahan').DataTable().data().count();
         var tableperbaikanpembatalan = $('#Tbl_PerbaikanPembatalan').DataTable().data().count();
         var tablepencegahanpembatalan = $('#Tbl_PencegahanPembatalan').DataTable().data().count();
+        console.log(tableperbaikanperubahan);
+        console.log(tablepencegahanperubahan);
+        console.log(tableperbaikanpenambahan);
+        console.log(tablepencegahanpenambahan);
+        console.log(tableperbaikanpembatalan);
+        console.log(tablepencegahanpembatalan);
+
         if (tableperbaikanperubahan == 0 && tablepencegahanperubahan == 0 && tableperbaikanpenambahan == 0
-            && tablepencegahanpenambahan == 0 && tableperbaikanpembatalan == 0 && tablepencegahanpembatalan == 0 && count != 0) {
+            && tablepencegahanpenambahan == 0 && tableperbaikanpembatalan == 0 && tablepencegahanpembatalan == 0 && count >6) {
 
             window.location.href = '../PendingTask/TaskList'
         }
@@ -324,6 +331,7 @@
             url: 'DynamicController?spname=SP_FORM_Perubahan',
             type: 'post',
             data: JSON.stringify(dto1),
+            async: false,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
@@ -383,6 +391,7 @@
             url: 'DynamicController?spname=SP_FORM_Perubahan',
             type: 'post',
             data: JSON.stringify(dto1),
+            async: false,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
@@ -796,6 +805,7 @@
         $.ajax({
             url: 'DynamicController?spname=SP_FORM_Perubahan',
             type: 'post',
+            async: false,
             data: JSON.stringify(dto1),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
@@ -853,6 +863,7 @@
         $.ajax({
             url: 'DynamicController?spname=SP_FORM_Perubahan',
             type: 'post',
+            async: false,
             data: JSON.stringify(dto1),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
@@ -1183,6 +1194,7 @@
         $.ajax({
             url: 'DynamicController?spname=SP_FORM_Perubahan',
             type: 'post',
+            async: false,
             data: JSON.stringify(dto1),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
@@ -1240,6 +1252,7 @@
         $.ajax({
             url: 'DynamicController?spname=SP_FORM_Perubahan',
             type: 'post',
+            async: false,
             data: JSON.stringify(dto1),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',

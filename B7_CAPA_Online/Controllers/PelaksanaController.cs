@@ -224,7 +224,7 @@ namespace B7_CAPA_Online.Controllers
                 var file = Request.Files[i];
                 var fileName = file.FileName;
 
-                var path = Path.Combine(b7path+tipe, fileName);
+                var path = Path.Combine(b7path, fileName);
                 //string path = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
                 file.SaveAs(path);
 
