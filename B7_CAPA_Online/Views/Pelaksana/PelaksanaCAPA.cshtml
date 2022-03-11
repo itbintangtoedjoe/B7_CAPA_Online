@@ -628,6 +628,8 @@
     var attachmentKajian;
     var statuser = false;
     var stataction = false;
+    var statactionpencegahan = false;
+    var statactiontreatmen = false;
     var action;
     var checkPerbaikan, checkPencegahan, checkTreatment;
     var totalvalidasiTreatment;
@@ -670,9 +672,9 @@
         });
 
         $('#ddlKajianTreatment').change(function () {
-            $('#txtPotensiKegagalanHasil').prop("disabled", false);
-            $('#txtPenyebabPotensiHasil').prop("disabled", false);
-            $('#txtMDPKegagalanHasil').prop("disabled", false);
+            //$('#txtPotensiKegagalanHasil').prop("disabled", false);
+            //$('#txtPenyebabPotensiHasil').prop("disabled", false);
+            //$('#txtMDPKegagalanHasil').prop("disabled", false);
             $("#uploadAttachmentTreatment").prop("disabled", false);
             $('#btnSimpanTreatment').prop("disabled", false);
             $('#UploadTreatment').prop("disabled", false);
@@ -1495,10 +1497,10 @@
         for (var i = 0; i < dataPencegahan.length; i++) {
             var pelaksana = dataPencegahan[i].Pelaksana_Pencegahan;
             if (objPencegahan[0].Pelaksana_Pencegahan == nik) {
-                stataction = true;
+                statactionpencegahan = true;
             }
             else {
-                stataction = false;
+                statactionpencegahan = false;
             }
             if (pelaksana == nik) {
                 statuser = true;
@@ -1911,18 +1913,34 @@
         $('#txtPotensiKegagalan').val(objKajian[0].M_PKegagalan);
         $('#txtPenyebabPotensi').val(objKajian[0].P_MPenyebab);
         $('#txtMDPKegagalan').val(objKajian[0].P_MDPKegagalan);
-
-        if (objKajian[0].P_MDPKegagalan == "" || objKajian[0].P_MDPKegagalan == null ) {
-
+        if ($('#txtPotensiKegagalan').val().trim() == "" || $('#txtPotensiKegagalan').val() == null) {
             $('#txtPotensiKegagalanHasil').prop("disabled", true);
+
         }
-        if (objKajian[0].P_MPenyebab == "" || objKajian[0].P_MPenyebab == null) {
+        else if ($('#txtPotensiKegagalan').val().trim() != "" || $('#txtPotensiKegagalan').val() != null)
+        {
+            $('#txtPotensiKegagalanHasil').prop("disabled", false);
+        }
+        if ($('#txtPenyebabPotensi').val().trim() == "" || $('#txtPenyebabPotensi').val() == null)
+        {
 
             $('#txtPenyebabPotensiHasil').prop("disabled", true);
         }
-        if (objKajian[0].P_MDPKegagalan == "" || objKajian[0].P_MDPKegagalan == null) {
+        else if ($('#txtPenyebabPotensi').val().trim() != "" || $('#txtPenyebabPotensi').val() != null)
+        {
+
+            $('#txtPenyebabPotensiHasil').prop("disabled", false);
+        }
+        if ($('#txtMDPKegagalan').val().trim() == "" || $('#txtMDPKegagalan').val() == null)
+        {
 
             $('#txtMDPKegagalanHasil').prop("disabled", true);
+
+        }
+        else if ($('#txtMDPKegagalan').val().trim() != "" || $('#txtMDPKegagalan').val() != null)
+        {
+
+            $('#txtMDPKegagalanHasil').prop("disabled", false);
         }
     }
     function PopulateTableAttTreatment() {
