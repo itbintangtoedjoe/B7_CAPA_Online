@@ -7,7 +7,9 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
@@ -338,7 +340,32 @@ namespace B7_CAPA_Online.Controllers
             string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_FORM_CAPA]");
             return Json(Return);
         }
+        public ActionResult SaveImage(string nocapa)
+        {
 
+            var b7path = @"C:\Users\ASUS\Pictures\test";
+            string Return ="";
+            for (int i = 0; i < Request.Files.Count; i++)
+            {
+                var file = Request.Files[i];
+                var fileName = file.FileName;
+                var path = Path.Combine(b7path, fileName);
+                //string path = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
+                file.SaveAs(path);
+
+                var dictionary = new Dictionary<string, object>{
+                { "Action", "Add Diagram" },
+                { "NomorCAPA",nocapa},
+                {"FilePath",path}
+                 };
+                DynamicParameters parameters = new DynamicParameters(dictionary);
+                 Return = DAL.StoredProcedure(parameters, "[dbo].[SP_Attachment_Pelaksanaan]");
+
+
+            }
+
+            return Json(Return);
+        }
         #endregion
 
 

@@ -454,7 +454,7 @@
                         NO_CAPA: noCAPA,
                         Aspect: value.WAHType_FK,
                         WhyID: value.WhyID,
-                        WhyDesc: value.WhyDesc,
+                        WhyDesc: $('#RootCause_DDL').val(),
                         WhyParentID: value.WhyParentID,
                         RootCause: $('#RootCause_DDL').val(),
                         AreaLain: $('#txtRootCausePencegahan').val(),
@@ -645,7 +645,7 @@
 
                 if (valid) {
                     $.ajax({
-                        url: '/PIC/AddKajian',
+                        url: '../PIC/AddKajian',
                         type: 'post',
                         dataType: 'json',
                         data: JSON.stringify(dto),

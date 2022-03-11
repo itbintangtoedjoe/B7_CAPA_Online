@@ -864,13 +864,12 @@
 <script src="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.js" defer></script>
 <script src="~/Content/Scripts/plugins/datatables/jquery.dataTables.min.js" defer></script>
 <script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>
-<script src="https://unpkg.com/gojs/release/go-debug.js" defer></script>
+<script src="https://unpkg.com/gojs@2.2.5/release/go.js" defer></script>
 <script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
 
 <script>
     var rootcauses;
     var area_lains;
-    var myDiagram;
     //Check Jika status 1 maka button submit disabled.
     function checkStatusCAPA() {
         $.ajax({
@@ -1654,51 +1653,59 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 var result = JSON.parse(data);
-                var $ = go.GraphObject.make;
-
-                var myDiagram =
-                    $(go.Diagram, "DiagManusia",
-                        {
-                            "undoManager.isEnabled": true,
-                            contentAlignment: go.Spot.Center,
-                            layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
-                                { angle: 90, layerSpacing: 35 })
-                        });
-
-                //var node1 =
-                //    $(go.Node, "Horizontal",
-                //        { background: "#44CCFF" },
-                //        $(go.TextBlock, "Manusia",
-                //            {
-                //                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                //                verticalAlignment: go.Spot.Center
-                //            },
-                //        )
-                //    );
-                //myDiagram.add(node1);
-
-                myDiagram.nodeTemplate =
-                    $(go.Node, "Horizontal",
-                        { background: "#44CCFF", locationSpot: go.Spot.Center },
-                        //$(go.TextBlock, "Default Text",
-                        //    {
-                        //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                        //        verticalAlignment: go.Spot.Center
-                        //    },
-                        //    new go.Binding("text", "type")),
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "desc"))
-                    );
-
-                myDiagram.model = new go.TreeModel(result);
+                ExportRootManusia(result);
             }
         });
     }
+    function ExportRootManusia(result) {
+        var $ = go.GraphObject.make;
 
+        var myDiagram =
+            $(go.Diagram, "DiagManusia",
+                {
+                    "undoManager.isEnabled": true,
+                    contentAlignment: go.Spot.Center,
+                    layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
+                        { angle: 90, layerSpacing: 35 })
+                });
+
+        //var node1 =
+        //    $(go.Node, "Horizontal",
+        //        { background: "#44CCFF" },
+        //        $(go.TextBlock, "Manusia",
+        //            {
+        //                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+        //                verticalAlignment: go.Spot.Center
+        //            },
+        //        )
+        //    );
+        //myDiagram.add(node1);
+
+        myDiagram.nodeTemplate =
+            $(go.Node, "Horizontal",
+                { background: "#44CCFF", locationSpot: go.Spot.Center },
+                //$(go.TextBlock, "Default Text",
+                //    {
+                //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                //        verticalAlignment: go.Spot.Center
+                //    },
+                //    new go.Binding("text", "type")),
+                $(go.TextBlock, "Default Text",
+                    {
+                        margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                        verticalAlignment: go.Spot.Center
+                    },
+                    new go.Binding("text", "desc"))
+            );
+
+        myDiagram.model = new go.TreeModel(result);
+        var svg = myDiagram.makeSvg({ scale: 1, background: "white" });
+        var svgstr = new XMLSerializer().serializeToString(svg);
+        var blob = new Blob([svgstr], { type: "image/svg+xml" });
+        var tipe = "Manusia";
+        myCallback(blob,tipe);
+        //var blob = myDiagram.makeImageData({ background: "white", returnType: "blob", callback: myCallback });
+    }
     function GetRootMaterial() {
 
         $.ajax({
@@ -1915,7 +1922,55 @@
             }
         });
     }
+    function myCallback(blob1,tipe) {
+        var url = window.URL.createObjectURL(blob1);
+        var vars = [], hash;
+        var filename = "";
+        var nocapa = $('#input_NoCAPA').val();
+        var replace = nocapa.replace(/\//g, '_');
+        filename += replace+'_'+tipe + ".svg";
+        alert(filename);
+        //alert(url);
+        const fd = new FormData();
+        fetch(url).then(response => response.blob())
+            .then(blob => {
+                //var file = new File([blob], "image.jpeg", {
+                //    type: myBlob.type,
+                //});
+                const fd = new FormData();
+                fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type
+                $.ajax({
+                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '',
+                    type: 'post',
+                    data: fd,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        alert("success");
+                        //console.log(data);
+                    }
+                });
+            })
+        var suburl = url.substr(url.indexOf(":") + 1)
+        var a = document.createElement("a");
+        a.style = "display: none";
+        //a.href = url;
+        /*a.download = filename;*/
+       
+        // IE 11
+        if (window.navigator.msSaveBlob !== undefined) {
+            window.navigator.msSaveBlob(blob, filename);
+            return;
+        }
 
+        document.body.appendChild(a);
+        requestAnimationFrame(() => {
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        });
+    }
     function GetAllRoot() {
         GetRootManusia();
         GetRootMaterial();

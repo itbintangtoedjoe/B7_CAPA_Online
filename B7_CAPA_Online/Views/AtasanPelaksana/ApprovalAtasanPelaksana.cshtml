@@ -78,13 +78,12 @@
                 @if (!string.IsNullOrEmpty(Request.QueryString["NoCAPA"]))
                 {
                     @Html.Partial("AnalisaKondisiPV")
-                    <div id="Div_PRCA_PV">@Html.Partial("PotentialRootCausePV")</div>
+                    @Html.Partial("../Koordinator/InvestigasiPenyimpangan")
                     @Html.Partial("TindakanPerbaikanPV")
                     @Html.Partial("TindakanPencegahanPV")
-                    @Html.Partial("../Koordinator/InvestigasiPenyimpangan")
                     @Html.Partial("KajianResikoPV")
 
-                    //@Html.Partial("LoadData_PV")
+                    @*@Html.Partial("LoadData_PV")*@
                     <div id="Div_Approval_PV">@Html.Partial("ApprovalPV")</div>
                 }
             </div>
