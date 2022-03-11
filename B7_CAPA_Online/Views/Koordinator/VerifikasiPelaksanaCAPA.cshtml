@@ -246,6 +246,7 @@
                     return
                 })
             } else {
+                $.blockUI();
                 RejectPelaksanaCAPA(RecordID, type, TAlasan);
             }
         });
@@ -757,6 +758,7 @@
         $.ajax({
             url: 'RejectPelaksanaCAPA',
             type: 'post',
+            async: false,
             data: JSON.stringify({
                 Model: {
                     RecordID: RecordID,
@@ -776,6 +778,8 @@
                             timer: 2000
                         }
                 ).then(() => {
+                    $('#txtAlasanRejectVerifikasi').val('');
+                    $.unblockUI();
                     GetAllBukti()
                 })
             },
