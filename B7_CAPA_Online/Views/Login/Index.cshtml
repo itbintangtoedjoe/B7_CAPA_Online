@@ -102,11 +102,20 @@
         <script src="~/Content/assets/js/jquery.app.js"></script>*@
 
     @*<script src="~/Content/plugins/sweet-alert/sweetalert.min.js"></script>*@
-    <script runat="server">
+<script runat="server">
         $(document).ready(function () {
+            $(document).on('keypress', function (e) {
+                if (e.which == 13) {
+                    Login();
+                }
+            });
+            $("#btnLogin").click(function () {
+                Login();
+            });
+
         });
 
-        $("#btnLogin").click(function () {
+        function Login() {
             var username = $.trim($("#username").val());
             var password = $.trim($("#password").val());
             var tipe_login = $.trim($("#tipe_login").val());
@@ -152,7 +161,7 @@
                     }
                 });
             }
-        });
-    </script>
+        }
+</script>
 </body>
 </html>
