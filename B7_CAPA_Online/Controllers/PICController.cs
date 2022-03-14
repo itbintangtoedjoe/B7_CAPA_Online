@@ -342,8 +342,7 @@ namespace B7_CAPA_Online.Controllers
         }
         public ActionResult SaveImage(string nocapa)
         {
-
-            var b7path = @"C:\Users\ASUS\Pictures\test";
+            var b7path = @"D:\Kerja\CAPA\B7_CAPA_Online\Content\DiagramCAPA\";
             string Return ="";
             for (int i = 0; i < Request.Files.Count; i++)
             {
