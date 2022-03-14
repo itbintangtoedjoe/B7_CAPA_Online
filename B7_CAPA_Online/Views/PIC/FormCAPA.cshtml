@@ -1649,69 +1649,61 @@
             type: "POST",
             url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Manusia",
             dataType: 'json',
-            async: true,
+            async: false,
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 var result = JSON.parse(data);
-                ExportRootManusia(result);
+                var $ = go.GraphObject.make;
+
+                var myDiagram =
+                    $(go.Diagram, "DiagManusia",
+                        {
+                            "undoManager.isEnabled": true,
+                            contentAlignment: go.Spot.Center,
+                            layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
+                                { angle: 90, layerSpacing: 35 })
+                        });
+
+                //var node1 =
+                //    $(go.Node, "Horizontal",
+                //        { background: "#44CCFF" },
+                //        $(go.TextBlock, "Manusia",
+                //            {
+                //                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                //                verticalAlignment: go.Spot.Center
+                //            },
+                //        )
+                //    );
+                //myDiagram.add(node1);
+
+                myDiagram.nodeTemplate =
+                    $(go.Node, "Horizontal",
+                        { background: "#44CCFF", locationSpot: go.Spot.Center },
+                        //$(go.TextBlock, "Default Text",
+                        //    {
+                        //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                        //        verticalAlignment: go.Spot.Center
+                        //    },
+                        //    new go.Binding("text", "type")),
+                        $(go.TextBlock, "Default Text",
+                            {
+                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                verticalAlignment: go.Spot.Center
+                            },
+                            new go.Binding("text", "desc"))
+                    );
+
+                myDiagram.model = new go.TreeModel(result);
+                var blob = myDiagram.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackManusia });
             }
         });
-    }
-    function ExportRootManusia(result) {
-        var $ = go.GraphObject.make;
-
-        var myDiagram =
-            $(go.Diagram, "DiagManusia",
-                {
-                    "undoManager.isEnabled": true,
-                    contentAlignment: go.Spot.Center,
-                    layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
-                        { angle: 90, layerSpacing: 35 })
-                });
-
-        //var node1 =
-        //    $(go.Node, "Horizontal",
-        //        { background: "#44CCFF" },
-        //        $(go.TextBlock, "Manusia",
-        //            {
-        //                margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-        //                verticalAlignment: go.Spot.Center
-        //            },
-        //        )
-        //    );
-        //myDiagram.add(node1);
-
-        myDiagram.nodeTemplate =
-            $(go.Node, "Horizontal",
-                { background: "#44CCFF", locationSpot: go.Spot.Center },
-                //$(go.TextBlock, "Default Text",
-                //    {
-                //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                //        verticalAlignment: go.Spot.Center
-                //    },
-                //    new go.Binding("text", "type")),
-                $(go.TextBlock, "Default Text",
-                    {
-                        margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                        verticalAlignment: go.Spot.Center
-                    },
-                    new go.Binding("text", "desc"))
-            );
-
-        myDiagram.model = new go.TreeModel(result);
-        var svg = myDiagram.makeSvg({ scale: 1, background: "white" });
-        var svgstr = new XMLSerializer().serializeToString(svg);
-        var blob = new Blob([svgstr], { type: "image/svg+xml" });
-        var tipe = "Manusia";
-        myCallback(blob,tipe);
-        //var blob = myDiagram.makeImageData({ background: "white", returnType: "blob", callback: myCallback });
     }
     function GetRootMaterial() {
 
         $.ajax({
             type: "POST",
             url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Material/Produk",
-            async: true,
+            async: false,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
@@ -1757,6 +1749,7 @@
                     );
 
                 myDiagram.model = new go.TreeModel(result);
+                var blob = myDiagram.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackMaterial });
             }
         });
     }
@@ -1767,7 +1760,7 @@
             type: "POST",
             url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Lingkungan",
             dataType: 'json',
-            async: true,
+            async: false,
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 var result = JSON.parse(data);
@@ -1811,6 +1804,7 @@
                     );
 
                 myDiagram.model = new go.TreeModel(result);
+                var blob = myDiagram.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackLingkungan });
             }
         });
     }
@@ -1865,6 +1859,7 @@
                     );
 
                 myDiagram.model = new go.TreeModel(result);
+                var blob = myDiagram.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackMesin });
             }
         });
     }
@@ -1919,19 +1914,19 @@
                     );
 
                 myDiagram.model = new go.TreeModel(result);
+                var blob = myDiagram.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackMetode });
             }
         });
     }
-    function myCallback(blob1,tipe) {
+
+    function myCallbackManusia(blob1) {
         var url = window.URL.createObjectURL(blob1);
         var vars = [], hash;
         var filename = "";
         var nocapa = $('#input_NoCAPA').val();
         var replace = nocapa.replace(/\//g, '_');
-        filename += replace+'_'+tipe + ".svg";
-        alert(filename);
+        filename += replace + "_Manusia.png";
         //alert(url);
-        const fd = new FormData();
         fetch(url).then(response => response.blob())
             .then(blob => {
                 //var file = new File([blob], "image.jpeg", {
@@ -1947,7 +1942,6 @@
                     processData: false,
                     contentType: false,
                     success: function (data) {
-                        alert("success");
                         //console.log(data);
                     }
                 });
@@ -1957,19 +1951,203 @@
         a.style = "display: none";
         //a.href = url;
         /*a.download = filename;*/
-       
-        // IE 11
-        if (window.navigator.msSaveBlob !== undefined) {
-            window.navigator.msSaveBlob(blob, filename);
-            return;
-        }
 
-        document.body.appendChild(a);
-        requestAnimationFrame(() => {
-            a.click();
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(a);
-        });
+        //// IE 11
+        //if (window.navigator.msSaveBlob !== undefined) {
+        //    window.navigator.msSaveBlob(blob, filename);
+        //    return;
+        //}
+
+        //document.body.appendChild(a);
+        //requestAnimationFrame(() => {
+        //    a.click();
+        //    window.URL.revokeObjectURL(url);
+        //    document.body.removeChild(a);
+        //});
+    }
+    function myCallbackLingkungan(blob1) {
+        var url = window.URL.createObjectURL(blob1);
+        var vars = [], hash;
+        var filename = "";
+        var nocapa = $('#input_NoCAPA').val();
+        var replace = nocapa.replace(/\//g, '_');
+        filename += replace + "_Lingkungan.png";
+        //alert(url);
+        fetch(url).then(response => response.blob())
+            .then(blob => {
+                //var file = new File([blob], "image.jpeg", {
+                //    type: myBlob.type,
+                //});
+                const fd = new FormData();
+                fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type
+                $.ajax({
+                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '',
+                    type: 'post',
+                    data: fd,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        //console.log(data);
+                    }
+                });
+            })
+        var suburl = url.substr(url.indexOf(":") + 1)
+        var a = document.createElement("a");
+        a.style = "display: none";
+        //a.href = url;
+        /*a.download = filename;*/
+
+        //// IE 11
+        //if (window.navigator.msSaveBlob !== undefined) {
+        //    window.navigator.msSaveBlob(blob, filename);
+        //    return;
+        //}
+
+        //document.body.appendChild(a);
+        //requestAnimationFrame(() => {
+        //    a.click();
+        //    window.URL.revokeObjectURL(url);
+        //    document.body.removeChild(a);
+        //});
+    }
+    function myCallbackMesin(blob1) {
+        var url = window.URL.createObjectURL(blob1);
+        var vars = [], hash;
+        var filename = "";
+        var nocapa = $('#input_NoCAPA').val();
+        var replace = nocapa.replace(/\//g, '_');
+        filename += replace +"_Mesin.png";
+        //alert(url);
+        fetch(url).then(response => response.blob())
+            .then(blob => {
+                //var file = new File([blob], "image.jpeg", {
+                //    type: myBlob.type,
+                //});
+                const fd = new FormData();
+                fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type
+                $.ajax({
+                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '',
+                    type: 'post',
+                    data: fd,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        //console.log(data);
+                    }
+                });
+            })
+        var suburl = url.substr(url.indexOf(":") + 1)
+        var a = document.createElement("a");
+        a.style = "display: none";
+        //a.href = url;
+        /*a.download = filename;*/
+
+        //// IE 11
+        //if (window.navigator.msSaveBlob !== undefined) {
+        //    window.navigator.msSaveBlob(blob, filename);
+        //    return;
+        //}
+
+        //document.body.appendChild(a);
+        //requestAnimationFrame(() => {
+        //    a.click();
+        //    window.URL.revokeObjectURL(url);
+        //    document.body.removeChild(a);
+        //});
+    }
+    function myCallbackMetode(blob1) {
+        var url = window.URL.createObjectURL(blob1);
+        var vars = [], hash;
+        var filename = "";
+        var nocapa = $('#input_NoCAPA').val();
+        var replace = nocapa.replace(/\//g, '_');
+        filename += replace +"_Metode.png";
+        //alert(url);
+        fetch(url).then(response => response.blob())
+            .then(blob => {
+                //var file = new File([blob], "image.jpeg", {
+                //    type: myBlob.type,
+                //});
+                const fd = new FormData();
+                fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type
+                $.ajax({
+                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '',
+                    type: 'post',
+                    data: fd,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        //console.log(data);
+                    }
+                });
+            })
+        var suburl = url.substr(url.indexOf(":") + 1)
+        var a = document.createElement("a");
+        a.style = "display: none";
+        //a.href = url;
+        /*a.download = filename;*/
+
+        //// IE 11
+        //if (window.navigator.msSaveBlob !== undefined) {
+        //    window.navigator.msSaveBlob(blob, filename);
+        //    return;
+        //}
+
+        //document.body.appendChild(a);
+        //requestAnimationFrame(() => {
+        //    a.click();
+        //    window.URL.revokeObjectURL(url);
+        //    document.body.removeChild(a);
+        //});
+    }
+    function myCallbackMaterial(blob1) {
+        var url = window.URL.createObjectURL(blob1);
+        var vars = [], hash;
+        var filename = "";
+        var nocapa = $('#input_NoCAPA').val();
+        var replace = nocapa.replace(/\//g, '_');
+        filename += replace + "_Material_Produk.png";
+        //alert(url);
+        fetch(url).then(response => response.blob())
+            .then(blob => {
+                //var file = new File([blob], "image.jpeg", {
+                //    type: myBlob.type,
+                //});
+                const fd = new FormData();
+                fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type
+                $.ajax({
+                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '',
+                    type: 'post',
+                    data: fd,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        //console.log(data);
+                    }
+                });
+            })
+        var suburl = url.substr(url.indexOf(":") + 1)
+        var a = document.createElement("a");
+        a.style = "display: none";
+        //a.href = url;
+        /*a.download = filename;*/
+
+        //// IE 11
+        //if (window.navigator.msSaveBlob !== undefined) {
+        //    window.navigator.msSaveBlob(blob, filename);
+        //    return;
+        //}
+
+        //document.body.appendChild(a);
+        //requestAnimationFrame(() => {
+        //    a.click();
+        //    window.URL.revokeObjectURL(url);
+        //    document.body.removeChild(a);
+        //});
     }
     function GetAllRoot() {
         GetRootManusia();
@@ -2521,6 +2699,7 @@
                         contentType: 'application/json; charset=utf-8',
                         success: function (data) {
                             GetWhyTable();
+                            getWhyParent();
                             return true;
                         },
                         error: function (ex) {
