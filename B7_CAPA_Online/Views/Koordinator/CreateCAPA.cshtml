@@ -895,12 +895,12 @@
                 }),
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    //console.log(data);
+                    console.log(data);
                     resetTable(function _callback() {
                         $('#Departemen_DDL').empty();
                         $('#Departemen_DDL').append('<option disabled selected hidden class="dropdown-header">*Pilih*</option>');
                         $.each(JSON.parse(data), function (key, entry) {
-                            $('#Departemen_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
+                            $('#Departemen_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.Dept));
                             $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.Dept).text(entry.Dept));
 
                         })
@@ -1629,19 +1629,19 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 $('#Trigger_CAPA').empty();
-                $('#Kategori_DDL').empty();
+                //$('#Kategori_DDL').empty();
                 $('#Lokasi_DDL').empty();
                 $('#Trigger_CAPA').empty();
                 $('#Trigger_CAPA').append('<option disabled selected hidden class="dropdown-header">*Pilih*</option>');
-                $('#Kategori_DDL').append('<option disabled selected hidden class="dropdown-header">*Pilih*</option>');
+                //$('#Kategori_DDL').append('<option disabled selected hidden class="dropdown-header">*Pilih*</option>');
                 $('#Lokasi_DDL').append('<option disabled selected hidden class="dropdown-header">*Pilih*</option>');
                 $.each(JSON.parse(data), function (key, entry) {
                     if (entry.DDL_TYPE == 'TRIGGER') {
                         $('#Trigger_CAPA').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
                     }
                     if (entry.DDL_TYPE == 'KATEGORI') {
-                        $('#Kategori_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
-                        $('#KategoriCAPA_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
+                        //$('#Kategori_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
+                        //$('#KategoriCAPA_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
                     }
                     if (entry.DDL_TYPE == 'LOKASI') {
                         $('#Lokasi_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
@@ -1980,7 +1980,9 @@
             }),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
+            async: false,
             success: function (data) {
+                console.log(data);
                 var val = JSON.parse(data);
                 $('#Kategori_DDL').empty();
                 $('#Kategori_DDL').append('<option disabled selected hidden class="dropdown-header">*Pilih*</option>');
