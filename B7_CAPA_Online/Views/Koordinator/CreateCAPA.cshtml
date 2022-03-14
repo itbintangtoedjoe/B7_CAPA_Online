@@ -645,8 +645,7 @@
                                         <table class="table table-hover table-bordered zero-configuration" id="Tbl_File" style="color:black;">
                                             <thead>
                                                 <tr>
-                                                    <th>Filename</th>
-                                                    <th>Action</th>
+                                                    <th>Filename</th>                                                    
                                                 </tr>
                                             </thead>
                                             <tbody id="tb_File">
@@ -860,7 +859,7 @@
         $('#btn_Add').click(function () {
             AddDepartemen();
             $('#VendorDiv').prop('hidden', true);
-        });
+        });        
 
         //Ketika dropdownlist lokasi dipilih akan ngeload departemen berdasarkan lokasi yang dipilih.
         var arr = [];
@@ -942,6 +941,7 @@
 
         //Ketika dropdownlist departemen dipilih akan ngeload PIC CAPA berdasarkan area yang dipilih.
         $('#AreaPIC_DDL').change(function () {
+            console.log($('#AreaPIC_DDL').val());
             var Location;
             $('#VendorDiv').prop('hidden', true);
 

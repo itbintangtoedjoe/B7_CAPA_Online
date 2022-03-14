@@ -31,6 +31,7 @@
 
 <script>
     var isHide = false;
+    var isDetail = false;
     var queryStatus = ('@string.IsNullOrEmpty(Request.QueryString.Get("StatsID"))' == "True") ? ("") : ('@Request.QueryString.Get("StatsID")');
     function GetTindakanPerbaikanPV(dictlist) {
         var dictlist = {
@@ -72,6 +73,13 @@
                             "data": null,
                             "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete'>Delete</button> ",
                             "visible": (!isHide) ? (true) : (false)
+                        },
+                        {                                                    
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": '<span><a><i class="fa fa-eye" aria-hidden="true"></i></a></span>',
+                            "className": "details text-center",
+                            "visible": (!isDetail) ? (true) : (false)
                         }
                     ],
                     "columnDefs": [
