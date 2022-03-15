@@ -807,7 +807,8 @@
 
 <script>    
     var formData = new FormData();
-    $(document).ready(function () {               
+    isDetail = false;   
+    $(document).ready(function () {        
         $('.tags').tagsinput({
             maxTags: 4
         });
@@ -1886,10 +1887,10 @@
 
     function getRequestPageData() {
         $.unblockUI();
-        if (@Request.QueryString.Count == 1) {           
+        if (@Request.QueryString.Count == 1) {   
             TableKajianPV();
 
-            isHide = true;
+            isHide = true;            
 
             $('#Div_KajianResikoInput').prop('hidden', true);
 
