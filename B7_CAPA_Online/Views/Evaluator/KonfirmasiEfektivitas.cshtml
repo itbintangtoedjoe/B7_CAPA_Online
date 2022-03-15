@@ -444,11 +444,9 @@
                         showConfirmButton: false,
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'Yes'
-                    }).then((result) => {
-                        if (result.value) {
-                            $.unblockUI();
-                            window.location.href = '../PendingTask/TaskList';
-                        }
+                    }).then((result) => {                        
+                        $.unblockUI();
+                        window.location.href = '../PendingTask/TaskList';                        
                     })
 
 
