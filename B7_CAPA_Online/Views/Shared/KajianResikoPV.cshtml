@@ -569,17 +569,26 @@
 
         $('#Severity_DDL').change(function () {
             realtimeCalculation();
-            UnhideKajianResikoModalPV();
+            if (jenis != "Pembatalan Perbaikan" || jenis != "Pembatalan Pencegahan") {
+
+                UnhideKajianResikoModalPV();
+            }
         });
 
         $('#Likelihood_DDL').change(function () {
             realtimeCalculation();
-            UnhideKajianResikoModalPV();
+            if (jenis != "Pembatalan Perbaikan" || jenis != "Pembatalan Pencegahan") {
+
+                UnhideKajianResikoModalPV();
+            }
         });
 
         $('#Detectability_DDL').change(function () {
             realtimeCalculation();
-            UnhideKajianResikoModalPV();
+            if (jenis != "Pembatalan Perbaikan" || jenis != "Pembatalan Pencegahan") {
+
+                UnhideKajianResikoModalPV();
+            }
         });
 
         $('#Severity2_DDL').change(function () {
