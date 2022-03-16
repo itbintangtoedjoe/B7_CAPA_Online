@@ -870,6 +870,16 @@
 <script>
     var rootcauses;
     var area_lains;
+    var countmanusia = 0;
+    var countlingkungan = 0;
+    var countmesin = 0;
+    var countmetode = 0;
+    var countmaterial = 0;
+    var myDiagramManusia;
+    var myDiagramMesin;
+    var myDiagramMetode;
+    var myDiagramLingukngan;
+    var myDiagramMaterial;
     //Check Jika status 1 maka button submit disabled.
     function checkStatusCAPA() {
         $.ajax({
@@ -1486,6 +1496,7 @@
                         contentType: 'application/json; charset=utf-8',
                         success: function (data) {
                             TableKajian();
+                            window.location.href = "../PIC/FormCAPA?NoCAPA=" + data.NoCAPA_FK+""
                             return true;
                         },
                         error: function (ex) {
@@ -1655,8 +1666,12 @@
                 var result = JSON.parse(data);
                 var $ = go.GraphObject.make;
 
-                var myDiagram =
-                    $(go.Diagram, "DiagManusia",
+                if (countmanusia >0) {
+                    myDiagramManusia.div = null;
+                }
+
+                 myDiagramManusia =
+                    new $(go.Diagram, "DiagManusia",
                         {
                             "undoManager.isEnabled": true,
                             contentAlignment: go.Spot.Center,
@@ -1676,7 +1691,7 @@
                 //    );
                 //myDiagram.add(node1);
 
-                myDiagram.nodeTemplate =
+                myDiagramManusia.nodeTemplate =
                     $(go.Node, "Horizontal",
                         { background: "#44CCFF", locationSpot: go.Spot.Center },
                         //$(go.TextBlock, "Default Text",
@@ -1693,8 +1708,9 @@
                             new go.Binding("text", "desc"))
                     );
 
-                myDiagram.model = new go.TreeModel(result);
-                var blob = myDiagram.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackManusia });
+                myDiagramManusia.model = new go.TreeModel(result);
+                var blob = myDiagramManusia.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackManusia });
+                countmanusia++;
             }
         });
     }
@@ -1710,8 +1726,12 @@
                 var result = JSON.parse(data);
                 var $ = go.GraphObject.make;
 
-                var myDiagram =
-                    $(go.Diagram, "DiagMaterial",
+                if (countmaterial > 0) {
+                    myDiagramMaterial.div = null;
+                }
+
+                myDiagramMaterial =
+                    new $(go.Diagram, "DiagMaterial",
                         {
                             "undoManager.isEnabled": true,
                             contentAlignment: go.Spot.Center,
@@ -1719,6 +1739,7 @@
                                 { angle: 90, layerSpacing: 35 })
 
                         });
+                
 
                 //var node1 =
                 //    $(go.Node, "Horizontal",
@@ -1731,7 +1752,7 @@
                 //        )
                 //    );
                 //myDiagram.add(node1);
-                myDiagram.nodeTemplate =
+                myDiagramMaterial.nodeTemplate =
                     $(go.Node, "Horizontal",
                         { background: "#44CCFF" },
                         //$(go.TextBlock, "Default Text",
@@ -1748,8 +1769,9 @@
                             new go.Binding("text", "desc"))
                     );
 
-                myDiagram.model = new go.TreeModel(result);
-                var blob = myDiagram.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackMaterial });
+                myDiagramMaterial.model = new go.TreeModel(result);
+                var blob = myDiagramMaterial.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackMaterial });
+                countmaterial++
             }
         });
     }
@@ -1766,14 +1788,21 @@
                 var result = JSON.parse(data);
                 var $ = go.GraphObject.make;
 
-                var myDiagram =
-                    $(go.Diagram, "DiagLingkungan",
+
+                if (countlingkungan > 0) {
+                    myDiagramLingkungan.div = null;
+                }
+
+
+                myDiagramLingkungan =
+                    new $(go.Diagram, "DiagLingkungan",
                         {
                             "undoManager.isEnabled": true,
                             contentAlignment: go.Spot.Center,
                             layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
                                 { angle: 90, layerSpacing: 35 })
                         });
+                 
                 //var node1 =
                 //    $(go.Node, "Horizontal",
                 //        { background: "#44CCFF" },
@@ -1786,7 +1815,7 @@
                 //    );
                 //myDiagram.add(node1);
 
-                myDiagram.nodeTemplate =
+                myDiagramLingkungan.nodeTemplate =
                     $(go.Node, "Horizontal",
                         { background: "#44CCFF" },
                         //$(go.TextBlock, "Default Text",
@@ -1803,8 +1832,9 @@
                             new go.Binding("text", "desc"))
                     );
 
-                myDiagram.model = new go.TreeModel(result);
-                var blob = myDiagram.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackLingkungan });
+                myDiagramLingkungan.model = new go.TreeModel(result);
+                var blob = myDiagramLingkungan.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackLingkungan });
+                countlingkungan++;
             }
         });
     }
@@ -1821,14 +1851,21 @@
                 var result = JSON.parse(data);
                 var $ = go.GraphObject.make;
 
-                var myDiagram =
-                    $(go.Diagram, "DiagMesin",
+                if (countmesin > 0) {
+                    myDiagramMesin.div = null;
+                }
+
+
+
+                myDiagramMesin =
+                    new $(go.Diagram, "DiagMesin",
                         {
                             "undoManager.isEnabled": true,
                             contentAlignment: go.Spot.Center,
                             layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
                                 { angle: 90, layerSpacing: 35 })
                         });
+                 
                 //var node1 =
                 //    $(go.Node, "Horizontal",
                 //        { background: "#44CCFF" },
@@ -1841,7 +1878,7 @@
                 //    );
                 //myDiagram.add(node1);
 
-                myDiagram.nodeTemplate =
+                myDiagramMesin.nodeTemplate =
                     $(go.Node, "Horizontal",
                         { background: "#44CCFF" },
                         //$(go.TextBlock, "Default Text",
@@ -1858,8 +1895,9 @@
                             new go.Binding("text", "desc"))
                     );
 
-                myDiagram.model = new go.TreeModel(result);
-                var blob = myDiagram.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackMesin });
+                myDiagramMesin.model = new go.TreeModel(result);
+                var blob = myDiagramMesin.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackMesin });
+                countmesin++;
             }
         });
     }
@@ -1876,8 +1914,14 @@
                 var result = JSON.parse(data);
                 var $ = go.GraphObject.make;
 
-                var myDiagram =
-                    $(go.Diagram, "DiagMetode",
+
+                if (countmetode > 0) {
+                    myDiagramMetode.div = null;
+                }
+
+
+                myDiagramMetode =
+                    new $(go.Diagram, "DiagMetode",
                         {
                             "undoManager.isEnabled": true,
                             contentAlignment: go.Spot.Center,
@@ -1896,7 +1940,7 @@
                 //    );
                 //myDiagram.add(node1);
 
-                myDiagram.nodeTemplate =
+                myDiagramMetode.nodeTemplate =
                     $(go.Node, "Horizontal",
                         { background: "#44CCFF" },
                         //$(go.TextBlock, "Default Text",
@@ -1913,8 +1957,9 @@
                             new go.Binding("text", "desc"))
                     );
 
-                myDiagram.model = new go.TreeModel(result);
-                var blob = myDiagram.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackMetode });
+                myDiagramMetode.model = new go.TreeModel(result);
+                var blob = myDiagramMetode.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackMetode });
+                countmetode++;
             }
         });
     }
@@ -2700,6 +2745,7 @@
                         success: function (data) {
                             GetWhyTable();
                             getWhyParent();
+                            GetAllRoot();
                             return true;
                         },
                         error: function (ex) {

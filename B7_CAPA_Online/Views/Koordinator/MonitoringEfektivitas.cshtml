@@ -818,7 +818,14 @@
         var formData = new FormData();
         var totalFiles = document.getElementById("TxtFileInput").files.length;
         if (totalFiles == 0 || totalFiles == undefined) {
-            Swal.fire("Error!", "Silahkan Memilih File Attachment terlebih dahulu!", "error");
+
+            Swal.fire({
+                title: "Error!",
+                text: "Silahkan Memilih File Attachment terlebih dahulu!",
+                icon: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
         }
         else {
             for (var i = 0; i < totalFiles; i++) {
@@ -827,7 +834,7 @@
                 //formData.append("NoCAPA", $('#txtNoCAPA').val());
             }
             $.ajax({
-                url: "InsertAttachment?NoCapa=" + $('#QS_NoCAPA').val() + "&spname=SP_FORM_KOOR4&Creator=",
+                url: "InsertAttachment?NoCapa=" + $('#QS_NoCAPA').val() + "&spname=SP_FORM_KOOR4&Creator=" +nik+"",
                 type: "post",
                 data: formData,
                 dataType: 'json',
@@ -905,6 +912,7 @@
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var result = JSON.parse(data);
+                console.log(result[0].Stat);
                 if (result[0].Stat == 'Invalid') {
                     $('#Submit').removeAttr('hidden');
                     $('input[name="File_Radio"]').attr("disabled", false);
@@ -942,33 +950,26 @@
                     if (countdevi > 0) {
                         document.getElementById("Devi_Yes").checked = true;
                         $('#Deviation').removeAttr('hidden');
-                        $('#Browse_Devi').attr('disabled', true);
                     }
                     else
                     {
-                      $('input[name="Devi_Radio"]').attr("disabled", true);
                       document.getElementById("Devi_No").checked = true;
                     }
 
                     if (countccc> 0) {
                         document.getElementById("CCC_Yes").checked = true;
                         $('#CCC').removeAttr('hidden');
-                        $('#Browse_CCC').attr('disabled', true);
                     }
                     else
                     {
-                        $('input[name="CCC_Radio"]').attr("disabled", true);
                         document.getElementById("CCC_No").checked = true;
                     }
                     if (countfile > 0) {
                         document.getElementById("File_Yes").checked = true;
                         $('#Lampiran').removeAttr('hidden');
-                        $('#TxtFileInput').attr('disabled', true);
-                        $('#Upload').attr('disabled', true);
                     }
                     else
                     {
-                        $('input[name="File_Radio"]').attr("disabled", true);
                         document.getElementById("File_No").checked = true;
                     }
                     checkStat();

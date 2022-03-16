@@ -486,9 +486,15 @@
                                 valid = false;
                                 return false;
                             }
+
+                            return Swal.fire(
+                                'Maaf',
+                                'Risk Level masih tinggi.',
+                                'warning'
+                            )
                         }
                         count++;
-                        return;
+                        return ;
                     } else {
                         //console.log(key + ": " + value);
                         if (value == "") {

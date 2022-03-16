@@ -329,6 +329,8 @@
 </div>
 
 
+<script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
+
 
 <script>
     var QSNoCAPA = getQueryStrings()["NoCAPA"];
@@ -468,7 +470,7 @@
                             timer: 1000,
                         })
                         $('#tblCAPA').DataTable().clear().destroy();
-                       
+
                     },
                     error: function (ex) {
                         alert(JSON.stringify(ex));
@@ -1208,7 +1210,8 @@
             data: JSON.stringify({
                 Model: {
                     Option: 23,
-                    NO_CAPA: QSNoCAPA
+                    NO_CAPA: QSNoCAPA,
+                    Tahapan: "Lampiran Koordinator"
                 }
             }),
             contentType: 'application/json; charset=utf-8',
