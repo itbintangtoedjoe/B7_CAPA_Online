@@ -279,11 +279,25 @@ namespace B7_CAPA_Online.DataSource {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class SP_LOAD_REPORT_RootDataTable : global::System.Data.TypedTableBase<SP_LOAD_REPORT_RootRow> {
             
-            private global::System.Data.DataColumn columnWAHType_FK;
+            private global::System.Data.DataColumn columnManusia;
             
-            private global::System.Data.DataColumn columnWAHDesc;
+            private global::System.Data.DataColumn columnMaterial;
             
-            private global::System.Data.DataColumn columnWhyDescription;
+            private global::System.Data.DataColumn columnLingkungan;
+            
+            private global::System.Data.DataColumn columnMesin;
+            
+            private global::System.Data.DataColumn columnMetode;
+            
+            private global::System.Data.DataColumn columnCountManusia;
+            
+            private global::System.Data.DataColumn columnCountMaterial;
+            
+            private global::System.Data.DataColumn columnCountLingkungan;
+            
+            private global::System.Data.DataColumn columnCountMesin;
+            
+            private global::System.Data.DataColumn columnCountMetode;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -320,25 +334,81 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn WAHType_FKColumn {
+            public global::System.Data.DataColumn ManusiaColumn {
                 get {
-                    return this.columnWAHType_FK;
+                    return this.columnManusia;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn WAHDescColumn {
+            public global::System.Data.DataColumn MaterialColumn {
                 get {
-                    return this.columnWAHDesc;
+                    return this.columnMaterial;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn WhyDescriptionColumn {
+            public global::System.Data.DataColumn LingkunganColumn {
                 get {
-                    return this.columnWhyDescription;
+                    return this.columnLingkungan;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn MesinColumn {
+                get {
+                    return this.columnMesin;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn MetodeColumn {
+                get {
+                    return this.columnMetode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CountManusiaColumn {
+                get {
+                    return this.columnCountManusia;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CountMaterialColumn {
+                get {
+                    return this.columnCountMaterial;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CountLingkunganColumn {
+                get {
+                    return this.columnCountLingkungan;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CountMesinColumn {
+                get {
+                    return this.columnCountMesin;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CountMetodeColumn {
+                get {
+                    return this.columnCountMetode;
                 }
             }
             
@@ -379,12 +449,19 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_LOAD_REPORT_RootRow AddSP_LOAD_REPORT_RootRow(string WAHType_FK, string WAHDesc, string WhyDescription) {
+            public SP_LOAD_REPORT_RootRow AddSP_LOAD_REPORT_RootRow(string Manusia, string Material, string Lingkungan, string Mesin, string Metode, int CountManusia, int CountMaterial, int CountLingkungan, int CountMesin, int CountMetode) {
                 SP_LOAD_REPORT_RootRow rowSP_LOAD_REPORT_RootRow = ((SP_LOAD_REPORT_RootRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        WAHType_FK,
-                        WAHDesc,
-                        WhyDescription};
+                        Manusia,
+                        Material,
+                        Lingkungan,
+                        Mesin,
+                        Metode,
+                        CountManusia,
+                        CountMaterial,
+                        CountLingkungan,
+                        CountMesin,
+                        CountMetode};
                 rowSP_LOAD_REPORT_RootRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSP_LOAD_REPORT_RootRow);
                 return rowSP_LOAD_REPORT_RootRow;
@@ -407,23 +484,56 @@ namespace B7_CAPA_Online.DataSource {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
-                this.columnWAHType_FK = base.Columns["WAHType_FK"];
-                this.columnWAHDesc = base.Columns["WAHDesc"];
-                this.columnWhyDescription = base.Columns["WhyDescription"];
+                this.columnManusia = base.Columns["Manusia"];
+                this.columnMaterial = base.Columns["Material"];
+                this.columnLingkungan = base.Columns["Lingkungan"];
+                this.columnMesin = base.Columns["Mesin"];
+                this.columnMetode = base.Columns["Metode"];
+                this.columnCountManusia = base.Columns["CountManusia"];
+                this.columnCountMaterial = base.Columns["CountMaterial"];
+                this.columnCountLingkungan = base.Columns["CountLingkungan"];
+                this.columnCountMesin = base.Columns["CountMesin"];
+                this.columnCountMetode = base.Columns["CountMetode"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
-                this.columnWAHType_FK = new global::System.Data.DataColumn("WAHType_FK", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnWAHType_FK);
-                this.columnWAHDesc = new global::System.Data.DataColumn("WAHDesc", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnWAHDesc);
-                this.columnWhyDescription = new global::System.Data.DataColumn("WhyDescription", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnWhyDescription);
-                this.columnWAHType_FK.MaxLength = 50;
-                this.columnWAHDesc.MaxLength = 500;
-                this.columnWhyDescription.MaxLength = 500;
+                this.columnManusia = new global::System.Data.DataColumn("Manusia", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnManusia);
+                this.columnMaterial = new global::System.Data.DataColumn("Material", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMaterial);
+                this.columnLingkungan = new global::System.Data.DataColumn("Lingkungan", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLingkungan);
+                this.columnMesin = new global::System.Data.DataColumn("Mesin", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMesin);
+                this.columnMetode = new global::System.Data.DataColumn("Metode", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMetode);
+                this.columnCountManusia = new global::System.Data.DataColumn("CountManusia", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCountManusia);
+                this.columnCountMaterial = new global::System.Data.DataColumn("CountMaterial", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCountMaterial);
+                this.columnCountLingkungan = new global::System.Data.DataColumn("CountLingkungan", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCountLingkungan);
+                this.columnCountMesin = new global::System.Data.DataColumn("CountMesin", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCountMesin);
+                this.columnCountMetode = new global::System.Data.DataColumn("CountMetode", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCountMetode);
+                this.columnManusia.ReadOnly = true;
+                this.columnManusia.MaxLength = 2005;
+                this.columnMaterial.ReadOnly = true;
+                this.columnMaterial.MaxLength = 2005;
+                this.columnLingkungan.ReadOnly = true;
+                this.columnLingkungan.MaxLength = 2005;
+                this.columnMesin.ReadOnly = true;
+                this.columnMesin.MaxLength = 2005;
+                this.columnMetode.ReadOnly = true;
+                this.columnMetode.MaxLength = 2005;
+                this.columnCountManusia.ReadOnly = true;
+                this.columnCountMaterial.ReadOnly = true;
+                this.columnCountLingkungan.ReadOnly = true;
+                this.columnCountMesin.ReadOnly = true;
+                this.columnCountMetode.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -566,86 +676,282 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string WAHType_FK {
+            public string Manusia {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_LOAD_REPORT_Root.WAHType_FKColumn]));
+                        return ((string)(this[this.tableSP_LOAD_REPORT_Root.ManusiaColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'WAHType_FK\' in table \'SP_LOAD_REPORT_Root\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Manusia\' in table \'SP_LOAD_REPORT_Root\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_LOAD_REPORT_Root.WAHType_FKColumn] = value;
+                    this[this.tableSP_LOAD_REPORT_Root.ManusiaColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string WAHDesc {
+            public string Material {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_LOAD_REPORT_Root.WAHDescColumn]));
+                        return ((string)(this[this.tableSP_LOAD_REPORT_Root.MaterialColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'WAHDesc\' in table \'SP_LOAD_REPORT_Root\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Material\' in table \'SP_LOAD_REPORT_Root\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_LOAD_REPORT_Root.WAHDescColumn] = value;
+                    this[this.tableSP_LOAD_REPORT_Root.MaterialColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string WhyDescription {
+            public string Lingkungan {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_LOAD_REPORT_Root.WhyDescriptionColumn]));
+                        return ((string)(this[this.tableSP_LOAD_REPORT_Root.LingkunganColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'WhyDescription\' in table \'SP_LOAD_REPORT_Root\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Lingkungan\' in table \'SP_LOAD_REPORT_Root\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_LOAD_REPORT_Root.WhyDescriptionColumn] = value;
+                    this[this.tableSP_LOAD_REPORT_Root.LingkunganColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsWAHType_FKNull() {
-                return this.IsNull(this.tableSP_LOAD_REPORT_Root.WAHType_FKColumn);
+            public string Mesin {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_LOAD_REPORT_Root.MesinColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Mesin\' in table \'SP_LOAD_REPORT_Root\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_LOAD_REPORT_Root.MesinColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetWAHType_FKNull() {
-                this[this.tableSP_LOAD_REPORT_Root.WAHType_FKColumn] = global::System.Convert.DBNull;
+            public string Metode {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_LOAD_REPORT_Root.MetodeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Metode\' in table \'SP_LOAD_REPORT_Root\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_LOAD_REPORT_Root.MetodeColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsWAHDescNull() {
-                return this.IsNull(this.tableSP_LOAD_REPORT_Root.WAHDescColumn);
+            public int CountManusia {
+                get {
+                    try {
+                        return ((int)(this[this.tableSP_LOAD_REPORT_Root.CountManusiaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CountManusia\' in table \'SP_LOAD_REPORT_Root\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_LOAD_REPORT_Root.CountManusiaColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetWAHDescNull() {
-                this[this.tableSP_LOAD_REPORT_Root.WAHDescColumn] = global::System.Convert.DBNull;
+            public int CountMaterial {
+                get {
+                    try {
+                        return ((int)(this[this.tableSP_LOAD_REPORT_Root.CountMaterialColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CountMaterial\' in table \'SP_LOAD_REPORT_Root\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_LOAD_REPORT_Root.CountMaterialColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsWhyDescriptionNull() {
-                return this.IsNull(this.tableSP_LOAD_REPORT_Root.WhyDescriptionColumn);
+            public int CountLingkungan {
+                get {
+                    try {
+                        return ((int)(this[this.tableSP_LOAD_REPORT_Root.CountLingkunganColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CountLingkungan\' in table \'SP_LOAD_REPORT_Root\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_LOAD_REPORT_Root.CountLingkunganColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetWhyDescriptionNull() {
-                this[this.tableSP_LOAD_REPORT_Root.WhyDescriptionColumn] = global::System.Convert.DBNull;
+            public int CountMesin {
+                get {
+                    try {
+                        return ((int)(this[this.tableSP_LOAD_REPORT_Root.CountMesinColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CountMesin\' in table \'SP_LOAD_REPORT_Root\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_LOAD_REPORT_Root.CountMesinColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int CountMetode {
+                get {
+                    try {
+                        return ((int)(this[this.tableSP_LOAD_REPORT_Root.CountMetodeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CountMetode\' in table \'SP_LOAD_REPORT_Root\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_LOAD_REPORT_Root.CountMetodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsManusiaNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_Root.ManusiaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetManusiaNull() {
+                this[this.tableSP_LOAD_REPORT_Root.ManusiaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsMaterialNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_Root.MaterialColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetMaterialNull() {
+                this[this.tableSP_LOAD_REPORT_Root.MaterialColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsLingkunganNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_Root.LingkunganColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetLingkunganNull() {
+                this[this.tableSP_LOAD_REPORT_Root.LingkunganColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsMesinNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_Root.MesinColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetMesinNull() {
+                this[this.tableSP_LOAD_REPORT_Root.MesinColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsMetodeNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_Root.MetodeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetMetodeNull() {
+                this[this.tableSP_LOAD_REPORT_Root.MetodeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCountManusiaNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_Root.CountManusiaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCountManusiaNull() {
+                this[this.tableSP_LOAD_REPORT_Root.CountManusiaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCountMaterialNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_Root.CountMaterialColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCountMaterialNull() {
+                this[this.tableSP_LOAD_REPORT_Root.CountMaterialColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCountLingkunganNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_Root.CountLingkunganColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCountLingkunganNull() {
+                this[this.tableSP_LOAD_REPORT_Root.CountLingkunganColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCountMesinNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_Root.CountMesinColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCountMesinNull() {
+                this[this.tableSP_LOAD_REPORT_Root.CountMesinColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCountMetodeNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_Root.CountMetodeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCountMetodeNull() {
+                this[this.tableSP_LOAD_REPORT_Root.CountMetodeColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -808,9 +1114,16 @@ namespace B7_CAPA_Online.DataSource.B7_CAPA_ONLINEDataSetRootTableAdapters {
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "SP_LOAD_REPORT_Root";
-            tableMapping.ColumnMappings.Add("WAHType_FK", "WAHType_FK");
-            tableMapping.ColumnMappings.Add("WAHDesc", "WAHDesc");
-            tableMapping.ColumnMappings.Add("WhyDescription", "WhyDescription");
+            tableMapping.ColumnMappings.Add("Manusia", "Manusia");
+            tableMapping.ColumnMappings.Add("Material", "Material");
+            tableMapping.ColumnMappings.Add("Lingkungan", "Lingkungan");
+            tableMapping.ColumnMappings.Add("Mesin", "Mesin");
+            tableMapping.ColumnMappings.Add("Metode", "Metode");
+            tableMapping.ColumnMappings.Add("CountManusia", "CountManusia");
+            tableMapping.ColumnMappings.Add("CountMaterial", "CountMaterial");
+            tableMapping.ColumnMappings.Add("CountLingkungan", "CountLingkungan");
+            tableMapping.ColumnMappings.Add("CountMesin", "CountMesin");
+            tableMapping.ColumnMappings.Add("CountMetode", "CountMetode");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

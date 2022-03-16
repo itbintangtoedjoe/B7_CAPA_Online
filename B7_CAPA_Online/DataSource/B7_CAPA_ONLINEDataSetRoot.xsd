@@ -22,9 +22,16 @@
               </DbSource>
             </MainSource>
             <Mappings>
-              <Mapping SourceColumn="WAHType_FK" DataSetColumn="WAHType_FK" />
-              <Mapping SourceColumn="WAHDesc" DataSetColumn="WAHDesc" />
-              <Mapping SourceColumn="WhyDescription" DataSetColumn="WhyDescription" />
+              <Mapping SourceColumn="Manusia" DataSetColumn="Manusia" />
+              <Mapping SourceColumn="Material" DataSetColumn="Material" />
+              <Mapping SourceColumn="Lingkungan" DataSetColumn="Lingkungan" />
+              <Mapping SourceColumn="Mesin" DataSetColumn="Mesin" />
+              <Mapping SourceColumn="Metode" DataSetColumn="Metode" />
+              <Mapping SourceColumn="CountManusia" DataSetColumn="CountManusia" />
+              <Mapping SourceColumn="CountMaterial" DataSetColumn="CountMaterial" />
+              <Mapping SourceColumn="CountLingkungan" DataSetColumn="CountLingkungan" />
+              <Mapping SourceColumn="CountMesin" DataSetColumn="CountMesin" />
+              <Mapping SourceColumn="CountMetode" DataSetColumn="CountMetode" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -39,27 +46,46 @@
         <xs:element name="SP_LOAD_REPORT_Root" msprop:Generator_TableClassName="SP_LOAD_REPORT_RootDataTable" msprop:Generator_TableVarName="tableSP_LOAD_REPORT_Root" msprop:Generator_TablePropName="SP_LOAD_REPORT_Root" msprop:Generator_RowDeletingName="SP_LOAD_REPORT_RootRowDeleting" msprop:Generator_RowChangingName="SP_LOAD_REPORT_RootRowChanging" msprop:Generator_RowEvHandlerName="SP_LOAD_REPORT_RootRowChangeEventHandler" msprop:Generator_RowDeletedName="SP_LOAD_REPORT_RootRowDeleted" msprop:Generator_UserTableName="SP_LOAD_REPORT_Root" msprop:Generator_RowChangedName="SP_LOAD_REPORT_RootRowChanged" msprop:Generator_RowEvArgName="SP_LOAD_REPORT_RootRowChangeEvent" msprop:Generator_RowClassName="SP_LOAD_REPORT_RootRow">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="WAHType_FK" msprop:Generator_ColumnVarNameInTable="columnWAHType_FK" msprop:Generator_ColumnPropNameInRow="WAHType_FK" msprop:Generator_ColumnPropNameInTable="WAHType_FKColumn" msprop:Generator_UserColumnName="WAHType_FK" minOccurs="0">
+              <xs:element name="Manusia" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnManusia" msprop:Generator_ColumnPropNameInRow="Manusia" msprop:Generator_ColumnPropNameInTable="ManusiaColumn" msprop:Generator_UserColumnName="Manusia" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
+                    <xs:maxLength value="2005" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="WAHDesc" msprop:Generator_ColumnVarNameInTable="columnWAHDesc" msprop:Generator_ColumnPropNameInRow="WAHDesc" msprop:Generator_ColumnPropNameInTable="WAHDescColumn" msprop:Generator_UserColumnName="WAHDesc" minOccurs="0">
+              <xs:element name="Material" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnMaterial" msprop:Generator_ColumnPropNameInRow="Material" msprop:Generator_ColumnPropNameInTable="MaterialColumn" msprop:Generator_UserColumnName="Material" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="500" />
+                    <xs:maxLength value="2005" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="WhyDescription" msprop:Generator_ColumnVarNameInTable="columnWhyDescription" msprop:Generator_ColumnPropNameInRow="WhyDescription" msprop:Generator_ColumnPropNameInTable="WhyDescriptionColumn" msprop:Generator_UserColumnName="WhyDescription" minOccurs="0">
+              <xs:element name="Lingkungan" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnLingkungan" msprop:Generator_ColumnPropNameInRow="Lingkungan" msprop:Generator_ColumnPropNameInTable="LingkunganColumn" msprop:Generator_UserColumnName="Lingkungan" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="500" />
+                    <xs:maxLength value="2005" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="Mesin" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnMesin" msprop:Generator_ColumnPropNameInRow="Mesin" msprop:Generator_ColumnPropNameInTable="MesinColumn" msprop:Generator_UserColumnName="Mesin" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2005" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Metode" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnMetode" msprop:Generator_ColumnPropNameInRow="Metode" msprop:Generator_ColumnPropNameInTable="MetodeColumn" msprop:Generator_UserColumnName="Metode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2005" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CountManusia" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnCountManusia" msprop:Generator_ColumnPropNameInRow="CountManusia" msprop:Generator_ColumnPropNameInTable="CountManusiaColumn" msprop:Generator_UserColumnName="CountManusia" type="xs:int" minOccurs="0" />
+              <xs:element name="CountMaterial" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnCountMaterial" msprop:Generator_ColumnPropNameInRow="CountMaterial" msprop:Generator_ColumnPropNameInTable="CountMaterialColumn" msprop:Generator_UserColumnName="CountMaterial" type="xs:int" minOccurs="0" />
+              <xs:element name="CountLingkungan" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnCountLingkungan" msprop:Generator_ColumnPropNameInRow="CountLingkungan" msprop:Generator_ColumnPropNameInTable="CountLingkunganColumn" msprop:Generator_UserColumnName="CountLingkungan" type="xs:int" minOccurs="0" />
+              <xs:element name="CountMesin" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnCountMesin" msprop:Generator_ColumnPropNameInRow="CountMesin" msprop:Generator_ColumnPropNameInTable="CountMesinColumn" msprop:Generator_UserColumnName="CountMesin" type="xs:int" minOccurs="0" />
+              <xs:element name="CountMetode" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnCountMetode" msprop:Generator_ColumnPropNameInRow="CountMetode" msprop:Generator_ColumnPropNameInTable="CountMetodeColumn" msprop:Generator_UserColumnName="CountMetode" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -148,6 +148,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="DataSource\B7_CAPA_ONLINEDataSetRoot.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>B7_CAPA_ONLINEDataSetRoot.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DataSource\B7_CAPA_ONLINEDataSetKajianPerubahan.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -218,7 +223,6 @@
     <Compile Include="DataSource\B7_CAPA_ONLINEDataSet.Designer.cs" />
     <Compile Include="DataSource\B7_CAPA_ONLINEDataSetAnalisa.Designer.cs" />
     <Compile Include="DataSource\B7_CAPA_ONLINEDataSetEvaluator.Designer.cs" />
-    <Compile Include="DataSource\B7_CAPA_ONLINEDataSetRoot.Designer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -5170,12 +5174,6 @@
     <Content Include="DataSource\B7_CAPA_ONLINEDataSetEvaluator.xss">
       <DependentUpon>B7_CAPA_ONLINEDataSetEvaluator.xsd</DependentUpon>
     </Content>
-    <Content Include="DataSource\B7_CAPA_ONLINEDataSetRoot.xsc">
-      <DependentUpon>B7_CAPA_ONLINEDataSetRoot.xsd</DependentUpon>
-    </Content>
-    <Content Include="DataSource\B7_CAPA_ONLINEDataSetRoot.xss">
-      <DependentUpon>B7_CAPA_ONLINEDataSetRoot.xsd</DependentUpon>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -5463,6 +5461,17 @@
     <Content Include="DataSource\B7_CAPA_ONLINEDataSetKajianPerubahan.xsc">
       <DependentUpon>B7_CAPA_ONLINEDataSetKajianPerubahan.xsd</DependentUpon>
     </Content>
+    <Content Include="DataSource\B7_CAPA_ONLINEDataSetRoot.xsc">
+      <DependentUpon>B7_CAPA_ONLINEDataSetRoot.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSource\B7_CAPA_ONLINEDataSetRoot.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>B7_CAPA_ONLINEDataSetRoot.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSource\B7_CAPA_ONLINEDataSetRoot.xss">
+      <DependentUpon>B7_CAPA_ONLINEDataSetRoot.xsd</DependentUpon>
+    </Content>
     <None Include="DataSource\B7_CAPA_ONLINEDataSetKajianPerubahan.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>B7_CAPA_ONLINEDataSetKajianPerubahan1.Designer.cs</LastGenOutput>
@@ -5545,11 +5554,6 @@
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>B7_CAPA_ONLINEDataSetEvaluator1.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="DataSource\B7_CAPA_ONLINEDataSetRoot.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>B7_CAPA_ONLINEDataSetRoot1.Designer.cs</LastGenOutput>
     </None>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -5671,6 +5675,7 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Report\ReportCAPA - Copy.rdlc" />
     <EmbeddedResource Include="Report\ReportCAPA.rdlc" />
   </ItemGroup>
   <PropertyGroup>

@@ -1935,7 +1935,7 @@
                 const fd = new FormData();
                 fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type
                 $.ajax({
-                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '',
+                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '&Tipe=Manusia' ,
                     type: 'post',
                     data: fd,
                     dataType: 'json',
@@ -1981,7 +1981,7 @@
                 const fd = new FormData();
                 fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type
                 $.ajax({
-                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '',
+                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '&Tipe=Lingkungan',
                     type: 'post',
                     data: fd,
                     dataType: 'json',
@@ -2027,7 +2027,7 @@
                 const fd = new FormData();
                 fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type
                 $.ajax({
-                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '',
+                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '&Tipe=Mesin',
                     type: 'post',
                     data: fd,
                     dataType: 'json',
@@ -2073,7 +2073,7 @@
                 const fd = new FormData();
                 fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type
                 $.ajax({
-                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '',
+                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '&Tipe=Metode',
                     type: 'post',
                     data: fd,
                     dataType: 'json',
@@ -2117,9 +2117,9 @@
                 //    type: myBlob.type,
                 //});
                 const fd = new FormData();
-                fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type
+                fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type 
                 $.ajax({
-                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '',
+                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '&Tipe=Material',
                     type: 'post',
                     data: fd,
                     dataType: 'json',

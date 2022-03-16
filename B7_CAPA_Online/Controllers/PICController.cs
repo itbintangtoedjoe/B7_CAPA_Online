@@ -340,9 +340,9 @@ namespace B7_CAPA_Online.Controllers
             string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_FORM_CAPA]");
             return Json(Return);
         }
-        public ActionResult SaveImage(string nocapa)
+        public ActionResult SaveImage(string nocapa,string tipe)
         {
-            var b7path = @"D:\Kerja\CAPA\B7_CAPA_Online\Content\DiagramCAPA\";
+            var b7path = @"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\DiagramCAPA";
             string Return ="";
             for (int i = 0; i < Request.Files.Count; i++)
             {
@@ -355,7 +355,8 @@ namespace B7_CAPA_Online.Controllers
                 var dictionary = new Dictionary<string, object>{
                 { "Action", "Add Diagram" },
                 { "NomorCAPA",nocapa},
-                {"FilePath",path}
+                {"FilePath",path},
+                { "Tipe", tipe }
                  };
                 DynamicParameters parameters = new DynamicParameters(dictionary);
                  Return = DAL.StoredProcedure(parameters, "[dbo].[SP_Attachment_Pelaksanaan]");

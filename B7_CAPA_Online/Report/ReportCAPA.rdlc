@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="B7_CAPA_ONLINEDataSet">
@@ -15,13 +15,6 @@
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
       <rd:DataSourceID>9f5e3860-3f96-4bdc-9517-57b40af54ae5</rd:DataSourceID>
-    </DataSource>
-    <DataSource Name="B7_CAPA_ONLINEDataSetRoot">
-      <ConnectionProperties>
-        <DataProvider>System.Data.DataSet</DataProvider>
-        <ConnectString>/* Local Connection */</ConnectString>
-      </ConnectionProperties>
-      <rd:DataSourceID>f2c8d7bd-d2e6-42b6-8fad-2ab04406751f</rd:DataSourceID>
     </DataSource>
     <DataSource Name="B7_CAPA_ONLINEDataSetPencegahan">
       <ConnectionProperties>
@@ -100,6 +93,13 @@
       </ConnectionProperties>
       <rd:DataSourceID>4234fa48-c815-4bb5-82e7-1c7b1eaefec8</rd:DataSourceID>
     </DataSource>
+    <DataSource Name="B7_CAPA_ONLINEDataSetRoot">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>3459d67d-a4b3-4628-8e5c-35d0b937444d</rd:DataSourceID>
+    </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="DataSetAnalisa">
@@ -132,34 +132,6 @@
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
         <rd:TableAdapterName>SP_LOAD_REPORT_AnalisaTableAdapter</rd:TableAdapterName>
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="DataSetRoot">
-      <Query>
-        <DataSourceName>B7_CAPA_ONLINEDataSetRoot</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="WAHType_FK">
-          <DataField>WAHType_FK</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="WAHDesc">
-          <DataField>WAHDesc</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="WhyDescription">
-          <DataField>WhyDescription</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>B7_CAPA_ONLINEDataSetRoot</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\bened\OneDrive\Desktop\Capa\B7_CAPA_Online\DataSource\B7_CAPA_ONLINEDataSetRoot.xsd</rd:SchemaPath>
-        <rd:TableName>SP_LOAD_REPORT_Root</rd:TableName>
-        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
-        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>SP_LOAD_REPORT_RootTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
     <DataSet Name="DataSetEvaluator">
@@ -746,7 +718,65 @@
         <rd:TableAdapterName>SP_LOAD_REPORT_KajianResiko_PerubahanTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
+    <DataSet Name="DataSetRoot">
+      <Query>
+        <DataSourceName>B7_CAPA_ONLINEDataSetRoot</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Manusia">
+          <DataField>Manusia</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Material">
+          <DataField>Material</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Lingkungan">
+          <DataField>Lingkungan</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Mesin">
+          <DataField>Mesin</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Metode">
+          <DataField>Metode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CountManusia">
+          <DataField>CountManusia</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CountMaterial">
+          <DataField>CountMaterial</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CountLingkungan">
+          <DataField>CountLingkungan</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CountMesin">
+          <DataField>CountMesin</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CountMetode">
+          <DataField>CountMetode</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>B7_CAPA_ONLINEDataSetRoot</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\bened\OneDrive\Desktop\Capa\B7_CAPA_Online\B7_CAPA_ONLINEDataSetRoot.xsd</rd:SchemaPath>
+        <rd:TableName>SP_LOAD_REPORT_Root</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>SP_LOAD_REPORT_RootTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
   </DataSets>
+  <ReportSections>
+    <ReportSection>
       <Body>
         <ReportItems>
           <Rectangle Name="Rectangle1">
@@ -1164,7 +1194,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Area Requestor :</Value>
+                    <Value>Area Requestor     :</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -1174,10 +1204,10 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>3.75391cm</Top>
-            <Left>13.87049cm</Left>
-            <Height>1.42021cm</Height>
-            <Width>2.1929cm</Width>
+            <Top>5.60709cm</Top>
+            <Left>13.43112cm</Left>
+            <Height>1.02332cm</Height>
+            <Width>2.60482cm</Width>
             <ZIndex>11</ZIndex>
             <Style>
               <Border>
@@ -1208,10 +1238,10 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>3.75391cm</Top>
-            <Left>16.23978cm</Left>
-            <Height>1.42021cm</Height>
-            <Width>2.85353cm</Width>
+            <Top>5.60709cm</Top>
+            <Left>16.21233cm</Left>
+            <Height>1.02332cm</Height>
+            <Width>3.16608cm</Width>
             <ZIndex>12</ZIndex>
             <Style>
               <Border>
@@ -1231,7 +1261,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Superior   :</Value>
+                    <Value>Superior PIC :</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -1241,10 +1271,10 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>5.55417cm</Top>
-            <Left>13.87049cm</Left>
-            <Height>1.26146cm</Height>
-            <Width>2.1929cm</Width>
+            <Top>6.85063cm</Top>
+            <Left>13.43112cm</Left>
+            <Height>0.89105cm</Height>
+            <Width>2.60482cm</Width>
             <ZIndex>13</ZIndex>
             <Style>
               <Border>
@@ -1275,10 +1305,10 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>5.55418cm</Top>
-            <Left>16.23978cm</Left>
-            <Height>1.26146cm</Height>
-            <Width>2.85353cm</Width>
+            <Top>6.85064cm</Top>
+            <Left>16.21233cm</Left>
+            <Height>0.89104cm</Height>
+            <Width>3.16608cm</Width>
             <ZIndex>14</ZIndex>
             <Style>
               <Border>
@@ -1308,9 +1338,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>3.75391cm</Top>
-            <Left>19.70567cm</Left>
-            <Height>1.42021cm</Height>
+            <Top>5.60709cm</Top>
+            <Left>20.02317cm</Left>
+            <Height>0.99578cm</Height>
             <Width>2.50002cm</Width>
             <ZIndex>15</ZIndex>
             <Style>
@@ -1342,10 +1372,10 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>3.75391cm</Top>
-            <Left>22.38208cm</Left>
-            <Height>1.42021cm</Height>
-            <Width>3.03343cm</Width>
+            <Top>5.60709cm</Top>
+            <Left>22.69958cm</Left>
+            <Height>0.99578cm</Height>
+            <Width>3.2451cm</Width>
             <ZIndex>16</ZIndex>
             <Style>
               <Border>
@@ -1375,9 +1405,9 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>5.55417cm</Top>
-            <Left>19.70567cm</Left>
-            <Height>1.26146cm</Height>
+            <Top>6.85063cm</Top>
+            <Left>20.02317cm</Left>
+            <Height>0.83813cm</Height>
             <Width>2.50002cm</Width>
             <ZIndex>17</ZIndex>
             <Style>
@@ -1409,10 +1439,10 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>5.55417cm</Top>
-            <Left>22.38208cm</Left>
-            <Height>1.26146cm</Height>
-            <Width>3.03343cm</Width>
+            <Top>6.85063cm</Top>
+            <Left>22.69958cm</Left>
+            <Height>0.83813cm</Height>
+            <Width>3.2451cm</Width>
             <ZIndex>18</ZIndex>
             <Style>
               <Border>
@@ -1930,7 +1960,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
             <OmitBorderOnPageBreak>true</OmitBorderOnPageBreak>
-            <Top>26.39903cm</Top>
+            <Top>48.30653cm</Top>
             <Left>0.47616cm</Left>
             <Height>0.6798cm</Height>
             <Width>26.41747cm</Width>
@@ -1945,7 +1975,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
           <Rectangle Name="Rectangle7">
             <KeepTogether>true</KeepTogether>
             <OmitBorderOnPageBreak>true</OmitBorderOnPageBreak>
-            <Top>30.01468cm</Top>
+            <Top>51.92218cm</Top>
             <Left>0.47616cm</Left>
             <Height>0.6798cm</Height>
             <Width>26.41747cm</Width>
@@ -1960,7 +1990,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
           <Rectangle Name="Rectangle13">
             <KeepTogether>true</KeepTogether>
             <OmitBorderOnPageBreak>true</OmitBorderOnPageBreak>
-            <Top>48.07112cm</Top>
+            <Top>69.97862cm</Top>
             <Left>0.47616cm</Left>
             <Height>0.65082cm</Height>
             <Width>26.41747cm</Width>
@@ -1975,7 +2005,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
           <Rectangle Name="Rectangle15">
             <KeepTogether>true</KeepTogether>
             <OmitBorderOnPageBreak>true</OmitBorderOnPageBreak>
-            <Top>55.99212cm</Top>
+            <Top>77.89962cm</Top>
             <Left>0.47616cm</Left>
             <Height>0.65082cm</Height>
             <Width>26.41747cm</Width>
@@ -2296,385 +2326,6 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Height>1.54396cm</Height>
             <Width>26.20761cm</Width>
             <ZIndex>37</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-            </Style>
-          </Tablix>
-          <Tablix Name="Tablix4">
-            <TablixBody>
-              <TablixColumns>
-                <TablixColumn>
-                  <Width>5.24152cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>5.24152cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>5.24152cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>5.24152cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>5.24152cm</Width>
-                </TablixColumn>
-              </TablixColumns>
-              <TablixRows>
-                <TablixRow>
-                  <Height>0.78521cm</Height>
-                  <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox180">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>ASPECT</Value>
-                                  <Style>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox180</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox183">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>WAH</Value>
-                                  <Style>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox183</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox184">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Why</Value>
-                                  <Style>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox184</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox194">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox194</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox202">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox202</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                  </TablixCells>
-                </TablixRow>
-                <TablixRow>
-                  <Height>0.78521cm</Height>
-                  <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="WAHType_FK">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!WAHType_FK.Value</Value>
-                                  <Style>
-                                    <FontSize>8pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>WAHType_FK</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="WAHDesc1">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!WAHDesc.Value</Value>
-                                  <Style>
-                                    <FontSize>8pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>WAHDesc1</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="WhyDescription">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!WhyDescription.Value</Value>
-                                  <Style>
-                                    <FontSize>8pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>WhyDescription</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox195">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontSize>8pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox195</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox203">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontSize>8pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox203</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                  </TablixCells>
-                </TablixRow>
-              </TablixRows>
-            </TablixBody>
-            <TablixColumnHierarchy>
-              <TablixMembers>
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-              </TablixMembers>
-            </TablixColumnHierarchy>
-            <TablixRowHierarchy>
-              <TablixMembers>
-                <TablixMember>
-                  <KeepWithGroup>After</KeepWithGroup>
-                </TablixMember>
-                <TablixMember>
-                  <Group Name="Details1" />
-                </TablixMember>
-              </TablixMembers>
-            </TablixRowHierarchy>
-            <DataSetName>DataSetRoot</DataSetName>
-            <Top>24.11513cm</Top>
-            <Left>0.58223cm</Left>
-            <Height>1.57042cm</Height>
-            <Width>26.2076cm</Width>
-            <ZIndex>38</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -3379,11 +3030,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSetPerbaikan</DataSetName>
-            <Top>27.59715cm</Top>
+            <Top>49.50465cm</Top>
             <Left>0.58223cm</Left>
             <Height>1.86146cm</Height>
             <Width>26.20768cm</Width>
-            <ZIndex>39</ZIndex>
+            <ZIndex>38</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -4156,11 +3807,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSetPencegahan</DataSetName>
-            <Top>30.87087cm</Top>
+            <Top>52.77837cm</Top>
             <Left>0.58223cm</Left>
             <Height>2.12655cm</Height>
             <Width>26.20761cm</Width>
-            <ZIndex>40</ZIndex>
+            <ZIndex>39</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -4177,7 +3828,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Left>11.93383cm</Left>
             <Height>0.48447cm</Height>
             <Width>3.70435cm</Width>
-            <ZIndex>41</ZIndex>
+            <ZIndex>40</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -4189,11 +3840,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
             <KeepTogether>true</KeepTogether>
-            <Top>25.8884cm</Top>
+            <Top>47.7959cm</Top>
             <Left>7.10141cm</Left>
             <Height>0.36005cm</Height>
             <Width>12.81339cm</Width>
-            <ZIndex>42</ZIndex>
+            <ZIndex>41</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -4205,11 +3856,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
             <KeepTogether>true</KeepTogether>
-            <Top>29.59972cm</Top>
+            <Top>51.50722cm</Top>
             <Left>6.99517cm</Left>
             <Height>0.36005cm</Height>
             <Width>13.03635cm</Width>
-            <ZIndex>43</ZIndex>
+            <ZIndex>42</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -4221,11 +3872,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
             <KeepTogether>true</KeepTogether>
-            <Top>33.13853cm</Top>
+            <Top>55.04603cm</Top>
             <Left>6.99517cm</Left>
             <Height>0.36005cm</Height>
             <Width>13.03635cm</Width>
-            <ZIndex>44</ZIndex>
+            <ZIndex>43</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -4237,11 +3888,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
             <KeepTogether>true</KeepTogether>
-            <Top>55.52372cm</Top>
+            <Top>77.43122cm</Top>
             <Left>7.30341cm</Left>
             <Height>0.36005cm</Height>
             <Width>14.11033cm</Width>
-            <ZIndex>45</ZIndex>
+            <ZIndex>44</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -4267,11 +3918,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>33.74579cm</Top>
+            <Top>55.65329cm</Top>
             <Left>0.47616cm</Left>
             <Height>0.61509cm</Height>
             <Width>26.41747cm</Width>
-            <ZIndex>46</ZIndex>
+            <ZIndex>45</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -4302,11 +3953,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>40.02592cm</Top>
+            <Top>61.93342cm</Top>
             <Left>0.47616cm</Left>
             <Height>0.95905cm</Height>
             <Width>26.41747cm</Width>
-            <ZIndex>47</ZIndex>
+            <ZIndex>46</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -4323,11 +3974,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
             <KeepTogether>true</KeepTogether>
-            <Top>47.53468cm</Top>
+            <Top>69.44218cm</Top>
             <Left>5.64288cm</Left>
             <Height>0.36005cm</Height>
             <Width>13.08503cm</Width>
-            <ZIndex>48</ZIndex>
+            <ZIndex>47</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -6042,11 +5693,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <PageBreak>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
-            <Top>34.61639cm</Top>
+            <Top>56.52389cm</Top>
             <Left>0.54783cm</Left>
             <Height>5.01001cm</Height>
             <Width>26.24202cm</Width>
-            <ZIndex>49</ZIndex>
+            <ZIndex>48</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -7839,7 +7490,6 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -8115,11 +7765,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSetKajianPerubahan</DataSetName>
-            <Top>41.24333cm</Top>
+            <Top>63.15083cm</Top>
             <Left>0.58223cm</Left>
             <Height>6.01541cm</Height>
             <Width>26.20766cm</Width>
-            <ZIndex>50</ZIndex>
+            <ZIndex>49</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -8145,11 +7795,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>30.01468cm</Top>
+            <Top>51.92218cm</Top>
             <Left>8.56062cm</Left>
             <Height>0.60042cm</Height>
             <Width>10.46983cm</Width>
-            <ZIndex>51</ZIndex>
+            <ZIndex>50</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -8192,11 +7842,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>48.12152cm</Top>
+            <Top>70.02902cm</Top>
             <Left>3.98771cm</Left>
             <Height>0.60042cm</Height>
             <Width>19.84982cm</Width>
-            <ZIndex>52</ZIndex>
+            <ZIndex>51</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -8226,11 +7876,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>55.99212cm</Top>
+            <Top>77.89962cm</Top>
             <Left>5.09535cm</Left>
             <Height>0.60042cm</Height>
             <Width>17.11963cm</Width>
-            <ZIndex>53</ZIndex>
+            <ZIndex>52</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -8262,7 +7912,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Left>1.72388cm</Left>
             <Height>1.15562cm</Height>
             <Width>3.00875cm</Width>
-            <ZIndex>54</ZIndex>
+            <ZIndex>53</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -8295,7 +7945,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Left>5.45371cm</Left>
             <Height>1.15562cm</Height>
             <Width>6.35744cm</Width>
-            <ZIndex>55</ZIndex>
+            <ZIndex>54</ZIndex>
             <Style>
               <Border>
                 <Color>LightGrey</Color>
@@ -8328,7 +7978,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Left>1.72388cm</Left>
             <Height>1.15562cm</Height>
             <Width>3.00875cm</Width>
-            <ZIndex>56</ZIndex>
+            <ZIndex>55</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -8361,7 +8011,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Left>5.45371cm</Left>
             <Height>1.15562cm</Height>
             <Width>6.35744cm</Width>
-            <ZIndex>57</ZIndex>
+            <ZIndex>56</ZIndex>
             <Style>
               <Border>
                 <Color>LightGrey</Color>
@@ -9191,11 +8841,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSetPelaksanaPerbaikan</DataSetName>
-            <Top>49.71442cm</Top>
+            <Top>71.62192cm</Top>
             <Left>0.5089cm</Left>
             <Height>2.17896cm</Height>
             <Width>26.19197cm</Width>
-            <ZIndex>58</ZIndex>
+            <ZIndex>57</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -10020,11 +9670,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSetPelaksanaPencegahan</DataSetName>
-            <Top>53.154cm</Top>
+            <Top>75.0615cm</Top>
             <Left>0.47616cm</Left>
             <Height>2.12604cm</Height>
             <Width>26.2247cm</Width>
-            <ZIndex>59</ZIndex>
+            <ZIndex>58</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -10048,11 +9698,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox150</rd:DefaultName>
-            <Top>49.00858cm</Top>
+            <Top>70.91608cm</Top>
             <Left>0.47616cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
-            <ZIndex>60</ZIndex>
+            <ZIndex>59</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -10080,11 +9730,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox152</rd:DefaultName>
-            <Top>52.44817cm</Top>
+            <Top>74.35567cm</Top>
             <Left>0.47616cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
-            <ZIndex>61</ZIndex>
+            <ZIndex>60</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -10110,11 +9760,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox35</rd:DefaultName>
-            <Top>57.17328cm</Top>
+            <Top>79.08078cm</Top>
             <Left>0.47616cm</Left>
             <Height>1.28792cm</Height>
             <Width>3.72038cm</Width>
-            <ZIndex>62</ZIndex>
+            <ZIndex>61</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -10141,11 +9791,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox35</rd:DefaultName>
-            <Top>57.17328cm</Top>
+            <Top>79.08078cm</Top>
             <Left>4.84024cm</Left>
             <Height>1.28792cm</Height>
             <Width>3.72038cm</Width>
-            <ZIndex>63</ZIndex>
+            <ZIndex>62</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -10172,11 +9822,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox35</rd:DefaultName>
-            <Top>58.84016cm</Top>
+            <Top>80.74766cm</Top>
             <Left>0.47616cm</Left>
             <Height>1.28792cm</Height>
             <Width>3.72038cm</Width>
-            <ZIndex>64</ZIndex>
+            <ZIndex>63</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -10203,11 +9853,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox35</rd:DefaultName>
-            <Top>58.84016cm</Top>
+            <Top>80.74766cm</Top>
             <Left>4.84024cm</Left>
             <Height>1.28792cm</Height>
             <Width>3.72038cm</Width>
-            <ZIndex>65</ZIndex>
+            <ZIndex>64</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -10234,11 +9884,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox35</rd:DefaultName>
-            <Top>57.17328cm</Top>
+            <Top>79.08078cm</Top>
             <Left>10.33468cm</Left>
             <Height>2.08167cm</Height>
             <Width>3.72038cm</Width>
-            <ZIndex>66</ZIndex>
+            <ZIndex>65</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -10404,11 +10054,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSetVerifikasi</DataSetName>
-            <Top>59.74884cm</Top>
+            <Top>81.65634cm</Top>
             <Left>11.5128cm</Left>
             <Height>1.6848cm</Height>
             <Width>6.21513cm</Width>
-            <ZIndex>67</ZIndex>
+            <ZIndex>66</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -10582,19 +10232,446 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSetVerifikasi</DataSetName>
-            <Top>57.17328cm</Top>
+            <Top>79.08078cm</Top>
             <Left>14.23145cm</Left>
             <Height>2.08168cm</Height>
             <Width>5.80007cm</Width>
-            <ZIndex>68</ZIndex>
+            <ZIndex>67</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
               </Border>
             </Style>
           </Tablix>
+          <Image Name="Image2">
+            <Source>External</Source>
+            <Value>=First(Fields!Manusia.Value, "DataSetRoot")</Value>
+            <Sizing>FitProportional</Sizing>
+            <Top>25.05287cm</Top>
+            <Left>0.70455cm</Left>
+            <Height>8.85542cm</Height>
+            <Width>7.85607cm</Width>
+            <ZIndex>68</ZIndex>
+            <Visibility>
+              <Hidden>=IIF(Sum(Fields!CountManusia.Value, "DataSetRoot") &gt;= 1, False, True)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Color>LightGrey</Color>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Image>
+          <Textbox Name="Textbox62">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Manusia</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox62</rd:DefaultName>
+            <Top>24.27648cm</Top>
+            <Left>0.66927cm</Left>
+            <Height>0.6cm</Height>
+            <Width>2.5cm</Width>
+            <ZIndex>69</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Image Name="Image6">
+            <Source>External</Source>
+            <Value>=First(Fields!Material.Value, "DataSetRoot")</Value>
+            <Sizing>FitProportional</Sizing>
+            <Top>25.01759cm</Top>
+            <Left>9.13657cm</Left>
+            <Height>8.85542cm</Height>
+            <Width>7.85607cm</Width>
+            <ZIndex>70</ZIndex>
+            <Visibility>
+              <Hidden>=IIF(Sum(Fields!CountMaterial.Value, "DataSetRoot") &gt;= 1, False, True)</Hidden>
+            </Visibility>
+            <ToolTip>Tes</ToolTip>
+            <Style>
+              <Border>
+                <Color>LightGrey</Color>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Image>
+          <Textbox Name="Textbox66">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Material</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox62</rd:DefaultName>
+            <Top>24.27648cm</Top>
+            <Left>9.13657cm</Left>
+            <Height>0.6cm</Height>
+            <Width>2.5cm</Width>
+            <ZIndex>71</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Image Name="Image10">
+            <Source>External</Source>
+            <Value>=First(Fields!Lingkungan.Value, "DataSetRoot")</Value>
+            <Sizing>FitProportional</Sizing>
+            <Top>25.05287cm</Top>
+            <Left>17.60387cm</Left>
+            <Height>8.85542cm</Height>
+            <Width>7.85607cm</Width>
+            <ZIndex>72</ZIndex>
+            <Visibility>
+              <Hidden>=IIF(Sum(Fields!CountLingkungan.Value, "DataSetRoot") &gt;= 1, False, True)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Color>LightGrey</Color>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Image>
+          <Textbox Name="Textbox67">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Lingkungan</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox62</rd:DefaultName>
+            <Top>24.27648cm</Top>
+            <Left>17.60387cm</Left>
+            <Height>0.6cm</Height>
+            <Width>2.5cm</Width>
+            <ZIndex>73</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Image Name="Image11">
+            <Source>External</Source>
+            <Value>=First(Fields!Mesin.Value, "DataSetRoot")</Value>
+            <Sizing>FitProportional</Sizing>
+            <Top>35.65991cm</Top>
+            <Left>4.81663cm</Left>
+            <Height>8.85542cm</Height>
+            <Width>7.85607cm</Width>
+            <ZIndex>74</ZIndex>
+            <Visibility>
+              <Hidden>=IIF(Sum(Fields!CountMesin.Value, "DataSetRoot") &gt;= 1, False, True)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Color>LightGrey</Color>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Image>
+          <Textbox Name="Textbox69">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Mesin</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox62</rd:DefaultName>
+            <Top>34.88352cm</Top>
+            <Left>4.81663cm</Left>
+            <Height>0.6cm</Height>
+            <Width>2.5cm</Width>
+            <ZIndex>75</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Image Name="Image14">
+            <Source>External</Source>
+            <Value>=First(Fields!Metode.Value, "DataSetRoot")</Value>
+            <Sizing>FitProportional</Sizing>
+            <Top>35.65991cm</Top>
+            <Left>14.8922cm</Left>
+            <Height>8.85542cm</Height>
+            <Width>7.85607cm</Width>
+            <ZIndex>76</ZIndex>
+            <Visibility>
+              <Hidden>=IIF(Sum(Fields!CountMetode.Value, "DataSetRoot") &gt;= 1, False, True)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Color>LightGrey</Color>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Image>
+          <Textbox Name="Textbox70">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Metode</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox62</rd:DefaultName>
+            <Top>34.9188cm</Top>
+            <Left>14.8922cm</Left>
+            <Height>0.6cm</Height>
+            <Width>2.53528cm</Width>
+            <ZIndex>77</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Rectangle Name="Rectangle3">
+            <PageBreak>
+              <BreakLocation>End</BreakLocation>
+            </PageBreak>
+            <KeepTogether>true</KeepTogether>
+            <Top>34.29634cm</Top>
+            <Left>10.63582cm</Left>
+            <Height>0.17336cm</Height>
+            <Width>5cm</Width>
+            <ZIndex>78</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Rectangle>
+          <Textbox Name="Textbox37">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>N/A</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox37</rd:DefaultName>
+            <Top>25.55558cm</Top>
+            <Left>0.70455cm</Left>
+            <Height>0.6cm</Height>
+            <Width>2.5cm</Width>
+            <ZIndex>79</ZIndex>
+            <Visibility>
+              <Hidden>=IIF(Sum(Fields!CountManusia.Value, "DataSetRoot") = 0, False, True)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox72">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>N/A</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox72</rd:DefaultName>
+            <Top>25.55558cm</Top>
+            <Left>9.13657cm</Left>
+            <Height>0.6cm</Height>
+            <Width>2.5cm</Width>
+            <ZIndex>80</ZIndex>
+            <Visibility>
+              <Hidden>=IIF(Sum(Fields!CountMaterial.Value, "DataSetRoot") = 0, False, True)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox75">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>N/A</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox75</rd:DefaultName>
+            <Top>25.55558cm</Top>
+            <Left>17.60387cm</Left>
+            <Height>0.6cm</Height>
+            <Width>2.5cm</Width>
+            <ZIndex>81</ZIndex>
+            <Visibility>
+              <Hidden>=IIF(Sum(Fields!CountLingkungan.Value, "DataSetRoot") = 0, False, True)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox78">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>N/A</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox78</rd:DefaultName>
+            <Top>36.03308cm</Top>
+            <Left>4.81663cm</Left>
+            <Height>0.6cm</Height>
+            <Width>2.5cm</Width>
+            <ZIndex>82</ZIndex>
+            <Visibility>
+              <Hidden>=IIF(Sum(Fields!CountMesin.Value, "DataSetRoot") = 0, False, True)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox81">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>N/A</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox81</rd:DefaultName>
+            <Top>36.03308cm</Top>
+            <Left>14.8922cm</Left>
+            <Height>0.6cm</Height>
+            <Width>2.5cm</Width>
+            <ZIndex>83</ZIndex>
+            <Visibility>
+              <Hidden>=IIF(Sum(Fields!CountMetode.Value, "DataSetRoot") = 0, False, True)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>62cm</Height>
+        <Height>83.6851cm</Height>
         <Style />
       </Body>
       <Width>27.7cm</Width>
@@ -10627,6 +10704,14 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
           </RightBorder>
         </Style>
       </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <EmbeddedImages>
     <EmbeddedImage Name="logo">
       <MIMEType>image/png</MIMEType>
