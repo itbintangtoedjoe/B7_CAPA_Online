@@ -287,6 +287,8 @@ namespace B7_CAPA_Online.DataSource {
             
             private global::System.Data.DataColumn columnStatusPencegahan;
             
+            private global::System.Data.DataColumn columnTanggalPencegahan;
+            
             private global::System.Data.DataColumn columnTreatment;
             
             private global::System.Data.DataColumn columnPIC;
@@ -294,6 +296,8 @@ namespace B7_CAPA_Online.DataSource {
             private global::System.Data.DataColumn columnLampiranTreatment;
             
             private global::System.Data.DataColumn columnStatusTreatment;
+            
+            private global::System.Data.DataColumn columnTanggalTreatment;
             
             private global::System.Data.DataColumn columnRentang;
             
@@ -366,6 +370,14 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn TanggalPencegahanColumn {
+                get {
+                    return this.columnTanggalPencegahan;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn TreatmentColumn {
                 get {
                     return this.columnTreatment;
@@ -393,6 +405,14 @@ namespace B7_CAPA_Online.DataSource {
             public global::System.Data.DataColumn StatusTreatmentColumn {
                 get {
                     return this.columnStatusTreatment;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn TanggalTreatmentColumn {
+                get {
+                    return this.columnTanggalTreatment;
                 }
             }
             
@@ -449,17 +469,19 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_LOAD_REPORT_Pelaksana_PencegahanRow AddSP_LOAD_REPORT_Pelaksana_PencegahanRow(string Tindakan_Pencegahan, string Pelaksana_Pencegahan, string LampiranPencegahan, int StatusPencegahan, string Treatment, string PIC, string LampiranTreatment, int StatusTreatment, int Rentang, string Koordinator) {
+            public SP_LOAD_REPORT_Pelaksana_PencegahanRow AddSP_LOAD_REPORT_Pelaksana_PencegahanRow(string Tindakan_Pencegahan, string Pelaksana_Pencegahan, string LampiranPencegahan, int StatusPencegahan, string TanggalPencegahan, string Treatment, string PIC, string LampiranTreatment, int StatusTreatment, string TanggalTreatment, string Rentang, string Koordinator) {
                 SP_LOAD_REPORT_Pelaksana_PencegahanRow rowSP_LOAD_REPORT_Pelaksana_PencegahanRow = ((SP_LOAD_REPORT_Pelaksana_PencegahanRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Tindakan_Pencegahan,
                         Pelaksana_Pencegahan,
                         LampiranPencegahan,
                         StatusPencegahan,
+                        TanggalPencegahan,
                         Treatment,
                         PIC,
                         LampiranTreatment,
                         StatusTreatment,
+                        TanggalTreatment,
                         Rentang,
                         Koordinator};
                 rowSP_LOAD_REPORT_Pelaksana_PencegahanRow.ItemArray = columnValuesArray;
@@ -488,10 +510,12 @@ namespace B7_CAPA_Online.DataSource {
                 this.columnPelaksana_Pencegahan = base.Columns["Pelaksana_Pencegahan"];
                 this.columnLampiranPencegahan = base.Columns["LampiranPencegahan"];
                 this.columnStatusPencegahan = base.Columns["StatusPencegahan"];
+                this.columnTanggalPencegahan = base.Columns["TanggalPencegahan"];
                 this.columnTreatment = base.Columns["Treatment"];
                 this.columnPIC = base.Columns["PIC"];
                 this.columnLampiranTreatment = base.Columns["LampiranTreatment"];
                 this.columnStatusTreatment = base.Columns["StatusTreatment"];
+                this.columnTanggalTreatment = base.Columns["TanggalTreatment"];
                 this.columnRentang = base.Columns["Rentang"];
                 this.columnKoordinator = base.Columns["Koordinator"];
             }
@@ -507,6 +531,8 @@ namespace B7_CAPA_Online.DataSource {
                 base.Columns.Add(this.columnLampiranPencegahan);
                 this.columnStatusPencegahan = new global::System.Data.DataColumn("StatusPencegahan", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnStatusPencegahan);
+                this.columnTanggalPencegahan = new global::System.Data.DataColumn("TanggalPencegahan", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTanggalPencegahan);
                 this.columnTreatment = new global::System.Data.DataColumn("Treatment", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTreatment);
                 this.columnPIC = new global::System.Data.DataColumn("PIC", typeof(string), null, global::System.Data.MappingType.Element);
@@ -515,7 +541,9 @@ namespace B7_CAPA_Online.DataSource {
                 base.Columns.Add(this.columnLampiranTreatment);
                 this.columnStatusTreatment = new global::System.Data.DataColumn("StatusTreatment", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnStatusTreatment);
-                this.columnRentang = new global::System.Data.DataColumn("Rentang", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnTanggalTreatment = new global::System.Data.DataColumn("TanggalTreatment", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTanggalTreatment);
+                this.columnRentang = new global::System.Data.DataColumn("Rentang", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRentang);
                 this.columnKoordinator = new global::System.Data.DataColumn("Koordinator", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnKoordinator);
@@ -524,13 +552,18 @@ namespace B7_CAPA_Online.DataSource {
                 this.columnPelaksana_Pencegahan.MaxLength = 100;
                 this.columnLampiranPencegahan.ReadOnly = true;
                 this.columnLampiranPencegahan.MaxLength = 50;
+                this.columnTanggalPencegahan.ReadOnly = true;
+                this.columnTanggalPencegahan.MaxLength = 30;
                 this.columnTreatment.ReadOnly = true;
                 this.columnTreatment.MaxLength = 1504;
                 this.columnPIC.ReadOnly = true;
                 this.columnPIC.MaxLength = 50;
                 this.columnLampiranTreatment.ReadOnly = true;
                 this.columnLampiranTreatment.MaxLength = 50;
+                this.columnTanggalTreatment.ReadOnly = true;
+                this.columnTanggalTreatment.MaxLength = 30;
                 this.columnRentang.ReadOnly = true;
+                this.columnRentang.MaxLength = 26;
                 this.columnKoordinator.ReadOnly = true;
                 this.columnKoordinator.MaxLength = 131;
             }
@@ -743,6 +776,23 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string TanggalPencegahan {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_LOAD_REPORT_Pelaksana_Pencegahan.TanggalPencegahanColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TanggalPencegahan\' in table \'SP_LOAD_REPORT_Pelaksana_Pence" +
+                                "gahan\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_LOAD_REPORT_Pelaksana_Pencegahan.TanggalPencegahanColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string Treatment {
                 get {
                     try {
@@ -811,10 +861,27 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int Rentang {
+            public string TanggalTreatment {
                 get {
                     try {
-                        return ((int)(this[this.tableSP_LOAD_REPORT_Pelaksana_Pencegahan.RentangColumn]));
+                        return ((string)(this[this.tableSP_LOAD_REPORT_Pelaksana_Pencegahan.TanggalTreatmentColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TanggalTreatment\' in table \'SP_LOAD_REPORT_Pelaksana_Penceg" +
+                                "ahan\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_LOAD_REPORT_Pelaksana_Pencegahan.TanggalTreatmentColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Rentang {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_LOAD_REPORT_Pelaksana_Pencegahan.RentangColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'Rentang\' in table \'SP_LOAD_REPORT_Pelaksana_Pencegahan\' is " +
@@ -893,6 +960,18 @@ namespace B7_CAPA_Online.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsTanggalPencegahanNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_Pelaksana_Pencegahan.TanggalPencegahanColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetTanggalPencegahanNull() {
+                this[this.tableSP_LOAD_REPORT_Pelaksana_Pencegahan.TanggalPencegahanColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsTreatmentNull() {
                 return this.IsNull(this.tableSP_LOAD_REPORT_Pelaksana_Pencegahan.TreatmentColumn);
             }
@@ -937,6 +1016,18 @@ namespace B7_CAPA_Online.DataSource {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetStatusTreatmentNull() {
                 this[this.tableSP_LOAD_REPORT_Pelaksana_Pencegahan.StatusTreatmentColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsTanggalTreatmentNull() {
+                return this.IsNull(this.tableSP_LOAD_REPORT_Pelaksana_Pencegahan.TanggalTreatmentColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetTanggalTreatmentNull() {
+                this[this.tableSP_LOAD_REPORT_Pelaksana_Pencegahan.TanggalTreatmentColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1127,10 +1218,12 @@ namespace B7_CAPA_Online.DataSource.B7_CAPA_ONLINEDataSetPelaksanaPencegahanTabl
             tableMapping.ColumnMappings.Add("Pelaksana_Pencegahan", "Pelaksana_Pencegahan");
             tableMapping.ColumnMappings.Add("LampiranPencegahan", "LampiranPencegahan");
             tableMapping.ColumnMappings.Add("StatusPencegahan", "StatusPencegahan");
+            tableMapping.ColumnMappings.Add("TanggalPencegahan", "TanggalPencegahan");
             tableMapping.ColumnMappings.Add("Treatment", "Treatment");
             tableMapping.ColumnMappings.Add("PIC", "PIC");
             tableMapping.ColumnMappings.Add("LampiranTreatment", "LampiranTreatment");
             tableMapping.ColumnMappings.Add("StatusTreatment", "StatusTreatment");
+            tableMapping.ColumnMappings.Add("TanggalTreatment", "TanggalTreatment");
             tableMapping.ColumnMappings.Add("Rentang", "Rentang");
             tableMapping.ColumnMappings.Add("Koordinator", "Koordinator");
             this._adapter.TableMappings.Add(tableMapping);

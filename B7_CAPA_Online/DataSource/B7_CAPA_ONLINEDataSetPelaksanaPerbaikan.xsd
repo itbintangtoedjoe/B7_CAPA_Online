@@ -26,10 +26,12 @@
               <Mapping SourceColumn="Pelaksana_Perbaikan" DataSetColumn="Pelaksana_Perbaikan" />
               <Mapping SourceColumn="LampiranPerbaikan" DataSetColumn="LampiranPerbaikan" />
               <Mapping SourceColumn="StatusPerbaikan" DataSetColumn="StatusPerbaikan" />
+              <Mapping SourceColumn="TanggalPerbaikan" DataSetColumn="TanggalPerbaikan" />
               <Mapping SourceColumn="Treatment" DataSetColumn="Treatment" />
               <Mapping SourceColumn="PIC" DataSetColumn="PIC" />
               <Mapping SourceColumn="LampiranTreatment" DataSetColumn="LampiranTreatment" />
               <Mapping SourceColumn="StatusTreatment" DataSetColumn="StatusTreatment" />
+              <Mapping SourceColumn="TanggalTreatment" DataSetColumn="TanggalTreatment" />
               <Mapping SourceColumn="Rentang" DataSetColumn="Rentang" />
               <Mapping SourceColumn="Koordinator" DataSetColumn="Koordinator" />
             </Mappings>
@@ -68,6 +70,13 @@
                 </xs:simpleType>
               </xs:element>
               <xs:element name="StatusPerbaikan" msprop:Generator_ColumnVarNameInTable="columnStatusPerbaikan" msprop:Generator_ColumnPropNameInRow="StatusPerbaikan" msprop:Generator_ColumnPropNameInTable="StatusPerbaikanColumn" msprop:Generator_UserColumnName="StatusPerbaikan" type="xs:int" minOccurs="0" />
+              <xs:element name="TanggalPerbaikan" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTanggalPerbaikan" msprop:Generator_ColumnPropNameInRow="TanggalPerbaikan" msprop:Generator_ColumnPropNameInTable="TanggalPerbaikanColumn" msprop:Generator_UserColumnName="TanggalPerbaikan" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element name="Treatment" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTreatment" msprop:Generator_ColumnPropNameInRow="Treatment" msprop:Generator_ColumnPropNameInTable="TreatmentColumn" msprop:Generator_UserColumnName="Treatment" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -90,7 +99,20 @@
                 </xs:simpleType>
               </xs:element>
               <xs:element name="StatusTreatment" msprop:Generator_ColumnVarNameInTable="columnStatusTreatment" msprop:Generator_ColumnPropNameInRow="StatusTreatment" msprop:Generator_ColumnPropNameInTable="StatusTreatmentColumn" msprop:Generator_UserColumnName="StatusTreatment" type="xs:int" minOccurs="0" />
-              <xs:element name="Rentang" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnRentang" msprop:Generator_ColumnPropNameInRow="Rentang" msprop:Generator_ColumnPropNameInTable="RentangColumn" msprop:Generator_UserColumnName="Rentang" type="xs:int" minOccurs="0" />
+              <xs:element name="TanggalTreatment" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTanggalTreatment" msprop:Generator_ColumnPropNameInRow="TanggalTreatment" msprop:Generator_ColumnPropNameInTable="TanggalTreatmentColumn" msprop:Generator_UserColumnName="TanggalTreatment" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Rentang" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnRentang" msprop:Generator_ColumnPropNameInRow="Rentang" msprop:Generator_ColumnPropNameInTable="RentangColumn" msprop:Generator_UserColumnName="Rentang" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="26" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element name="Koordinator" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnKoordinator" msprop:Generator_ColumnPropNameInRow="Koordinator" msprop:Generator_ColumnPropNameInTable="KoordinatorColumn" msprop:Generator_UserColumnName="Koordinator" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
