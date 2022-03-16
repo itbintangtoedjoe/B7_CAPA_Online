@@ -914,6 +914,12 @@
                         'Update berhasil di submit',
                         'success'
                     )
+                    $('#txtTindakanPerbaikanRev').attr("disabled", true);
+                    $('#AlasanTindakanPerbaikan').attr("disabled", true);
+                    $('#UpdatePerbaikan').attr("disabled", true);
+                    $('#AlasanDueDate').attr("disabled", true);
+                    $('#dueDatePerbaikanRev').attr("disabled", true);
+                    $('#txtTindakanPerbaikanRev').attr("disabled", true);
                     getRootCausePerbaikan();
             },
                 error: function (ex) {
@@ -983,6 +989,13 @@
                     'Update Berhasil',
                     'success'
                 )
+
+                $('#txtTindakanPencegahanRev').attr("disabled", true);
+                $('#AlasanTindakanPencegahan').attr("disabled", true);
+                $('#UpdatePencegahan').attr("disabled", true);
+                $('#AlasanDueDatePencegahan').attr("disabled", true);
+                $('#dueDatePencegahanRev').attr("disabled", true);
+                $('#txtTindakanPencegahanRev').attr("disabled", true);
                 @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
                 getRootCausePencegahan();
                 }, error: function (ex) {

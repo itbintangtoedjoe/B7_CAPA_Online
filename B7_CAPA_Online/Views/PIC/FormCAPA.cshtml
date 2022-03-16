@@ -1666,11 +1666,11 @@
                 var result = JSON.parse(data);
                 var $ = go.GraphObject.make;
 
-                if (countmanusia >0) {
+                if (countmanusia > 0) {
                     myDiagramManusia.div = null;
                 }
 
-                 myDiagramManusia =
+                myDiagramManusia =
                     new $(go.Diagram, "DiagManusia",
                         {
                             "undoManager.isEnabled": true,
@@ -1709,7 +1709,6 @@
                     );
 
                 myDiagramManusia.model = new go.TreeModel(result);
-                var blob = myDiagramManusia.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackManusia });
                 countmanusia++;
             }
         });
@@ -1739,7 +1738,7 @@
                                 { angle: 90, layerSpacing: 35 })
 
                         });
-                
+
 
                 //var node1 =
                 //    $(go.Node, "Horizontal",
@@ -1770,7 +1769,6 @@
                     );
 
                 myDiagramMaterial.model = new go.TreeModel(result);
-                var blob = myDiagramMaterial.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackMaterial });
                 countmaterial++
             }
         });
@@ -1802,7 +1800,7 @@
                             layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
                                 { angle: 90, layerSpacing: 35 })
                         });
-                 
+
                 //var node1 =
                 //    $(go.Node, "Horizontal",
                 //        { background: "#44CCFF" },
@@ -1833,7 +1831,6 @@
                     );
 
                 myDiagramLingkungan.model = new go.TreeModel(result);
-                var blob = myDiagramLingkungan.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackLingkungan });
                 countlingkungan++;
             }
         });
@@ -1865,7 +1862,7 @@
                             layout: $(go.TreeLayout, // specify a Diagram.layout that arranges trees
                                 { angle: 90, layerSpacing: 35 })
                         });
-                 
+
                 //var node1 =
                 //    $(go.Node, "Horizontal",
                 //        { background: "#44CCFF" },
@@ -1896,7 +1893,6 @@
                     );
 
                 myDiagramMesin.model = new go.TreeModel(result);
-                var blob = myDiagramMesin.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackMesin });
                 countmesin++;
             }
         });
@@ -1958,7 +1954,6 @@
                     );
 
                 myDiagramMetode.model = new go.TreeModel(result);
-                var blob = myDiagramMetode.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackMetode });
                 countmetode++;
             }
         });
@@ -1980,7 +1975,7 @@
                 const fd = new FormData();
                 fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type
                 $.ajax({
-                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '&Tipe=Manusia' ,
+                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '',
                     type: 'post',
                     data: fd,
                     dataType: 'json',
@@ -2026,7 +2021,7 @@
                 const fd = new FormData();
                 fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type
                 $.ajax({
-                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '&Tipe=Lingkungan',
+                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '',
                     type: 'post',
                     data: fd,
                     dataType: 'json',
@@ -2062,7 +2057,7 @@
         var filename = "";
         var nocapa = $('#input_NoCAPA').val();
         var replace = nocapa.replace(/\//g, '_');
-        filename += replace +"_Mesin.png";
+        filename += replace + "_Mesin.png";
         //alert(url);
         fetch(url).then(response => response.blob())
             .then(blob => {
@@ -2072,7 +2067,7 @@
                 const fd = new FormData();
                 fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type
                 $.ajax({
-                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '&Tipe=Mesin',
+                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '',
                     type: 'post',
                     data: fd,
                     dataType: 'json',
@@ -2108,7 +2103,7 @@
         var filename = "";
         var nocapa = $('#input_NoCAPA').val();
         var replace = nocapa.replace(/\//g, '_');
-        filename += replace +"_Metode.png";
+        filename += replace + "_Metode.png";
         //alert(url);
         fetch(url).then(response => response.blob())
             .then(blob => {
@@ -2118,7 +2113,7 @@
                 const fd = new FormData();
                 fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type
                 $.ajax({
-                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '&Tipe=Metode',
+                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '',
                     type: 'post',
                     data: fd,
                     dataType: 'json',
@@ -2162,9 +2157,9 @@
                 //    type: myBlob.type,
                 //});
                 const fd = new FormData();
-                fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type 
+                fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type
                 $.ajax({
-                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '&Tipe=Material',
+                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '',
                     type: 'post',
                     data: fd,
                     dataType: 'json',
@@ -3061,6 +3056,7 @@
                 $.ajax({
                     url: 'SubmitToAtasanPIC',
                     type: 'post',
+                    async: false,
                     dataType: 'json',
                     data: JSON.stringify({
                         Model: {
@@ -3089,6 +3085,12 @@
                                 timer: 2000,
                                 showConfirmButton: false
                             }).then(function () {
+                                var blob = myDiagramMaterial.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackMaterial });
+                                var blob1 = myDiagramManusia.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackManusia });
+                                var blob2 = myDiagramLingkungan.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackLingkungan });
+                                var blob3 = myDiagramMesin.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackMesin });
+                                var blob4 = myDiagramMetode.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackMetode });
+
                                 window.location.href = '/PendingTask/TaskList';
                             });
                             return false;

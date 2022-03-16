@@ -427,8 +427,17 @@
                 }
                 var date = new Date();
                 var datekajian = new Date($('#DueDate_Kajian').val());
-                var limit = (dto.Model.Severity == 10 || dto.Model.RiskLevel == "High" || dto.Model.RiskLevel == "Very High") ? (25) : (14);   var i = 0;
+                var limit = 14;  
                 var i = 0;
+                if (dto.Model.Severity == 10 || dto.Model.RiskLevel == "High" || dto.Model.RiskLevel == "Very High") {
+                    return Swal.fire(
+                        'Maaf',
+                        'Risk Level masih tinggi.',
+                        'warning'
+                    )
+                }
+                
+
                 for (var property in dto.Model) {
                     if (limit == 14 ) {
                         if (i > 14 && i < 26) {
@@ -458,6 +467,8 @@
                 $.each(dto.Model, function (key, value) {
                     if (key === "M_PKegagalan" || key === "P_MPenyebab" || key == "P_MDPKegagalan") {
                         if (dto.Model.Severity == 10 || dto.Model.RiskLevel == "High" || dto.Model.RiskLevel == "Very High") {
+                            console.log("test");
+                            
                             if (dto.Model.M_PKegagalan == "" && dto.Model.P_MPenyebab == "" && dto.Model.P_MDPKegagalan == "") {
                                 Swal.fire(
                                     'Maaf',
@@ -487,11 +498,6 @@
                                 return false;
                             }
 
-                            return Swal.fire(
-                                'Maaf',
-                                'Risk Level masih tinggi.',
-                                'warning'
-                            )
                         }
                         count++;
                         return ;

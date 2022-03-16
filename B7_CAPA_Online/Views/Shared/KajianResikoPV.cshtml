@@ -456,12 +456,17 @@
     }//d = data
 
     function UnhideKajianResikoModalPV() {
-        if ($('#Severity_DDL').val() == 10 || $('#TxtRiskLevel').val() == 'Very High' || $('#TxtRiskLevel').val() == 'High') {
-            $('#Div_KajianResikoModal').prop('hidden', false);
-            $('#Div_TxtPIC').prop('hidden', false);
-        } else {
-            $('#Div_KajianResikoModal').prop('hidden', true);
-            $('#Div_TxtPIC').prop('hidden', true);
+
+        if (jenis != "Pembatalan Perbaikan" && jenis != "Pembatalan Pencegahan") {
+
+            if ($('#Severity_DDL').val() == 10 || $('#TxtRiskLevel').val() == 'Very High' || $('#TxtRiskLevel').val() == 'High') {
+                $('#Div_KajianResikoModal').prop('hidden', false);
+                $('#Div_TxtPIC').prop('hidden', false);
+            } else {
+                $('#Div_KajianResikoModal').prop('hidden', true);
+                $('#Div_TxtPIC').prop('hidden', true);
+            }
+
         }
     }
 
@@ -557,7 +562,6 @@
         {
             TableKajianPV();
         }
-        UnhideKajianResikoModalPV();
         var isHide = false;
 
         $('#RootCause_KajianResikoDDL').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
@@ -569,6 +573,7 @@
 
         $('#Severity_DDL').change(function () {
             realtimeCalculation();
+            console.log(jenis);
             if (jenis != "Pembatalan Perbaikan" || jenis != "Pembatalan Pencegahan") {
 
                 UnhideKajianResikoModalPV();
@@ -577,6 +582,7 @@
 
         $('#Likelihood_DDL').change(function () {
             realtimeCalculation();
+            console.log(jenis);
             if (jenis != "Pembatalan Perbaikan" || jenis != "Pembatalan Pencegahan") {
 
                 UnhideKajianResikoModalPV();
@@ -585,6 +591,7 @@
 
         $('#Detectability_DDL').change(function () {
             realtimeCalculation();
+            console.log(jenis);
             if (jenis != "Pembatalan Perbaikan" || jenis != "Pembatalan Pencegahan") {
 
                 UnhideKajianResikoModalPV();

@@ -1323,6 +1323,7 @@
                 dataType: 'json',
                 success: function (data) {
                     var result = JSON.parse(data);
+                    $.unblockUI();
                     if (result[0].Validate == "Invalid Pencegahan")
                     {
                         Swal.fire({
@@ -1334,8 +1335,6 @@
                         })
                     }
                     else {
-
-                        $.unblockUI();
                         Swal.fire({
                             title: "Success!",
                             text: "Submit Berhasil!",
@@ -1394,6 +1393,7 @@
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
                     var result = JSON.parse(data);
+                    $.unblockUI();
                     if (result[0].Validate == "Invalid Perbaikan") {
 
 
@@ -1418,7 +1418,6 @@
 
                     }
                     else {
-                        $.unblockUI();
                         Swal.fire({
                             title: "Success!",
                             text: "Submit Berhasil!",

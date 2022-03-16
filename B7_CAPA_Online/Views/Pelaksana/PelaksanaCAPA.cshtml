@@ -221,7 +221,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Tindakan Pencegahan</h4>
-                        <form>
+                        
 
                             <div class="row form-group">
                                 <div class="col-md-6">
@@ -349,7 +349,6 @@
                                     <button type="button" class="btn btn-primary" id="btnSimpanPencegahan">Simpan</button>
                                 </div>
                             </div>
-                        </form>
 
                     </div>
                 </div>
@@ -830,7 +829,7 @@
 
     });
     $('#btnCancelPencegahan').click(function () {
-        if (stataction == true)
+        if (statactionpencegahan == true)
         {
             var idPencegahan = $('#ddlPencegahan').val();
             window.location.href = '@Url.Action("PelaksanaCAPAPembatalan","Pelaksana")?NoCAPA=' + noCAPA + '&ReferenceID=' + idPencegahan + '&Tindakan=Pencegahan';
@@ -846,7 +845,7 @@
         }
     });
     $('#btnEnableUbahPencegahan').click(function () {
-        if (stataction == true)
+        if (statactionpencegahan == true)
         {
             var idPencegahan = $('#ddlPencegahan').val();
             window.location.href = '@Url.Action("PelaksanaCAPAPerubahan","Pelaksana")?NoCAPA=' + noCAPA + '&ReferenceID=' + idPencegahan + '&Tindakan=Pencegahan';
