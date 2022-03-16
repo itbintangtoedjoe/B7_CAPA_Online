@@ -554,6 +554,7 @@ namespace B7_CAPA_Online.Controllers
                 string filePath = Path.Combine(@"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Koordinator\", fileName);
                 //string filePath = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
                 Model.LampiranTerkait.Add(new Lampiran { LAMPIRAN_TERKAIT = filePath, FILE_NAME = Path.GetFileName(file.FileName) });
+
                 Model.SP = "[dbo].[SP_CAPA_ID]";       
                 if(fileName != "")
                 {
@@ -573,6 +574,14 @@ namespace B7_CAPA_Online.Controllers
             {
                 Penyimpangan_DT = ToDataTable<Penyimpangan>(penyimpanganList);
             }
+            else
+            {
+                Penyimpangan_DT.Columns.Add("PENYIMPANGAN_ID", typeof(string));
+                DataRow row = Penyimpangan_DT.NewRow();
+                row["PENYIMPANGAN_ID"] = "-";
+                Penyimpangan_DT.Rows.Add(row);                
+            }
+
             var Path_DT = ToDataTable<Lampiran>(Model.LampiranTerkait);
 
             // Method Insert Data

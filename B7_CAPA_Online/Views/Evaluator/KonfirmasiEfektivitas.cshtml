@@ -211,6 +211,7 @@
 <script src="~/Content/Scripts/plugins/datatables/jquery.dataTables.min.js" defer></script>
 <script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>
 <script src="https://unpkg.com/gojs/release/go-debug.js" defer></script>
+<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
 
 <script>
     var CurrentStatsID = 9;
@@ -400,6 +401,7 @@
         });
 
         $('#btn_Submit').click(function () {
+            $.blockUI();
             if ($('#TxtCatatan').val() == "" || $('input[name="Efektivitas"]:checked').val() == undefined) {
                 Swal.fire(
                     'Maaf',
@@ -442,10 +444,9 @@
                         showConfirmButton: false,
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'Yes'
-                    }).then((result) => {
-                        if (result.value) {
-                            window.location.href = '../PendingTask/TaskList';
-                        }
+                    }).then((result) => {                        
+                        $.unblockUI();
+                        window.location.href = '../PendingTask/TaskList';                        
                     })
 
 
