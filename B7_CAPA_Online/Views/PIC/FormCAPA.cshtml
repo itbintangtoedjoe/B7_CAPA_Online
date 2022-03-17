@@ -1692,8 +1692,12 @@
                 //myDiagram.add(node1);
 
                 myDiagramManusia.nodeTemplate =
-                    $(go.Node, "Horizontal",
-                        { background: "#44CCFF", locationSpot: go.Spot.Center },
+                    $(go.Node, "Auto",
+                        { locationSpot: go.Spot.Center },
+
+                        $(go.Shape, "Rectangle",
+                            { fill: "white", stroke: "black" },
+                          ),
                         //$(go.TextBlock, "Default Text",
                         //    {
                         //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -1702,10 +1706,11 @@
                         //    new go.Binding("text", "type")),
                         $(go.TextBlock, "Default Text",
                             {
-                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                margin: 10, stroke: "black", font: " 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
                                 verticalAlignment: go.Spot.Center
                             },
                             new go.Binding("text", "desc"))
+                        
                     );
 
                 myDiagramManusia.model = new go.TreeModel(result);
@@ -1752,8 +1757,12 @@
                 //    );
                 //myDiagram.add(node1);
                 myDiagramMaterial.nodeTemplate =
-                    $(go.Node, "Horizontal",
-                        { background: "#44CCFF" },
+                    $(go.Node, "Auto",
+                        { locationSpot: go.Spot.Center },
+
+                        $(go.Shape, "Rectangle",
+                            { fill: "white", stroke: "black" },
+                        ),
                         //$(go.TextBlock, "Default Text",
                         //    {
                         //        margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -1762,7 +1771,7 @@
                         //    new go.Binding("text", "type")),
                         $(go.TextBlock, "Default Text",
                             {
-                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                margin: 10, stroke: "black", font: "16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
                                 verticalAlignment: go.Spot.Center
                             },
                             new go.Binding("text", "desc"))
@@ -1814,8 +1823,12 @@
                 //myDiagram.add(node1);
 
                 myDiagramLingkungan.nodeTemplate =
-                    $(go.Node, "Horizontal",
-                        { background: "#44CCFF" },
+                    $(go.Node, "Auto",
+                        { locationSpot: go.Spot.Center },
+
+                        $(go.Shape, "Rectangle",
+                            { fill: "white", stroke: "black" },
+                        ),
                         //$(go.TextBlock, "Default Text",
                         //    {
                         //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -1824,7 +1837,7 @@
                         //    new go.Binding("text", "type")),
                         $(go.TextBlock, "Default Text",
                             {
-                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                margin: 10, stroke: "black", font: "16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
                                 verticalAlignment: go.Spot.Center
                             },
                             new go.Binding("text", "desc"))
@@ -1876,8 +1889,12 @@
                 //myDiagram.add(node1);
 
                 myDiagramMesin.nodeTemplate =
-                    $(go.Node, "Horizontal",
-                        { background: "#44CCFF" },
+                    $(go.Node, "Auto",
+                        { locationSpot: go.Spot.Center },
+
+                        $(go.Shape, "Rectangle",
+                            { fill: "white", stroke: "black" },
+                        ),
                         //$(go.TextBlock, "Default Text",
                         //    {
                         //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -1886,7 +1903,7 @@
                         //    new go.Binding("text", "type")),
                         $(go.TextBlock, "Default Text",
                             {
-                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                margin: 10, stroke: "black", font: "16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
                                 verticalAlignment: go.Spot.Center
                             },
                             new go.Binding("text", "desc"))
@@ -1937,8 +1954,12 @@
                 //myDiagram.add(node1);
 
                 myDiagramMetode.nodeTemplate =
-                    $(go.Node, "Horizontal",
-                        { background: "#44CCFF" },
+                    $(go.Node, "Auto",
+                        { locationSpot: go.Spot.Center },
+
+                        $(go.Shape, "Rectangle",
+                            { fill: "white", stroke: "black" },
+                        ),
                         //$(go.TextBlock, "Default Text",
                         //    {
                         //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -1947,7 +1968,7 @@
                         //    new go.Binding("text", "type")),
                         $(go.TextBlock, "Default Text",
                             {
-                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                margin: 10, stroke: "black", font: "16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
                                 verticalAlignment: go.Spot.Center
                             },
                             new go.Binding("text", "desc"))
