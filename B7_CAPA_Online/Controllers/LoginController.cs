@@ -236,8 +236,10 @@ namespace B7_CAPA_Online.Controllers
                     string dataKaryawan = FindKaryawan(username);
                     var arrayData = JArray.Parse(dataKaryawan);
                     dynamic objectKary = jss.Deserialize<dynamic>(dataKaryawan);
+                    bool data = string.IsNullOrEmpty(dataKaryawan);
 
-                    if (dataKaryawan != null)
+
+                    if (arrayData.Count >0)
                     {
                         Session["LoginStatus"] = "success";
                         Session["FullName"] = objectKary[0]["Username"];

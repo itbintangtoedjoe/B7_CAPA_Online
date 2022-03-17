@@ -138,6 +138,7 @@
                     contentType: "application/json",
                     dataType: 'json',
                     success: function (data) {
+                        console.log(data);
                         if (data == 'success') {
                             swal("Login berhasil!", {
                                 icon: "success",
@@ -146,10 +147,19 @@
                             }).then(() => {
                                 window.location.href = '@Url.Action("TaskList", "PendingTask")';
                             })
-                        } else{
+                        } else if (data == "not found") {
                             swal({
                                 title: "Login Gagal!",
-                                text: "Akun dengan data tersebut tidak ditemukan!",
+                                text: "Username tidak ditemukan!",
+                                icon: "error",
+                                buttons: false,
+                                timer: 1000,
+                            });
+                        }
+                        else {
+                            swal({
+                                title: "Login Gagal!",
+                                text: "Password yang anda masukan Salah!",
                                 icon: "error",
                                 buttons: false,
                                 timer: 1000,
