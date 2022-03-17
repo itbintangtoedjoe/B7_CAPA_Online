@@ -9843,7 +9843,6 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -10576,7 +10575,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Value>=First(Fields!Material.Value, "DataSetRoot")</Value>
             <Sizing>FitProportional</Sizing>
             <Top>25.01759cm</Top>
-            <Left>9.13657cm</Left>
+            <Left>9.45407cm</Left>
             <Height>8.85542cm</Height>
             <Width>7.85607cm</Width>
             <ZIndex>70</ZIndex>
@@ -10607,7 +10606,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             </Paragraphs>
             <rd:DefaultName>Textbox62</rd:DefaultName>
             <Top>24.27648cm</Top>
-            <Left>9.13657cm</Left>
+            <Left>9.45407cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
             <ZIndex>71</ZIndex>
@@ -10626,7 +10625,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Value>=First(Fields!Lingkungan.Value, "DataSetRoot")</Value>
             <Sizing>FitProportional</Sizing>
             <Top>25.05287cm</Top>
-            <Left>17.60387cm</Left>
+            <Left>18.55637cm</Left>
             <Height>8.85542cm</Height>
             <Width>7.85607cm</Width>
             <ZIndex>72</ZIndex>
@@ -10656,7 +10655,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             </Paragraphs>
             <rd:DefaultName>Textbox62</rd:DefaultName>
             <Top>24.27648cm</Top>
-            <Left>17.60387cm</Left>
+            <Left>18.55637cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
             <ZIndex>73</ZIndex>
@@ -10675,7 +10674,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Value>=First(Fields!Mesin.Value, "DataSetRoot")</Value>
             <Sizing>FitProportional</Sizing>
             <Top>35.65991cm</Top>
-            <Left>4.81663cm</Left>
+            <Left>2.59413cm</Left>
             <Height>8.85542cm</Height>
             <Width>7.85607cm</Width>
             <ZIndex>74</ZIndex>
@@ -10705,7 +10704,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             </Paragraphs>
             <rd:DefaultName>Textbox62</rd:DefaultName>
             <Top>34.88352cm</Top>
-            <Left>4.81663cm</Left>
+            <Left>2.59413cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
             <ZIndex>75</ZIndex>
@@ -10724,7 +10723,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Value>=First(Fields!Metode.Value, "DataSetRoot")</Value>
             <Sizing>FitProportional</Sizing>
             <Top>35.65991cm</Top>
-            <Left>14.8922cm</Left>
+            <Left>16.1622cm</Left>
             <Height>8.85542cm</Height>
             <Width>7.85607cm</Width>
             <ZIndex>76</ZIndex>
@@ -10754,7 +10753,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             </Paragraphs>
             <rd:DefaultName>Textbox62</rd:DefaultName>
             <Top>34.9188cm</Top>
-            <Left>14.8922cm</Left>
+            <Left>16.1622cm</Left>
             <Height>0.6cm</Height>
             <Width>2.53528cm</Width>
             <ZIndex>77</ZIndex>
@@ -10833,7 +10832,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             </Paragraphs>
             <rd:DefaultName>Textbox72</rd:DefaultName>
             <Top>25.55558cm</Top>
-            <Left>9.13657cm</Left>
+            <Left>9.45407cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
             <ZIndex>80</ZIndex>
@@ -10866,7 +10865,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             </Paragraphs>
             <rd:DefaultName>Textbox75</rd:DefaultName>
             <Top>25.55558cm</Top>
-            <Left>17.60387cm</Left>
+            <Left>18.55637cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
             <ZIndex>81</ZIndex>
@@ -10899,7 +10898,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             </Paragraphs>
             <rd:DefaultName>Textbox78</rd:DefaultName>
             <Top>36.03308cm</Top>
-            <Left>4.81663cm</Left>
+            <Left>2.59413cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
             <ZIndex>82</ZIndex>
@@ -10932,7 +10931,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             </Paragraphs>
             <rd:DefaultName>Textbox81</rd:DefaultName>
             <Top>36.03308cm</Top>
-            <Left>14.8922cm</Left>
+            <Left>16.1622cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
             <ZIndex>83</ZIndex>
