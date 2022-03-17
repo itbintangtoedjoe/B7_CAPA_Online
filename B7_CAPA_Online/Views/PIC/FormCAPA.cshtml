@@ -875,6 +875,7 @@
     var countmesin = 0;
     var countmetode = 0;
     var countmaterial = 0;
+    var countblob = 0;
     var myDiagramManusia;
     var myDiagramMesin;
     var myDiagramMetode;
@@ -1496,7 +1497,7 @@
                         contentType: 'application/json; charset=utf-8',
                         success: function (data) {
                             TableKajian();
-                            window.location.href = "../PIC/FormCAPA?NoCAPA=" + data.NoCAPA_FK+""
+                            window.location.href = "../PIC/FormCAPA?NoCAPA=" + data.NoCAPA_FK + ""
                             return true;
                         },
                         error: function (ex) {
@@ -1697,7 +1698,7 @@
 
                         $(go.Shape, "Rectangle",
                             { fill: "white", stroke: "black" },
-                          ),
+                        ),
                         //$(go.TextBlock, "Default Text",
                         //    {
                         //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -1707,10 +1708,11 @@
                         $(go.TextBlock, "Default Text",
                             {
                                 margin: 10, stroke: "black", font: " 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
+                                verticalAlignment: go.Spot.Center,
+                                width: 350, isMultiline: true   
                             },
                             new go.Binding("text", "desc"))
-                        
+
                     );
 
                 myDiagramManusia.model = new go.TreeModel(result);
@@ -1772,7 +1774,8 @@
                         $(go.TextBlock, "Default Text",
                             {
                                 margin: 10, stroke: "black", font: "16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
+                                verticalAlignment: go.Spot.Center,
+                                width: 350, isMultiline: true
                             },
                             new go.Binding("text", "desc"))
                     );
@@ -1838,7 +1841,8 @@
                         $(go.TextBlock, "Default Text",
                             {
                                 margin: 10, stroke: "black", font: "16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
+                                verticalAlignment: go.Spot.Center,
+                                width: 350, isMultiline: true
                             },
                             new go.Binding("text", "desc"))
                     );
@@ -1901,13 +1905,16 @@
                         //        verticalAlignment: go.Spot.Center
                         //    },
                         //    new go.Binding("text", "type")),
-                        $(go.TextBlock, "Default Text",
-                            {
-                                margin: 10, stroke: "black", font: "16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
-                            },
-                            new go.Binding("text", "desc"))
-                    );
+                        $(go.Panel, "Auto", {defaultStretch: go.GraphObject.None},
+                            $(go.TextBlock, "Default Text",
+                                {
+                                    margin: 10, stroke: "black", font: "16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                    verticalAlignment: go.Spot.Center,
+                                    width: 350, isMultiline: true
+
+                                },
+                                new go.Binding("text", "desc"))
+                        ));
 
                 myDiagramMesin.model = new go.TreeModel(result);
                 countmesin++;
@@ -1969,7 +1976,8 @@
                         $(go.TextBlock, "Default Text",
                             {
                                 margin: 10, stroke: "black", font: "16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
-                                verticalAlignment: go.Spot.Center
+                                verticalAlignment: go.Spot.Center,
+                                width: 350, isMultiline: true
                             },
                             new go.Binding("text", "desc"))
                     );
@@ -1996,13 +2004,15 @@
                 const fd = new FormData();
                 fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type
                 $.ajax({
-                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '',
+                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '&Tipe=Manusia',
                     type: 'post',
+                    async: false,
                     data: fd,
                     dataType: 'json',
                     processData: false,
                     contentType: false,
                     success: function (data) {
+                        countblob++;
                         //console.log(data);
                     }
                 });
@@ -2042,13 +2052,15 @@
                 const fd = new FormData();
                 fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type
                 $.ajax({
-                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '',
+                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '&Tipe=Lingukngan',
                     type: 'post',
                     data: fd,
+                    async:false,
                     dataType: 'json',
                     processData: false,
                     contentType: false,
                     success: function (data) {
+                        countblob++;
                         //console.log(data);
                     }
                 });
@@ -2088,13 +2100,15 @@
                 const fd = new FormData();
                 fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type
                 $.ajax({
-                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '',
+                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '&Tipe=Mesin',
                     type: 'post',
                     data: fd,
+                    async:false,
                     dataType: 'json',
                     processData: false,
                     contentType: false,
                     success: function (data) {
+                        countblob++;
                         //console.log(data);
                     }
                 });
@@ -2134,13 +2148,15 @@
                 const fd = new FormData();
                 fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type
                 $.ajax({
-                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '',
+                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '&Tipe=Metode',
                     type: 'post',
                     data: fd,
+                    asyc:false,
                     dataType: 'json',
                     processData: false,
                     contentType: false,
                     success: function (data) {
+                        countblob++;
                         //console.log(data);
                     }
                 });
@@ -2180,13 +2196,15 @@
                 const fd = new FormData();
                 fd.append("fileName", blob, filename); // where `.ext` matches file `MIME` type
                 $.ajax({
-                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '',
+                    url: 'SaveImage?nocapa=' + $('#input_NoCAPA').val() + '&Tipe=Material',
                     type: 'post',
                     data: fd,
+                    async:false,
                     dataType: 'json',
                     processData: false,
                     contentType: false,
                     success: function (data) {
+                        countblob++;
                         //console.log(data);
                     }
                 });

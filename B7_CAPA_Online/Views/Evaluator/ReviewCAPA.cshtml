@@ -45,48 +45,42 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title"> Rentang Efektivitas Tindakan Perbaikan</h4>
-                        <div class="table-responsive">
-                            <table class="table table-hover table-bordered word-wrap " id="Tbl_RentangPerbaikan" style="color: black; word-wrap: break-word">
-                                <thead>
-                                    <tr>
-                                        <th>RecordID</th>
-                                        <th>No CAPA</th>
-                                        <th>Nama Personil</th>
-                                        <th>Tindakan Perbaikan</th>
-                                        <th>Due Date</th>
-                                        <th>Rentang</th>
-                                        <th style="width: 120px;">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="Table_RentangPerbaikan">
-                                </tbody>
-                            </table>
-                        </div>
-                        
+                        <table class="table table-hover table-bordered zero-configuration" id="Tbl_RentangPerbaikan" style="color: black">
+                            <thead>
+                                <tr>
+                                    <th>RecordID</th>
+                                    <th>No CAPA</th>
+                                    <th>Nama Personil</th>
+                                    <th>Tindakan Perbaikan</th>
+                                    <th>Due Date</th>
+                                    <th>Rentang</th>
+                                    <th style="width: 120px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="Table_RentangPerbaikan">
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title"> Rentang Efektivitas Tindakan Pencegahan</h4>
-                        <div class="table-responsive">
-                            <table class="table table-hover table-bordered " id="Tbl_RentangPencegahan" style="color: black; word-wrap:break-word">
-                                <thead>
-                                    <tr>
-                                        <th>RecordID</th>
-                                        <th>No CAPA</th>
-                                        <th>Nama Personil</th>
-                                        <th>Tindakan Pencegahan</th>
-                                        <th>Due Date</th>
-                                        <th>Rentang</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="Table_RentangPencegahan">
-                                </tbody>
-                            </table>
-                        </div>
-                        
+                        <table class="table table-hover table-bordered zero-configuration" id="Tbl_RentangPencegahan" style="color: black">
+                            <thead>
+                                <tr>
+                                    <th>RecordID</th>
+                                    <th>No CAPA</th>
+                                    <th>Nama Personil</th>
+                                    <th>Tindakan Pencegahan</th>
+                                    <th>Due Date</th>
+                                    <th>Rentang</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="Table_RentangPencegahan">
+                            </tbody>
+                        </table>
                         <button type="button" class="btn btn-primary" id="btn_Submit">Submit</button>
                     </div>
                 </div>
@@ -324,7 +318,7 @@
                                             return "<button type='button' id='Perbaikan' class='btn btn-primary approve' style='background-color:green;'>Approve</button><button type='button' id='Perbaikan' class='btn btn-primary reject' style='background-color:red;'>Reject</button>";
                                     } else {
                                         if (data === false) {
-                                            if (result[meta.row].StatusDetail === 5) {
+                                            if (result[meta.row].Status_ID === false && result[meta.row].StatusDetail === 5 && result[meta.row].Rentang != 0) {
                                                 return "<button type='button' id='Perbaikan' class='btn btn-primary approve' style='background-color:green;'>Approve</button><button type='button' id='Perbaikan' class='btn btn-primary reject' style='background-color:red;'>Reject</button>";
                                             }
                                             else if (result[meta.row].StatusDetail === 1) {

@@ -135,8 +135,8 @@
                         </div>
                         <br />
                         <h4 class="card-title">Tindakan Pencegahan </h4>
-                        <div>
-                            <div class="table-responsive">
+                        <div class="table-responsive">
+                            <div>
                                 <table class="table table-hover table-bordered zero-configuration " cellpadding="0" cellspacing="0" style="color: black" id="Tbl_PencegahanPenambahan">
                                     <thead>
                                         <tr>
@@ -698,7 +698,7 @@
                         }
                     });
                     Swal.fire({
-                        title: "Approve Berhasil!",
+                        title: "Reject Berhasil!",
                         icon: "success",
                         showConfirmButton: false,
                         timer: 1000,
@@ -1140,7 +1140,14 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                GetTindakanPerbaikanPenambahan();
+                Swal.fire({
+                    title: "Rentang Berhasil Ditambahkan!",
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 1000,
+                }).then(() => {
+                    GetTindakanPerbaikanPenambahan();
+                })
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -1326,7 +1333,14 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                GetTindakanPencegahanPenambahan();
+                Swal.fire({
+                    title: "Rentang Berhasil Ditambahkan!",
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 1000,
+                }).then(() => {
+                    GetTindakanPencegahanPenambahan();
+                })
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -1536,7 +1550,7 @@
                                     return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                 }
                                 else if (row["Rentang"] != 0) {
-                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikanPembatalan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikanPembatalan(this) value='Reject'style='background-color:red;'/>";
+                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikanPembatalan(this) value='Approve'style='background-color:green; margin-left:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikanPembatalan(this) value='Reject'style='background-color:red;'/>";
                                 }
 
                             }
@@ -1610,7 +1624,7 @@
                                     return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                 }
                                 else {
-                                   return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahanPembatalan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahanPembatalan(this) value='Reject'style='background-color:red;'/>";
+                                   return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahanPembatalan(this) value='Approve'style='background-color:green; margin-left:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahanPembatalan(this) value='Reject'style='background-color:red;'/>";
                                 }
                             }
                         }
@@ -1684,7 +1698,7 @@
                     });
                     Swal.fire({
                         title: "Approve Berhasil!",
-                        icon: "success",
+                        type: "success",
                         showConfirmButton: false,
                         timer: 1000,
                     }).then(() => {
