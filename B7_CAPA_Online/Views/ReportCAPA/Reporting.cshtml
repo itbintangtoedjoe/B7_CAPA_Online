@@ -22,6 +22,47 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
+                        <h4 class="card-title">Report</h4>
+                        <div class="row form-group-sm">
+                            <div class="col-md-6">
+                                <label class="m-t-20">Tahun Permohonan CAPA<span style="color: red">*</span></label>
+                                <select class="form-control select2" id="Tahun">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group-sm">
+                            <div class="col-md-6">
+                                <label class="m-t-20">Bulan Permohonan CAPA<span style="color: red">*</span></label>
+                                <select class="form-control select2" id="Bulan">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group-sm">
+                            <div class="col-md-6">
+                                <label class="m-t-20">Kategori CAPA<span style="color: red">*</span></label>
+                                <select class="form-control select2" id="Kategori">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group-sm">
+                            <div class="col-md-6">
+                                <label class="m-t-20">Departemen<span style="color: red">*</span></label>
+                                <select class="form-control select2" id="Departemen">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group-sm">
+                            <div class="col-md-6">
+                                <label class="m-t-20">Lokasi Site<span style="color: red">*</span></label>
+                                <select class="form-control select2" id="Lokasi">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group-sm mt-3">
+                            <div class="col-md-6">
+                                <button class="btn btn-primary" id="Filter">Filter</button>
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered zero-configuration" id="Tbl_reportdatatable">
                                 <thead>
@@ -65,15 +106,37 @@
 </div>
 <script>
     $(document).ready(function () {
-        DataReporting();
+        getDepartemen();
+        getLokasi();
+        getKategori();
+        getTahun();
+        getBulan();
+        $('#Filter').click(function () {
+            DataReporting();
+        });
+        
     })
 
 
     function DataReporting() {
+        var dictlist = {
+            Tahun: $('#Tahun').val(),
+            Bulan: $('#Bulan').val(),
+            Lokasi: $('#Lokasi').val(),
+            Departemen: $('#Departemen').val(),
+            Kategori: $('#Kategori').val(),
+            Option: "Filter Leadtime",
+        }
+
+        var dto1 = {
+            Model: dictlist
+        }
+
         $.ajax({
             url: "DynamicController?spname=SP_SHOW_REPORTING",
             type: "post",
             dataType: "json",
+            data: JSON.stringify(dto1),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var table = $('#Tbl_reportdatatable').DataTable({
@@ -125,6 +188,132 @@
         var NoCAPA = data['NO_CAPA'];
 
         window.open("../ReportCAPA/ReportAll?NoCAPA=" + NoCAPA)
+
+    }
+
+    function getDepartemen() {
+        var dictlist = {
+            Option: "Departemen"
+        }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Report",
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var result = JSON.parse(data);
+                $('#Departemen').empty();
+
+                $('#Departemen').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+
+                for (var i = 0; i < result.length; i++) {
+                    $('#Departemen').append(new Option(result[i].Org_Group_Name, result[i].Org_Group_Name));
+                }
+
+                getLokasi();
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
+    }
+
+
+
+    function getLokasi() {
+        var dictlist = {
+            Option: "Lokasi"
+        }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Report",
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                $('#Lokasi').empty();
+                $('#Lokasi').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+                var all = "";
+                for (var i = 0; i < result.length; i++) {
+                    if (i == 0) {
+                        all += result[i].DDL_DESCRIPTION;
+                    }
+                    else {
+                        all += ',' + result[i].DDL_DESCRIPTION;
+                    }
+                }
+                $('#Lokasi').append(new Option("All", all));
+                for (var i = 0; i < result.length; i++) {
+                    $('#Lokasi').append(new Option(result[i].DDL_DESCRIPTION, result[i].DDL_DESCRIPTION));
+                }
+
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
+    }
+
+
+    function getTahun() {
+        var date = new Date();
+        $('#Tahun').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+        for (var i = 2021; i <= date.getFullYear(); i++) {
+
+            $('#Tahun').append(new Option(i, i));
+        }
+
+
+    }
+    function getBulan() {
+        var date = new Date();
+        var bulan = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        $('#Bulan').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+        for (var i = 0; i < 12; i++) {
+
+            $('#Bulan').append(new Option(bulan[i], i + 1));
+        }
+
+
+    }
+
+
+    function getKategori() {
+        var dictlist = {
+            Option: "Kategori"
+        }
+        var dto = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Report",
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var result = JSON.parse(data);
+                $('#Kategori').empty();
+
+                $('#Kategori').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+                for (var i = 0; i < result.length; i++) {
+                    $('#Kategori').append(new Option(result[i].DDL_DESCRIPTION, result[i].DDL_DESCRIPTION));
+                }
+
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
 
     }
 
