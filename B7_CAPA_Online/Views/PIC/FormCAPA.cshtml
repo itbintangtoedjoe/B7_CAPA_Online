@@ -325,7 +325,7 @@
                             <div class="row">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-20">Tanggal</label>
-                                    <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly disabled>
+                                    <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Now.ToString("MM/dd/yyyy HH:mm")" readonly disabled>
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">PIC CAPA</label>
@@ -3143,7 +3143,7 @@
                 $.unblockUI();
                 Swal.fire({
                     title: 'WARNING',
-                    text: 'Masih ada Tindakan yang belum dikaji.',
+                    text: 'Masih ada Rootcause atau Kajian Resiko yang belum dikaji.',
                     type: 'warning',
                     timer: 2000,
                     showConfirmButton: false
