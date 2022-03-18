@@ -1912,6 +1912,9 @@
         $('#txtPotensiKegagalan').val(objKajian[0].M_PKegagalan);
         $('#txtPenyebabPotensi').val(objKajian[0].P_MPenyebab);
         $('#txtMDPKegagalan').val(objKajian[0].P_MDPKegagalan);
+        $('#txtPotensiKegagalanHasil').val(objKajian[0].M_PKegagalan_Hasil);
+        $('#txtPenyebabPotensiHasil').val(objKajian[0].P_MPenyebab_Hasil);
+        $('#txtMDPKegagalanHasil').val(objKajian[0].P_MDPKegagalan_Hasil);
         if ($('#txtPotensiKegagalan').val().trim() == "" || $('#txtPotensiKegagalan').val() == null) {
             $('#txtPotensiKegagalanHasil').prop("disabled", true);
 
@@ -2086,9 +2089,9 @@
     $('#btnSimpanTreatment').click(function (e) {
         var modeTreatment = $("#modeTreatment").val();
         var idKajian = $('#ddlKajianTreatment').val();
-        var M_PKegagalan_Hasil = $('#txtPotensiKegagalan').val();
-        var P_MPenyebab_HasiL = $('#txtPenyebabPotensi').val();
-        var MDPKegagalan = $('#txtMDPKegagalan').val();
+        var M_PKegagalan_Hasil = $('#txtPotensiKegagalanHasil').val();
+        var P_MPenyebab_HasiL = $('#txtPenyebabPotensiHasil').val();
+        var MDPKegagalan = $('#txtMDPKegagalanHasil').val();
         var attachmentPencegahan = $("#uploadAttachmentTreatment").val();
         //var pelaksanaID = getQueryStrings()["PelaksanaID"];
         var status = 7;

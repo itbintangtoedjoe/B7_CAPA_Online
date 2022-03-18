@@ -1905,7 +1905,6 @@
                         //        verticalAlignment: go.Spot.Center
                         //    },
                         //    new go.Binding("text", "type")),
-                        $(go.Panel, "Auto", {defaultStretch: go.GraphObject.None},
                             $(go.TextBlock, "Default Text",
                                 {
                                     margin: 10, stroke: "black", font: "16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -1914,7 +1913,7 @@
 
                                 },
                                 new go.Binding("text", "desc"))
-                        ));
+                         );
 
                 myDiagramMesin.model = new go.TreeModel(result);
                 countmesin++;
@@ -2013,6 +2012,7 @@
                     contentType: false,
                     success: function (data) {
                         countblob++;
+                        var blob = myDiagramMaterial.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackMaterial });
                         //console.log(data);
                     }
                 });
@@ -2061,6 +2061,7 @@
                     contentType: false,
                     success: function (data) {
                         countblob++;
+                        var blob3 = myDiagramMesin.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackMesin });
                         //console.log(data);
                     }
                 });
@@ -2109,6 +2110,7 @@
                     contentType: false,
                     success: function (data) {
                         countblob++;
+                        var blob4 = myDiagramMetode.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackMetode });
                         //console.log(data);
                     }
                 });
@@ -2157,6 +2159,7 @@
                     contentType: false,
                     success: function (data) {
                         countblob++;
+                        window.location.href = '../PendingTask/TaskList';
                         //console.log(data);
                     }
                 });
@@ -2205,6 +2208,7 @@
                     contentType: false,
                     success: function (data) {
                         countblob++;
+                        var blob2 = myDiagramLingkungan.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackLingkungan });
                         //console.log(data);
                     }
                 });
@@ -3124,13 +3128,8 @@
                                 timer: 2000,
                                 showConfirmButton: false
                             }).then(function () {
-                                var blob = myDiagramMaterial.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackMaterial });
                                 var blob1 = myDiagramManusia.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackManusia });
-                                var blob2 = myDiagramLingkungan.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackLingkungan });
-                                var blob3 = myDiagramMesin.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackMesin });
-                                var blob4 = myDiagramMetode.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackMetode });
-
-                                window.location.href = '../PendingTask/TaskList';
+                                
                             });
                             return false;
                         });

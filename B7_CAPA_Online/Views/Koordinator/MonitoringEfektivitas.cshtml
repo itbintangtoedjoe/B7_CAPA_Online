@@ -470,6 +470,7 @@
                             showConfirmButton: false,
                             timer: 1000,
                         })
+                        $('#Tbl_CCC').DataTable().clear().destroy();
                     },
                     error: function (ex) {
                         alert(JSON.stringify(ex));
@@ -522,6 +523,8 @@
                             showConfirmButton: false,
                             timer: 1000,
                         })
+
+                        $('#Tbl_Deviation').DataTable().clear().destroy();
                     },
                     error: function (ex) {
                         alert(JSON.stringify(ex));
@@ -614,14 +617,14 @@
             });
         });
         $('#btn_Search_Deviation').click(function () {
-            dto = {
+
+            var dto = {
                 Option: 1,
                 NoCapa: $('#QS_NoCAPA').val(),
                 Departemen: $('#DepartemenPelapor_DDL').val(),
                 JenisPenyimpangan: $('#JenisPenyimpangan_DDL').val(),
                 Kategori: $('#KategoriPenyimpangan_DDL').val(),
-                Tahun: $('#Tahun_DDL').val(),
-                Record: $('#Kajian').val(),
+                Tahun: $('#Tahun_DDL').val()
 
             }
             $.ajax({
@@ -785,7 +788,7 @@
                 var id = data['RecordID'];
                 var path = data['ValueEvaluasi'];
                 var dictlist = {
-                    NoCAPA: QSNoCAPA,
+                    NoCAPA: nocapa,
                     Option: 9,
                     Record: id
                 }
@@ -1051,7 +1054,7 @@
                 var data = $('#Tbl_Devi').DataTable().row(row).data();
                 var id = data['RecordID'];
                 var dictlist = {
-                    NoCAPA: QSNoCAPA,
+                    NoCAPA: nocapa,
                     Option: 9,
                     Record: id
                 }
@@ -1146,10 +1149,10 @@
         }).then((result) => {
             if (result.value) {
                 var row = $(button).closest("TR");
-                var data = $('#Tbl_Devi').DataTable().row(row).data();
+                var data = $('#Tabel_CCC').DataTable().row(row).data();
                 var id = data['RecordID'];
                 var dictlist = {
-                    NoCAPA: QSNoCAPA,
+                    NoCAPA: nocapa,
                     Option: 9,
                     Record: id
                 }
