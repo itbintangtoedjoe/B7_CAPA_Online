@@ -293,7 +293,7 @@
                             <div class="row">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-20">Tanggal</label>
-                                    <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly disabled>
+                                    <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Now.ToString("MM/dd/yyyy HH:mm")" readonly disabled>
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">Requestor</label>
@@ -813,6 +813,8 @@
             maxTags: 4
         });
 
+        GetDeptNoCAPATerkait();
+
         //variable data untuk menampung data deviation dan ccc
         var data = [];
         $('#input_Requestor').val('@Request.RequestContext.HttpContext.Session["FullName"]');
@@ -1044,7 +1046,7 @@
 
         //Browse button No CAPA Terkait
         $('#link_NoCAPATerkait').click(function () {
-            GetDeptNoCAPATerkait();
+           
         });
 
         // Button search isi lampiran Deviation yang menyimpang.
@@ -1642,7 +1644,7 @@
                     }
                     if (entry.DDL_TYPE == 'KATEGORI') {
                         //$('#Kategori_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
-                        //$('#KategoriCAPA_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
+                        $('#KategoriCAPA_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
                     }
                     if (entry.DDL_TYPE == 'LOKASI') {
                         $('#Lokasi_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
@@ -1998,6 +2000,7 @@
     }
 
     function GetDeptNoCAPATerkait() {
+        alert('test');
         $.ajax({
             url: 'GetDepartments',
             type: 'post',
@@ -2009,6 +2012,7 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 $('#DepartemenPelapor_DDL').empty();
+                $('#AreaPICCAPA_DDL').empty();
                 $.each(JSON.parse(data), function (key, entry) {
                     //$('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
                     $('#AreaPICCAPA_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
