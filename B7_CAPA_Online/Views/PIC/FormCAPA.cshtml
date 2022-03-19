@@ -2742,6 +2742,8 @@
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
                     getTable();
+                    getWhyParent();
+                    GetWhyTable();
                     return true;
                 },
                 error: function (ex) {
