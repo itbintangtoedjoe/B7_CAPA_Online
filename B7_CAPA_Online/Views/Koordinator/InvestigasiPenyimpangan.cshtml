@@ -121,11 +121,11 @@
             }
         });
     }
-
     function GetRootManusia() {
+
         $.ajax({
             type: "POST",
-            url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Manusia",
+            url: "../Koordinator/GetRoot?NoCapa=" + $('#QS_NoCAPA').val() + "&Type=Manusia",
             dataType: 'json',
             async: true,
             contentType: 'application/json; charset=utf-8',
@@ -155,8 +155,12 @@
                 //myDiagram.add(node1);
 
                 myDiagram.nodeTemplate =
-                    $(go.Node, "Horizontal",
-                        { background: "#44CCFF", locationSpot: go.Spot.Center },
+                    $(go.Node, "Auto",
+                        { locationSpot: go.Spot.Center },
+
+                        $(go.Shape, "Rectangle",
+                            { fill: "white", stroke: "black" },
+                        ),
                         //$(go.TextBlock, "Default Text",
                         //    {
                         //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -165,7 +169,7 @@
                         //    new go.Binding("text", "type")),
                         $(go.TextBlock, "Default Text",
                             {
-                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                margin: 10, stroke: "black", font: "16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
                                 verticalAlignment: go.Spot.Center
                             },
                             new go.Binding("text", "desc"))
@@ -175,12 +179,11 @@
             }
         });
     }
-
     function GetRootMaterial() {
 
         $.ajax({
             type: "POST",
-            url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Material/Produk",
+            url: "../Koordinator/GetRoot?NoCapa=" + $('#QS_NoCAPA').val() + "&Type=Material/Produk",
             async: true,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
@@ -210,8 +213,12 @@
                 //    );
                 //myDiagram.add(node1);
                 myDiagram.nodeTemplate =
-                    $(go.Node, "Horizontal",
-                        { background: "#44CCFF" },
+                    $(go.Node, "Auto",
+                        { locationSpot: go.Spot.Center },
+
+                        $(go.Shape, "Rectangle",
+                            { fill: "white", stroke: "black" },
+                        ),
                         //$(go.TextBlock, "Default Text",
                         //    {
                         //        margin: 10, width: 75, height: 50, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -220,7 +227,7 @@
                         //    new go.Binding("text", "type")),
                         $(go.TextBlock, "Default Text",
                             {
-                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                margin: 10, stroke: "black", font: "16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
                                 verticalAlignment: go.Spot.Center
                             },
                             new go.Binding("text", "desc"))
@@ -230,12 +237,11 @@
             }
         });
     }
-
     function GetRootLingkungan() {
 
         $.ajax({
             type: "POST",
-            url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Lingkungan",
+            url: "../Koordinator/GetRoot?NoCapa=" + $('#QS_NoCAPA').val() + "&Type=Lingkungan",
             dataType: 'json',
             async: true,
             contentType: 'application/json; charset=utf-8',
@@ -264,8 +270,12 @@
                 //myDiagram.add(node1);
 
                 myDiagram.nodeTemplate =
-                    $(go.Node, "Horizontal",
-                        { background: "#44CCFF" },
+                    $(go.Node, "Auto",
+                        { locationSpot: go.Spot.Center },
+
+                        $(go.Shape, "Rectangle",
+                            { fill: "white", stroke: "black" },
+                        ),
                         //$(go.TextBlock, "Default Text",
                         //    {
                         //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -274,7 +284,7 @@
                         //    new go.Binding("text", "type")),
                         $(go.TextBlock, "Default Text",
                             {
-                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                margin: 10, stroke: "black", font: "16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
                                 verticalAlignment: go.Spot.Center
                             },
                             new go.Binding("text", "desc"))
@@ -284,12 +294,11 @@
             }
         });
     }
-
     function GetRootMesin() {
 
         $.ajax({
             type: "POST",
-            url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Mesin",
+            url: "../Koordinator/GetRoot?NoCapa=" + $('#QS_NoCAPA').val() + "&Type=Mesin",
             dataType: 'json',
             async: true,
             contentType: 'application/json; charset=utf-8',
@@ -318,8 +327,12 @@
                 //myDiagram.add(node1);
 
                 myDiagram.nodeTemplate =
-                    $(go.Node, "Horizontal",
-                        { background: "#44CCFF" },
+                    $(go.Node, "Auto",
+                        { locationSpot: go.Spot.Center },
+
+                        $(go.Shape, "Rectangle",
+                            { fill: "white", stroke: "black" },
+                        ),
                         //$(go.TextBlock, "Default Text",
                         //    {
                         //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -328,7 +341,7 @@
                         //    new go.Binding("text", "type")),
                         $(go.TextBlock, "Default Text",
                             {
-                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                margin: 10, stroke: "black", font: "16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
                                 verticalAlignment: go.Spot.Center
                             },
                             new go.Binding("text", "desc"))
@@ -338,12 +351,11 @@
             }
         });
     }
-
     function GetRootMetode() {
 
         $.ajax({
             type: "POST",
-            url: "../Koordinator/GetRoot?NoCapa=" + $('#input_NoCAPA').val() + "&Type=Metode",
+            url: "../Koordinator/GetRoot?NoCapa=" + $('#QS_NoCAPA').val() + "&Type=Metode",
             dataType: 'json',
             async: true,
             contentType: 'application/json; charset=utf-8',
@@ -372,8 +384,12 @@
                 //myDiagram.add(node1);
 
                 myDiagram.nodeTemplate =
-                    $(go.Node, "Horizontal",
-                        { background: "#44CCFF" },
+                    $(go.Node, "Auto",
+                        { locationSpot: go.Spot.Center },
+
+                        $(go.Shape, "Rectangle",
+                            { fill: "white", stroke: "black" },
+                        ),
                         //$(go.TextBlock, "Default Text",
                         //    {
                         //        margin: 10, width: 75, height: 25, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
@@ -382,7 +398,7 @@
                         //    new go.Binding("text", "type")),
                         $(go.TextBlock, "Default Text",
                             {
-                                margin: 10, stroke: "white", font: "bold 16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
+                                margin: 10, stroke: "black", font: "16px sans-serif", textAlign: "center", wrap: go.TextBlock.WrapFit,
                                 verticalAlignment: go.Spot.Center
                             },
                             new go.Binding("text", "desc"))
