@@ -1329,18 +1329,22 @@
         //console.log(dto);
         //console.log(kategori);
         $.each(dto, function (key, value) {
-            //console.log(value)
-            if (value == '' || value == '-' || value == null) {
-                if (value == 0 || typeof value === "undefined")
+            //console.log('key :' + key + ' value :' + value)
+            if (value === '' || value === '-' || value === null) {
+                //console.log('key :' + key + ' value :' + value)
+                if (value === 0 && typeof value === "undefined") {
                     valid = true;
-                else
+                }
+                else {
                     return valid = false;
+                }                  
             } else {
                 valid = true;
             }
         });
 
         if (valid) {
+            //alert('inserted')
             $.ajax({
                 url: 'AddTindakan',
                 type: 'post',
