@@ -2144,6 +2144,10 @@
                     showConfirmButton: false,
                     timer: 1000,
                 }).then(() => {
+                    $('#btnSimpanTreatment').attr('disabled', true);
+                    $('#txtPotensiKegagalanHasil').attr('disabled', true);
+                    $('#txtPenyebabPotensiHasil').attr('disabled', true);
+                    $('#txtMDPKegagalanHasil').attr('disabled', true);
                     ReloadPage();
                 })
                 FindKajian();
