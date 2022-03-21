@@ -113,7 +113,7 @@
         });
     }
 
-    function GetLampiranPerbaikanPV() { // dipanggil di view parent jika seperlunya saja 
+    function GetLampiranPerbaikanPV() { // dipanggil di view parent jika seperlunya saja
         var dictlist = {
             NoCAPA: $('#input_NoCAPA').val(),
             Option: 10
@@ -129,7 +129,7 @@
             data: JSON.stringify(dto1),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            async: false,                 
+            async: false,
             error: function (ex) {
                 alert(JSON.stringify(ex));
             }
@@ -170,17 +170,26 @@
                         success: function (data) {
                             var result = JSON.parse(data);
                             if (result[0].STATUS == "DELETED") {
-                                Swal.fire(
-                                    'Success',
-                                    'Tindakan berhasil di hapus.',
-                                    'success'
-                                ).then((result) => {
-                                    if (result.value) {
-                                        GetTindakanPerbaikanPV();
-                                        GetTindakanPencegahanPV();
-                                        retrieveData2();
-                                    }
+                                Swal.fire({
+                                    title: 'Success',
+                                    text: 'Data berhasil di hapus.',
+                                    showConfirmButton: false,
+                                    timer: 2000,
+                                    type: 'success'
+                                }).then((result) => {
+                                    GetTindakanPerbaikanPV();
+                                    GetTindakanPencegahanPV();
+                                    retrieveData2();
+                                    KajianResikoDDL();
                                 });
+                            } else {
+                                Swal.fire({
+                                    title: 'Failed',
+                                    text: 'Mohon hapus Kajian Resiko yang berhubungan terlebih dahulu.',
+                                    showConfirmButton: false,
+                                    timer: 2000,
+                                    type: 'error'
+                                })
                             }
                         },
                         error: function (ex) {
@@ -192,9 +201,9 @@
         });
     }
 
-    function formatPerbaikan(d) {        
+    function formatPerbaikan(d) {
         var html = '';
-        $.each(objLampiran, function (key, value) {               
+        $.each(objLampiran, function (key, value) {
             if (value.ID_FK == d.RecordID) {
                 return html += '<tr>' +
                     '<td>File Name :</td>' +
@@ -252,8 +261,8 @@
     }
 
     var objLampiran = GetLampiranPerbaikanPV();
-    $(document).ready(function () {        
+    $(document).ready(function () {
         GetTindakanPerbaikanPV();
-        DeleteTindakanPerbaikanPV();       
+        DeleteTindakanPerbaikanPV();
     });
 </script>

@@ -1583,31 +1583,47 @@
         var trigger = $("#Trigger_CAPA").val();
 
         var isAttachment = true;
+        var labelChild = "";
 
-        if (trigger == "DEVIATION" || trigger == "CCC" || trigger == "CAPA")
+        if (trigger == "DEVIATION" || trigger == "CCC" || trigger == "CAPA") {
+            labelChild = (trigger == "DEVIATION") ? ('Penyimpangan Terkait') : ((trigger == 'CCC') ? ("Keluhan Pelanggan Terkait") : ("No CAPA Terkait"))
             isAttachment = false;
-
+        }
+          
         data = {
             TriggerCAPA: trigger,
+            PenyimpanganCollection: !isAttachment ? ($('#PenyimpanganNumber').val()): ("-"),
             LampiranTerkait: isAttachment ? ($("#TxtFileInput").val()) : ("-"),
             Kategori: $("#Kategori_DDL").val(),
+            Kode: $('#Kode_DDL').val(),     
             Deskripsi: $("#TxtDeskripsi").val(),
-            Lokasi: $("#Lokasi_DDL").val(),
+            Lokasi: $("#Lokasi_DDL").val(),                  
             DepartemenTerkait: tableContent,
             AreaPIC: $("#AreaPIC_DDL").val(),
             PIC: $("#PIC_DDL").val()
         }
 
-        for (var key in data) {
-            if (data[key] === "" || data[key] === false) {
-                $.unblockUI();
+        $.unblockUI();  
+
+        for (var key in data) {     
+            //console.log(data[key])
+            if (data[key] === "" || data[key] === false || data[key] === null) {
+                if (key === 'PenyimpanganCollection' && data['PenyimpanganCollection'] === "" && !isAttachment) {
+                    Swal.fire({
+                        type: 'warning',
+                        title: 'Maaf',
+                        text: 'Mohon input ' + labelChild + ' wajib diisi!',
+                    });
+                    return false;
+                    break;
+                } 
                 Swal.fire({
                     type: 'warning',
                     title: 'Maaf',
                     text: 'Mohon input ' + key + ' wajib diisi!',
                 });
                 return false;
-                break;
+                break;     
             }
         }
         return true;
@@ -2000,7 +2016,7 @@
     }
 
     function GetDeptNoCAPATerkait() {
-        alert('test');
+        //alert('test');
         $.ajax({
             url: 'GetDepartments',
             type: 'post',
