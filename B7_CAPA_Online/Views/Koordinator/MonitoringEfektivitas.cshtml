@@ -1302,6 +1302,38 @@
             $('input[name="File_Radio"]:checked').val() != undefined) {
             var tableCCC = $('#Tabel_CCC').DataTable();
             var tableDeviation = $('#Tbl_Devi').DataTable();
+            var tablefile = $('#Tabel_File').DataTable();
+            if (tableDeviation.data().count() == 0 && $('input[name="Devi_Radio"]:checked').val() == 'Yes')
+            {
+                Swal.fire({
+                    title: "Error!",
+                    icon:"error",
+                    text: "Penyimpangan Tidak Boleh Kosong!",
+                    showConfirmButton: false,
+                    timer: 1000,
+                })
+                return
+            }
+            if (tableCCC.data().count() == 0 && $('input[name="CCC_Radio"]:checked').val() == 'Yes') {
+                Swal.fire({
+                    title: "Error!",
+                    icon: "error",
+                    text: "CCC Tidak Boleh Kosong!",
+                    showConfirmButton: false,
+                    timer: 1000,
+                })
+                return
+            }
+            if (tablefile.data().count() == 0 && $('input[name="File_Radio"]:checked').val() == 'Yes') {
+                Swal.fire({
+                    title: "Error!",
+                    icon: "error",
+                    text: "File Tidak Boleh Kosong!",
+                    showConfirmButton: false,
+                    timer: 1000,
+                })
+                return
+            }
                 var dictlist = {
                     NoCAPA: $('#QS_NoCAPA').val(),
                     Option: 2,

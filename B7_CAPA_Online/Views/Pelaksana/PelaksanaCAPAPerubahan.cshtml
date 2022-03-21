@@ -462,6 +462,14 @@
                                 'warning'
                             )
                         }
+                        if ($('#Severity2_DDL').val() == '10') {
+                            valid = false;
+                            return Swal.fire(
+                                'Maaf',
+                                'Severity masih tinggi.',
+                                'warning'
+                            )
+                        }
                     }
                     i++;
                 }
