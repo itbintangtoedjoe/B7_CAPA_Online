@@ -4,7 +4,7 @@
     <div class="card-body">
         <h4 class="card-title">Tindakan Perbaikan</h4>
         <div class="table-responsive">
-            <table class="table table-hover table-bordered zero-configuration " style="color: black; flex-wrap: wrap" id="Tbl_Perbaikan">
+            <table class="table table-hover table-bordered zero-configuration " style="color: black; flex-wrap: wrap; width: 1084px" id="Tbl_Perbaikan">
                 <thead>
                     <tr>
                         <th></th>
@@ -58,6 +58,7 @@
                     "info": false,
                     "searching": false,
                     "paging": false,
+                    "autoWidth" : false,
                     "data": JSON.parse(data),
                     "select": true,
                     "scrollCollapse": true,
@@ -261,6 +262,8 @@
     }
 
     var objLampiran = GetLampiranPerbaikanPV();
+
+
     $(document).ready(function () {
         GetTindakanPerbaikanPV();
         DeleteTindakanPerbaikanPV();

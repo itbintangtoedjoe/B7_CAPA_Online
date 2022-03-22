@@ -4,7 +4,7 @@
     <div class="card-body">
         <h4 class="card-title">Tindakan Pencegahan</h4>
         <div class="table-responsive">
-            <table class="table table-hover table-bordered" style="color: black" id="Tbl_Pencegahan">
+            <table class="table table-hover table-bordered zero-configuration display" style="color: black;flex-wrap: wrap; width: 1084px" id="Tbl_Pencegahan">
                 <thead>
                     <tr>
                         <th></th>
@@ -54,11 +54,12 @@
                 var table = $('#Tbl_Pencegahan').DataTable({
                     "pageLength": 5,
                     "lengthChange": false,
+                    "autoWidth" : false,
                     "info": false,
                     "searching": false,
                     "paging": false,
                     "data": JSON.parse(data),
-                    "select": true,
+                    "select": true,                    
                     "scrollCollapse": true,
                     "destroy": true,
                     "columns": [
@@ -176,8 +177,6 @@
         });
 
     }
-
-
 
     function GetLampiranPencegahanPV() { // dipanggil di view parent jika seperlunya saja
         var dictlist = {
