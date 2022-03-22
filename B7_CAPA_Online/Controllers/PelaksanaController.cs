@@ -79,6 +79,7 @@ namespace B7_CAPA_Online.Controllers
                 { "WSBH" , Model.WSBH },
                 { "WAH" , Model.WAH },
                 { "Status" , Model.Status },
+                {"Departemen" , Model.Departemen},
                 { "isParent" , Model.isParent },
                 { "WHY_Parent" , Model.WHY_Parent },
                 { "WHY" , Model.WHY },
@@ -104,7 +105,6 @@ namespace B7_CAPA_Online.Controllers
             var dictionary = new Dictionary<string, object>{
                 { "kategori", data.Kategori },
                 { "nomorCAPA", data.NomorCAPA },
-                { "nik", data.NIK },
                 { "id_fk", data.FKID },
                 { "status", data.Status },
                 { "recordID", data.RecordID },
@@ -222,9 +222,9 @@ namespace B7_CAPA_Online.Controllers
             for (int i = 0; i < Request.Files.Count; i++)
             {
                 var file = Request.Files[i];
-                var fileName = file.FileName;
+                var fileName = updater + '_' + file.FileName;
 
-                var path = Path.Combine(b7path, fileName);
+                var path = Path.Combine(b7path, updater + '_' + fileName);
                 //string path = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
                 file.SaveAs(path);
 
@@ -240,8 +240,8 @@ namespace B7_CAPA_Online.Controllers
                 attResult = DAL.StoredProcedure(attParameters, "SP_Attachment_Pelaksanaan");
 
             }
-            
-                return Json(attResult);
+
+            return Json(attResult);
         }
 
         public ActionResult DeleteAttachment(SPUpdatePelaksanaanParams data)

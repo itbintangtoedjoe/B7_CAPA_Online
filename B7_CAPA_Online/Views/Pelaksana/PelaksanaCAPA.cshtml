@@ -211,7 +211,7 @@
                             <br />
                             <div class="row form-group">
                                 <div class="col-sm-2">
-                                    <button type="button" class="btn btn-primary" id="btnSimpanPerbaikan">Simpan</button>
+                                    <button type="button" class="btn btn-primary" id="btnSimpanPerbaikan">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -344,7 +344,7 @@
                         <br />
                         <div class="row form-group">
                             <div class="col-sm-2">
-                                <button type="button" class="btn btn-primary" id="btnSimpanPencegahan">Simpan</button>
+                                <button type="button" class="btn btn-primary" id="btnSimpanPencegahan">Submit</button>
                             </div>
                         </div>
                     </div>
@@ -429,7 +429,14 @@
                                 </div>
 
                             </div>
+                            <div class="row form-group-sm" id="RowRejectTreatment" hidden>
+                                <div class="col-md-6">
+                                    <label class="m-t-20">Reject Reason<span style="color: red">*</span></label>
+                                    <textarea type="text" id="txtRejectTreatment" class="form-control" placeholder="" disabled></textarea>
+                                </div>
 
+
+                            </div>
 
                             <div class="row form-group-sm">
                                 <div class="col-md-6">
@@ -532,7 +539,7 @@
                             <br />
                             <div class="row form-group">
                                 <div class="col-sm-2">
-                                    <button type="button" class="btn btn-primary" id="btnSimpanTreatment" disabled="disabled">Simpan</button>
+                                    <button type="button" class="btn btn-primary" id="btnSimpanTreatment" disabled="disabled">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -1915,6 +1922,14 @@
         $('#txtPotensiKegagalanHasil').val(objKajian[0].M_PKegagalan_Hasil);
         $('#txtPenyebabPotensiHasil').val(objKajian[0].P_MPenyebab_Hasil);
         $('#txtMDPKegagalanHasil').val(objKajian[0].P_MDPKegagalan_Hasil);
+        $('#txtRejectTreatment').val(objKajian[0].Alasan_Reject);
+        if ($('#txtRejectTreatment').val().trim() != "" || $('#txtRejectTreatment').val() != null) {
+            $('#RowRejectTreatment').prop("hidden", false);
+        }
+        else {
+
+            $('#RowRejectTreatment').prop("hidden", true);
+        }
         if ($('#txtPotensiKegagalan').val().trim() == "" || $('#txtPotensiKegagalan').val() == null) {
             $('#txtPotensiKegagalanHasil').prop("disabled", true);
 

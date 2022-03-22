@@ -169,27 +169,29 @@
                                 </div>
 
                             </div>
+                            <h4 class="card-title">Tindakan Pencegahan</h4>
+                            <div>
+                                <table class="table table-hover table-bordered " style="color: black" id="Tbl_Pencegahan">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th>Root Cause</th>
+                                            <th>Tindakan Pencegahan</th>
+                                            <th>Supervisor</th>
+                                            <th>Due_Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
                         </form>
-                        <h4 class="card-title">Tindakan Pencegahan</h4>
-                        <div>
-                            <table class="table table-hover table-bordered zero-configuration" style="color: black" id="Tbl_Pencegahan">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th>Root Cause</th>
-                                        <th>Tindakan Pencegahan</th>
-                                        <th>Supervisor</th>
-                                        <th>Due_Date</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
+
                     </div>
+
                 </div>
 
                 <div class="card" id="PerbaikanExisting">
@@ -340,6 +342,8 @@
             $("input[name='TambahPerbaikan']").prop("disabled", true);
             document.getElementById("Yes").checked = true;
             $('#Div_TindakanPerbaikan').prop('hidden', false);
+            $('#RootCause').prop('hidden', false);
+            $('#btnPencegahan').prop('hidden', false);
             $('#PerbaikanExisting').prop('hidden', true);
             $('#Div_Pencegahan').prop('hidden', true);
             KajianDDLPerbaikanBaru();
@@ -444,6 +448,15 @@
             var dto = {};
             var kategori = "Pencegahan";
             var obj = rootPencegahan;
+            if ($('#txtRootCausePencegahan').val().trim() == "") {
+                return Swal.fire({
+                    title: "Error!",
+                    text: "Area Lain Berpoten Harus Diisi !",
+                    icon: "error",
+                    showConfirmButton: false,
+                    timer: 1000,
+                })
+            }
             console.log(rootPencegahan);
             $.each(obj, function (key, value) {
                 console.log($('#RootCause_DDL').val());
@@ -582,6 +595,14 @@
                             return Swal.fire(
                                 'Maaf',
                                 'Severity masih tinggi.',
+                                'warning'
+                            )
+                        }
+                        if ($('#Target_DDL').val() == "Low" && $('#TxtRiskLevel2').val() == 'Medium') {
+                            valid = false;
+                            return Swal.fire(
+                                'Maaf',
+                                'Risk Level masih tinggi.',
                                 'warning'
                             )
                         }
@@ -895,11 +916,12 @@
             Swal.fire({
                 title: 'Apakah anda yakin?',
                 text: "Action ini akan menghapus semua Tindakan Pencegahan yang dimiliki oleh Tindakan Perbaikan ini.",
-                type: 'warning',
+                icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Delete'
+                confirmButtonText: 'Delete',
+                reverseButtons: true
             }).then((result) => {
                 if (result.value) {
                     $.ajax({
@@ -911,11 +933,13 @@
                         success: function (data) {
                             var result = JSON.parse(data);
                             if (result[0].STATUS == "DELETED") {
-                                Swal.fire(
-                                    'Success',
-                                    'Tindakan berhasil di hapus.',
-                                    'success'
-                                ).then((result) => {
+                                Swal.fire({
+                                    title: 'Success',
+                                    text: 'Tindakan berhasil di hapus.',
+                                    icon: 'success',
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                }).then((result) => {
                                     if (result.value) {
                                         GetTindakanPerbaikanPV();
                                         GetTindakanPencegahanPV();
@@ -950,11 +974,12 @@
             Swal.fire({
                 title: 'Apakah anda yakin?',
                 text: "Action ini akan menghapus Tindakan Pencegahan yang dipilih.",
-                type: 'warning',
+                icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Delete'
+                confirmButtonText: 'Delete',
+                reverseButtons: true
             }).then((result) => {
                 if (result.value) {
                     $.ajax({
@@ -966,11 +991,13 @@
                         success: function (data) {
                             var result = JSON.parse(data);
                             if (result[0].STATUS == "DELETED") {
-                                Swal.fire(
-                                    'Success',
-                                    'Tindakan berhasil di hapus.',
-                                    'success'
-                                ).then((result) => {
+                                Swal.fire({
+                                    title: 'Success',
+                                    text: 'Tindakan berhasil di hapus.',
+                                    icon: 'success',
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                }).then((result) => {
                                     if (result.value) {
                                         GetTindakanPencegahanPV();
                                         KajianDDLPerbaikanBaru();
@@ -1007,11 +1034,12 @@
             Swal.fire({
                 title: 'Apakah anda yakin?',
                 text: "Action ini akan menghapus Tindakan Pencegahan yang dipilih.",
-                type: 'warning',
+                icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Delete'
+                confirmButtonText: 'Delete',
+                reverseButtons: true
             }).then((result) => {
                 if (result.value) {
                     $.ajax({
@@ -1560,7 +1588,7 @@
                         var dto = {};
                         var kategori = "Perbaikan";
                         var obj = JSON.parse(rootcause);
-
+                        console.log(obj)
                         $.each(obj, function (key, value) {
                             if (value.WhyDesc == $('#RootCause_DDL').val()) {
                                 dto = {
@@ -1700,20 +1728,25 @@
             var date = new Date();
             var dateperbaikan = new Date($('#duedate_perbaikan').val());
             if (date.getTime() > dateperbaikan.getTime()) {
-                Swal.fire(
-                    'Maaf',
-                    'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
-                    'warning'
-                )
+                Swal.fire({
+                    title: 'Maaf',
+                    text: 'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
+                    icon: 'warning',
+                    showConfirmButton: false,
+                    timer: 1000,
+                })
                 return;
             }
             if ($('#duedate_perbaikan').val() == '' || $('#duedate_perbaikan').val() == undefined)
             {
-                Swal.fire(
-                    'Maaf',
-                    'Tanggal Due Date Harus Diisi',
-                    'warning'
-                )
+                Swal.fire({
+                    title: 'Maaf',
+                    text:'Tanggal Due Date Harus Diisi',
+                    icon: 'warning',
+                    showConfirmButton: false,
+                    timer: 1000,
+                })
+
                 return;
             }
         }
@@ -1723,23 +1756,28 @@
             var datepencegahan = new Date($('#duedate_pencegahan').val());
             if (date.getTime() > datepencegahan.getTime())
             {
-                Swal.fire(
-                    'Maaf',
-                    'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
-                    'warning'
-                )
+
+                Swal.fire({
+                    title: 'Maaf',
+                    text: 'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
+                    icon: 'warning',
+                    showConfirmButton: false,
+                    timer: 1000,
+                })
                 return;
             }
             if ($('#duedate_pencegahan').val() == '' || $('#duedate_pencegahan').val() == undefined) {
-                Swal.fire(
-                    'Maaf',
-                    'Tanggal Due Date Harus Diisi',
-                    'warning'
-                )
+                Swal.fire({
+                    title: 'Maaf',
+                    text: 'Tanggal Due Date Harus Diisi',
+                    icon: 'warning',
+                    showConfirmButton: false,
+                    timer: 1000,
+                })
                 return;
             }
         }
-
+        console.log(dto);
         if (valid) {
             $.ajax({
                 url: 'AddTindakan',
@@ -1751,11 +1789,13 @@
                 success: function (data) {
                     var status = JSON.parse(data);
                     if (status[0].Status_Inserted != 'Tindakan Perbaikan' || status[0].Status_Inserted != 'Tindakan Pencegahan') {
-                        Swal.fire(
-                            'Success',
-                            status[0].Status_Inserted + ' berhasil di-input.',
-                            'success'
-                        ).then((result) => {
+                        Swal.fire({
+                            title: 'Success',
+                            text: status[0].Status_Inserted + ' berhasil di-input.',
+                            icon: "Success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        }).then((result) => {
                             if (result.value) {
                                 RemoveInputField(kategori);
                             }
@@ -1773,11 +1813,13 @@
                 }
             });
         } else {
-            Swal.fire(
-                'Maaf',
-                'Input tidak boleh kosong.',
-                'warning'
-            )
+            Swal.fire({
+                title: 'Maaf',
+                text: 'Input tidak boleh kosong.',
+                icon: 'warning',
+                showConfirmButton: false,
+                timer: 1000,
+            })
         }
     }
 
@@ -1798,7 +1840,8 @@
     function KajianDDLPerbaikanBaru() {
         var dictlist = {
             Kategori: "Cari Perbaikan Baru",
-            nomorCAPA: noCAPA
+            nomorCAPA: noCAPA,
+            nik: nik
         }
         var dto = {
             Model: dictlist
@@ -1828,7 +1871,8 @@
     function KajianDDLPencegahanBaru(result) {
         var dictlist = {
             Kategori: "Cari Pencegahan Baru",
-            nomorCAPA: noCAPA
+            nomorCAPA: noCAPA,
+            nik: nik
         }
         var dto = {
             Model: dictlist
@@ -1920,6 +1964,24 @@
                 'warning'
             )
             return;
+        }
+        if ($('#txtTindakanPencegahan').val().trim() == '') {
+            return Swal.fire({
+                title: "Error!",
+                text: "Tindakan Pencegahan tidak boleh kosong !",
+                icon: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
+        }
+        if ($('#dueDatePencegahan').val() == '') {
+            return Swal.fire({
+                title: "Error!",
+                text: "Due Date Harus di isi!",
+                icon: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
         }
         var dictionarylist = {
             kategori:"Penambahan Pencegahan",

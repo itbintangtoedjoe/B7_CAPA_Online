@@ -149,8 +149,8 @@
 
                             <div class="row form-group">
                                 @*<div class="col-sm-2">
-                                    <button type="button" class="btn btn-primary">Tambah Tindakan Pencegahan</button>
-                                </div>*@
+                                        <button type="button" class="btn btn-primary">Tambah Tindakan Pencegahan</button>
+                                    </div>*@
                             </div>
                             <hr />
                             <div class="row form-group">
@@ -338,7 +338,7 @@
             getRootCausePencegahan();
         }
         $('#RootCause_KajianResikoDDL').attr("disabled", true);
-       
+
         $('#UpdatePerbaikan').click(function () {
 
             UpdatePerbaikan();
@@ -366,11 +366,13 @@
         $('#btn_KajianResiko').click(function () {
             //recTindakan(0);
             if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
-                Swal.fire(
-                    'Maaf',
-                    'Risk Level masih tinggi.',
-                    'warning'
-                )
+                Swal.fire({
+                    title: 'Maaf',
+                    text: 'Risk Level masih tinggi.',
+                    icon: "warning",
+                    showConfirmButton: false,
+                    timer: 1000,
+                })
             } else {
                 var pic = "";
                 if ($('#Severity_DDL').val() == 10 || $('#TxtRiskLevel').val() == 'High' || $('#TxtRiskLevel').val() == 'Very High') {
@@ -456,19 +458,34 @@
                     } else {
                         if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
                             valid = false;
-                            return Swal.fire(
-                                'Maaf',
-                                'Risk Level masih tinggi.',
-                                'warning'
-                            )
+                            return
+                            Swal.fire({
+                                title: 'Maaf',
+                                text: 'Risk Level masih tinggi.',
+                                icon: "warning",
+                                showConfirmButton: false,
+                                timer: 1000,
+                            })
                         }
                         if ($('#Severity2_DDL').val() == '10') {
                             valid = false;
-                            return Swal.fire(
-                                'Maaf',
-                                'Severity masih tinggi.',
-                                'warning'
-                            )
+                            return Swal.fire({
+                                title: 'Maaf',
+                                text: 'Severity masih tinggi.',
+                                icon: "warning",
+                                showConfirmButton: false,
+                                timer: 1000,
+                            })
+                        }
+                        if ($('#Target_DDL').val() == "Low" && $('#TxtRiskLevel2').val() == 'Medium') {
+                            valid = false;
+                            return Swal.fire({
+                                title: 'Maaf',
+                                text: 'Risk Level masih tinggi.',
+                                icon: "warning",
+                                showConfirmButton: false,
+                                timer: 1000,
+                            })
                         }
                     }
                     i++;
@@ -479,30 +496,37 @@
                     if (key === "M_PKegagalan" || key === "P_MPenyebab" || key == "P_MDPKegagalan") {
                         if (dto.Model.Severity == 10 || dto.Model.RiskLevel == "High" || dto.Model.RiskLevel == "Very High") {
                             if (dto.Model.M_PKegagalan == "" && dto.Model.P_MPenyebab == "" && dto.Model.P_MDPKegagalan == "") {
-                                Swal.fire(
-                                    'Maaf',
-                                    'Input field "Menghilangkan Potensi Kegagalan / Penyimpangan" atau "Perbaikan untuk mengatasi Penyebab Potensial" atau "Perbaikan untuk meningkatkan deteksi potensi kegagalan" wajib diisi salah satu.',
-                                    'warning'
-                                )
+
+                                Swal.fire({
+                                    title: "Maaf!",
+                                    text: 'Input field "Menghilangkan Potensi Kegagalan / Penyimpangan" atau "Perbaikan untuk mengatasi Penyebab Potensial" atau "Perbaikan untuk meningkatkan deteksi potensi kegagalan" wajib diisi salah satu.',
+                                    icon: "warning",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                })
                                 valid = false;
                                 return false;
                             }
 
                             else if (dto.Model.DueDate == "") {
-                                Swal.fire(
-                                    'Maaf',
-                                    'Mohon untuk mengisi DueDate PIC Treatment.',
-                                    'warning'
-                                )
+                                Swal.fire({
+                                    title: "Maaf!",
+                                    text: 'Mohon untuk mengisi DueDate PIC Treatment.',
+                                    icon: "warning",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                })
                                 valid = false;
                                 return false;
                             }
                             else if (date.getTime() > datekajian.getTime()) {
-                                Swal.fire(
-                                    'Maaf',
-                                    'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
-                                    'warning'
-                                )
+                                Swal.fire({
+                                    title: "Maaf!",
+                                    text: 'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
+                                    icon: "warning",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                })
                                 valid = false;
                                 return false;
                             }
@@ -520,11 +544,13 @@
                                 } else {
                                     label = 'Input field "' + $("label[for='" + elementID[Object.keys(dto.Model)[count]].substring(1) + "']").text() + '" Mohon di isi.';
                                 }
-                                Swal.fire(
-                                    'Maaf',
-                                    label,
-                                    'warning'
-                                )
+                                Swal.fire({
+                                    title: "Maaf!",
+                                    text: label,
+                                    icon: "warning",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                })
                                 valid = false;
                                 return false;
                             }
@@ -545,11 +571,13 @@
                         contentType: 'application/json; charset=utf-8',
                         success: function (data) {
                             if (data != null) {
-                                Swal.fire(
-                                    'Success',
-                                    'Data berhasil di-input.',
-                                    'success'
-                                ).then(function (result) {
+                                Swal.fire({
+                                    title: 'Success',
+                                    text:'Data berhasil di-input.',
+                                    icon: "success",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                }).then(function (result) {
                                     if (result.value) {
                                         //close modal
                                         RemoveModalInput();
@@ -715,37 +743,60 @@
     }
 
     function DeleteKajianResiko(button) {
-        var rows = $(button).closest('tr');
-        var data = $('#Tbl_KajianResiko').DataTable().row(rows).data();
-        var id = data['RecordID'];
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Delete!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                var rows = $(button).closest('tr');
+                var data = $('#Tbl_KajianResiko').DataTable().row(rows).data();
+                var id = data['RecordID'];
+                //console.log(data);
+                //console.log({
+                //    Model: {
+                //        Option: data.Option,
+                //        NO_CAPA: data.NoCAPA_FK,
+                //        LineNumber: data.LineNumber,
+                //        RecordID: data.RecordID
+                //    }
+                //});
 
-        //console.log(data);
-        //console.log({
-        //    Model: {
-        //        Option: data.Option,
-        //        NO_CAPA: data.NoCAPA_FK,
-        //        LineNumber: data.LineNumber,
-        //        RecordID: data.RecordID
-        //    }
-        //});
+                $.ajax({
+                    url: 'DynamicController?spname=[dbo].[SP_FORM_Perubahan]',
+                    type: 'post',
+                    dataType: 'json',
+                    data: JSON.stringify({
+                        Model: {
+                            Option: 27,
+                            RecordID: id
+                        }
+                    }),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: 'Kajian Berhasil Di Hapus!',
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
+                        TableKajian();
+                        return true;
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                });
 
-        $.ajax({
-            url: 'DynamicController?spname=[dbo].[SP_FORM_Perubahan]',
-            type: 'post',
-            dataType: 'json',
-            data: JSON.stringify({
-                Option: 27,
-                RecordID: id
-            }),
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                TableKajian();
-                return true;
-            },
-            error: function (ex) {
-                alert(JSON.stringify(ex));
+
             }
-        });
+        })
     }
 
      function getRootCausePerbaikan() {
@@ -779,14 +830,31 @@
                     }
                     $('#AlasanTindakanPerbaikan').val(dataPerbaikan.Alasan_Tindakan_Perbaikan);
                     $('#AlasanDueDate').val(dataPerbaikan.Alasan_Due_Date);
-                    if ((duedaterev != undefined || $('#txtTindakanPerbaikanRev').val() != "")) {
+
+                    if ($('#txtTindakanPerbaikanRev').val().trim() != '') {
                         $('#btn_AddKajian').attr("disabled", false);
                         $('#RootCause_KajianResikoDDL').append(new Option(dataPerbaikan.Tindakan_PerbaikanRev, dataPerbaikan.Tindakan_PerbaikanRev));
                         $('#RootCause_KajianResikoDDL').val(dataPerbaikan.Tindakan_PerbaikanRev);
+
+                        $('#txtTindakanPerbaikanRev').attr("disabled", true);
+                        $('#AlasanTindakanPerbaikan').attr("disabled", true);
+                        $('#UpdatePerbaikan').attr("disabled", true);
+                        $('#AlasanDueDate').attr("disabled", true);
+                        $('#dueDatePerbaikanRev').attr("disabled", true);
+                        $('#txtTindakanPerbaikanRev').attr("disabled", true);
                     }
                     else
                     {
-                        $('#btn_AddKajian').attr("disabled", true);
+                        $('#RootCause_KajianResikoDDL').append(new Option(dataPerbaikan.Tindakan_Perbaikan, dataPerbaikan.Tindakan_Perbaikan));
+                        $('#RootCause_KajianResikoDDL').val(dataPerbaikan.Tindakan_Perbaikan);
+
+                        $('#txtTindakanPerbaikanRev').attr("disabled", true);
+                        $('#AlasanTindakanPerbaikan').attr("disabled", true);
+                        $('#UpdatePerbaikan').attr("disabled", true);
+                        $('#AlasanDueDate').attr("disabled", true);
+                        $('#dueDatePerbaikanRev').attr("disabled", true);
+                        $('#txtTindakanPerbaikanRev').attr("disabled", true);
+                        $('#btn_AddKajian').attr("disabled", false);
                     }
                     if (dataPerbaikan.Status_ID != 6)
                     {
@@ -839,13 +907,29 @@
                 }
                 $('#AlasanTindakanPencegahan').val(dataPencegahan.Alasan_Tindakan_Pencegahan);
                 $('#AlasanDueDatePencegahan').val(dataPencegahan.Alasan_Due_Date);
-                if ((duedaterev != undefined || $('#txtTindakanPencegahanRev').val() != "")) {
+                if ((duedaterev != undefined || $('#txtTindakanPencegahanRev').val() != null)) {
                     $('#btn_AddKajian').attr("disabled", false);
                     $('#RootCause_KajianResikoDDL').append(new Option(dataPencegahan.Tindakan_PencegahanRev, dataPencegahan.Tindakan_PencegahanRev));
                     $('#RootCause_KajianResikoDDL').val(dataPencegahan.Tindakan_PencegahanRev);
 
+                    $('#txtTindakanPencegahanRev').attr("disabled", true);
+                    $('#AlasanTindakanPencegahan').attr("disabled", true);
+                    $('#UpdatePencegahan').attr("disabled", true);
+                    $('#AlasanDueDatePencegahan').attr("disabled", true);
+                    $('#dueDatePencegahanRev').attr("disabled", true);
+                    $('#txtTindakanPencegahanRev').attr("disabled", true);
+
                 }
                 else {
+                    $('#RootCause_KajianResikoDDL').append(new Option(dataPencegahan.Tindakan_Pencegahan, dataPencegahan.Tindakan_Pencegahan));
+                    $('#RootCause_KajianResikoDDL').val(dataPencegahan.Tindakan_Pencegahan);
+
+                    $('#txtTindakanPencegahanRev').attr("disabled", true);
+                    $('#AlasanTindakanPencegahan').attr("disabled", true);
+                    $('#UpdatePencegahan').attr("disabled", true);
+                    $('#AlasanDueDatePencegahan').attr("disabled", true);
+                    $('#dueDatePencegahanRev').attr("disabled", true);
+                    $('#txtTindakanPencegahanRev').attr("disabled", true);
                     $('#btn_AddKajian').attr("disabled", true);
                 }
                 if (dataPencegahan.Status_ID != 6) {
@@ -902,11 +986,13 @@
             })
         }
         else if (dateperbaikan != "" && (date.getTime() > dateperbaikan.getTime())) {
-            Swal.fire(
-                'Maaf',
-                'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
-                'warning'
-            )
+            Swal.fire({
+                title: 'Maaf',
+                text: 'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
+                icon: "warning",
+                showConfirmButton: false,
+                timer: 1000,
+            })
         }
         else {
             $.ajax({
@@ -917,11 +1003,13 @@
                 data: JSON.stringify(dto),
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
-                    Swal.fire(
-                        'Berhasil',
-                        'Update berhasil di submit',
-                        'success'
-                    )
+                    Swal.fire({
+                        title: 'Success',
+                        text: 'Update Berhasil',
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    })
                     $('#txtTindakanPerbaikanRev').attr("disabled", true);
                     $('#AlasanTindakanPerbaikan').attr("disabled", true);
                     $('#UpdatePerbaikan').attr("disabled", true);
@@ -977,11 +1065,13 @@
             return;
         }
         if (datepencegahan != "" && (date.getTime() > datepencegahan.getTime())) {
-            Swal.fire(
-                'Maaf',
-                'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
-                'warning'
-            )
+            Swal.fire({
+                title: 'Maaf',
+                text: 'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
+                icon: "warning",
+                showConfirmButton: false,
+                timer: 1000,
+            })
             return;
         }
         $.ajax({
@@ -992,12 +1082,13 @@
             data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-                Swal.fire(
-                    'Success',
-                    'Update Berhasil',
-                    'success'
-                )
-
+                Swal.fire({
+                    title: 'Success',
+                    text: 'Update Berhasil',
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 1000,
+                })
                 $('#txtTindakanPencegahanRev').attr("disabled", true);
                 $('#AlasanTindakanPencegahan').attr("disabled", true);
                 $('#UpdatePencegahan').attr("disabled", true);
@@ -1038,18 +1129,22 @@
                     var result = JSON.parse(data);
                     console.log(result[0].Stat);
                     if (result[0].Stat == "Invalid") {
-                        Swal.fire(
-                            'Maaf',
-                            'tindakan harus dikaji terlebih dahulu.',
-                            'warning'
-                        )
+                        Swal.fire({
+                            title: 'Maaf',
+                            text: 'tindakan harus dikaji terlebih dahulu.',
+                            icon: "warning",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                     }
                     else {
-                        Swal.fire(
-                            'Berhasil',
-                            'Perubahan berhasil di submit',
-                            'success'
-                        )
+                        Swal.fire({
+                            title: 'Berhasil',
+                            text: 'Perubahan berhasil di submit',
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                         $.ajax({
                             url: 'SubmitApproval',
                             type: 'post',
@@ -1109,18 +1204,23 @@
                 success: function (data) {
                     var result = JSON.parse(data);
                     if (result[0].Stat == "Invalid") {
-                        Swal.fire(
-                            'Maaf',
-                            'tindakan harus dikaji terlebih dahulu.',
-                            'warning'
-                        )
+                        Swal.fire({
+                            title: 'Maaf',
+                            text: 'tindakan harus dikaji terlebih dahulu.',
+                            icon: "warning",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
+
                     }
                     else {
-                        Swal.fire(
-                            'Berhasil',
-                            'Perubahan berhasil di submit',
-                            'success'
-                        )
+                        Swal.fire({
+                            title: 'Berhasil',
+                            text: 'Perubahan berhasil di submit',
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                         $.ajax({
                             url: 'SubmitApproval',
                             type: 'post',
