@@ -4,32 +4,44 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="content-body">
-    <input id="nocapa" name="nocapa" class="form-control" type="text" value="@ViewBag.NoCAPA" hidden />
-    <iframe id="ifrmReportViewer" style="height:3500px; width:100%;" frameborder="0" scrolling="no"></iframe>
+    <div class="form-group">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <input id="nocapa" name="nocapa" class="form-control" type="text" value="@ViewBag.NoCAPA" hidden />
+                            <iframe id="ifrmReportViewer" style="height:3500px; width:100%;" frameborder="0" scrolling="no"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-    <script>
-        $(document).ready(function () {
-            var nocapa = $("#nocapa").val();
-/*            alert(nocapa);*/
-            ReportValidationCheck(nocapa);
-        });
-        function ReportValidationCheck(nocapa) {
+        <script>
+            $(document).ready(function () {
+                var nocapa = $("#nocapa").val();
+                /*            alert(nocapa);*/
+                ReportValidationCheck(nocapa);
+            });
+            function ReportValidationCheck(nocapa) {
 
-            url = "../Report/WebFormCAPA.aspx?NoCAPA=" + nocapa;
+                url = "../Report/WebFormCAPA.aspx?NoCAPA=" + nocapa;
 
-            var myframe = document.getElementById("ifrmReportViewer");
-            if (myframe !== null) {
-                if (myframe.src) {
-                    myframe.src = url;
+                var myframe = document.getElementById("ifrmReportViewer");
+                if (myframe !== null) {
+                    if (myframe.src) {
+                        myframe.src = url;
+                    }
+                    else if (myframe.contentWindow !== null && myframe.contentWindow.location !== null) {
+                        myframe.contentWindow.location = url;
+                    }
+                    else {
+                        myframe.setAttribute('src', url);
+                    }
                 }
-                else if (myframe.contentWindow !== null && myframe.contentWindow.location !== null) {
-                    myframe.contentWindow.location = url;
-                }
-                else {
-                    myframe.setAttribute('src', url);
-                }
+                return false;
             }
-            return false;
-        }
-    </script>
+        </script>
 
