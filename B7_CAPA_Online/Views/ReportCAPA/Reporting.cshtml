@@ -124,8 +124,7 @@
             Bulan: $('#Bulan').val(),
             Lokasi: $('#Lokasi').val(),
             Departemen: $('#Departemen').val(),
-            Kategori: $('#Kategori').val(),
-            Option: "Filter Leadtime",
+            Kategori: $('#Kategori').val()
         }
 
         var dto1 = {
@@ -209,8 +208,19 @@
                 var result = JSON.parse(data);
                 $('#Departemen').empty();
 
+                
+                var all = "";
+                for (var i = 0; i < result.length; i++) {
+                    if (i == 0) {
+                        all += result[i].Org_Group_Name;
+                    }
+                    else {
+                        all += ',' + result[i].Org_Group_Name;
+                    }
+                }
                 $('#Departemen').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
 
+                $('#Departemen').append(new Option("All", all));
                 for (var i = 0; i < result.length; i++) {
                     $('#Departemen').append(new Option(result[i].Org_Group_Name, result[i].Org_Group_Name));
                 }
@@ -267,6 +277,7 @@
     function getTahun() {
         var date = new Date();
         $('#Tahun').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+      
         for (var i = 2021; i <= date.getFullYear(); i++) {
 
             $('#Tahun').append(new Option(i, i));
@@ -277,7 +288,9 @@
     function getBulan() {
         var date = new Date();
         var bulan = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
         $('#Bulan').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+      
         for (var i = 0; i < 12; i++) {
 
             $('#Bulan').append(new Option(bulan[i], i + 1));
@@ -306,6 +319,16 @@
                 $('#Kategori').empty();
 
                 $('#Kategori').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+                var all = "";
+                for (var i = 0; i < result.length; i++) {
+                    if (i == 0) {
+                        all += result[i].DDL_DESCRIPTION;
+                    }
+                    else {
+                        all += ',' + result[i].DDL_DESCRIPTION;
+                    }
+                }
+                $('#Kategori').append(new Option("All", all));
                 for (var i = 0; i < result.length; i++) {
                     $('#Kategori').append(new Option(result[i].DDL_DESCRIPTION, result[i].DDL_DESCRIPTION));
                 }

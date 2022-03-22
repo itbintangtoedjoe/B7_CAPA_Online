@@ -179,7 +179,7 @@
                                     return '<button class="btn btn-primary" onclick="ViewCAPA(this)"id="Filter">View</button>'
                                 }
                                 else {
-                                    return '<button class="btn btn-primary" onclick="ViewCAPA(this)"id="Filter" disabled>View</button>'
+                                    return '<button class="btn btn-primary" onclick="ViewCAPA(this)"id="Filter">View</button>'  
                                 }
                             }
                         }
@@ -260,9 +260,18 @@
 
                 var result = JSON.parse(data);
                 $('#Departemen').empty();
-
+                var all = "";
+                for (var i = 0; i < result.length; i++) {
+                    if (i == 0) {
+                        all += result[i].Org_Group_Name;
+                    }
+                    else {
+                        all += ',' + result[i].Org_Group_Name;
+                    }
+                }
                 $('#Departemen').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
 
+                $('#Departemen').append(new Option("All", all));
                 for (var i = 0; i < result.length; i++) {
                     $('#Departemen').append(new Option(result[i].Org_Group_Name, result[i].Org_Group_Name));
                 }
@@ -356,7 +365,9 @@
 
     function getTahun() {
         var date = new Date();
+     
         $('#Tahun').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+       
         for (var i = 2021; i <= date.getFullYear(); i++) {
 
             $('#Tahun').append(new Option(i, i));
