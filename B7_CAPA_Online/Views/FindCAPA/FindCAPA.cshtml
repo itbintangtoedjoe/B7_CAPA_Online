@@ -367,7 +367,16 @@
         var date = new Date();
      
         $('#Tahun').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
-       
+        var all = "";
+        for (var i = 2021; i <= date.getFullYear(); i++) {
+            if (i == 2021) {
+                all += '' + i + '';
+            }
+            else {
+                all += ',' + '' + i + '';
+            }
+        }
+        $('#Tahun').append(new Option("All", all));
         for (var i = 2021; i <= date.getFullYear(); i++) {
 
             $('#Tahun').append(new Option(i, i));

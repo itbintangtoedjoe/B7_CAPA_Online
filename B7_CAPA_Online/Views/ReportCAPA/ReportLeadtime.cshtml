@@ -329,6 +329,16 @@
     function getTahun() {
         var date = new Date();
         $('#Tahun').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+        //var all = "";
+        //for (var i = 2021; i <= date.getFullYear(); i++) {
+        //    if (i == 2021) {
+        //        all += '' + i + '';
+        //    }
+        //    else {
+        //        all += ',' + '' + i + '';
+        //    }
+        //}
+        //$('#Tahun').append(new Option("All", all));
         for (var i = 2021; i <= date.getFullYear(); i++) {
 
             $('#Tahun').append(new Option(i, i));
@@ -341,6 +351,16 @@
         var bulan = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       
         $('#Bulan').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
+        //var all = "";
+        //for (var i = 1; i <= 12; i++) {
+        //    if (i == 1) {
+        //        all += '' + i + '';
+        //    }
+        //    else {
+        //        all += ',' + '' + i + '';
+        //    }
+        //}
+        //$('#Bulan').append(new Option("All", all));
         for (var i = 0; i < 12; i++) {
 
             $('#Bulan').append(new Option(bulan[i], i + 1));
