@@ -3023,8 +3023,7 @@
                         delete dto.Model[property];
                     }
                 } else {
-                    if ($('#Severity2_DDL').val() == '10')
-                    {
+                    if ($('#Severity2_DDL').val() == '10') {
                         valid = false;
                         return Swal.fire(
                             'Maaf',
@@ -3039,6 +3038,15 @@
                             'Risk Level masih tinggi.',
                             'warning'
                         )
+                    }
+                    else if ($('#Target_DDL').val() == 'Low') {
+                        if ($('#TxtRiskLevel2').val() != 'Low') {
+                            return Swal.fire(
+                                'Maaf',
+                                'Risk Level masih diatas target yang ditentukan.',
+                                'warning'
+                            )
+                        }
                     }
                 }
                 i++;
@@ -3130,8 +3138,8 @@
 
         $("#btn_Submit").click(function () {
             //window.location.replace('/PendingTask/TaskList');
-            $.blockUI();
-            var isValid = $.ajax({
+            $.blockUI();           
+            var mData = $.ajax({
                 url: 'SubmitToAtasanPIC',
                 type: 'post',
                 dataType: 'json',
@@ -3153,9 +3161,9 @@
                 //}
             });
 
-            isValid = (JSON.parse(JSON.parse(isValid.responseText)))[0].IS_VALID;
-
-            //console.log(isValid)
+            var isValid = (JSON.parse(JSON.parse(mData.responseText)))[0].IS_VALID;
+            var Message = (JSON.parse(JSON.parse(mData.responseText)))[0].Message;
+            console.log(JSON.parse(mData.responseText))
             if (isValid) {
                 $.ajax({
                     url: 'SubmitToAtasanPIC',
@@ -3203,7 +3211,7 @@
                 $.unblockUI();
                 Swal.fire({
                     title: 'WARNING',
-                    text: 'Masih ada Rootcause atau Kajian Resiko yang belum dikaji.',
+                    text: Message,
                     type: 'warning',
                     timer: 2000,
                     showConfirmButton: false
