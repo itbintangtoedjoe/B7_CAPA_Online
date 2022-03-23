@@ -711,12 +711,12 @@
         ToggleBtnDeleteAttPencegahan("Disable");
         $('#btnActionPerbaikan').prop("disabled", true);
         $('#btnActionPencegahan').prop("disabled", true);
+        $('#UploadPerbaikan').attr("disabled", true);
+        $('#UploadPencegahan').attr("disabled", true);
         $('#txtTindakanPerbaikanRev').attr("disabled", true);
         $('#txtTindakanPencegahanRev').attr("disabled", true);
         $('#dueDatePerbaikanRev').attr("disabled", true);
         $('#dueDatePencegahanRev').attr("disabled", true);
-        $('#UploadPerbaikan').attr("disabled", true);
-        $('#UploadPencegahan').attr("disabled", true);
     }
     function checkCAPA() {
         if (checkPerbaikan < 1 && checkPencegahan < 1 && checkTreatment < 1)
@@ -1354,7 +1354,10 @@
                     showConfirmButton: false,
                     timer: 1000,
                 }).then(() => {
-                    ReloadPage();
+                    ResetPage();
+                    ToggleBtnDeleteAttPerbaikan("Disable");
+                    FindPerbaikan();
+                    PopulateDDLPerbaikan();
                 })
                 $('#ddlPerbaikan').attr("disabled", false);
             },
@@ -1749,7 +1752,10 @@
                     showConfirmButton: false,
                     timer: 1000,
                 }).then(() => {
-                    ReloadPage();
+                    ResetPagePencegahan();
+                    ToggleBtnDeleteAttPencegahan("Disable");
+                    FindPencegahan();
+                    PopulateDDLPencegahan();
                 })
 
                 $('#ddlPencegahan').attr("disabled", false);
@@ -1923,8 +1929,9 @@
         $('#txtPenyebabPotensiHasil').val(objKajian[0].P_MPenyebab_Hasil);
         $('#txtMDPKegagalanHasil').val(objKajian[0].P_MDPKegagalan_Hasil);
         $('#txtRejectTreatment').val(objKajian[0].Alasan_Reject);
-        if ($('#txtRejectTreatment').val().trim() != "" || $('#txtRejectTreatment').val() != null) {
-            $('#RowRejectTreatment').prop("hidden", false);
+
+        if ($('#txtRejectTreatment').val().trim() == '' || $('#txtRejectTreatment').val() == null) {
+            $('#RowRejectTreatment').prop("hidden", true);
         }
         else {
 
@@ -1969,13 +1976,26 @@
                 var temp = ""+ attachmentKajian[i].RecordID +" ',' "+ attachmentKajian[i].FILE_PATH+"',3";
                 console.log(attachmentKajian[i].FILE_PATH);
                 trhtml += '<tr><td><a href="' + attachmentKajian[i].FILE_PATH + '" style="color:blue;text-decoration:underline">' + attachmentKajian[i].FILE_NAME + '</a></td>' +
-                    '<td> <button class="btn-dark input-group-text center" type="button" onclick="DeleteAttachment(\'' + attachmentKajian[i].RecordID + '\',\'' + attachmentKajian[i].FILE_PATH + '\',\'' + kategori +'\')" id="btnDeletePerbaikan' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
+                    '<td> <button class="btn-dark input-group-text center" type="button" onclick="DeleteAttachment(\'' + attachmentKajian[i].RecordID + '\',\'' + attachmentKajian[i].FILE_PATH + '\',\'' + kategori +'\')" id="btnDeleteTreatment' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
             }
         } else {
             trhtml += '<tr><td>Belum ada file terpilih</td></tr>';
         }
         $("#tbodyAttachmentTreatment").empty();
         $("#tblAttachmentTreatment").append(trhtml);
+    }
+    function ToggleBtnDeleteAttTreatment(action) {
+        if (attachmentPerbaikan != undefined) {
+            var fileCount = attachmentPerbaikan.length;
+            for (i = 0; i < fileCount; i++) {
+                if (action == 'Disable') {
+                    $('#btnDeleteTreatment' + i).prop("disabled", true);
+                } else {
+                    $('#btnDeleteTreatment' + i).prop("disabled", false);
+                }
+            }
+        }
+
     }
     function GetTreatmentAttachments() {
         var idKajian = $('#ddlKajianTreatment').val();
@@ -2163,12 +2183,12 @@
                     $('#txtPotensiKegagalanHasil').attr('disabled', true);
                     $('#txtPenyebabPotensiHasil').attr('disabled', true);
                     $('#txtMDPKegagalanHasil').attr('disabled', true);
-                    ReloadPage();
                 })
                 FindKajian();
+                ToggleBtnDeleteAttTreatment("Disable");
                 $('#txtPotensiKegagalanHasil').val("");
                 $('#txtPenyebabPotensiHasil').val("");
-                $('#txtMDPKegagalanHasil').val("");
+                $('#txtMDPKegagalanHasil').val(""); 
                 $('#UploadTreatment').prop("disabled", true);
             },
             error: function (errormessage) {
@@ -2350,6 +2370,10 @@
         $('#btnSimpanPerbaikan').prop("disabled", true);
         $('#txtTindakanPerbaikanRev').prop("disabled", true);
         $('#dueDatePerbaikanRev').prop("disabled", true);
+        $('#btnPilihPerbaikan').text("Pilih");
+        $('#btnPilihPerbaikan').prop("disabled", true);
+        $('#btnActionPerbaikan').prop("disabled", true);
+        $('#UploadPerbaikan').attr("disabled", true);
     }
     function ResetPagePencegahan()
     {
@@ -2358,6 +2382,10 @@
         $('#txtHasilPencegahan').prop("disabled", true);
         $('#uploadAttachmentPencegahan').prop("disabled", true);
         $('#btnSimpanPencegahan').prop("disabled", true);
+        $('#btnPilihPencegahan').text("Pilih");
+        $('#btnPilihPencegahan').prop("disabled", true);
+        $('#UploadPencegahan').attr("disabled", true);
+        $('#btnActionPencegahan').prop("disabled", true);
     }
 
     @*$('#btnAddAttPerbaikan').click(function () {
