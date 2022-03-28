@@ -2505,6 +2505,7 @@
             if (dept == "Others") {
                 $('#Div_VendorNamePerbaikan').prop('hidden', false);
                 $('#VendorPerbaikan_DDL').change(function () {
+                    $('#TxtSuperior' + kategori).val("");
                     getPICKajianResiko(kategori);
                 });
             }
@@ -3162,8 +3163,8 @@
             });
 
             var isValid = (JSON.parse(JSON.parse(mData.responseText)))[0].IS_VALID;
-            var Message = (JSON.parse(JSON.parse(mData.responseText)))[0].Message;
-            console.log(JSON.parse(mData.responseText))
+            var Message = (JSON.parse(JSON.parse(mData.responseText)))[0].Message;     
+            console.log(isValid);
             if (isValid) {
                 $.ajax({
                     url: 'SubmitToAtasanPIC',
