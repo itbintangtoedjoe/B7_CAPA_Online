@@ -314,7 +314,7 @@ namespace B7_CAPA_Online.Controllers
             }
 
             // Method SMTP Email
-            if (list.Count >0)
+            if (list[0].NO_CAPA != null)
             {
                 EmailSender emailSender = new EmailSender();
                 emailSender.SendEmail(new Dictionary<string, object> {
