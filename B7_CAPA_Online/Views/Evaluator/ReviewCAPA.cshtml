@@ -422,7 +422,7 @@
                         },
 
                         {
-                            "data": null,
+                            "data": "Status_ID",
                             "render": function (data, type, row, meta) {
                                 if (data != null) {
 
@@ -434,8 +434,7 @@
                                     //    else
                                     //        return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                     //} else {
-
-                                    if (data != null) {
+                                
                                         //if (isUtama) {
                                         //    if (result[meta.row].Status_ID === false && result[meta.row].StatusDetail === 5)
                                         //        return "<button type='button' id='Pencegahan' class='btn btn-primary approve' style='background-color:green;'>Approve</button><button type='button' id='Pencegahan' class='btn btn-primary reject' style='background-color:red;'>Reject</button>";
@@ -455,32 +454,31 @@
                                         //}
                                         //counts++;
 
-                                        if (isUtama) {                                            
-                                            if (data === true)
-                                                return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
-                                            else if (result[meta.row].StatusDetail === 1)
+                                    if (isUtama) {                                            
+                                        if (data === true)
+                                            return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                                        else if (result[meta.row].StatusDetail === 1)
+                                            return '<img id="imgReject" src="../Content/Images/rejected.png" style="width: 80px"/>';
+                                        else
+                                            return "<button type='button' id='Pencegahan' class='btn btn-primary approve' style='background-color:green;'>Approve</button><button type='button' id='Pencegahan' class='btn btn-primary reject' style='background-color:red;'>Reject</button>";
+                                    } else {
+                                        if (data === false) {
+                                            if (result[meta.row].Status_ID === false && result[meta.row].StatusDetail === 5 && result[meta.row].Rentang != 0) {
+                                                return "<button type='button' id='Pencegahan' class='btn btn-primary approve' style='background-color:green;'>Approve</button><button type='button' id='Pencegahan  ' class='btn btn-primary reject' style='background-color:red;'>Reject</button>";
+                                            }
+                                            else if (result[meta.row].StatusDetail === 1) {
                                                 return '<img id="imgReject" src="../Content/Images/rejected.png" style="width: 80px"/>';
-                                            else
-                                                return "<button type='button' id='Perbaikan' class='btn btn-primary approve' style='background-color:green;'>Approve</button><button type='button' id='Perbaikan' class='btn btn-primary reject' style='background-color:red;'>Reject</button>";
-                                        } else {
-                                            if (data === false) {
-                                                if (result[meta.row].Status_ID === false && result[meta.row].StatusDetail === 5 && result[meta.row].Rentang != 0) {
-                                                    return "<button type='button' id='Perbaikan' class='btn btn-primary approve' style='background-color:green;'>Approve</button><button type='button' id='Perbaikan' class='btn btn-primary reject' style='background-color:red;'>Reject</button>";
-                                                }
-                                                else if (result[meta.row].StatusDetail === 1) {
-                                                    return '<img id="imgReject" src="../Content/Images/rejected.png" style="width: 80px"/>';
-                                                }
-                                                else {
-                                                    return "<td>Waiting Evaluator Utama Input Rentang</td>";
-                                                }
                                             }
-                                            else if (data === true) {
-                                                return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                                            else {
+                                                return "<td>Waiting Evaluator Utama Input Rentang</td>";
                                             }
+                                        }
+                                        else if (data === true) {
+                                            return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                                        }
 
-                                        }                                        
-                                        counts++;
-                                    }
+                                    }                                        
+                                    counts++;                                    
                                 }
                             }
 

@@ -698,6 +698,7 @@
                                             <option>Option 3</option>
                                         </select>
                                         @Html.HiddenFor(m => m.Lokasi)
+                                        @*@Html.HiddenFor(m => m.LokasiDesc)*@
                                     </div>
                                     <div class="col-md-4">
                                         <label class="m-t-20">Area PIC CAPA<span style="color: red">*</span></label>
@@ -1566,11 +1567,11 @@
         //    //$('#LampiranTerkait').val(formData);
         //});
 
-        $("#btn_Submit").click(function () {
-            $.blockUI();
+        $("#btn_Submit").click(function () {           
             var status = validateInput();
             if (status) {
-                return $('#SubmitData').submit();
+                $.blockUI();
+                return $('#SubmitData').submit();              
             }
             //$('#SubmitData').submit();
         });
@@ -1601,9 +1602,7 @@
             DepartemenTerkait: tableContent,
             AreaPIC: $("#AreaPIC_DDL").val(),
             PIC: $("#PIC_DDL").val()
-        }
-
-        $.unblockUI();  
+        }        
 
         for (var key in data) {     
             //console.log(data[key])
@@ -1625,7 +1624,7 @@
                 return false;
                 break;     
             }
-        }
+        }        
         return true;
     }
 
@@ -1746,7 +1745,7 @@
 
     function AddDepartemen() {
         var departemen = $('#Departemen_DDL :selected').text();
-        if (departemen.length > 0) {
+        if (departemen.length > 0 && departemen != "*Pilih*") {
             dto = {
                 Departemen: departemen,
                 SubDeptCode: $('#Departemen_DDL').val()
