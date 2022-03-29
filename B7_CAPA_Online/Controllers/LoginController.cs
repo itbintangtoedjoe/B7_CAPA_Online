@@ -200,11 +200,13 @@ namespace B7_CAPA_Online.Controllers
             return View();
         }
 
-        public string FindKaryawan(string username)
+        public string FindKaryawan(string username,string tipe, string password)
         {
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
             var dictionary = new Dictionary<string, object>{
                 { "username", username },
+                {  "tipe",tipe },
+                { "password", password }
             };
             var parameters = new DynamicParameters(dictionary);
             var result = DAL.StoredProcedure(parameters, "SP_Find_User");
@@ -233,10 +235,9 @@ namespace B7_CAPA_Online.Controllers
                     //get data user karyawan
                     //var dataKaryawan = FindKaryawan(username);
                     JavaScriptSerializer jss = new JavaScriptSerializer();
-                    string dataKaryawan = FindKaryawan(username);
+                    string dataKaryawan = FindKaryawan(username,"", "");
                     var arrayData = JArray.Parse(dataKaryawan);
                     dynamic objectKary = jss.Deserialize<dynamic>(dataKaryawan);
-                    bool data = string.IsNullOrEmpty(dataKaryawan);
 
 
                     if (arrayData.Count >0)
@@ -303,11 +304,11 @@ namespace B7_CAPA_Online.Controllers
                             //get data user karyawan
                             //var dataKaryawan = FindKaryawan(username);
                             JavaScriptSerializer jss = new JavaScriptSerializer();
-                            string dataKaryawan = FindKaryawan(username);
+                            string dataKaryawan = FindKaryawan(username,"", "");
                             var arrayData = JArray.Parse(dataKaryawan);
                             dynamic objectKary = jss.Deserialize<dynamic>(dataKaryawan);
 
-                            if (dataKaryawan != null)
+                            if (arrayData.Count > 0)
                             {
                                 Session["LoginStatus"] = "success";
                                 Session["FullName"] = objectKary[0]["Username"];
@@ -338,37 +339,36 @@ namespace B7_CAPA_Online.Controllers
             //cari apakah vendor exists
             else
             {
-                if (username != "" && password == "B7Portal")
-                {
-                    loginStatus = "success";
-                    Session["Username"] = username;
-                    Session["LoginStatus"] = "success";
-                }
-                else
-                {
-                    //encrypt pw
+                //if (username != "" && password == "B7Portal")
+                //{
+                //    loginStatus = "success";
+                //    Session["Username"] = username;
+                //    Session["LoginStatus"] = "success";
+                //}
+                //else
+                //{
+                    //encrypt pw    
                     string encryptedPassword = EncryptionHelper.Encrypt(password);
-                    string queryString =
-                        "SELECT CASE WHEN EXISTS (SELECT * FROM USER_VENDORS WHERE username= @username AND password= @password) THEN 'true' ELSE 'false' END; ";
-                    using (conn)
+                    JavaScriptSerializer jss = new JavaScriptSerializer();
+                    string dataKaryawan = FindKaryawan(username, "Vendor", encryptedPassword);
+                    var arrayData = JArray.Parse(dataKaryawan);
+                    dynamic objectKary = jss.Deserialize<dynamic>(dataKaryawan);
+
+                    if (arrayData.Count > 0)
                     {
-                        SqlCommand cmd = new SqlCommand(
-                            queryString, conn);
-                        cmd.Parameters.AddWithValue("username", username);
-                        cmd.Parameters.AddWithValue("password", encryptedPassword);
-                        conn.Open();
-                        string result = cmd.ExecuteScalar().ToString();
-                        if (result == "true")
-                        {
-                            loginStatus = "success";
-                            Session["Username"] = username;
-                            Session["LoginStatus"] = "success";
-                        }
-                        else
-                        {
-                            loginStatus = "wrong credentials";
-                            Session["LoginStatus"] = "wrong credentials";
-                        }
+                        loginStatus = "success";
+
+                        Session["LoginStatus"] = "success";
+                        Session["FullName"] = objectKary[0]["user_vendor_name"];
+                        Session["NIK"] = objectKary[0]["userID"];
+                        Session["Username"] = username;
+                     }
+                    else
+                    {
+                        loginStatus = "not found";
+                        Session["LoginStatus"] = "not found";
+                    }
+                   
                         //using (SqlDataReader reader = cmd.ExecuteReader())
                         //{
                         //    while (reader.Read())
@@ -377,8 +377,8 @@ namespace B7_CAPA_Online.Controllers
                         //            reader[0], reader[1]));
                         //    }
                         //}
-                    }
-                }
+                    
+                
 
             }
             return Json(loginStatus);
