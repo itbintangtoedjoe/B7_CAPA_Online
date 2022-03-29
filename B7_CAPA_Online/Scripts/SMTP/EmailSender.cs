@@ -41,19 +41,24 @@ namespace B7_CAPA_Online.Scripts.SMTP
                 var parameters = new DynamicParameters(dic);
                 Email emailData = new Email();
                 string eData = DAL.StoredProcedure(parameters, "[dbo].[SP_EMAIL_SENDER]");
+                var emailCC = GetCCEmail(dic);
                 dynamic emailList = JsonConvert.DeserializeObject<List<Email>>(eData);
                 emailData.EmailSubject = emailList[0].EmailSubject;
                 emailData.EmailBody = emailList[0].EmailBody;
                 SmtpClient mailObj = new SmtpClient("mail.kalbe.co.id");
-                  
+
                 msg.Body = emailData.EmailBody;
                 msg.Subject = emailData.EmailSubject;
                 msg.Priority = MailPriority.High;
                 msg.IsBodyHtml = true;
                 //msg.To.Add("dani.pernando@bintang7.com");             
                 //msg.To.Add("ignatius.kurniawan@bintang7.com");
-                msg.To.Add(obj[0].Email); // looping dynamic sesuai dengan banyaknya email.      
-                mailObj.Send(msg);                               
+                msg.To.Add(obj[0].Email);
+                foreach(var CC in emailCC) // looping cc 
+                {
+                    msg.CC.Add(CC.Email); 
+                }                
+                mailObj.Send(msg);
                 return "success";
             }
             catch (Exception ex)
@@ -71,11 +76,28 @@ namespace B7_CAPA_Online.Scripts.SMTP
 
         public List<Recipients> ParsingJson(string json)
         {
-            var list = new List<Recipients>();            
+            var list = new List<Recipients>();
             var objects = JsonConvert.DeserializeObject(json); // parse as array  
             foreach (var item in ((JArray)objects))
             {
-                list.Add(new Recipients { NO_CAPA = item.Value<string>("NoCAPA"), Email = item.Value<string>("Email")});
+                list.Add(new Recipients { NO_CAPA = item.Value<string>("NoCAPA"), Email = item.Value<string>("Email") });
+            }
+            return list;
+        }
+
+        public List<Recipients> GetCCEmail(Dictionary<string,object> dictionary)
+        {
+            var dic = new Dictionary<string, object>
+            {
+                {"NO_CAPA", dictionary["NO_CAPA"]}                
+            };
+            var list = new List<Recipients>();
+            var param = new DynamicParameters(dic);
+            string data = DAL.StoredProcedure(param, "[dbo].[SP_EMAIL_CC]");
+            var objects = JsonConvert.DeserializeObject(data);
+            foreach (var item in ((JArray)objects))
+            {
+                list.Add(new Recipients {Email = item.Value<string>("Email") });
             }
             return list;
         }
