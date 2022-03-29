@@ -591,23 +591,59 @@ namespace B7_CAPA_Online.Controllers
             var objects = JsonConvert.DeserializeObject(Recipient.ToString()); // parse as array  
             foreach (var item in ((JArray)objects))
             {
-                list.Add(new Recipients { KategoriCAPA = item.Value<string>("KategoriCAPA") });
+                list.Add(new Recipients
+                {
+                    NO_CAPA = item.Value<string>("NoCAPA")
+                    ,
+                    Email = item.Value<string>("Email")
+                    ,
+                    KategoriCAPA = item.Value<string>("KategoriCAPA")
+                    ,
+                    ToEmpName = item.Value<string>("ToEmpName")
+                    ,
+                    TriggerCAPA = item.Value<string>("TriggerCAPA")
+                    ,
+                    Lokasi = item.Value<string>("Lokasi")
+                    ,
+                    StatusCAPA = item.Value<string>("StatusCAPA")
+                    ,
+                    PIC = item.Value<string>("PIC")
+                    ,
+                    DeskripsiMasalah = item.Value<string>("DeskripsiMasalah")
+                    ,
+                    CreateBy = item.Value<string>("Requestor")
+                });
             }
 
             // Method SMTP Email
+            //EmailSender emailSender = new EmailSender();
+            //emailSender.SendEmail(new Dictionary<string, object> {
+            //    {"Nama_Aplikasi", "CAPA" },
+            //    {"Kategori", "PICReminder" },
+            //    {"KategoriCAPA", list[0].KategoriCAPA },
+            //    {"ToEmpName", Model.PIC_CAPA },
+            //    {"Recipient", Recipient},
+            //    {"TriggerCAPA", Model.TriggerCAPA},
+            //    {"Lokasi", Model.Lokasi},
+            //    {"StatusCAPA", "1"},
+            //    {"PIC", Model.PIC_ID},
+            //    {"CreateBy", Session["FullName"].ToString()},
+            //    {"DeskripsiMasalah", Model.Deskripsi }
+            //});
+
             EmailSender emailSender = new EmailSender();
             emailSender.SendEmail(new Dictionary<string, object> {
                 {"Nama_Aplikasi", "CAPA" },
                 {"Kategori", "PICReminder" },
                 {"KategoriCAPA", list[0].KategoriCAPA },
-                {"ToEmpName", Model.PIC_CAPA },
+                {"ToEmpName", list[0].ToEmpName },
                 {"Recipient", Recipient},
-                {"TriggerCAPA", Model.TriggerCAPA},
-                {"Lokasi", Model.Lokasi},
+                {"TriggerCAPA", list[0].TriggerCAPA},
+                {"Lokasi", list[0].Lokasi},
                 {"StatusCAPA", "1"},
-                {"PIC", Model.PIC_ID},
-                {"CreateBy", Session["FullName"].ToString()},
-                {"DeskripsiMasalah", Model.Deskripsi }
+                {"PIC", list[0].PIC},
+                {"CreateBy", list[0].CreateBy},
+                {"DeskripsiMasalah", list[0].DeskripsiMasalah }
             });
 
             return RedirectToAction("TaskList", "PendingTask", new { success = "succeed" });

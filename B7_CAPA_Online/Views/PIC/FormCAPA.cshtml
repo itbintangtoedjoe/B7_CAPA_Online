@@ -1337,7 +1337,7 @@
                 }
                 else {
                     return valid = false;
-                }                  
+                }
             } else {
                 valid = true;
             }
@@ -2389,7 +2389,7 @@
     }
 
     $(document).ready(function () {
-        //isHide = false;        
+        //isHide = false;
         GetAllRoot();
         checkStatusCAPA();
         KajianResikoDDL();
@@ -2521,6 +2521,7 @@
             if (dept == "Others") {
                 $('#Div_VendorNamePencegahan').prop('hidden', false);
                 $('#VendorPencegahan_DDL').change(function () {
+                    $('#TxtSuperior' + kategori).val("");
                     getPICKajianResiko(kategori);
                 });
             }
@@ -2750,7 +2751,7 @@
 
                     //console.log(isDelete)
 
-                    if(isDelete) {
+                    if (isDelete) {
                         Swal.fire({
                             title: 'Success',
                             text: 'Data berhasil di hapus.',
@@ -2837,7 +2838,7 @@
                                 showConfirmButton: false,
                                 timer: 2000,
                                 type: 'warning'
-                            });                           
+                            });
                             return true;
                         },
                         error: function (ex) {
@@ -3140,7 +3141,7 @@
 
         $("#btn_Submit").click(function () {
             //window.location.replace('/PendingTask/TaskList');
-            $.blockUI();           
+            $.blockUI();
             var mData = $.ajax({
                 url: 'SubmitToAtasanPIC',
                 type: 'post',
@@ -3164,7 +3165,7 @@
             });
 
             var isValid = (JSON.parse(JSON.parse(mData.responseText)))[0].IS_VALID;
-            var Message = (JSON.parse(JSON.parse(mData.responseText)))[0].Message;     
+            var Message = (JSON.parse(JSON.parse(mData.responseText)))[0].Message;
             console.log(isValid);
             if (isValid) {
                 $.ajax({
@@ -3199,6 +3200,7 @@
                                 timer: 2000,
                                 showConfirmButton: false
                             }).then(function () {
+                                $.blockUI();
                                 var blob1 = myDiagramManusia.makeImageData({ scale: 1, background: "white", returnType: "blob", callback: myCallbackManusia });
 
                             });
@@ -3231,7 +3233,7 @@
         var dd = String(tomorrow.getDate()).padStart(2, '0');
         var mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
         var yyyy = tomorrow.getFullYear();
-      
+
         tomorrow = yyyy + '-' + mm + '-' + dd;
         $("#duedate_perbaikan, #duedate_pencegahan, #DueDate_Kajian").attr('min', tomorrow);
 
