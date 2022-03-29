@@ -8064,7 +8064,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                   <Width>2.27697cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.09606cm</Width>
+                  <Width>0.41784cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.46078cm</Width>
@@ -8953,18 +8953,46 @@ iif(Fields!StatusTreatment.Value &lt;&gt; 8,"Picture100",""))</Value>
                 </TablixMember>
                 <TablixMember />
                 <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
+                <TablixMember>
+                  <Visibility>
+                    <Hidden>=IIF(Fields!StatusTreatment.Value = 8,True, False)</Hidden>
+                  </Visibility>
+                </TablixMember>
+                <TablixMember>
+                  <Visibility>
+                    <Hidden>=IIF(Fields!StatusTreatment.Value = 8,True, False)</Hidden>
+                  </Visibility>
+                </TablixMember>
+                <TablixMember>
+                  <Visibility>
+                    <Hidden>=IIF(Fields!StatusTreatment.Value = 8,True, False)</Hidden>
+                  </Visibility>
+                </TablixMember>
                 <TablixMember>
                   <Visibility>
                     <Hidden>true</Hidden>
                   </Visibility>
                 </TablixMember>
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
+                <TablixMember>
+                  <Visibility>
+                    <Hidden>=IIF(Fields!StatusTreatment.Value = 8,True, False)</Hidden>
+                  </Visibility>
+                </TablixMember>
+                <TablixMember>
+                  <Visibility>
+                    <Hidden>=IIF(Fields!StatusTreatment.Value = 8,True, False)</Hidden>
+                  </Visibility>
+                </TablixMember>
+                <TablixMember>
+                  <Visibility>
+                    <Hidden>=IIF(Fields!StatusTreatment.Value = 8,True, False)</Hidden>
+                  </Visibility>
+                </TablixMember>
+                <TablixMember>
+                  <Visibility>
+                    <Hidden>=IIF(Fields!StatusTreatment.Value = 8,True, False)</Hidden>
+                  </Visibility>
+                </TablixMember>
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -8978,14 +9006,11 @@ iif(Fields!StatusTreatment.Value &lt;&gt; 8,"Picture100",""))</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSetPelaksanaPerbaikan</DataSetName>
-            <Top>68.76442cm</Top>
-            <Left>0.5089cm</Left>
+            <Top>68.68504cm</Top>
+            <Left>0.50214cm</Left>
             <Height>2.31126cm</Height>
-            <Width>26.28098cm</Width>
+            <Width>26.60276cm</Width>
             <ZIndex>57</ZIndex>
-            <Visibility>
-              <Hidden>=IIF(Fields!StatusTreatment.Value = 8,True, False)</Hidden>
-            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
