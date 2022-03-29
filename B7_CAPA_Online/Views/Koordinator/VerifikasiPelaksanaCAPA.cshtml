@@ -774,8 +774,42 @@
                         }
                 ).then(() => {
                     $('#txtAlasanRejectVerifikasi').val('');
-                    $.unblockUI();
-                    GetAllBukti()
+                    var temp_status = 0;
+                    if (type == 'Perbaikan') {
+
+                        temp_status = 15;
+                    }
+                    else if (type == 'Pencegahan') {
+
+                        temp_status = 16;
+                    }
+                    else {
+
+                        temp_status = 17;
+                    }
+                    $.ajax({
+                        url: 'SubmitApproval',
+                        type: 'post',
+                        data: JSON.stringify({
+                            Model: {
+                                NO_CAPA: noCAPA,
+                                Temp_Status: temp_status,
+                                Tindakan_ID: RecordID,
+                                Tindakan: type
+                            }
+                        }),
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+
+                            $.unblockUI();
+
+                            GetAllBukti();
+                        },
+                        error: function (ex) {
+                            alert(JSON.stringify(ex));
+                        }
+                    });
                 })
             },
             error: function (ex) {

@@ -352,6 +352,7 @@
 
 </div>
 <script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
+<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
 
 <script>
     var nocapa = $('#QS_NoCAPA').val();
@@ -916,6 +917,7 @@
             success: function (data) {
                 var result = JSON.parse(data);
                 console.log(result[0].Stat);
+                $.blockUI();
                 if (result[0].Stat == 'Invalid') {
                     $('#Submit').removeAttr('hidden');
                     $('input[name="File_Radio"]').attr("disabled", false);
@@ -975,6 +977,7 @@
                     {
                         document.getElementById("File_No").checked = true;
                     }
+                    $.unblockUI();
                     checkStat();
                 }
             },
@@ -1360,7 +1363,7 @@
                             showConfirmButton: false,
                             timer: 1000,
                         })
-                       
+
                         $.ajax({
                             url: 'SubmitApproval',
                             type: 'post',
@@ -1378,6 +1381,7 @@
                                 alert(JSON.stringify(ex));
                             }
                         });
+                        $.blockUI();
                         window.location.href = '../PendingTask/TaskList';
                         disableAll();
                     },

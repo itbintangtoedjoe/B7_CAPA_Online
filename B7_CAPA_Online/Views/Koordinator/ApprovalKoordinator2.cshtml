@@ -577,6 +577,8 @@
                         $('#EvalList_DDL').attr('disabled', true);
                         $('#Eva_Plant_DDL').attr('disabled', true);
                         $('#Trigger_CAPA').attr('disabled', true);
+
+                        $.blockUI();
                         $.ajax({
                             url: 'SubmitApproval',
                             type: 'post',
@@ -701,6 +703,8 @@
                                 showConfirmButton: false,
                                 timer: 1000,
                             })
+
+                            $.blockUI();
                             $.ajax({
                                 url: 'SubmitApproval',
                                 type: 'post',
@@ -792,7 +796,8 @@
                                 showConfirmButton: false,
                                 timer: 1000,
                             })
-                          
+
+                            $.blockUI();
                             $.ajax({
                                 url: 'SubmitApproval',
                                 type: 'post',
