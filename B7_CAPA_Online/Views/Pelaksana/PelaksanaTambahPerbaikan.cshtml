@@ -1106,7 +1106,7 @@
             if (tambahperbaikan == "Yes") {
                 if (objTindakan[i].RecordID == $('#RootCause_KajianResikoDDL').val() && objTindakan[i].Tipe == tipe) {
                     values = objTindakan[i];
-                    $('#TxtPICName').val(values.FullName);
+                    $('#TxtPICName').val(values.Nama_Personil);
                     console.log(values);
                     break;
                 }
@@ -1116,7 +1116,7 @@
                 if (objTindakan[i].RecordID == $('#RootCause_KajianResikoDDL').val()  && objTindakan[i].Tipe == "Pencegahan") {
                     values = objTindakan[i];
                     console.log(values);
-                    $('#TxtPICName').val(values.FullName);
+                    $('#TxtPICName').val(values.Nama_Personil);
                     break;
                 }
             }

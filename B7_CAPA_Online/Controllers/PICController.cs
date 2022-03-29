@@ -276,7 +276,7 @@ namespace B7_CAPA_Online.Controllers
         public ActionResult AddKajian(DynamicModel Param)
         {
             DynamicParameters parameters = new DynamicParameters(Param.Model);
-            string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_INSERT_KAJIA N_RESIKO]");
+            string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_INSERT_KAJIAN_RESIKO]");
             return Json(Return);
         }
         public ActionResult SubmitToAtasanPIC(DynamicModel Param)
