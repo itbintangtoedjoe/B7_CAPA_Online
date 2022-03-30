@@ -357,12 +357,14 @@ namespace B7_CAPA_Online.Controllers
                     if (arrayData.Count > 0)
                     {
                         loginStatus = "success";
-
                         Session["LoginStatus"] = "success";
                         Session["FullName"] = objectKary[0]["user_vendor_name"];
+                        Session["NamaUser"] = objectKary[0]["user_vendor_name"];
                         Session["NIK"] = objectKary[0]["userID"];
                         Session["Username"] = username;
-                     }
+                        Session["Departemen"] = "Others";
+                        Session["SuperiorName"] = objectKary[0]["SuperiorName"];
+                    }
                     else
                     {
                         loginStatus = "not found";
