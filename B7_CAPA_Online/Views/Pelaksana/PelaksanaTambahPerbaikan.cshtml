@@ -459,9 +459,8 @@
             }
             console.log(rootPencegahan);
             $.each(obj, function (key, value) {
-                console.log($('#RootCause_DDL').val());
-                console.log(value.WhyDesc);
                 if (value.WhyDesc == $('#RootCause_DDL').val()) {
+
                     dto = {
                         Option: 9,
                         NO_CAPA: noCAPA,
@@ -997,12 +996,10 @@
                                     icon: 'success',
                                     showConfirmButton: false,
                                     timer: 1000,
-                                }).then((result) => {
-                                    if (result.value) {
-                                        GetTindakanPencegahanPV();
-                                        KajianDDLPerbaikanBaru();
-                                    }
                                 });
+
+                                GetTindakanPencegahanPV();
+                                KajianDDLPerbaikanBaru();
                             }
 
                         },
@@ -1716,7 +1713,6 @@
     function addTindakan(dto, kategori) {
         var valid = false;
         $.each(dto, function (key, value) {
-            console.log(value);
             if (value == '' || value == '-' || value == null) {
                 if (value == 0 || typeof value === "undefined")
                     valid = true;
@@ -1779,7 +1775,6 @@
                 return;
             }
         }
-        console.log(dto);
         if (valid) {
             $.ajax({
                 url: 'AddTindakan',
@@ -1794,7 +1789,7 @@
                         Swal.fire({
                             title: 'Success',
                             text: status[0].Status_Inserted + ' berhasil di-input.',
-                            icon: "Success",
+                            icon: "success",
                             showConfirmButton: false,
                             timer: 1000,
                         }).then((result) => {
