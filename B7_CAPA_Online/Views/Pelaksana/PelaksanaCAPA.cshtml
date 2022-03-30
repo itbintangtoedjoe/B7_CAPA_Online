@@ -1184,15 +1184,16 @@
             Model : dto
         }
         $.ajax({
-            url: "FindCAPADetail",
+            url: "DynamicController?spname=[dbo].[SP_Find_Data]",
             type: "POST",
             async: false,
             dataType: "json",
-            data: JSON.stringify(dto),
+            data: JSON.stringify(dto1),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var result = JSON.parse(data);
                 dataPerbaikan = result;
+                console.log(dataPerbaikan);
                 @*let obj = result.filter(item => item.RecordID == idPerbaikan);
                 var dueDate = moment(obj[0].Due_Date);
                 $('#txtTindakanPerbaikan').val(obj[0].Tindakan_Perbaikan);
@@ -1597,12 +1598,15 @@
             NIK: nik,
             Status: "Active"
         }
+        var dto1 = {
+            Model:dto
+        }
         $.ajax({
-            url: "FindCAPADetail",
+            url: "DynamicController?spname=[dbo].[SP_Find_Data] ",
             type: "POST",
             async: false,
             dataType: "json",
-            data: JSON.stringify(dto),
+            data: JSON.stringify(dto1),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var result = JSON.parse(data);
