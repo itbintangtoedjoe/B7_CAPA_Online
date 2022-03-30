@@ -354,13 +354,7 @@
 
         $('#btn_KajianResiko').click(function () {
             //recTindakan(0);
-            if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
-                Swal.fire(
-                    'Maaf',
-                    'Risk Level masih tinggi.',
-                    'warning'
-                )
-            } else {
+            
                 var pic = "";
                 if ($('#Severity_DDL').val() == 10 || $('#TxtRiskLevel').val() == 'High' || $('#TxtRiskLevel').val() == 'Very High') {
                     pic = $('#TxtPIC').val();
@@ -441,7 +435,7 @@
 
                 for (var property in dto.Model) {
                     if (limit == 14 ) {
-                        if (i > 14 && i < 26) {
+                        if (i > 14 && i <= 26) {
                             if (elementID[property] != undefined) {
                                 $(elementID[property]).val("");
                                 if (i == 17 || i == 19 || i == 21) { //ini index array untuk dropdownlist Severity2, Likelihood2, dan Detectability2
@@ -557,7 +551,7 @@
                         }
                     });
                 }
-            }
+            
         });
 
 

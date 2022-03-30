@@ -366,15 +366,7 @@
         });
         $('#btn_KajianResiko').click(function () {
             //recTindakan(0);
-            if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
-                Swal.fire({
-                    title: 'Maaf',
-                    text: 'Risk Level masih tinggi.',
-                    icon: "warning",
-                    showConfirmButton: false,
-                    timer: 1000,
-                })
-            } else {
+            
                 var pic = "";
                 if ($('#Severity_DDL').val() == 10 || $('#TxtRiskLevel').val() == 'High' || $('#TxtRiskLevel').val() == 'Very High') {
                     pic = $('#TxtPIC').val();
@@ -593,7 +585,7 @@
                         }
                     });
                 }
-            }
+            
         });
 
     });

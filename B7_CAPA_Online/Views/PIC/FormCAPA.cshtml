@@ -3015,7 +3015,7 @@
             var i = 0;
             for (var property in dto.Model) {
                 if (limit == 14) {
-                    if (i > 14 && i < 26) {
+                    if (i > 14 && i <= 26) {
                         if (elementID[property] != undefined) {
                             $(elementID[property]).val("");
                             if (i == 17 || i == 19 || i == 21) { //ini index array untuk dropdownlist Severity2, Likelihood2, dan Detectability2

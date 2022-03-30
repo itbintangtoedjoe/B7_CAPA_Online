@@ -129,12 +129,12 @@
                     <div class="card-body">
                         <div class="col-md-12">
                             <label class="m-t-40">Apakah ada proses / area lain yang berpotensi sama ?</label>
-                            <div class="radio input-group">
+                            <div class="radio input-group" id="AreaLainRadio">
                                 <div class="col-sm-3">
-                                    <label><input type="radio" value="Yes" name="Potensi">Ya</label>
+                                    <label><input type="radio" value="Yes" id="AreaYes" name="Potensi">Ya</label>
                                 </div>
                                 <div class="col-sm-3">
-                                    <label><input type="radio" value="No" name="Potensi" checked>Tidak</label>
+                                    <label><input type="radio" value="No"  id="AreaNo" name="Potensi" checked>Tidak</label>
                                 </div>
                             </div>
                         </div>
@@ -383,6 +383,17 @@
             }
             else
             {
+                var tabelpencegahan = $('#Tbl_Pencegahan').DataTable().data().count();
+                if (tabelpencegahan > 0)
+                {
+                    document.getElementById("AreaYes").checked = true;
+                    Swal.fire(
+                        'Maaf',
+                        'Mohon Tindakan Pencegahan yang sudah di-input dihapus terlebih dahulu.',
+                        'warning'
+                    )
+                    return;
+                }
                 $('#Div_TindakanPencegahan').prop('hidden', true);
             }
         });
@@ -491,19 +502,11 @@
         });
         $('#btn_KajianResiko').click(function () {
             //recTindakan(0);
-            if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
-                Swal.fire(
-                    'Maaf',
-                    'Risk Level masih tinggi.',
-                    'warning'
-                )
-            } else {
-
+            
                 var pic = "";
                 if ($('#Severity_DDL').val() == 10 || $('#TxtRiskLevel').val() == 'High' || $('#TxtRiskLevel').val() == 'Very High') {
                     pic = $('#TxtPIC').val();
                 }
-
                 dto = {
                     Model: {
                         RecordID: values.RecordID,
@@ -570,7 +573,7 @@
                 var i = 0;
                 for (var property in dto.Model) {
                     if (limit == 14) {
-                        if (i > 14 && i < 26) {
+                        if (i > 14 && i <=26) {
                             if (elementID[property] != undefined) {
                                 $(elementID[property]).val("");
                                 if (i == 17 || i == 19 || i == 21) { //ini index array untuk dropdownlist Severity2, Likelihood2, dan Detectability2
@@ -706,7 +709,7 @@
                         }
                     });
                 }
-            }
+            
         });
 
     });
@@ -742,7 +745,7 @@
                         { "data": "WhyParentID" },
                         { "data": "WhyDesc" },
                         { "data": "Tindakan_Perbaikan" },
-                        { "data": "Nama_Personil" },
+                        { "data": "SupApprover" },
                         { "data": "Due_Date" },
                         {
                             "data": null,
@@ -788,6 +791,11 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
+
+                if (JSON.parse(data).length > 0) {
+                    document.getElementById("AreaYes").checked = true;
+                    $('#Div_TindakanPencegahan').prop("hidden", false);
+                }
                 var table = $('#Tbl_Pencegahan').DataTable({
                     "pageLength": 5,
                     "lengthChange": false,
@@ -804,7 +812,7 @@
                         { "data": "WhyParentID" },
                         { "data": "WhyDesc" },
                         { "data": "Tindakan_Pencegahan" },
-                        { "data": "Nama_Personil" },
+                        { "data": "SupApprover" },
                         { "data": "Due_Date" },
                         {
                             "data": null,
@@ -833,6 +841,7 @@
                 alert(JSON.stringify(ex));
             }
         });
+
     }
 
     function GetTindakanPencegahanExistingPV() {
@@ -867,7 +876,7 @@
                         { "data": "WhyParentID" },
                         { "data": "WhyDesc" },
                         { "data": "Tindakan_Pencegahan" },
-                        { "data": "Nama_Personil" },
+                        { "data": "SupApprover" },
                         { "data": "Due_Date" },
                         {
                             "data": null,
@@ -1277,7 +1286,7 @@
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
-            type: 'warning',
+            icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
@@ -1317,15 +1326,17 @@
                             icon: "success",
                             showConfirmButton: false,
                             timer: 1000,
-                        })
-                        if (tipe == 'Perbaikan Baru') {
-                            TableKajianTambahTindakanBaru();
+                        }).then(() => {
+                            var tambahperbaikan = $('input[name="TambahPerbaikan"]:checked').val();
+                            if (tambahperbaikan == "Yes") {
+                                TableKajianTambahTindakanBaru();
+                            }
+                            else {
+                                TableKajian();
+                            }
+                            
                         }
-                        else {
-                            TableKajian();
-                        }
-                        return true;
-                    },
+                    )},
                     error: function (ex) {
                         alert(JSON.stringify(ex));
                     }
