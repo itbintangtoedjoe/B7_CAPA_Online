@@ -335,6 +335,7 @@
 <script>
     var QSNoCAPA = getQueryStrings()["NoCAPA"];
     var loginusernik = '@Request.RequestContext.HttpContext.Session["NIK"]';
+    var Jsondevi = [];
     function getQueryStrings() {
         var vars = [], hash;
         var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -382,18 +383,19 @@
             var table = $('#Tbl_CCC').DataTable();
             for (var i = 1; i <= table.data().count(); i++) {
 
-                var row = $("#Tbl_CCC tr").eq(i);
-                var PenyimpanganID = $("TD", row).eq(1).html();
-                var creator = "";
+                var creator = loginusernik;
+                var row = table.row(i);
+                var tr = $(row.node());
+                var checkbox = tr.find('td:first-child input[type="checkbox"]')
                 // Mengecheck Checkbox apakah sudah di checklist
-                if ($("TD", row).eq(0).find("input[type='checkbox']").prop('checked')) {
+                if (checkbox.is(':checked')) {
+                    var data = row.data();
                     var item = {};
                     item["NoCapa"] = QSNoCAPA;
-                    item["PenyimpanganID"] = PenyimpanganID;
-                    item["Description"] = "CCC";
+                    item["PenyimpanganID"] = data['No_CCC'];
+                    item["Description"] = "CAPA";
                     item["Creator"] = creator;
                     Jsonobj.push(item);
-                    console.log(item);
                     status = true;
                 }
             }
@@ -435,21 +437,23 @@
             var table = $('#tblCAPA').DataTable();
             for (var i = 1; i <= table.data().count(); i++) {
 
-                var row = $("#tblCAPA tr").eq(i);
-                var PenyimpanganID = $("TD", row).eq(1).html();
-                var creator = "";
+                var creator = loginusernik;
+                var row = table.row(i);
+                var tr = $(row.node());
+                var checkbox = tr.find('td:first-child input[type="checkbox"]')
                 // Mengecheck Checkbox apakah sudah di checklist
-                if ($("TD", row).eq(0).find("input[type='checkbox']").prop('checked')) {
+                if (checkbox.is(':checked')) {
+                    var data = row.data();
                     var item = {};
                     item["NoCapa"] = QSNoCAPA;
-                    item["PenyimpanganID"] = PenyimpanganID;
+                    item["PenyimpanganID"] = data['NO_CAPA'];
                     item["Description"] = "CAPA";
                     item["Creator"] = creator;
                     Jsonobj.push(item);
-                    console.log(item);
                     status = true;
                 }
             }
+
             if (status == true) {
                 var dto = {
                     Penyimpangan: Jsonobj
@@ -487,22 +491,23 @@
             var table = $('#tblDeviation').DataTable();
             for (var i = 1; i <= table.data().count(); i++) {
 
-                var row = $("#tblDeviation tr").eq(i);
-                var PenyimpanganID = $("TD", row).eq(1).html();
-                var creator = "";
+                var creator = loginusernik;
+                var row = table.row(i);
+                var tr = $(row.node());
+                var checkbox = tr.find('td:first-child input[type="checkbox"]')
                 // Mengecheck Checkbox apakah sudah di checklist
-                if ($("TD", row).eq(0).find("input[type='checkbox']").prop('checked')) {
+                if (checkbox.is(':checked')) {
+                    var data = row.data();
                     var item = {};
-
                     item["NoCapa"] = QSNoCAPA;
-                    item["PenyimpanganID"] = PenyimpanganID;
+                    item["PenyimpanganID"] = data['DEVIATION_NO'];
                     item["Description"] = "DEVIATION";
                     item["Creator"] = creator;
                     Jsonobj.push(item);
-                    console.log(item);
                     status = true;
                 }
             }
+
             if (status == true) {
                 var dto = {
                     Penyimpangan: Jsonobj
@@ -665,7 +670,6 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    console.log(data);
                     var table = $('#tblDeviation').DataTable({
                         "pageLength": 5,
                         "lengthChange": true,
@@ -677,7 +681,7 @@
                         "columns": [
                             {
                                 "data": null,
-                                "defaultContent": "<input type='checkbox'/>"
+                                "defaultContent": "<input class='selected' type='checkbox'/>"
                             },
                             { "data": "DEVIATION_NO" },
                             { "data": "NAMA_PELOPOR" },
@@ -689,7 +693,7 @@
                         "columndefs": [
                             {
                                 "targets": 0,
-                                "classname": "text-center",
+                                "classname": "select-checkbox",
                                 "width": "1%"
                             },
                             {

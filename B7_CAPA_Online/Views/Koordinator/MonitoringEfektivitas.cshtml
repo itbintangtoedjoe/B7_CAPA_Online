@@ -434,20 +434,22 @@
             var Jsonobj = [];
             var status = false;
             var table = $('#Tbl_CCC').DataTable();
+           
             for (var i = 1; i <= table.data().count(); i++) {
 
-                var row = $("#Tbl_CCC tr").eq(i);
-                var PenyimpanganID = $("TD", row).eq(1).html();
-                var creator = "";
+                var creator = loginusernik;
+                var row = table.row(i);
+                var tr = $(row.node());
+                var checkbox = tr.find('td:first-child input[type="checkbox"]')
                 // Mengecheck Checkbox apakah sudah di checklist
-                if ($("TD", row).eq(0).find("input[type='checkbox']").prop('checked')) {
+                if (checkbox.is(':checked')) {
+                    var data = row.data();
                     var item = {};
                     item["NoCapa"] = $('#QS_NoCAPA').val();
-                    item["PenyimpanganID"] = PenyimpanganID;
-                    item["Description"] = "CCC";
+                    item["PenyimpanganID"] = data['No_CCC'];
+                    item["Description"] = "CAPA";
                     item["Creator"] = creator;
                     Jsonobj.push(item);
-                    console.log(item);
                     status = true;
                 }
             }
@@ -489,19 +491,19 @@
             var table = $('#Tbl_Deviation').DataTable();
             for (var i = 1; i <= table.data().count(); i++) {
 
-                var row = $("#Tbl_Deviation tr").eq(i);
-                var PenyimpanganID = $("TD", row).eq(1).html();
-                var creator = "";
+                var row = table.row(i);
+                var tr = $(row.node());
+                var creator = nik;
+                var checkbox = tr.find('td:first-child input[type="checkbox"]')
                 // Mengecheck Checkbox apakah sudah di checklist
-                if ($("TD", row).eq(0).find("input[type='checkbox']").prop('checked')) {
+                if (checkbox.is(':checked')) {
+                    var data = row.data();
                     var item = {};
-
                     item["NoCapa"] = $('#QS_NoCAPA').val();
-                    item["PenyimpanganID"] = PenyimpanganID;
+                    item["PenyimpanganID"] = data['DEVIATION_NO'];
                     item["Description"] = "DEVIATION";
                     item["Creator"] = creator;
                     Jsonobj.push(item);
-                    console.log(item);
                     status = true;
                 }
             }
@@ -977,9 +979,10 @@
                     {
                         document.getElementById("File_No").checked = true;
                     }
-                    $.unblockUI();
                     checkStat();
                 }
+
+                $.unblockUI();
             },
             error: function (errormessage) {
                 $('#divLoading').attr("hidden", true);
