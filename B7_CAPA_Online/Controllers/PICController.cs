@@ -307,6 +307,8 @@ namespace B7_CAPA_Online.Controllers
                     ,
                     PIC = item.Value<string>("PIC")
                     ,
+                    RejectReason = item.Value<string>("RejectReason")
+                    ,
                     DeskripsiMasalah = item.Value<string>("DeskripsiMasalah")
                     ,
                     CreateBy = item.Value<string>("Requestor")
@@ -327,6 +329,7 @@ namespace B7_CAPA_Online.Controllers
                     {"Lokasi", list[0].Lokasi},
                     {"StatusCAPA", "2"},
                     {"PIC", list[0].PIC},
+                    {"RejectReason", list[0].RejectReason},
                     {"CreateBy", list[0].CreateBy},
                     {"DeskripsiMasalah", list[0].DeskripsiMasalah }
                 });

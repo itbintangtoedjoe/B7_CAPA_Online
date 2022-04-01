@@ -22,6 +22,7 @@ namespace B7_CAPA_Online.Models
         public string Lokasi { get; set; }
         public string StatusCAPA { get; set; }
         public string PIC { get; set; }
+        public string RejectReason { get; set; }
         public string DeskripsiMasalah { get; set; }
         public string CreateBy { get; set; }
     }

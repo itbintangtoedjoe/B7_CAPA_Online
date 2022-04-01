@@ -75,23 +75,25 @@ namespace B7_CAPA_Online.Controllers
                 list.Add(new Recipients
                 {
                     NO_CAPA = item.Value<string>("NoCAPA")
-                    ,
+                        ,
                     Email = item.Value<string>("Email")
-                    ,
+                        ,
                     KategoriCAPA = item.Value<string>("KategoriCAPA")
-                    ,
+                        ,
                     ToEmpName = item.Value<string>("ToEmpName")
-                    ,
+                        ,
                     TriggerCAPA = item.Value<string>("TriggerCAPA")
-                    ,
+                        ,
                     Lokasi = item.Value<string>("Lokasi")
-                    ,
+                        ,
                     StatusCAPA = item.Value<string>("StatusCAPA")
-                    ,
+                        ,
                     PIC = item.Value<string>("PIC")
-                    ,
+                        ,
+                    RejectReason = item.Value<string>("RejectReason")
+                        ,
                     DeskripsiMasalah = item.Value<string>("DeskripsiMasalah")
-                    ,
+                        ,
                     CreateBy = item.Value<string>("Requestor")
                 });
             }
@@ -110,6 +112,7 @@ namespace B7_CAPA_Online.Controllers
                         {"TriggerCAPA", value.TriggerCAPA}, // ini dari list diatas
                         {"Lokasi", value.Lokasi}, // dari list diatas
                         {"StatusCAPA", value.StatusCAPA}, // ini dari list diatas
+                        {"RejectReason", value.RejectReason}, // ini dari list diatas
                         {"PIC", value.PIC}, // ini dari list diatas
                         {"CreateBy", value.CreateBy}, // ini dari list diatas
                         {"DeskripsiMasalah", value.DeskripsiMasalah } // ini dari list diatas
