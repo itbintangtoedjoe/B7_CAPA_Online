@@ -219,10 +219,12 @@ namespace B7_CAPA_Online.Controllers
                     Email emailData = GetEmailBody(newID);
                     var sub = emailData.EmailSubject;
                     var body = emailData.EmailBody;
+                    //string bodie = body.Replace(System.Environment.NewLine, string.Empty);
                     SmtpClient mailObj = new SmtpClient("mail.kalbe.co.id");
                     var msg = new MailMessage();
                     //mess.From = senderEmail;
-                    msg.From = new MailAddress("it.bintang7@gmail.com", "CAPA B7 Mailing System");
+                    //msg.From = new MailAddress("it.bintang7@gmail.com", "CAPA B7 Mailing System");
+                    msg.From = new MailAddress("notification@bintang7.com", "B7 Connect Mailing System");
                     msg.Body = body;
                     msg.Subject = sub;
                     //mess.Bcc.Add(senderEmail);

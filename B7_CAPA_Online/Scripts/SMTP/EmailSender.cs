@@ -33,7 +33,8 @@ namespace B7_CAPA_Online.Scripts.SMTP
                 //};
 
                 var msg = new MailMessage();
-                msg.From = new MailAddress("it.bintang7@gmail.com", "CAPA B7 Mailing System");
+                //msg.From = new MailAddress("it.bintang7@gmail.com", "CAPA B7 Mailing System");
+                msg.From = new MailAddress("notification@bintang7.com", "B7 Connect Mailing System");
                 var obj = ParsingJson(dic["Recipient"].ToString());
                 dic.Add("NO_CAPA", obj[0].NO_CAPA.ToString());
                 dic.Add("Hyperlink", "https://portal.bintang7.com/B7_CAPA_Online/Login");
