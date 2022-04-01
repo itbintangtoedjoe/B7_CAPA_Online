@@ -1298,10 +1298,12 @@
             $('#txtTindakanPerbaikanRev').prop("disabled", true);
             $('#dueDatePerbaikanRev').prop("disabled", true);
             $('#txtModePerbaikan').attr("hidden", true);
+            $('#txtHasilPerbaikan').prop("disabled", true);
+            $('#uploadAttachmentPerbaikan').prop("disabled", true);
+            $('#btnSimpanPerbaikan').prop("disabled", true);
             $('#UploadPerbaikan').prop("disabled", true)
             $('#btnEnableUbahPerbaikan').html('Edit Tindakan Perbaikan');
             $("#modePerbaikan").val("Continue");
-            ResetPage();
             ToggleBtnDeleteAttPerbaikan("Disable");
         }
     });
@@ -1556,7 +1558,7 @@
         }
         else {
             $('#RejectRow').attr("hidden", true);
-            $('#btnPilihPerbaikan').attr("disabled", false);
+            $('#btnPilihPencegahan').attr("disabled", false);
         }
 
         if ($('#txtRejectPencegahan').val().trim() != "") {
@@ -1701,7 +1703,9 @@
             $('#ddlPencegahan').prop("disabled", false);
             $('#UploadPencegahan').prop("disabled", true);
             $('#btnActionPencegahan').prop("disabled", true);
-            ResetPagePencegahan();
+            $('#txtHasilPencegahan').prop("disabled", true);
+            $('#uploadAttachmentPencegahan').prop("disabled", true);
+            $('#btnSimpanPencegahan').prop("disabled", true);
             ToggleBtnDeleteAttPencegahan("Disable");
         }
     });
