@@ -52,8 +52,8 @@ namespace B7_CAPA_Online.Scripts.SMTP
                 msg.Priority = MailPriority.High;
                 msg.IsBodyHtml = true;
                 //msg.To.Add("dani.pernando@bintang7.com");             
-                msg.To.Add("ignatius.kurniawan@bintang7.com");
-                //msg.To.Add(obj[0].Email);
+                //msg.To.Add("ignatius.kurniawan@bintang7.com");
+                msg.To.Add(obj[0].Email);
                 foreach(var CC in emailCC) // looping cc 
                 {
                     msg.CC.Add(CC.Email); 
