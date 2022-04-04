@@ -841,12 +841,12 @@
                         $('#RootCause_KajianResikoDDL').append(new Option(dataPerbaikan.Tindakan_Perbaikan, dataPerbaikan.Tindakan_Perbaikan));
                         $('#RootCause_KajianResikoDDL').val(dataPerbaikan.Tindakan_Perbaikan);
 
-                        $('#txtTindakanPerbaikanRev').attr("disabled", true);
-                        $('#AlasanTindakanPerbaikan').attr("disabled", true);
-                        $('#UpdatePerbaikan').attr("disabled", true);
-                        $('#AlasanDueDate').attr("disabled", true);
-                        $('#dueDatePerbaikanRev').attr("disabled", true);
-                        $('#txtTindakanPerbaikanRev').attr("disabled", true);
+                        $('#txtTindakanPerbaikanRev').attr("disabled", false);
+                        $('#AlasanTindakanPerbaikan').attr("disabled", false);
+                        $('#UpdatePerbaikan').attr("disabled", false);
+                        $('#AlasanDueDate').attr("disabled", false);
+                        $('#dueDatePerbaikanRev').attr("disabled", false);
+                        $('#txtTindakanPerbaikanRev').attr("disabled", false);
                         $('#btn_AddKajian').attr("disabled", false);
                     }
                     if (dataPerbaikan.Status_ID != 6)
@@ -917,13 +917,13 @@
                     $('#RootCause_KajianResikoDDL').append(new Option(dataPencegahan.Tindakan_Pencegahan, dataPencegahan.Tindakan_Pencegahan));
                     $('#RootCause_KajianResikoDDL').val(dataPencegahan.Tindakan_Pencegahan);
 
-                    $('#txtTindakanPencegahanRev').attr("disabled", true);
-                    $('#AlasanTindakanPencegahan').attr("disabled", true);
-                    $('#UpdatePencegahan').attr("disabled", true);
-                    $('#AlasanDueDatePencegahan').attr("disabled", true);
-                    $('#dueDatePencegahanRev').attr("disabled", true);
-                    $('#txtTindakanPencegahanRev').attr("disabled", true);
-                    $('#btn_AddKajian').attr("disabled", true);
+                    $('#txtTindakanPencegahanRev').attr("disabled", false);
+                    $('#AlasanTindakanPencegahan').attr("disabled", false);
+                    $('#UpdatePencegahan').attr("disabled", false);
+                    $('#AlasanDueDatePencegahan').attr("disabled", false);
+                    $('#dueDatePencegahanRev').attr("disabled", false);
+                    $('#txtTindakanPencegahanRev').attr("disabled", false);
+                    $('#btn_AddKajian').attr("disabled", false);
                 }
                 if (dataPencegahan.Status_ID != 6) {
                     $('#btn_AddKajian').attr("disabled", true);

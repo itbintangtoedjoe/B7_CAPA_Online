@@ -380,14 +380,13 @@ namespace B7_CAPA_Online.Controllers
             return Json(result);
         }
 
-        public ActionResult DeleteAttachmentKoor4(DynamicModel data, string spname, string path)
+        public ActionResult DeleteAttachmentKoor4(DynamicModel data, string spname)
         {
 
-            var parameters = new DynamicParameters(data);
+            var parameters = new DynamicParameters(data.Model);
             var result = DAL.StoredProcedure(parameters, spname);
 
             //hapus dari b7drive belum dibuat
-            //System.IO.File.Delete(path);
 
             return Json(result);
         }

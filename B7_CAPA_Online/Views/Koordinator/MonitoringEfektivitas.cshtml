@@ -25,7 +25,7 @@
                     <div class="row">
                         <div class="form-group mb-2 col-sm-3">
                             <label class="m-t-20">Tanggal</label>
-                            <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToShortDateString()" readonly>
+                            <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToString("MM/dd/yyyy HH:mm")" readonly>
                         </div>
                         <div class="form-group mb-2 col-sm-3">
                             <label class="m-t-40">Requestor</label>
@@ -789,7 +789,6 @@
                 var row = $(button).closest("TR");
                 var data = $('#Tabel_File').DataTable().row(row).data();
                 var id = data['RecordID'];
-                var path = data['ValueEvaluasi'];
                 var dictlist = {
                     NoCAPA: nocapa,
                     Option: 9,
@@ -799,7 +798,7 @@
                     Model: dictlist
                 }
                 $.ajax({
-                    url: "DeleteAttachmentKoor4?spname=[dbo].[SP_FORM_KOOR4]&?path=" + path+"",
+                    url: "DynamicController?spname=[dbo].[SP_FORM_KOOR4]",
                     type: "post",
                     dataType: "json",
                     data: JSON.stringify(dto1),
@@ -960,7 +959,8 @@
                     }
                     else
                     {
-                      document.getElementById("Devi_No").checked = true;
+                        document.getElementById("Devi_No").checked = true;
+                        $('#Devi_No').prop('hidden', true);
                     }
 
                     if (countccc> 0) {
@@ -970,6 +970,7 @@
                     else
                     {
                         document.getElementById("CCC_No").checked = true;
+                        $('#CCC').prop('hidden',true);
                     }
                     if (countfile > 0) {
                         document.getElementById("File_Yes").checked = true;
@@ -978,6 +979,8 @@
                     else
                     {
                         document.getElementById("File_No").checked = true;
+
+                        $('#Lampiran').prop('hidden',true);
                     }
                     checkStat();
                 }
@@ -1059,10 +1062,12 @@
                 var row = $(button).closest("TR");
                 var data = $('#Tbl_Devi').DataTable().row(row).data();
                 var id = data['RecordID'];
+                var value = data['ValueEvaluasi'];
                 var dictlist = {
                     NoCAPA: nocapa,
                     Option: 9,
-                    Record: id
+                    Record: id,
+                    ValueEvaluasi: value
                 }
                 var dto1 = {
                     Model: dictlist
@@ -1157,10 +1162,12 @@
                 var row = $(button).closest("TR");
                 var data = $('#Tabel_CCC').DataTable().row(row).data();
                 var id = data['RecordID'];
+                var value = data['ValueEvaluasi'];
                 var dictlist = {
                     NoCAPA: nocapa,
                     Option: 9,
-                    Record: id
+                    Record: id,
+                    ValueEvaluasi: value
                 }
                 var dto1 = {
                     Model: dictlist
