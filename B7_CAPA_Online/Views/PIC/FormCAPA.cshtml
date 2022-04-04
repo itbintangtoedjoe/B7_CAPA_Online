@@ -3025,8 +3025,16 @@
                         }
                         delete dto.Model[property];
                     }
-                } else {                    
-                    if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
+                } else {
+                    //if ($('#Severity2_DDL').val() == '10') {
+                    //    valid = false;
+                    //    return Swal.fire(
+                    //        'Maaf',
+                    //        'Severity masih tinggi.',
+                    //        'warning'
+                    //    )
+                    //}
+                    else if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
                         valid = false;
                         return Swal.fire(
                             'Maaf',
@@ -3042,14 +3050,7 @@
                                 'warning'
                             )
                         }
-                    }// else if ($('#Severity2_DDL').val() == '10') {
-                    //    valid = false;
-                    //    return Swal.fire(
-                    //        'Maaf',
-                    //        'Severity masih tinggi.',
-                    //        'warning'
-                    //    )
-                    //}
+                    }
                 }
                 i++;
             }
