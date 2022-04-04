@@ -460,16 +460,6 @@
                                 timer: 1000,
                             })
                         }
-                        if ($('#Severity2_DDL').val() == '10') {
-                            valid = false;
-                            return Swal.fire({
-                                title: 'Maaf',
-                                text: 'Severity masih tinggi.',
-                                icon: "warning",
-                                showConfirmButton: false,
-                                timer: 1000,
-                            })
-                        }
                         if ($('#Target_DDL').val() == "Low" && $('#TxtRiskLevel2').val() == 'Medium') {
                             valid = false;
                             return Swal.fire({
@@ -480,6 +470,14 @@
                                 timer: 1000,
                             })
                         }
+                          //if ($('#Severity2_DDL').val() == '10') {
+                        //    valid = false;
+                        //    return Swal.fire(
+                        //        'Maaf',
+                        //        'Severity masih tinggi.',
+                        //        'warning'
+                        //    )
+                        //
                     }
                     i++;
                 }

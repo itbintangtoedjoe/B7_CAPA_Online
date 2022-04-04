@@ -431,8 +431,6 @@
                         'warning'
                     )
                 }
-
-
                 for (var property in dto.Model) {
                     if (limit == 14 ) {
                         if (i > 14 && i <= 26) {
@@ -454,6 +452,25 @@
                                 'warning'
                             )
                         }
+
+                        if ($('#Target_DDL').val() == "Low" && $('#TxtRiskLevel2').val() == 'Medium') {
+                            valid = false;
+                            return Swal.fire({
+                                title: 'Maaf',
+                                text: 'Risk Level masih tinggi.',
+                                icon: "warning",
+                                showConfirmButton: false,
+                                timer: 1000,
+                            })
+                        }
+                        //if ($('#Severity2_DDL').val() == '10') {
+                        //    valid = false;
+                        //    return Swal.fire(
+                        //        'Maaf',
+                        //        'Severity masih tinggi.',
+                        //        'warning'
+                        //    )
+                        //
                     }
                     i++;
                 }
