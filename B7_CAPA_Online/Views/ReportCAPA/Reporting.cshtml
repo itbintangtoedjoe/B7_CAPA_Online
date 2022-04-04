@@ -131,6 +131,10 @@
             Model: dictlist
         }
         console.log($('#Bulan').val());
+        console.log($('#Tahun').val());
+        console.log($('#Lokasi').val());
+        console.log($('#Departemen').val());
+        console.log($('#Kategori').val());
         $.ajax({
             url: "DynamicController?spname=SP_SHOW_REPORTING",
             type: "post",

@@ -824,7 +824,7 @@
                     $('#AlasanTindakanPerbaikan').val(dataPerbaikan.Alasan_Tindakan_Perbaikan);
                     $('#AlasanDueDate').val(dataPerbaikan.Alasan_Due_Date);
 
-                    if ($('#txtTindakanPerbaikanRev').val().trim() != '') {
+                    if ($('#AlasanDueDate').val() != '' || $('#txtTindakanPerbaikanRev').val().trim() != '') {
                         $('#btn_AddKajian').attr("disabled", false);
                         $('#RootCause_KajianResikoDDL').append(new Option(dataPerbaikan.Tindakan_PerbaikanRev, dataPerbaikan.Tindakan_PerbaikanRev));
                         $('#RootCause_KajianResikoDDL').val(dataPerbaikan.Tindakan_PerbaikanRev);
@@ -837,17 +837,14 @@
                         $('#txtTindakanPerbaikanRev').attr("disabled", true);
                     }
                     else
-                    {
-                        $('#RootCause_KajianResikoDDL').append(new Option(dataPerbaikan.Tindakan_Perbaikan, dataPerbaikan.Tindakan_Perbaikan));
-                        $('#RootCause_KajianResikoDDL').val(dataPerbaikan.Tindakan_Perbaikan);
-
+                    {   
                         $('#txtTindakanPerbaikanRev').attr("disabled", false);
                         $('#AlasanTindakanPerbaikan').attr("disabled", false);
                         $('#UpdatePerbaikan').attr("disabled", false);
                         $('#AlasanDueDate').attr("disabled", false);
                         $('#dueDatePerbaikanRev').attr("disabled", false);
                         $('#txtTindakanPerbaikanRev').attr("disabled", false);
-                        $('#btn_AddKajian').attr("disabled", false);
+                        $('#btn_AddKajian').attr("disabled", true);
                     }
                     if (dataPerbaikan.Status_ID != 6)
                     {
@@ -895,12 +892,10 @@
                 $('#txtTindakanPencegahan').prop("disabled", true);
                 $('#dueDatePencegahan').val(duedate.format("YYYY-MM-DD"));
                 $('#txtTindakanPencegahanRev').val(dataPencegahan.Tindakan_PencegahanRev);
-                if (duedaterev != undefined) {
-                    $('#dueDatePencegahanRev').val(duedaterev.format("YYYY-MM-DD"));
-                }
+                $('#dueDatePencegahanRev').val(duedaterev.format("YYYY-MM-DD"));
                 $('#AlasanTindakanPencegahan').val(dataPencegahan.Alasan_Tindakan_Pencegahan);
                 $('#AlasanDueDatePencegahan').val(dataPencegahan.Alasan_Due_Date);
-                if ((duedaterev != undefined || $('#txtTindakanPencegahanRev').val() != null)) {
+                if (($('#AlasanDueDatePencegahan').val()!= "" || $('#txtTindakanPencegahanRev').val() != "")) {
                     $('#btn_AddKajian').attr("disabled", false);
                     $('#RootCause_KajianResikoDDL').append(new Option(dataPencegahan.Tindakan_PencegahanRev, dataPencegahan.Tindakan_PencegahanRev));
                     $('#RootCause_KajianResikoDDL').val(dataPencegahan.Tindakan_PencegahanRev);
@@ -911,19 +906,15 @@
                     $('#AlasanDueDatePencegahan').attr("disabled", true);
                     $('#dueDatePencegahanRev').attr("disabled", true);
                     $('#txtTindakanPencegahanRev').attr("disabled", true);
-
                 }
                 else {
-                    $('#RootCause_KajianResikoDDL').append(new Option(dataPencegahan.Tindakan_Pencegahan, dataPencegahan.Tindakan_Pencegahan));
-                    $('#RootCause_KajianResikoDDL').val(dataPencegahan.Tindakan_Pencegahan);
-
                     $('#txtTindakanPencegahanRev').attr("disabled", false);
                     $('#AlasanTindakanPencegahan').attr("disabled", false);
                     $('#UpdatePencegahan').attr("disabled", false);
                     $('#AlasanDueDatePencegahan').attr("disabled", false);
                     $('#dueDatePencegahanRev').attr("disabled", false);
                     $('#txtTindakanPencegahanRev').attr("disabled", false);
-                    $('#btn_AddKajian').attr("disabled", false);
+                    $('#btn_AddKajian').attr("disabled", true);
                 }
                 if (dataPencegahan.Status_ID != 6) {
                     $('#btn_AddKajian').attr("disabled", true);
