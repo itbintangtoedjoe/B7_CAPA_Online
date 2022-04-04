@@ -136,36 +136,36 @@
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
                     <li class="nav-label">Dashboard</li>
-                    <li>@Html.ActionLink("Create CAPA", "CreateCAPA", "Koordinator", null, null)</li>
-                    <li>@Html.ActionLink("Pending Task", "TaskList", "PendingTask", null, null)</li>
-                    <li>@Html.ActionLink("Pelaksana", "PelaksanaCAPA", "Pelaksana", null, null)</li>
-                    <li>@Html.ActionLink("Find CAPA", "FindCAPA", "FindCAPA", null, null)</li>
-                    <li class="nav-label">VENDOR</li>
+                    <li id="CreateCAPA">@Html.ActionLink("Create CAPA", "CreateCAPA", "Koordinator", null, null)</li>
+                    <li id="PendingTask">@Html.ActionLink("Pending Task", "TaskList", "PendingTask", null, null)</li>
+                    @*<li>@Html.ActionLink("Pelaksana", "PelaksanaCAPA", "Pelaksana", null, null)</li>*@
+                    <li id="FindCAPA">@Html.ActionLink("Find CAPA", "FindCAPA", "FindCAPA", null, null)</li>
+                    <li class="nav-label" id="Vendor">VENDOR</li>
                     <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="true">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="true" id="VendorArrow">
                             <i class="icon-list menu-icon"></i><span class="nav-text">List Vendor</span>
                         </a>
-                        <ul aria-expanded="true">
+                        <ul aria-expanded="true" id="VendorMenu">
                             <li>@Html.ActionLink("Tipe Vendor", "TipeVendorIndex", "Vendor", null, null)</li>
                             <li>@Html.ActionLink("List Vendor", "Index", "Vendor", null, null)</li>
                             <li>@Html.ActionLink("Create Vendor", "CreateVendor", "Vendor", null, null)</li>
                         </ul>
                     </li>
                     <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="true">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="true"  id="UserArrow">
                             <i class="icon-user menu-icon"></i><span class="nav-text">List User Vendor</span>
                         </a>
-                        <ul aria-expanded="true">
+                        <ul aria-expanded="true" id="UserVendor">
                             <li>@Html.ActionLink("List User Vendor", "Index", "UserVendor", null, null)</li>
                             <li>@Html.ActionLink("Create User Vendor", "CreateUserVendor", "UserVendor", null, null)</li>
                         </ul>
                     </li>
-                    <li class="nav-label">Report</li>
+                    <li class="nav-label" id="Report">Report</li>
                     <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="true">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="true" id="ReportArrow">
                             <i class="icon-list menu-icon"></i><span class="nav-text">List Report</span>
                         </a>
-                        <ul aria-expanded="true">
+                        <ul aria-expanded="true"  id="ReportMenu">
                             <li>@Html.ActionLink("Reporting", "Reporting", "ReportCAPA", null, null)</li>
                             <li>@Html.ActionLink("Report Leadtime", "ReportLeadtime", "ReportCAPA", null, null)</li>
                             <li>@Html.ActionLink("Report Masterlist", "ReportMasterlist", "ReportCAPA", null, null)</li>
@@ -274,13 +274,44 @@
     <script>
         $(document).ready(function () {
             var usernameAktif = '@Request.RequestContext.HttpContext.Session["Username"]';
+            CheckUser();
             $('#UserLoginXd').text(usernameAktif);
 
             if ($('#UserLoginXd').text().length == 0) {
                 window.location.href = '@Url.Action("Index", "Login")';
             }
-
         });
+        function CheckUser(){
+            var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
+            var dictlist = {
+                Option: 1,
+                nik: nik
+            }
+            var dto1 = {
+                Model: dictlist
+            }
+            $.ajax({
+                url: "../Koordinator/DynamicController?spname=SP_Find_User",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto1),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var result = JSON.parse(data);
+                    if (result[0].Roleuser == 'Bukan Koordinator') {
+                        $('#CreateCAPA').attr("hidden", true);
+                        $('#Vendor').attr("hidden", true);
+                        $('#VendorArrow').attr("hidden", true);
+                        $('#VendorMenu').attr("hidden", true);
+                        $('#UserVendor').attr("hidden", true);
+                        $('#UserArrow').attr("hidden", true);
+                    }
+                },
+                error: function (errormessage) {
+                    $('#divLoading').attr("hidden", true);
+                }
+            });
+        }
         (function ($) {
             "use strict"
 

@@ -376,7 +376,7 @@
         $('#AreaPIC_DDL').select2();
         $('#PIC_DDL').select2();
         GetAddedDeviation();
-        GetAddedCCC();
+        GetAddedCCC("Load Page");
         $('input[name="Devi_Radio"]').change(function () {
             if ($('input[name="Devi_Radio"]:checked').val() == 'Yes') {
                 chckboxstatus[0] = "1";
@@ -464,7 +464,7 @@
                     data: JSON.stringify(dto),
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
-                        GetAddedCCC();
+                        GetAddedCCC('');
 
                         Swal.fire({
                             title: "Success!",
@@ -709,7 +709,7 @@
         $('#Submit').removeAttr("disabled");
     }
 
-    function GetLampiran() {
+    function GetLampiran(Status) {
         var dictlist = {
             NoCAPA: $('#QS_NoCAPA').val(),
             Option: 8
@@ -738,7 +738,7 @@
                         { "data": "NO_CAPA_FK" },
                         { "data": "Type" },
                         {
-                            "data": "Nama_File",
+                            "data": null,
                             "render": function (nTd, sData, oData, iRow, iCol) {
 
                                 return '<a href = "' + oData.ValueEvaluasi + '" >' + oData.Nama_File + '</a >';
@@ -766,12 +766,14 @@
                     "order": [[1, 'asc']],
 
                 });
-                ValidateKajian();
             },
             error: function (errormessage) {
                 $('#divLoading').attr("hidden", true);
             }
         });
+        if (Status == 'Load Page') {
+            ValidateKajian();
+        }
     }
 
     function DeleteLampiran(button) {
@@ -811,7 +813,7 @@
                             showConfirmButton: false,
                             timer: 1000,
                         })
-                        GetLampiran();
+                        GetLampiran("");
                     },
                     error: function (errormessage) {
                     }
@@ -848,7 +850,6 @@
                 success: function (data) {
                     var result = JSON.parse(data);
                     if (result[0].Validate == "Invalid") {
-
                         Swal.fire({
                             title: "Error!",
                             text: "File Sudah ada!",
@@ -856,17 +857,16 @@
                             showConfirmButton: false,
                             timer: 1000,
                         })
-
                     }
                     else {
-                        GetLampiran();
                         Swal.fire({
                             title: "Success!",
                             text: "Upload Berhasil!",
                             icon: "success",
                             showConfirmButton: false,
                             timer: 1000,
-                        })
+                        });
+                        GetLampiran("");
                     }
                 },
                 error: function (errormessage) {
@@ -895,6 +895,7 @@
                 if (result[0].STATUS_ID != 8) {
                     disableAll();
                 }
+
             },
             error: function (errormessage) {
                 $('#divLoading').attr("hidden", true);
@@ -1038,6 +1039,7 @@
                     "order": [[1, 'asc']],
 
                 });
+
             },
             error: function (errormessage) {
                 $('#divLoading').attr("hidden", true);
@@ -1096,7 +1098,7 @@
         })
     }
 
-    function GetAddedCCC() {
+    function GetAddedCCC(Status) {
         var dictlist = {
             NoCAPA: $('#QS_NoCAPA').val(),
             Option: 4
@@ -1108,6 +1110,7 @@
             url: "DynamicController?spname=SP_FORM_KOOR4",
             type: "post",
             dataType: "json",
+            async: false,
             data: JSON.stringify(dto1),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
@@ -1144,9 +1147,12 @@
                 $('#divLoading').attr("hidden", true);
             }
         });
-        GetLampiran();
-    }
+        if (Status == "Load Page") {
 
+            GetLampiran("Load Page");
+        }
+    }
+        
     function DeleteCCC(button) {
         Swal.fire({
             title: 'Are you sure?',
@@ -1187,7 +1193,7 @@
                             showConfirmButton: false,
                             timer: 1000,
                         })
-                        GetAddedCCC();
+                        GetAddedCCC('');
                     },
                     error: function (errormessage) {
                     }
