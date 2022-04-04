@@ -3034,7 +3034,7 @@
                     //        'warning'
                     //    )
                     //}
-                    else if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
+                     if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
                         valid = false;
                         return Swal.fire(
                             'Maaf',
@@ -3223,9 +3223,6 @@
             }
         });
 
-        $('#btn_Request').click(function () {
-            window.open('../Koordinator/CreateCAPA?NoCAPA=' + $('#input_NoCAPA').val());
-        });
 
         var today = new Date();
         var tomorrow = new Date(today);
