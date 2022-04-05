@@ -554,12 +554,11 @@
                                     'Data berhasil di-input.',
                                     'success'
                                 ).then(function (result) {
-                                    if (result.value) {
-                                        TableKajian();
-                                        //close modal
-                                        RemoveModalInput();
-                                        // fetch to table
-                                    }
+
+                                    TableKajian();
+                                    //close modal
+                                    RemoveModalInput();
+                                    // fetch to table
                                 });
                             }
                         },

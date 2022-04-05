@@ -688,18 +688,15 @@
                                     'Data berhasil di-input.',
                                     'success'
                                 ).then(function (result) {
-                                    if (result.value) {
-                                        //close modal
-                                        RemoveModalInput();
-                                        // fetch to table
-                                        var tambahperbaikan = $('input[name="TambahPerbaikan"]:checked').val();
-                                        if (tambahperbaikan == "Yes") {
-                                            TableKajianTambahTindakanBaru();
-                                        }
-                                        else {
-                                            TableKajian();
-                                            $("input[name='TambahPerbaikan']").prop("disabled", true);
-                                        }
+                                    RemoveModalInput();
+                                    // fetch to table
+                                    var tambahperbaikan = $('input[name="TambahPerbaikan"]:checked').val();
+                                    if (tambahperbaikan == "Yes") {
+                                        TableKajianTambahTindakanBaru();
+                                    }
+                                    else {
+                                        TableKajian();
+                                        $("input[name='TambahPerbaikan']").prop("disabled", true);
                                     }
                                 });
                             }
