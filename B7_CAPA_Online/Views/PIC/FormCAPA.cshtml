@@ -3232,6 +3232,9 @@
         var mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
         var yyyy = tomorrow.getFullYear();
 
+        $('#btn_Request').click(function () {
+            window.open('../Koordinator/CreateCAPA?NoCAPA=' + $("#input_NoCAPA").val());
+        });
         tomorrow = yyyy + '-' + mm + '-' + dd;
         $("#duedate_perbaikan, #duedate_pencegahan, #DueDate_Kajian").attr('min', tomorrow);
 

@@ -51,17 +51,17 @@
                     <h4 class="card-title">Tambah Evaluator</h4>
                     <hr />
                     <div id="Add_Evaluator">
-                        <label for="TxtKategoriCCC" class="col-form-label">Plant:</label>
-                        <div class="row">
-                            <div class="form-group col-md-2">
-                                <div class="input-group">
-                                    <select class="form-control select2" id="Eva_Plant_DDL" required>
-                                        <option value=""></option>
-                                        <option value=""></option>
-                                    </select>
+                        @*<label for="TxtKategoriCCC" class="col-form-label">Plant:</label>
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <div class="input-group">
+                                        <select class="form-control select2" id="Eva_Plant_DDL" required>
+                                            <option value=""></option>
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div>*@
                         <label for="TxtKategoriCCC" class="col-form-label">Departemen:</label>
                         <div class="row">
                             <div class="form-group col-md-2">
@@ -135,10 +135,10 @@
             </div>
         </div>
         @Html.Partial("TriggerCAPA")
-        <input type="text"  id="QS_NoCAPA" value="@ViewBag.NoCAPA" hidden />
+        <input type="text" id="QS_NoCAPA" value="@ViewBag.NoCAPA" hidden />
         <input type="text" id="QS_Status" value="@ViewBag.StatsID" hidden />
     </div>
-        
+
 
 </div>
 <script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
@@ -164,24 +164,14 @@
         $('#TxtNoCAPA').val($('#QS_NoCAPA').val());
         $('#input_Requestor').val(namaUser);
         $('#input_Departemen').val('@Request.RequestContext.HttpContext.Session["Departemen"]');
-        GetEvaluator();
-        GetPlant();
+        //GetEvaluator();
         GetDepartemen();
         GetEvalTableList();
         if (stat != 4) {
             disableAll();
         }
-        $('#Eva_Plant_DDL').change(function () {
-            if ($('#Eva_Departemen_DDL').val() != undefined || $('#Eva_Departemen_DDL').val() != "") {
-                $('#EvalList_DDL').removeAttr("disabled");
-                GetEvaList();
-            }
-            else {
-                $('#EvalList_DDL').attr("disabled", true);
-            }
-        });
         $('#Eva_Departemen_DDL').change(function () {
-            if ($('#Eva_Plant_DDL').val() != undefined || $('#Eva_Plant_DDL').val() != "") {
+            if ($('#Eva_Departemen_DDL').val() != undefined || $('#Eva_Departemen_DDL').val() != "") {
                 $('#EvalList_DDL').removeAttr("disabled");
                 GetEvaList();
             }
@@ -240,62 +230,34 @@
         $('#TxtFileInput').attr('disabled', true);
         $('#Submit').attr('disabled', true);
     }
-    function GetEvaluator() {
-        $.ajax({
-            url: "GetEvaluator?departemen=" + $('#Eva_Departemen_DDL').val() + "&Option=1&Lokasi=" + $('#Eva_Plant_DDL').val() + "",
-            type: "post",
-            dataType: "json",
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                var result = JSON.parse(data);
-                var count = result.length;
-                var trhtml = '';
-                var trav = 0;
+    //function GetEvaluator() {
+    //    $.ajax({
+    //        url: "GetEvaluator?departemen=" + $('#Eva_Departemen_DDL').val() + "&Option=1&Lokasi=" + $('#Eva_Plant_DDL').val() + "",
+    //        type: "post",
+    //        dataType: "json",
+    //        contentType: "application/json;charset=utf-8",
+    //        success: function (data) {
+    //            var result = JSON.parse(data);
+    //            var count = result.length;
+    //            var trhtml = '';
+    //            var trav = 0;
 
-                trhtml += '<option disabled selected hidden class="dropdown-header">--Please Select--</option>';
-                if (count > 0) {
-                    for (trav = 0; trav < count; trav++) {
+    //            trhtml += '<option disabled selected hidden class="dropdown-header">--Please Select--</option>';
+    //            if (count > 0) {
+    //                for (trav = 0; trav < count; trav++) {
 
-                        trhtml += '<Option value = "' + result[trav].NIK + '" > ' + result[trav].Username;
-                    }
-                }
-                $("#Evaluator_DDL").empty();
-                $("#Evaluator_DDL").append(trhtml);
-                $("#Evaluator_DDL").select2();
-            },
-            error: function (errormessage) {
-                $('#divLoading').attr("hidden", true);
-            }
-        });
-    }
-    function GetPlant() {
-        $.ajax({
-            url: "GetEvaluator?Option=2",
-            type: "post",
-            dataType: "json",
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                var result = JSON.parse(data);
-                var count = result.length;
-                var trhtml = '';
-                var trav = 0;
-
-                trhtml += '<option disabled selected hidden class="dropdown-header" value="-">--Please Select--</option>';
-                if (count > 0) {
-                    for (trav = 0; trav < count; trav++) {
-
-                        trhtml += '<Option value = "' + result[trav].DDL_CODE + '" > ' + result[trav].DDL_DESCRIPTION;
-                    }
-                }
-                $("#Eva_Plant_DDL").empty();
-                $("#Eva_Plant_DDL").append(trhtml);
-                $("#Eva_Plant_DDL").select2();
-            },
-            error: function (errormessage) {
-                $('#divLoading').attr("hidden", true);
-            }
-        });
-    }
+    //                    trhtml += '<Option value = "' + result[trav].NIK + '" > ' + result[trav].Username;
+    //                }
+    //            }
+    //            $("#Evaluator_DDL").empty();
+    //            $("#Evaluator_DDL").append(trhtml);
+    //            $("#Evaluator_DDL").select2();
+    //        },
+    //        error: function (errormessage) {
+    //            $('#divLoading').attr("hidden", true);
+    //        }
+    //    });
+    //}
     function GetDepartemen() {
         $.ajax({
             url: "GetEvaluator?Option=3",
@@ -375,12 +337,10 @@
             })
         }
         else {
-
             var dictlist = {
                 NoCAPA: $('#QS_NoCAPA').val(),
                 EmpID: $("#EvalList_DDL").val(),
                 Creator: nik,
-                Plant: $('#Eva_Plant_DDL').val(),
                 Role: $('#Eva_Departemen_DDL').val(),
                 IsUtama: $('#IsUtama').val(),
             }
@@ -408,7 +368,6 @@
                         $('#Eva_Plant_DDL').val("-");
                         $('#Eva_Departemen_DDL').val("-");
                         $("#EvalList_DDL").select2();
-                        $("#Eva_Plant_DDL").select2();
                         $("#Eva_Departemen_DDL").select2();
                         $("#EvalList_DDL").attr("disabled",true);
                     }
@@ -757,7 +716,6 @@
             confirmButtonText: 'Batalkan!',
             reverseButtons: true
         }).then((result) => {
-            $.blockUI();
             if (result.value) {
                 var cancel = $('#txtCancel').val();
                 var dictlist = {
@@ -829,7 +787,7 @@
                         showConfirmButton: false,
                         timer: 1000,
                     })
-                   
+
                 }
 
 

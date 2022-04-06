@@ -15,7 +15,7 @@ namespace B7_CAPA_Online.Scripts.SMTP
     public class EmailSender
     {
         DataAccess.DataAccess DAL = new DataAccess.DataAccess();
-        public string SendEmail(Dictionary<string, object> dic)
+        public string SendEmail(Dictionary<string, object> dic,int index)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace B7_CAPA_Online.Scripts.SMTP
                 msg.Priority = MailPriority.High;
                 msg.IsBodyHtml = true;
                 //msg.To.Add("dani.pernando@bintang7.com");                            
-                msg.To.Add(obj[0].Email);
+                msg.To.Add(obj[index].Email);
                 foreach(var CC in emailCC) // looping cc 
                 {
                     msg.CC.Add(CC.Email); 

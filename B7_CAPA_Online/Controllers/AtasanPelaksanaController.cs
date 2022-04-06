@@ -101,6 +101,7 @@ namespace B7_CAPA_Online.Controllers
             if (list[0].NO_CAPA != null)
             {
                 EmailSender emailSender = new EmailSender();
+                int index = 0;
                 foreach (var value in list)
                 {
                     emailSender.SendEmail(new Dictionary<string, object> {
@@ -116,7 +117,8 @@ namespace B7_CAPA_Online.Controllers
                         {"PIC", value.PIC}, // ini dari list diatas
                         {"CreateBy", value.CreateBy}, // ini dari list diatas
                         {"DeskripsiMasalah", value.DeskripsiMasalah } // ini dari list diatas
-                    });
+                   }, index);
+                    index++;
                 }
             }
             return Json(Recipient);}

@@ -919,7 +919,6 @@
             success: function (data) {
                 var result = JSON.parse(data);
                 console.log(result[0].Stat);
-                $.blockUI();
                 if (result[0].Stat == 'Invalid') {
                     $('#Submit').removeAttr('hidden');
                     $('input[name="File_Radio"]').attr("disabled", false);
@@ -985,8 +984,6 @@
                     }
                     checkStat();
                 }
-
-                $.unblockUI();
             },
             error: function (errormessage) {
                 $('#divLoading').attr("hidden", true);
