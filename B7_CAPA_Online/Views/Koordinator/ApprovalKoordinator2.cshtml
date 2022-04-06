@@ -33,18 +33,13 @@
                 </form>
             </div>
         </div>
-        <div class="card">
-            <div class="card-body">
 
-
-                <div id="InvestigasiPenyimpangan">
-                    @Html.Partial("LoadData_PV")
-                </div>
-                <br />
-
-
-            </div>
+        <div id="InvestigasiPenyimpangan">
+            @Html.Partial("LoadData_PV")
         </div>
+        <br />
+
+
         <div class="card">
             <div class="card-body">
                 <div class="col-lg-12">
@@ -624,7 +619,6 @@
             confirmButtonText: 'Reject!',
             reverseButtons: true
         }).then((result) => {
-            $.blockUI();
             if (result.value) {
                 var reject = $('#txtReject').val();
                 var dictlist = {
@@ -644,7 +638,6 @@
                         data: JSON.stringify(dto1),
                         contentType: "application/json;charset=utf-8",
                         success: function (data) {
-                            $.unblockUI();
                             GetDisabledEvalTableList();
                             $('#btn_Submit_Evaluator').attr('disabled', true);
                             $('#Add_Eval').attr('disabled', true);

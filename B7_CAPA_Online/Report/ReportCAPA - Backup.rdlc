@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/20008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="B7_CAPA_ONLINEDataSet">
@@ -791,7 +791,6 @@
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
-  
       <Body>
         <ReportItems>
           <Rectangle Name="Rectangle1">
@@ -1353,7 +1352,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>5.63463cm</Top>
+            <Top>5.60709cm</Top>
             <Left>20.02317cm</Left>
             <Height>0.99578cm</Height>
             <Width>2.50002cm</Width>
@@ -10492,7 +10491,7 @@ iif(Fields!StatusTreatment.Value &lt;&gt; 8,"Picture100",""))</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Evaluator.Value &amp;  System.Environment.NewLine  &amp; Fields!Roles.Value</Value>
+                                  <Value>=Fields!Evaluator.Value &amp; " - " &amp; Fields!Roles.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -10828,6 +10827,22 @@ iif(Fields!StatusTreatment.Value &lt;&gt; 8,"Picture100",""))</Value>
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Rectangle Name="Rectangle3">
+            <PageBreak>
+              <BreakLocation>End</BreakLocation>
+            </PageBreak>
+            <KeepTogether>true</KeepTogether>
+            <Top>34.22275cm</Top>
+            <Left>10.74885cm</Left>
+            <Height>0.17336cm</Height>
+            <Width>5cm</Width>
+            <ZIndex>78</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Rectangle>
           <Textbox Name="Textbox37">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
@@ -10847,7 +10862,7 @@ iif(Fields!StatusTreatment.Value &lt;&gt; 8,"Picture100",""))</Value>
             <Left>0.81758cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
-            <ZIndex>78</ZIndex>
+            <ZIndex>79</ZIndex>
             <Visibility>
               <Hidden>=IIF(Sum(Fields!CountManusia.Value, "DataSetRoot") = 0, False, True)</Hidden>
             </Visibility>
@@ -10880,7 +10895,7 @@ iif(Fields!StatusTreatment.Value &lt;&gt; 8,"Picture100",""))</Value>
             <Left>9.5671cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
-            <ZIndex>79</ZIndex>
+            <ZIndex>80</ZIndex>
             <Visibility>
               <Hidden>=IIF(Sum(Fields!CountMaterial.Value, "DataSetRoot") = 0, False, True)</Hidden>
             </Visibility>
@@ -10913,7 +10928,7 @@ iif(Fields!StatusTreatment.Value &lt;&gt; 8,"Picture100",""))</Value>
             <Left>18.6694cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
-            <ZIndex>80</ZIndex>
+            <ZIndex>81</ZIndex>
             <Visibility>
               <Hidden>=IIF(Sum(Fields!CountLingkungan.Value, "DataSetRoot") = 0, False, True)</Hidden>
             </Visibility>
@@ -10946,7 +10961,7 @@ iif(Fields!StatusTreatment.Value &lt;&gt; 8,"Picture100",""))</Value>
             <Left>2.70716cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
-            <ZIndex>81</ZIndex>
+            <ZIndex>82</ZIndex>
             <Visibility>
               <Hidden>=IIF(Sum(Fields!CountMesin.Value, "DataSetRoot") = 0, False, True)</Hidden>
             </Visibility>
@@ -10979,7 +10994,7 @@ iif(Fields!StatusTreatment.Value &lt;&gt; 8,"Picture100",""))</Value>
             <Left>16.27523cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
-            <ZIndex>82</ZIndex>
+            <ZIndex>83</ZIndex>
             <Visibility>
               <Hidden>=IIF(Sum(Fields!CountMetode.Value, "DataSetRoot") = 0, False, True)</Hidden>
             </Visibility>
@@ -11001,7 +11016,7 @@ iif(Fields!StatusTreatment.Value &lt;&gt; 8,"Picture100",""))</Value>
             <Top>73.26855cm</Top>
             <Height>0.36005cm</Height>
             <Width>14.11033cm</Width>
-            <ZIndex>83</ZIndex>
+            <ZIndex>84</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -11032,7 +11047,7 @@ iif(Fields!StatusTreatment.Value &lt;&gt; 8,"Picture100",""))</Value>
             <Left>6.79483cm</Left>
             <Height>0.36005cm</Height>
             <Width>14.11033cm</Width>
-            <ZIndex>84</ZIndex>
+            <ZIndex>85</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -11048,22 +11063,6 @@ iif(Fields!StatusTreatment.Value &lt;&gt; 8,"Picture100",""))</Value>
             <Left>6.14898cm</Left>
             <Height>0.36005cm</Height>
             <Width>14.11033cm</Width>
-            <ZIndex>85</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-            </Style>
-          </Rectangle>
-          <Rectangle Name="Rectangle23">
-            <PageBreak>
-              <BreakLocation>End</BreakLocation>
-            </PageBreak>
-            <KeepTogether>true</KeepTogether>
-            <Top>34.21605cm</Top>
-            <Left>10.00853cm</Left>
-            <Height>0.12192cm</Height>
-            <Width>5.90272cm</Width>
             <ZIndex>86</ZIndex>
             <Style>
               <Border>
@@ -11179,7 +11178,6 @@ iif(Fields!StatusTreatment.Value &lt;&gt; 8,"Picture100",""))</Value>
           </RightBorder>
         </Style>
       </Page>
-   
   <EmbeddedImages>
     <EmbeddedImage Name="logo">
       <MIMEType>image/png</MIMEType>

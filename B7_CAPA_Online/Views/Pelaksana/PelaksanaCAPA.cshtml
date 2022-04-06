@@ -948,6 +948,7 @@
             formData.append("Attachments", file);
         }
 
+        $.blockUI();
         $.ajax({
             url: "SimpanHasilPelaksanaan",
             type: "POST",
@@ -960,9 +961,11 @@
                 var result = JSON.parse(data);
                 if (result[0].Validate == "Invalid") {
 
+                    $.unblockUI();
                     Swal.fire("Error!", "File sudah ada!", "error");
                 }
                 else {
+                    $.unblockUI();
                     Swal.fire({
                         title: "File Berhasil di Upload!",
                         type: "success",
@@ -972,6 +975,7 @@
                     $('#TxtLampiranCountPerbaikan').text("Tidak ada File Yang Dipilih");
                     GetPerbaikanAttachments();
                 }
+
             },
             error: function (xhr, error, status) {
                 console.log(error, status);
@@ -993,6 +997,7 @@
             var file = files[i];
             formData.append("Attachments", file);
         }
+        $.blockUI();
         $.ajax({
             url: "SimpanHasilPelaksanaan",
             type: "POST",
@@ -1003,11 +1008,14 @@
             async: false,
             success: function (data) {
                 var result = JSON.parse(data);
+                
                 if (result[0].Validate == "Invalid") {
 
+                    $.unblockUI();
                     Swal.fire("Error!", "File sudah ada!", "error");
                 }
                 else {
+                    $.unblockUI();
                     Swal.fire({
                         title: "File Berhasil di Upload!",
                         type: "success",
@@ -1038,6 +1046,7 @@
             var file = files[i];
             formData.append("Attachments", file);
         }
+        $.blockUI();
         $.ajax({
             url: "SimpanHasilPelaksanaan",
             type: "POST",
@@ -1050,9 +1059,11 @@
                 var result = JSON.parse(data);
                 if (result[0].Validate == "Invalid") {
 
+                    $.unblockUI();
                     Swal.fire("Error!", "File sudah ada!", "error");
                 }
                 else {
+                    $.unblockUI();
                     Swal.fire({
                         title: "File Berhasil di Upload!",
                         type: "success",
