@@ -939,14 +939,14 @@
                 dto = {
                     Option: 12,
                     Departemen: $('#AreaPIC_DDL').val(),
-                    Lokasi: Location,
+                    //Lokasi: Location,
                     SP: "[dbo].[SP_SHOW_DDL]"
                 }
             } else {
                 dto = {
                     Option: 3,
                     Departemen: $('#AreaPIC_DDL').val(),
-                    Lokasi: Location,
+                    //Lokasi: Location,
                     SP: "[dbo].[SP_SHOW_DDL]"
                 }
             }
@@ -969,7 +969,7 @@
                         $.each(JSON.parse(data), function (key, entry) {
                             $('#PIC_DDL').append(new Option(entry.EmpName, entry.EmpName));
                         });
-
+                        
                         $('#PIC_DDL').change(function () {
                             var PIC_Name = $('#PIC_DDL').val();
                             $.each(JSON.parse(data), function (key, entry) {
@@ -979,7 +979,7 @@
                                     $('#PIC_ID').val(entry.EmpID);
                                     return false;
                                 }
-                            });
+                            });                        
                         });
                     } else {
                         $('#VendorDiv').prop('hidden', false);
@@ -1775,6 +1775,7 @@
                 data: JSON.stringify(dto),
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
+                    console.log(data);
                     var Count = data.length;
                     $("#Tbl_Departemen").empty();
                     $("#AreaPIC_DDL").empty().prop('disabled', false);
@@ -1783,7 +1784,7 @@
                     if (Count > 0) {
                         $.each(data, function (key, entry) {
                             $('#Tbl_Departemen').append($('<tr><td>' + entry.Departemen + '</td><td><button type="button" class="form-control-sm delete">Delete</button></td></tr>'));
-                            $('#AreaPIC_DDL').append($('<option></option>').attr('value', entry.Departemen).text(entry.Departemen));
+                            $('#AreaPIC_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.Departemen));
                             getTableRow();
                         })
                     } else {
