@@ -319,6 +319,7 @@ namespace B7_CAPA_Online.Controllers
             if (list[0].NO_CAPA != null)
             {
                 EmailSender emailSender = new EmailSender();
+                int index = 0;
                 emailSender.SendEmail(new Dictionary<string, object> {
                     {"Nama_Aplikasi", "CAPA" },
                     {"Kategori", "PICReminder" },
@@ -332,7 +333,8 @@ namespace B7_CAPA_Online.Controllers
                     {"RejectReason", list[0].RejectReason},
                     {"CreateBy", list[0].CreateBy},
                     {"DeskripsiMasalah", list[0].DeskripsiMasalah }
-                });
+                }, index);
+                index++;
             }
 
             return Json(Recipient);

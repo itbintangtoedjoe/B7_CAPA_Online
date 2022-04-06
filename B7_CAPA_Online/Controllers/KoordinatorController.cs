@@ -633,6 +633,7 @@ namespace B7_CAPA_Online.Controllers
             //});
 
             EmailSender emailSender = new EmailSender();
+            int index = 0;
             emailSender.SendEmail(new Dictionary<string, object> {
                 {"Nama_Aplikasi", "CAPA" },
                 {"Kategori", "PICReminder" },
@@ -646,7 +647,8 @@ namespace B7_CAPA_Online.Controllers
                 {"RejectReason", list[0].RejectReason},
                 {"CreateBy", list[0].CreateBy},
                 {"DeskripsiMasalah", list[0].DeskripsiMasalah }
-            });
+            },index);
+            index++;
 
             return RedirectToAction("TaskList", "PendingTask", new { success = "succeed" });
         }
@@ -746,6 +748,7 @@ namespace B7_CAPA_Online.Controllers
             if (list[0].NO_CAPA != null)
             {
                 EmailSender emailSender = new EmailSender();
+                int index = 0;
                 foreach (var value in list)
                 {
                     emailSender.SendEmail(new Dictionary<string, object> {
@@ -761,7 +764,8 @@ namespace B7_CAPA_Online.Controllers
                         {"PIC", value.PIC}, // ini dari list diatas
                         {"CreateBy", value.CreateBy}, // ini dari list diatas
                         {"DeskripsiMasalah", value.DeskripsiMasalah } // ini dari list diatas
-                    });
+                    }, index);
+                    index++;
                 }
             }
             return Json(Recipient);

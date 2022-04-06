@@ -81,7 +81,14 @@
                             <tbody id="Table_RentangPencegahan">
                             </tbody>
                         </table>
-                        <button type="button" class="btn btn-primary" id="btn_Submit">Submit</button>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-primary" id="btn_Submit">Submit</button>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-primary" id="btn_Cancel" style="background-color:orange;">Cancel CAPA</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -279,14 +286,16 @@
                                 var valrentang = data;
                                 if (isUtama) {
                                     rentang = $("<select class='form-control' style='padding:0px;'></select>");
-                                    for (var i = 1; i <= 12; i++) {
-                                        var option = $("<option />");
-                                        option.html(i + " Bulan");
-                                        option.val(i);
-                                        rentang.append(option);
-                                        if (i == valrentang) {
-                                            option.attr("selected", "selected")
-                                            rentang.attr("disabled", true);
+                                    for (var i = 3; i <= 12; i += 3) {
+                                        if (i != 9) {
+                                            var option = $("<option />");
+                                            option.html(i + " Bulan");
+                                            option.val(i);
+                                            rentang.append(option);
+                                            if (i == valrentang) {
+                                                option.attr("selected", "selected")
+                                                rentang.attr("disabled", true);
+                                            }
                                         }
                                     }
                                 } else {
@@ -340,7 +349,7 @@
 
                             }
                         }
-                        
+
 
                     ],
                     "columnDefs": [
@@ -408,14 +417,16 @@
                                 var valrentang = data;
                                 if (isUtama) {
                                     rentang = $("<select class='form-control' style='padding:0px;'></select>");
-                                    for (var i = 1; i <= 12; i++) {
-                                        var option = $("<option />");
-                                        option.html(i + " Bulan");
-                                        option.val(i);
-                                        rentang.append(option);
-                                        if (i == valrentang) {
-                                            option.attr("selected", "selected")
-                                            rentang.attr("disabled", true);
+                                    for (var i = 3; i <= 12; i += 3) {
+                                        if (i != 9) {
+                                            var option = $("<option />");
+                                            option.html(i + " Bulan");
+                                            option.val(i);
+                                            rentang.append(option);
+                                            if (i == valrentang) {
+                                                option.attr("selected", "selected")
+                                                rentang.attr("disabled", true);
+                                            }
                                         }
                                     }
                                 } else {
@@ -439,7 +450,7 @@
                                     //    else
                                     //        return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                     //} else {
-                                
+
                                         //if (isUtama) {
                                         //    if (result[meta.row].Status_ID === false && result[meta.row].StatusDetail === 5)
                                         //        return "<button type='button' id='Pencegahan' class='btn btn-primary approve' style='background-color:green;'>Approve</button><button type='button' id='Pencegahan' class='btn btn-primary reject' style='background-color:red;'>Reject</button>";
@@ -459,7 +470,7 @@
                                         //}
                                         //counts++;
 
-                                    if (isUtama) {                                            
+                                    if (isUtama) {
                                         if (data === true)
                                             return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                         else if (result[meta.row].StatusDetail === 1)
@@ -482,8 +493,8 @@
                                             return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                         }
 
-                                    }                                        
-                                    counts++;                                    
+                                    }
+                                    counts++;
                                 }
                             }
 
@@ -513,6 +524,86 @@
         checkStatusCAPA();
         GetTindakanPerbaikan();
         GetTindakanPencegahan();
+    }
+    function Cancel() {
+        Swal.fire({
+            title: 'Alasan Cancel',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            html: '<textarea id="txtCancel" class="form form-control" ></textarea>',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Batalkan!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                var cancel = $('#txtCancel').val();
+                var dictlist = {
+                    NoCAPA: $('#input_NoCAPA').val(),
+                    Option: 9,
+                    CancelReason: cancel,
+                    Creator: '@Request.RequestContext.HttpContext.Session["NIK"]'
+                }
+                var dto1 = {
+                    Model: dictlist
+                }
+                if (cancel != null && cancel.trim() != '') {
+                    $.ajax({
+                        url: "DynamicController?spname=SP_SHOW_EVALUATOR_DDL",
+                        type: "post",
+                        dataType: "json",
+                        data: JSON.stringify(dto1),
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+                            Swal.fire({
+                                title: "Cancelled!",
+                                text: "Cancel Berhasil",
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1000,
+                            })
+
+                            $.blockUI();
+                            $.ajax({
+                                url: 'SubmitApproval',
+                                type: 'post',
+                                data: JSON.stringify({
+                                    Model: {
+                                        NO_CAPA: $('#QS_NoCAPA').val(),
+                                        Temp_Status: 13
+                                    }
+                                }),
+                                dataType: 'json',
+                                contentType: 'application/json; charset=utf-8',
+                                success: function (data) {
+                                    window.location.href = '../PendingTask/TaskList';
+                                },
+                                error: function (ex) {
+                                    alert(JSON.stringify(ex));
+                                }
+                            });
+                        },
+                        error: function (errormessage) {
+                        }
+                    });
+                }
+                else {
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Alasan tidak boleh kosong.",
+                        icon: "error",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    })
+
+                }
+
+
+            }
+        })
+
+
     }
 
     function Approval(event, option) {
@@ -557,7 +648,6 @@
     }
 
     function Rejection(event, option, alasan) {
-        $.blockUI();
         var rows = $(event).closest('tr');
         var data = $('#Tbl_Rentang' + $(event).attr("id")).DataTable().row(rows).data();
 
@@ -579,16 +669,32 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Semua Tindakan berhasil di Rejected.',
-                    type: 'success',
-                    showConfirmButton: false,
-                    timer: 2000
-                }).then(() => {
-                    $.unblockUI();
-                    getTable($(event).attr("id"));
-                    window.location.href = '../PendingTask/TaskList';
+                $.ajax({
+                    url: 'SubmitApproval',
+                    type: 'post',
+                    data: JSON.stringify({
+                        Model: {
+                            NO_CAPA: $('#input_NoCAPA').val(),
+                            Temp_Status: 1
+                        }
+                    }),
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Semua Tindakan berhasil di Rejected.',
+                            type: 'success',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            $.blockUI();
+                            window.location.href = '../PendingTask/TaskList';
+                        });
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
                 });
             },
             error: function (ex) {
@@ -795,6 +901,10 @@
                     showConfirmButton: false
                 })
             }
+        });
+
+        $('#btn_Cancel').click(function () {
+            Cancel();
         });
 
         $('#btn_CancelCAPA').click(function () {

@@ -940,14 +940,16 @@
                             "render": function (data, type, row, meta) {
                                 var valrentang = data;
                                 var rentang = $("<select class='form-control' style='padding:0px;'></select>");
-                                for (var i = 1; i <= 12; i++) {
-                                    var option = $("<option />");
-                                    option.html(i + " Bulan");
-                                    option.val(i);
-                                    rentang.append(option);
-                                    if (i == valrentang) {
-                                        option.attr("selected", "selected")
-                                        rentang.attr("disabled", true);
+                                for (var i = 3; i <= 12; i += 3) {
+                                    if (i != 9) {
+                                        var option = $("<option />");
+                                        option.html(i + " Bulan");
+                                        option.val(i);
+                                        rentang.append(option);
+                                        if (i == valrentang) {
+                                            option.attr("selected", "selected")
+                                            rentang.attr("disabled", true);
+                                        }
                                     }
                                 }
                                 return rentang[0].outerHTML;
@@ -1052,15 +1054,16 @@
                                 var valrentang = data;
                                 //var div = $('<div class="dropdown"></div>')
                                 var rentang = $("<select class='form-control' style='padding:0px;'></select>");
-                                for (var i = 1; i <= 12; i++) {
-
-                                    var option = $("<option/>");
-                                    option.html(i + " Bulan");
-                                    option.val(i);
-                                    rentang.append(option);
-                                    if (i == valrentang) {
-                                        option.attr("selected", "selected")
-                                        rentang.attr("disabled", true);
+                                for (var i = 3; i <= 12; i += 3) {
+                                    if (i != 9) {
+                                        var option = $("<option />");
+                                        option.html(i + " Bulan");
+                                        option.val(i);
+                                        rentang.append(option);
+                                        if (i == valrentang) {
+                                            option.attr("selected", "selected")
+                                            rentang.attr("disabled", true);
+                                        }
                                     }
                                 }
                                 return rentang[0].outerHTML;
