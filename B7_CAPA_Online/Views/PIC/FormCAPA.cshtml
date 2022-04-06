@@ -1402,9 +1402,10 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 getDataTindakan(JSON.parse(data));
+                //console.log({ Kajian: JSON.parse(data}) })
                 $('#RootCause_KajianResikoDDL').empty();
                 $.each(JSON.parse(data), function (key, value) {
-                    $('#RootCause_KajianResikoDDL').append(new Option(value.Tindakan, value.Tindakan));
+                    $('#RootCause_KajianResikoDDL').append(new Option(value.Tindakan, value.RecordID));
                 });
             },
             error: function (ex) {
@@ -1420,7 +1421,7 @@
     //search Tindakan get record_id and Tipe
     var values; //objTindakan filtered.
     function recTindakan(increments) {
-        if (objTindakan[increments].Tindakan == $('#RootCause_KajianResikoDDL').val())
+        if (objTindakan[increments].RecordID == $('#RootCause_KajianResikoDDL').val())            
             return values = objTindakan[increments];
         else {
             increments++;
@@ -2953,7 +2954,7 @@
                     RecordID: values.RecordID,
                     NO_CAPA: $('#input_NoCAPA').val(),
                     Tipe: values.Tipe,
-                    Tindakan: $('#RootCause_KajianResikoDDL').val(),
+                    Tindakan: $('#RootCause_KajianResikoDDL :selected').text(),
                     P_Kegagalan: $('#TxtPotensiKegagalan').val(),
                     Spek: $('#TxtSpesifikasi').val(),
                     Dampak: $('#TxtDampak').val(),

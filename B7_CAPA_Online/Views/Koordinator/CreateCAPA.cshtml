@@ -22,7 +22,7 @@
 
 <div class="content-body" id="myDiv">
 
-    <!--Modal--> 
+    <!--Modal-->
     <div class="modal fade" id="link_Deviation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
@@ -645,7 +645,7 @@
                                         <table class="table table-hover table-bordered zero-configuration" id="Tbl_File" style="color:black;">
                                             <thead>
                                                 <tr>
-                                                    <th>Filename</th>                                                    
+                                                    <th>Filename</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="tb_File">
@@ -806,14 +806,15 @@
 <script src="~/Content/Scripts/plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.min.js" defer></script>
 <script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
 
-<script>    
+<script>
+
     var formData = new FormData();
-    isDetail = false;   
-    $(document).ready(function () {        
+    isDetail = false;
+    $(document).ready(function () {
         $('.tags').tagsinput({
             maxTags: 4
         });
-
+        GetDepartements();
         GetDeptNoCAPATerkait();
 
         //variable data untuk menampung data deviation dan ccc
@@ -863,85 +864,60 @@
         $('#btn_Add').click(function () {
             AddDepartemen();
             $('#VendorDiv').prop('hidden', true);
-        });        
+        });
 
         //Ketika dropdownlist lokasi dipilih akan ngeload departemen berdasarkan lokasi yang dipilih.
         var arr = [];
-        $('#Lokasi_DDL').change(function () {
-            var Location;
+        //$('#Lokasi_DDL').change(function () {
+        //    var Location;
 
-            if ($('#Lokasi_DDL').val() == 'CKR') {
-                Location = 'Cikarang';
-            } else if ($('#Lokasi_DDL').val() == 'HOF') {
-                Location = 'Head Office';
-            } else if ($('#Lokasi_DDL').val() == 'ALL') {
-                Location = 'Pulogadung,Cikarang';
-            } else {
-                Location = 'Pulogadung';
-            }
+        //    if ($('#Lokasi_DDL').val() == 'CKR') {
+        //        Location = 'Cikarang';
+        //    } else if ($('#Lokasi_DDL').val() == 'HOF') {
+        //        Location = 'Head Office';
+        //    } else if ($('#Lokasi_DDL').val() == 'ALL') {
+        //        Location = 'Pulogadung,Cikarang';
+        //    } else {
+        //        Location = 'Pulogadung';
+        //    }
 
-            dto = {
-                Option: 3,
-                Departemen: $('#AreaPIC_DDL').val(),
-                Lokasi: Location,
-                SP: "[dbo].[SP_SHOW_DDL]"
-            }
+        //    dto = {
+        //        Option: 3,
+        //        Departemen: $('#AreaPIC_DDL').val(),
+        //        Lokasi: Location,
+        //        SP: "[dbo].[SP_SHOW_DDL]"
+        //    }
 
-            $.ajax({
-                url: 'GetDepartments',
-                type: 'post',
-                dataType: 'json',
-                data: JSON.stringify({
-                    Option: 2,
-                    Lokasi: $('#Lokasi_DDL').val().toString(),
-                    SP: "[dbo].[SP_SHOW_DDL]"
-                }),
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    console.log(data);
-                    resetTable(function _callback() {
-                        $('#Departemen_DDL').empty();
-                        $('#Departemen_DDL').append('<option disabled selected hidden class="dropdown-header">*Pilih*</option>');
-                        $.each(JSON.parse(data), function (key, entry) {
-                            $('#Departemen_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.Dept));
-                            $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.Dept).text(entry.Dept));
+        //    $.ajax({
+        //        url: 'GetDepartments',
+        //        type: 'post',
+        //        dataType: 'json',
+        //        data: JSON.stringify({
+        //            Option: 2,
+        //            Lokasi: $('#Lokasi_DDL').val().toString(),
+        //            SP: "[dbo].[SP_SHOW_DDL]"
+        //        }),
+        //        contentType: 'application/json; charset=utf-8',
+        //        success: function (data) {
+        //            console.log(data);
+        //            resetTable(function _callback() {
+        //                $('#Departemen_DDL').empty();
+        //                $('#Departemen_DDL').append('<option disabled selected hidden class="dropdown-header">*Pilih*</option>');
+        //                $.each(JSON.parse(data), function (key, entry) {
+        //                    $('#Departemen_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.Dept));
+        //                    $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.Dept).text(entry.Dept));
 
-                        })
-                        $('#Departemen_DDL').append($('<option></option>').attr('value', 'Others').text('Others'));
-                        $('#Departemen_DDL').select2();
-                    });
+        //                })
+        //                $('#Departemen_DDL').append($('<option></option>').attr('value', 'Others').text('Others'));
+        //                $('#Departemen_DDL').select2();
+        //            });
 
-                },
-                error: function (ex) {
-                    alert(JSON.stringify(ex));
-                }
-            });
-
-
-
-            //$.ajax({
-            //    url: 'GetSupervisors',
-            //    type: 'post',
-            //    data: JSON.stringify(dto),
-            //    dataType: 'json',
-            //    contentType: 'application/json; charset=utf-8',
-            //    success: function (data) {
-            //        $('#PIC_DDL').empty();
-            //        $.each(JSON.parse(data), function (key, entry) {
-            //            $('#PIC_DDL').append($('<option></option>').attr('value', entry.EmpName).text(entry.EmpName));
-            //        });
-
-            //        if ($('#PIC_DDL').val() == null) {
-            //            $('#PIC_DDL').append($('<option></option>').attr('value', '').text('None'));
-            //        }
-
-            //        $('#PIC_DDL').select2();
-            //    },
-            //    error: function (ex) {
-            //        alert(JSON.stringify(ex));
-            //    }
-            //});
-        });
+        //        },
+        //        error: function (ex) {
+        //            alert(JSON.stringify(ex));
+        //        }
+        //    });
+        //});
 
         //Ketika dropdownlist departemen dipilih akan ngeload PIC CAPA berdasarkan area yang dipilih.
         $('#AreaPIC_DDL').change(function () {
@@ -1047,7 +1023,7 @@
 
         //Browse button No CAPA Terkait
         $('#link_NoCAPATerkait').click(function () {
-           
+
         });
 
         // Button search isi lampiran Deviation yang menyimpang.
@@ -1567,15 +1543,15 @@
         //    //$('#LampiranTerkait').val(formData);
         //});
 
-        $("#btn_Submit").click(function () {           
+        $("#btn_Submit").click(function () {
             var status = validateInput();
             if (status) {
                 $.blockUI();
-                return $('#SubmitData').submit();              
+                return $('#SubmitData').submit();
             }
             //$('#SubmitData').submit();
         });
-      
+
     });
 
     function validateInput() {
@@ -1590,21 +1566,21 @@
             labelChild = (trigger == "DEVIATION") ? ('Penyimpangan Terkait') : ((trigger == 'CCC') ? ("Keluhan Pelanggan Terkait") : ("No CAPA Terkait"))
             isAttachment = false;
         }
-          
+
         data = {
             TriggerCAPA: trigger,
             PenyimpanganCollection: !isAttachment ? ($('#PenyimpanganNumber').val()): ("-"),
             LampiranTerkait: isAttachment ? ($("#TxtFileInput").val()) : ("-"),
             Kategori: $("#Kategori_DDL").val(),
-            Kode: $('#Kode_DDL').val(),     
+            Kode: $('#Kode_DDL').val(),
             Deskripsi: $("#TxtDeskripsi").val(),
-            Lokasi: $("#Lokasi_DDL").val(),                  
+            Lokasi: $("#Lokasi_DDL").val(),
             DepartemenTerkait: tableContent,
             AreaPIC: $("#AreaPIC_DDL").val(),
             PIC: $("#PIC_DDL").val()
-        }        
+        }
 
-        for (var key in data) {     
+        for (var key in data) {
             //console.log(data[key])
             if (data[key] === "" || data[key] === false || data[key] === null) {
                 if (key === 'PenyimpanganCollection' && data['PenyimpanganCollection'] === "" && !isAttachment) {
@@ -1615,16 +1591,16 @@
                     });
                     return false;
                     break;
-                } 
+                }
                 Swal.fire({
                     type: 'warning',
                     title: 'Maaf',
                     text: 'Mohon input ' + key + ' wajib diisi!',
                 });
                 return false;
-                break;     
+                break;
             }
-        }        
+        }
         return true;
     }
 
@@ -1884,30 +1860,30 @@
         _callback();
     }
 
-    function requestPage() {        
+    function requestPage() {
         var defer = $.Deferred();
-        if (@Request.QueryString.Count == 1) {          
+        if (@Request.QueryString.Count == 1) {
             $.blockUI();
             isHide = true;
             setTimeout(function () {
                 getRequestPageData();
                 defer.resolve();
-            }, 1000);           
+            }, 1000);
         } else {
             getDDL();
             TahunDDL();
             DeleteDepartemen();
             checkUser($('#input_NIK').val());
-        }                 
+        }
         return defer;
     }
 
     function getRequestPageData() {
         $.unblockUI();
-        if (@Request.QueryString.Count == 1) {   
+        if (@Request.QueryString.Count == 1) {
             TableKajianPV();
 
-            isHide = true;            
+            isHide = true;
 
             $('#Div_KajianResikoInput').prop('hidden', true);
 
@@ -2058,6 +2034,45 @@
                     // $('#AreaPICCAPA_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.SubDept));
 
                 })
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetDepartements() {
+        dto = {
+            Option: 3,
+            Departemen: $('#AreaPIC_DDL').val(),
+            //Lokasi: Location,
+            SP: "[dbo].[SP_SHOW_DDL]"
+        }
+
+        $.ajax({
+            url: 'GetDepartments',
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify({
+                Option: 2,
+                Lokasi: $('#Lokasi_DDL').val().toString(),
+                SP: "[dbo].[SP_SHOW_DDL]"
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log(data);
+                resetTable(function _callback() {
+                    $('#Departemen_DDL').empty();
+                    $('#Departemen_DDL').append('<option disabled selected hidden class="dropdown-header">*Pilih*</option>');
+                    $.each(JSON.parse(data), function (key, entry) {
+                        $('#Departemen_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.Dept));
+                        $('#DepartemenPelapor_DDL').append($('<option></option>').attr('value', entry.Dept).text(entry.Dept));
+
+                    })
+                    $('#Departemen_DDL').append($('<option></option>').attr('value', 'Others').text('Others'));
+                    $('#Departemen_DDL').select2();
+                });
+
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));

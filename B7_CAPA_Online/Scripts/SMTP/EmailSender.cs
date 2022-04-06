@@ -57,8 +57,7 @@ namespace B7_CAPA_Online.Scripts.SMTP
                 foreach(var CC in emailCC) // looping cc 
                 {
                     msg.CC.Add(CC.Email); 
-                }
-                msg.CC.Add("classieroof@gmail.com");
+                }              
                 mailObj.Send(msg);
                 return "success";
             }
