@@ -429,6 +429,7 @@
                 success: function (data) {
                     var result = JSON.parse(data);
                     if (!result[0].IS_VALID) {
+                        $.unblockUI();
                         Swal.fire(
                             'Maaf',
                             'Mohon untuk mengisi field yang tersedia.',
@@ -446,7 +447,7 @@
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'Yes'
                     }).then((result) => {                        
-                        $.unblockUI();
+                        //$.unblockUI();
                         window.location.href = '../PendingTask/TaskList';                        
                     })
 

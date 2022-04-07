@@ -478,7 +478,7 @@
                             <div class="row form-group-sm mb-2">
                                 <div class="col-md-6">
                                     <label class="m-t-20">Why<span style="color: red">*</span></label>
-                                    <input class="form-control" type="text" id="TxtWhy" />
+                                    <textarea class="form-control" type="text" id="TxtWhy"></textarea>
                                 </div>
                             </div>
                             <div class="row form-group-sm mb-2">
@@ -551,7 +551,7 @@
                                     <div class="col-md-4">
                                         <label for="DepartemenPerbaikan_DDL" class="col-form-label">Departemen</label>
                                         <div class="input-group">
-                                            <select class="form-control" name="DepartemenPerbaikan_DDL" id="DepartemenPerbaikan_DDL">
+                                            <select class="form-control" name="DepartemenPerbaikan_DDL" style="width: 100%" id="DepartemenPerbaikan_DDL">
                                             </select>
                                         </div>
                                     </div>
@@ -663,7 +663,7 @@
                                     <div class="col-md-4">
                                         <label for="DepartemenPencegahan_DDL" class="col-form-label">Departemen</label>
                                         <div class="input-group">
-                                            <select class="form-control" name="DepartemenPencegahan_DDL" id="DepartemenPencegahan_DDL">
+                                            <select class="form-control" name="DepartemenPencegahan_DDL" style="width: 100%" id="DepartemenPencegahan_DDL">
                                             </select>
                                         </div>
                                     </div>
@@ -720,7 +720,7 @@
                         <h4 class="card-title">Kajian Resiko</h4>
                         <div class="row form-group" id="Div_KajianResiko_DDL">
                             <div class="col-md-7">
-                                <select id="RootCause_KajianResikoDDL" class="form-control">
+                                <select id="RootCause_KajianResikoDDL" style="width: 100%;" class="form-control">
                                 </select>
                                 <input value="" id="TxtRecordID" hidden /> <!--Line Number Kajian Resiko-->
                                 <input value="" id="TxtTipe" hidden /> <!--Tipe Kajian Resiko-->
@@ -971,6 +971,8 @@
             $('#WhyParent_DDL').empty();
             getWAH(data);
         });
+
+        $('#Aspect_DDL').select2();
     }
 
     function getWAH(data) {
@@ -983,11 +985,13 @@
                     $('#WAH_DDL').append(new Option(value.WAHDesc, value.WAHDesc));
                 }
             }
+
         });
 
         $('#WAH_DDL').change(function () {
             getWhyParent();
         });
+        $('#WAH_DDL').select2();
     }
 
     function TableKajian(hide) {
@@ -1207,6 +1211,7 @@
                 $.each(JSON.parse(rootcause), function (key, value) {
                     $('#RootCause_DDL').append(new Option(value.WhyDesc, value.WhyDesc));
                 });
+                $('#RootCause_DDL').select2();
                 rootcauses = JSON.parse(rootcause);
                 //$('#btn_AddPerbaikan').click(function () {
                 //    countAdd++;
@@ -1402,10 +1407,14 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 getDataTindakan(JSON.parse(data));
-                //console.log({ Kajian: JSON.parse(data}) })
+                console.log({ Kajian: JSON.parse(data) })
                 $('#RootCause_KajianResikoDDL').empty();
                 $.each(JSON.parse(data), function (key, value) {
-                    $('#RootCause_KajianResikoDDL').append(new Option(value.Tindakan, value.RecordID));
+                    $('#RootCause_KajianResikoDDL').append(new Option("[" + value.Tipe + "] - " + value.Tindakan, value.RecordID));
+
+                });
+                $('#RootCause_KajianResikoDDL').select2({
+                    width: 'resolve' // need to override the changed default
                 });
             },
             error: function (ex) {
@@ -1421,7 +1430,7 @@
     //search Tindakan get record_id and Tipe
     var values; //objTindakan filtered.
     function recTindakan(increments) {
-        if (objTindakan[increments].RecordID == $('#RootCause_KajianResikoDDL').val())            
+        if (objTindakan[increments].RecordID == $('#RootCause_KajianResikoDDL').val())
             return values = objTindakan[increments];
         else {
             increments++;
@@ -1548,6 +1557,12 @@
                     $('#DepartemenPerbaikan_DDL').append(new Option(value.DEPARTEMEN, value.DEPARTEMEN));
                     $('#DepartemenPencegahan_DDL').append(new Option(value.DEPARTEMEN, value.DEPARTEMEN));
                 });
+                $('#DepartemenPerbaikan_DDL').select2({
+                    width: 'resolve' // need to override the changed default
+                });
+                $('#DepartemenPencegahan_DDL').select2({
+                    width: 'resolve' // need to override the changed default
+                });
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -1572,6 +1587,12 @@
                 $.each(JSON.parse(data), function (key, value) {
                     $('#VendorPerbaikan_DDL').append(new Option(value.vendor_name, value.vendor_id));
                     $('#VendorPencegahan_DDL').append(new Option(value.vendor_name, value.vendor_id));
+                });
+                $('#VendorPerbaikan_DDL').select2({
+                    width: 'resolve' // need to override the changed default
+                });
+                $('#VendorPencegahan_DDL').select2({
+                    width: 'resolve' // need to override the changed default
                 });
             },
             error: function (ex) {
@@ -1616,6 +1637,10 @@
                         }
                     });
                 });
+
+                $('#NamaPersonil' + kategori + '_DDL').select2({
+                    width: 'resolve' // need to override the changed default
+                });
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -1654,6 +1679,8 @@
                         }
                     });
                 });
+
+                $('#WhyParent_DDL').select2();
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -2928,7 +2955,7 @@
         });
 
         $('#btn_AddKajian').click(function () {
-            recTindakan(0);
+            recTindakan(0);          
             //console.log(values)
             $('#TxtPIC').val(values.Pelaksana);
             $('#TxtPICName').val(values.Nama_Personil);
@@ -2949,12 +2976,16 @@
                 pic = $('#TxtPIC').val();
             }
 
+            let text = $('#RootCause_KajianResikoDDL :selected').text();
+            let searchIdx = text.indexOf('-') + 2;
+            let result = text.substr(searchIdx);
+
             dto = {
                 Model: {
                     RecordID: values.RecordID,
                     NO_CAPA: $('#input_NoCAPA').val(),
                     Tipe: values.Tipe,
-                    Tindakan: $('#RootCause_KajianResikoDDL :selected').text(),
+                    Tindakan: result,
                     P_Kegagalan: $('#TxtPotensiKegagalan').val(),
                     Spek: $('#TxtSpesifikasi').val(),
                     Dampak: $('#TxtDampak').val(),
@@ -3035,7 +3066,7 @@
                     //        'warning'
                     //    )
                     //}
-                     if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
+                    if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
                         valid = false;
                         return Swal.fire(
                             'Maaf',
