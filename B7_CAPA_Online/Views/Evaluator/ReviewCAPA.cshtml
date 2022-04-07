@@ -688,7 +688,7 @@
                             showConfirmButton: false,
                             timer: 2000
                         }).then(() => {
-                            $.blockUI();
+                            //$.blockUI();
                             window.location.href = '../PendingTask/TaskList';
                         });
                     },
@@ -738,6 +738,7 @@
             checkEvaluatorCAPA();
         } else {
             $('#btn_Submit').prop('hidden', true);
+            $('#btn_Cancel').prop('hidden', true);
             GetTindakanPerbaikan();
             GetTindakanPencegahan();
         }
@@ -872,7 +873,7 @@
                                 timer: 2000,
                                 showConfirmButton: false
                             }).then(function (result) {
-                                $.unblockUI();
+                                //$.unblockUI();
                                 window.location.href = '../PendingTask/TaskList';
                             });
                         }

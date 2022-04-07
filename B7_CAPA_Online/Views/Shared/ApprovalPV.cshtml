@@ -107,7 +107,7 @@
                         timer: 2000,
                         showConfirmButton : false
                     }).then(function (result) {
-                        $.unblockUI();
+                       //$.unblockUI();
                         window.location.href = '../PendingTask/TaskList';
                     });
                 }
@@ -157,13 +157,11 @@
             SubmitApprovalPV("Cancel", CurrentStatsID);//Reject Approval EventClick
         });
 
-        $("#btnCloseCancel").click(function () {
-            $.blockUI();
+        $("#btnCloseCancel").click(function () {          
             ClearRejectReason();//Remove Reason Field EventClick
         });
 
-        $("#btnCloseReject").click(function () {
-            $.blockUI();
+        $("#btnCloseReject").click(function () {            
             ClearRejectReason();//Remove Reason Field EventClick
         });
     });
