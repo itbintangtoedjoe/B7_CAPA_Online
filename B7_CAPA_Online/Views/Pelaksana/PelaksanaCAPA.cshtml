@@ -851,6 +851,14 @@
             $.blockUI();
             window.location.href = '@Url.Action("PelaksanaCAPAPembatalan","Pelaksana")?NoCAPA=' + noCAPA + '&ReferenceID=' + idPerbaikan +'&Tindakan=Perbaikan';
         }
+        else {
+            Swal.fire({
+                title: "Khusus Pelaksana yang ditunjuk !",
+                type: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
+        }
 
     });
     $('#btnCancelPencegahan').click(function () {
@@ -861,6 +869,14 @@
             window.location.href = '@Url.Action("PelaksanaCAPAPembatalan","Pelaksana")?NoCAPA=' + noCAPA + '&ReferenceID=' + idPencegahan + '&Tindakan=Pencegahan';
 
         }
+        else {
+            Swal.fire({
+                title: "Khusus Pelaksana yang ditunjuk !",
+                type: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
+        }
     });
     $('#btnEnableUbahPerbaikan').click(function () {
         if (stataction == true)
@@ -870,6 +886,14 @@
             window.location.href = '@Url.Action("PelaksanaCAPAPerubahan","Pelaksana")?NoCAPA=' + noCAPA + '&ReferenceID=' + idPencegahan + '&Tindakan=Perbaikan';
 
         }
+        else {
+            Swal.fire({
+                title: "Khusus Pelaksana yang ditunjuk !",
+                type: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
+        }
     });
     $('#btnEnableUbahPencegahan').click(function () {
         if (statactionpencegahan == true)
@@ -878,6 +902,15 @@
             $.blockUI();
             window.location.href = '@Url.Action("PelaksanaCAPAPerubahan","Pelaksana")?NoCAPA=' + noCAPA + '&ReferenceID=' + idPencegahan + '&Tindakan=Pencegahan';
 
+        }
+        else
+        {
+              Swal.fire({
+                        title: "Khusus Pelaksana yang ditunjuk !",
+                        type: "error",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    })
         }
     });
     $('#uploadAttachmentPerbaikan').change(function () {
