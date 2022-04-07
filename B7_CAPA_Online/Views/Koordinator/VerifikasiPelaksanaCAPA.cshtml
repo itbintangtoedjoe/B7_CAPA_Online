@@ -24,7 +24,7 @@
                         <div class="row">
                             <div class="form-group mb-2 col-sm-3">
                                 <label class="m-t-20">Tanggal</label>
-                                <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Today.ToString("MM/dd/yyyy HH:mm")" readonly>
+                                <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Now.ToString("MM/dd/yyyy HH:mm")" readonly>
                             </div>
                             <div class="form-group mb-2 col-sm-3">
                                 <label class="m-t-40">User Login</label>
@@ -49,12 +49,12 @@
                         <div class="form-group">
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="checkboxradio" value="Ada" onclick="onlyOne(this)">Ada
+                                    <input type="checkbox" id="trigger_ada" class="form-check-input" name="checkboxradio" value="Ada" onclick="onlyOne(this)">Ada
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="checkboxradio" value="Tidak" onclick="onlyOne(this)" checked>Tidak Ada
+                                    <input type="checkbox" class="form-check-input"id="trigger_tidak"  name="checkboxradio" value="Tidak" onclick="onlyOne(this)" checked>Tidak Ada
                                 </label>
                             </div>
                         </div>
@@ -394,10 +394,22 @@
 
     function CheckType() {
         if (typeParam == 'View') {
-
+            getDDL();
+            $('#trigger_ada').prop('disabled', true);
+            $('#trigger_tidak').prop('disabled', true);
+            var lampirancapa = $('#Tbl_Lampiran').DataTable().data().count();
+            var penyimpangancapa = $('#Tbl_Penyimpangan').DataTable().data().count();
+            if (lampirancapa > 0 && penyimpangancapa > 0) {
+                document.getElementById("trigger_ada").checked = true; 
+                $('#PartialTrigger').prop('hidden', false);
+            }
+            else {
+                document.getElementById("trigger_tidak").checked = true;
+                $('#PartialTrigger').prop('hidden', true);
+            }
         }
         else {
-            CheckStatus()
+            CheckStatus();
         }
     }
 
