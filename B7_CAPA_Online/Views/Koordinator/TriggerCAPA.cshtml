@@ -1143,9 +1143,6 @@
                     $('#Submit').prop('hidden', false);
                     GetLampiran();
                 }
-                $('#Trigger_CAPA').append($('<option></option>').attr('value', result[0].TRIGGER_CAPA).text(result[0].TRIGGER_CAPA));
-                $('#Trigger_CAPA').val(result[0].TRIGGER_CAPA);
-                $('#Trigger_CAPA').select2();
                 $('#Trigger_CAPA').attr("disabled", true);
             },
             error: function (ex) {

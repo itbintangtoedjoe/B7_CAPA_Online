@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using static B7_CAPA_Online.Models.KoordinatorModel;
 namespace B7_CAPA_Online.Controllers
 {
     public class VendorController : Controller
@@ -126,7 +126,12 @@ namespace B7_CAPA_Online.Controllers
             var result = DAL.VendorStoredProcedure(parameters, "sp_vendor_data");
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
+        public ActionResult VendorDynamicController(DynamicModel Model , string spname )
+        {
+            var parameters = new DynamicParameters(Model.Model);
+            var result = DAL.VendorStoredProcedure(parameters, spname);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         public List<VendorType> GetAllVendorTypes()
         {
             DataSet ds = new DataSet();

@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                <div class="card">
+                <div class="card" id="trigger">
                     <div class="card-body">
                         <h4 class="card-title">Verifikasi Pelaksanaan CAPA</h4>
                         <p class="text-muted">Apakah ada Trigger CAPA Terkait?</p>
@@ -397,16 +397,17 @@
             getDDL();
             $('#trigger_ada').prop('disabled', true);
             $('#trigger_tidak').prop('disabled', true);
+            $('#trigger').prop('hidden', true);
             var lampirancapa = $('#Tbl_Lampiran').DataTable().data().count();
             var penyimpangancapa = $('#Tbl_Penyimpangan').DataTable().data().count();
-            if (lampirancapa > 0 && penyimpangancapa > 0) {
-                document.getElementById("trigger_ada").checked = true; 
-                $('#PartialTrigger').prop('hidden', false);
-            }
-            else {
-                document.getElementById("trigger_tidak").checked = true;
-                $('#PartialTrigger').prop('hidden', true);
-            }
+            //if (lampirancapa > 0 && penyimpangancapa > 0) {
+            //    document.getElementById("trigger_ada").checked = true; 
+            //    $('#PartialTrigger').prop('hidden', false);
+            //}
+            //else {
+            //    document.getElementById("trigger_tidak").checked = true;
+            //    $('#PartialTrigger').prop('hidden', true);
+            //}
         }
         else {
             CheckStatus();
