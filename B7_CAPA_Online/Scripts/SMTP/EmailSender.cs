@@ -59,6 +59,12 @@ namespace B7_CAPA_Online.Scripts.SMTP
                     msg.CC.Add(CC.Email); 
                 }              
                 mailObj.Send(msg);
+
+                if(int.Parse(dic["StatusCAPA"].ToString()) == 14)// Kirim email ke koordinator ketika closed initiate new CAPA 
+                {
+                   NewCAPAEmail(dic, obj, index);
+                }
+
                 return "success";
             }
             catch (Exception ex)
@@ -100,6 +106,29 @@ namespace B7_CAPA_Online.Scripts.SMTP
                 list.Add(new Recipients {Email = item.Value<string>("Email") });
             }
             return list;
+        }
+
+        public void NewCAPAEmail(Dictionary<string,object> dic, List<Recipients> obj, int index)
+        {
+            var msg = new MailMessage();
+            dic["Kategori"] = "CAPABaru";
+            msg.From = new MailAddress("notification@bintang7.com", "B7 Connect Mailing System");
+            var parameters = new DynamicParameters(dic);
+            Email emailData = new Email();
+            string eData = DAL.StoredProcedure(parameters, "[dbo].[SP_EMAIL_NEW_CAPA]");
+            dynamic emailList = JsonConvert.DeserializeObject<List<Email>>(eData);
+            emailData.EmailSubject = emailList[0].EmailSubject;
+            emailData.EmailBody = emailList[0].EmailBody;
+            SmtpClient mailObj = new SmtpClient("mail.kalbe.co.id");
+
+            msg.Body = emailData.EmailBody;
+            msg.Subject = emailData.EmailSubject;
+            msg.Priority = MailPriority.High;
+            msg.IsBodyHtml = true;
+            //msg.To.Add("dani.pernando@bintang7.com");                            
+            msg.To.Add(obj[index].Email);           
+            mailObj.Send(msg);
+            //return "success";
         }
 
     }
