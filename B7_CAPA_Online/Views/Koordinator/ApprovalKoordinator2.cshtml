@@ -630,7 +630,7 @@
                 }
                 if (reject != null && reject.trim() != '') {
                     $.ajax({
-                        url: "DynamicController?spname=SP_SHOW_EVALUATOR_DDL",
+                        url: "DynamicController?spname= ",
                         type: "post",
                         dataType: "json",
                         data: JSON.stringify(dto1),
@@ -661,7 +661,8 @@
                                 data: JSON.stringify({
                                     Model: {
                                         NO_CAPA: $('#QS_NoCAPA').val(),
-                                        Temp_Status: 1
+                                        Temp_Status: 1,
+                                        Empid: nik
                                     }
                                 }),
                                 dataType: 'json',
@@ -702,9 +703,9 @@
             icon: 'warning',
             html: '<textarea id="txtCancel" class="form form-control" ></textarea>',
             showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Batalkan!',
+            confirmButtonColor: 'green',
+            cancelButtonColor: 'red',
+            confirmButtonText: 'Submit!',
             reverseButtons: true
         }).then((result) => {
             if (result.value) {
