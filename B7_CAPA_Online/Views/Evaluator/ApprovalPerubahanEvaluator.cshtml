@@ -841,7 +841,7 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                $('#Tbl_KajianResiko').DataTable({
+                $('#Tbl_KajianResiko').DataTable({  
                     "pageLength": 5,
                     "lengthChange": true,
                     "paging": false,
@@ -1747,7 +1747,7 @@
                     var data = $('#Tbl_PerbaikanPembatalan').DataTable().row(row).data();
                     var id = data['RecordID'];
                     var dictlist = {
-                        NoCAPA: $('#QS_NoCAPA').val(),
+                        NoCAPA: noCAPA,
                         Option: 5,
                         RecordID: id,
                         RejectReason: reject,
@@ -1765,35 +1765,37 @@
                             data: JSON.stringify(dto1),
                             contentType: "application/json;charset=utf-8",
                             success: function (data) {
-                                $.ajax({
-                                    url: 'SubmitApproval',
-                                    type: 'post',
-                                    data: JSON.stringify({
-                                        Model: {
-                                            NO_CAPA: noCAPA,
-                                            Temp_Status: 6,
-                                            Tindakan: 'Perbaikan',
-                                            Tindakan_ID: id
-                                        }
-                                    }),
-                                    dataType: 'json',
-                                    contentType: 'application/json; charset=utf-8',
-                                    success: function (data) {
-                                    },
-                                    error: function (ex) {
-                                        alert(JSON.stringify(ex));
-                                    }
-                                });
-
                                 Swal.fire({
                                     title: "Reject Berhasil!",
                                     icon: "success",
                                     showConfirmButton: false,
                                     timer: 1000,
                                 }).then(() => {
+                                    $.ajax({
+                                        url: 'SubmitApproval',
+                                        type: 'post',
+                                        data: JSON.stringify({
+                                            Model: {
+                                                NO_CAPA: noCAPA,
+                                                Temp_Status: 6,
+                                                Tindakan: 'Perbaikan',
+                                                Tindakan_ID: id
+                                            }
+                                        }),
+                                        dataType: 'json',
+                                        contentType: 'application/json; charset=utf-8',
+                                        success: function (data) {
+                                        },
+                                        error: function (ex) {
+                                            alert(JSON.stringify(ex));
+                                        }
+                                    });
                                     GetTindakanPerbaikanPembatalan();
                                     TableKajian();
                                 })
+                             
+
+                               
                             },
                             error: function (errormessage) {
                             }

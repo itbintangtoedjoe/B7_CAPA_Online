@@ -992,38 +992,40 @@
                         )
                         return
                     }
-
-                    Swal.fire(
-                        'Berhasil',
-                        'Pembatalan berhasil di submit',
-                        'success'
-                    )
-                    $.blockUI();
-                    $.ajax({
-                        url: 'SubmitApproval',
-                        type: 'post',
-                        data: JSON.stringify({
-                            Model: {
-                                NO_CAPA: noCAPA,
-                                Temp_Status: 10,
-                                Tindakan: 'Perbaikan',
-                                Tindakan_ID: referenceID
+                    else {
+                        Swal.fire(
+                            'Berhasil',
+                            'Pembatalan berhasil di submit',
+                            'success'
+                        )
+                        $.blockUI();
+                        $.ajax({
+                            url: 'SubmitApproval',
+                            type: 'post',
+                            data: JSON.stringify({
+                                Model: {
+                                    NO_CAPA: noCAPA,
+                                    Temp_Status: 10,
+                                    Tindakan: 'Perbaikan',
+                                    Tindakan_ID: referenceID
+                                }
+                            }),
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                            },
+                            error: function (ex) {
+                                alert(JSON.stringify(ex));
                             }
-                        }),
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (data) {
-                        },
-                        error: function (ex) {
-                            alert(JSON.stringify(ex));
-                        }
-                    });
-                    window.location.href = '../PendingTask/TaskList';
-                    $('#CancelPerbaikan').attr("disabled", true);
-                    $('#AlasanBatalPerbaikan').attr("disabled", true);
-                    $('#btn_AddKajian').attr("disabled", true);
-                    $('#Submit').attr("disabled", true);
-                    @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
+                        });
+                        window.location.href = '../PendingTask/TaskList';
+                        $('#CancelPerbaikan').attr("disabled", true);
+                        $('#AlasanBatalPerbaikan').attr("disabled", true);
+                        $('#btn_AddKajian').attr("disabled", true);
+                        $('#Submit').attr("disabled", true);
+                        @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
+                    }
+                   
 
                 }, error: function (ex) {
                     alert(JSON.stringify(ex));
@@ -1061,38 +1063,40 @@
                         )
                         return
                     }
-
-                    Swal.fire(
-                        'Berhasil',
-                        'Pembatalan berhasil di submit',
-                        'success'
-                    )
-                    $.blockUI();
-                    $.ajax({
-                        url: 'SubmitApproval',
-                        type: 'post',
-                        data: JSON.stringify({
-                            Model: {
-                                NO_CAPA: noCAPA,
-                                Temp_Status: 10,
-                                Tindakan: 'Pencegahan',
-                                Tindakan_ID: referenceID
+                    else {
+                        Swal.fire(
+                            'Berhasil',
+                            'Pembatalan berhasil di submit',
+                            'success'
+                        )
+                        $.blockUI();
+                        $.ajax({
+                            url: 'SubmitApproval',
+                            type: 'post',
+                            data: JSON.stringify({
+                                Model: {
+                                    NO_CAPA: noCAPA,
+                                    Temp_Status: 10,
+                                    Tindakan: 'Pencegahan',
+                                    Tindakan_ID: referenceID
+                                }
+                            }),
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                            },
+                            error: function (ex) {
+                                alert(JSON.stringify(ex));
                             }
-                        }),
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (data) {
-                        },
-                        error: function (ex) {
-                            alert(JSON.stringify(ex));
-                        }
-                    });
-                    window.location.href = '../PendingTask/TaskList';
-                    $('#CancelPencegahan').attr("disabled", true);
-                    $('#AlasanBatalPencegahan').attr("disabled", true);
-                    $('#btn_AddKajian').attr("disabled", true);
-                    $('#Submit').attr("disabled", true);
-                    @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
+                        });
+                        window.location.href = '../PendingTask/TaskList';
+                        $('#CancelPencegahan').attr("disabled", true);
+                        $('#AlasanBatalPencegahan').attr("disabled", true);
+                        $('#btn_AddKajian').attr("disabled", true);
+                        $('#Submit').attr("disabled", true);
+                        @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
+                    }
+                    
 
                 }, error: function (ex) {
                     alert(JSON.stringify(ex));

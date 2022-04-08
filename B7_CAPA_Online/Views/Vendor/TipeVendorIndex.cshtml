@@ -31,8 +31,12 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <select class="form-control select2" name="ddlPerbaikan" id="Superior" required>
+                                <select class="form-control select2" name="ddlPerbaikan" id="ddlSuperior" required>
                                 </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-primary" id="AddTipe" style="margin-top:5px;" disabled>Add Tipe Vendor</button>
+
                             </div>
                         </div>
                     </div>
@@ -128,6 +132,7 @@
 <script>
     $(document).ready(function () {
         $('#table_vendor').DataTable();
+        GetManagerUp();
     });
 
     function Edit(id) {
@@ -161,6 +166,68 @@
     @*var link = "@Html.Raw(@Url.Action("DeleteVendor", "Vendor", new { vendorID = "param1",}))";
     link = link.replace("param1", id);
     window.open(link, '_self');*@
+
+    }
+    function AddTipeVendor() {
+           $.ajax({
+               url: "../Koordinator/DynamicController?spname=SP_Find_User",
+                type: "POST",
+                data: JSON.stringify(form_data),
+                contentType: "application/json",
+                processData: false,
+                dataType: 'json',
+                success: function (data) {
+                    if (data == "success") {
+                        swal({
+                            title: "Berhasil",
+                            text: "Superior tipe vendor berhasil diubah",
+                            icon: "success",
+                            buttons: false,
+                            timer: 1000,
+                        }).then(() => {
+                            window.location.href = '@Url.Action("TipeVendorIndex", "Vendor")';
+                        })
+                    } else {
+                        swal({
+                            title: "Gagal",
+                            text: data,
+                            icon: "erorr",
+                            buttons: false,
+                            timer: 2000,
+                        })
+                    }
+                },
+                error: function (xhr, error, status) {
+                    console.log(error, status);
+                }
+            });
+    }
+    function GetManagerUp() {
+        $.ajax({
+            url: "GetListManagerUp",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto1),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                var count = result.length;
+                var trhtml = '';
+                var trav = 0;
+
+                trhtml += '<option disabled selected hidden class="dropdown-header">--Please Select--</option>';
+
+                $("#ddlSuperior").empty();
+                $("#ddlSuperior").append(trhtml);
+                $.each(JSON.parse(data), function (key, entry) {
+                    $('#atasan').append($('<option></option>').attr('value', entry.EMPID).text(entry.EMPNAME));
+                });
+                $("#ddlSuperior").select2();
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
 
     }
 </script>
