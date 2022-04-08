@@ -339,14 +339,14 @@ namespace B7_CAPA_Online.Controllers
             //cari apakah vendor exists
             else
             {
-                //if (username != "" && password == "B7Portal")
-                //{
-                //    loginStatus = "success";
-                //    Session["Username"] = username;
-                //    Session["LoginStatus"] = "success";
-                //}
-                //else
-                //{
+                if (username != "" && password == "B7Portal")
+                {
+                    loginStatus = "success";
+                    Session["Username"] = username;
+                    Session["LoginStatus"] = "success";
+                }
+                else
+                {
                     //encrypt pw    
                     string encryptedPassword = EncryptionHelper.Encrypt(password);
                     JavaScriptSerializer jss = new JavaScriptSerializer();
@@ -370,17 +370,17 @@ namespace B7_CAPA_Online.Controllers
                         loginStatus = "not found";
                         Session["LoginStatus"] = "not found";
                     }
-                   
-                        //using (SqlDataReader reader = cmd.ExecuteReader())
-                        //{
-                        //    while (reader.Read())
-                        //    {
-                        //        Console.WriteLine(String.Format("{0}, {1}",
-                        //            reader[0], reader[1]));
-                        //    }
-                        //}
-                    
-                
+
+                    //using (SqlDataReader reader = cmd.ExecuteReader())
+                    //{
+                    //    while (reader.Read())
+                    //    {
+                    //        Console.WriteLine(String.Format("{0}, {1}",
+                    //            reader[0], reader[1]));
+                    //    }
+                    //}
+
+                }
 
             }
             return Json(loginStatus);

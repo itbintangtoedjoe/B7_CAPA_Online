@@ -168,7 +168,7 @@
                     "select": true,
                     "bDestroy": true,
                     "dom": 'Bfrtip',
-
+                    "ordering": false,
                     "buttons": [{
                         extend: 'excelHtml5',
                         text: 'Excel',
@@ -213,6 +213,7 @@
                         { "data": "Tanggal_Cancel" },
 
                     ],
+                    
                     //"columnDefs": [
 
                     //    { "responsivePriority": 1, "targets": 0 },
@@ -221,6 +222,7 @@
                     //    { "responsivePriority": 4, "targets": 3 },
                     //    { "responsivePriority": 5, "targets": 4 }
                     //],
+                    "order": [[0, 'asc']],
 
                 });
             },
