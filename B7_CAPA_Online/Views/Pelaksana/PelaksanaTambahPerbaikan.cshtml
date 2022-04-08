@@ -1596,7 +1596,7 @@
                 $.each(JSON.parse(rootcause), function (key, value) {
                     $('#RootCause_DDL').append(new Option(value.WhyDesc, value.WhyDesc));
                 });
-
+                $('#RootCause_DDL').select2();
                 $('#btn_AddPerbaikan').click(function () {
                         var dto = {};
                         var kategori = "Perbaikan";

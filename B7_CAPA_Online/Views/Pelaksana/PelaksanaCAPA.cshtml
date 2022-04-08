@@ -964,6 +964,7 @@
                 checkPerbaikan +=1 ;
             }
         }
+        $('#ddlPerbaikan').select2();
         checkCAPA();
     }
     function UploadPerbaikan()
@@ -1552,6 +1553,7 @@
                 checkPencegahan +=1;
             }
         }
+        $('#ddlPencegahan').select2();
         checkCAPA();
     }
 
@@ -1987,7 +1989,7 @@
                 }
                 $("#ddlKajianTreatment").empty();
                 $("#ddlKajianTreatment").append(trhtml);
-                $("#ddlKajianTreatment").select();
+                $("#ddlKajianTreatment").select2();
             },
             error: function (errormessage) {
                 $('#divLoading').attr("hidden", true);
