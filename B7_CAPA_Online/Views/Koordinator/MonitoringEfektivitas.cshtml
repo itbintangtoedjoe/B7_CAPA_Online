@@ -179,7 +179,6 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th></th>
                                             <th>No CAPA</th>
                                             <th>Type</th>
                                             <th>Nama File</th>
@@ -376,6 +375,9 @@
         $('#AreaPIC_DDL').select2();
         $('#PIC_DDL').select2();
         GetAddedDeviation();
+        GetAddedCCC();
+        GetLampiran();
+        ValidateKajian();
         GetAddedCCC("Load Page");
         $('input[name="Devi_Radio"]').change(function () {
             if ($('input[name="Devi_Radio"]:checked').val() == 'Yes') {
@@ -405,7 +407,6 @@
         $('input[name="File_Radio"]').change(function () {
             if ($('input[name="File_Radio"]:checked').val() == 'Yes') {
                 $('#Lampiran').removeAttr('hidden');
-
                 chckboxstatus[2] = "1";
             }
             else {
@@ -464,7 +465,7 @@
                     data: JSON.stringify(dto),
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
-                        GetAddedCCC('');
+                        GetAddedCCC();
 
                         Swal.fire({
                             title: "Success!",
@@ -709,7 +710,7 @@
         $('#Submit').removeAttr("disabled");
     }
 
-    function GetLampiran(Status) {
+    function GetLampiran() {
         var dictlist = {
             NoCAPA: $('#QS_NoCAPA').val(),
             Option: 8
@@ -720,6 +721,7 @@
         $.ajax({
             url: "DynamicController?spname=SP_FORM_KOOR4",
             type: "post",
+            async:false,
             dataType: "json",
             data: JSON.stringify(dto1),
             contentType: "application/json;charset=utf-8",
@@ -734,7 +736,6 @@
                     "destroy": true,
                     "columns": [
                         { "data": "RecordID" },
-                        { "data": "ValueEvaluasi"},
                         { "data": "NO_CAPA_FK" },
                         { "data": "Type" },
                         {
@@ -743,8 +744,7 @@
 
                                 return '<a href = "' + oData.ValueEvaluasi + '" >' + oData.Nama_File + '</a >';
                             }
-                        }
-                        ,
+                        },
                         {
                             "data": null,
                             "defaultContent": "<input type='button'  class='btn btn-primary' onclick=DeleteLampiran(this) value='Delete' style='background-color:red;'/>"
@@ -756,12 +756,7 @@
                             "targets": [0],
                             "visible": false,
                             "searchable": false
-                        },
-                        {
-                            "targets": [1],
-                            "visible": false,
-                            "searchable": false
-                        },
+                        }
                     ],
                     "order": [[1, 'asc']],
 
@@ -771,9 +766,6 @@
                 $('#divLoading').attr("hidden", true);
             }
         });
-        if (Status == 'Load Page') {
-            ValidateKajian();
-        }
     }
 
     function DeleteLampiran(button) {
@@ -813,7 +805,7 @@
                             showConfirmButton: false,
                             timer: 1000,
                         })
-                        GetLampiran("");
+                        GetLampiran();
                     },
                     error: function (errormessage) {
                     }
@@ -866,7 +858,7 @@
                             showConfirmButton: false,
                             timer: 1000,
                         });
-                        GetLampiran("");
+                        GetLampiran();
                     }
                 },
                 error: function (errormessage) {
@@ -913,6 +905,7 @@
         $.ajax({
             url: "DynamicController?spname=SP_FORM_KOOR4",
             type: "post",
+            async: false,
             dataType: "json",
             data: JSON.stringify(dto1),
             contentType: "application/json;charset=utf-8",
@@ -926,25 +919,32 @@
                     $('input[name="Devi_Radio"]').attr("disabled", false);
                     if ($('#Tbl_Devi').DataTable().data().count() > 0) {
                         document.getElementById("Devi_Yes").checked = true;
+                        chckboxstatus[0] = "1";
                         $('#Deviation').removeAttr('hidden');
                     }
                     else {
                         document.getElementById("Devi_No").checked = true;
+                        chckboxstatus[0] = "0";
                     }
 
                     if ($('#Tabel_CCC').DataTable().data().count() > 0) {
                         document.getElementById("CCC_Yes").checked = true;
+                        chckboxstatus[1] = "1";
                         $('#CCC').removeAttr('hidden');
                     }
                     else {
                         document.getElementById("CCC_No").checked = true;
+                        chckboxstatus[1] = "0";
                     }
                     if ($('#Tabel_File').DataTable().data().count() > 0) {
                         document.getElementById("File_Yes").checked = true;
+                        chckboxstatus[2] = "1";
                         $('#Lampiran').removeAttr('hidden');
                     }
                     else {
                         document.getElementById("File_No").checked = true;
+
+                        chckboxstatus[2] = "0";
                     }
                 }
                 else {
@@ -955,31 +955,36 @@
                     var countccc = $('#Tabel_CCC').DataTable().data().count()
                     if (countdevi > 0) {
                         document.getElementById("Devi_Yes").checked = true;
+                        chckboxstatus[0] = "1";
                         $('#Deviation').removeAttr('hidden');
                     }
                     else
                     {
                         document.getElementById("Devi_No").checked = true;
+                        chckboxstatus[0] = "0";
                         $('#Deviation').prop('hidden', true);
                     }
 
                     if (countccc> 0) {
                         document.getElementById("CCC_Yes").checked = true;
+                        chckboxstatus[1] = "1";
                         $('#CCC').removeAttr('hidden');
                     }
                     else
                     {
                         document.getElementById("CCC_No").checked = true;
+                        chckboxstatus[1] = "0";
                         $('#CCC').prop('hidden',true);
                     }
                     if (countfile > 0) {
                         document.getElementById("File_Yes").checked = true;
+                        chckboxstatus[2] = "1";
                         $('#Lampiran').removeAttr('hidden');
                     }
                     else
                     {
                         document.getElementById("File_No").checked = true;
-
+                        chckboxstatus[2] = "0";
                         $('#Lampiran').prop('hidden',true);
                     }
                     checkStat();
@@ -1095,7 +1100,7 @@
         })
     }
 
-    function GetAddedCCC(Status) {
+    function GetAddedCCC() {
         var dictlist = {
             NoCAPA: $('#QS_NoCAPA').val(),
             Option: 4
@@ -1144,10 +1149,6 @@
                 $('#divLoading').attr("hidden", true);
             }
         });
-        if (Status == "Load Page") {
-
-            GetLampiran("Load Page");
-        }
     }
         
     function DeleteCCC(button) {
@@ -1190,7 +1191,7 @@
                             showConfirmButton: false,
                             timer: 1000,
                         })
-                        GetAddedCCC('');
+                        GetAddedCCC();
                     },
                     error: function (errormessage) {
                     }

@@ -126,12 +126,12 @@ namespace B7_CAPA_Online.Controllers
             var result = DAL.VendorStoredProcedure(parameters, "sp_vendor_data");
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult VendorDynamicController(DynamicModel Model , string spname )
+        public ActionResult VendorDynamicController(DynamicModel Models , string spname )
         {
-            var parameters = new DynamicParameters(Model.Model);
-            var result = DAL.VendorStoredProcedure(parameters, spname);
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var parameters = new DynamicParameters(Models.Model);
+            return Json(DAL.VendorStoredProcedure(parameters, spname));
         }
+
         public List<VendorType> GetAllVendorTypes()
         {
             DataSet ds = new DataSet();
@@ -259,24 +259,6 @@ namespace B7_CAPA_Online.Controllers
             }
         }
 
-        public ActionResult DeleteVendor(string vendorID)
-        {
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand("UPDATE VENDORS SET is_active = 0 WHERE RecordID = @id", conn))
-                {
-                    cmd.Parameters.AddWithValue("id", vendorID);
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                    conn.Close();
-                }
-                //}
-                return RedirectToAction("Index");
-            }
-            catch (Exception e)
-            {
-                return Json(e.Message);
-            }
-        }
+       
     }
 }
