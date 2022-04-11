@@ -126,8 +126,7 @@ namespace B7_CAPA_Online.Scripts.SMTP
             msg.Priority = MailPriority.High;
             msg.IsBodyHtml = true;
             //msg.To.Add("dani.pernando@bintang7.com");                            
-            msg.To.Add(obj[index].Email);
-            msg.CC.Add("tanaelbudiman@gmail.com");
+            msg.To.Add(obj[index].Email);           
             mailObj.Send(msg);
             //return "success";
         }
