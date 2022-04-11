@@ -116,7 +116,7 @@
                     <br />
                     <div class="row">
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-primary" id="btn_Submit_Evaluator">Submit To Evaluator</button>
+                            <button type="button" class="btn btn-primary" style="background-color: green;"  id="btn_Submit_Evaluator">Submit To Evaluator</button>
                         </div>
                         <div class="col-md-2">
                             <button type="button" class="btn btn-primary" id="btn_Reject" style="background-color:red;">Reject CAPA</button>
@@ -612,9 +612,9 @@
             icon: 'warning',
             html: '<textarea id="txtReject" class="form form-control" ></textarea>',
             showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Reject!',
+            confirmButtonColor: 'green',
+            cancelButtonColor: 'red',
+            confirmButtonText: 'Submit!',
             reverseButtons: true
         }).then((result) => {
             if (result.value) {
