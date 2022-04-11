@@ -22,7 +22,6 @@
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">Requestor</label>
                                     <input class="form-control form-control-sm" type="text" id="input_Requestor" value="@Request.RequestContext.HttpContext.Session["FullName"]" disabled readonly>
-                                    <input class="form-control form-control-sm" type="text" id="input_RequestorNIK" value="@Request.RequestContext.HttpContext.Session["NIK"]" hidden>
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-20">Nomor CAPA</label>
@@ -533,9 +532,9 @@
             icon: 'warning',
             html: '<textarea id="txtCancel" class="form form-control" ></textarea>',
             showCancelButton: true,
-            confirmButtonColor: 'green',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Submit',            
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Batalkan!',
             reverseButtons: true
         }).then((result) => {
             if (result.value) {
@@ -572,8 +571,7 @@
                                 data: JSON.stringify({
                                     Model: {
                                         NO_CAPA: $('#QS_NoCAPA').val(),
-                                        Temp_Status: 13,
-                                        EmpID: $('#input_RequestorNIK').val()
+                                        Temp_Status: 13
                                     }
                                 }),
                                 dataType: 'json',
@@ -677,8 +675,7 @@
                     data: JSON.stringify({
                         Model: {
                             NO_CAPA: $('#input_NoCAPA').val(),
-                            Temp_Status: 1,
-                            EmpID: $('#input_RequestorNIK').val()
+                            Temp_Status: 1
                         }
                     }),
                     dataType: 'json',
@@ -691,7 +688,7 @@
                             showConfirmButton: false,
                             timer: 2000
                         }).then(() => {
-                            $.blockUI();
+                            //$.blockUI();
                             window.location.href = '../PendingTask/TaskList';
                         });
                     },
@@ -875,7 +872,8 @@
                                 type: 'success',
                                 timer: 2000,
                                 showConfirmButton: false
-                            }).then(function (result) {                               
+                            }).then(function (result) {
+                                //$.unblockUI();
                                 window.location.href = '../PendingTask/TaskList';
                             });
                         }
