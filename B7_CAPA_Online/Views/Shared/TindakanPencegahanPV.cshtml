@@ -11,6 +11,7 @@
                         <th></th>
                         <th></th>
                         <th>Root Cause</th>
+                        <th>Area Lain</th>
                         <th>Tindakan Pencegahan</th>
                         <th>Nama Pelaksana</th>
                         <th>Due_Date</th>
@@ -50,7 +51,7 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                //console.log(data);
+                console.log(data);
                 var table = $('#Tbl_Pencegahan').DataTable({
                     "pageLength": 5,
                     "lengthChange": false,
@@ -67,6 +68,7 @@
                         { "data": "WhyID" },
                         { "data": "WhyParentID" },
                         { "data": "WhyDesc" },
+                        { "data": "AreaLain" },
                         { "data": "Tindakan_Pencegahan" },
                         { "data": "Nama_Personil" },
                         { "data": "Due_Date" },
