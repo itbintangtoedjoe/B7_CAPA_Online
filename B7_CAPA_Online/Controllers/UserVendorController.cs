@@ -1,4 +1,6 @@
 ﻿using B7_CAPA_Online.Models;
+using B7_CAPA_Online.Scripts.DataAccess;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -8,6 +10,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using static B7_CAPA_Online.Models.KoordinatorModel;
 
 namespace B7_CAPA_Online.Controllers
 {
@@ -15,6 +18,7 @@ namespace B7_CAPA_Online.Controllers
     {
         private readonly SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["MASTERVENDOR"].ToString());
         private readonly SqlConnection logEmailConn = new SqlConnection(ConfigurationManager.ConnectionStrings["B7CONNECT"].ToString());
+        readonly DataAccess DAL = new DataAccess();
 
         public List<UserVendor> GetAllUserVendors()
         {
@@ -94,6 +98,11 @@ namespace B7_CAPA_Online.Controllers
             ViewBag.AllVendors = allVendors;
             //ViewBag.AllUserVendors = allUserVendors;
             return View();
+        }
+        public ActionResult DynamicController(DynamicModel Models, string spname)
+        {
+            var parameters = new DynamicParameters(Models.Model);
+            return Json(DAL.VendorStoredProcedure(parameters, spname));
         }
 
         private string GenerateUserVendorID()
@@ -199,6 +208,7 @@ namespace B7_CAPA_Online.Controllers
             {
                 //create new user vendor
                 string newID = GenerateUserVendorID();
+                string result;
                 SqlCommand cmd = new SqlCommand("sp_create_user_vendor", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@userID", newID);
@@ -210,44 +220,51 @@ namespace B7_CAPA_Online.Controllers
                 cmd.Parameters.AddWithValue("@created_by", "Default User");
                 cmd.Parameters.AddWithValue("@updated_by", "Default User");
                 conn.Open();
-                cmd.ExecuteNonQuery();
+                result = (string)cmd.ExecuteScalar();
                 conn.Close();
 
                 //kirim email aktivasi
-                try
+                if(result =="Valid")
                 {
-                    Email emailData = GetEmailBody(newID);
-                    var sub = emailData.EmailSubject;
-                    var body = emailData.EmailBody;
-                    //string bodie = body.Replace(System.Environment.NewLine, string.Empty);
-                    SmtpClient mailObj = new SmtpClient("mail.kalbe.co.id");
-                    var msg = new MailMessage();
-                    //mess.From = senderEmail;
-                    //msg.From = new MailAddress("it.bintang7@gmail.com", "CAPA B7 Mailing System");
-                    msg.From = new MailAddress("notification@bintang7.com", "B7 Connect Mailing System");
-                    msg.Body = body;
-                    msg.Subject = sub;
-                    //mess.Bcc.Add(senderEmail);
-                    msg.Priority = MailPriority.High;
-                    msg.IsBodyHtml = true;
-                    msg.To.Add(userVendor.Email);
+                    try
+                    {
+                        Email emailData = GetEmailBody(newID);
+                        var sub = emailData.EmailSubject;
+                        var body = emailData.EmailBody;
+                        //string bodie = body.Replace(System.Environment.NewLine, string.Empty);
+                        SmtpClient mailObj = new SmtpClient("mail.kalbe.co.id");
+                        var msg = new MailMessage();
+                        //mess.From = senderEmail;
+                        //msg.From = new MailAddress("it.bintang7@gmail.com", "CAPA B7 Mailing System");
+                        msg.From = new MailAddress("notification@bintang7.com", "B7 Connect Mailing System");
+                        msg.Body = body;
+                        msg.Subject = sub;
+                        //mess.Bcc.Add(senderEmail);
+                        msg.Priority = MailPriority.High;
+                        msg.IsBodyHtml = true;
+                        msg.To.Add(userVendor.Email);
 
-                    mailObj.Send(msg);
+                        mailObj.Send(msg);
 
-                    return Json("success");
+                        return Json("success");
+                    }
+                    catch (Exception ex)
+                    {
+                        SqlCommand cmdLog = new SqlCommand("sp_create_log", logEmailConn);
+                        cmdLog.CommandType = CommandType.StoredProcedure;
+                        cmdLog.Parameters.AddWithValue("@modul", "Sending CAPA Activation Email");
+                        cmdLog.Parameters.AddWithValue("@user", "CAPA Default User");
+                        cmdLog.Parameters.AddWithValue("@message", ex.Message);
+                        logEmailConn.Open();
+                        cmdLog.ExecuteNonQuery();
+                        logEmailConn.Close();
+
+                        return Json("error, check log");
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    SqlCommand cmdLog = new SqlCommand("sp_create_log", logEmailConn);
-                    cmdLog.CommandType = CommandType.StoredProcedure;
-                    cmdLog.Parameters.AddWithValue("@modul", "Sending CAPA Activation Email");
-                    cmdLog.Parameters.AddWithValue("@user", "CAPA Default User");
-                    cmdLog.Parameters.AddWithValue("@message", ex.Message);
-                    logEmailConn.Open();
-                    cmdLog.ExecuteNonQuery();
-                    logEmailConn.Close();
-
-                    return Json("error, check log");
+                    return Json("error");
                 }
             }
             catch (Exception e)

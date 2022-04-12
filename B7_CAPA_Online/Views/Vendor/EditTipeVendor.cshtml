@@ -155,19 +155,35 @@
             //halaman edit (ada lemparan id vendor)
             var form_data = {
                 "ID": tipeID,
-                "SuperiorID": atasan,
-                "UpdatedBy": nik
+                "superior_id": atasan,
+                "updated_by": nik,
+                "TypeVendor": $('#tipe_vendor').val(),
+                "Option":'UPDATE VENDOR TYPE'
             };
+            var dto = {
+                Model: form_data
+            }
             console.log(form_data);
+            if ($('#tipe_vendor').val().trim() == "") {
+                swal({
+                    title: "Gagal",
+                    text: "Superior harus dipilih terlebih dahulu!",
+                    icon: "error",
+                    buttons: false,
+                    timer: 2000,
+                })
+                return
+            }
             $.ajax({
-                url: "UpdateTipeVendor",
+                url: "VendorDynamicController?spname=sp_vendor_data",
                 type: "POST",
-                data: JSON.stringify(form_data),
+                data: JSON.stringify(dto),
                 contentType: "application/json",
                 processData: false,
                 dataType: 'json',
                 success: function (data) {
-                    if (data == "success") {
+                    var result = JSON.parse(data);
+                    if (result[0].Stat == "Valid") {
                         swal({
                             title: "Berhasil",
                             text: "Superior tipe vendor berhasil diubah",
@@ -180,8 +196,8 @@
                     } else {
                         swal({
                             title: "Gagal",
-                            text: data,
-                            icon: "erorr",
+                            text: "Tipe Vendor Sudah Ada!",
+                            icon: "error",
                             buttons: false,
                             timer: 2000,
                         })

@@ -103,7 +103,7 @@
 <script>
     $(document).ready(function () {
         $('#create').click(function (e) {
-            window.location = "Vendor/CreateVendor";
+            window.location = "../Vendor/CreateVendor";
         })
         $('#id_vendor').select2();
         GetUserInfo();
@@ -175,19 +175,25 @@
             if (userID != null && userID != undefined) {
                 var form_data = {
                     "ID": userID,
-                    "UserVendorName": nama_user,
+                    "user_vendor_name": nama_user,
                     "Username": username,
                     "Email": email,
+                    "Option": 'Update User Vendor'
                 };
+                var dto = {
+                    Model: form_data
+                }
                 $.ajax({
-                    url: "UpdateUserVendor",
+                    url: "DynamicController?spname=sp_vendor_data",
                     type: "POST",
-                    data: JSON.stringify(form_data),
+                    data: JSON.stringify(dto),
                     contentType: "application/json",
                     processData: false,
                     dataType: 'json',
                     success: function (data) {
-                        if (data == "success") {
+                        var result = JSON.parse(data);
+                        console.log(result);
+                        if (result[0].Stat == "Valid") {
                             swal({
                                 title: "Berhasil",
                                 text: "Data user vendor berhasil diubah",
@@ -197,14 +203,14 @@
                             }).then(() => {
                                 window.location.href = '@Url.Action("Index", "UserVendor")';
                             })
-                        } else {
+                        }
+                        else {
                             swal({
-                                title: "Gagal",
-                                text: data,
-                                icon: "erorr",
+                                title: "Username atau nama user vendor sudah ada!",
+                                icon: "error",
                                 buttons: false,
-                                timer: 2000,
-                            })
+                                timer: 1000,
+                            });
                         }
                     },
                     error: function (xhr, error, status) {
@@ -220,9 +226,9 @@
                     "VendorData.ID": id_vendor,
                     "Username": username,
                     "Email": email,
+                    "created_by":'@Request.RequestContext.HttpContext.Session["NIK"]'
                 @* "SuperiorID": id_superior *@
             };
-
             $.ajax({
                 url: "SaveUserVendor",
                 type: "POST",
@@ -231,15 +237,25 @@
                 processData: false,
                 dataType: 'json',
                 success: function (data) {
-                    swal({
-                        title: "Berhasil",
-                        text: "Email untuk aktivasi akun sudah dikirim ke email terdaftar",
-                        icon: "success",
-                        buttons: false,
-                        timer: 1000,
-                    }).then(() => {
-                        location.reload();
-                    })
+                    if (data == "success") {
+                        swal({
+                            title: "Berhasil",
+                            text: "Email untuk aktivasi akun sudah dikirim ke email terdaftar",
+                            icon: "success",
+                            buttons: false,
+                            timer: 1000,
+                        }).then(() => {
+                            location.reload();
+                        })
+                    }
+                    else {
+                        swal({
+                            title: "Username atau nama vendor sudah ada!",
+                            icon: "error",
+                            buttons: false,
+                            timer: 1000,
+                        });
+                    }
                 },
                 error: function (xhr, error, status) {
                     console.log(error, status);

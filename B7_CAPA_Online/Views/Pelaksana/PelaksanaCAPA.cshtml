@@ -637,6 +637,7 @@
     var checkPerbaikan, checkPencegahan, checkTreatment;
     var totalvalidasiTreatment;
     var TreatmentTerisi;
+    var pagestat = 'pageawal';
     //function untuk ambil semua query string
     function getQueryStrings() {
         var vars = [], hash;
@@ -719,8 +720,7 @@
         $('#dueDatePencegahanRev').attr("disabled", true);
     }
     function checkCAPA() {
-        if (checkPerbaikan < 1 && checkPencegahan < 1 && checkTreatment < 1)
-        {
+        if (checkPerbaikan < 1 && checkPencegahan < 1 && checkTreatment < 1 && pagestat != 'pageawal') {
             $.blockUI();
             $.ajax({
                 url: 'SubmitApproval',
@@ -740,6 +740,9 @@
                     alert(JSON.stringify(ex));
                 }
             });
+        }
+        else if (checkPerbaikan < 1 && checkPencegahan < 1 && checkTreatment < 1 && pagestat == 'pageawal'){
+            window.location.href = '../PendingTask/TaskList';
         }
     }
     $('#btnViewCAPA').click(function () {
@@ -1430,6 +1433,7 @@
                     ToggleBtnDeleteAttPerbaikan("Disable");
                     FindPerbaikan();
                     PopulateDDLPerbaikan();
+                    pagestat = 'valid';
                 })
                 $('#ddlPerbaikan').attr("disabled", false);
             },
@@ -1834,6 +1838,7 @@
                     ToggleBtnDeleteAttPencegahan("Disable");
                     FindPencegahan();
                     PopulateDDLPencegahan();
+                    pagestat = 'valid';
                 })
 
                 $('#ddlPencegahan').attr("disabled", false);
@@ -2268,6 +2273,7 @@
                 $('#txtPenyebabPotensiHasil').val("");
                 $('#txtMDPKegagalanHasil').val(""); 
                 $('#UploadTreatment').prop("disabled", true);
+                pagestat = 'valid';
             },
             error: function (errormessage) {
                 $('#divLoading').attr("hidden", true);

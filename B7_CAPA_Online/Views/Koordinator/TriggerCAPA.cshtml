@@ -275,7 +275,7 @@
                 <label class="m-t-20">Lampiran Terkait</label>
                 <div class="input-group mb-3">
                     <div class="custom-file">
-                        <input id="TxtFileInput" type="file" name="LampiranTerkait" class="custom-file-input" multiple required">
+                        <input id="TxtFileInput" type="file" name="LampiranTerkait" class="custom-file-input" onclick="this.value = null" multiple required">
 
                         <label id="TxtLampiranCount" class="custom-file-label"></label>
                     </div>
@@ -355,13 +355,13 @@
         $('#Departemen_DDL').select2().append();
         $('#Trigger_CAPA').change(function () {
             clearHidden();
-            if ($('#Trigger_CAPA').val() == "PENYIMPANGAN") {
-                $('#Linked_Oracle').prop('hidden', false);
-            } else if ($('#Trigger_CAPA').val() == "CCC") {
-                $('#Linked_CCC').prop('hidden', false);
-            } else if ($('#Trigger_CAPA').val() == "CAPA") {
-                $('#Linked_CAPA').prop('hidden', false);
-            }
+            //if ($('#Trigger_CAPA').val() == "PENYIMPANGAN") {
+            //    $('#Linked_Oracle').prop('hidden', false);
+            //} else if ($('#Trigger_CAPA').val() == "CCC") {
+            //    $('#Linked_CCC').prop('hidden', false);
+            //} else if ($('#Trigger_CAPA').val() == "CAPA") {
+            //    $('#Linked_CAPA').prop('hidden', false);
+            //}
         });
         $('#TxtFileInput').change(function () {
             fileCount = this.files.length;
@@ -393,7 +393,7 @@
                     var item = {};
                     item["NoCapa"] = QSNoCAPA;
                     item["PenyimpanganID"] = data['No_CCC'];
-                    item["Description"] = "CAPA";
+                    item["Description"] = "CCC";
                     item["Creator"] = creator;
                     Jsonobj.push(item);
                     status = true;
@@ -981,7 +981,7 @@
                 $('#Lokasi_CAPA').append('<option disabled selected hidden class="dropdown-header">Pilih</option>');
                 $.each(JSON.parse(data), function (key, entry) {
                     if (entry.DDL_TYPE == 'TRIGGER') {
-                        $('#Trigger_CAPA').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
+                       //$('#Trigger_CAPA').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
                     }
                     if (entry.DDL_TYPE == 'KATEGORI') {
                         $('#KategoriPenyimpangan_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
@@ -1143,6 +1143,7 @@
                     $('#Submit').prop('hidden', false);
                     GetLampiran();
                 }
+                $('#Trigger_CAPA').text(result[0].TRIGGER_CAPA);
                 $('#Trigger_CAPA').attr("disabled", true);
             },
             error: function (ex) {

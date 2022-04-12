@@ -206,18 +206,24 @@
             if (vendorID != null && vendorID != undefined) {
                 var form_data = {
                     "ID": vendorID,
-                    "VendorName": nama_vendor,
-                    "TypeID": tipe_vendor
+                    "vendor_name": nama_vendor,
+                    "type_id": tipe_vendor,
+                    "updated_by": '@Request.RequestContext.HttpContext.Session["NIK"]',
+                    "Option": "UPDATE VENDOR"
                 };
+                var dto = {
+                    Model: form_data
+                }
                 $.ajax({
-                    url: "UpdateVendor",
+                    url: "VendorDynamicController?spname=sp_vendor_data",
                     type: "POST",
-                    data: JSON.stringify(form_data),
+                    data: JSON.stringify(dto),
                     contentType: "application/json",
                     processData: false,
                     dataType: 'json',
                     success: function (data) {
-                        if (data == "success") {
+                        var result = JSON.parse(data);
+                        if (result[0].Stat == "Valid") {
                             swal({
                                 title: "Berhasil",
                                 text: "Data vendor berhasil diubah",
@@ -227,11 +233,12 @@
                             }).then(() => {
                                 window.location.href = '@Url.Action("Index", "Vendor")';
                             })
-                        } else {
+                        }
+                        else {
                             swal({
                                 title: "Gagal",
-                                text: data,
-                                icon: "erorr",
+                                text: "Vendor Sudah Ada!",
+                                icon: "error",
                                 buttons: false,
                                 timer: 2000,
                             })
@@ -245,26 +252,45 @@
             //halaman create (tidak ada lemparan id vendor)
             else {
                 var form_data = {
-                    "VendorName": nama_vendor,
-                    "TypeID": tipe_vendor
+                    "vendor_name": nama_vendor,
+                    "type_id": tipe_vendor,
+                    "created_by": '@Request.RequestContext.HttpContext.Session["NIK"]',
+                    "Option": "CREATE VENDOR"
+
                 };
+                var dto = {
+                    Model: form_data
+                }
                 $.ajax({
-                    url: "SaveVendor",
+                    url: "VendorDynamicController?spname=sp_vendor_data",
                     type: "POST",
-                    data: JSON.stringify(form_data),
+                    data: JSON.stringify(dto),
                     contentType: "application/json",
                     processData: false,
                     dataType: 'json',
                     success: function (data) {
-                        swal({
-                            title: "Berhasil",
-                            text: "Data vendor berhasil ditambahkan",
-                            icon: "success",
-                            buttons: false,
-                            timer: 1000,
-                        }).then(() => {
-                            location.reload();
-                        })
+                       var result = JSON.parse(data);
+                        if (result[0].Stat == "Valid") {
+                            swal({
+                                title: "Berhasil",
+                                text: "Data vendor berhasil ditambahkan",
+                                icon: "success",
+                                buttons: false,
+                                timer: 1000,
+                            }).then(() => {
+                                location.reload();
+                            })
+                        }
+                        else {
+                            swal({
+                                title: "Gagal",
+                                text: "Vendor Sudah Ada!",
+                                icon: "error",
+                                buttons: false,
+                                timer: 2000,
+                            })
+                        }
+
                     },
                     error: function (xhr, error, status) {
                         console.log(error, status);

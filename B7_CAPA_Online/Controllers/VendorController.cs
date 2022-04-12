@@ -259,6 +259,27 @@ namespace B7_CAPA_Online.Controllers
             }
         }
 
-       
+        public ActionResult DeleteVendor(string vendorID)
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("UPDATE VENDORS SET is_active = 0, updated_by=@updated_by, last_updated_on=@last_updated_on WHERE RecordID = @id", conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", vendorID);
+                    //use session
+                    cmd.Parameters.AddWithValue("@updated_by", vendorID);
+                    cmd.Parameters.AddWithValue("@last_updated_on", DateTime.Now);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+                //}
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
     }
 }

@@ -141,15 +141,27 @@
             data: JSON.stringify(dto1),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-                swal({
-                    title: "Berhasil",
-                    text: "Superior tipe vendor berhasil ditambahkan",
-                    icon: "success",
-                    buttons: false,
-                    timer: 1000,
-                }).then(() => {
-                    window.location.href = '../Vendor/TipeVendorIndex';
-                })
+                var result = JSON.parse(data);
+                if (result[0].Stat == "Valid") {
+                    swal({
+                        title: "Berhasil",
+                        text: "Superior tipe vendor berhasil ditambahkan",
+                        icon: "success",
+                        buttons: false,
+                        timer: 1000,
+                    }).then(() => {
+                        window.location.href = '../Vendor/TipeVendorIndex';
+                    })
+                }
+                else {
+                    swal({
+                        title: "Error",
+                        text: "Tipe Vendor sudah Ada",
+                        icon: "error",
+                        buttons: false,
+                        timer: 1000,
+                    })
+                }
             },
             error: function (xhr, error, status) {
                 console.log(error, status);
