@@ -967,6 +967,7 @@
                 Option: 1,
                 SP: "[dbo].[SP_SHOW_DDL]"
             }),
+            async: false,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
@@ -981,7 +982,7 @@
                 $('#Lokasi_CAPA').append('<option disabled selected hidden class="dropdown-header">Pilih</option>');
                 $.each(JSON.parse(data), function (key, entry) {
                     if (entry.DDL_TYPE == 'TRIGGER') {
-                       //$('#Trigger_CAPA').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
+                       $('#Trigger_CAPA').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
                     }
                     if (entry.DDL_TYPE == 'KATEGORI') {
                         $('#KategoriPenyimpangan_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
@@ -991,7 +992,6 @@
                         $('#Lokasi_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
                         $('#Lokasi_CAPA').append($('<option></option>').attr('value', entry.DDL_DESCRIPTION).text(entry.DDL_DESCRIPTION));
                     }
-                    $('#Trigger_CAPA').select2();
                     $('#Kategori_DDL').select2();
                 })
             },
@@ -1003,6 +1003,7 @@
         $.ajax({
             url: 'GetDepartments',
             type: 'post',
+            async: false,
             dataType: 'json',
             data: JSON.stringify({
                 Option: 21,
@@ -1025,6 +1026,7 @@
         $.ajax({
             url: 'GetKategoriPenyimpangan',
             type: 'post',
+            async: false,
             dataType: 'json',
             data: JSON.stringify({
                 Option: 5,
@@ -1048,6 +1050,7 @@
         $.ajax({
             url: 'GetPlantCCC',
             type: 'post',
+            async: false,
             dataType: 'json',
             data: JSON.stringify({
                 Option: 6,
@@ -1068,6 +1071,7 @@
         $.ajax({
             url: 'DynamicController?spname=[dbo].[SP_SHOW_DDL]',
             type: 'post',
+            async: false,
             dataType: 'json',
             data: JSON.stringify({
                 Model: {
@@ -1090,6 +1094,7 @@
         $.ajax({
             url: 'DynamicController?spname=[dbo].[SP_SHOW_DDL]',
             type: 'post',
+            async: false,
             dataType: 'json',
             data: JSON.stringify({
                 Model: {
@@ -1112,6 +1117,7 @@
         $.ajax({
             url: 'DynamicController?spname=[dbo].[SP_SHOW_ADDABLE_DEVIATION]',
             type: 'post',
+            async: false,
             dataType: 'json',
             data: JSON.stringify({
                 Model: {
@@ -1143,7 +1149,8 @@
                     $('#Submit').prop('hidden', false);
                     GetLampiran();
                 }
-                $('#Trigger_CAPA').text(result[0].TRIGGER_CAPA);
+                $('#Trigger_CAPA').val(result[0].TRIGGER_CAPA);
+                $('#Trigger_CAPA').select2();
                 $('#Trigger_CAPA').attr("disabled", true);
             },
             error: function (ex) {
