@@ -81,7 +81,7 @@ namespace B7_CAPA_Online.Controllers
                 int values = int.Parse(Param.Model["Option"].ToString());
                 bool isValid = true;
 
-                if (values > 6 && values < 10 && values != 8)
+                if (values > 6 && values < 10 && values != 8 && list.Count == 0)
                 {
                     isValid = false;
                 }
