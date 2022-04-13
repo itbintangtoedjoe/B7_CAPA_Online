@@ -688,11 +688,13 @@
                         contentType: 'application/json; charset=utf-8',
                         success: function (data) {
                             if (data != null) {
-                                Swal.fire(
-                                    'Success',
-                                    'Data berhasil di-input.',
-                                    'success'
-                                ).then(function (result) {
+                                Swal.fire({
+                                    title: 'Success',
+                                    text:'Data berhasil di-input.',
+                                    icon: 'success',
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                }).then(function (result) {
                                     RemoveModalInput();
                                     // fetch to table
                                     var tambahperbaikan = $('input[name="TambahPerbaikan"]:checked').val();
