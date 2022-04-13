@@ -120,7 +120,7 @@
                         </div>
                     </form>
                     <div class="row form-group">
-                        <button class="btn mb-1 btn-primary" id="UpdatePerbaikan" style="margin-left: 15px; background-color: green;"  >Update</button>
+                        <button class="btn mb-1 btn-primary" id="UpdatePerbaikan" style="margin-left: 15px; background-color: green;">Update</button>
                     </div>
                 </div>
             </div>
@@ -366,7 +366,7 @@
         });
         $('#btn_KajianResiko').click(function () {
             //recTindakan(0);
-            
+
                 var pic = "";
                 if ($('#Severity_DDL').val() == 10 || $('#TxtRiskLevel').val() == 'High' || $('#TxtRiskLevel').val() == 'Very High') {
                     pic = $('#TxtPIC').val();
@@ -581,7 +581,7 @@
                         }
                     });
                 }
-            
+
         });
 
     });
@@ -811,6 +811,7 @@
                     $('#txtRootCausePerbaikan').val(dataPerbaikan.WhyDesc);
                     $('#txtTindakanPerbaikan').val(dataPerbaikan.Tindakan_Perbaikan);
                     $('#txtTindakanPerbaikan').prop("disabled", true);
+
                     $('#dueDatePerbaikan').val(duedate.format("YYYY-MM-DD"));
                     $('#dueDatePerbaikan').prop("disabled", true);
                     $('#txtTindakanPerbaikanRev').val(dataPerbaikan.Tindakan_PerbaikanRev);
@@ -820,11 +821,32 @@
                     $('#AlasanTindakanPerbaikan').val(dataPerbaikan.Alasan_Tindakan_Perbaikan);
                     $('#AlasanDueDate').val(dataPerbaikan.Alasan_Due_Date);
 
-                    if ($('#AlasanDueDate').val() != '' || $('#txtTindakanPerbaikanRev').val().trim() != '') {
+                    if ($('#AlasanDueDate').val() != '' && $('#txtTindakanPerbaikanRev').val().trim() != '') {
                         $('#btn_AddKajian').attr("disabled", false);
                         $('#RootCause_KajianResikoDDL').append(new Option(dataPerbaikan.Tindakan_PerbaikanRev, dataPerbaikan.Tindakan_PerbaikanRev));
                         $('#RootCause_KajianResikoDDL').val(dataPerbaikan.Tindakan_PerbaikanRev);
-
+                        $('#txtTindakanPerbaikanRev').attr("disabled", true);
+                        $('#AlasanTindakanPerbaikan').attr("disabled", true);
+                        $('#UpdatePerbaikan').attr("disabled", true);
+                        $('#AlasanDueDate').attr("disabled", true);
+                        $('#dueDatePerbaikanRev').attr("disabled", true);
+                        $('#txtTindakanPerbaikanRev').attr("disabled", true);
+                    }
+                    else if ($('#AlasanDueDate').val() != '' && $('#txtTindakanPerbaikanRev').val().trim() == '') {
+                        $('#btn_AddKajian').attr("disabled", false);
+                        $('#RootCause_KajianResikoDDL').append(new Option(dataPerbaikan.Tindakan_Perbaikan, dataPerbaikan.Tindakan_Perbaikan));
+                        $('#RootCause_KajianResikoDDL').val(dataPerbaikan.Tindakan_Perbaikan);
+                        $('#txtTindakanPerbaikanRev').attr("disabled", true);
+                        $('#AlasanTindakanPerbaikan').attr("disabled", true);
+                        $('#UpdatePerbaikan').attr("disabled", true);
+                        $('#AlasanDueDate').attr("disabled", true);
+                        $('#dueDatePerbaikanRev').attr("disabled", true);
+                        $('#txtTindakanPerbaikanRev').attr("disabled", true);
+                    }
+                    else if ($('#AlasanDueDate').val() == '' && $('#txtTindakanPerbaikanRev').val().trim() == '') {
+                        $('#btn_AddKajian').attr("disabled", false);
+                        $('#RootCause_KajianResikoDDL').append(new Option(dataPerbaikan.Tindakan_PerbaikanRev, dataPerbaikan.Tindakan_PerbaikanRev));
+                        $('#RootCause_KajianResikoDDL').val(dataPerbaikan.Tindakan_PerbaikanRev);
                         $('#txtTindakanPerbaikanRev').attr("disabled", true);
                         $('#AlasanTindakanPerbaikan').attr("disabled", true);
                         $('#UpdatePerbaikan').attr("disabled", true);
@@ -833,7 +855,7 @@
                         $('#txtTindakanPerbaikanRev').attr("disabled", true);
                     }
                     else
-                    {   
+                    {
                         $('#txtTindakanPerbaikanRev').attr("disabled", false);
                         $('#AlasanTindakanPerbaikan').attr("disabled", false);
                         $('#UpdatePerbaikan').attr("disabled", false);
@@ -892,7 +914,31 @@
                 $('#dueDatePencegahanRev').val(duedaterev.format("YYYY-MM-DD"));
                 $('#AlasanTindakanPencegahan').val(dataPencegahan.Alasan_Tindakan_Pencegahan);
                 $('#AlasanDueDatePencegahan').val(dataPencegahan.Alasan_Due_Date);
-                if (($('#AlasanDueDatePencegahan').val()!= "" || $('#txtTindakanPencegahanRev').val() != "")) {
+                if (($('#AlasanDueDatePencegahan').val()!= "" && $('#txtTindakanPencegahanRev').val() != "")) {
+                    $('#btn_AddKajian').attr("disabled", false);
+                    $('#RootCause_KajianResikoDDL').append(new Option(dataPencegahan.Tindakan_PencegahanRev, dataPencegahan.Tindakan_PencegahanRev));
+                    $('#RootCause_KajianResikoDDL').val(dataPencegahan.Tindakan_PencegahanRev);
+
+                    $('#txtTindakanPencegahanRev').attr("disabled", true);
+                    $('#AlasanTindakanPencegahan').attr("disabled", true);
+                    $('#UpdatePencegahan').attr("disabled", true);
+                    $('#AlasanDueDatePencegahan').attr("disabled", true);
+                    $('#dueDatePencegahanRev').attr("disabled", true);
+                    $('#txtTindakanPencegahanRev').attr("disabled", true);
+                }
+                else if (($('#AlasanDueDatePencegahan').val() != "" && $('#txtTindakanPencegahanRev').val() == "")) {
+                    $('#btn_AddKajian').attr("disabled", false);
+                    $('#RootCause_KajianResikoDDL').append(new Option(dataPencegahan.Tindakan_Pencegahan, dataPencegahan.Tindakan_Pencegahan));
+                    $('#RootCause_KajianResikoDDL').val(dataPencegahan.Tindakan_Pencegahan);
+
+                    $('#txtTindakanPencegahanRev').attr("disabled", true);
+                    $('#AlasanTindakanPencegahan').attr("disabled", true);
+                    $('#UpdatePencegahan').attr("disabled", true);
+                    $('#AlasanDueDatePencegahan').attr("disabled", true);
+                    $('#dueDatePencegahanRev').attr("disabled", true);
+                    $('#txtTindakanPencegahanRev').attr("disabled", true);
+                }
+                else if (($('#AlasanDueDatePencegahan').val() == "" && $('#txtTindakanPencegahanRev').val() == "")) {
                     $('#btn_AddKajian').attr("disabled", false);
                     $('#RootCause_KajianResikoDDL').append(new Option(dataPencegahan.Tindakan_PencegahanRev, dataPencegahan.Tindakan_PencegahanRev));
                     $('#RootCause_KajianResikoDDL').val(dataPencegahan.Tindakan_PencegahanRev);

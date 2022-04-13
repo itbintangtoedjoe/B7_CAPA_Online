@@ -839,25 +839,6 @@
                         'Alasan Cancel berhasil di submit',
                         'success'
                     )
-                    $.ajax({
-                        url: 'SubmitApproval',
-                        type: 'post',
-                        data: JSON.stringify({
-                            Model: {
-                                NO_CAPA: noCAPA,
-                                Temp_Status: 10,
-                                Tindakan: 'Perbaikan',
-                                Tindakan_ID: referenceID
-                            }
-                        }),
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (data) {
-                        },
-                        error: function (ex) {
-                            alert(JSON.stringify(ex));
-                        }
-                    });
                 },
                 error: function (ex) {
                     alert(JSON.stringify(ex));
