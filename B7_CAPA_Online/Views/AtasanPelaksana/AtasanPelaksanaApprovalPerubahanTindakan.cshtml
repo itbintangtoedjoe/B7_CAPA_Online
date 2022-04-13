@@ -366,7 +366,7 @@
                         { "data": "Stat" },
                         {
                             "data": null,
-                            "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>"
+                            "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>"
                         },
                     ],
                     "columnDefs": [
@@ -427,7 +427,7 @@
                         { "data": "Stat" },
                         {
                             "data": null,
-                            "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahan(this) value='Approve'style='background-color:green; margin-bottom:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahan(this) value='Reject'style='background-color:red;'/>"
+                            "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahan(this) value='Approve'style='background-color:green; '/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahan(this) value='Reject'style='background-color:red;'/>"
                        },
                     ],
                     "columnDefs": [
@@ -548,7 +548,8 @@
                                         NO_CAPA: noCAPA,
                                         Temp_Status: 6,
                                         Tindakan: 'Perbaikan',
-                                        Tindakan_ID: id
+                                        Tindakan_ID: id,
+                                        Empid: nik
                                     }
                                 }),
                                 dataType: 'json',
@@ -686,7 +687,8 @@
                                         NO_CAPA: noCAPA,
                                         Temp_Status: 6,
                                         Tindakan: 'Pencegahan',
-                                        Tindakan_ID: id
+                                        Tindakan_ID: id,
+                                        Empid: nik
                                     }
                                 }),
                                 dataType: 'json',
@@ -1015,7 +1017,8 @@
                                         NO_CAPA: noCAPA,
                                         Temp_Status: 6,
                                         Tindakan: 'Perbaikan',
-                                        Tindakan_ID: id
+                                        Tindakan_ID: id,
+                                        Empid: nik
                                     }
                                 }),
                                 dataType: 'json',
@@ -1152,7 +1155,8 @@
                                         NO_CAPA: noCAPA,
                                         Temp_Status: 6,
                                         Tindakan: 'Pencegahan',
-                                        Tindakan_ID: id
+                                        Tindakan_ID: id,
+                                        Empid: nik
                                     }
                                 }),
                                 dataType: 'json',
@@ -1407,7 +1411,8 @@
                                         NO_CAPA: noCAPA,
                                         Temp_Status: 6,
                                         Tindakan: 'Perbaikan',
-                                        Tindakan_ID: id
+                                        Tindakan_ID: id,
+                                        Empid: nik
                                     }
                                 }),
                                 dataType: 'json',
@@ -1546,7 +1551,8 @@
                                         NO_CAPA: noCAPA,
                                         Temp_Status: 6,
                                         Tindakan: 'Pencegahan',
-                                        Tindakan_ID: id
+                                        Tindakan_ID: id,
+                                        Empid: nik
                                     }
                                 }),
                                 dataType: 'json',
