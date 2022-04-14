@@ -261,7 +261,7 @@ namespace B7_CAPA_Online.Controllers
                 { "NamaPersonil", Model.NamaPersonil},
                 { "Email", Model.Email},
                 { "DueDate", Model.DueDate},
-                { "AreaLain", Model.Is_AreaLain},
+                { "Is_AreaLain", Model.Is_AreaLain},
                 { "WhyID", Model.WhyID},
                 { "WhyParentID", Model.WhyParentID},
                 { "RootCause", Model.RootCause},
