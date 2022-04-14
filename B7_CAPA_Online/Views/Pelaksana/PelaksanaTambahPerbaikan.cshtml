@@ -328,7 +328,6 @@
         jenis = "Pencegahan Existing";
         KajianResikoDDL();
         GetTindakanPerbaikanPV();
-        GetTindakanPencegahanPV();
         GetTindakanPencegahanExistingPV();
         DeleteTindakanPerbaikanPV();
         DeleteTindakanPencegahanPV();
@@ -352,6 +351,7 @@
             $('#PerbaikanExisting').prop('hidden', true);
             $('#Div_Pencegahan').prop('hidden', true);
             KajianDDLPerbaikanBaru();
+            GetTindakanPencegahanPV();
             TableKajianTambahTindakanBaru();
             AreaLain();
         }
@@ -365,6 +365,7 @@
                 $('#RootCause').prop('hidden', false);
                 $('#btnPencegahan').prop('hidden', false);
                 KajianDDLPerbaikanBaru();
+                GetTindakanPencegahanPV();
                 TableKajianTambahTindakanBaru();
                 AreaLain();
             }
@@ -474,6 +475,7 @@
                 })
             }
             console.log(rootPencegahan);
+            alert($('#txtRootCausePencegahan').val());
             $.each(obj, function (key, value) {
                 if (value.WhyDesc == $('#RootCause_DDL').val()) {
 
@@ -485,7 +487,7 @@
                         WhyDesc: $('#RootCause_DDL').val(),
                         WhyParentID: value.WhyParentID,
                         RootCause: $('#RootCause_DDL').val(),
-                        AreaLain: $('#txtRootCausePencegahan').val(),
+                        Is_AreaLain: $('#txtRootCausePencegahan').val(),
                         Tindakan: $('#TxtDeskripsiPencegahan').val(),
                         Pelaksana: nik,
                         Departemen: departemen,
@@ -815,10 +817,10 @@
                         { "data": "RecordID" },
                         { "data": "WhyID" },
                         { "data": "WhyParentID" },
-                        { "data": "AreaLain" },
                         { "data": "WhyDesc" },
-                        { "data": "Nama_Personil" },
+                        { "data": "AreaLain" },
                         { "data": "Tindakan_Pencegahan" },
+                        { "data": "Nama_Personil" },    
                         { "data": "SupApprover" },
                         { "data": "Due_Date" },
                         {
