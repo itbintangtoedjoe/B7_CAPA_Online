@@ -986,6 +986,17 @@
         }
 
         $.blockUI();
+        if ($('#TxtLampiranCountPerbaikan').text() == "Tidak ada File Yang Dipilih") {
+            $.unblockUI();
+            Swal.fire({
+                title: "Error!",
+                text: "Silahkan Pilih Attachment terlebih dahulu!",
+                type: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
+            return
+        }
         $.ajax({
             url: "SimpanHasilPelaksanaan",
             type: "POST",
@@ -1030,11 +1041,23 @@
         formData.append("Updater", nik);
         formData.append("NomorCAPA", noCAPA);
         var files = $('#uploadAttachmentPencegahan').prop('files');
+
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
             formData.append("Attachments", file);
         }
         $.blockUI();
+        if ($('#TxtLampiranCountPencegahan').text() == "Tidak ada File Yang Dipilih") {
+            $.unblockUI();
+            Swal.fire({
+                title: "Error!",
+                text: "Silahkan Pilih Attachment terlebih dahulu!",
+                type: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
+            return
+        }
         $.ajax({
             url: "SimpanHasilPelaksanaan",
             type: "POST",
@@ -1049,7 +1072,13 @@
                 if (result[0].Validate == "Invalid") {
 
                     $.unblockUI();
-                    Swal.fire("Error!", "File sudah ada!", "error");
+                    Swal.fire({
+                        title: "Error!",
+                        text: "File sudah ada!",
+                        type: "error",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    })
                 }
                 else {
                     $.unblockUI();
@@ -1084,6 +1113,17 @@
             formData.append("Attachments", file);
         }
         $.blockUI();
+        if ($('#TxtLampiranCountTreatment').text() == "Tidak ada File Yang Dipilih") {
+            $.unblockUI();
+            Swal.fire({
+                title: "Error!",
+                text: "Silahkan Pilih Attachment terlebih dahulu!",
+                type: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
+            return
+        }
         $.ajax({
             url: "SimpanHasilPelaksanaan",
             type: "POST",
