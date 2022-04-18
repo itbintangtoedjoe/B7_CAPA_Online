@@ -430,6 +430,11 @@
             UploadFile();
 
         });
+        $('#TxtFileInput').change(function () {
+            fileCount = this.files.length;
+            var teks = (fileCount != 0) ? (fileCount + " Lampiran telah dipilih.") : ("");
+            $('#TxtLampiranCount').text(teks);
+        });
         $('#btn_Close_CCC').click(function () {
 
             var Jsonobj = [];
@@ -816,7 +821,7 @@
     function UploadFile() {
         var formData = new FormData();
         var totalFiles = document.getElementById("TxtFileInput").files.length;
-        if (totalFiles == 0 || totalFiles == undefined) {
+        if ($('#TxtLampiranCount').text() == "Tidak ada File Yang Dipilih") {
 
             Swal.fire({
                 title: "Error!",
@@ -859,6 +864,7 @@
                             timer: 1000,
                         });
                         GetLampiran();
+                        $('#TxtLampiranCount').text("Tidak ada File Yang Dipilih");
                     }
                 },
                 error: function (errormessage) {
