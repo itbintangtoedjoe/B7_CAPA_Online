@@ -821,7 +821,17 @@
                     $('#AlasanTindakanPerbaikan').val(dataPerbaikan.Alasan_Tindakan_Perbaikan);
                     $('#AlasanDueDate').val(dataPerbaikan.Alasan_Due_Date);
 
-                    if ($('#AlasanDueDate').val() != '' && $('#txtTindakanPerbaikanRev').val().trim() != '') {
+                    if ($('#AlasanDueDate').val() == '' && $('#AlasanTindakanPerbaikan').val() == '') {
+                        $('#txtTindakanPerbaikanRev').attr("disabled", false);
+                        $('#AlasanTindakanPerbaikan').attr("disabled", false);
+                        $('#UpdatePerbaikan').attr("disabled", false);
+                        $('#AlasanDueDate').attr("disabled", false);
+                        $('#dueDatePerbaikanRev').attr("disabled", false);
+                        $('#txtTindakanPerbaikanRev').attr("disabled", false);
+                        $('#btn_AddKajian').attr("disabled", true);
+                    }
+
+                    else if ($('#AlasanDueDate').val() != '' && $('#txtTindakanPerbaikanRev').val().trim() != '') {
                         $('#btn_AddKajian').attr("disabled", false);
                         $('#RootCause_KajianResikoDDL').append(new Option(dataPerbaikan.Tindakan_PerbaikanRev, dataPerbaikan.Tindakan_PerbaikanRev));
                         $('#RootCause_KajianResikoDDL').val(dataPerbaikan.Tindakan_PerbaikanRev);
@@ -843,7 +853,7 @@
                         $('#dueDatePerbaikanRev').attr("disabled", true);
                         $('#txtTindakanPerbaikanRev').attr("disabled", true);
                     }
-                    else if ($('#AlasanDueDate').val() == '' && $('#txtTindakanPerbaikanRev').val().trim() == '') {
+                    else if ($('#AlasanDueDate').val() == '' && $('#txtTindakanPerbaikanRev').val().trim() != '') {
                         $('#btn_AddKajian').attr("disabled", false);
                         $('#RootCause_KajianResikoDDL').append(new Option(dataPerbaikan.Tindakan_PerbaikanRev, dataPerbaikan.Tindakan_PerbaikanRev));
                         $('#RootCause_KajianResikoDDL').val(dataPerbaikan.Tindakan_PerbaikanRev);
@@ -914,7 +924,17 @@
                 $('#dueDatePencegahanRev').val(duedaterev.format("YYYY-MM-DD"));
                 $('#AlasanTindakanPencegahan').val(dataPencegahan.Alasan_Tindakan_Pencegahan);
                 $('#AlasanDueDatePencegahan').val(dataPencegahan.Alasan_Due_Date);
-                if (($('#AlasanDueDatePencegahan').val()!= "" && $('#txtTindakanPencegahanRev').val() != "")) {
+
+                if ($('#AlasanTindakanPencegahan').val() == "" && $('#AlasanDueDatePencegahan').val() == "") {
+                    $('#txtTindakanPencegahanRev').attr("disabled", false);
+                    $('#AlasanTindakanPencegahan').attr("disabled", false);
+                    $('#UpdatePencegahan').attr("disabled", false);
+                    $('#AlasanDueDatePencegahan').attr("disabled", false);
+                    $('#dueDatePencegahanRev').attr("disabled", false);
+                    $('#txtTindakanPencegahanRev').attr("disabled", false);
+                    $('#btn_AddKajian').attr("disabled", true);
+                }
+                else if (($('#AlasanDueDatePencegahan').val()!= "" && $('#txtTindakanPencegahanRev').val() != "")) {
                     $('#btn_AddKajian').attr("disabled", false);
                     $('#RootCause_KajianResikoDDL').append(new Option(dataPencegahan.Tindakan_PencegahanRev, dataPencegahan.Tindakan_PencegahanRev));
                     $('#RootCause_KajianResikoDDL').val(dataPencegahan.Tindakan_PencegahanRev);
@@ -938,7 +958,7 @@
                     $('#dueDatePencegahanRev').attr("disabled", true);
                     $('#txtTindakanPencegahanRev').attr("disabled", true);
                 }
-                else if (($('#AlasanDueDatePencegahan').val() == "" && $('#txtTindakanPencegahanRev').val() == "")) {
+                else if (($('#AlasanDueDatePencegahan').val() == "" && $('#txtTindakanPencegahanRev').val() != "")) {
                     $('#btn_AddKajian').attr("disabled", false);
                     $('#RootCause_KajianResikoDDL').append(new Option(dataPencegahan.Tindakan_PencegahanRev, dataPencegahan.Tindakan_PencegahanRev));
                     $('#RootCause_KajianResikoDDL').val(dataPencegahan.Tindakan_PencegahanRev);

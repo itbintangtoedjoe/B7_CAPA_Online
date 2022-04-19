@@ -819,7 +819,6 @@
                         contentType: 'application/json; charset=utf-8',
                         success: function (data) {
 
-                            $.unblockUI();
 
                             GetAllBukti();
                         },
@@ -875,7 +874,25 @@
                 $.each(JSON.parse(data), function (key, value) {
                     console.log(value.HasilCek)
                     if (value.HasilCek == 0) {
-                        window.location.href ="../Koordinator/MonitoringEfektivitas?NoCAPA=" + noCAPA + "&status=" + value.StatusID;
+                        $.ajax({
+                            url: 'SubmitApproval',
+                            type: 'post',
+                            data: JSON.stringify({
+                                Model: {
+                                    NO_CAPA: noCAPA,
+                                    Temp_Status: 8
+                                }
+                            }),
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+
+                                window.location.href = "../Koordinator/MonitoringEfektivitas?NoCAPA=" + noCAPA + "&status=" + value.StatusID;
+                            },
+                            error: function (ex) {
+                                alert(JSON.stringify(ex));
+                            }
+                        });
                     }
                 });
             },

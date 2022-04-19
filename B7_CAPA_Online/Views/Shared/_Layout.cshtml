@@ -276,7 +276,7 @@
             var usernameAktif = '@Request.RequestContext.HttpContext.Session["Username"]';
             CheckUser();
             $('#UserLoginXd').text(usernameAktif);
-
+            
             if ($('#UserLoginXd').text().length == 0) {
                 window.location.href = '@Url.Action("Index", "Login")';
             }
