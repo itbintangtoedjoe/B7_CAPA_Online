@@ -385,5 +385,16 @@ namespace B7_CAPA_Online.Controllers
             }
             return Json(loginStatus);
         }
+        public ActionResult checksession()
+        {
+            if(Session["Username"] == null)
+            {
+                return Json("False");
+            }
+            else
+            {
+                return Json("True");
+            }
+        }
     }
 }
