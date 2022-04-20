@@ -31,14 +31,14 @@
             </div>
             <div class="modal-body">
                 <form>
-                    @Html.Partial("CancelCAPA")
+                    @Html.Partial("../Shared/CancelCAPA")
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<div class="card">
+<div class="card" id="div_Buttons">
     <div class="card-body">
         <h4 class="card-title">Approval</h4>
 
@@ -150,11 +150,13 @@
         $("#btnSubmitReject").click(function () {
             $.blockUI();
             SubmitApprovalPV("Reject", CurrentStatsID);//Reject Approval EventClick
+            $("#Reject_Page").modal("hide");
         });
 
         $("#btnSubmitCancel").click(function () {
             $.blockUI();
             SubmitApprovalPV("Cancel", CurrentStatsID);//Reject Approval EventClick
+            $("#Cancel_Page").modal("hide");
         });
 
         $("#btnCloseCancel").click(function () {          
