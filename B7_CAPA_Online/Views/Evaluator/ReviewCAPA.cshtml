@@ -530,7 +530,7 @@
         Swal.fire({
             title: 'Alasan Cancel',
             text: "You won't be able to revert this!",
-            icon: 'warning',
+            type: 'warning',
             html: '<textarea id="txtCancel" class="form form-control" ></textarea>',
             showCancelButton: true,
             confirmButtonColor: 'green',
@@ -560,7 +560,7 @@
                             Swal.fire({
                                 title: "Cancelled!",
                                 text: "Cancel Berhasil",
-                                icon: "success",
+                                type: "success",
                                 showConfirmButton: false,
                                 timer: 1000,
                             })
@@ -594,7 +594,7 @@
                     Swal.fire({
                         title: "Error!",
                         text: "Alasan tidak boleh kosong.",
-                        icon: "error",
+                        type: "error",
                         showConfirmButton: false,
                         timer: 1000,
                     })
@@ -792,11 +792,13 @@
                          Rejection(this, option, alasan);
                     }
                     else {
-                        Swal.fire(
-                            'Warning!',
-                            'Mohon berikan alasan reject.',
-                            'warning'
-                        )
+                        Swal.fire({
+                            title: 'Warning',
+                            text: 'Mohon berikan alasan reject.',
+                            type: 'warning',
+                            timer: 2000,
+                            showConfirmButton: false
+                        })
                     }
                 }
             });
@@ -836,11 +838,13 @@
                         Rejection(this, option, alasan);
                     }
                     else {
-                        Swal.fire(
-                            'Warning!',
-                            'Mohon berikan alasan reject.',
-                            'warning'
-                        )
+                        Swal.fire({
+                            title: 'Warning',
+                            text: 'Mohon berikan alasan reject.',
+                            type: 'warning',
+                            timer: 2000,
+                            showConfirmButton: false
+                        })
                     }
                 }
             });

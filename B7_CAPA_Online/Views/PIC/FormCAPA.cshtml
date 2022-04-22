@@ -2665,11 +2665,13 @@
                     }
                 });
             } else {
-                Swal.fire(
-                    'Maaf',
-                    'Input tidak boleh kosong.',
-                    'warning'
-                )
+                Swal.fire({
+                    title: 'Maaf',
+                    text: 'Input tidak boleh kosong.',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    type: 'warning'
+                })
             }
         });
 
@@ -2740,11 +2742,13 @@
                     }
                 });
             } else {
-                Swal.fire(
-                    'Maaf',
-                    'Input tidak boleh kosong.',
-                    'warning'
-                )
+                Swal.fire({
+                    title: 'Maaf',
+                    text:'Input tidak boleh kosong.',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    type: 'warning'
+                })
             }
         });
 
@@ -3068,19 +3072,23 @@
                     //}
                     if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
                         valid = false;
-                        return Swal.fire(
-                            'Maaf',
-                            'Risk Level masih tinggi.',
-                            'warning'
-                        )
+                        return Swal.fire({
+                            title: 'Maaf',
+                            text: 'Risk Level masih tinggi.',
+                            type: "warning",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                     }
                     else if ($('#Target_DDL').val() == 'Low') {
                         if ($('#TxtRiskLevel2').val() != 'Low') {
-                            return Swal.fire(
-                                'Maaf',
-                                'Risk Level masih diatas target yang ditentukan.',
-                                'warning'
-                            )
+                            return Swal.fire({
+                                title: 'Maaf',
+                                text: 'Risk Level masih tinggi.',
+                                type: "warning",
+                                showConfirmButton: false,
+                                timer: 1000,
+                            })
                         }
                     }
                 }
@@ -3093,11 +3101,13 @@
                 if (key === "M_PKegagalan" || key === "P_MPenyebab" || key == "P_MDPKegagalan") {
                     if (dto.Model.Severity == 10 || dto.Model.RiskLevel == "High" || dto.Model.RiskLevel == "Very High") {
                         if (dto.Model.M_PKegagalan == "" && dto.Model.P_MPenyebab == "" && dto.Model.P_MDPKegagalan == "") {
-                            Swal.fire(
-                                'Maaf',
-                                'Input field "Menghilangkan Potensi Kegagalan / Penyimpangan" atau "Perbaikan untuk mengatasi Penyebab Potensial" atau "Perbaikan untuk meningkatkan deteksi potensi kegagalan" wajib diisi salah satu.',
-                                'warning'
-                            )
+                            Swal.fire({
+                                title: 'Maaf',
+                                text: 'Input field "Menghilangkan Potensi Kegagalan / Penyimpangan" atau "Perbaikan untuk mengatasi Penyebab Potensial" atau "Perbaikan untuk meningkatkan deteksi potensi kegagalan" wajib diisi salah satu.',
+                                type: "warning",
+                                showConfirmButton: false,
+                                timer: 1000,
+                            })
                             valid = false;
                             return false;
                         }
@@ -3116,11 +3126,14 @@
                             } else {
                                 label = 'Input field "' + $("label[for='" + elementID[Object.keys(dto.Model)[count]].substring(1) + "']").text() + '" Mohon di isi.';
                             }
-                            Swal.fire(
-                                'Maaf',
-                                label,
-                                'warning'
-                            )
+                           
+                                Swal.fire({
+                                    title: 'Maaf',
+                                    text: label,
+                                    type: "warning",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                })
                             valid = false;
                             return false;
                         }
@@ -3218,17 +3231,17 @@
                         var mData = JSON.parse(data);
                         $.each(mData, function (key, value) {
                             var attr = Object.keys(value)[0];
-                            var icon;
+                            var type;
                             if (attr == "WAITING")
-                                icon = 'warning';
+                                type = 'warning';
                             else if (attr == 'SUCCESS')
-                                icon = 'success';
+                                type = 'success';
                             else
-                                icon = 'error';
+                                type = 'error';
                             Swal.fire({
                                 title: attr,
                                 text: value[attr],
-                                type: icon,
+                                type: type,
                                 timer: 2000,
                                 showConfirmButton: false
                             }).then(function () {

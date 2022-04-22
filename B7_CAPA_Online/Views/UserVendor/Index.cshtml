@@ -85,20 +85,23 @@
     }
 
     function Delete(id) {
-        swal({
+        Swal.fire({
             title: "Anda yakin menghapus user vendor terpilih?",
             icon: "warning",
-            buttons: ["Tidak", "Ya"],
-            dangerMode: true,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
+            showCancelButton: true,
+            confirmButtonColor: 'red',
+            cancelButtonColor: 'blue',
+            confirmButtonText: 'Delete!',
+            reverseButtons: true
+        }).then((willDelete) => {
+            if (willDelete.value) {
                 var link = "@Url.Action("DeleteUserVendor", "UserVendor", new { userID = "param1" })";
                 link = link.replace("param1", id);
                 console.log(link);
-                swal("Data user vendor berhasil dihapus", {
+                Swal.fire({
+                    title: "Data user vendor berhasil dihapus",
                     icon: "success",
-                    buttons: false,
+                    showConfirmButton: false,
                     timer: 1000,
                 }).then(() => {
                     window.location = link;
