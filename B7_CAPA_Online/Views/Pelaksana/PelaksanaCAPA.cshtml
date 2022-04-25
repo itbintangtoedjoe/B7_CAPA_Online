@@ -183,7 +183,7 @@
                                             <input type="file" class="custom-file-input" name="UploadAttachment" id="uploadAttachmentPerbaikan"  onclick="this.value = null;" multiple />
                                         </div>
 
-                                        <label id="TxtLampiranCountPerbaikan" class="custom-file-label"> Tidak ada File Yang Dipilih</label>
+                                        <label id="TxtLampiranCountPerbaikan" class="custom-file-label">Tidak ada File Yang Dipilih</label>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -988,14 +988,13 @@
         $.blockUI();
         if ($('#TxtLampiranCountPerbaikan').text() == "Tidak ada File Yang Dipilih") {
             $.unblockUI();
-            Swal.fire({
+            return Swal.fire({
                 title: "Error!",
                 text: "Silahkan Pilih Attachment terlebih dahulu!",
                 icon: "error",
                 showConfirmButton: false,
                 timer: 1000,
-            })
-            return
+            });
         }
         $.ajax({
             url: "SimpanHasilPelaksanaan",
@@ -1035,7 +1034,9 @@
                 console.log(error, status);
             }
         });
+       
     }
+
     function UploadPencegahan()
     {
         var formData = new FormData();

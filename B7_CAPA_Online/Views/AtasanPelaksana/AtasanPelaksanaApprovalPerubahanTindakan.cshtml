@@ -237,7 +237,6 @@
     var statuser = false;
     var stataction = false;
     var laststate = false;
-    var referenceID = getQueryStrings()["ReferenceID"];
     var count = 0;
     $('#input_NoCAPA').val(noCAPA);
     //function untuk ambil semua query string
@@ -478,7 +477,7 @@
                             NO_CAPA: noCAPA,
                             Temp_Status: 11,
                             Tindakan: 'Perbaikan',
-                            Tindakan_ID: referenceID
+                            Tindakan_ID: id
                         }
                     }),
                     dataType: 'json',
@@ -626,7 +625,7 @@
                             NO_CAPA: noCAPA,
                             Temp_Status: 11,
                             Tindakan: 'Pencegahan',
-                            Tindakan_ID: referenceID
+                            Tindakan_ID: id
                         }
                     }),
                     dataType: 'json',
@@ -949,7 +948,7 @@
                             NO_CAPA: noCAPA,
                             Temp_Status: 11,
                             Tindakan: 'Perbaikan',
-                            Tindakan_ID: referenceID
+                            Tindakan_ID: id
                         }
                     }),
                     dataType: 'json',
@@ -1085,7 +1084,7 @@
                             NO_CAPA: noCAPA,
                             Temp_Status: 11,
                             Tindakan: 'Pencegahan',
-                            Tindakan_ID: referenceID
+                            Tindakan_ID: id
                         }
                     }),
                     dataType: 'json',
@@ -1342,7 +1341,7 @@
                             NO_CAPA: noCAPA,
                             Temp_Status: 11,
                             Tindakan: 'Perbaikan',
-                            Tindakan_ID: referenceID
+                            Tindakan_ID: id
                         }
                     }),
                     dataType: 'json',
