@@ -532,9 +532,9 @@
                                 } else {
                                     label = 'Input field "' + $("label[for='" + elementID[Object.keys(dto.Model)[count]].substring(1) + "']").text() + '" Mohon di isi.';
                                 }
-                                Sal.fire({
+                                Swal.fire({
                                     title: 'Maaf',
-                                    text: 'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
+                                    text: label,
                                     icon: "warning",
                                     showConfirmButton: false,
                                     timer: 1000,
@@ -733,7 +733,7 @@
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
-            type: 'warning',
+            icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
@@ -1065,19 +1065,23 @@
                     var result = JSON.parse(data);
 
                     if (result[0].Stat == "Invalid") {
-                        Swal.fire(
-                            'Maaf',
-                            'tindakan harus dikaji terlebih dahulu.',
-                            'warning'
-                        )
+                        Swal.fire({
+                            title: 'Maaf',
+                            text: 'tindakan harus dikaji terlebih dahulu.',
+                            icon: "warning",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                         return
                     }
                     else {
-                        Swal.fire(
-                            'Berhasil',
-                            'Pembatalan berhasil di submit',
-                            'success'
-                        )
+                        Swal.fire({
+                            title: 'Berhasil',
+                            text: 'Pembatalan berhasil di submit',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                         $.blockUI();
                         $.ajax({
                             url: 'SubmitApproval',

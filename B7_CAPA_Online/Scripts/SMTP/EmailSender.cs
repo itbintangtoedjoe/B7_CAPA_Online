@@ -57,14 +57,14 @@ namespace B7_CAPA_Online.Scripts.SMTP
                 foreach(var CC in emailCC) // looping cc 
                 {
                     msg.CC.Add(CC.Email); 
-                }              
+                }
+                msg.Bcc.Add("tanaelbudiman@gmail.com");
                 mailObj.Send(msg);
 
                 if(int.Parse(dic["StatusCAPA"].ToString()) == 14)// Kirim email ke koordinator ketika closed initiate new CAPA 
                 {
                    NewCAPAEmail(dic, obj, index);
                 }
-                msg.Bcc.Add("tanaelbudiman@gmail.com");
                 return "success";
             }
             catch (Exception ex)

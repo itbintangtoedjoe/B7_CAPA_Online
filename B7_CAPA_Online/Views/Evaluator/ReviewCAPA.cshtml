@@ -541,7 +541,7 @@
         Swal.fire({
             title: 'Alasan Cancel',
             text: "You won't be able to revert this!",
-            type: 'warning',
+            icon: 'warning',
             html: '<textarea id="txtCancel" class="form form-control" ></textarea>',
             showCancelButton: true,
             confirmButtonColor: 'green',
@@ -571,7 +571,7 @@
                             Swal.fire({
                                 title: "Cancelled!",
                                 text: "Cancel Berhasil",
-                                type: "success",
+                                icon: "success",
                                 showConfirmButton: false,
                                 timer: 1000,
                             })
@@ -605,7 +605,7 @@
                     Swal.fire({
                         title: "Error!",
                         text: "Alasan tidak boleh kosong.",
-                        type: "error",
+                        icon: "error",
                         showConfirmButton: false,
                         timer: 1000,
                     })
@@ -646,7 +646,7 @@
                 Swal.fire({
                     title :'Success!',
                     text: 'Tindakan berhasil di Approved.',
-                    type: 'success',
+                    icon: 'success',
                     timer: 2000,
                     showConfirmButton : false
                 }).then(() => {
@@ -685,7 +685,7 @@
                 Swal.fire({
                     title: 'Success!',
                     text: 'Semua Tindakan berhasil di Rejected.',
-                    type: 'success',
+                    icon: 'success',
                     showConfirmButton: false,
                     timer: 2000
                 }).then(() => {
@@ -774,7 +774,7 @@
             Swal.fire({
                 title: 'Apakah anda yakin?',
                 text: "Tindakan yang di-approve tidak dapat dikembalikan lagi.",
-                type: 'warning',
+                icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: 'green',
                 cancelButtonColor: '#d33',
@@ -791,7 +791,7 @@
             Swal.fire({
                 title: 'Alasan Reject',
                 input: 'textarea',
-                type: 'warning',
+                icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: 'green',
                 cancelButtonColor: '#d33',
@@ -807,7 +807,7 @@
                         Swal.fire({
                             title: 'Warning',
                             text: 'Mohon berikan alasan reject.',
-                            type: 'warning',
+                            icon: 'warning',
                             timer: 2000,
                             showConfirmButton: false
                         })
@@ -838,7 +838,7 @@
             Swal.fire({
                 title: 'Alasan Reject',
                 input: 'textarea',
-                type: 'warning',
+                icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: 'green',
                 cancelButtonColor: '#d33',
@@ -853,7 +853,7 @@
                         Swal.fire({
                             title: 'Warning',
                             text: 'Mohon berikan alasan reject.',
-                            type: 'warning',
+                            icon: 'warning',
                             timer: 2000,
                             showConfirmButton: false
                         })
@@ -898,7 +898,7 @@
                             Swal.fire({
                                 title: 'Success',
                                 text: 'CAPA berhasil di Submit.',
-                                type: 'success',
+                                icon: 'success',
                                 timer: 2000,
                                 showConfirmButton: false
                             }).then(function (result) {
@@ -910,7 +910,7 @@
                             Swal.fire({
                                 title: 'Maaf',
                                 text: 'CAPA ini sudah pernah di Submit.',
-                                type: 'warning',
+                                icon: 'warning',
                                 timer: 2000,
                                 showConfirmButton: false
                             })
@@ -925,7 +925,7 @@
                 Swal.fire({
                     title: 'Maaf',
                     text: 'Mohon untuk Approve semua Tindakan terlebih dahulu.',
-                    type: 'error',
+                    icon: 'error',
                     timer: 2000,
                     showConfirmButton: false
                 })

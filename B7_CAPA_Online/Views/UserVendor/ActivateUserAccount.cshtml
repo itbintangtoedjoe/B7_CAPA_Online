@@ -129,7 +129,7 @@
         else if (password.length < 8) {
             Swal.fire({
                 title: 'Password harus memiliki minimal 8 karakter!',
-                type: 'error',
+                icon: 'error',
                 timer: 1000,
                 showConfirmButton: false
             })
@@ -153,7 +153,7 @@
         {
             Swal.fire({
                 title: 'Kedua password harus sama!',
-                type: 'error',
+                icon: 'error',
                 timer: 1000,
                 showConfirmButton: false
             })
@@ -185,7 +185,7 @@
                     if (data == "1") {
                         Swal.fire({
                             title: 'Kedua password harus sama!',
-                            type: 'error',
+                            icon: 'error',
                             timer: 1000,
                             showConfirmButton: false
                         }).then(() => {
@@ -219,7 +219,7 @@
 
                              title: 'Gagal',
                              text: data,
-                             type: 'error',
+                             icon: 'error',
                              timer: 1000,
                              showConfirmButton: false
                         })

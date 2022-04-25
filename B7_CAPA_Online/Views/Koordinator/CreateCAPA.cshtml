@@ -1585,7 +1585,7 @@
             if (data[key] === "" || data[key] === false || data[key] === null) {
                 if (key === 'PenyimpanganCollection' && data['PenyimpanganCollection'] === "" && !isAttachment) {
                     Swal.fire({
-                        type: 'warning',
+                        icon: 'warning',
                         title: 'Maaf',
                         text: 'Mohon input ' + labelChild + ' wajib diisi!',
                         showConfirmButton: false,
@@ -1596,7 +1596,7 @@
                     break;
                 }
                 Swal.fire({
-                    type: 'warning',
+                    icon: 'warning',
                     title: 'Maaf',
                     text: 'Mohon input ' + key + ' wajib diisi!',
                     showConfirmButton: false,

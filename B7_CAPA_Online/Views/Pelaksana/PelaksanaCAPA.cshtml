@@ -857,7 +857,7 @@
         else {
             Swal.fire({
                 title: "Khusus Pelaksana yang ditunjuk !",
-                type: "error",
+                icon: "error",
                 showConfirmButton: false,
                 timer: 1000,
             })
@@ -875,7 +875,7 @@
         else {
             Swal.fire({
                 title: "Khusus Pelaksana yang ditunjuk !",
-                type: "error",
+                icon: "error",
                 showConfirmButton: false,
                 timer: 1000,
             })
@@ -892,7 +892,7 @@
         else {
             Swal.fire({
                 title: "Khusus Pelaksana yang ditunjuk !",
-                type: "error",
+                icon: "error",
                 showConfirmButton: false,
                 timer: 1000,
             })
@@ -910,7 +910,7 @@
         {
               Swal.fire({
                         title: "Khusus Pelaksana yang ditunjuk !",
-                        type: "error",
+                  icon: "error",
                         showConfirmButton: false,
                         timer: 1000,
                     })
@@ -991,7 +991,7 @@
             Swal.fire({
                 title: "Error!",
                 text: "Silahkan Pilih Attachment terlebih dahulu!",
-                type: "error",
+                icon: "error",
                 showConfirmButton: false,
                 timer: 1000,
             })
@@ -1010,13 +1010,19 @@
                 if (result[0].Validate == "Invalid") {
 
                     $.unblockUI();
-                    Swal.fire("Error!", "File sudah ada!", "error");
+                    Swal.fire({
+                        title: "Error!",
+                        text: "File sudah ada!",
+                        icon: "error",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    })
                 }
                 else {
                     $.unblockUI();
                     Swal.fire({
                         title: "File Berhasil di Upload!",
-                        type: "success",
+                        icon: "success",
                         showConfirmButton: false,
                         timer: 1000,
                     })
@@ -1052,7 +1058,7 @@
             Swal.fire({
                 title: "Error!",
                 text: "Silahkan Pilih Attachment terlebih dahulu!",
-                type: "error",
+                icon: "error",
                 showConfirmButton: false,
                 timer: 1000,
             })
@@ -1075,7 +1081,7 @@
                     Swal.fire({
                         title: "Error!",
                         text: "File sudah ada!",
-                        type: "error",
+                        icon: "error",
                         showConfirmButton: false,
                         timer: 1000,
                     })
@@ -1084,7 +1090,7 @@
                     $.unblockUI();
                     Swal.fire({
                         title: "File Berhasil di Upload!",
-                        type: "success",
+                        icon: "success",
                         showConfirmButton: false,
                         timer: 1000,
                     })
@@ -1118,7 +1124,7 @@
             Swal.fire({
                 title: "Error!",
                 text: "Silahkan Pilih Attachment terlebih dahulu!",
-                type: "error",
+                icon: "error",
                 showConfirmButton: false,
                 timer: 1000,
             })
@@ -1137,13 +1143,19 @@
                 if (result[0].Validate == "Invalid") {
 
                     $.unblockUI();
-                    Swal.fire("Error!", "File sudah ada!", "error");
+                    Swal.fire({
+                        title: "Error!",
+                        text: "File sudah ada!",
+                        icon: "error",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    })
                 }
                 else {
                     $.unblockUI();
                     Swal.fire({
                         title: "File Berhasil di Upload!",
-                        type: "success",
+                        icon: "success",
                         showConfirmButton: false,
                         timer: 1000,
                     })
@@ -1440,7 +1452,7 @@
 
             Swal.fire({
                 title: "Hasil perbaikan dan attachment wajib diisi!",
-                type: "warning",
+                icon: "warning",
                 showConfirmButton: false
             })
             return
@@ -1465,7 +1477,7 @@
             success: function (data) {
                 Swal.fire({
                     title: "Data perbaikan berhasil diupdate!",
-                    type: "success",
+                    icon: "success",
                     showConfirmButton: false,
                     timer: 1000,
                 }).then(() => {
@@ -1845,7 +1857,7 @@
 
             Swal.fire({
                 title: "Hasil pencegahan dan attachment wajib diisi!",
-                type: "error",
+                icon: "error",
                 showConfirmButton: false
             })
                 return;
@@ -1870,7 +1882,7 @@
             success: function (data) {
                 Swal.fire({
                     title: "Data pencegahan berhasil diupdate!",
-                    type: "success",
+                    icon: "success",
                     showConfirmButton: false,
                     timer: 1000,
                 }).then(() => {
@@ -2259,7 +2271,7 @@
         if ($('#tblAttachmentTreatment td:last-child').text() == "Belum ada file terpilih") {
             Swal.fire({
                 title: "attachment wajib diisi!",
-                type: "warning",
+                icon: "warning",
                 showConfirmButton: false
             })
             return;
@@ -2271,7 +2283,7 @@
             if (totalvalidasiTreatment != TreatmentTerisi) {
                 Swal.fire({
                     title: "Semua field wajib diisi!",
-                    type: "warning",
+                    icon: "warning",
                     showConfirmButton: false
                 })
                 return;
@@ -2298,7 +2310,7 @@
             success: function (data) {
                 Swal.fire({
                     title: "Data Treatment berhasil diupdate!",
-                    type: "success",
+                    icon: "success",
                     showConfirmButton: false,
                     timer: 1000,
                 }).then(() => {
@@ -2396,7 +2408,7 @@
     function DeleteAttachment(attID,path, kategori) {
         Swal.fire({
             title: "Anda yakin menghapus lampiran?",
-            type: "warning",
+            icon: "warning",
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
@@ -2418,7 +2430,7 @@
                     success: function (data) {
                         Swal.fire({
                             title: "Attachment berhasil dihapus!",
-                            type: "success",
+                            icon: "success",
                             showConfirmButton: false,
                         })
                         if (kategori == 1) {

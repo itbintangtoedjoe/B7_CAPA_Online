@@ -593,11 +593,13 @@
                     } else {
                         if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
                             valid = false;
-                            return Swal.fire(
-                                'Maaf',
-                                'Risk Level masih tinggi.',
-                                'warning'
-                            )
+                            return Swal.fire({
+                                title: 'Maaf',
+                                text: 'Risk Level masih tinggi.',
+                                icon: "warning",
+                                showConfirmButton: false,
+                                timer: 1000,
+                            })
                         }
                         //if ($('#Severity2_DDL').val() == '10') {
                         //    valid = false;
@@ -609,11 +611,13 @@
                         //}
                         if ($('#Target_DDL').val() == "Low" && $('#TxtRiskLevel2').val() == 'Medium') {
                             valid = false;
-                            return Swal.fire(
-                                'Maaf',
-                                'Risk Level masih tinggi.',
-                                'warning'
-                            )
+                            return Swal.fire({
+                                title: 'Maaf',
+                                text: 'Risk Level masih tinggi.',
+                                icon: "warning",
+                                showConfirmButton: false,
+                                timer: 1000,
+                            })
                         }
                     }
                     i++;
@@ -624,30 +628,36 @@
                     if (key === "M_PKegagalan" || key === "P_MPenyebab" || key == "P_MDPKegagalan") {
                         if (dto.Model.Severity == 10 || dto.Model.RiskLevel == "High" || dto.Model.RiskLevel == "Very High") {
                             if (dto.Model.M_PKegagalan == "" && dto.Model.P_MPenyebab == "" && dto.Model.P_MDPKegagalan == "") {
-                                Swal.fire(
-                                    'Maaf',
-                                    'Input field "Menghilangkan Potensi Kegagalan / Penyimpangan" atau "Perbaikan untuk mengatasi Penyebab Potensial" atau "Perbaikan untuk meningkatkan deteksi potensi kegagalan" wajib diisi salah satu.',
-                                    'warning'
-                                )
+                                Swal.fire({
+                                    title: 'Maaf',
+                                    text: 'Input field "Menghilangkan Potensi Kegagalan / Penyimpangan" atau "Perbaikan untuk mengatasi Penyebab Potensial" atau "Perbaikan untuk meningkatkan deteksi potensi kegagalan" wajib diisi salah satu.',
+                                    icon: "warning",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                })
                                 valid = false;
                                 return false;
 
                             }
                             if (dto.Model.DueDate == "") {
-                                Swal.fire(
-                                    'Maaf',
-                                    'Mohon untuk mengisi DueDate PIC Treatment.',
-                                    'warning'
-                                )
+                                Swal.fire({
+                                    title: 'Maaf',
+                                    text: 'Mohon untuk mengisi DueDate PIC Treatment.',
+                                    icon: "warning",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                })
                                 valid = false;
                                 return false;
                             }
                             if (date.getTime() > datekajian.getTime()) {
-                                Swal.fire(
-                                    'Maaf',
-                                    'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
-                                    'warning'
-                                )
+                                Swal.fire({
+                                    title: 'Maaf',
+                                    text: 'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
+                                    icon: "warning",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                })
                                 valid = false;
                                 return false;
                             }
@@ -665,11 +675,13 @@
                                 } else {
                                     label = 'Input field "' + $("label[for='" + elementID[Object.keys(dto.Model)[count]].substring(1) + "']").text() + '" Mohon di isi.';
                                 }
-                                Swal.fire(
-                                    'Maaf',
-                                    label,
-                                    'warning'
-                                )
+                                Swal.fire({
+                                    title: 'Maaf',
+                                    text: label,
+                                    icon: "warning",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                })
                                 valid = false;
                                 return false;
                             }

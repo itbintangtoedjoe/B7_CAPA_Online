@@ -1370,7 +1370,7 @@
                             text: status[0].Status_Inserted + ' berhasil di-input.',
                             showConfirmButton: false,
                             timer: 2000,
-                            type: 'success'
+                            icon: 'success'
                         }).then(() => {
                             if (status[0].Status_Inserted == 'Tindakan Pencegahan') {
                                 retrieveData();
@@ -1394,7 +1394,7 @@
                 text: 'Input tidak boleh kosong.',
                 timer: 2000,
                 showConfirmButton: false,
-                type: 'warning'
+                icon: 'warning'
             })
         }
     }
@@ -1496,7 +1496,7 @@
             Swal.fire({
                 title: 'Apakah anda yakin?',
                 text: "Kajian Resiko yang dihapus tidak dapat dikembalikan lagi.",
-                type: 'warning',
+                icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: 'green',
                 cancelButtonColor: '#d33',
@@ -2478,7 +2478,7 @@
                     text: 'Mohon pilih Rootcause terlebih dahulu.',
                     showConfirmButton: false,
                     timer: 2000,
-                    type: 'error'
+                    icon: 'error'
                 });
             }
 
@@ -2526,7 +2526,7 @@
                     text: 'Mohon pilih Rootcause terlebih dahulu.',
                     showConfirmButton: false,
                     timer: 2000,
-                    type: 'error'
+                    icon: 'error'
                 });
             }
         });
@@ -2648,7 +2648,7 @@
                                 text: 'Data berhasil di-input.',
                                 showConfirmButton: false,
                                 timer: 2000,
-                                type: 'success'
+                                icon: 'success'
                             }).then(() => {
                                 $('#TxtWhy').val("");
                                 status++;
@@ -2663,7 +2663,7 @@
                                 text: 'Data tidak berhasil di-input.',
                                 showConfirmButton: false,
                                 timer: 2000,
-                                type: 'error'
+                                icon: 'error'
                             });
                         }
                     },
@@ -2677,7 +2677,7 @@
                     text: 'Input tidak boleh kosong.',
                     showConfirmButton: false,
                     timer: 2000,
-                    type: 'warning'
+                    icon: 'warning'
                 })
             }
         });
@@ -2718,7 +2718,7 @@
                                 text: 'Data berhasil di-input.',
                                 showConfirmButton: false,
                                 timer: 2000,
-                                type: 'success'
+                                icon: 'success'
                             }).then(() => {
                                 $('#TxtWSBH').val("");
                                 $('#TxtWAH').val("");
@@ -2731,7 +2731,7 @@
                                 text: 'Data tidak berhasil di-input.',
                                 showConfirmButton: false,
                                 timer: 2000,
-                                type: 'error'
+                                icon: 'error'
                             });
                         }
                         //$.each(data, function (key, value) {
@@ -2754,7 +2754,7 @@
                     text:'Input tidak boleh kosong.',
                     showConfirmButton: false,
                     timer: 2000,
-                    type: 'warning'
+                    icon: 'warning'
                 })
             }
         });
@@ -2796,7 +2796,7 @@
                             text: 'Data berhasil di hapus.',
                             showConfirmButton: false,
                             timer: 2000,
-                            type: 'success'
+                            icon: 'success'
                         }).then((result) => {
                             getTable();
                             getWhyParent();
@@ -2810,7 +2810,7 @@
                         text: 'Mohon hapus Rootcause yang berhubungan terlebih dahulu.',
                         showConfirmButton: false,
                         timer: 2000,
-                        type: 'warning'
+                        icon: 'warning'
                     });
                     //getTable();
                     //getWhyParent();
@@ -2829,7 +2829,7 @@
             Swal.fire({
                 title: 'Apakah anda yakin?',
                 text: "Apa anda yakin akan menghapus Rootcause ini.",
-                type: 'warning',
+                icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: 'green',
                 cancelButtonColor: '#d33',
@@ -2861,7 +2861,7 @@
                                     text: 'Data berhasil di hapus.',
                                     showConfirmButton: false,
                                     timer: 2000,
-                                    type: 'success'
+                                    icon: 'success'
                                 }).then((result) => {
                                     GetWhyTable();
                                     getWhyParent();
@@ -2876,7 +2876,7 @@
                                 text: 'Mohon hapus Tindakan Perbaikan dan Pencegahan yang berhubungan terlebih dahulu.',
                                 showConfirmButton: false,
                                 timer: 2000,
-                                type: 'warning'
+                                icon: 'warning'
                             });
                             return true;
                         },
@@ -3082,7 +3082,7 @@
                         return Swal.fire({
                             title: 'Maaf',
                             text: 'Risk Level masih tinggi.',
-                            type: "warning",
+                            icon: "warning",
                             showConfirmButton: false,
                             timer: 1000,
                         })
@@ -3092,7 +3092,7 @@
                             return Swal.fire({
                                 title: 'Maaf',
                                 text: 'Risk Level masih tinggi.',
-                                type: "warning",
+                                icon: "warning",
                                 showConfirmButton: false,
                                 timer: 1000,
                             })
@@ -3111,7 +3111,7 @@
                             Swal.fire({
                                 title: 'Maaf',
                                 text: 'Input field "Menghilangkan Potensi Kegagalan / Penyimpangan" atau "Perbaikan untuk mengatasi Penyebab Potensial" atau "Perbaikan untuk meningkatkan deteksi potensi kegagalan" wajib diisi salah satu.',
-                                type: "warning",
+                                icon: "warning",
                                 showConfirmButton: false,
                                 timer: 1000,
                             })
@@ -3137,7 +3137,7 @@
                                 Swal.fire({
                                     title: 'Maaf',
                                     text: label,
-                                    type: "warning",
+                                    icon: "warning",
                                     showConfirmButton: false,
                                     timer: 1000,
                                 })
@@ -3173,7 +3173,7 @@
                             Swal.fire({
                                 title: 'Success',
                                 text: 'Data berhasil di-input.',
-                                type: 'success',
+                                icon: 'success',
                                 showConfirmButton: false,
                                 timer: 2000
                             }).then(function () {
@@ -3240,7 +3240,7 @@
                             Swal.fire({
                                 title: attr,
                                 text: value[attr],
-                                type: type,
+                                icon: type,
                                 timer: 2000,
                                 showConfirmButton: false
                             }).then(function () {
@@ -3260,7 +3260,7 @@
                 Swal.fire({
                     title: 'WARNING',
                     text: Message,
-                    type: 'warning',
+                    icon: 'warning',
                     timer: 2000,
                     showConfirmButton: false
                 });
