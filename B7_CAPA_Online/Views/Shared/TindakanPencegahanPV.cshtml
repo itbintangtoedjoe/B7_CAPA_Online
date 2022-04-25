@@ -51,7 +51,7 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 var table = $('#Tbl_Pencegahan').DataTable({
                     "pageLength": 5,
                     "lengthChange": false,
@@ -133,9 +133,9 @@
                 text: "Action ini akan menghapus semua Tindakan Pencegahan yang dimiliki oleh Tindakan Perbaikan ini.",
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
+                confirmButtonColor: 'green',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Delete'
+                confirmButtonText: 'Yes'
             }).then((result) => {
                 if (result.value) {
                     $.ajax({

@@ -470,7 +470,7 @@
                             <div class="row form-group-sm mb-2" id="Div_WhyParent">
                                 <div class="col-md-6">
                                     <label class="m-t-20">Why Parent<span style="color: red">*</span></label>
-                                    <select class="form-control form-control-sm" id="WhyParent_DDL" name="WhyParent_DDL">
+                                    <select class="form-control form-control-sm" id="WhyParent_DDL" style="width:100%" name="WhyParent_DDL">
                                     </select>
                                     <input type="text" value="" id="WhyRecordID" disabled hidden />
                                 </div>
@@ -483,7 +483,7 @@
                             </div>
                             <div class="row form-group-sm mb-2">
                                 <div class="col-md-6">
-                                    <button class="form-control-sm" type="button" id="btn_AddWhy"  style="background-color:green;">Add</button>
+                                    <button class="form-control-sm" type="button" id="btn_AddWhy"  style="background-color:green;color:white">Add</button>
                                 </div>
                             </div>
                         </form>
@@ -764,79 +764,79 @@
                                 </thead>
                                 <tbody id="Tbl_PRCA">
                                     @*<tr>
-                                            <td>Tindakan</td>
-                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                            <td>
-                                                <select id="SaverityDDL" class="form-control">
-                                                    <option value="1">1</option>
-                                                    <option value="4">4</option>
-                                                    <option value="7">7</option>
-                                                    <option value="10">10</option>
-                                                </select>
-                                            </td>
-                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                            <td>
-                                                <select id="LikelihoodDDL" class="form-control">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="4">4</option>
-                                                    <option value="8">8</option>
-                                                </select>
-                                            </td>
-                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                            <td>
-                                                <select id="DetectabilityDDL" class="form-control">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                </select>
-                                            </td>
-                                            <td>SxLxD</td>
-                                            <td>Level Risk Color</td>
-                                            <td>
-                                                <select id="DetectabilityDDL" class="form-control">
-                                                    <option value="Low">Low</option>
-                                                    <option value="Medium">Medium</option>
-                                                </select>
-                                            </td>
-                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                            <td>
-                                                <select id="LikelihoodDDL" class="form-control">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="4">4</option>
-                                                    <option value="8">8</option>
-                                                </select>
-                                            </td>
-                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                            <td>
-                                                <select id="DetectabilityDDL" class="form-control">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                </select>
-                                            </td>
-                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                                            <td>
-                                                <select id="DetectabilityDDL" class="form-control">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                </select>
-                                            </td>
-                                            <td>SxLxD</td>
-                                            <td>Level Risk Color</td>
-                                            <td>PIC</td>
-                                            <td>Due Date</td>
-                                            <td>Lainnya</td>
-                                            <td><button class="form-control-sm">Delete</button></td>
-                                        </tr>*@
+                        <td>Tindakan</td>
+                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                        <td>
+                            <select id="SaverityDDL" class="form-control">
+                                <option value="1">1</option>
+                                <option value="4">4</option>
+                                <option value="7">7</option>
+                                <option value="10">10</option>
+                            </select>
+                        </td>
+                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                        <td>
+                            <select id="LikelihoodDDL" class="form-control">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="4">4</option>
+                                <option value="8">8</option>
+                            </select>
+                        </td>
+                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                        <td>
+                            <select id="DetectabilityDDL" class="form-control">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </td>
+                        <td>SxLxD</td>
+                        <td>Level Risk Color</td>
+                        <td>
+                            <select id="DetectabilityDDL" class="form-control">
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                            </select>
+                        </td>
+                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                        <td>
+                            <select id="LikelihoodDDL" class="form-control">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="4">4</option>
+                                <option value="8">8</option>
+                            </select>
+                        </td>
+                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                        <td>
+                            <select id="DetectabilityDDL" class="form-control">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </td>
+                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                        <td>
+                            <select id="DetectabilityDDL" class="form-control">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </td>
+                        <td>SxLxD</td>
+                        <td>Level Risk Color</td>
+                        <td>PIC</td>
+                        <td>Due Date</td>
+                        <td>Lainnya</td>
+                        <td><button class="form-control-sm">Delete</button></td>
+                    </tr>*@
                                 </tbody>
                             </table>
                         </div>
@@ -847,7 +847,12 @@
                         </div>
                         <div class="row form-group" style="float: left">
                             <div class="col-md-3">
-                                <button type="button" id="btn_Submit" style="background-color: green;"  class="btn btn-primary mb-2">Submit</button>
+                                <button type="button" id="btn_Submit" style="background-color: green;" class="btn btn-primary mb-2">Submit</button>
+                            </div>
+                        </div>
+                        <div class="row form-group" style="float: left">
+                            <div class="col-md-3">
+                                <button type="button" id="btn_KillSession" style="background-color: red;" class="btn btn-primary mb-2">Kill session</button>
                             </div>
                         </div>
                     </div>
@@ -1407,7 +1412,7 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 getDataTindakan(JSON.parse(data));
-                console.log({ Kajian: JSON.parse(data) })
+               // console.log({ Kajian: JSON.parse(data) })
                 $('#RootCause_KajianResikoDDL').empty();
                 $.each(JSON.parse(data), function (key, value) {
                     $('#RootCause_KajianResikoDDL').append(new Option("[" + value.Tipe + "] - " + value.Tindakan, value.RecordID));
@@ -1493,7 +1498,7 @@
                 text: "Kajian Resiko yang dihapus tidak dapat dikembalikan lagi.",
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
+                confirmButtonColor: 'green',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes'
             }).then((result) => {
@@ -1680,7 +1685,9 @@
                     });
                 });
 
-                $('#WhyParent_DDL').select2();
+                $('#WhyParent_DDL').select2({
+                    width: 'resolve'
+                });
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -2820,7 +2827,7 @@
                 text: "Apa anda yakin akan menghapus Rootcause ini.",
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
+                confirmButtonColor: 'green',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes'
             }).then((result) => {
@@ -2955,7 +2962,7 @@
         });
 
         $('#btn_AddKajian').click(function () {
-            recTindakan(0);          
+            recTindakan(0);
             //console.log(values)
             $('#TxtPIC').val(values.Pelaksana);
             $('#TxtPICName').val(values.Nama_Personil);
@@ -3172,7 +3179,7 @@
         });
 
         $("#btn_Submit").click(function () {
-            //window.location.replace('/PendingTask/TaskList');
+            //window.location.replace('/PendingTask/TaskList');           
             $.blockUI();
             var mData = $.ajax({
                 url: 'SubmitToAtasanPIC',
@@ -3187,18 +3194,10 @@
                 }),
                 async: false,
                 contentType: 'application/json; charset=utf-8'
-                //success: function (data) {
-                //    isValid = JSON.parse(data.responseText);
-                //    console.log()
-                //},
-                //error: function (ex) {
-                //    alert(JSON.stringify(ex));
-                //}
             });
 
             var isValid = (JSON.parse(JSON.parse(mData.responseText)))[0].IS_VALID;
             var Message = (JSON.parse(JSON.parse(mData.responseText)))[0].Message;
-            console.log(isValid);
             if (isValid) {
                 $.ajax({
                     url: 'SubmitToAtasanPIC',
@@ -3254,6 +3253,16 @@
                 });
             }
         });
+
+        //$('#btn_KillSession').click(function () {
+        //    $.ajax({
+        //        url: '../PIC/KillSession',
+        //        type: 'post',
+        //        dataType: 'json',
+        //        contentType: 'application/json; charset=utf-8'            
+        //    });
+        //    console.log('test');
+        //});
 
 
         var today = new Date();

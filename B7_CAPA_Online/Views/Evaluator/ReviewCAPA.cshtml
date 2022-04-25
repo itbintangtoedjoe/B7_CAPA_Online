@@ -64,6 +64,8 @@
                     </div>
                 </div>
 
+                @Html.Partial("ApprovalPV")
+
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title"> Rentang Efektivitas Tindakan Pencegahan</h4>
@@ -82,16 +84,23 @@
                             <tbody id="Table_RentangPencegahan">
                             </tbody>
                         </table>
+
                         <div class="row">
+
                             <div class="col-md-2">
                                 <button type="button" class="btn btn-primary" id="btn_Submit">Submit</button>
                             </div>
+                            @*<div class="col-md-2">
+                          <button type="button" class="btn btn-primary" id="btn_Cancel" style="background-color:orange;">Cancel CAPA</button>
+                    </div>*@
                             <div class="col-md-2">
-                                <button type="button" class="btn btn-primary" id="btn_Cancel" style="background-color:orange;">Cancel CAPA</button>
+                                <input type="button" class="btn btn-danger" id="btn_CancelCAPA" value="Cancel CAPA" data-toggle="modal" data-target="#Cancel_Page" style="background-color: orange" />
                             </div>
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>
@@ -101,6 +110,7 @@
 <script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
 
 <script>
+
     var isUtama = false;
     var CurrentStatsID = 5;
 
@@ -526,6 +536,7 @@
         GetTindakanPerbaikan();
         GetTindakanPencegahan();
     }
+
     function Cancel() {
         Swal.fire({
             title: 'Alasan Cancel',
@@ -535,7 +546,7 @@
             showCancelButton: true,
             confirmButtonColor: 'green',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Submit',            
+            confirmButtonText: 'Submit',
             reverseButtons: true
         }).then((result) => {
             if (result.value) {
@@ -746,6 +757,7 @@
 
     $(document).ready(function () {
            //console.log('@Request.QueryString.Get("StatsID")' != '8')
+        $('#div_Buttons').prop('hidden', true);
         if ('@Request.QueryString.Get("StatsID")' != '8') {
             getDDL();
             checkEvaluatorCAPA();
@@ -885,7 +897,7 @@
                                 type: 'success',
                                 timer: 2000,
                                 showConfirmButton: false
-                            }).then(function (result) {                               
+                            }).then(function (result) {
                                 window.location.href = '../PendingTask/TaskList';
                             });
                         }
@@ -916,9 +928,9 @@
             }
         });
 
-        $('#btn_Cancel').click(function () {
-            Cancel();
-        });
+        //$('#btn_Cancel').click(function () {
+        //    Cancel();
+        //});
 
         $('#btn_CancelCAPA').click(function () {
             $('#Cancel_Page').removeAttr("hidden");
