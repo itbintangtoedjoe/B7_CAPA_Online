@@ -236,15 +236,13 @@
             let type = $('#txtType').val();
             let TAlasan = $('#txtAlasanRejectVerifikasi').val();
             if (TAlasan == '') {
-                swal(
-                    {
-                        title: "Opss ..",
-                        icon: "warning",
-                        text: "Alasan Reject tidak boleh kosong, wajib diisi !",
-                        buttons: false,
-                        timer: 2000
-                    }
-                ).then(() => {
+                Swal.fire({
+                    title: "Opss ..",
+                    icon: "warning",
+                    text: "Alasan Reject tidak boleh kosong, wajib diisi !",
+                    showConfirmButton: false,
+                    timer: 2000,
+                }).then(() => {
                     return
                 })
             } else {
@@ -783,13 +781,13 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                swal("Reject CAPA Berhasil !",
-                        {
-                            icon: "success",
-                            buttons: false,
-                            timer: 2000
-                        }
-                ).then(() => {
+                Swal.fire({
+                    title: 'Success',
+                    text: "Reject CAPA Berhasil !",
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 2000,
+                }).then(() => {
                     $('#txtAlasanRejectVerifikasi').val('');
                     var temp_status = 0;
                     if (type == 'Perbaikan') {

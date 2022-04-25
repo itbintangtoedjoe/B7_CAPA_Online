@@ -22,7 +22,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Create Vendor</h4>
+                            <h4 class="card-title">Create User Vendor</h4>
                             <div class="card-body">
                                 <form id="form-upload" enctype="multipart/form-data" action="@Url.Action("SaveUserVendor", "UserVendor")" method="POST">
 
@@ -161,10 +161,10 @@
         @*var id_superior = $("#superior").val();*@
 
         if (nama_user == "" || id_vendor==null || email == "" || username == "") {
-            swal({
+            Swal.fire({
                 title: "Semua field wajib terisi!",
-                type: "error",
-                buttons: false,
+                icon: "error",
+                showConfirmButton: false,
                 timer: 1000,
             });
         }
@@ -194,21 +194,21 @@
                         var result = JSON.parse(data);
                         console.log(result);
                         if (result[0].Stat == "Valid") {
-                            swal({
+                            Swal.fire({
                                 title: "Berhasil",
                                 text: "Data user vendor berhasil diubah",
                                 icon: "success",
-                                buttons: false,
+                                showConfirmButton: false,
                                 timer: 1000,
                             }).then(() => {
                                 window.location.href = '@Url.Action("Index", "UserVendor")';
                             })
                         }
                         else {
-                            swal({
+                            Swal.fire({
                                 title: "Username atau nama user vendor sudah ada!",
                                 icon: "error",
-                                buttons: false,
+                                showConfirmButton: false,
                                 timer: 1000,
                             });
                         }
@@ -237,22 +237,23 @@
                 processData: false,
                 dataType: 'json',
                 success: function (data) {
+                    console.log(data)
                     if (data == "success") {
-                        swal({
+                        Swal.fire({
                             title: "Berhasil",
                             text: "Email untuk aktivasi akun sudah dikirim ke email terdaftar",
                             icon: "success",
-                            buttons: false,
+                            showConfirmButton: false,
                             timer: 1000,
                         }).then(() => {
                             location.reload();
                         })
                     }
                     else {
-                        swal({
+                        Swal.fire({
                             title: "Username atau nama vendor sudah ada!",
                             icon: "error",
-                            buttons: false,
+                            showConfirmButton: false,
                             timer: 1000,
                         });
                     }

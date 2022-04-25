@@ -125,11 +125,11 @@
             Model: dictlist
         }
         if ($("#TxtTipeVendor").val().trim() == "" || $('#ddlSuperior').val() == null) {
-            swal({
+            Swal.fire({
                 title: "Error",
                 text: "Tipe Vendor dan Superior tidak boleh kosong",
                 icon: "error",
-                buttons: false,
+                showConfirmButton: false,
                 timer: 1000,
             })
             return 
@@ -143,22 +143,22 @@
             success: function (data) {
                 var result = JSON.parse(data);
                 if (result[0].Stat == "Valid") {
-                    swal({
+                    Swal.fire({
                         title: "Berhasil",
                         text: "Superior tipe vendor berhasil ditambahkan",
                         icon: "success",
-                        buttons: false,
+                        showConfirmButton: false,
                         timer: 1000,
                     }).then(() => {
                         window.location.href = '../Vendor/TipeVendorIndex';
                     })
                 }
                 else {
-                    swal({
+                    Swal.fire({
                         title: "Error",
                         text: "Tipe Vendor sudah Ada",
                         icon: "error",
-                        buttons: false,
+                        showConfirmButton: false,
                         timer: 1000,
                     })
                 }

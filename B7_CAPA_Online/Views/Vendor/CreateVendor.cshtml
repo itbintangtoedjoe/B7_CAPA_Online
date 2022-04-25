@@ -103,7 +103,7 @@
     $(document).ready(function () {
         GetOracleVendors();
         $('#create').click(function (e) {
-            window.location = "Vendor/CreateVendor";
+            window.location = "../Vendor/CreateVendor";
         })
         $('#tipe_vendor').select2();
 
@@ -191,10 +191,10 @@
         var tipe_vendor = $("#tipe_vendor").val();
 
         if (nama_vendor == "" || tipe_vendor == null) {
-            swal({
+            Swal.fire({
                 title: "Semua field wajib terisi!",
                 icon: "error",
-                buttons: false,
+                showConfirmButton: false,
                 timer: 1000,
             });
         }
@@ -224,22 +224,22 @@
                     success: function (data) {
                         var result = JSON.parse(data);
                         if (result[0].Stat == "Valid") {
-                            swal({
+                            Swal.fire({
                                 title: "Berhasil",
                                 text: "Data vendor berhasil diubah",
                                 icon: "success",
-                                buttons: false,
+                                showConfirmButton: false,
                                 timer: 1000,
                             }).then(() => {
                                 window.location.href = '@Url.Action("Index", "Vendor")';
                             })
                         }
                         else {
-                            swal({
+                            Swal.fire({
                                 title: "Gagal",
                                 text: "Vendor Sudah Ada!",
                                 icon: "error",
-                                buttons: false,
+                                showConfirmButton: false,
                                 timer: 2000,
                             })
                         }
@@ -271,22 +271,22 @@
                     success: function (data) {
                        var result = JSON.parse(data);
                         if (result[0].Stat == "Valid") {
-                            swal({
+                            Swal.fire({
                                 title: "Berhasil",
                                 text: "Data vendor berhasil ditambahkan",
                                 icon: "success",
-                                buttons: false,
+                                showConfirmButton: false,
                                 timer: 1000,
                             }).then(() => {
                                 location.reload();
                             })
                         }
                         else {
-                            swal({
+                            Swal.fire({
                                 title: "Gagal",
                                 text: "Vendor Sudah Ada!",
                                 icon: "error",
-                                buttons: false,
+                                showConfirmButton: false,
                                 timer: 2000,
                             })
                         }

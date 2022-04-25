@@ -83,6 +83,17 @@
 <script>
     //Submit Approval
     function SubmitApprovalPV(StatusApproval, CurrentStatsID) {
+        if (StatusApproval != 'Approve' && $('#txt' + StatusApproval + 'Reason').val().trim() == "") {
+            $.unblockUI();
+            Swal.fire({
+                title: 'Warning',
+                text: 'Alasan ' + StatusApproval + ' tidak boleh kosong!.',
+                type: 'warning',
+                timer: 2000,
+                showConfirmButton: false    
+            })
+            return
+        }
         $.ajax({
             url: '../AtasanPIC/SubmitApproval',
             type: 'post',
@@ -113,11 +124,13 @@
                 }
                 else {
                     $.unblockUI();
-                    Swal.fire(
-                        'Maaf',
-                        'CAPA ini sudah pernah di Submit.',
-                        'warning'
-                    )
+                    Swal.fire({
+                        title: 'Maaf',
+                        text: 'CAPA ini sudah pernah di Submit.',
+                        type: 'warning',
+                        timer: 2000,
+                        showConfirmButton: false
+                    })
                 }
 
             },

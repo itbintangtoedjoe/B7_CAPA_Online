@@ -435,11 +435,14 @@
                     var result = JSON.parse(data);
                     if (!result[0].IS_VALID) {
                         $.unblockUI();
-                        Swal.fire(
-                            'Maaf',
-                            'Mohon untuk mengisi field yang tersedia.',
-                            'warning'
-                        );
+                        Swal.fire({
+                            title: 'Maaf',
+                            text: 'Mohon untuk mengisi field yang tersedia.',
+                            type: 'warning',
+                            showConfirmButton: false,
+                            timer: 2000,
+
+                        });
                         return;
                     }
 

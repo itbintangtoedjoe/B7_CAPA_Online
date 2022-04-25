@@ -12,8 +12,6 @@
     }
 </style>
 
-<link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
-<script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
 <script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>  
 
 <div class="content-body">
@@ -425,11 +423,13 @@
                 var limit = 14;
                 var i = 0;
                 if (dto.Model.Severity == 10 || dto.Model.RiskLevel == "High" || dto.Model.RiskLevel == "Very High") {
-                    return Swal.fire(
-                        'Maaf',
-                        'Risk Level masih tinggi.',
-                        'warning'
-                    )
+                    return Swal.fire({
+                        title: 'Maaf',
+                        text: 'Risk Level masih tinggi.',
+                        icon: "warning",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    })
                 }
                 for (var property in dto.Model) {
                     if (limit == 14 ) {
@@ -446,11 +446,13 @@
                     } else {
                         if ($('#TxtRiskLevel2').val() == 'High' || $('#TxtRiskLevel2').val() == 'Very High') {
                             valid = false;
-                            return Swal.fire(
-                                'Maaf',
-                                'Risk Level masih tinggi.',
-                                'warning'
-                            )
+                            return Swal.fire({
+                                title: 'Maaf',
+                                text: 'Risk Level masih tinggi.',
+                                icon: "warning",
+                                showConfirmButton: false,
+                                timer: 1000,
+                            })
                         }
 
                         if ($('#Target_DDL').val() == "Low" && $('#TxtRiskLevel2').val() == 'Medium') {
@@ -482,30 +484,36 @@
                             console.log("test");
 
                             if (dto.Model.M_PKegagalan == "" && dto.Model.P_MPenyebab == "" && dto.Model.P_MDPKegagalan == "") {
-                                Swal.fire(
-                                    'Maaf',
-                                    'Input field "Menghilangkan Potensi Kegagalan / Penyimpangan" atau "Perbaikan untuk mengatasi Penyebab Potensial" atau "Perbaikan untuk meningkatkan deteksi potensi kegagalan" wajib diisi salah satu.',
-                                    'warning'
-                                )
+                                Swal.fire({
+                                    title: 'Maaf',
+                                    text:  'Input field "Menghilangkan Potensi Kegagalan / Penyimpangan" atau "Perbaikan untuk mengatasi Penyebab Potensial" atau "Perbaikan untuk meningkatkan deteksi potensi kegagalan" wajib diisi salah satu.',
+                                    icon: "warning",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                })
                                 valid = false;
                                 return false;
                             }
 
                             else if (dto.Model.DueDate == "") {
-                                Swal.fire(
-                                    'Maaf',
-                                    'Mohon untuk mengisi DueDate PIC Treatment.',
-                                    'warning'
-                                )
+                                Swal.fire({
+                                    title: 'Maaf',
+                                    text: 'Mohon untuk mengisi DueDate PIC Treatment.',
+                                    icon: "warning",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                })
                                 valid = false;
                                 return false;
                             }
                             else if (date.getTime() > datekajian.getTime()) {
-                                Swal.fire(
-                                    'Maaf',
-                                    'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
-                                    'warning'
-                                )
+                                Swal.fire({
+                                    title: 'Maaf',
+                                    text: 'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
+                                    icon: "warning",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                })
                                 valid = false;
                                 return false;
                             }
@@ -524,11 +532,13 @@
                                 } else {
                                     label = 'Input field "' + $("label[for='" + elementID[Object.keys(dto.Model)[count]].substring(1) + "']").text() + '" Mohon di isi.';
                                 }
-                                Swal.fire(
-                                    'Maaf',
-                                    label,
-                                    'warning'
-                                )
+                                Sal.fire({
+                                    title: 'Maaf',
+                                    text: 'Tanggal Due Date tidak boleh hari ini atau kurang dari hari ini',
+                                    icon: "warning",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                })
                                 valid = false;
                                 return false;
                             }
@@ -750,11 +760,13 @@
                     data: JSON.stringify(dto),
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
-                        Swal.fire(
-                            'Deleted!',
-                            'Kajian Resiko Berhasil Di Hapus!',
-                            'success'
-                        )
+                        Swal.fire({
+                            title: 'Deleted!',
+                            text: 'Kajian Resiko Berhasil Di Hapus!',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                         TableKajian();
                     },
                     error: function (ex) {
@@ -778,11 +790,13 @@
 
         if ($('#AlasanBatalPencegahan').val().trim() == "")
         {
-            Swal.fire(
-                'Error',
-                'Alasan Cancel harus diisi',
-                'error'
-            )
+            Swal.fire({
+                title: 'Error',
+                text: 'Alasan Cancel harus diisi',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 1000,
+            })
         }
         else {
             $.ajax({
@@ -793,11 +807,13 @@
                 data: JSON.stringify(dto),
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
-                    Swal.fire(
-                        'Berhasil',
-                        'Alasan Cancel berhasil di submit',
-                        'success'
-                    )
+                    Swal.fire({
+                        title: 'Berhasil',
+                        text: 'Alasan Cancel berhasil di submit',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 1000,
+                    })
 
                     jenis = "Pembatalan Pencegahan"
                 },
@@ -819,11 +835,14 @@
         }
 
         if ($('#AlasanBatalPerbaikan').val().trim() == "") {
-            Swal.fire(
-                'Error',
-                'Alasan Cancel harus diisi',
-                'error'
-            )
+
+            Swal.fire({
+                title: 'Error',
+                text: 'Alasan Cancel harus diisi',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 1000,
+            })
         }
         else {
             $.ajax({
@@ -834,11 +853,14 @@
                 data: JSON.stringify(dto),
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
-                    Swal.fire(
-                        'Berhasil',
-                        'Alasan Cancel berhasil di submit',
-                        'success'
-                    )
+
+                    Swal.fire({
+                        title: 'Berhasil',
+                        text: 'Alasan Cancel berhasil di submit',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 1000,
+                    })
                 },
                 error: function (ex) {
                     alert(JSON.stringify(ex));
@@ -968,19 +990,23 @@
                     var result = JSON.parse(data);
 
                     if (result[0].Stat == "Invalid") {
-                        Swal.fire(
-                            'Maaf',
-                            'tindakan harus dikaji terlebih dahulu.',
-                            'warning'
-                        )
+                        Swal.fire({
+                            title: 'Maaf',
+                            text: 'tindakan harus dikaji terlebih dahulu.',
+                            icon: "warning",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                         return
                     }
                     else {
-                        Swal.fire(
-                            'Berhasil',
-                            'Pembatalan berhasil di submit',
-                            'success'
-                        )
+                        Swal.fire({
+                            title: 'Berhasil',
+                            text: 'Pembatalan berhasil di submit',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
                         $.blockUI();
                         $.ajax({
                             url: 'SubmitApproval',
