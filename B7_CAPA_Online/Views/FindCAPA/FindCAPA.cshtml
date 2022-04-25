@@ -117,7 +117,21 @@
         $('#Filter').click(function () {
             Filter();
         });
-     
+
+        $('#Tbl_Filter tbody').on('click', 'button.ViewCAPA', function () {
+            var row = $(this).closest("TR");
+            var data = $('#Tbl_Filter').DataTable().row(row).data();
+            var nocapa = data['NO_CAPA'];
+            window.open('../Koordinator/CreateCAPA?NoCAPA=' + nocapa);
+        })
+
+        //$("[id^='ViewCAPA']").click(function (e) {
+        //    var row = $(this).closest("TR");
+        //    var data = $('#Tbl_Filter').DataTable().row(row).data();
+        //    var nocapa = data['NO_CAPA'];
+        //    window.open('../Koordinator/CreateCAPA?NoCAPA=' + nocapa);
+
+        //});
     });
     function Filter() {
         var dictlist = {
@@ -173,15 +187,15 @@
                         { "data": "Tanggal_Outstanding" },
                         {
                             "data": "STATUS_ID",
-                            "render": function (data) {
+                            "render": function (data,meta) {
                                 if (data > 5 && data <= 12) {
-                                    return '<button class="btn btn-primary" onclick="ViewCAPA(this)"id="Filter">View</button>'
+                                    return '<button class="ViewCAPA btn btn-primary" "id="ViewCAPA'+meta.row+'">View</button>'
                                 }
                                 else if (data === 14) {
-                                    return '<button class="btn btn-primary" onclick="ViewCAPA(this)"id="Filter">View</button>'
+                                    return '<button class="ViewCAPA btn btn-primary" "id="ViewCAPA' + meta.row +'">View</button>'
                                 }
                                 else {
-                                    return '<button class="btn btn-primary" onclick="ViewCAPA(this)"id="Filter">View</button>'  
+                                    return '<button class="ViewCAPA btn btn-primary" "id="ViewCAPA' + meta.row +'">View</button>'
                                 }
                             }
                         }
@@ -205,12 +219,6 @@
 
     }
 
-    function ViewCAPA(button) {
-        var row = $(button).closest("TR");
-        var data = $('#Tbl_Filter').DataTable().row(row).data();
-        var nocapa = data['NO_CAPA'];
-        window.open('../Koordinator/CreateCAPA?NoCAPA=' + nocapa);
-    }
 
     function getKodeCAPA() {
         var dictlist = {

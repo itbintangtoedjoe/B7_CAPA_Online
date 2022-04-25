@@ -198,7 +198,7 @@
                                     <thead>
                                         <tr>
                                             <th>Nama File</th>
-                                            <th hidden></th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody id="tbodyAttachmentPerbaikan">
@@ -689,7 +689,18 @@
             GetTreatmentAttachments();
 
         });
-
+        $('#tblAttachmentPerbaikan tbody').on('click', 'button.DeletePerbaikan', function (e) {
+            var row = $(this).closest("TR").index();
+            DeleteAttachment(attachmentPerbaikan[row].RecordID, attachmentPerbaikan[row].FILE_PATH, 1)
+        });
+        $('#tblAttachmentPencegahan tbody').on('click', 'button.DeletePencegahan', function (e) {
+            var row = $(this).closest("TR").index();
+            DeleteAttachment(attachmentPencegahan[row].RecordID, attachmentPencegahan[row].FILE_PATH, 2)
+        });
+        $('#tblAttachmentTreatment tbody').on('click', 'button.DeleteTreatment', function (e) {
+            var row = $(this).closest("TR").index();
+            DeleteAttachment(attachmentKajian[row].RecordID, attachmentKajian[row].FILE_PATH, 3)
+        })
     });
 
     function ReloadPage() {
@@ -1263,11 +1274,12 @@
             for (i = 0; i < fileCount; i++) {
                 console.log(attachmentPerbaikan[i].FILE_PATH);
                 trhtml += '<tr><td><a href="' + attachmentPerbaikan[i].FILE_PATH + '" style="color:blue;text-decoration:underline">' + attachmentPerbaikan[i].FILE_NAME + '</a></td>' +
-                    '<td> <button class="btn-dark input-group-text center" type="button" onclick=" DeleteAttachment(\'' + attachmentPerbaikan[i].RecordID + '\',\'' + attachmentPerbaikan[i].FILE_PATH + '\',\''+ kategori+'\' )" id="btnDeletePerbaikan' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
+                    '<td> <button class="DeletePerbaikan btn-dark input-group-text center" type="button"  id="btnDeletePerbaikan' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
             }
         } else {
             trhtml += '<tr><td>Belum ada file terpilih</td></tr>';
         }
+            
         $('#tbodyAttachmentPerbaikan').empty();
         $("#tblAttachmentPerbaikan").append(trhtml);
     }
@@ -1682,7 +1694,7 @@
 
                 console.log(attachmentPencegahan[i].FILE_PATH);
                 trhtml += '<tr><td><a href="' + attachmentPencegahan[i].FILE_PATH + '" style="color:blue;text-decoration:underline">' + attachmentPencegahan[i].FILE_NAME + '</a></td>' +
-                    '<td> <button class="btn-dark input-group-text center" type="button" onclick=" DeleteAttachment(\'' + attachmentPencegahan[i].RecordID + '\',\'' + attachmentPencegahan[i].FILE_PATH + '\',\'' + kategori +'\')" id="btnDeletePencegahan' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
+                    '<td> <button class="DeletePencegahan btn-dark input-group-text center" type="button"  id="btnDeletePencegahan' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
             }
         } else {
             trhtml += '<tr><td>Belum ada file terpilih</td></tr>';
@@ -2112,7 +2124,7 @@
                 var temp = ""+ attachmentKajian[i].RecordID +" ',' "+ attachmentKajian[i].FILE_PATH+"',3";
                 console.log(attachmentKajian[i].FILE_PATH);
                 trhtml += '<tr><td><a href="' + attachmentKajian[i].FILE_PATH + '" style="color:blue;text-decoration:underline">' + attachmentKajian[i].FILE_NAME + '</a></td>' +
-                    '<td> <button class="btn-dark input-group-text center" type="button" onclick="DeleteAttachment(\'' + attachmentKajian[i].RecordID + '\',\'' + attachmentKajian[i].FILE_PATH + '\',\'' + kategori +'\')" id="btnDeleteTreatment' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
+                    '<td> <button class="DeleteTreatment btn-dark input-group-text center" type="button"   id="btnDeleteTreatment' + i + '" style="cursor:pointer;"><i class="fa fa-trash"></i></button></td ></tr>';
             }
         } else {
             trhtml += '<tr><td>Belum ada file terpilih</td></tr>';
