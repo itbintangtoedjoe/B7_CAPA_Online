@@ -527,7 +527,7 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-
+                    var result = JSON.stringify(data);
                     if (result[0].Stat == 'Valid') {
                         $.ajax({
                             url: 'SubmitApproval',
@@ -693,6 +693,7 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
+                    var result = JSON.stringify(data);
                     if (result[0].Stat == 'Valid') {
                         $.ajax({
                             url: 'SubmitApproval',
@@ -956,7 +957,7 @@
                             "data": "Rentang",
                             "render": function (data, type, row, meta) {
                                 var valrentang = data;
-                                var rentang = $("<select class='form-control' style='padding:0px;'></select>");
+                                var rentang = $("<select class='Rentang form-control' style='padding:0px;'></select>");
                                 for (var i = 3; i <= 12; i += 3) {
                                     if (i != 9) {
                                         var option = $("<option />");
@@ -1155,6 +1156,8 @@
         var data = $('#Tbl_PerbaikanPenambahan').DataTable().row(row).data();
         var id = data['RecordID'];
         var rentang = $("TD", row).eq(4).find("select").val();
+        let rownodes = $(data[row]).find("select.Rentang option:selected").val();
+        alert(rownodes);
         console.log(id);
         console.log(rentang);
         var dictlist = {
@@ -1392,6 +1395,7 @@
         var data = $('#Tbl_PencegahanPenambahan').DataTable().row(row).data();
         var id = data['RecordID'];
         var kategori = data['Status_Pencegahan'];
+        console.log(kategori);
         var dictlist = {
             NoCAPA: noCAPA,
             Empid: nik,
@@ -1722,7 +1726,7 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-
+                    var result = JSON.stringify(data);
                     if (result[0].Stat == 'Valid') {
                         $.ajax({
                             url: 'SubmitApproval',
