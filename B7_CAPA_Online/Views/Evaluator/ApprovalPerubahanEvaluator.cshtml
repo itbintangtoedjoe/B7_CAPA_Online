@@ -1897,6 +1897,7 @@
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
 
+                    var result = JSON.stringify(data);
                     if (result[0].Stat == 'Valid') {
                         $.ajax({
                             url: 'SubmitApproval',
