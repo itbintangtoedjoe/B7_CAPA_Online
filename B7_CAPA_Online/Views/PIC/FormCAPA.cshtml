@@ -850,11 +850,11 @@
                                 <button type="button" id="btn_Submit" style="background-color: green;" class="btn btn-primary mb-2">Submit</button>
                             </div>
                         </div>
-                        <div class="row form-group" style="float: left">
+                        @*<div class="row form-group" style="float: left">
                             <div class="col-md-3">
                                 <button type="button" id="btn_KillSession" style="background-color: red;" class="btn btn-primary mb-2">Kill session</button>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
                 </div>
             </div>
@@ -3275,15 +3275,15 @@
             }
         });
 
-        $('#btn_KillSession').click(function () {
-            $.ajax({
-                url: '../PIC/KillSession',
-                type: 'post',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8'            
-            });
-            console.log('test');
-        });
+        //$('#btn_KillSession').click(function () {
+        //    $.ajax({
+        //        url: '../PIC/KillSession',
+        //        type: 'post',
+        //        dataType: 'json',
+        //        contentType: 'application/json; charset=utf-8'            
+        //    });
+        //    console.log('test');
+        //});
 
 
         var today = new Date();

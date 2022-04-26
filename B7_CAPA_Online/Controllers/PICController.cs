@@ -381,12 +381,12 @@ namespace B7_CAPA_Online.Controllers
 
             return Json(Return);
         }
-        public ActionResult KillSession()
-        {
-            var cookie = Session;
-            cookie.Clear();
-            return Json("success");
-        }
+        //public ActionResult KillSession()
+        //{
+        //    var cookie = Session;
+        //    cookie.Clear();
+        //    return Json("success");
+        //}
         #endregion
 
 
