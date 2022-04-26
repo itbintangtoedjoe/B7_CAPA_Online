@@ -242,7 +242,7 @@
         </div>
         <div class="row form-group-sm">
             <div class="col-md-6 mt-3">
-                <button class="btn mb-1 btn-primary" style="background-color: green;"  id="Submit">Submit</button>
+                <button class="btn mb-1 btn-primary" style="background-color: green;"  id="Submit" disabled>Submit</button>
             </div>
         </div>
 
@@ -566,6 +566,7 @@
                                     showConfirmButton: false,
                                     timer: 1000,
                                 }).then(function (result) {
+                                    $('#btnSimpan').prop("disabled", false);
 
                                     TableKajian();
                                     //close modal
@@ -722,10 +723,17 @@
                         ColoredColumns(row, data.RiskLevel2, "riskLevel2");
                     }
                 });
+
+                var data = $('#Tbl_KajianResiko').DataTable().data().count();
+
+                if (data > 0) {
+                    $('#btnSimpan').prop("disabled", false);
+                }
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
             }
+
         });
     }
 

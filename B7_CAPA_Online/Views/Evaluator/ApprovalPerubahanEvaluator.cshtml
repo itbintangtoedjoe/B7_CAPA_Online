@@ -1334,7 +1334,7 @@
         var row = $(button).closest("TR");
         var data = $('#Tbl_PencegahanPenambahan').DataTable().row(row).data();
         var id = data['RecordID'];
-        var rentang = $("TD", row).eq(4).find("select").val();
+        var rentang = $("TD", row).eq(5).find("select").val();
         var dictlist = {
             RecordID: id,
             Option: 26,
