@@ -1073,7 +1073,7 @@
                             "render": function (data, type, row, meta) {
                                 var valrentang = data;
                                 //var div = $('<div class="dropdown"></div>')
-                                var rentang = $("<select class='form-control' style='padding:0px;'></select>");
+                                var rentang = $("<select class='RentangPenc form-control' style='padding:0px;'></select>");
                                 for (var i = 3; i <= 12; i += 3) {
                                     if (i != 9) {
                                         var option = $("<option />");
@@ -1154,12 +1154,12 @@
     function AddRentangPerbaikan(button) {
         var row = $(button).closest("TR");
         var data = $('#Tbl_PerbaikanPenambahan').DataTable().row(row).data();
+        var table = $('#Tbl_PerbaikanPenambahan').DataTable();
         var id = data['RecordID'];
-        var rentang = $("TD", row).eq(4).find("select").val();
-        let rownodes = $(data[row]).find("select.Rentang option:selected").val();
-        alert(rownodes);
-        console.log(id);
-        console.log(rentang);
+        var tablerow = table.row(row);
+        var tr = $(tablerow.node());
+        let rentang = tr.find("select.Rentang option:selected").val();
+        console.log(rownodes);
         var dictlist = {
             RecordID: id,
             Option: 25,
@@ -1358,8 +1358,11 @@
     function AddRentangPencegahan(button) {
         var row = $(button).closest("TR");
         var data = $('#Tbl_PencegahanPenambahan').DataTable().row(row).data();
+        var table = $('#Tbl_PencegahanPenambahan').DataTable();
         var id = data['RecordID'];
-        var rentang = $("TD", row).eq(5).find("select").val();
+        var tablerow = table.row(row);
+        var tr = $(tablerow.node());
+        let rentang = tr.find("select.RentangPenc option:selected").val();
         var dictlist = {
             RecordID: id,
             Option: 26,
