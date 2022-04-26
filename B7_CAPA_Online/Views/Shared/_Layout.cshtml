@@ -288,6 +288,7 @@
                 url: "../Login/checksession",
                 type: "post",
                 success: function (data) {
+                    console.log(data);
                     if (data == 'False') {
                          Swal.fire({
                             title: 'Session Expired! Silahkan login Kembali ',

@@ -69,7 +69,7 @@
                 </div>
                 <div class="card" id="RootCause" hidden>
                     <div class="card-body">
-                        <div class="col-md-4">
+                        <div class="col-md-8">
                             <label class="m-t-20">Root Cause</label>
                             <select id="RootCause_DDL" class="form-control">
                             </select>
@@ -275,7 +275,7 @@
                         </div>
                         <div class="row form-group-sm">
                             <div class="col-md-6 mt-3">
-                                <button class="btn mb-1 btn-primary" style="background-color: green;" id="btnSimpan">Simpan</button>
+                                <button class="btn mb-1 btn-primary" style="background-color: green;" id="btnSimpan" disabled>Simpan</button>
                             </div>
                         </div>
                     </div>
@@ -365,6 +365,12 @@
                 KajianDDLPerbaikanBaru();
                 GetTindakanPencegahanPV();
                 TableKajianTambahTindakanBaru();
+                var data = $('#Tbl_KajianResiko').DataTable().data();
+                var totdata = data.count();
+
+                if (totdata > 0) {
+                    $('#btnSimpan').prop("disabled", false);
+                }
                 AreaLain();
             }
             else {
@@ -376,6 +382,7 @@
                 $('#RootCause').prop('hidden', true);
                 $('#btnPencegahan').prop('hidden', true);
                 KajianDDLPencegahan();
+               
                 TableKajian();
             }
         });
@@ -475,7 +482,6 @@
                 })
             }
             console.log(rootPencegahan);
-            alert($('#txtRootCausePencegahan').val());
             $.each(obj, function (key, value) {
                 if (value.WhyDesc == $('#RootCause_DDL').val()) {
 
@@ -714,9 +720,11 @@
                                     var tambahperbaikan = $('input[name="TambahPerbaikan"]:checked').val();
                                     if (tambahperbaikan == "Yes") {
                                         TableKajianTambahTindakanBaru();
+                                        $('#btnSimpan').prop("disabled", false);
                                     }
                                     else {
                                         TableKajian();
+                                        $('#btnSimpan').prop("disabled", false);
                                         $("input[name='TambahPerbaikan']").prop("disabled", true);
                                     }
                                 });
@@ -895,10 +903,10 @@
                         { "data": "RecordID" },
                         { "data": "WhyID" },
                         { "data": "WhyParentID" },
-                        { "data": "AreaLain"},
                         { "data": "WhyDesc" },
-                        { "data": "Nama_Personil" },
+                        { "data": "AreaLain" },
                         { "data": "Tindakan_Pencegahan" },
+                        { "data": "Nama_Personil" },
                         { "data": "SupApprover" },
                         { "data": "Due_Date" },
                         {
@@ -1218,17 +1226,28 @@
                             "visible": (!isHide) ? (true) : (false)
                         },
                     ],
+                  
                     "order": [[1, 'asc']],
                     "rowCallback": function (row, data) {
                         ColoredColumns(row, data.RiskLevel, "riskLevel");
                         ColoredColumns(row, data.RiskLevel2, "riskLevel2");
                     }
                 });
+                var result = JSON.parse(data);
+                if (result.length > 0) {
+
+                    $('#btnSimpan').prop("disabled", false);
+                }
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
             }
         });
+        //var totaldata = $('#Tbl_KajianResiko').DataTable().data().count();
+        //alert(totaldata);
+        //if (totaldata > 0) {
+        //    $('#btnSimpan').prop("disabled", false);
+        //}
     }
 
     function TableKajian() {
@@ -1301,11 +1320,21 @@
                         ColoredColumns(row, data.RiskLevel2, "riskLevel2");
                     }
                 });
+                var result = JSON.parse(data);
+                if (result.length > 0) {
+
+                    $('#btnSimpan').prop("disabled", false);
+                }
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
             }
         });
+        //var totdata = $('#Tbl_KajianResiko').DataTable();
+        //var count = totdata .data().count();
+        //if (count > 0) {
+        //    $('#btnSimpan').prop("disabled", false);
+        //}
     }
 
     function DeleteKajianResiko(button) {
