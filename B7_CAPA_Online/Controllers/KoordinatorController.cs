@@ -31,6 +31,7 @@ namespace B7_CAPA_Online.Controllers
         //string Result;
         public DataTable DT = new DataTable();
         readonly DataTable dtLampiran = new DataTable();
+        readonly SessionChecker checker = new SessionChecker();
         DataAccess DAL = new DataAccess();
 
         #region View
@@ -541,6 +542,10 @@ namespace B7_CAPA_Online.Controllers
         [HttpPost]
         public ActionResult InsertCAPA(DALModel Model)
         {
+            if (!checker.Checker())
+            {
+                return Redirect("../Login");
+            }
             int fileCount = Request.Files.Count;
 
             for (int i = 0; i < fileCount; i++)

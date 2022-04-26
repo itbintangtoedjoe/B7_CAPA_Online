@@ -33,7 +33,7 @@ namespace B7_CAPA_Online.Models
         public string Kode_CAPA { get; set; }
         public string Kode_CAPA2 { get; set; }
         public string EMAIL { get; set; }
-
         public string Create_Date { get; set; }
+        public string DEPT_PELAPOR { get; set; }
     }
 }

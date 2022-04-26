@@ -643,6 +643,9 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
+                if (data === "unauthorized") {
+                    return window.location.replace('../Login');
+                }
                 Swal.fire({
                     title :'Success!',
                     text: 'Tindakan berhasil di Approved.',
@@ -682,6 +685,9 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
+                if (data === "unauthorized") {
+                    return window.location.replace('../Login');
+                }
                 Swal.fire({
                     title: 'Success!',
                     text: 'Semua Tindakan berhasil di Rejected.',
@@ -890,6 +896,10 @@
                     }),
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
+                        if (data === "unauthorized") {
+                            return window.location.href = '../Login';
+                        }
+
                         if (JSON.parse(data)[0].VALID == "VALID") {
                             Swal.fire({
                                 title: 'Success',

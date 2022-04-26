@@ -17,6 +17,7 @@ namespace B7_CAPA_Online.Controllers
     {
         // GET: AtasanPIC
         DataAccess DAL = new DataAccess();
+        SessionChecker checker = new SessionChecker();
 
         #region View
         public ActionResult Index()
@@ -31,6 +32,10 @@ namespace B7_CAPA_Online.Controllers
 
         public ActionResult ApprovalAtasanPIC()
         {
+            if (!checker.Checker())
+            {
+                return Redirect("../Login");
+            }
             return View();
         }
         #endregion
@@ -41,7 +46,7 @@ namespace B7_CAPA_Online.Controllers
 
         #region Execute
         public ActionResult SubmitApproval(DynamicModel Param)
-        {
+        {            
             if (!string.IsNullOrEmpty(Session["NIK"] as string))
             {
                 DynamicParameters parameters = new DynamicParameters(Param.Model);

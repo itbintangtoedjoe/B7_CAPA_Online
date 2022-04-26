@@ -16,6 +16,7 @@ namespace B7_CAPA_Online.Controllers
     public class EvaluatorController : Controller
     {
         DataAccess DAL = new DataAccess();
+        readonly SessionChecker checker = new SessionChecker();
         // GET: Evaluator
         #region View
         public ActionResult Index()
@@ -70,6 +71,10 @@ namespace B7_CAPA_Online.Controllers
 
         public ActionResult KonfirmasiEfektivitas()
         {
+            if (!checker.Checker())
+            {
+                return Redirect("../Login");
+            }
             return View();
         }
 
@@ -85,6 +90,10 @@ namespace B7_CAPA_Online.Controllers
 
         public ActionResult ReviewCAPA(string NoCAPA)
         {
+            if (!checker.Checker())
+            {
+                return Redirect("../Login");
+            }
             return View();
         }
         #endregion

@@ -17,6 +17,7 @@ namespace B7_CAPA_Online.Controllers
     public class AtasanPelaksanaController : Controller
     {
         readonly DataAccess DAL = new DataAccess();
+        readonly SessionChecker checker = new SessionChecker();
         // GET: AtasanPelaksana
         public ActionResult Index()
         {
@@ -25,6 +26,10 @@ namespace B7_CAPA_Online.Controllers
 
         public ActionResult ApprovalAtasanPelaksana()
         {
+            if (!checker.Checker())
+            {
+                return Redirect("../Login");
+            }
             return View();
         }
 

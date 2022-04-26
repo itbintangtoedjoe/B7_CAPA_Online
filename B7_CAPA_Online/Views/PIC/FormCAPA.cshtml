@@ -3194,10 +3194,17 @@
                 }),
                 async: false,
                 contentType: 'application/json; charset=utf-8'
-            });
-
+            });   
+            //console.log((JSON.parse(JSON.parse(mData.responseText))).url)
+            for (var i in Object.keys((JSON.parse(JSON.parse(mData.responseText))))) {
+                //*console.log(Object.keys((JSON.parse(JSON.parse(mData.responseText))))[i])
+                if (Object.keys((JSON.parse(JSON.parse(mData.responseText))))[i] === "url") {
+                    return window.location.replace((JSON.parse(JSON.parse(mData.responseText))).url);
+                }
+            }
             var isValid = (JSON.parse(JSON.parse(mData.responseText)))[0].IS_VALID;
             var Message = (JSON.parse(JSON.parse(mData.responseText)))[0].Message;
+
             if (isValid) {
                 $.ajax({
                     url: 'SubmitToAtasanPIC',
@@ -3214,7 +3221,8 @@
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
                         $.unblockUI();
-                        var mData = JSON.parse(data);
+
+                        var mData = JSON.parse(data);                        
                         $.each(mData, function (key, value) {
                             var attr = Object.keys(value)[0];
                             var icon;
@@ -3254,15 +3262,15 @@
             }
         });
 
-        //$('#btn_KillSession').click(function () {
-        //    $.ajax({
-        //        url: '../PIC/KillSession',
-        //        type: 'post',
-        //        dataType: 'json',
-        //        contentType: 'application/json; charset=utf-8'            
-        //    });
-        //    console.log('test');
-        //});
+        $('#btn_KillSession').click(function () {
+            $.ajax({
+                url: '../PIC/KillSession',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8'            
+            });
+            console.log('test');
+        });
 
 
         var today = new Date();

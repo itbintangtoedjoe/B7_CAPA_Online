@@ -19,6 +19,7 @@ namespace B7_CAPA_Online.Controllers
 {
     public class PICController : Controller
     {
+        public readonly SessionChecker checker = new SessionChecker();        
         public static DataTable DT = new DataTable();
         // GET: PIC               
         DataAccess DAL = new DataAccess();
@@ -30,6 +31,10 @@ namespace B7_CAPA_Online.Controllers
         }
         public ActionResult FormCAPA(string NoCAPA)
         {
+            if(!checker.Checker())
+            {
+                return Redirect("../Login");
+            }
             var list = new ListKondisi();
             list.ClearDT();
             return View();
@@ -281,6 +286,11 @@ namespace B7_CAPA_Online.Controllers
         }
         public ActionResult SubmitToAtasanPIC(DynamicModel Param)
         {
+            if(!checker.Checker())
+            {
+                return Json(JsonConvert.SerializeObject(new { IS_VALID = false, result = "Redirect", url = "../Login"}));
+            }
+
             DynamicParameters parameters = new DynamicParameters(Param.Model);
             var Recipient = DAL.StoredProcedure(parameters, "[dbo].[SP_FORM_CAPA]");
 
@@ -345,10 +355,10 @@ namespace B7_CAPA_Online.Controllers
             string Return = DAL.StoredProcedure(parameters, "[dbo].[SP_FORM_CAPA]");
             return Json(Return);
         }
-        public ActionResult SaveImage(string nocapa,string tipe)
+        public ActionResult SaveImage(string nocapa, string tipe)
         {
             var b7path = @"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\DiagramCAPA";
-            string Return ="";
+            string Return = "";
             for (int i = 0; i < Request.Files.Count; i++)
             {
                 var file = Request.Files[i];
@@ -364,12 +374,18 @@ namespace B7_CAPA_Online.Controllers
                 { "Tipe", tipe }
                  };
                 DynamicParameters parameters = new DynamicParameters(dictionary);
-                 Return = DAL.StoredProcedure(parameters, "[dbo].[SP_Attachment_Pelaksanaan]");
+                Return = DAL.StoredProcedure(parameters, "[dbo].[SP_Attachment_Pelaksanaan]");
 
 
             }
 
             return Json(Return);
+        }
+        public ActionResult KillSession()
+        {
+            var cookie = Session;
+            cookie.Clear();
+            return Json("success");
         }
         #endregion
 
