@@ -37,6 +37,7 @@ namespace B7_CAPA_Online.Report
                 DataTable DT10 = new DataTable();
                 string NoCAPA = Request.QueryString.Get("NoCAPA");
 
+                ReportViewer1.LocalReport.DisplayName = "ReportCAPA_"+NoCAPA;
                 try
                 {
                     conn.Open();

@@ -123,7 +123,7 @@
                         </div>
                         <div class="col-md-2">
                             <button type="button" class="btn btn-primary" id="btn_Cancel" style="background-color:orange;">Cancel CAPA</button>
-                        </div>
+                        </div>`
                     </div>
                 </div>
             </div>
@@ -202,6 +202,54 @@
                 $('#btn_Add_Evaluator').val("Cancel");
             }
         });
+
+        $('#Tbl_Eval tbody').on('click', 'button.DeleteEval', function () {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Delete!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    var row = $(this).closest("TR");
+                    var data = $('#Tbl_Eval').DataTable().row(row).data();
+                    var empid = data['EMPID'];
+                    var dictlist = {
+                        NoCAPA: $('#QS_NoCAPA').val(),
+                        Option: 6,
+                        Empid: empid
+                    }
+                    var dto1 = {
+                        Model: dictlist
+                    }
+                    $.ajax({
+                        url: "DynamicController?spname=SP_SHOW_EVALUATOR_DDL",
+                        type: "post",
+                        dataType: "json",
+                        data: JSON.stringify(dto1),
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+                            GetEvaList();
+                            GetEvalTableList();
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Evaluator Berhasil Di Hapus!",
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1000,
+                            })
+
+                        },
+                        error: function (errormessage) {
+                        }
+                    });
+                }
+            })
+        })
     });
 
     function disableAll() {
@@ -413,7 +461,7 @@
                         { "data": "IsUtama" },
                         {
                             "data": null,
-                            "defaultContent": "<input type='button' id='DeleteEval' class='btn btn-primary' onclick=Delete(this) value='Delete'style='background-color:red;'/>"
+                            "defaultContent": "<button class='DeleteEval btn btn-primary'   style='background-color:red;'>Delete</button>"
                         },
                     ],
                     "order": [[1, 'asc']],
@@ -425,6 +473,7 @@
             }
         });
     }
+
     function GetDisabledEvalTableList() {
         var dictlist = {
             NoCAPA: $('#QS_NoCAPA').val(),
@@ -458,7 +507,7 @@
                         { "data": "IsUtama" },
                         {
                             "data": null,
-                            "defaultContent": "<input type='button' id='DeleteEval' class='btn btn-primary' onclick=Delete(this) value='Delete'style='background-color:red;' disabled ='disabled'/>"
+                            "defaultContent": "<input type='button'  class='DeleteEval btn btn-primary' value='Delete'style='background-color:red;' disabled ='disabled'/>"
                         },
                     ],
                     "order": [[1, 'asc']],
@@ -559,52 +608,6 @@
 
     }
 
-    function Delete(button) {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Delete!',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.value) {
-                var row = $(button).closest("TR");
-                var Empid = $("TD", row).eq(0).html();
-                var dictlist = {
-                    NoCAPA: $('#QS_NoCAPA').val(),
-                    Option: 6,
-                    Empid: Empid
-                }
-                var dto1 = {
-                    Model: dictlist
-                }
-                $.ajax({
-                    url: "DynamicController?spname=SP_SHOW_EVALUATOR_DDL",
-                    type: "post",
-                    dataType: "json",
-                    data: JSON.stringify(dto1),
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
-                        GetEvaList();
-                        GetEvalTableList();
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: "Evaluator Berhasil Di Hapus!",
-                            icon: "success",
-                            showConfirmButton: false,
-                            timer: 1000,
-                        })
-
-                    },
-                    error: function (errormessage) {
-                    }
-                });
-            }
-        })
-    }
     function Reject() {
         Swal.fire({
             title: 'Alasan Reject',

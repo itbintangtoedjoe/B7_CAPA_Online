@@ -89,9 +89,7 @@
                             <thead>
                                 <tr>
                                     <th>Root Cause</th>
-                                    <th>Area Lain/Proses Lain</th>
                                     <th>Tindakan Perbaikan</th>
-                                    <th>Hasil_Perbaikan</th>
                                     <th>Nama Pelaksana</th>
                                     <th>Due_Date</th>
                                 </tr>
@@ -120,8 +118,8 @@
                             <thead>
                                 <tr>
                                     <th>Root Cause</th>
+                                    <th>Area Lain/Proses Lain</th>
                                     <th>Tindakan Pencegahan</th>
-                                    <th>Hasil_Pencegahan</th>
                                     <th>Nama Pelaksana</th>
                                     <th>Due_Date</th>
                                 </tr>
@@ -557,7 +555,7 @@
             success: function (data) {
                 var table = $('#Tbl_Perbaikan').DataTable({
                     "pageLength": 5,
-                    "lengthChange": true,
+                    "lengthChange": false,
                     "searching": false,
                     "data": JSON.parse(data),
                     "select": true,
@@ -567,7 +565,6 @@
                     "columns": [
                         { "data": "WhyDesc" },
                         { "data": "Tindakan_Perbaikan" },
-                        { "data": "Hasil_Perbaikan" },
                         { "data": "Username" },
                         { "data": "tanggal" }
                     ],
@@ -598,7 +595,7 @@
             success: function (data) {
                 var table = $('#Tbl_Pencegahan').DataTable({
                     "pageLength": 5,
-                    "lengthChange": true,
+                    "lengthChange": false,
                     "searching": false,
                     "data": JSON.parse(data),
                     "select": true,
@@ -610,7 +607,6 @@
                         { "data": "WhyDesc" },
                         { "data": "AreaLain"},
                         { "data": "Tindakan_Pencegahan" },
-                        { "data": "Hasil_Pencegahan" },
                         { "data": "Username" },
                         { "data": "tanggal" }
                     ],

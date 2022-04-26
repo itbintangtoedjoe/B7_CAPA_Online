@@ -1585,17 +1585,22 @@
             if (data[key] === "" || data[key] === false || data[key] === null) {
                 if (key === 'PenyimpanganCollection' && data['PenyimpanganCollection'] === "" && !isAttachment) {
                     Swal.fire({
-                        type: 'warning',
+                        icon: 'warning',
                         title: 'Maaf',
                         text: 'Mohon input ' + labelChild + ' wajib diisi!',
+                        showConfirmButton: false,
+                        timer: 2000
+
                     });
                     return false;
                     break;
                 }
                 Swal.fire({
-                    type: 'warning',
+                    icon: 'warning',
                     title: 'Maaf',
                     text: 'Mohon input ' + key + ' wajib diisi!',
+                    showConfirmButton: false,
+                    timer: 2000
                 });
                 return false;
                 break;
@@ -1753,11 +1758,14 @@
                 }
             });
         } else {
-            Swal.fire(
-                'Maaf',
-                'Mohon dipilih kembali.',
-                'warning'
-            )
+
+            Swal.fire({
+                type: 'warning',
+                title: 'Maaf',
+                text: 'Mohon dipilih kembali.!',
+                showConfirmButton: false,
+                timer: 2000
+            });
         }
     }
 

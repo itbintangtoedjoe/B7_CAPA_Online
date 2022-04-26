@@ -27,7 +27,9 @@
     <link href="~/Content/Scripts/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
     <link href="~/Content/Scripts/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <!-- CSS Date Picker END -->
-    <link href="~/Content/Scripts/plugins/sweetalert/css/sweetalert.css" rel="stylesheet" />
+    @*<link href="~/Content/Scripts/plugins/sweetalert/css/sweetalert.css" rel="stylesheet" />*@
+    <link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
+
     <link href="~/Content/Styles/css/select2.min.css" rel="stylesheet" />
     @*datatables*@
     <link href="~/Content/Styles/css/datatables.min.css" rel="stylesheet" />
@@ -152,7 +154,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="true"  id="UserArrow">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="true" id="UserArrow">
                             <i class="icon-user menu-icon"></i><span class="nav-text">List User Vendor</span>
                         </a>
                         <ul aria-expanded="true" id="UserVendor">
@@ -165,7 +167,7 @@
                         <a class="has-arrow" href="javascript:void()" aria-expanded="true" id="ReportArrow">
                             <i class="icon-list menu-icon"></i><span class="nav-text">List Report</span>
                         </a>
-                        <ul aria-expanded="true" >
+                        <ul aria-expanded="true">
                             <li>@Html.ActionLink("Reporting", "Reporting", "ReportCAPA", null, null)</li>
                             <li id="ReportLead">@Html.ActionLink("Report Leadtime", "ReportLeadtime", "ReportCAPA", null, null)</li>
                             <li id="ReportMaster">@Html.ActionLink("Report Masterlist", "ReportMasterlist", "ReportCAPA", null, null)</li>
@@ -264,6 +266,7 @@
     <script src="~/Content/Scripts/plugins/select2/js/select2.full.min.js"></script>
     <script src="~/Content/Scripts/plugins/toastr/js/toastr.min.js"></script>
     <script src="~/Content/Scripts/plugins/auto-complete/jquery-ui.min.js"></script>
+    <script src="~/Content/Scripts/js/sweetalert2.all.min.js" defer></script>
 
     @*datatables*@
     <script src="~/Content/Scripts/js/datatables.min.js"></script>
@@ -273,14 +276,35 @@
 
     <script>
         $(document).ready(function () {
-            var usernameAktif = '@Request.RequestContext.HttpContext.Session["Username"]';
             CheckUser();
-            $('#UserLoginXd').text(usernameAktif);
-
-            if ($('#UserLoginXd').text().length == 0) {
-                window.location.href = '@Url.Action("Index", "Login")';
-            }
+            checkSession();
+            setInterval(checkSession, 10001);
+            setTimeout(checkSession, '@Session.Timeout' * 60 * 1000);
         });
+        function checkSession() {
+            var usernameAktif = '@Request.RequestContext.HttpContext.Session["Username"]';
+            $('#UserLoginXd').text(usernameAktif);
+            $.ajax({
+                url: "../Login/checksession",
+                type: "post",
+                success: function (data) {
+                    if (data == 'False') {
+                         Swal.fire({
+                            title: 'Session Expired! Silahkan login Kembali ',
+                            icon: "warning",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        }).then(() => {
+                            return window.location.href = '@Url.Action("Index", "Login")';
+                        });
+                    }
+                },
+                error: function (errormessage) {
+                    $('#divLoading').attr("hidden", true);
+                }
+            });
+
+        }
         function CheckUser(){
             var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
             var dictlist = {

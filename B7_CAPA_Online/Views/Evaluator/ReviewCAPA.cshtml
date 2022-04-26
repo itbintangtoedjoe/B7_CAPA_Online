@@ -649,7 +649,7 @@
                 Swal.fire({
                     title :'Success!',
                     text: 'Tindakan berhasil di Approved.',
-                    type: 'success',
+                    icon: 'success',
                     timer: 2000,
                     showConfirmButton : false
                 }).then(() => {
@@ -691,7 +691,7 @@
                 Swal.fire({
                     title: 'Success!',
                     text: 'Semua Tindakan berhasil di Rejected.',
-                    type: 'success',
+                    icon: 'success',
                     showConfirmButton: false,
                     timer: 2000
                 }).then(() => {
@@ -780,7 +780,7 @@
             Swal.fire({
                 title: 'Apakah anda yakin?',
                 text: "Tindakan yang di-approve tidak dapat dikembalikan lagi.",
-                type: 'warning',
+                icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: 'green',
                 cancelButtonColor: '#d33',
@@ -797,7 +797,7 @@
             Swal.fire({
                 title: 'Alasan Reject',
                 input: 'textarea',
-                type: 'warning',
+                icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: 'green',
                 cancelButtonColor: '#d33',
@@ -810,11 +810,13 @@
                          Rejection(this, option, alasan);
                     }
                     else {
-                        Swal.fire(
-                            'Warning!',
-                            'Mohon berikan alasan reject.',
-                            'warning'
-                        )
+                        Swal.fire({
+                            title: 'Warning',
+                            text: 'Mohon berikan alasan reject.',
+                            icon: 'warning',
+                            timer: 2000,
+                            showConfirmButton: false
+                        })
                     }
                 }
             });
@@ -842,7 +844,7 @@
             Swal.fire({
                 title: 'Alasan Reject',
                 input: 'textarea',
-                type: 'warning',
+                icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: 'green',
                 cancelButtonColor: '#d33',
@@ -854,11 +856,13 @@
                         Rejection(this, option, alasan);
                     }
                     else {
-                        Swal.fire(
-                            'Warning!',
-                            'Mohon berikan alasan reject.',
-                            'warning'
-                        )
+                        Swal.fire({
+                            title: 'Warning',
+                            text: 'Mohon berikan alasan reject.',
+                            icon: 'warning',
+                            timer: 2000,
+                            showConfirmButton: false
+                        })
                     }
                 }
             });
@@ -904,7 +908,7 @@
                             Swal.fire({
                                 title: 'Success',
                                 text: 'CAPA berhasil di Submit.',
-                                type: 'success',
+                                icon: 'success',
                                 timer: 2000,
                                 showConfirmButton: false
                             }).then(function (result) {
@@ -916,7 +920,7 @@
                             Swal.fire({
                                 title: 'Maaf',
                                 text: 'CAPA ini sudah pernah di Submit.',
-                                type: 'warning',
+                                icon: 'warning',
                                 timer: 2000,
                                 showConfirmButton: false
                             })
@@ -931,7 +935,7 @@
                 Swal.fire({
                     title: 'Maaf',
                     text: 'Mohon untuk Approve semua Tindakan terlebih dahulu.',
-                    type: 'error',
+                    icon: 'error',
                     timer: 2000,
                     showConfirmButton: false
                 })

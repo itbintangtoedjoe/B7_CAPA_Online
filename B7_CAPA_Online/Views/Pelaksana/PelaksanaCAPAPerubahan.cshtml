@@ -13,8 +13,6 @@
     }
 </style>
 
-<link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
-<script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
 <script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
 
 <div class="content-body">
@@ -735,7 +733,7 @@
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
-            type: 'warning',
+            icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
@@ -821,7 +819,17 @@
                     $('#AlasanTindakanPerbaikan').val(dataPerbaikan.Alasan_Tindakan_Perbaikan);
                     $('#AlasanDueDate').val(dataPerbaikan.Alasan_Due_Date);
 
-                    if ($('#AlasanDueDate').val() != '' && $('#txtTindakanPerbaikanRev').val().trim() != '') {
+                    if ($('#AlasanDueDate').val() == '' && $('#AlasanTindakanPerbaikan').val() == '') {
+                        $('#txtTindakanPerbaikanRev').attr("disabled", false);
+                        $('#AlasanTindakanPerbaikan').attr("disabled", false);
+                        $('#UpdatePerbaikan').attr("disabled", false);
+                        $('#AlasanDueDate').attr("disabled", false);
+                        $('#dueDatePerbaikanRev').attr("disabled", false);
+                        $('#txtTindakanPerbaikanRev').attr("disabled", false);
+                        $('#btn_AddKajian').attr("disabled", true);
+                    }
+
+                    else if ($('#AlasanDueDate').val() != '' && $('#txtTindakanPerbaikanRev').val().trim() != '') {
                         $('#btn_AddKajian').attr("disabled", false);
                         $('#RootCause_KajianResikoDDL').append(new Option(dataPerbaikan.Tindakan_PerbaikanRev, dataPerbaikan.Tindakan_PerbaikanRev));
                         $('#RootCause_KajianResikoDDL').val(dataPerbaikan.Tindakan_PerbaikanRev);
@@ -843,7 +851,7 @@
                         $('#dueDatePerbaikanRev').attr("disabled", true);
                         $('#txtTindakanPerbaikanRev').attr("disabled", true);
                     }
-                    else if ($('#AlasanDueDate').val() == '' && $('#txtTindakanPerbaikanRev').val().trim() == '') {
+                    else if ($('#AlasanDueDate').val() == '' && $('#txtTindakanPerbaikanRev').val().trim() != '') {
                         $('#btn_AddKajian').attr("disabled", false);
                         $('#RootCause_KajianResikoDDL').append(new Option(dataPerbaikan.Tindakan_PerbaikanRev, dataPerbaikan.Tindakan_PerbaikanRev));
                         $('#RootCause_KajianResikoDDL').val(dataPerbaikan.Tindakan_PerbaikanRev);
@@ -914,7 +922,17 @@
                 $('#dueDatePencegahanRev').val(duedaterev.format("YYYY-MM-DD"));
                 $('#AlasanTindakanPencegahan').val(dataPencegahan.Alasan_Tindakan_Pencegahan);
                 $('#AlasanDueDatePencegahan').val(dataPencegahan.Alasan_Due_Date);
-                if (($('#AlasanDueDatePencegahan').val()!= "" && $('#txtTindakanPencegahanRev').val() != "")) {
+
+                if ($('#AlasanTindakanPencegahan').val() == "" && $('#AlasanDueDatePencegahan').val() == "") {
+                    $('#txtTindakanPencegahanRev').attr("disabled", false);
+                    $('#AlasanTindakanPencegahan').attr("disabled", false);
+                    $('#UpdatePencegahan').attr("disabled", false);
+                    $('#AlasanDueDatePencegahan').attr("disabled", false);
+                    $('#dueDatePencegahanRev').attr("disabled", false);
+                    $('#txtTindakanPencegahanRev').attr("disabled", false);
+                    $('#btn_AddKajian').attr("disabled", true);
+                }
+                else if (($('#AlasanDueDatePencegahan').val()!= "" && $('#txtTindakanPencegahanRev').val() != "")) {
                     $('#btn_AddKajian').attr("disabled", false);
                     $('#RootCause_KajianResikoDDL').append(new Option(dataPencegahan.Tindakan_PencegahanRev, dataPencegahan.Tindakan_PencegahanRev));
                     $('#RootCause_KajianResikoDDL').val(dataPencegahan.Tindakan_PencegahanRev);
@@ -938,7 +956,7 @@
                     $('#dueDatePencegahanRev').attr("disabled", true);
                     $('#txtTindakanPencegahanRev').attr("disabled", true);
                 }
-                else if (($('#AlasanDueDatePencegahan').val() == "" && $('#txtTindakanPencegahanRev').val() == "")) {
+                else if (($('#AlasanDueDatePencegahan').val() == "" && $('#txtTindakanPencegahanRev').val() != "")) {
                     $('#btn_AddKajian').attr("disabled", false);
                     $('#RootCause_KajianResikoDDL').append(new Option(dataPencegahan.Tindakan_PencegahanRev, dataPencegahan.Tindakan_PencegahanRev));
                     $('#RootCause_KajianResikoDDL').val(dataPencegahan.Tindakan_PencegahanRev);
@@ -999,49 +1017,54 @@
         }
 
         if (tindakanPerbaikanRev.trim() == "" && dueDaterev == "") {
-            swal('tindakan perbaikan revisi atau due date revisi wajib diisi!', {
+            Swal.fire({
+                title: 'tindakan perbaikan revisi atau due date revisi wajib diisi!',
                 icon: "warning",
-                buttons: false,
+                showConfirmButton: false,
                 timer: 1000,
             })
         }
 
         else if (alasantindakanperbaikan.trim() == "" && tindakanPerbaikanRev.trim() != "") {
-            swal('alasan perubahan tindakan harus diisi!', {
+            Swal.fire({
+                title: 'alasan perubahan tindakan harus diisi!',
                 icon: "warning",
-                buttons: false,
+                showConfirmButton: false,
                 timer: 1000,
             })
             return;
         }
         else if (alasantindakanperbaikan.trim() != "" && tindakanPerbaikanRev.trim() == "") {
-            swal('perubahan tindakan harus diisi!', {
+            Swal.fire({
+                title: 'tindakan perbaikan revisi harus diisi!',
                 icon: "warning",
-                buttons: false,
+                showConfirmButton: false,
                 timer: 1000,
             })
             return;
         }
         else if (alasanDueDate.trim() != "" && dueDaterev == "") {
-            swal('due date harus diisi!', {
+            Swal.fire({
+                title: 'due date harus diisi!',
                 icon: "warning",
-                buttons: false,
+                showConfirmButton: false,
                 timer: 1000,
             })
             return;
         }
         else if (alasanDueDate.trim() == "" && dueDaterev != "") {
-            swal('alasan perubahan due date harus diisi!', {
+            Swal.fire({
+                ttile: 'alasan perubahan due date harus diisi!',
                 icon: "warning",
-                buttons: false,
+                showConfirmButton: false,
                 timer: 1000,
             })
             return;
         }
         else if (alasantindakanperbaikan.trim() == "" && alasanDueDate.trim() == "") {
-            swal('alasan perubahan harus diisi!', {
+            Swal.fire('alasan perubahan harus diisi!', {
                 icon: "warning",
-                buttons: false,
+                showConfirmButton: false,
                 timer: 1000,
             })
         }
@@ -1110,49 +1133,55 @@
             Model: dictlist
         }
         if (tindakanPencegahanRev.trim() == "" && dueDateRev == "") {
-            swal('tindakan perbaikan revisi atau due date revisi wajib diisi!', {
+            Swal.fire({
+                title: 'tindakan perbaikan revisi atau due date revisi wajib diisi!',
                 icon: "warning",
-                buttons: false,
+                showConfirmButton: false,
                 timer: 1000,
             })
             return;
         }
         else if (alasantindakanpencegahan.trim() == "" && tindakanPencegahanRev.trim()  != "") {
-            swal('alasan perubahan tindakan harus diisi!', {
+            Swal.fire({
+                title: 'alasan perubahan tindakan harus diisi!',
                 icon: "warning",
-                buttons: false,
+                showConfirmButton: false,
                 timer: 1000,
             })
             return;
         }
         else if (alasantindakanpencegahan.trim() != "" && tindakanPencegahanRev.trim() == "") {
-            swal('perubahan tindakan harus diisi!', {
+            Swal.fire({
+                title: 'tindakan pencegahan revisi harus diisi!',
                 icon: "warning",
-                buttons: false,
+                showConfirmButton: false,
                 timer: 1000,
             })
             return;
         }
         else if (alasanDueDate.trim() != "" && dueDateRev == "") {
-            swal('due date harus diisi!', {
+            Swal.fire({
+                title: 'due date harus diisi!',
                 icon: "warning",
-                buttons: false,
+                showConfirmButton: false,
                 timer: 1000,
             })
             return;
         }
         else if (alasanDueDate.trim() == "" && dueDateRev != "") {
-            swal('alasan perubahan due date harus diisi!', {
+            Swal.fire({
+                title: 'alasan perubahan due date harus diisi!',
                 icon: "warning",
-                buttons: false,
+                showConfirmButton: false,
                 timer: 1000,
             })
             return;
         }
         else if (alasantindakanpencegahan.trim() == "" && alasanDueDate.trim() == "") {
-            swal('alasan perubahan harus diisi!', {
+            Swal.fire({
+                title: 'alasan perubahan harus diisi!',
                 icon: "warning",
-                buttons: false,
+                showConfirmButton: false,
                 timer: 1000,
             })
             return;

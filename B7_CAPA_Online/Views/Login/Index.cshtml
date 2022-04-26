@@ -9,7 +9,7 @@
     <meta content="Coderthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <!-- App favicon -->
+    <!-- App favicons -->
     <link rel="shortcut icon" href="~/Content/assets/images/favicon.ico">
 
     <!-- App css -->
@@ -118,7 +118,7 @@
         function Login() {
             var username = $.trim($("#username").val());
             var password = $.trim($("#password").val());
-            var tipe_login = $.trim($("#tipe_login").val());
+            var tipe_login = $("#tipe_login").val();
 
             var form_data = {
                 "Username": username, "Password": password, "TipeLogin": tipe_login

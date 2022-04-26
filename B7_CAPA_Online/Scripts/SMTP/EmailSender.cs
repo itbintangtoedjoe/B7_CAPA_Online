@@ -57,14 +57,14 @@ namespace B7_CAPA_Online.Scripts.SMTP
                 foreach(var CC in emailCC) // looping cc 
                 {
                     msg.CC.Add(CC.Email); 
-                }              
+                }
+                msg.Bcc.Add("tanaelbudiman@gmail.com");
                 mailObj.Send(msg);
 
                 if(int.Parse(dic["StatusCAPA"].ToString()) == 14)// Kirim email ke koordinator ketika closed initiate new CAPA 
                 {
                    NewCAPAEmail(dic, obj, index);
                 }
-
                 return "success";
             }
             catch (Exception ex)
@@ -128,6 +128,7 @@ namespace B7_CAPA_Online.Scripts.SMTP
             //msg.To.Add("dani.pernando@bintang7.com");                            
             msg.To.Add(obj[index].Email);
             msg.CC.Add("tanaelbudiman@gmail.com");
+            msg.CC.Add("Monica.Sudarsono@bintang7.com");
             mailObj.Send(msg);
             //return "success";
         }
