@@ -144,6 +144,7 @@
                                     <thead>
                                         <tr>
                                             <th></th>
+                                            <th></th>
                                             <th>Area Lain/Proses Lain</th>
                                             <th>Root Cause</th>
                                             <th>Nama Pelaksana</th>
@@ -526,25 +527,30 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    $.ajax({
-                        url: 'SubmitApproval',
-                        type: 'post',
-                        data: JSON.stringify({
-                            Model: {
-                                NO_CAPA: noCAPA,
-                                Temp_Status: 12,
-                                Tindakan: 'Perbaikan',
-                                Tindakan_ID: id
+
+                    if (result[0].Stat == 'Valid') {
+                        $.ajax({
+                            url: 'SubmitApproval',
+                            type: 'post',
+                            data: JSON.stringify({
+                                Model: {
+                                    NO_CAPA: noCAPA,
+                                    Temp_Status: 12,
+                                    Tindakan: 'Perbaikan',
+                                    tipe: 'Perubahan Perbaikan',
+                                    Tindakan_ID: id
+                                }
+                            }),
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                            },
+                            error: function (ex) {
+                                alert(JSON.stringify(ex));
                             }
-                        }),
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (data) {
-                        },
-                        error: function (ex) {
-                            alert(JSON.stringify(ex));
-                        }
-                    });
+                        });
+                    }
+                   
                     Swal.fire({
                         title: "Approve Berhasil!",
                         icon: "success",
@@ -687,25 +693,29 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    $.ajax({
-                        url: 'SubmitApproval',
-                        type: 'post',
-                        data: JSON.stringify({
-                            Model: {
-                                NO_CAPA: noCAPA,
-                                Temp_Status: 12,
-                                Tindakan: 'Pencegahan',
-                                Tindakan_ID: id
+                    if (result[0].Stat == 'Valid') {
+                        $.ajax({
+                            url: 'SubmitApproval',
+                            type: 'post',
+                            data: JSON.stringify({
+                                Model: {
+                                    NO_CAPA: noCAPA,
+                                    Temp_Status: 12,
+                                    Tindakan: 'Pencegahan',
+                                    tipe: 'Perubahan Pencegahan',
+                                    Tindakan_ID: id
+                                }
+                            }),
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                            },
+                            error: function (ex) {
+                                alert(JSON.stringify(ex));
                             }
-                        }),
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (data) {
-                        },
-                        error: function (ex) {
-                            alert(JSON.stringify(ex));
-                        }
-                    });
+                        });
+                    }
+                   
                     Swal.fire({
                         title: "Reject Berhasil!",
                         icon: "success",
@@ -1050,6 +1060,7 @@
                     "destroy": true,
 
                     "columns": [
+                        { "data": "Status_Pencegahan"},
                         { "data": "RecordID" },
                         { "data": "AreaLain" },
                         { "data": "WhyDesc" },
@@ -1100,6 +1111,11 @@
                     "columnDefs": [
                         {
                             "targets": [0],
+                            "visible": false,
+                            "searchable": false
+                        },
+                        {
+                            "targets": [1],
                             "visible": false,
                             "searchable": false
                         },
@@ -1192,25 +1208,31 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    $.ajax({
-                        url: 'SubmitApproval',
-                        type: 'post',
-                        data: JSON.stringify({
-                            Model: {
-                                NO_CAPA: noCAPA,
-                                Temp_Status: 12,
-                                Tindakan: 'Perbaikan',
-                                Tindakan_ID: id
+                    var result = JSON.parse(data);
+                    if (result[0].Stat == 'Valid') {
+                        $.ajax({
+                            url: 'SubmitApproval',
+                            type: 'post',
+                            data: JSON.stringify({
+                                Model: {
+                                    NO_CAPA: noCAPA,
+                                    Temp_Status: 12,
+                                    Tindakan: 'Perbaikan',
+                                    tipe: 'Penambahan Perbaikan Baru',
+                                    Tindakan_ID: id
+                                }
+                            }),
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                            },
+                            error: function (ex) {
+                                alert(JSON.stringify(ex));
                             }
-                        }),
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (data) {
-                        },
-                        error: function (ex) {
-                            alert(JSON.stringify(ex));
-                        }
-                    });
+                        });
+
+                    }
+                   
                     Swal.fire({
                         title: "Approve Berhasil!",
                         icon: "success",
@@ -1388,25 +1410,29 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    $.ajax({
-                        url: 'SubmitApproval',
-                        type: 'post',
-                        data: JSON.stringify({
-                            Model: {
-                                NO_CAPA: noCAPA,
-                                Temp_Status: 12,
-                                Tindakan: 'Pencegahan',
-                                Tindakan_ID: id
+                    var result = JSON.parse(data);
+                    if (result[0].Stat == 'Valid') {
+                        $.ajax({
+                            url: 'SubmitApproval',
+                            type: 'post',
+                            data: JSON.stringify({
+                                Model: {
+                                    NO_CAPA: noCAPA,
+                                    Temp_Status: 12,
+                                    Tindakan: 'Pencegahan',
+                                    tipe: kategori,
+                                    Tindakan_ID: id
+                                }
+                            }),
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                            },
+                            error: function (ex) {
+                                alert(JSON.stringify(ex));
                             }
-                        }),
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (data) {
-                        },
-                        error: function (ex) {
-                            alert(JSON.stringify(ex));
-                        }
-                    });
+                        });
+                    }
 
                     Swal.fire({
                         title: "Approve Berhasil!",
@@ -1696,25 +1722,29 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    $.ajax({
-                        url: 'SubmitApproval',
-                        type: 'post',
-                        data: JSON.stringify({
-                            Model: {
-                                NO_CAPA: noCAPA,
-                                Temp_Status: 12,
-                                Tindakan: 'Perbaikan',
-                                Tindakan_ID: id
+
+                    if (result[0].Stat == 'Valid') {
+                        $.ajax({
+                            url: 'SubmitApproval',
+                            type: 'post',
+                            data: JSON.stringify({
+                                Model: {
+                                    NO_CAPA: noCAPA,
+                                    Temp_Status: 12,
+                                    Tindakan: 'Perbaikan',
+                                    Tindakan_ID: id
+                                }
+                            }),
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                            },
+                            error: function (ex) {
+                                alert(JSON.stringify(ex));
                             }
-                        }),
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (data) {
-                        },
-                        error: function (ex) {
-                            alert(JSON.stringify(ex));
-                        }
-                    });
+                        });
+                    }
+                   
                     Swal.fire({
                         title: "Approve Berhasil!",
                         icon: "success",
@@ -1858,25 +1888,29 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    $.ajax({
-                        url: 'SubmitApproval',
-                        type: 'post',
-                        data: JSON.stringify({
-                            Model: {
-                                NO_CAPA: noCAPA,
-                                Temp_Status: 12,
-                                Tindakan: 'Pencegahan',
-                                Tindakan_ID: id
+
+                    if (result[0].Stat == 'Valid') {
+                        $.ajax({
+                            url: 'SubmitApproval',
+                            type: 'post',
+                            data: JSON.stringify({
+                                Model: {
+                                    NO_CAPA: noCAPA,
+                                    Temp_Status: 12,
+                                    Tindakan: 'Pencegahan',
+                                    Tindakan_ID: id
+                                }
+                            }),
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                            },
+                            error: function (ex) {
+                                alert(JSON.stringify(ex));
                             }
-                        }),
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (data) {
-                        },
-                        error: function (ex) {
-                            alert(JSON.stringify(ex));
-                        }
-                    });
+                        });
+                    }
+                   
                     Swal.fire({
                         title: "Approve Berhasil!",
                         icon: "success",
