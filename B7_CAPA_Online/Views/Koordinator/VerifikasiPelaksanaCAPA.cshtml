@@ -24,7 +24,7 @@
                         <div class="row">
                             <div class="form-group mb-2 col-sm-3">
                                 <label class="m-t-20">Tanggal</label>
-                                <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Now.ToString("MM/dd/yyyy HH:mm")" readonly>
+                                <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Now.ToString("MM/dd/yyyy HH:mm")" readonly disabled>
                             </div>
                             <div class="form-group mb-2 col-sm-3">
                                 <label class="m-t-40">User Login</label>
@@ -78,7 +78,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Verifikasi Pelaksanaan Tindakan Perbaikan CAPA </h4>
-                        <div id="Div_BuktiTPerbaikan">
+                        <div id="Div_BuktiTPerbaikan" class="table-responsive">
                             <table class="table table-hover table-bordered zero-configuration" style="color:black" id="Tbl_BuktiPerbaikan">
                                 <thead>
                                     <tr>
@@ -105,8 +105,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Verifikasi Pelaksanaan Tindakan Pencegahan CAPA</h4>
-                        <div id="Div_BuktiTPencegahan">
-                            <table class="table table-hover table-bordered zero-configuration" style="color:black" id="Tbl_BuktiPencegahan">
+                        <div id="Div_BuktiTPencegahan" class="table-responsive">
+                            <table class="table table-hover table-bordered " style="color:black" id="Tbl_BuktiPencegahan">
                                 <thead>
                                     <tr>
                                         <th hidden>ID</th>
@@ -133,7 +133,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Verifikasi Pelaksanaan Tindakan Treatment Plan</h4>
-                        <div id="Div_BuktiTPlan">
+                        <div id="Div_BuktiTPlan" class="table-responsive">
                             <table class="table table-hover table-bordered zero-configuration" style="color:black" id="Tbl_BuktiTreatment">
                                 <thead>
                                     <tr>
@@ -704,7 +704,7 @@
                                     else {
 
                                         return "<button class='VerifyPerbaikan btn btn-success' style='width:40px; margin-bottom:5px' '>Verify</button>" +
-                                            "<button class='VerifyPerbaikan btn btn-danger' style='width:40px' data-toggle='modal' data-target='#modalAlasanReject' '>Reject</button>";
+                                            "<button class='RejectPerbaikan btn btn-danger' style='width:40px' data-toggle='modal' data-target='#modalAlasanReject' '>Reject</button>";
                                     }
                             }
                         },
@@ -854,7 +854,9 @@
                         success: function (data) {
 
 
+                            $.unblockUI();
                             GetAllBukti();
+                            
                         },
                         error: function (ex) {
                             alert(JSON.stringify(ex));

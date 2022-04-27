@@ -1056,12 +1056,6 @@
                 showConfirmButton: false,
                 timer: 1000,
             })
-            Swal.fire({
-                title: 'tindakan perbaikan revisi harus diisi!',
-                icon: "warning",
-                showConfirmButton: false,
-                timer: 1000,
-            })
             return;
         }
         else if (alasanDueDate.trim() != "" && dueDaterev == "") {
@@ -1093,6 +1087,7 @@
                 showConfirmButton: false,
                 timer: 1000,
             })
+            return 
         }
         else if (dateperbaikan != "" && (date.getTime() > dateperbaikan.getTime())) {
             Swal.fire({
@@ -1102,6 +1097,7 @@
                 showConfirmButton: false,
                 timer: 1000,
             })
+            return 
         }
         else {
             $.ajax({
@@ -1160,16 +1156,18 @@
         }
         if (tindakanPencegahanRev.trim() == "" && dueDateRev == "") {
             Swal.fire({
-                title: 'tindakan perbaikan revisi atau due date revisi wajib diisi!',
+                ttile: 'warning!',
+                text: 'tindakan pencegahan revisi atau due date revisi wajib diisi!',
                 icon: "warning",
                 showConfirmButton: false,
                 timer: 1000,
             })
             return;
         }
-        else if (alasantindakanpencegahan.trim() == "" && tindakanPencegahanRev.trim()  != "") {
+        else if (alasantindakanpencegahan.trim() == "" && tindakanPencegahanRev.trim() != "") {
             Swal.fire({
-                title: 'alasan perubahan tindakan harus diisi!',
+                ttile: 'warning!',
+                text: 'alasan perubahan tindakan harus diisi!',
                 icon: "warning",
                 showConfirmButton: false,
                 timer: 1000,
@@ -1178,7 +1176,8 @@
         }
         else if (alasantindakanpencegahan.trim() != "" && tindakanPencegahanRev.trim() == "") {
             Swal.fire({
-                title: 'tindakan pencegahan revisi harus diisi!',
+                ttile: 'warning!',
+                text: 'tindakan pencegahan revisi harus diisi!',
                 icon: "warning",
                 showConfirmButton: false,
                 timer: 1000,
@@ -1187,7 +1186,8 @@
         }
         else if (alasanDueDate.trim() != "" && dueDateRev == "") {
             Swal.fire({
-                title: 'due date harus diisi!',
+                ttile: 'warning!',
+                text: 'tindakan pencegahan revisi harus diisi!',
                 icon: "warning",
                 showConfirmButton: false,
                 timer: 1000,
@@ -1196,16 +1196,19 @@
         }
         else if (alasanDueDate.trim() == "" && dueDateRev != "") {
             Swal.fire({
-                title: 'alasan perubahan due date harus diisi!',
+                ttile: 'warning!',
+                text: 'alasan perubahan due date harus diisi!',
                 icon: "warning",
                 showConfirmButton: false,
                 timer: 1000,
             })
+
             return;
         }
         else if (alasantindakanpencegahan.trim() == "" && alasanDueDate.trim() == "") {
             Swal.fire({
-                title: 'alasan perubahan harus diisi!',
+                title: 'warning!',
+                text: 'alasan perubahan harus diisi!',
                 icon: "warning",
                 showConfirmButton: false,
                 timer: 1000,

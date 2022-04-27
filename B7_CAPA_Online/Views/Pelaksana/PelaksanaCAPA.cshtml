@@ -734,23 +734,50 @@
         if (checkPerbaikan < 1 && checkPencegahan < 1 && checkTreatment < 1 && pagestat != 'pageawal') {
             $.blockUI();
             $.ajax({
-                url: 'SubmitApproval',
+                url: 'DynamicController?spname=SP_Update_Pelaksanaan',
                 type: 'post',
                 data: JSON.stringify({
                     Model: {
-                        NO_CAPA: noCAPA,
-                        Temp_Status: 7
+                        NoCAPA: noCAPA,
+                        kategori: 'Check Tindakan'
                     }
                 }),
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    window.location.href = '../PendingTask/TaskList';
+                    var result = JSON.parse(data);
+                    alert(result[0].HasilCek);
+                    if (result[0].HasilCek == 0) {
+                        $.ajax({
+                            url: 'SubmitApproval',
+                            type: 'post',
+                            data: JSON.stringify({
+                                Model: {
+                                    NO_CAPA: noCAPA,
+                                    Temp_Status: 7
+                                }
+                            }),
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                                window.location.href = '../PendingTask/TaskList';
+                            },
+                            error: function (ex) {
+                                alert(JSON.stringify(ex));
+                            }
+                        });
+                    }
+                    else {
+
+                        window.location.href = '../PendingTask/TaskList';
+                    }
+                   
                 },
                 error: function (ex) {
                     alert(JSON.stringify(ex));
                 }
             });
+           
         }
         else if (checkPerbaikan < 1 && checkPencegahan < 1 && checkTreatment < 1 && pagestat == 'pageawal'){
             window.location.href = '../PendingTask/TaskList';
@@ -1494,11 +1521,11 @@
                     showConfirmButton: false,
                     timer: 1000,
                 }).then(() => {
+                    pagestat = 'valid';
                     ResetPage();
                     ToggleBtnDeleteAttPerbaikan("Disable");
                     FindPerbaikan();
                     PopulateDDLPerbaikan();
-                    pagestat = 'valid';
                 })
                 $('#ddlPerbaikan').attr("disabled", false);
             },
@@ -1899,12 +1926,12 @@
                     showConfirmButton: false,
                     timer: 1000,
                 }).then(() => {
+                    pagestat = 'valid';
                     ResetPagePencegahan();
                     ToggleBtnDeleteAttPencegahan("Disable");
                     FindPencegahan();
                     PopulateDDLPencegahan();
-                    pagestat = 'valid';
-                })
+                });
 
                 $('#ddlPencegahan').attr("disabled", false);
             },
@@ -2332,13 +2359,13 @@
                     $('#txtPenyebabPotensiHasil').attr('disabled', true);
                     $('#txtMDPKegagalanHasil').attr('disabled', true);
                 })
+                pagestat = 'valid';
                 FindKajian();
                 ToggleBtnDeleteAttTreatment("Disable");
                 $('#txtPotensiKegagalanHasil').val("");
                 $('#txtPenyebabPotensiHasil').val("");
                 $('#txtMDPKegagalanHasil').val(""); 
                 $('#UploadTreatment').prop("disabled", true);
-                pagestat = 'valid';
             },
             error: function (errormessage) {
                 $('#divLoading').attr("hidden", true);
