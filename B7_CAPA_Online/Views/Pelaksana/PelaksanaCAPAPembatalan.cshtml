@@ -584,6 +584,10 @@
         });
 
 
+        $('#Tbl_KajianResiko tbody').on('click', 'button.delete', function () {
+            var button = this;
+            DeleteKajianResiko(button);
+        })
     });
     function RemoveModalInput() {
         $('#TxtPotensiKegagalan').val("");
@@ -714,7 +718,7 @@
                         { "data": "Lainnya" },
                         {
                             "data": null,
-                            "defaultContent": "<input type='button'  class='btn btn-primary' onclick=DeleteKajianResiko(this) value='Delete'style='background-color:red;'/>"
+                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete'  onchange=''>Delete</button> ",
                         },
                     ],
                     "order": [[1, 'asc']],

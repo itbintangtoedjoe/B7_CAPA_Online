@@ -321,6 +321,10 @@
         else {
             jenis = "Perubahan Pencegahan"
         }
+
+        $('#Tbl_KajianResiko tbody').on('click', 'button.delete', function () {
+            DeleteKajianResiko(this);
+        })
         KajianResikoDDL();
         TableKajian();
 ;        if (tindakan == "Perbaikan") {
@@ -713,7 +717,7 @@
                         { "data": "Lainnya" },
                         {
                             "data": null,
-                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onclick=DeleteKajianResiko(this) onchange=''>Delete</button> ",
+                            "defaultContent": "<button class='delete btn btn-danger '>Delete</button> ",
                             "visible": (!isHide) ? (true) : (false)
                         },
                     ],
@@ -1025,7 +1029,8 @@
 
         if (tindakanPerbaikanRev.trim() == "" && dueDaterev == "") {
             Swal.fire({
-                title: 'tindakan perbaikan revisi atau due date revisi wajib diisi!',
+                ttile: 'warning!',
+                text: 'tindakan perbaikan revisi atau due date revisi wajib diisi!',
                 icon: "warning",
                 showConfirmButton: false,
                 timer: 1000,
@@ -1034,7 +1039,8 @@
 
         else if (alasantindakanperbaikan.trim() == "" && tindakanPerbaikanRev.trim() != "") {
             Swal.fire({
-                title: 'alasan perubahan tindakan harus diisi!',
+                ttile: 'warning!',
+                text: 'alasan perubahan tindakan harus diisi!',
                 icon: "warning",
                 showConfirmButton: false,
                 timer: 1000,
@@ -1042,6 +1048,14 @@
             return;
         }
         else if (alasantindakanperbaikan.trim() != "" && tindakanPerbaikanRev.trim() == "") {
+
+            Swal.fire({
+                ttile: 'warning!',
+                text: 'tindakan perbaikan revisi harus diisi!',
+                icon: "warning",
+                showConfirmButton: false,
+                timer: 1000,
+            })
             Swal.fire({
                 title: 'tindakan perbaikan revisi harus diisi!',
                 icon: "warning",
@@ -1051,8 +1065,10 @@
             return;
         }
         else if (alasanDueDate.trim() != "" && dueDaterev == "") {
+
             Swal.fire({
-                title: 'due date harus diisi!',
+                ttile: 'warning!',
+                text: 'due date harus diisi!',
                 icon: "warning",
                 showConfirmButton: false,
                 timer: 1000,
@@ -1061,7 +1077,8 @@
         }
         else if (alasanDueDate.trim() == "" && dueDaterev != "") {
             Swal.fire({
-                ttile: 'alasan perubahan due date harus diisi!',
+                ttile: 'warning!',
+                text: 'alasan perubahan due date harus diisi!',
                 icon: "warning",
                 showConfirmButton: false,
                 timer: 1000,
@@ -1069,7 +1086,9 @@
             return;
         }
         else if (alasantindakanperbaikan.trim() == "" && alasanDueDate.trim() == "") {
-            Swal.fire('alasan perubahan harus diisi!', {
+            Swal.fire({
+                title: 'warning!',
+                text: 'alasan perubahan harus diisi!',
                 icon: "warning",
                 showConfirmButton: false,
                 timer: 1000,

@@ -115,6 +115,9 @@
             DataReporting();
         });
         
+        $('#Tbl_reportdatatable tbody').on('click', 'button.Print', function () {
+            Print(this)
+        })
     })
 
 
@@ -156,7 +159,7 @@
                         { "data": "RecordID" },
                         {
                             "data": null,
-                            "defaultContent": "<input type='button' class='btn btn-primary' onclick=Print(this) value='Print' style='background-color:green; '/>"
+                            "defaultContent": "<button> class='btn btn-primary Print' value='Print' style='background-color:green; '>Print</button>"
                         },
                         { "data": "REG_ID" },
                         { "data": "NO_CAPA" },

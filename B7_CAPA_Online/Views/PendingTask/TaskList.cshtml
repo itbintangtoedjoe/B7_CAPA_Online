@@ -137,6 +137,9 @@
 
         //    }             
         //});
+        $('#Tbl_PendingTask tbody').on('click', 'button.Select', function () {
+            SelectedTask(this);
+        })
     });
 
     
@@ -166,7 +169,7 @@
                         {
                             "data": null,
                             //"defaultContent": "<button class='btn' type='button' name='view'>View CAPA</button><button class='btn' type='button' name='pelaksanaView'>Pelaksana</button>"
-                            "defaultContent": "<button class='btn btn-success' style='width:40px;' onclick='SelectedTask(this)'>Select</button>"
+                            "defaultContent": "<button class='btn btn-success Select' style='width:40px;' >Select</button>"
                         },
                         {
                             "className": 'details-control',

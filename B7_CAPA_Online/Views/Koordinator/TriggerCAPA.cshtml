@@ -429,6 +429,98 @@
             }
 
         });
+        $('#Tbl_Lampiran').on('click', 'button.Lampiran', function () {
+            var row = $(this).closest("TR");
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Delete!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    var data = $('#Tbl_Lampiran').DataTable().row(row).data();
+                    var id = data['RecordID'];
+                    var path = data['FILE_PATH'];
+                    var formData = {
+                        "IDAttachment": id,
+                        "Updater": path
+                    };
+
+                    $.ajax({
+                        url: "DeleteAttachment",
+                        type: "post",
+                        dataType: "json",
+                        data: JSON.stringify(formData),
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: 'Lampiran Berhasil Di Hapus!',
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1000,
+                            })
+                            GetLampiran();
+                        },
+                        error: function (errormessage) {
+                        }
+                    });
+                }
+            });
+        });
+
+        $('#Tbl_Penyimpangan tbody').on('click', 'button.Penyimpangan', function () {
+            var row = $(this).closest("TR").index();
+            console.log(row);
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Delete!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    var data = $('#Tbl_Penyimpangan').DataTable().row(row).data();
+                    console.log(data);
+                    var id = data['RecordID'];
+                    var dictlist = {
+                        Option: 24,
+                        RecID: id
+                    }
+                    var dto1 = {
+                        Model: dictlist
+                    }
+                    $.ajax({
+                        url: "DynamicController?spname=[dbo].[SP_SHOW_DDL]",
+                        type: "post",
+                        dataType: "json",
+                        data: JSON.stringify(dto1),
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: 'Penyimpangan Berhasil Di Hapus!',
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1000,
+                            })
+                            GetPenyimpangan();
+                        },
+                        error: function (errormessage) {
+                        }
+                    });
+                }
+            });
+
+        });
 
         $('#btn_Close_CAPA').click(function () {
 
@@ -1189,7 +1281,7 @@
                         {
                             "data": null,
                             "render": function (data, type, row, meta) {
-                                return "<input type='button' class='btn btn-primary' onclick=DeletePenyimpangan(this) value='Delete'style='background-color:red;'/>";
+                                return "<button class='Penyimpangan btn btn-primary'  style='background-color:red;'>Delete</button>";
                             }
                         }
 
@@ -1247,7 +1339,7 @@
                         {
                             "data": null,
                             "render": function (data, type, row, meta) {
-                                return "<input type='button' class='btn btn-primary' onclick=DeleteLampiran(this) value='Delete'style='background-color:red;'/>";
+                                return "<button class='Lampiran btn btn-primary' value='Delete'style='background-color:red;'>Delete </button>";
                             }
                         }
                     ],

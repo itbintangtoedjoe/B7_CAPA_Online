@@ -325,6 +325,60 @@
 
             Approve();
         });
+
+        $('#Tbl_Perbaikan tbody').on('click', 'button.Approve', function () {
+            ApprovePerbaikan(this);
+        })
+
+        $('#Tbl_Perbaikan tbody').on('click', 'button.Reject', function () {
+            RejectPerbaikan(this);
+        })
+
+        $('#Tbl_Pencegahan tbody').on('click', 'button.Approve', function () {
+            ApprovePencegahan(this);
+        })
+
+        $('#Tbl_Pencegahan tbody').on('click', 'button.Reject', function () {
+            RejectPencegahan(this);
+        })
+
+        $('#Tbl_PerbaikanPenambahan tbody').on('click', 'button.Approve', function () {
+            ApprovePerbaikanPenambahan(this);
+        })
+
+        $('#Tbl_PerbaikanPenambahan tbody').on('click', 'button.Reject', function () {
+            RejectPerbaikanPenambahan(this);
+        })
+
+        $('#Tbl_PencegahanPenambahan tbody').on('click', 'button.Approve', function () {
+            ApprovePencegahanPenambahan(this);
+        })
+
+        $('#Tbl_PencegahanPenambahan tbody').on('click', 'button.Reject', function () {
+            RejectPerbaikanPenambahan(this);
+        })
+        $('#Tbl_PerbaikanPembatalan tbody').on('click', 'button.Approve', function () {
+            ApprovePerbaikanPembatalan(this);
+        })
+
+        $('#Tbl_PerbaikanPembatalan tbody').on('click', 'button.Reject', function () {
+            RejectPerbaikanPembatalan(this);
+        })
+
+        $('#Tbl_PencegahanPembatalan tbody').on('click', 'button.Approve', function () {
+            ApprovePencegahanPembatalan(this);
+        })
+
+        $('#Tbl_PencegahanPembatalan tbody').on('click', 'button.Reject', function () {
+            RejectPencegahanPembatalan(this);
+        })
+        $('#Tbl_PerbaikanPenambahan tbody').on('click', 'button.AddRentang', function () {
+            AddRentangPerbaikan(this);
+        })
+
+        $('#Tbl_PencegahanPenambahan tbody').on('click', 'button.AddRentang', function () {
+            AddRentangPencegahan(this);
+        })
     });
 
     function CheckPending() {
@@ -385,14 +439,11 @@
                         {
                             "data": null,
                             "render": function (data, type, row, meta) {
-                                if (row["IsUtama"] === true && row["Rentang"] === 0) {
-                                    return "<input type='button' class='btn btn-primary' onclick=AddRentangPerbaikan(this) value='Add Rentang'style='background-color:green;'/>";
-                                }
-                                else if (row["IsApproved"] === true) {
+                                if (row["IsApproved"] === true) {
                                     return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                 }
                                 else if (row["Rentang"] != 0) {
-                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green; '/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>";
+                                    return "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button>"
                                 }
 
                             }
@@ -466,14 +517,11 @@
                         {
                             "data": "Status_ID",
                             "render": function (data, type, row, meta) {
-                                if (row["IsUtama"] === true && row["Rentang"] === 0) {
-                                    return "<input type='button' class='btn btn-primary' onclick=AddRentangPerbaikan(this) value='Add Rentang'style='background-color:green;'/>";
-                                }
-                                else if (row["IsApproved"] === true) {
+                                if (row["IsApproved"] === true) {
                                     return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                 }
                                 else {
-                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahan(this) value='Approve'style='background-color:green; '/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahan(this) value='Reject'style='background-color:red;'/>";
+                                    return "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button>"
                                 }
                             }
                         }
@@ -527,7 +575,7 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    var result = JSON.stringify(data);
+                    var result = JSON.parse(data);
                     if (result[0].Stat == 'Valid') {
                         $.ajax({
                             url: 'SubmitApproval',
@@ -693,7 +741,7 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    var result = JSON.stringify(data);
+                    var result = JSON.parse(data);
                     if (result[0].Stat == 'Valid') {
                         $.ajax({
                             url: 'SubmitApproval',
@@ -978,13 +1026,13 @@
                             "data": null,
                             "render": function (data, type, row, meta) {
                                 if (row["IsUtama"] === true && row["Rentang"] === 0) {
-                                    return "<input type='button' class='btn btn-primary' onclick=AddRentangPerbaikan(this) value='Add Rentang'style='background-color:green;'/>";
+                                    return "<button class='AddRentang btn btn-primary' value='Add Rentang'style='background-color:green;'>Add Rentang</button>"
                                 }
                                 else if (row["IsApproved"] == true) {
                                     return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                 }
                                 else if (row["Rentang"] != 0) {
-                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikanPenambahan(this) value='Approve'style='background-color:green; '/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikanPenambahan(this) value='Reject'style='background-color:red;'/>";
+                                    return "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button>"
                                 }
                                 else if (row["IsUtama"] === false && row["Rentang"] === 0) {
                                     return "Waiting Evaluator Utama Mengisi Rentang";
@@ -1095,10 +1143,10 @@
                                 console.log(row["Rentang"]);
                                 console.log(row["IsUtama"]);
                                 if (row["IsUtama"] === true && row["Rentang"] === 0) {
-                                    return "<input type='button' class='btn btn-primary' onclick=AddRentangPencegahan(this) value='Add Rentang'style='background-color:green;'/>";
+                                    return "<button class='AddRentang btn btn-primary' value='Add Rentang'style='background-color:green;'>Add Rentang</button>"
                                 }
                                 else if (row["Rentang"] != 0) {
-                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahanPenambahan(this) value='Approve'style='background-color:green; '/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahanPenambahan(this) value='Reject'style='background-color:red;'/>"
+                                    return "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button>"
                                 }
                                 else if (row["IsApproved"] == 1 && row["EMPID"] == nik) {
                                     return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
@@ -1159,7 +1207,6 @@
         var tablerow = table.row(row);
         var tr = $(tablerow.node());
         let rentang = tr.find("select.Rentang option:selected").val();
-        console.log(rownodes);
         var dictlist = {
             RecordID: id,
             Option: 25,
@@ -1601,7 +1648,7 @@
                                     return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                 }
                                 else if (row["Rentang"] != 0) {
-                                    return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikanPembatalan(this) value='Approve'style='background-color:green; margin-left:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikanPembatalan(this) value='Reject'style='background-color:red;'/>";
+                                    return "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button>"
                                 }
 
                             }
@@ -1676,7 +1723,7 @@
                                     return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                 }
                                 else {
-                                   return "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahanPembatalan(this) value='Approve'style='background-color:green; margin-left:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahanPembatalan(this) value='Reject'style='background-color:red;'/>";
+                                   return "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button>"
                                 }
                             }
                         }
@@ -1729,7 +1776,7 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    var result = JSON.stringify(data);
+                    var result = JSON.parse(data)
                     if (result[0].Stat == 'Valid') {
                         $.ajax({
                             url: 'SubmitApproval',
@@ -1897,7 +1944,7 @@
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
 
-                    var result = JSON.stringify(data);
+                    var result = JSON.parse(data)
                     if (result[0].Stat == 'Valid') {
                         $.ajax({
                             url: 'SubmitApproval',

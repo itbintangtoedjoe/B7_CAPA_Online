@@ -700,6 +700,18 @@
                 }
             });
         });
+        $('#Tbl_Devi tbody').on('click', 'button.Penyimpangan', function () {
+            var row = $(this).closest("TR").index();
+            DeletePenyimpangan(row);
+        })
+        $('#Tabel_File tbody').on('click', 'button.Lampiran', function () {
+            var row = $(this).closest("TR").index();
+            DeleteLampiran(row);
+        })
+        $('#Tabel_CCC tbody').on('click', 'button.CCC', function () {
+            var row = $(this).closest("TR").index();
+            DeleteCCC(row);
+        })
     });
 
     function disableAll() {
@@ -752,7 +764,7 @@
                         },
                         {
                             "data": null,
-                            "defaultContent": "<input type='button'  class='btn btn-primary' onclick=DeleteLampiran(this) value='Delete' style='background-color:red;'/>"
+                            "defaultContent": "<button class='Lampiran btn btn-primary' value='Delete' style='background-color:red;'>Delete </button>"
                         }
                     ],
 
@@ -773,7 +785,7 @@
         });
     }
 
-    function DeleteLampiran(button) {
+    function DeleteLampiran(row) {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -785,7 +797,6 @@
             reverseButtons: true
         }).then((result) => {
             if (result.value) {
-                var row = $(button).closest("TR");
                 var data = $('#Tabel_File').DataTable().row(row).data();
                 var id = data['RecordID'];
                 var dictlist = {
@@ -1034,7 +1045,7 @@
                         { "data": "ValueEvaluasi" },
                         {
                             "data": null,
-                            "defaultContent": "<input type='button'  class='btn btn-primary' onclick=DeletePenyimpangan(this) value='Delete'style='background-color:red;'/>"
+                            "defaultContent": "<button class='Penyimpangan btn btn-primary' value='Delete' style='background-color:red;'>Delete </button>"
                         }
                     ],
                     "columnDefs": [
@@ -1057,7 +1068,7 @@
     }
 
 
-    function DeletePenyimpangan(button) {
+    function DeletePenyimpangan(row) {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -1069,7 +1080,6 @@
             reverseButtons: true
         }).then((result) => {
             if (result.value) {
-                var row = $(button).closest("TR");
                 var data = $('#Tbl_Devi').DataTable().row(row).data();
                 var id = data['RecordID'];
                 var value = data['ValueEvaluasi'];
@@ -1137,7 +1147,7 @@
                         { "data": "ValueEvaluasi" },
                         {
                             "data": null,
-                            "defaultContent": "<input type='button'  class='btn btn-primary' onclick=DeleteCCC(this) value='Delete'style='background-color:red;'/>"
+                            "defaultContent": "<button class='CCC btn btn-primary' value='Delete' style='background-color:red;'>Delete </button>"
                         }
                     ],
                     "columnDefs": [
@@ -1157,7 +1167,7 @@
         });
     }
         
-    function DeleteCCC(button) {
+    function DeleteCCC(row) {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -1169,7 +1179,6 @@
             reverseButtons: true
         }).then((result) => {
             if (result.value) {
-                var row = $(button).closest("TR");
                 var data = $('#Tabel_CCC').DataTable().row(row).data();
                 var id = data['RecordID'];
                 var value = data['ValueEvaluasi'];

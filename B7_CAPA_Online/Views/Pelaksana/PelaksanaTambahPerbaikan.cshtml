@@ -69,10 +69,12 @@
                 </div>
                 <div class="card" id="RootCause" hidden>
                     <div class="card-body">
-                        <div class="col-md-8">
-                            <label class="m-t-20">Root Cause</label>
-                            <select id="RootCause_DDL" class="form-control form-control-sm">
-                            </select>
+                        <div class="row form-group-sm">
+                            <div class="col-md-6">
+                                <label class="m-t-20">Root Cause</label>
+                                <select id="RootCause_DDL" class="form-control">
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -354,6 +356,9 @@
             AreaLain();
         }
 
+        $('#Tbl_KajianResiko tbody').on('click', 'button.delete', function () {
+            DeleteKajianResiko(this);
+        })
         $("input[name='TambahPerbaikan']").change(function () {
             var tambahperbaikan = $('input[name="TambahPerbaikan"]:checked').val();
             if (tambahperbaikan == "Yes") {
@@ -911,7 +916,7 @@
                         { "data": "Due_Date" },
                         {
                             "data": null,
-                            "defaultContent": "<button class='btn btn-danger delete' onclick='' type='button' name='delete'>Delete</button> ",
+                            "defaultContent": "<button class='btn btn-danger delete'  type='button' name='delete'>Delete</button> ",
                             "visible": (!isHide) ? (true) : (false)
                         }
                     ],
@@ -1222,7 +1227,7 @@
                         { "data": "Lainnya" },
                         {
                             "data": null,
-                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onclick=DeleteKajianResiko(this) >Delete</button> ",
+                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete'  >Delete</button> ",
                             "visible": (!isHide) ? (true) : (false)
                         },
                     ],
@@ -1310,7 +1315,7 @@
                         { "data": "Lainnya" },
                         {
                             "data": null,
-                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onclick=DeleteKajianResiko(this) >Delete</button> ",
+                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete'  >Delete</button> ",
                             "visible": (!isHide) ? (true) : (false)
                         },
                     ],

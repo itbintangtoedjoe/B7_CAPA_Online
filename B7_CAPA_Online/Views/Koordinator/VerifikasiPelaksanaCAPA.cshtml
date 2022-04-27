@@ -254,6 +254,42 @@
 
     $(document).ready(function () {
         GetAllBukti();
+        $('#Tbl_BuktiTreatment tbody').on('click', 'button.VerifyTreatment', function () {
+            VerifyTreatmentCAPA(this);
+        })
+        $('#Tbl_BuktiTreatment tbody').on('click', 'button.RejectTreatment', function () {
+            RejectTreatmentCAPA(this);
+        })
+        $('#Tbl_BuktiPerbaikan tbody').on('click', 'button.VerifyPerbaikan', function () {
+            VerifyPerbaikanCAPA(this);
+        })
+        $('#Tbl_BuktiPerbaikan tbody').on('click', 'button.RejectPerbaikan', function () {
+            RejectPerbaikanCAPA(this);
+        })
+        $('#Tbl_BuktiPencegahan tbody').on('click', 'button.VerifyPencegahan', function () {
+            VerifyPencegahanCAPA(this);
+        })
+        $('#Tbl_BuktiPencegahan tbody').on('click', 'button.RejectPencegahan', function () {
+            RejectPencegahanCAPA(this);
+        });
+
+        $('#Tbl_BuktiPerbaikan tbody').on('click', 'i.showChild', function () {
+            var button = this;
+            var tahapan = 'Perbaikan';
+            showChild(button, tahapan);
+        })
+        $('#Tbl_BuktiPencegahan tbody').on('click', 'i.showChild', function () {
+            var button = this;
+            var tahapan = 'Pencegahan';
+            showChild(button, tahapan);
+        })
+
+        $('#Tbl_BuktiTreatment tbody').on('click', 'i.showChild', function () {
+            var button = this;
+            var tahapan = 'Treatment';
+            showChild(button, tahapan);
+        })
+        
     });
 
 
@@ -459,8 +495,8 @@
                                     }
                                     else {
 
-                                        return "<button class='btn btn-success' style='width:40px; margin-bottom:5px' onclick='VerifyTreatmentCAPA(this)'>Verify</button>" +
-                                            "<button class='btn btn-danger' style='width:40px' data-toggle='modal' data-target='#modalAlasanReject' onclick='RejectTreatmentCAPA(this)'>Reject</button>";
+                                        return "<button class='VerifyTreatment btn btn-success' style='width:40px; margin-bottom:5px' '>Verify</button>" +
+                                            "<button class='RejectTreatment btn btn-danger' style='width:40px' data-toggle='modal' data-target='#modalAlasanReject''>Reject</button>";
                                     }
                             }
                         },
@@ -487,7 +523,7 @@
                         {
                             "orderable": false,
                             "data": null,
-                            "defaultContent": '<span><a><i class="fa fa-eye" aria-hidden="true" onclick=showChild(this,\'' + Treatment + '\')></i></a></span>',
+                            "defaultContent": '<span><a><i class="showChild fa fa-eye" aria-hidden="true"></i></a></span>',
                             "className": "details text-center"
                         }
                     ],
@@ -550,8 +586,8 @@
                                     }
                                     else {
 
-                                        return "<button class='btn btn-success' style='width:40px; margin-bottom:5px' onclick='VerifyPencegahanCAPA(this)'>Verify</button>" +
-                                            "<button class='btn btn-danger' style='width:40px' data-toggle='modal' data-target='#modalAlasanReject' onclick='RejectPencegahanCAPA(this)'>Reject</button>";
+                                        return "<button class='VerifyPencegahan btn btn-success' style='width:40px; margin-bottom:5px' >Verify</button>" +
+                                            "<button class='RejectPencegahan btn btn-danger' style='width:40px' data-toggle='modal' data-target='#modalAlasanReject'>Reject</button>";
                                     }
                             }
                         },
@@ -586,7 +622,7 @@
                         {
                             "orderable": false,
                             "data": null,
-                            "defaultContent": '<span><a><i class="fa fa-eye" aria-hidden="true" onclick=showChild(this,\'' + Pencegahan + '\')></i></a></span>',
+                            "defaultContent": '<span><a><i class="fa fa-eye" aria-hidden="true" ></i></a></span>',
                             "className": "details text-center"
                         }
                     ],
@@ -667,8 +703,8 @@
                                     }
                                     else {
 
-                                        return "<button class='btn btn-success' style='width:40px; margin-bottom:5px' onclick='VerifyPerbaikanCAPA(this)'>Verify</button>" +
-                                            "<button class='btn btn-danger' style='width:40px' data-toggle='modal' data-target='#modalAlasanReject' onclick='RejectPerbaikanCAPA(this)'>Reject</button>";
+                                        return "<button class='VerifyPerbaikan btn btn-success' style='width:40px; margin-bottom:5px' '>Verify</button>" +
+                                            "<button class='VerifyPerbaikan btn btn-danger' style='width:40px' data-toggle='modal' data-target='#modalAlasanReject' '>Reject</button>";
                                     }
                             }
                         },
@@ -700,7 +736,7 @@
                         {
                             "orderable": false,
                             "data": null,
-                            "defaultContent": '<span><a><i class="fa fa-eye" aria-hidden="true" onclick=showChild(this,\'' + Perbaikan+ '\')></i></a></span>',
+                            "defaultContent": '<span><a><i class="showChild fa fa-eye" aria-hidden="true" ></i></a></span>',
                             "className": "details text-center"
                         },
                     ],

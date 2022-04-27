@@ -322,6 +322,53 @@
         GetTindakanPencegahanPembatalan();
         TableKajian();
 
+        $('#Tbl_Perbaikan tbody').on('click', 'button.Approve', function () {
+            ApprovePerbaikan(this);
+        })
+
+        $('#Tbl_Perbaikan tbody').on('click', 'button.Reject', function () {
+            RejectPerbaikan(this);
+        })
+
+        $('#Tbl_Pencegahan tbody').on('click', 'button.Approve', function () {
+            ApprovePencegahan(this);
+        })
+
+        $('#Tbl_Pencegahan tbody').on('click', 'button.Reject', function () {
+            RejectPencegahan(this);
+        })
+
+        $('#Tbl_PerbaikanPenambahan tbody').on('click', 'button.Approve', function () {
+            ApprovePerbaikanPenambahan(this);
+        })
+
+        $('#Tbl_PerbaikanPenambahan tbody').on('click', 'button.Reject', function () {
+            RejectPerbaikanPenambahan(this);
+        })
+
+        $('#Tbl_PencegahanPenambahan tbody').on('click', 'button.Approve', function () {
+            ApprovePencegahanPenambahan(this);
+        })
+
+        $('#Tbl_PencegahanPenambahan tbody').on('click', 'button.Reject', function () {
+            RejectPerbaikanPenambahan(this);
+        })
+        $('#Tbl_PerbaikanPembatalan tbody').on('click', 'button.Approve', function () {
+            ApprovePerbaikanPembatalan(this);
+        })
+
+        $('#Tbl_PerbaikanPembatalan tbody').on('click', 'button.Reject', function () {
+            RejectPerbaikanPembatalan(this);
+        })
+
+        $('#Tbl_PencegahanPembatalan tbody').on('click', 'button.Approve', function () {
+            ApprovePencegahanPembatalan(this);
+        })
+
+        $('#Tbl_PencegahanPembatalan tbody').on('click', 'button.Reject', function () {
+            RejectPencegahanPembatalan(this);
+        })
+
     });
 
     function GetTindakanPerbaikan() {
@@ -365,7 +412,7 @@
                         { "data": "Stat" },
                         {
                             "data": null,
-                            "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikan(this) value='Approve'style='background-color:green;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikan(this) value='Reject'style='background-color:red;'/>"
+                            "defaultContent": "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button>"
                         },
                     ],
                     "columnDefs": [
@@ -426,7 +473,7 @@
                         { "data": "Stat" },
                         {
                             "data": null,
-                            "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahan(this) value='Approve'style='background-color:green; '/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahan(this) value='Reject'style='background-color:red;'/>"
+                            "defaultContent": "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button>"
                        },
                     ],
                     "columnDefs": [
@@ -840,7 +887,7 @@
                         { "data": "Stat" },
                         {
                             "data": null,
-                            "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikanPembatalan(this) value='Approve'style='background-color:green; margin-left:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikanPembatalan(this) value='Reject'style='background-color:red;'/>"
+                            "defaultContent": "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button>"
                         },
                     ],
                     "columnDefs": [
@@ -899,7 +946,7 @@
                         { "data": "Stat" },
                         {
                             "data": null,
-                            "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahanPembatalan(this) value='Approve'style='background-color:green; margin-left:15px;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahanPembatalan(this) value='Reject'style='background-color:red;'/>"
+                            "defaultContent": "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button>"
                         },
                     ],
                     "columnDefs": [
@@ -1233,7 +1280,7 @@
                         { "data": "Stat" },
                         {
                             "data": null,
-                            "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePerbaikanPenambahan(this) value='Approve'style='background-color:green;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPerbaikanPenambahan(this) value='Reject'style='background-color:red;'/>"
+                            "defaultContent": "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button>"
                         },
                     ],
                     "columnDefs": [
@@ -1291,7 +1338,7 @@
                         { "data": "Stat" },
                         {
                             "data": null,
-                            "defaultContent": "<input type='button' id='ApprovePerb' class='btn btn-primary' onclick=ApprovePencegahanPenambahan(this) value='Approve'style='background-color:green;'/> <input type='button' id='DeletePerb' class='btn btn-primary' onclick=RejectPencegahanPenambahan(this) value='Reject'style='background-color:red;'/>"
+                            "defaultContent": "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button>"
                         },
                     ],
                     "columnDefs": [
