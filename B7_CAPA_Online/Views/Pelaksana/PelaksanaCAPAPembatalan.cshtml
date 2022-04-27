@@ -566,7 +566,7 @@
                                     showConfirmButton: false,
                                     timer: 1000,
                                 }).then(function (result) {
-                                    $('#btnSimpan').prop("disabled", false);
+                                    $('#Submit').prop("disabled", false);
 
                                     TableKajian();
                                     //close modal
@@ -731,7 +731,7 @@
                 var data = $('#Tbl_KajianResiko').DataTable().data().count();
 
                 if (data > 0) {
-                    $('#btnSimpan').prop("disabled", false);
+                    $('#Submit').prop("disabled", false);
                 }
             },
             error: function (ex) {
@@ -740,7 +740,7 @@
 
         });
     }
-
+    
     function DeleteKajianResiko(button) {
         Swal.fire({
             title: 'Are you sure?',
@@ -826,7 +826,7 @@
                         showConfirmButton: false,
                         timer: 1000,
                     })
-
+                    getRootCausePencegahan();   
                     jenis = "Pembatalan Pencegahan"
                 },
                 error: function (ex) {
@@ -873,6 +873,7 @@
                         showConfirmButton: false,
                         timer: 1000,
                     })
+                    getRootCausePerbaikan();
                 },
                 error: function (ex) {
                     alert(JSON.stringify(ex));
@@ -907,7 +908,12 @@
                     $('#dueDatePerbaikan').val(duedate.format("YYYY-MM-DD"));
                     $('#txtTindakanPerbaikan').prop("disabled", true);
                     $('#AlasanBatalPerbaikan').val(dataPerbaikan.Alasan_Pembatalan);
-                    if (dataPerbaikan.Alasan_Pembatalan != "") {
+                    alert($('#AlasanBatalPerbaikan').val());
+                    if ($('#AlasanBatalPerbaikan').val() == "") {
+
+                        $('#btn_AddKajian').attr("disabled", true);
+                    }
+                    else if ($('#AlasanBatalPerbaikan').val() != "" || $('#AlasanBatalPerbaikan').val() != null  ) {
                         $('#btn_AddKajian').attr("disabled", false);
                         $('#RootCause_KajianResikoDDL').append(new Option(dataPerbaikan.Tindakan_Perbaikan, dataPerbaikan.Tindakan_Perbaikan));
                         $('#RootCause_KajianResikoDDL').val(dataPerbaikan.Tindakan_Perbaikan);
@@ -956,7 +962,11 @@
                 $('#dueDatePencegahan').val(duedate.format("YYYY-MM-DD"));
                 $('#AlasanBatalPencegahan').val(dataPencegahan.Alasan_Pembatalan);
                 @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
-                if (dataPencegahan.Alasan_Pembatalan != "") {
+                if ($('#AlasanBatalPencegahan').val() == "") {
+
+                    $('#btn_AddKajian').attr("disabled", true);
+                }
+                else if ($('#AlasanBatalPencegahan').val() != "" || $('#AlasanBatalPencegahan').val() != null) {
                     $('#btn_AddKajian').attr("disabled", false);
                     $('#RootCause_KajianResikoDDL').append(new Option(dataPencegahan.Tindakan_Pencegahan, dataPencegahan.Tindakan_Pencegahan));
                     $('#RootCause_KajianResikoDDL').val(dataPencegahan.Tindakan_Pencegahan);

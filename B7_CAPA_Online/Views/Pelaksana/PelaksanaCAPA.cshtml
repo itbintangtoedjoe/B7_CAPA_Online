@@ -39,7 +39,7 @@
                             <div class="row">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-20">Tanggal</label>
-                                    <input type="text" id="date-format" class="form-control form-control-sm"value="@DateTime.Now.ToString("MM/dd/yyyy HH:mm")" readonly disabled>
+                                    <input type="text" id="date-format" class="form-control form-control-sm" value="@DateTime.Now.ToString("MM/dd/yyyy HH:mm")" readonly disabled>
                                 </div>
                                 <div class="form-group mb-2 col-sm-3">
                                     <label class="m-t-40">Pelaksana</label>
@@ -180,7 +180,7 @@
                                     <label class="m-t-20">Upload bukti tindakan perbaikan<span style="color: red">*</span></label>
                                     <div class="input-group mb-3">
                                         <div class="custom-file" style="border: 1px solid #dee0df; padding:5px;">
-                                            <input type="file" class="custom-file-input" name="UploadAttachment" id="uploadAttachmentPerbaikan"  onclick="this.value = null;" multiple />
+                                            <input type="file" class="custom-file-input" name="UploadAttachment" id="uploadAttachmentPerbaikan" onclick="this.value = null;" multiple />
                                         </div>
 
                                         <label id="TxtLampiranCountPerbaikan" class="custom-file-label">Tidak ada File Yang Dipilih</label>
@@ -312,7 +312,7 @@
                                 <label class="m-t-20">Upload Bukti Tindakan Pencegahan<span style="color: red">*</span></label>
                                 <div class="input-group mb-3">
                                     <div class="custom-file" style="border: 1px solid #dee0df; padding:5px;">
-                                        <input type="file" class="custom-file-input" name="UploadAttachment" id="uploadAttachmentPencegahan"  onclick="this.value = null;" style="background-color:green;" multiple />
+                                        <input type="file" class="custom-file-input" name="UploadAttachment" id="uploadAttachmentPencegahan" onclick="this.value = null;" style="background-color:green;" multiple />
                                     </div>
                                     <label id="TxtLampiranCountPencegahan" class="custom-file-label">Tidak ada File Yang Dipilih</label>
 
@@ -746,7 +746,6 @@
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
                     var result = JSON.parse(data);
-                    alert(result[0].HasilCek);
                     if (result[0].HasilCek == 0) {
                         $.ajax({
                             url: 'SubmitApproval',
@@ -771,13 +770,13 @@
 
                         window.location.href = '../PendingTask/TaskList';
                     }
-                   
+
                 },
                 error: function (ex) {
                     alert(JSON.stringify(ex));
                 }
             });
-           
+
         }
         else if (checkPerbaikan < 1 && checkPencegahan < 1 && checkTreatment < 1 && pagestat == 'pageawal'){
             window.location.href = '../PendingTask/TaskList';
@@ -1072,7 +1071,7 @@
                 console.log(error, status);
             }
         });
-       
+
     }
 
     function UploadPencegahan()
@@ -1113,7 +1112,7 @@
             async: false,
             success: function (data) {
                 var result = JSON.parse(data);
-                
+
                 if (result[0].Validate == "Invalid") {
 
                     $.unblockUI();
@@ -1306,7 +1305,7 @@
         } else {
             trhtml += '<tr><td>Belum ada file terpilih</td></tr>';
         }
-            
+
         $('#tbodyAttachmentPerbaikan').empty();
         $("#tblAttachmentPerbaikan").append(trhtml);
     }
@@ -2364,7 +2363,7 @@
                 ToggleBtnDeleteAttTreatment("Disable");
                 $('#txtPotensiKegagalanHasil').val("");
                 $('#txtPenyebabPotensiHasil').val("");
-                $('#txtMDPKegagalanHasil').val(""); 
+                $('#txtMDPKegagalanHasil').val("");
                 $('#UploadTreatment').prop("disabled", true);
             },
             error: function (errormessage) {

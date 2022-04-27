@@ -355,7 +355,7 @@
         })
 
         $('#Tbl_PencegahanPenambahan tbody').on('click', 'button.Reject', function () {
-            RejectPerbaikanPenambahan(this);
+            RejectPencegahanPenambahan(this);
         })
         $('#Tbl_PerbaikanPembatalan tbody').on('click', 'button.Approve', function () {
             ApprovePerbaikanPembatalan(this);
@@ -681,7 +681,7 @@
                                     }
                                 });
                                 Swal.fire({
-                                    title: "Reject Berhasil!",
+                                    title: "Approve Berhasil!",
                                     icon: "success",
                                     showConfirmButton: false,
                                     timer: 1000,
@@ -766,7 +766,7 @@
                     }
                    
                     Swal.fire({
-                        title: "Reject Berhasil!",
+                        title: "Approve Berhasil!",
                         icon: "success",
                         showConfirmButton: false,
                         timer: 1000,
@@ -1474,7 +1474,7 @@
                                     NO_CAPA: noCAPA,
                                     Temp_Status: 12,
                                     Tindakan: 'Pencegahan',
-                                    Tipe: kategori,
+                                    Tipe: 'Penambahan ' + kategori+'',
                                     Tindakan_ID: id
                                 }
                             }),

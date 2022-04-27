@@ -284,26 +284,17 @@
         function checkSession() {
             var usernameAktif = '@Request.RequestContext.HttpContext.Session["Username"]';
             $('#UserLoginXd').text(usernameAktif);
-            $.ajax({
-                url: "../Login/checksession",
-                type: "post",
-                success: function (data) {
-                    console.log(data);
-                    if (data == 'False') {
-                         Swal.fire({
-                            title: 'Session Expired! Silahkan login Kembali ',
-                            icon: "warning",
-                            showConfirmButton: false,
-                            timer: 1000,
-                        }).then(() => {
-                            return window.location.href = '@Url.Action("Index", "Login")';
-                        });
-                    }
-                },
-                error: function (errormessage) {
-                    $('#divLoading').attr("hidden", true);
-                }
-            });
+            if ($('#UserLoginXd').text().length == 0) {
+
+                 Swal.fire({
+                 title: 'Session Expired! Silahkan login Kembali ',
+                 icon: "warning",
+                 showConfirmButton: false,
+                 timer: 1000,
+                 }).then(() => {
+                    return window.location.href = '@Url.Action("Index", "Login")';
+                 });
+            }
 
         }
         function CheckUser(){

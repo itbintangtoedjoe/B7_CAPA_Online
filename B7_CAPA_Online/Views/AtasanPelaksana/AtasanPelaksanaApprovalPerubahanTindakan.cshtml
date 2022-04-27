@@ -351,7 +351,7 @@
         })
 
         $('#Tbl_PencegahanPenambahan tbody').on('click', 'button.Reject', function () {
-            RejectPerbaikanPenambahan(this);
+            RejectPencegahanPenambahan(this);
         })
         $('#Tbl_PerbaikanPembatalan tbody').on('click', 'button.Approve', function () {
             ApprovePerbaikanPembatalan(this);
@@ -671,7 +671,7 @@
                         Model: {
                             NO_CAPA: noCAPA,
                             Temp_Status: 11,
-                            Tindakan: 'Pencegahan',
+                            Tindakan: 'Perubahan Pencegahan',
                             Tindakan_ID: id
                         }
                     }),
@@ -994,7 +994,7 @@
                         Model: {
                             NO_CAPA: noCAPA,
                             Temp_Status: 11,
-                            Tindakan: 'Perbaikan',
+                            Tindakan: 'Pembatalan Perbaikan',
                             Tindakan_ID: id
                         }
                     }),
@@ -1130,7 +1130,7 @@
                         Model: {
                             NO_CAPA: noCAPA,
                             Temp_Status: 11,
-                            Tindakan: 'Pencegahan',
+                            Tindakan: 'Pembatalan Pencegahan',
                             Tindakan_ID: id
                         }
                     }),
@@ -1173,7 +1173,7 @@
                 var data = $('#Tbl_PencegahanPembatalan').DataTable().row(row).data();
                 var id = data['RecordID'];
                 var dictlist = {
-                    NoCAPA: $('#QS_NoCAPA').val(),
+                    NoCAPA: noCAPA,
                     Option: 6,
                     RecordID: id,
                     RejectReason: reject,
@@ -1387,7 +1387,7 @@
                         Model: {
                             NO_CAPA: noCAPA,
                             Temp_Status: 11,
-                            Tindakan: 'Perbaikan',
+                            Tindakan: 'Perbaikan Baru',
                             Tindakan_ID: id
                         }
                     }),
@@ -1527,7 +1527,7 @@
                         Model: {
                             NO_CAPA: noCAPA,
                             Temp_Status: 11,
-                            Tindakan: 'Pencegahan',
+                            Tindakan: 'Pencegahan Baru',
                             Tindakan_ID: id
                         }
                     }),
