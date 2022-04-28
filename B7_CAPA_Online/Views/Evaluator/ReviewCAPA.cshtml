@@ -91,9 +91,9 @@
                                 <button type="button" class="btn btn-primary" id="btn_Submit">Submit</button>
                             </div>
                             @*<div class="col-md-2">
-                          <button type="button" class="btn btn-primary" id="btn_Cancel" style="background-color:orange;">Cancel CAPA</button>
-                    </div>*@
-                            <div class="col-md-2">
+                                      <button type="button" class="btn btn-primary" id="btn_Cancel" style="background-color:orange;">Cancel CAPA</button>
+                                </div>*@
+                            <div class="col-md-2" id="btn_Cancel">
                                 <input type="button" class="btn btn-danger" id="btn_CancelCAPA" value="Cancel CAPA" data-toggle="modal" data-target="#Cancel_Page" style="background-color: orange" />
                             </div>
                         </div>
@@ -254,6 +254,186 @@
             }
         });
     }
+    function GetRentangPerbaikan() {
+            var counts = 0;
+        var dictlist = {
+            NoCapa: $('#input_NoCAPA').val(),
+            Option: 10
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: 'DynamicController?spname=SP_FORM_KOOR4',
+            type: 'post',
+            data: JSON.stringify(dto1),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var result = JSON.parse(data);
+                //console.log(result)
+                var table = $('#Tbl_RentangPerbaikan').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": false,
+                    "searching": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "scrollCollapse": true,
+                    "destroy": true,
+                    "autoWidth": false,
+                    "columns": [
+                        { "data": "RecordID"},
+                        { "data": "NoCAPA_FK" },
+                        { "data": "Nama_Personil" },
+                        { "data": "Tindakan_Perbaikan" },
+                        { "data": "Due_Date" },
+                        {
+                            "data": "Rentang",
+                            "render": function (data, type, row, meta) {
+                                var rentang;
+                                var valrentang = data;
+                                if (isUtama) {
+                                    rentang = $("<select class='form-control' style='padding:0px;'></select>");
+                                    for (var i = 3; i <= 12; i += 3) {
+                                        if (i != 9) {
+                                            var option = $("<option />");
+                                            option.html(i + " Bulan");
+                                            option.val(i);
+                                            rentang.append(option);
+                                            if (i == valrentang) {
+                                                option.attr("selected", "selected")
+                                                rentang.attr("disabled", true);
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    rentang = (valrentang == null) ? ($("<td value='0'>Kosong</td>")) : ($("<td value=" + valrentang + ">" + valrentang + " Bulan</td>"));
+                                }
+
+                                return rentang[0].outerHTML;
+                            }
+                        },
+                        {
+                            "data": "Status_ID",
+                            "render": function (data, type, row, meta) {
+                                     return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                                }
+
+
+                        }
+
+
+
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": [0],
+                            "visible": false,
+                            "searchable": false
+                        },
+                        {
+                            "targets": [6],
+                            "width": "80px"
+                        }
+                    ],
+                    "order": [[1, 'asc']],
+
+                });
+
+
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+     function GetRentangPencegahan() {
+
+        var dictlist = {
+            NoCapa: $('#input_NoCAPA').val(),
+            Option: 11
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: 'DynamicController?spname=SP_FORM_KOOR4',
+            type: 'post',
+            data: JSON.stringify(dto1),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var result = JSON.parse(data);
+                //console.log(result);
+                var table = $('#Tbl_RentangPencegahan').DataTable({
+                    "pageLength": 5,
+                    "lengthChange": false,
+                    "searching": false,
+                    "data": JSON.parse(data),
+                    "select": true,
+                    "scrollCollapse": true,
+                    "destroy": true,
+                    "autoWidth" : false,
+                    "columns": [
+                        { "data": "RecordID"},
+                        { "data": "NoCAPA_FK" },
+                        { "data": "Nama_Personil" },
+                        { "data": "Tindakan_Pencegahan" },
+                        { "data": "Due_Date" },
+                        {
+                            "data": "Rentang",
+                            "render": function (data, type, row, meta) {
+                                var rentang;
+                                var valrentang = data;
+                                if (isUtama) {
+                                    rentang = $("<select class='form-control' style='padding:0px;'></select>");
+                                    for (var i = 3; i <= 12; i += 3) {
+                                        if (i != 9) {
+                                            var option = $("<option />");
+                                            option.html(i + " Bulan");
+                                            option.val(i);
+                                            rentang.append(option);
+                                            if (i == valrentang) {
+                                                option.attr("selected", "selected")
+                                                rentang.attr("disabled", true);
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    rentang = (valrentang == null) ? ($("<td value='0'>Kosong</td>")) : ($("<td value=" + valrentang + ">" + valrentang + " Bulan</td>"));
+                                }
+
+                                return rentang[0].outerHTML;
+                            }
+                        },
+
+                        {
+                            "data": "Status_ID",
+                            "render": function (data, type, row, meta) {
+                                return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
+                            }
+
+                     }],
+                    "columnDefs": [
+                        {
+                            "targets": [0],
+                            "visible": false,
+                            "searchable": false
+                        },
+                        {
+                            "targets": [6],
+                            "width": "80px"
+                        }
+                    ],
+                    "order": [[1, 'asc']],
+
+                });
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
 
     function GetTindakanPerbaikan() {
         var counts = 0;
@@ -261,7 +441,7 @@
             NO_CAPA: $('#input_NoCAPA').val(),
             Option: 5,
             CurrentStatusID: CurrentStatsID,
-            Create_By: ('@Request.QueryString.Get("StatsID")' === '8') ? ("") : ('@Request.RequestContext.HttpContext.Session["NIK"]')
+            Create_By: ('@Request.QueryString.Get("StatsID")' === 8) ? ("") : ('@Request.RequestContext.HttpContext.Session["NIK"]')
         }
         var dto1 = {
             Model: dictlist
@@ -349,7 +529,7 @@
                                                 return "<td>Waiting Evaluator Utama Input Rentang</td>";
                                             }
                                         }
-                                        else if (data === true) {
+                                        else  {
                                             return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                                         }
 
@@ -392,7 +572,7 @@
             NO_CAPA: $('#input_NoCAPA').val(),
             Option: 6,
             CurrentStatusID: CurrentStatsID,
-            Create_By: ('@Request.QueryString.Get("StatsID")' === '8') ? ("") : ('@Request.RequestContext.HttpContext.Session["NIK"]')
+            Create_By: ('@Request.QueryString.Get("StatsID")' === 8) ? ("") : ('@Request.RequestContext.HttpContext.Session["NIK"]')
         }
         var dto1 = {
             Model: dictlist
@@ -764,14 +944,14 @@
     $(document).ready(function () {
            //console.log('@Request.QueryString.Get("StatsID")' != '8')
         $('#div_Buttons').prop('hidden', true);
-        if ('@Request.QueryString.Get("StatsID")' != '8') {
+        if ('@Request.QueryString.Get("StatsID")' != 8) {
             getDDL();
             checkEvaluatorCAPA();
         } else {
             $('#btn_Submit').prop('hidden', true);
-            $('#btn_CancelCAPA').prop('hidden', true);
-            GetTindakanPerbaikan();
-            GetTindakanPencegahan();
+            $('#btn_Cancel').prop('hidden', true);
+            GetRentangPerbaikan();
+            GetRentangPencegahan();
         }
 
 
