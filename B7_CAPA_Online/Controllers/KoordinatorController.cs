@@ -74,8 +74,10 @@ namespace B7_CAPA_Online.Controllers
         }
         public ActionResult CreateCAPA()
         {
-            var list = new ListDepartemen();
-            list.ClearDT();
+            var listDept = new ListDepartemen();
+            var listPIC = new ListPIC();
+            listDept.ClearDT();
+            listPIC.ClearDT();
             return View();
         }
 
@@ -364,6 +366,54 @@ namespace B7_CAPA_Online.Controllers
             return Json(rows);
         }
 
+        public ActionResult AddPIC(List<ListPICModel> Model)
+        {
+            try
+            {
+                Dictionary<string, object> row;
+                List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+               // List<ListPICModel> newList = new List<ListPICModel>();
+               // newList.Add(Model);
+                var list = new ListPIC();
+                var result = list.ToDataTable<ListPICModel>(Model);
+                foreach (DataRow dr in result.Rows)
+                {
+                    row = new Dictionary<string, object>();
+                    foreach (DataColumn col in result.Columns)
+                    {
+                        row.Add(col.ColumnName, dr[col]);
+                    }
+                    rows.Add(row);
+                }
+                return Json(rows);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+        }
+        public ActionResult DeletePIC(ListPICModel Model)
+        {
+            Dictionary<string, object> row;
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            List<ListPICModel> newList = new List<ListPICModel>();
+            newList.Add(Model);
+            string PIC = Convert.ToString(Model.PIC);
+            var list = new ListPIC();
+            var result = list.DeleteRows(PIC);
+            foreach (DataRow dr in result.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in result.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            return Json(rows);
+        }
+
         public ActionResult DeleteAttachment(SPUpdatePelaksanaanParams data)
         {
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
@@ -452,6 +502,12 @@ namespace B7_CAPA_Online.Controllers
         public void ResetDepartments()
         {
             var list = new ListDepartemen();
+            list.ClearDT();
+        }
+
+        public void ResetPIC()
+        {
+            var list = new ListPIC();
             list.ClearDT();
         }
 
@@ -572,7 +628,10 @@ namespace B7_CAPA_Online.Controllers
             string penyimpanganObj = string.Join(",", Model.PenyimpanganCollection.ToArray());
             dynamic penyimpanganList = JsonConvert.DeserializeObject<List<Penyimpangan>>(penyimpanganObj);
 
-            var Departemen_DT = ToDataTable<Dept>(deptList);
+            string picObj = string.Join(",", Model.PICCollection.ToArray());
+            dynamic picList = JsonConvert.DeserializeObject<List<ListPICModel>>(picObj);
+
+            var Departemen_DT = ToDataTable<Dept>(deptList);                      
             var Penyimpangan_DT = new DataTable();
             if (penyimpanganList != null)
             {
@@ -585,11 +644,11 @@ namespace B7_CAPA_Online.Controllers
                 row["PENYIMPANGAN_ID"] = "-";
                 Penyimpangan_DT.Rows.Add(row);                
             }
-
+            var PIC_DT = ToDataTable<ListPICModel>(picList);
             var Path_DT = ToDataTable<Lampiran>(Model.LampiranTerkait);
 
             // Method Insert Data
-            var Recipient = DAL.InsertData(Model, Departemen_DT, Penyimpangan_DT, Path_DT);
+            var Recipient = DAL.InsertData(Model, Departemen_DT, Penyimpangan_DT, Path_DT, PIC_DT);
 
             var list = new List<Recipients>();
             var objects = JsonConvert.DeserializeObject(Recipient.ToString()); // parse as array  
@@ -639,21 +698,39 @@ namespace B7_CAPA_Online.Controllers
 
             EmailSender emailSender = new EmailSender();
             int index = 0;
-            emailSender.SendEmail(new Dictionary<string, object> {
-                {"Nama_Aplikasi", "CAPA" },
-                {"Kategori", "PICReminder" },
-                {"KategoriCAPA", list[0].KategoriCAPA },
-                {"ToEmpName", list[0].ToEmpName },
-                {"Recipient", Recipient},
-                {"TriggerCAPA", list[0].TriggerCAPA},
-                {"Lokasi", list[0].Lokasi},
-                {"StatusCAPA", "1"},
-                {"PIC", list[0].PIC},
-                {"RejectReason", list[0].RejectReason},
-                {"CreateBy", list[0].CreateBy},
-                {"DeskripsiMasalah", list[0].DeskripsiMasalah }
-            },index);
-            index++;
+            //emailSender.SendEmail(new Dictionary<string, object> {
+            //    {"Nama_Aplikasi", "CAPA" },
+            //    {"Kategori", "PICReminder" },
+            //    {"KategoriCAPA", list[0].KategoriCAPA },
+            //    {"ToEmpName", list[0].ToEmpName },
+            //    {"Recipient", Recipient},
+            //    {"TriggerCAPA", list[0].TriggerCAPA},
+            //    {"Lokasi", list[0].Lokasi},
+            //    {"StatusCAPA", "1"},
+            //    {"PIC", list[0].PIC},
+            //    {"RejectReason", list[0].RejectReason},
+            //    {"CreateBy", list[0].CreateBy},
+            //    {"DeskripsiMasalah", list[0].DeskripsiMasalah }
+            //},index);
+            //index++;
+            foreach (var value in list)
+            {
+                emailSender.SendEmail(new Dictionary<string, object> {
+                    {"Nama_Aplikasi", "CAPA" }, // ini hardcode 
+                    {"Kategori", "PICReminder" }, // ini hardcode
+                    {"KategoriCAPA", value.KategoriCAPA }, // dari list diatas
+                    {"ToEmpName", value.ToEmpName }, // dari list diatas
+                    {"Recipient", Recipient}, // recipient object list dari atas
+                    {"TriggerCAPA", value.TriggerCAPA}, // ini dari list diatas
+                    {"Lokasi", value.Lokasi}, // dari list diatas
+                    {"StatusCAPA", "1"}, // ini dari list diatas
+                    {"RejectReason", value.RejectReason}, // ini dari list diatas
+                    {"PIC", value.PIC}, // ini dari list diatas                             
+                    {"CreateBy", value.CreateBy}, // ini dari list diatas
+                    {"DeskripsiMasalah", value.DeskripsiMasalah } // ini dari list diatas
+                }, index);
+                index++;
+            }
 
             return RedirectToAction("TaskList", "PendingTask", new { success = "succeed" });
         }

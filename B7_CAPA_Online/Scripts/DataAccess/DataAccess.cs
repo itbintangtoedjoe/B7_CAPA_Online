@@ -44,7 +44,7 @@ namespace B7_CAPA_Online.Scripts.DataAccess
             return result;
         }
 
-        public string InsertData(DALModel Model, DataTable DepartemenDT, DataTable PenyimpanganDT, DataTable PathDT)
+        public string InsertData(DALModel Model, DataTable DepartemenDT, DataTable PenyimpanganDT, DataTable PathDT, DataTable PIC_DT)
         {
             string result;
             using (IDbConnection db = new SqlConnection(dbDFIS.ConnectionString))
@@ -69,7 +69,8 @@ namespace B7_CAPA_Online.Scripts.DataAccess
                                     Create_By = Model.Create_By,
                                     KodeCAPA = Model.KodeCAPA,
                                     KataKunci = Model.KataKunci,
-                                    UserSupVDRID = Model.UserSupVDRID
+                                    UserSupVDRID = Model.UserSupVDRID,
+                                    PIC_Collection = PIC_DT
 
                                 },
                                 commandType: CommandType.StoredProcedure).ToList();

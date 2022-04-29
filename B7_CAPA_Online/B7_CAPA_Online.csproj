@@ -234,6 +234,7 @@
     <Compile Include="Models\FindCAPAModel.cs" />
     <Compile Include="Models\KoordinatorModel.cs" />
     <Compile Include="Models\ListDepartemenModel.cs" />
+    <Compile Include="Models\ListPICModel.cs" />
     <Compile Include="Models\PendingTaskModel.cs" />
     <Compile Include="Models\SessionChecker.cs" />
     <Compile Include="Models\UserVendor.cs" />

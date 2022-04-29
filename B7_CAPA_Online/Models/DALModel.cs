@@ -28,6 +28,7 @@ namespace B7_CAPA_Online.Models
         public string UserSupVDRID { get; set; }
         public int RecordID { get; set; }
         public string Type { get; set; }
+
     }
 
     public partial class DALModel
@@ -58,6 +59,8 @@ namespace B7_CAPA_Online.Models
         public List<string> DepartemenCollection { get; set; }
         [Required]
         public List<string> PenyimpanganCollection { get; set; }
+        [Required]
+        public List<string> PICCollection { get; set; }
         public string AlasanReject { get; set; }
     }
 
