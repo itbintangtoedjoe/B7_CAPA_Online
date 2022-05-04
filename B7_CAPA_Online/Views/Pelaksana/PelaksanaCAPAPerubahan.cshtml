@@ -327,6 +327,15 @@
         })
         KajianResikoDDL();
         TableKajian();
+        $(window).on('beforeunload', function () {
+            if (tindakan == 'Perbaikan') {
+                UpdateProccess('Perbaikan', 0, referenceID);
+            }
+            if (tindakan == 'Pencegahan') {
+                UpdateProccess('Pencegahan', 0, referenceID);
+
+            }
+        });
 ;        if (tindakan == "Perbaikan") {
             $('#Perbaikan').attr("hidden", false);
             $('#txtPelaksanaPerbaikan').val(namaUser);
@@ -617,6 +626,31 @@
         $('#KajianResikoModal').modal('hide');
     }
 
+    function UpdateProccess(tipe, Process, tindakanid) {
+        var dictlist = {
+            Process: Process,
+            tipe: tipe,
+            recordID: tindakanid,
+            empID: nik,
+            kategori: 'Update Process'
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Update_Pelaksanaan",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto1),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+    }
 
     function KajianResikoDDL() {
         $.ajax({

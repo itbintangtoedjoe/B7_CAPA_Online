@@ -96,7 +96,7 @@
                 getSuperiorNIK();
 
                 var result = JSON.parse(data)[0];
-                var hide = (result.STATUS_ID == CurrentStatsID) ? (false) : (true); // jika status CAPA = 2 maka, hide = false , sebaliknya.
+                var hide = (result.STATUS_ID == 2) ? (false) : (true); // jika status CAPA = 2 maka, hide = false , sebaliknya.
                 if (hide) //Jika hide true maka di hidden.
                     $('#Div_Approval_PV').hide(); //Hide ApprovalPV (~/Shared/ApprovalPV)
 

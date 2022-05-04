@@ -1270,7 +1270,9 @@
         $('#txtPelaksanaPerbaikan').val(pelaksanaName);
         console.log(dataPerbaikan.length);
 
-        if (Departemen.indexOf('Grouping') == 0 && pelaksanaName == null) {
+        if ((Departemen == 'Engineering'
+            || Departemen == 'Quality Control' || Departemen == 'Produksi'
+            || Departemen == 'Warehouse') && pelaksanaName == null) {
             stataction = true;
         }
         else {
@@ -1752,7 +1754,8 @@
         var superior = objPencegahan[0].SUPERIORNAME_1;
         $('#txtSuperiorPencegahan').val(superior);
         $('#txtPelaksanaPencegahan').val(pelaksanaName);
-        if (Departemen.indexOf('Grouping') == 0 && pelaksanaName == null) {
+        if ((Departemen == 'Engineering'
+            || Departemen == 'Quality Control' || Departemen == 'Produksi' || Departemen == 'Warehouse') && pelaksanaName == null)  {
             statactionpencegahan = true;
         }
         else {

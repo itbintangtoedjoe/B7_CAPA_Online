@@ -112,7 +112,7 @@
                 $('#Div_Approval_PV').show();
                 var result = JSON.parse(data)[0];
                 console.log(result.Status_ID);
-                var hide = (result.Status_ID == CurrentStatsID) ? (false) : (true); // jika status CAPA = 2 maka, hide = false , sebaliknya.
+                var hide = (result.Status_ID == 3) ? (false) : (true); // jika status CAPA = 2 maka, hide = false , sebaliknya.
                 if (hide) //Jika hide true maka di hidden.
                 {
                     $('#Div_Approval_PV').hide(); //Hide ApprovalPV (~/Shared/ApprovalPV)
@@ -146,13 +146,15 @@
             success: function (data) {
                 //var queryNIK = $('#input_NIK').val();
                 var result = JSON.parse(data);
+
+                console.log(result);
                 for (var sup of result) {
                     $('#Div_Approval_PV').hide();
                     console.log(NIK + '---' + sup.SupApprover.trim());
                     //if ($('#NIKLogin').val() == queryNIK) {
                     if (sup.SupApprover.trim() == NIK) {
-                        checkStatusCAPA();   
-                        return false;
+                        checkStatusCAPA();
+                       break;
                     } else {
                         $('#Div_Approval_PV').hide();
                     }

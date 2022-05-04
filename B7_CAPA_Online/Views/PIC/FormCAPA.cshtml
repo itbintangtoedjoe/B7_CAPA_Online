@@ -483,7 +483,7 @@
                             </div>
                             <div class="row form-group-sm mb-2">
                                 <div class="col-md-6">
-                                    <button class="form-control-sm" type="button" id="btn_AddWhy"  style="background-color:green;color:white">Add</button>
+                                    <button class="form-control-sm" type="button" id="btn_AddWhy" style="background-color:green;color:white">Add</button>
                                 </div>
                             </div>
                         </form>
@@ -565,14 +565,14 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-md-3">
-                                        <label class="m-t-40">Nama Personil</label>
+                                        <label class="m-t-40" for="NamaPersonilPerbaikan_DDL">Nama Personil</label>
                                         <div class="input-group mb-3">
                                             <select class="form-control" name="NamaPersonilPerbaikan_DDL" id="NamaPersonilPerbaikan_DDL">
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="m-t-40">Alamat Email</label>
+                                        <label class="m-t-40" for="TxtEmailPerbaikan">Alamat Email</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="TxtEmailPerbaikan" readonly>
                                         </div>
@@ -580,7 +580,7 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-md-3">
-                                        <label class="m-t-40">Superior Pelaksana</label>
+                                        <label class="m-t-40" for="TxtSuperiorPerbaikan">Superior Pelaksana</label>
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" name="TxtSuperiorPerbaikan" id="TxtSuperiorPerbaikan" readonly />
                                         </div>
@@ -602,7 +602,7 @@
                                     <div class="col-md-12 mb-3">
                                         <label class="m-t-40" style="visibility: hidden">_</label>
                                         <div class="input-group">
-                                            <button type="button" id="btn_AddPerbaikan" class="btn mb-1 btn-primary "  style="background-color:green;">Tambahkan Tindakan Perbaikan</button>
+                                            <button type="button" id="btn_AddPerbaikan" class="btn mb-1 btn-primary " style="background-color:green;">Tambahkan Tindakan Perbaikan</button>
                                         </div>
                                     </div>
                                 </div>
@@ -677,7 +677,7 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-md-3">
-                                        <label class="m-t-40">Nama Personil</label>
+                                        <label class="m-t-40" for="NamaPersonilPencegahan_DDL">Nama Personil</label>
                                         <div class="input-group mb-3">
                                             <select class="form-control" name="NamaPersonilPencegahan_DDL" id="NamaPersonilPencegahan_DDL">
                                             </select>
@@ -685,7 +685,7 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="m-t-40">Alamat Email</label>
+                                        <label class="m-t-40" for="TxtEmailPencegahan">Alamat Email</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="TxtEmailPencegahan" readonly>
                                         </div>
@@ -693,7 +693,7 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-md-3">
-                                        <label class="m-t-40">Superior Pelaksana</label>
+                                        <label class="m-t-40" for="TxtSuperiorPencegahan">Superior Pelaksana</label>
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" name="TxtSuperiorPencegahan" id="TxtSuperiorPencegahan" readonly />
                                         </div>
@@ -703,7 +703,7 @@
                                     <div class="col-md-12 mb-3">
                                         <label class="m-t-40" style="visibility: hidden">_</label>
                                         <div class="input-group">
-                                            <button type="button" id="btn_AddPencegahan" class="btn mb-1 btn-primary "  style="background-color:green;">Tambahkan Tindakan Pencegahan</button>
+                                            <button type="button" id="btn_AddPencegahan" class="btn mb-1 btn-primary " style="background-color:green;">Tambahkan Tindakan Pencegahan</button>
                                         </div>
                                     </div>
                                 </div>
@@ -764,79 +764,79 @@
                                 </thead>
                                 <tbody id="Tbl_PRCA">
                                     @*<tr>
-                        <td>Tindakan</td>
-                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                        <td>
-                            <select id="SaverityDDL" class="form-control">
-                                <option value="1">1</option>
-                                <option value="4">4</option>
-                                <option value="7">7</option>
-                                <option value="10">10</option>
-                            </select>
-                        </td>
-                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                        <td>
-                            <select id="LikelihoodDDL" class="form-control">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="4">4</option>
-                                <option value="8">8</option>
-                            </select>
-                        </td>
-                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                        <td>
-                            <select id="DetectabilityDDL" class="form-control">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                            </select>
-                        </td>
-                        <td>SxLxD</td>
-                        <td>Level Risk Color</td>
-                        <td>
-                            <select id="DetectabilityDDL" class="form-control">
-                                <option value="Low">Low</option>
-                                <option value="Medium">Medium</option>
-                            </select>
-                        </td>
-                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                        <td>
-                            <select id="LikelihoodDDL" class="form-control">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="4">4</option>
-                                <option value="8">8</option>
-                            </select>
-                        </td>
-                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                        <td>
-                            <select id="DetectabilityDDL" class="form-control">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                            </select>
-                        </td>
-                        <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
-                        <td>
-                            <select id="DetectabilityDDL" class="form-control">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                            </select>
-                        </td>
-                        <td>SxLxD</td>
-                        <td>Level Risk Color</td>
-                        <td>PIC</td>
-                        <td>Due Date</td>
-                        <td>Lainnya</td>
-                        <td><button class="form-control-sm">Delete</button></td>
-                    </tr>*@
+                                            <td>Tindakan</td>
+                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                            <td>
+                                                <select id="SaverityDDL" class="form-control">
+                                                    <option value="1">1</option>
+                                                    <option value="4">4</option>
+                                                    <option value="7">7</option>
+                                                    <option value="10">10</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                            <td>
+                                                <select id="LikelihoodDDL" class="form-control">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="4">4</option>
+                                                    <option value="8">8</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                            <td>
+                                                <select id="DetectabilityDDL" class="form-control">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                </select>
+                                            </td>
+                                            <td>SxLxD</td>
+                                            <td>Level Risk Color</td>
+                                            <td>
+                                                <select id="DetectabilityDDL" class="form-control">
+                                                    <option value="Low">Low</option>
+                                                    <option value="Medium">Medium</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                            <td>
+                                                <select id="LikelihoodDDL" class="form-control">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="4">4</option>
+                                                    <option value="8">8</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                            <td>
+                                                <select id="DetectabilityDDL" class="form-control">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="text" class="form-control form-control-sm" style="width:100%;"></td>
+                                            <td>
+                                                <select id="DetectabilityDDL" class="form-control">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                </select>
+                                            </td>
+                                            <td>SxLxD</td>
+                                            <td>Level Risk Color</td>
+                                            <td>PIC</td>
+                                            <td>Due Date</td>
+                                            <td>Lainnya</td>
+                                            <td><button class="form-control-sm">Delete</button></td>
+                                        </tr>*@
                                 </tbody>
                             </table>
                         </div>
@@ -851,10 +851,10 @@
                             </div>
                         </div>
                         @*<div class="row form-group" style="float: left">
-                            <div class="col-md-3">
-                                <button type="button" id="btn_KillSession" style="background-color: red;" class="btn btn-primary mb-2">Kill session</button>
-                            </div>
-                        </div>*@
+                                <div class="col-md-3">
+                                    <button type="button" id="btn_KillSession" style="background-color: red;" class="btn btn-primary mb-2">Kill session</button>
+                                </div>
+                            </div>*@
                     </div>
                 </div>
             </div>
@@ -886,6 +886,7 @@
     var myDiagramMetode;
     var myDiagramLingukngan;
     var myDiagramMaterial;
+    var dept = '@Request.RequestContext.HttpContext.Session["Departemen"]';
     //Check Jika status 1 maka button submit disabled.
     function checkStatusCAPA() {
         $.ajax({
@@ -1338,12 +1339,24 @@
         var valid = false;
         //console.log(dto);
         //console.log(kategori);
+        var deptperbaikan = $('#DepartemenPerbaikan_DDL').val();
+        var deptpencegahan = $('#DepartemenPencegahan_DDL').val();
         $.each(dto, function (key, value) {
             //console.log('key :' + key + ' value :' + value)
             if (value === '' || value === '-' || value === null) {
                 //console.log('key :' + key + ' value :' + value)
                 if (value === 0 && typeof value === "undefined") {
                     valid = true;
+                }
+                if (deptperbaikan == 'Engineering' || deptperbaikan == 'Quality Control' || deptperbaikan == 'Produksi' || deptperbaikan == 'Warehouse') {
+                    if (key == 'Pelaksana' && value == null) {
+                        valid = true;
+                    }
+                }
+                else if (deptpencegahan == 'Engineering' || deptpencegahan == 'Quality Control' || deptpencegahan == 'Produksi' || deptpencegahan == 'Warehouse') {
+                    if (key == 'Pelaksana' && value == null) {
+                        valid = true;
+                    }
                 }
                 else {
                     return valid = false;
@@ -1364,25 +1377,37 @@
 
                 success: function (data) {
                     var status = JSON.parse(data);
-                    if (status[0].Status_Inserted != 'Tindakan Perbaikan' || status[0].Status_Inserted != 'Tindakan Pencegahan') {
+                    if (status[0].Stat == 'Valid') {
+                        if (status[0].Status_Inserted != 'Tindakan Perbaikan' || status[0].Status_Inserted != 'Tindakan Pencegahan') {
+                            Swal.fire({
+                                title: 'Success',
+                                text: status[0].Status_Inserted + ' berhasil di-input.',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                icon: 'success'
+                            }).then(() => {
+                                if (status[0].Status_Inserted == 'Tindakan Pencegahan') {
+                                    retrieveData();
+                                } else {
+                                    retrieveData2();
+                                }
+                                KajianResikoDDL();
+                                RemoveInputField(kategori);
+                                GetTindakanPencegahanPV();
+                                GetTindakanPerbaikanPV();
+                            });
+                        }
+                    }
+                    else {
                         Swal.fire({
-                            title: 'Success',
-                            text: status[0].Status_Inserted + ' berhasil di-input.',
+                            title: 'Error',
+                            text: 'Tindakan sudah ada!',
                             showConfirmButton: false,
                             timer: 2000,
-                            icon: 'success'
-                        }).then(() => {
-                            if (status[0].Status_Inserted == 'Tindakan Pencegahan') {
-                                retrieveData();
-                            } else {
-                                retrieveData2();
-                            }
-                            KajianResikoDDL();
-                            RemoveInputField(kategori);
-                            GetTindakanPencegahanPV();
-                            GetTindakanPerbaikanPV();
-                        });
+                            icon: 'error'
+                        })
                     }
+
                 },
                 error: function (ex) {
                     alert(JSON.stringify(ex));
@@ -2282,7 +2307,7 @@
     function RemoveInputField(kategori) {
         $('#TxtDeskripsi' + kategori).val("");
         $('#duedate_' + kategori.toLowerCase()).val("");
-        $('#Departemen' + kategori + '_DDL').val("-").trigger("change");
+        $('#Departemen' + kategori + '_DDL').val("-");
         $('#TxtAreaLain' + kategori).val("");
         //$('input[name="Potensi"]').prop("checked", false);
         $('#TxtSuperior' + kategori).val("");
@@ -2423,6 +2448,31 @@
         return JSON.parse(result.responseText);
     }
 
+    function UpdateProccess() {
+        var dictlist = {
+            NoCAPA: $('#input_NoCAPA').val(),
+            NIK: $('#input_Requestor_NIK').val(),
+            Option: 14
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "../Koordinator/DynamicController?spname=SP_SHOW_Tindakan_PV",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto1),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+    }
+
     $(document).ready(function () {
         //isHide = false;
         GetAllRoot();
@@ -2435,7 +2485,10 @@
         getDDLDeptKajianResiko();
         getVendorDDL();
         //console.log(rootcauses);
-
+        $(window).on('beforeunload', function () {
+            alert('test');
+            UpdateProccess();
+        });
         $('#btn_AddPerbaikan').click(function () {
             var dto = {};
             var kategori = "Perbaikan";
@@ -2535,8 +2588,8 @@
             $('#TxtEmailPerbaikan').val("");
             var kategori = 'Perbaikan';
             $('#Div_VendorNamePerbaikan').prop('hidden', true);
-
             var dept = $('#DepartemenPerbaikan_DDL').val();
+
             if (dept == "Others") {
                 $('#Div_VendorNamePerbaikan').prop('hidden', false);
                 $('#VendorPerbaikan_DDL').change(function () {
@@ -2544,7 +2597,19 @@
                     getPICKajianResiko(kategori);
                 });
             }
-            getPICKajianResiko(kategori);
+            if (dept == 'Engineering' || dept == 'Quality Control' || dept == 'Produksi' || dept == 'Warehouse') {
+                $('#NamaPersonilPerbaikan_DDL').prop('hidden', true)
+
+                $('#TxtEmailPerbaikan').prop('hidden', true)
+                $('#TxtSuperiorPerbaikan').prop('hidden', true)
+                $('label[for="NamaPersonilPerbaikan_DDL"]').prop('hidden', true)
+                $('label[for="TxtSuperiorPerbaikan"]').prop('hidden', true)
+                $('label[for="TxtEmailPerbaikan"]').prop('hidden', true)
+            }
+            else {
+
+                getPICKajianResiko(kategori);
+            }
         });
 
         $('#DepartemenPencegahan_DDL').change(function () {
@@ -2560,7 +2625,18 @@
                     getPICKajianResiko(kategori);
                 });
             }
-            getPICKajianResiko(kategori);
+            if (dept == 'Engineering' || dept == 'Quality Control' || dept == 'Produksi' || dept == 'Warehouse') {
+                $('#NamaPersonilPencegahan_DDL').prop('hidden', true)
+                $('#TxtEmailPencegahan').prop('hidden', true)
+                $('#TxtSuperiorPencegahan').prop('hidden', true)
+                $('label[for="NamaPersonilPencegahan_DDL"]').prop('hidden', true)
+                $('label[for="TxtSuperiorPencegahan"]').prop('hidden', true)
+                $('label[for="TxtEmailPencegahan"]').prop('hidden', true)
+            }
+            else {
+
+                getPICKajianResiko(kategori);
+            }
         });
 
         $('#Severity_DDL').change(function () {
@@ -3133,7 +3209,7 @@
                             } else {
                                 label = 'Input field "' + $("label[for='" + elementID[Object.keys(dto.Model)[count]].substring(1) + "']").text() + '" Mohon di isi.';
                             }
-                           
+
                                 Swal.fire({
                                     title: 'Maaf',
                                     text: label,
@@ -3192,7 +3268,7 @@
         });
 
         $("#btn_Submit").click(function () {
-            //window.location.replace('/PendingTask/TaskList');           
+            //window.location.replace('/PendingTask/TaskList');
             $.blockUI();
             var mData = $.ajax({
                 url: 'SubmitToAtasanPIC',
@@ -3207,7 +3283,7 @@
                 }),
                 async: false,
                 contentType: 'application/json; charset=utf-8'
-            });   
+            });
             //console.log((JSON.parse(JSON.parse(mData.responseText))).url)
             for (var i in Object.keys((JSON.parse(JSON.parse(mData.responseText))))) {
                 //*console.log(Object.keys((JSON.parse(JSON.parse(mData.responseText))))[i])
@@ -3235,7 +3311,7 @@
                     success: function (data) {
                         $.unblockUI();
 
-                        var mData = JSON.parse(data);                        
+                        var mData = JSON.parse(data);
                         $.each(mData, function (key, value) {
                             var attr = Object.keys(value)[0];
                             var type;
@@ -3280,7 +3356,7 @@
         //        url: '../PIC/KillSession',
         //        type: 'post',
         //        dataType: 'json',
-        //        contentType: 'application/json; charset=utf-8'            
+        //        contentType: 'application/json; charset=utf-8'
         //    });
         //    console.log('test');
         //});
