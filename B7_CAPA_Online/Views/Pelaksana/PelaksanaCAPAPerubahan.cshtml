@@ -891,6 +891,7 @@
                         $('#Submit').attr("disabled", true);
 
                     }
+                    KajianResikoDDL();
                     @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
 
             }, error: function (ex) {
@@ -998,6 +999,7 @@
                     $('#Submit').attr("disabled", true);
 
                 }
+                KajianResikoDDL();
                 @* $('#txtAreaBerpotensi').val(dataPerbaikan.WhyDesc);*@
             }, error: function (ex) {
                 alert(JSON.stringify(ex));
