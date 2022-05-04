@@ -661,6 +661,10 @@
         $('#RootCause_KajianResikoDDL').prop("disabled", true);
         $('#txtSuperiorTreatment').val(superiorName);
         $('#txtPelaksanaTreatment').val(namaUser);
+        //window.addEventListener('beforeunload', function (e) {
+        //    e.preventDefault();
+        //    e.returnValue = '';
+        //});
         ResetPage();
         ResetPagePencegahan();
         ReloadPage();
@@ -677,6 +681,16 @@
             DisplayPencegahan();
 
         });
+        $(window).on('unload', function () {
+            if ($('#btnPilihPerbaikan').text() == 'Batalkan') {
+                UpdateProccess('Perbaikan', 0, $('#ddlPerbaikan').val());
+            }
+            if ($('#btnPilihPencegahan').text() == 'Batalkan') {
+                UpdateProccess('Pencegahan', 0, $('#ddlPencegahan').val());
+
+            }
+        });
+
 
         $('#ddlKajianTreatment').change(function () {
             //$('#txtPotensiKegagalanHasil').prop("disabled", false);
@@ -889,7 +903,7 @@
         {
             var idPerbaikan = $('#ddlPerbaikan').val();
             $.blockUI();
-            window.location.href = '@Url.Action("PelaksanaCAPAPembatalan","Pelaksana")?NoCAPA=' + noCAPA + '&ReferenceID=' + idPerbaikan +'&Tindakan=Perbaikan';
+            window.location.href = '@Url.Action("PelaksanaCAPAPembatalan","Pelaksana")?NoCAPA=' + noCAPA + '&ReferenceID=' + idPerbaikan + '&Tindakan=Perbaikan';
         }
         else {
             Swal.fire({
@@ -924,7 +938,6 @@
             var idPencegahan = $('#ddlPerbaikan').val();
             $.blockUI();
             window.location.href = '@Url.Action("PelaksanaCAPAPerubahan","Pelaksana")?NoCAPA=' + noCAPA + '&ReferenceID=' + idPencegahan + '&Tindakan=Perbaikan';
-
         }
         else {
             Swal.fire({
@@ -941,16 +954,16 @@
             var idPencegahan = $('#ddlPencegahan').val();
             $.blockUI();
             window.location.href = '@Url.Action("PelaksanaCAPAPerubahan","Pelaksana")?NoCAPA=' + noCAPA + '&ReferenceID=' + idPencegahan + '&Tindakan=Pencegahan';
-
+            $.unblockUI();
         }
         else
         {
-              Swal.fire({
-                        title: "Khusus Pelaksana yang ditunjuk !",
-                  icon: "error",
-                        showConfirmButton: false,
-                        timer: 1000,
-                    })
+            Swal.fire({
+                title: "Khusus Pelaksana yang ditunjuk !",
+                icon: "error",
+                showConfirmButton: false,
+                timer: 1000,
+             })
         }
     });
     $('#uploadAttachmentPerbaikan').change(function () {
@@ -1001,7 +1014,10 @@
                 $('#ddlPerbaikan').append('<option value="' + dataPerbaikan[i].RecordID + '">' + dataPerbaikan[i].Tindakan_Perbaikan + '</option>');
             }
             if (dataPerbaikan[i].Status_ID == 6 && dataPerbaikan[i].Pelaksana_Perbaikan == nik) {
-                checkPerbaikan +=1 ;
+                checkPerbaikan += 1;
+            }
+            else if (dataPerbaikan[i].Pelaksana_Perbaikan == null) {
+                checkPerbaikan += 1;
             }
         }
         $('#ddlPerbaikan').select2();
@@ -1236,9 +1252,11 @@
         var idPerbaikan = $('#ddlPerbaikan').val();
         let objPerbaikan = dataPerbaikan.filter(item => item.RecordID == idPerbaikan);
         var dueDate = moment(objPerbaikan[0].Due_Date);
-        console.log(objPerbaikan[0]);
+        var isprocess = objPerbaikan[0].IS_PROCESS;
+        var Departemen = objPerbaikan[0].Departemen_Perbaikan;
+        var pelaksanaName = objPerbaikan[0].Nama_Personil;
+        console.log(isprocess);
         $('#txtTindakanPerbaikan').val(objPerbaikan[0].Tindakan_Perbaikan);
-        $('#txtTindakanPerbaikanRev').val(objPerbaikan[0].Tindakan_PerbaikanRev);
         $('#dueDatePerbaikan').val(dueDate.format("YYYY-MM-DD"));
         $('#txtHasilPerbaikan').val(objPerbaikan[0].Hasil_Perbaikan);
         $('#txtRootCausePerbaikan').val(objPerbaikan[0].WhyDesc);
@@ -1247,23 +1265,27 @@
         ToggleBtnDeleteAttPerbaikan("Disable");
         var ddlText = $("#ddlPerbaikan option:selected").text();
         var status = "Menunggu Input Pelaksana";
-        var pelaksanaName = objPerbaikan[0].EmpName;
         var superior = objPerbaikan[0].SUPERIORNAME_1;
         $('#txtSuperiorPerbaikan').val(superior);
         $('#txtPelaksanaPerbaikan').val(pelaksanaName);
         console.log(dataPerbaikan.length);
-        for (var i = 0; i < dataPerbaikan.length; i++) {
-            var pelaksana = dataPerbaikan[i].Pelaksana_Perbaikan;
-            if (objPerbaikan[0].Pelaksana_Perbaikan == nik) {
-                stataction = true;
-            }
-            else
-            {
-                stataction = false;
-            }
-            if (pelaksana == nik) {
-                statuser = true;
-                break;
+
+        if (Departemen.indexOf('Grouping') == 0 && pelaksanaName == null) {
+            stataction = true;
+        }
+        else {
+            for (var i = 0; i < dataPerbaikan.length; i++) {
+                var pelaksana = dataPerbaikan[i].Pelaksana_Perbaikan;
+                if (objPerbaikan[0].Pelaksana_Perbaikan == nik) {
+                    stataction = true;
+                }
+                else {
+                    stataction = false;
+                }
+                if (pelaksana == nik) {
+                    statuser = true;
+                    break;
+                }
             }
         }
         if (statuser == true) {
@@ -1419,15 +1441,40 @@
     $('#btnPilihPerbaikan').click(function (e) {
         var currentText = $(this).text();
         if (currentText == "Pilih") {
+            FindPerbaikan();
+            var idPerbaikan = $('#ddlPerbaikan').val();
+            let objPerbaikan = dataPerbaikan.filter(item => item.RecordID == idPerbaikan);
+            var isprocess = objPerbaikan[0].IS_PROCESS;
+            var Departemen = objPerbaikan[0].Departemen_Perbaikan;
+            var pelaksanaName = objPerbaikan[0].Nama_Personil;
+            var lastaccess = objPerbaikan[0].Updateby;
+
+            console.log(isprocess);
+            if (isprocess == true) {
+                Swal.fire({
+                    title:'Error' ,
+                    text: "Sedang diakses oleh " + lastaccess + "!",
+                    icon: "error",
+                    timer: 2000,
+                    showConfirmButton: false
+                })
+                return  
+            }
+
             $(this).text("Batalkan");
             $('#ddlPerbaikan').prop("disabled", true);
             $('#btnActionPerbaikan').prop("disabled", false);
+            if (Departemen.indexOf('Grouping') == 0 && pelaksanaName == null) {
+
+                UpdateProccess('Perbaikan', 1, $('#ddlPerbaikan').val());
+            }
+
             if (stataction == true)
             {
                 $('#txtHasilPerbaikan').prop("disabled", false);
                 $('#uploadAttachmentPerbaikan').prop("disabled", false);
                 $('#btnSimpanPerbaikan').prop("disabled", false);
-                $('#UploadPerbaikan').prop("disabled",false)
+                $('#UploadPerbaikan').prop("disabled", false);
             }
             ToggleBtnDeleteAttPerbaikan("Enable");
         } else {
@@ -1444,9 +1491,37 @@
             $('#btnEnableUbahPerbaikan').html('Edit Tindakan Perbaikan');
             $("#modePerbaikan").val("Continue");
             ToggleBtnDeleteAttPerbaikan("Disable");
+            UpdateProccess('Perbaikan', 0, $('#ddlPerbaikan').val());
         }
     });
+    //function CheckProccess() {
 
+    //}
+    function UpdateProccess(tipe,Process,tindakanid) {
+        var dictlist = {
+            Process: Process,
+            tipe: tipe,
+            recordID: tindakanid,
+            empID: nik,
+            kategori: 'Update Process'
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Update_Pelaksanaan",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto1),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                $('#ddlPerbaikan').attr("disabled", false);
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+    }
     //$('#btnEnableUbahPerbaikan').click(function (e) {
     //    e.preventDefault();
     //    var currentMode = $("#modePerbaikan").val();
@@ -1521,10 +1596,12 @@
                     timer: 1000,
                 }).then(() => {
                     pagestat = 'valid';
+                    FindKajian();
                     ResetPage();
                     ToggleBtnDeleteAttPerbaikan("Disable");
                     FindPerbaikan();
                     PopulateDDLPerbaikan();
+
                 })
                 $('#ddlPerbaikan').attr("disabled", false);
             },
@@ -1647,6 +1724,9 @@
             if (dataPencegahan[i].Status_ID == 6 && dataPencegahan[i].Pelaksana_Pencegahan == nik) {
                 checkPencegahan +=1;
             }
+            else if (dataPencegahan[i].Pelaksana_Pencegahan == null) {
+                checkPencegahan += 1;
+            }
         }
         $('#ddlPencegahan').select2();
         checkCAPA();
@@ -1661,6 +1741,7 @@
         $('#txtTindakanPencegahan').val(objPencegahan[0].Tindakan_Pencegahan);
         $('#dueDatePencegahan').val(DueDate.format("YYYY-MM-DD"));
         $('#txtHasilPencegahan').val(objPencegahan[0].Hasil_Pencegahan);
+        $('#txtRootCausePencegahan').val(objPencegahan[0].WhyDesc);
         GetPencegahanAttachments();
         ToggleBtnDeleteAttPencegahan("Disable");
 
@@ -1671,23 +1752,29 @@
         var superior = objPencegahan[0].SUPERIORNAME_1;
         $('#txtSuperiorPencegahan').val(superior);
         $('#txtPelaksanaPencegahan').val(pelaksanaName);
-        for (var i = 0; i < dataPencegahan.length; i++) {
-            var pelaksana = dataPencegahan[i].Pelaksana_Pencegahan;
-            if (objPencegahan[0].Pelaksana_Pencegahan == nik) {
-                statactionpencegahan = true;
-            }
-            else {
-                statactionpencegahan = false;
-            }
-            if (pelaksana == nik) {
-                statuser = true;
-                break;
+        if (Departemen.indexOf('Grouping') == 0 && pelaksanaName == null) {
+            statactionpencegahan = true;
+        }
+        else {
+            for (var i = 0; i < dataPencegahan.length; i++) {
+                var pelaksana = dataPencegahan[i].Pelaksana_Pencegahan;
+                if (objPencegahan[0].Pelaksana_Pencegahan == nik) {
+                    statactionpencegahan = true;
+                }
+                else {
+                    statactionpencegahan = false;
+                }
+                if (pelaksana == nik) {
+                    statuser = true;
+                    break;
+                }
             }
         }
+        
         if (statuser == true) {
 
+            status = "Waiting Upload Bukti";
             $('#txtStatusPencegahan').html('<strong>Status: ' + status + '</strong>');
-            $('#txtRootCausePencegahan').val(objPencegahan[0].WhyDesc);
         }
 
         var textperb = $('#ddlPencegahan option:selected').text();
@@ -1829,8 +1916,29 @@
     $('#btnPilihPencegahan').click(function (e) {
         var currentText = $(this).text();
         if (currentText == "Pilih") {
+            var idPerbaikan = $('#ddlPencegahan').val();
+            let objPencegahan = dataPencegahan.filter(item => item.RecordID == idPerbaikan);
+            var isprocess = objPencegahan[0].IS_PROCESS;
+            var Departemen = objPencegahan[0].Departemen_Pencegahan;
+            var pelaksanaName = objPencegahan[0].Nama_Personil;
+            var lastaccess = objPencegahan[0].Updateby;
+
+            if (isprocess == true) {
+                Swal.fire({
+                    title: 'Error',
+                    text: "Sedang diakses oleh " + lastaccess + "!",
+                    icon: "error",
+                    timer: 2000,
+                    showConfirmButton: false
+                })
+                return
+            }
             $(this).text("Batalkan");
             $('#ddlPencegahan').prop("disabled", true);
+            if (Departemen.indexOf('Grouping') == 0 && pelaksanaName == null) {
+
+                UpdateProccess('Pencegahan', 1, $('#ddlPencegahan').val());
+            }
             if (statactionpencegahan == true) {
                 $('#txtHasilPencegahan').prop("disabled", false);
                 $('#uploadAttachmentPencegahan').prop("disabled", false);
@@ -1847,10 +1955,11 @@
             $('#txtHasilPencegahan').prop("disabled", true);
             $('#uploadAttachmentPencegahan').prop("disabled", true);
             $('#btnSimpanPencegahan').prop("disabled", true);
+            UpdateProccess('Pencegahan', 0, $('#ddlPencegahan').val());
             ToggleBtnDeleteAttPencegahan("Disable");
         }
     });
-
+        
     //$('#btnEnableUbahPencegahan').click(function (e) {
     //    e.preventDefault();
     //    var currentMode = $("#modePencegahan").val();
@@ -1926,6 +2035,7 @@
                     timer: 1000,
                 }).then(() => {
                     pagestat = 'valid';
+                    FindKajian();
                     ResetPagePencegahan();
                     ToggleBtnDeleteAttPencegahan("Disable");
                     FindPencegahan();
