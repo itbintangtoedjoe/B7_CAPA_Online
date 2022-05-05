@@ -130,9 +130,9 @@
                                 <div class="col-sm-2" style="text-align:right">
                                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="btnActionPerbaikan" disabled>Action</button>
                                     <div class="dropdown-menu" style="width:auto; color:black;">
-                                        <a class="dropdown-item" href="#" id="btnEnableUbahPerbaikan">Ubah Tindakan Perbaikan</a>
-                                        <a class="dropdown-item" href="#" id="btnTambahPerbaikan">Tambah Tindakan </a>
-                                        <a class="dropdown-item" href="#" id="btnCancelPerbaikan">Cancel Tindakan Perbaikan</a>
+                                        <a class="dropdown-item" href="javascript:void()" id="btnEnableUbahPerbaikan">Ubah Tindakan Perbaikan</a>
+                                        <a class="dropdown-item" href="javascript:void()" id="btnTambahPerbaikan">Tambah Tindakan </a>
+                                        <a class="dropdown-item"  href="javascript:void()" id="btnCancelPerbaikan">Cancel Tindakan Perbaikan</a>
                                     </div>
                                 </div>
                             </div>
@@ -257,9 +257,9 @@
                             <div class="col-sm-2" style="text-align:right">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="btnActionPencegahan" disabled>Action</button>
                                 <div class="dropdown-menu" style="width:auto">
-                                    <a class="dropdown-item" id="btnEnableUbahPencegahan" href="#">Ubah Tindakan Pencegahan</a>
-                                    <a class="dropdown-item" href="#" id="btnTambahTindakan">Tambah Tindakan </a>
-                                    <a class="dropdown-item" id="btnCancelPencegahan" href="#">Cancel Tindakan Pencegahan</a>
+                                    <a class="dropdown-item" id="btnEnableUbahPencegahan" href="javascript:void()">Ubah Tindakan Pencegahan</a>
+                                    <a class="dropdown-item" id="btnTambahTindakan" href="javascript:void()">Tambah Tindakan </a>
+                                    <a class="dropdown-item" id="btnCancelPencegahan" href="javascript:void()">Cancel Tindakan Pencegahan</a>
                                 </div>
                             </div>
                         </div>
@@ -626,6 +626,8 @@
     var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
     var namaUser = '@Request.RequestContext.HttpContext.Session["NamaUser"]';
     var superiorName = '@Request.RequestContext.HttpContext.Session["SuperiorName"]';
+
+    var currentDept = '@Request.RequestContext.HttpContext.Session["Departemen"]';
     var dataPerbaikan, attachmentPerbaikan, dataPencegahan, attachmentPencegahan;
     var dataKajian;
     var attachmentKajian;
@@ -886,14 +888,25 @@
     });
 
     $('#btnTambahPerbaikan').click(function () {
-        var idPerbaikan = $('#ddlPerbaikan').val();
         var tindakan = 'Perbaikan';
+        var idPerbaikan = $('#ddlPerbaikan').val();
+        var idPencegahan = $('#ddlPencegahan').val();
+        if ($('#btnPilihPencegahan').text() == 'Batalkan') {
+            UpdateProccess('Pencegahan', 0, idPencegahan)
+        }
+        UpdateProccess('Perbaikan', 0, idPerbaikan);
         $.blockUI();
         window.location.href = '@Url.Action("PelaksanaTambahPerbaikan","Pelaksana")?NoCAPA=' + noCAPA + '&ReferenceID=' + idPerbaikan + '&Tindakan=' + tindakan;
     });
 
     $('#btnTambahTindakan').click(function () {
-        var tindakan = 'Pencegahan'
+        var tindakan = 'Pencegahan';
+        var idPencegahan = $('#ddlPencegahan').val();
+        var idPerbaikan = $('#ddlPerbaikan').val();
+        if ($('#btnPilihPerbaikan').text() == 'Batalkan') {
+            UpdateProccess('Perbaikan', 0, idPerbaikan)
+        }
+        UpdateProccess('Pencegahan', 0, idPencegahan);
         $.blockUI();
         window.location.href = '@Url.Action("PelaksanaTambahPerbaikan","Pelaksana")?NoCAPA=' + noCAPA + '&Tindakan=' + tindakan;
     });
@@ -902,12 +915,16 @@
         if (stataction == true)
         {
             var idPerbaikan = $('#ddlPerbaikan').val();
+            var idPencegahan = $('#ddlPencegahan').val();
+            if ($('#btnPilihPencegahan').text() == 'Batalkan') {
+                UpdateProccess('Pencegahan', 0, idPencegahan)
+            }
             $.blockUI();
             window.location.href = '@Url.Action("PelaksanaCAPAPembatalan","Pelaksana")?NoCAPA=' + noCAPA + '&ReferenceID=' + idPerbaikan + '&Tindakan=Perbaikan';
         }
         else {
             Swal.fire({
-                title: "Khusus Pelaksana yang ditunjuk !",
+                title: "Khusus Pelaksana atau Departemen yang ditunjuk !",
                 icon: "error",
                 showConfirmButton: false,
                 timer: 1000,
@@ -919,13 +936,18 @@
         if (statactionpencegahan == true)
         {
             var idPencegahan = $('#ddlPencegahan').val();
+            var idPerbaikan = $('#ddlPerbaikan').val();
+            if ($('#btnPilihPerbaikan').text() == 'Batalkan') {
+                UpdateProccess('Perbaikan', 0, idPerbaikan)
+            }
             $.blockUI();
+
             window.location.href = '@Url.Action("PelaksanaCAPAPembatalan","Pelaksana")?NoCAPA=' + noCAPA + '&ReferenceID=' + idPencegahan + '&Tindakan=Pencegahan';
 
         }
         else {
             Swal.fire({
-                title: "Khusus Pelaksana yang ditunjuk !",
+                title: "Khusus Pelaksana atau Departemen yang ditunjuk !",
                 icon: "error",
                 showConfirmButton: false,
                 timer: 1000,
@@ -935,13 +957,17 @@
     $('#btnEnableUbahPerbaikan').click(function () {
         if (stataction == true)
         {
-            var idPencegahan = $('#ddlPerbaikan').val();
+            var idPerbaikan = $('#ddlPerbaikan').val();
+            var idPencegahan = $('#ddlPencegahan').val();
+            if ($('#btnPilihPencegahan').text() == 'Batalkan') {
+                UpdateProccess('Pencegahan', 0, idPencegahan)
+            }
             $.blockUI();
-            window.location.href = '@Url.Action("PelaksanaCAPAPerubahan","Pelaksana")?NoCAPA=' + noCAPA + '&ReferenceID=' + idPencegahan + '&Tindakan=Perbaikan';
+            window.location.href = '@Url.Action("PelaksanaCAPAPerubahan","Pelaksana")?NoCAPA=' + noCAPA + '&ReferenceID=' + idPerbaikan + '&Tindakan=Perbaikan';
         }
         else {
             Swal.fire({
-                title: "Khusus Pelaksana yang ditunjuk !",
+                title: "Khusus Pelaksana atau Departemen yang ditunjuk  !",
                 icon: "error",
                 showConfirmButton: false,
                 timer: 1000,
@@ -952,6 +978,10 @@
         if (statactionpencegahan == true)
         {
             var idPencegahan = $('#ddlPencegahan').val();
+            var idPerbaikan = $('#ddlPerbaikan').val();
+            if ($('#btnPilihPerbaikan').text() == 'Batalkan') {
+                UpdateProccess('Perbaikan', 0, idPerbaikan)
+            }
             $.blockUI();
             window.location.href = '@Url.Action("PelaksanaCAPAPerubahan","Pelaksana")?NoCAPA=' + noCAPA + '&ReferenceID=' + idPencegahan + '&Tindakan=Pencegahan';
             $.unblockUI();
@@ -959,7 +989,7 @@
         else
         {
             Swal.fire({
-                title: "Khusus Pelaksana yang ditunjuk !",
+                title: "Khusus Pelaksana atau Departemen yang ditunjuk !",
                 icon: "error",
                 showConfirmButton: false,
                 timer: 1000,
@@ -1016,7 +1046,7 @@
             if (dataPerbaikan[i].Status_ID == 6 && dataPerbaikan[i].Pelaksana_Perbaikan == nik) {
                 checkPerbaikan += 1;
             }
-            else if (dataPerbaikan[i].Pelaksana_Perbaikan == null) {
+            else if (dataPerbaikan[i].Pelaksana_Perbaikan == null && dataPerbaikan[i].Departemen_Perbaikan == currentDept) {
                 checkPerbaikan += 1;
             }
         }
@@ -1270,9 +1300,7 @@
         $('#txtPelaksanaPerbaikan').val(pelaksanaName);
         console.log(dataPerbaikan.length);
 
-        if ((Departemen == 'Engineering'
-            || Departemen == 'Quality Control' || Departemen == 'Produksi'
-            || Departemen == 'Warehouse') && pelaksanaName == null) {
+        if (Departemen == currentDept && pelaksanaName == null) {
             stataction = true;
         }
         else {
@@ -1452,7 +1480,7 @@
             var lastaccess = objPerbaikan[0].Updateby;
 
             console.log(isprocess);
-            if (isprocess == true) {
+            if (isprocess == true && lastaccess != nik) {
                 Swal.fire({
                     title:'Error' ,
                     text: "Sedang diakses oleh " + lastaccess + "!",
@@ -1460,7 +1488,7 @@
                     timer: 2000,
                     showConfirmButton: false
                 })
-                return  
+                return
             }
 
             $(this).text("Batalkan");
@@ -1726,7 +1754,7 @@
             if (dataPencegahan[i].Status_ID == 6 && dataPencegahan[i].Pelaksana_Pencegahan == nik) {
                 checkPencegahan +=1;
             }
-            else if (dataPencegahan[i].Pelaksana_Pencegahan == null) {
+            else if (dataPencegahan[i].Pelaksana_Pencegahan == null && dataPencegahan[i].Departemen_Pencegahan == currentDept) {
                 checkPencegahan += 1;
             }
         }
@@ -1740,6 +1768,7 @@
         var idPencegahan = $('#ddlPencegahan').val();
         let objPencegahan = dataPencegahan.filter(item => item.RecordID == idPencegahan);
         var DueDate = moment(objPencegahan[0].Due_Date);
+        var Departemen = objPencegahan[0].Departemen_Pencegahan;
         $('#txtTindakanPencegahan').val(objPencegahan[0].Tindakan_Pencegahan);
         $('#dueDatePencegahan').val(DueDate.format("YYYY-MM-DD"));
         $('#txtHasilPencegahan').val(objPencegahan[0].Hasil_Pencegahan);
@@ -1754,8 +1783,8 @@
         var superior = objPencegahan[0].SUPERIORNAME_1;
         $('#txtSuperiorPencegahan').val(superior);
         $('#txtPelaksanaPencegahan').val(pelaksanaName);
-        if ((Departemen == 'Engineering'
-            || Departemen == 'Quality Control' || Departemen == 'Produksi' || Departemen == 'Warehouse') && pelaksanaName == null)  {
+        if (Departemen == currentDept && $('#txtPelaksanaPencegahan').val() == "") {
+            alert('test');
             statactionpencegahan = true;
         }
         else {
@@ -1773,7 +1802,7 @@
                 }
             }
         }
-        
+
         if (statuser == true) {
 
             status = "Waiting Upload Bukti";
@@ -1921,12 +1950,11 @@
         if (currentText == "Pilih") {
             var idPerbaikan = $('#ddlPencegahan').val();
             let objPencegahan = dataPencegahan.filter(item => item.RecordID == idPerbaikan);
-            var isprocess = objPencegahan[0].IS_PROCESS;
             var Departemen = objPencegahan[0].Departemen_Pencegahan;
+            var isprocess = objPencegahan[0].IS_PROCESS;
             var pelaksanaName = objPencegahan[0].Nama_Personil;
             var lastaccess = objPencegahan[0].Updateby;
-
-            if (isprocess == true) {
+            if (isprocess == true && lastaccess != nik) {
                 Swal.fire({
                     title: 'Error',
                     text: "Sedang diakses oleh " + lastaccess + "!",
@@ -1962,7 +1990,7 @@
             ToggleBtnDeleteAttPencegahan("Disable");
         }
     });
-        
+
     //$('#btnEnableUbahPencegahan').click(function (e) {
     //    e.preventDefault();
     //    var currentMode = $("#modePencegahan").val();

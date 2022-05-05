@@ -132,6 +132,7 @@
 
     function getSuperiorNIK() {
         var NIK = '@Request.RequestContext.HttpContext.Session["NIK"]';
+        var Departemen =  '@Request.RequestContext.HttpContext.Session["Departemen"]';
         $.ajax({
             url: '../AtasanPIC/SubmitApproval',
             type: 'post',
@@ -150,12 +151,14 @@
                 console.log(result);
                 for (var sup of result) {
                     $('#Div_Approval_PV').hide();
-                    console.log(NIK + '---' + sup.SupApprover.trim());
+                    console.log(NIK + '---' + sup.SupApprover);
+                    var supapprover = sup.SupApprover;
                     //if ($('#NIKLogin').val() == queryNIK) {
-                    if (sup.SupApprover.trim() == NIK) {
+                    if (sup.SupApprover == NIK) {
                         checkStatusCAPA();
-                       break;
-                    } else {
+                        return;
+                    }
+                    else {
                         $('#Div_Approval_PV').hide();
                     }
                 }

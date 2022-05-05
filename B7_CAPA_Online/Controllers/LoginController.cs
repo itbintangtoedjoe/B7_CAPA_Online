@@ -247,7 +247,7 @@ namespace B7_CAPA_Online.Controllers
                         Session["NIK"] = objectKary[0]["NIK"];
                         Session["Username"] = username;
                         Session["NamaUser"] = objectKary[0]["Username"];
-                        Session["Departemen"] = objectKary[0]["Org_Group_Name"];
+                        Session["Departemen"] = objectKary[0]["Dept"];
                         Session["Lokasi"] = objectKary[0]["Location"];
                         Session["SuperiorName"] = objectKary[0]["SuperiorName"];
                         if(objectKary[0]["Email_1"] != "")
@@ -315,7 +315,7 @@ namespace B7_CAPA_Online.Controllers
                                 Session["NIK"] = objectKary[0]["NIK"];
                                 Session["Username"] = username;
                                 Session["NamaUser"] = objectKary[0]["Username"];
-                                Session["Departemen"] = objectKary[0]["Org_Group_Name"];
+                                Session["Departemen"] = objectKary[0]["Dept"];
                                 Session["Lokasi"] = objectKary[0]["Location"];
                                 Session["SuperiorName"] = objectKary[0]["SuperiorName"];
                             }
