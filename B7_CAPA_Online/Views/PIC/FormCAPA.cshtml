@@ -564,7 +564,7 @@
                                     </div>
                                 </div>
                                 <div class="row form-group">
-                                    <div class="col-md-3">
+                                    <div class="col-md-3" id="NamaPersonilPerbaikan_Div">
                                         <label class="m-t-40" for="NamaPersonilPerbaikan_DDL">Nama Personil</label>
                                         <div class="input-group mb-3">
                                             <select class="form-control" name="NamaPersonilPerbaikan_DDL" id="NamaPersonilPerbaikan_DDL">
@@ -676,7 +676,7 @@
                                     </div>
                                 </div>
                                 <div class="row form-group">
-                                    <div class="col-md-3">
+                                    <div class="col-md-3" id="NamaPersonilPencegahan_Div">
                                         <label class="m-t-40" for="NamaPersonilPencegahan_DDL">Nama Personil</label>
                                         <div class="input-group mb-3">
                                             <select class="form-control" name="NamaPersonilPencegahan_DDL" id="NamaPersonilPencegahan_DDL">
@@ -2598,8 +2598,7 @@
                 });
             }
             if (dept == 'Engineering' || dept == 'Quality Control' || dept == 'Produksi' || dept == 'Warehouse') {
-                $('#NamaPersonilPerbaikan_DDL').prop('hidden', true)
-
+                $('#NamaPersonilPerbaikan_Div').prop('hidden', true)
                 $('#TxtEmailPerbaikan').prop('hidden', true)
                 $('#TxtSuperiorPerbaikan').prop('hidden', true)
                 $('label[for="NamaPersonilPerbaikan_DDL"]').prop('hidden', true)
@@ -2607,7 +2606,13 @@
                 $('label[for="TxtEmailPerbaikan"]').prop('hidden', true)
             }
             else {
-
+                $('#NamaPersonilPerbaikan_Div').prop('hidden', false)
+                $('#TxtEmailPerbaikan').prop('hidden', false)
+                $('#TxtSuperiorPerbaikan').prop('hidden', false)
+                $('label[for="NamaPersonilPerbaikan_DDL"]').prop('hidden', false)
+                $('label[for="TxtSuperiorPerbaikan"]').prop('hidden', false)
+                $('label[for="TxtEmailPerbaikan"]').prop('hidden', false)
+                $('#TxtSuperiorPerbaikan').val("");
                 getPICKajianResiko(kategori);
             }
         });
@@ -2626,7 +2631,7 @@
                 });
             }
             if (dept == 'Engineering' || dept == 'Quality Control' || dept == 'Produksi' || dept == 'Warehouse') {
-                $('#NamaPersonilPencegahan_DDL').prop('hidden', true)
+                $('#NamaPersonilPencegahan_Div').prop('hidden', true)
                 $('#TxtEmailPencegahan').prop('hidden', true)
                 $('#TxtSuperiorPencegahan').prop('hidden', true)
                 $('label[for="NamaPersonilPencegahan_DDL"]').prop('hidden', true)
@@ -2634,7 +2639,13 @@
                 $('label[for="TxtEmailPencegahan"]').prop('hidden', true)
             }
             else {
-
+                $('#NamaPersonilPencegahan_Div').prop('hidden', false)
+                $('#TxtEmailPencegahan').prop('hidden', false)
+                $('#TxtSuperiorPencegahan').prop('hidden', false)
+                $('label[for="NamaPersonilPencegahan_DDL"]').prop('hidden', false)
+                $('label[for="TxtSuperiorPencegahan"]').prop('hidden', false)
+                $('label[for="TxtEmailPencegahan"]').prop('hidden', false)
+                $('#TxtSuperiorPencegahan').val("");
                 getPICKajianResiko(kategori);
             }
         });

@@ -26,7 +26,7 @@
                                 <label class="m-t-20">Status CAPA<span style="color: red">*</span></label>
                                 <select class="form-control form-control-sm" id="Status">
                                 </select>
-                            </div>x
+                            </div>
                         </div>
                         <div class="row form-group-sm">
                             <div class="col-md-6">
@@ -74,31 +74,36 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered zero-configuration" id="Tbl_Filter">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>No CAPA</th>
-                                        <th>PIC CAPA</th>
-                                        <th>Departemen</th>
-                                        <th>Site</th>
-                                        <th>Kategori CAPA</th>
-                                        <th>Deskripsi Singkat</th>
-                                        <th>Status</th>
-                                        <th>Detail Status</th>
-                                        <th>Alasan Cancelled</th>
-                                        <th>Catatan</th>
-                                        <th>Tanggal Cancelled</th>
-                                        <th>Outstanding</th>
-                                        <th>Tanggal Outstanding</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-bordered zero-configuration" id="Tbl_Filter">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>No CAPA</th>
+                                            <th>PIC CAPA</th>
+                                            <th>Departemen</th>
+                                            <th>Site</th>
+                                            <th>Kategori CAPA</th>
+                                            <th>Deskripsi Singkat</th>
+                                            <th>Status</th>
+                                            <th>Detail Status</th>
+                                            <th>Alasan Cancelled</th>
+                                            <th>Catatan</th>
+                                            <th>Tanggal Cancelled</th>
+                                            <th>Outstanding</th>
+                                            <th>Tanggal Outstanding</th>
+                                            <th>Di Cancel Oleh</th>
+                                            <th>No CAPA Baru</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
                         </div>
 
                     </div>
@@ -134,6 +139,20 @@
         //});
     });
     function Filter() {
+
+
+        var dateStart = new Date($('#Start_Date').val())
+        var dateEnd = new Date($('#End_Date').val())
+        if (dateEnd.getTime() < dateStart.getTime()) {
+            Swal.fire({
+                title: 'Maaf',
+                text: 'Tanggal Date End tidak boleh kurang dari Tanggal Date Start',
+                icon: 'warning',
+                showConfirmButton: false,
+                timer: 1000,
+            })
+            return;
+        }
         var dictlist = {
             Status: $('#Status').val(),
             Tahun: $('#Tahun').val(),
@@ -153,7 +172,7 @@
             async: false,
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-                console.log(JSON.parse(data));
+                console.table(JSON.parse(data));
                 console.log($('#Status').val());
                 console.log($('#Lokasi').val());
                 console.log($('#Departemen').val());
@@ -185,6 +204,8 @@
                         { "data": "Tanggal_Cancel" },
                         { "data": "PENDING_NAME" },
                         { "data": "Tanggal_Outstanding" },
+                        { "data": "CancelBY" },
+                        { "data": "CAPABaru"},
                         {
                             "data": "STATUS_ID",
                             "render": function (data,meta) {
@@ -236,15 +257,8 @@
             success: function (data) {
                 var result = JSON.parse(data);
                 $('#Kode_CAPA').empty();
-                var all = "";
-                for (var i = 0; i < result.length; i++) {
-                    if (i == 0) {
-                        all += result[i].Code;
-                    }
-                    else {
-                        all += ',' + result[i].Code;
-                    }
-                }
+                var all = null;
+               
                 $('#Kode_CAPA').append(new Option("All", all));
                 $('#Kode_CAPA').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
 
@@ -277,15 +291,7 @@
 
                 var result = JSON.parse(data);
                 $('#Departemen').empty();
-                var all = "";
-                for (var i = 0; i < result.length; i++) {
-                    if (i == 0) {
-                        all += result[i].Org_Group_Name;
-                    }
-                    else {
-                        all += ',' + result[i].Org_Group_Name;
-                    }
-                }
+                var all = null;
                 $('#Departemen').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
 
                 $('#Departemen').append(new Option("All", all));
@@ -319,15 +325,8 @@
                 var result = JSON.parse(data);
                 $('#Lokasi').empty();
                 $('#Lokasi').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
-                var all = "";
-                for (var i = 0; i < result.length; i++) {
-                    if (i == 0) {
-                        all += result[i].DDL_DESCRIPTION;
-                    }
-                    else {
-                        all += ',' + result[i].DDL_DESCRIPTION;
-                    }
-                }
+
+                var all = null;
                 $('#Lokasi').append(new Option("All", all));
                 for (var i = 0; i < result.length; i++) {
                     $('#Lokasi').append(new Option(result[i].DDL_DESCRIPTION, result[i].DDL_DESCRIPTION));
@@ -358,15 +357,8 @@
 
                 var result = JSON.parse(data);
                 $('#Status').empty();
-                var all = "";
-                for (var i = 0; i < result.length; i++) {
-                    if (i == 0) {
-                        all += result[i].STATUS_CAPA;
-                    }
-                    else {
-                        all += ',' + result[i].STATUS_CAPA;
-                    }
-                }
+
+                var all = null;
                 $('#Status').append(new Option("All", all));
                 $('#Status').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
                 for (var i = 0; i < result.length; i++) {
@@ -384,15 +376,8 @@
         var date = new Date();
      
         $('#Tahun').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
-        var all = "";
-        for (var i = 2021; i <= date.getFullYear(); i++) {
-            if (i == 2021) {
-                all += '' + i + '';
-            }
-            else {
-                all += ',' + '' + i + '';
-            }
-        }
+
+        var all = 0;
         $('#Tahun').append(new Option("All", all));
         for (var i = 2021; i <= date.getFullYear(); i++) {
 
@@ -420,15 +405,8 @@
 
                 var result = JSON.parse(data);
                 $('#Kategori').empty();
-                var all = "";
-                for (var i = 0; i < result.length; i++) {
-                    if (i == 0) {
-                        all += result[i].DDL_DESCRIPTION;
-                    }
-                    else {
-                        all += ',' + result[i].DDL_DESCRIPTION;
-                    }
-                }
+
+                var all = null;
                 $('#Kategori').append(new Option("All", all));
                 $('#Kategori').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
                 for (var i = 0; i < result.length; i++) {

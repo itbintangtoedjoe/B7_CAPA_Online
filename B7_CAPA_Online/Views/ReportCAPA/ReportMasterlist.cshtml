@@ -64,7 +64,7 @@
                             <div class="row form-group-sm">
                                 <div class="col-md-6">
                                     <label class="m-t-20">Lokasi Site<span style="color: red">*</span></label>
-                                    <select class="form-control select2" id="Lokasi" required="required">
+                                    <select class="form-control select2" id="Lokasi" required="required" >
                                     </select>
                                 </div>
                             </div>
@@ -128,7 +128,6 @@
                 'copy', 'csv', 'excel', 'pdf', 'print'
             ]
         });
-
         getKodeCAPA();
         getTahun();
         $('#Filter').click(function () {
@@ -251,14 +250,7 @@
                 var result = JSON.parse(data);
                 $('#Kode_CAPA').empty();
                 var all = "";
-                for (var i = 0; i < result.length; i++) {
-                    if (i == 0) {
-                        all += result[i].Code;
-                    }
-                    else {
-                        all += ',' + result[i].Code;
-                    }
-                }
+              
                 $('#Kode_CAPA').append(new Option("All", all));
                 $('#Kode_CAPA').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
 
@@ -293,14 +285,7 @@
 
                 $('#Departemen').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
                 var all = "";
-                for (var i = 0; i < result.length; i++) {
-                    if (i == 0) {
-                        all += result[i].Org_Group_Name;
-                    }
-                    else {
-                        all += ',' + result[i].Org_Group_Name;
-                    }
-                }
+             
                 $('#Departemen').append(new Option("All", all));
                 for (var i = 0; i < result.length; i++) {
                     $('#Departemen').append(new Option(result[i].Org_Group_Name, result[i].Org_Group_Name));
@@ -333,14 +318,6 @@
                 $('#Lokasi').empty();
                 $('#Lokasi').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
                 var all = "";
-                for (var i = 0; i < result.length; i++) {
-                    if (i == 0) {
-                        all += result[i].DDL_DESCRIPTION;
-                    }
-                    else {
-                        all += ',' + result[i].DDL_DESCRIPTION;
-                    }
-                }
                 $('#Lokasi').append(new Option("All", all));
                 for (var i = 0; i < result.length; i++) {
                     $('#Lokasi').append(new Option(result[i].DDL_DESCRIPTION, result[i].DDL_DESCRIPTION));
@@ -373,14 +350,6 @@
                 $('#Status').empty();
                 $('#Status').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
                 var all = "";
-                for (var i = 0; i < result.length; i++) {
-                    if (i == 0) {
-                        all += result[i].STATUS_CAPA;
-                    }
-                    else {
-                        all += ',' + result[i].STATUS_CAPA;
-                    }
-                }
                 $('#Status').append(new Option("All", all));
                 for (var i = 0; i < result.length; i++) {
                     $('#Status').append(new Option(result[i].STATUS_CAPA, result[i].STATUS_CAPA));
@@ -397,14 +366,6 @@
         var date = new Date(); var all = "";
         $('#Tahun').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
         var all = "";
-        for (var i = 2021; i <= date.getFullYear(); i++) {
-            if (i == 2021) {
-                all += '' + i + '';
-            }
-            else {
-                all += ',' + '' + i + '';
-            }
-        }
         $('#Tahun').append(new Option("All", all));
         for (var i = 2021; i <= date.getFullYear(); i++) {
 
@@ -433,14 +394,6 @@
                 var result = JSON.parse(data);
                 $('#Kategori').empty();
                 var all = "";
-                for (var i = 0; i < result.length; i++) {
-                    if (i == 0) {
-                        all += result[i].DDL_DESCRIPTION;
-                    }
-                    else {
-                        all += ',' + result[i].DDL_DESCRIPTION;
-                    }
-                }
                 $('#Kategori').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
                 $('#Kategori').append(new Option("All", all));
                 for (var i = 0; i < result.length; i++) {

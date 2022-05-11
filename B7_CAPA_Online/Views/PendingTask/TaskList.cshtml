@@ -212,42 +212,38 @@
 
     function SelectedTask(param) {
         let dataRow = $('#Tbl_PendingTask').DataTable().row($(param).closest('tr')).data();
-
-        if (dataRow.STATUS_ID === 1) {
+        if (dataRow.STATUS_ID == 1) {
             // PIC
-            if ( dataRow.AREA_PIC === 'Engineering'
-                || dataRow.AREA_PIC === 'Quality Control'
-                || dataRow.AREA_PIC === 'Produksi'
-                || dataRow.AREA_PIC === 'Warehouse')
+            if  (dataRow.AREA_PIC === 'Engineering' || dataRow.AREA_PIC === 'Quality Control' || dataRow.AREA_PIC === 'Produksi' || dataRow.AREA_PIC === 'Warehouse' )
             {
                 UpdateProccess(dataRow.NO_CAPA);
             }
             else {
                 window.open("../PIC/FormCAPA?NoCAPA=" + dataRow.NO_CAPA);
             }
-        } else if (dataRow.STATUS_ID === 2) {
+        } else if (dataRow.STATUS_ID == 2) {
             window.open("../AtasanPIC/ApprovalAtasanPIC?NoCAPA=" + dataRow.NO_CAPA + "&StatsID=" + dataRow.STATUS_ID);
-        } else if (dataRow.STATUS_ID === 3) {
+        } else if (dataRow.Stat == 3) {
             window.open("../AtasanPelaksana/ApprovalAtasanPelaksana?NoCAPA=" + dataRow.NO_CAPA + "&StatsID=" + dataRow.STATUS_ID);
-        } else if (dataRow.STATUS_ID === 4) {
+        } else if (dataRow.STATUS_ID == 4) {
             window.open("../Koordinator/ApprovalKoordinator2?NoCAPA=" + dataRow.NO_CAPA + "&StatsID=" + dataRow.STATUS_ID);
-        } else if (dataRow.STATUS_ID === 5) {
+        } else if (dataRow.Stat == 5) {
             window.open("../Evaluator/ReviewCAPA?NoCAPA=" + dataRow.NO_CAPA + "&StatsID=" + dataRow.STATUS_ID);
-        } else if (dataRow.STATUS_ID === 6) {
+        } else if (dataRow.Stat == 6) {
             //From CAPA
             /*if (dataRow.pending == NIK) {*/
             window.open("../Pelaksana/PelaksanaCAPA?NoCAPA=" + dataRow.NO_CAPA);
             //}
-        } else if (dataRow.STATUS_ID === 7) {
+        } else if (dataRow.Stat == 7) {
             window.open("../Koordinator/VerifikasiPelaksanaCAPA?NoCAPA=" + dataRow.NO_CAPA);
-        } else if (dataRow.STATUS_ID === 8) {
+        } else if (dataRow.STATUS_ID == 8) {
             window.open("../Koordinator/MonitoringEfektivitas?NoCAPA=" + dataRow.NO_CAPA + "&status=" + dataRow.STATUS_ID);
-        } else if (dataRow.STATUS_ID === 9) {
+        } else if (dataRow.STATUS_ID == 9) {
             window.open("../Evaluator/KonfirmasiEfektivitas?NoCAPA=" + dataRow.NO_CAPA + "&status=" + dataRow.STATUS_ID);
-        } else if (dataRow.STATUS_ID === 10) {
+        } else if (dataRow.Stat == 10) {
             window.open("../AtasanPelaksana/AtasanPelaksanaApprovalPerubahanTindakan?NoCAPA=" + dataRow.NO_CAPA);
         }
-        else if (dataRow.STATUS_ID === 11) {
+        else if (dataRow.Stat == 11) {
             window.open("../Evaluator/ApprovalPerubahanEvaluator?NoCAPA=" + dataRow.NO_CAPA);
         }
           

@@ -1835,17 +1835,21 @@
                 data: JSON.stringify(dto),
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    //console.log(data);
+                    console.table(data);
                     var Count = data.length;
-                    $("#Tbl_Departemen").empty();
-                    $('#Table_Departemen').DataTable().destroy();
+                    var checkgrouping = false;
+                    $('#Table_Departemen').DataTable().clear().destroy();
+                   
                     $("#AreaPIC_DDL").empty().prop('disabled', false);
                     $("#PIC_DDL").empty().prop('disabled', false);
                     $('#AreaPIC_DDL').append($('<option></option>').attr('value', '').text('*Select Area PIC*'));
                     if (Count > 0) {
                         $.each(data, function (key, entry) {
-                            $('#Tbl_Departemen').append($('<tr><td>' + entry.Departemen + '</td><td hidden><button type="button" class="form-control-sm delete">Delete</button></td></tr>'));
+                            $('#Tbl_Departemen').append($('<tr><td>' + entry.Departemen + '</td><td ><button type="button" class="form-control-sm delete">Delete</button></td></tr>'));
                             $('#AreaPIC_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.Departemen));
+                            if (entry.Departemen == 'Engineering' || entry.Departemen == 'Produksi' || entry.Departemen == 'Warehouse' || entry.Departemen == 'Quality Control') {
+                                checkgrouping = true;
+                            }
                             getTableRow();
                         })
                         $('#Table_Departemen').DataTable({
@@ -1856,6 +1860,9 @@
                         });
                     } else {
                         $('#List_Departemen').prop('hidden', true);
+                    }
+                    if (checkgrouping == false) {
+                        $('#div_ListPIC').prop('hidden', true);
                     }
                     //$('#AreaPIC_DDL').append($('<option></option>').attr('value', 'Others').text('Others'));
                     $('#AreaPIC_DDL').select2();
