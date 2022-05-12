@@ -955,10 +955,7 @@
 
         //Ketika dropdownlist departemen dipilih akan ngeload PIC CAPA berdasarkan area yang dipilih.
         $('#AreaPIC_DDL').change(function () {
-            $('#div_PICCAPA').prop('hidden', false);
-            $('#div_ListPIC').prop('hidden', true);
             //console.log($('#AreaPIC_DDL').val());
-            resetPIC();
             var Location;
             $('#VendorDiv').prop('hidden', true);
 
@@ -972,90 +969,7 @@
                 Location = 'Pulogadung';
             }
 
-            if ($('#AreaPIC_DDL').val() == 'Others') {
-                dto = {
-                    Option: 12,
-                    Departemen: $('#AreaPIC_DDL').val(),
-                    //Lokasi: Location,
-                    SP: "[dbo].[SP_S    HOW_DDL]"
-                }
-            } else {
-                dto = {
-                    Option: 3,
-                    Departemen: $('#AreaPIC_DDL').val(),
-                    //Lokasi: Location,
-                    SP: "[dbo].[SP_SHOW_DDL]"
-                }
-            }
-            const dept = ["TK", "QC", "WH", "PR"];    
-            $.ajax({
-                url: 'GetSupervisors',
-                type: 'post',
-                data: JSON.stringify(dto),
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    //console.log(data);
-                    $('#PIC_DDL').empty();
-                    $('#PIC_DDL').append('<option disabled selected hidden class="dropdown-header">*Pilih*</option>');
-                    if ($('#AreaPIC_DDL').val() != 'Others') {                        
-                        clearInputEmail();
-                        if (dept.includes($('#AreaPIC_DDL').val())) {
-                            $('#div_PICCAPA').prop('hidden', true);
-                            AddPIC(data);
-                        } else {
-                            $.each(JSON.parse(data), function (key, entry) {
-                                $('#PIC_DDL').append(new Option(entry.EmpName, entry.EmpName));
-                            });
-
-                            $('#PIC_DDL').change(function () {
-                                var PIC_Name = $('#PIC_DDL').val();
-                                $.each(JSON.parse(data), function (key, entry) {
-                                    if (PIC_Name == entry.EmpName) {
-                                        $('#PIC_Dept').val(entry.OrgGroupName);
-                                        $('#TxtEmailVendor').val(entry.Email);
-                                        $('#TxtPICVendor').val(entry.EmpName);
-                                        $('#PIC_ID').val(entry.EmpID);
-                                        return false;
-                                    }
-                                });
-                                AddPIC(data);
-                            });
-                        }                       
-                    } else {
-                        $('#VendorDiv').prop('hidden', false);                        
-                        clearInputEmail();
-
-                        $.each(JSON.parse(data), function (key, entry) {
-                            $('#PIC_DDL').append($('<option></option>').attr('value', entry.UserVDRName).text(entry.UserVDRName));
-                        });
-
-                        $('#PIC_DDL').change(function () {
-                            var PIC_Name = $('#PIC_DDL').val();
-                            $.each(JSON.parse(data), function (key, entry) {
-                                if (PIC_Name == entry.UserVDRName) {
-                                    //console.log(entry);
-                                    $('#TxtEmailVendor').val(entry.email);
-                                    $('#TxtPICVendor').val(entry.UserVDRName);
-                                    $('#TxtVendorSupID').val(entry.SuperiorID);
-                                    $('#PIC_ID').val(entry.UserID);
-                                    return false;
-                                }
-                            });
-                            AddPIC(data);
-                        });
-                    }
-                    //if ($('#PIC_DDL').val() == null) {
-                    //    $('#PIC_DDL').append($('<option></option>').attr('value', '').text('None'));
-                    //}
-
-                    $('#PIC_DDL').select2();
-
-                },
-                error: function (ex) {
-                    alert(JSON.stringify(ex));
-                }
-            });
+            GetPIC(0);
             //_callback();
         });
 
@@ -1820,11 +1734,112 @@
             });
         }
     }
+    function GetPIC(Stat) {
+        if ($('#AreaPIC_DDL').val() == 'Others') {
+            dto = {
+                Option: 12,
+                Departemen: $('#AreaPIC_DDL').val(),
+                //Lokasi: Location,
+                SP: "[dbo].[SP_SHOW_DDL]"
+            }
+        } else {
+            dto = {
+                Option: 3,
+                Departemen: $('#AreaPIC_DDL').val(),
+                //Lokasi: Location,
+                SP: "[dbo].[SP_SHOW_DDL]"
+            }
+        }
+        const dept = ["TK", "QC", "WH", "PR"];
+        if (Stat < 1)  {
+            resetPIC();
+            $('#div_PICCAPA').prop('hidden', false);
+            $('#div_ListPIC').prop('hidden', true);
+            $.ajax({
+                url: 'GetSupervisors',
+                type: 'post',
+                data: JSON.stringify(dto),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    //console.log(data);
+                    $('#PIC_DDL').empty();
+                    $('#PIC_DDL').append('<option disabled selected hidden class="dropdown-header">*Pilih*</option>');
+                    if ($('#AreaPIC_DDL').val() != 'Others') {
+                        clearInputEmail();
+                        if (dept.includes($('#AreaPIC_DDL').val())) {
+                            $('#div_PICCAPA').prop('hidden', true);
+                            AddPIC(data);
+                        } else {
+                            $.each(JSON.parse(data), function (key, entry) {
+                                $('#PIC_DDL').append(new Option(entry.EmpName, entry.EmpName));
+                            });
 
+                            $('#PIC_DDL').change(function () {
+                                var PIC_Name = $('#PIC_DDL').val();
+                                $.each(JSON.parse(data), function (key, entry) {
+                                    if (PIC_Name == entry.EmpName) {
+                                        $('#PIC_Dept').val(entry.OrgGroupName);
+                                        $('#TxtEmailVendor').val(entry.Email);
+                                        $('#TxtPICVendor').val(entry.EmpName);
+                                        $('#PIC_ID').val(entry.EmpID);
+                                        return false;
+                                    }
+                                });
+                                AddPIC(data);
+                            });
+                        }
+                    } else {
+                        $('#VendorDiv').prop('hidden', false);
+                        clearInputEmail();
+
+                        $.each(JSON.parse(data), function (key, entry) {
+                            $('#PIC_DDL').append($('<option></option>').attr('value', entry.UserVDRName).text(entry.UserVDRName));
+                        });
+
+                        $('#PIC_DDL').change(function () {
+                            var PIC_Name = $('#PIC_DDL').val();
+                            $.each(JSON.parse(data), function (key, entry) {
+                                if (PIC_Name == entry.UserVDRName) {
+                                    //console.log(entry);
+                                    $('#TxtEmailVendor').val(entry.email);
+                                    $('#TxtPICVendor').val(entry.UserVDRName);
+                                    $('#TxtVendorSupID').val(entry.SuperiorID);
+                                    $('#PIC_ID').val(entry.UserID);
+                                    return false;
+                                }
+                            });
+                            AddPIC(data);
+                        });
+                    }
+                    //if ($('#PIC_DDL').val() == null) {
+                    //    $('#PIC_DDL').append($('<option></option>').attr('value', '').text('None'));
+                    //}
+
+
+                    $('#PIC_DDL').select2();
+
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+        }
+    }
     function DeleteDepartemen() {
         $(document).on("click", "#Tbl_Departemen button.delete", function () {
             $('#VendorDiv').prop('hidden', true);
             var columns = $(this).closest('tr').find('td:eq(0)').text();
+            var checkddl = false;
+            var areaSDC;
+            var selectedArea;
+            var currentPIC = $('#PIC_DDL').val();
+
+
+            if ($('#AreaPIC_DDL').text() != columns) {
+                checkddl = true;
+                selectedArea = $('#AreaPIC_DDL option:selected').text();
+            }
             dto = {
                 Departemen: columns
             }
@@ -1841,16 +1856,16 @@
                     $('#Table_Departemen').DataTable().clear().destroy();
                    
                     $("#AreaPIC_DDL").empty().prop('disabled', false);
-                    $("#PIC_DDL").empty().prop('disabled', false);
-                    $('#AreaPIC_DDL').append($('<option></option>').attr('value', '').text('*Select Area PIC*'));
+                    $('#AreaPIC_DDL').append($('<option disabled></option>').attr('value', '').text('*Select Area PIC*'));
                     if (Count > 0) {
                         $.each(data, function (key, entry) {
                             $('#Tbl_Departemen').append($('<tr><td>' + entry.Departemen + '</td><td ><button type="button" class="form-control-sm delete">Delete</button></td></tr>'));
                             $('#AreaPIC_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.Departemen));
-                            if (entry.Departemen == 'Engineering' || entry.Departemen == 'Produksi' || entry.Departemen == 'Warehouse' || entry.Departemen == 'Quality Control') {
-                                checkgrouping = true;
-                            }
+                            
                             getTableRow();
+                            if (checkddl == true && entry.Departemen == selectedArea) {
+                                areaSDC = entry.SubDeptCode;
+                            }
                         })
                         $('#Table_Departemen').DataTable({
                             autoWidth: false,
@@ -1858,11 +1873,15 @@
                             lengthChange: false,
                             searching: false
                         });
-                    } else {
-                        $('#List_Departemen').prop('hidden', true);
+                    } 
+                    if (checkddl == true) {
+                        $('#AreaPIC_DDL').val(areaSDC);
+                        GetPIC(1);
                     }
-                    if (checkgrouping == false) {
+                    if (selectedArea == columns) {
                         $('#div_ListPIC').prop('hidden', true);
+                        $("#PIC_DDL").empty();
+                        GetPIC(0);
                     }
                     //$('#AreaPIC_DDL').append($('<option></option>').attr('value', 'Others').text('Others'));
                     $('#AreaPIC_DDL').select2();

@@ -2612,7 +2612,7 @@
                 $('label[for="NamaPersonilPerbaikan_DDL"]').prop('hidden', false)
                 $('label[for="TxtSuperiorPerbaikan"]').prop('hidden', false)
                 $('label[for="TxtEmailPerbaikan"]').prop('hidden', false)
-                $('#TxtSuperiorPerbaikan').val("");
+                //$('#TxtSuperiorPerbaikan').val("");
                 getPICKajianResiko(kategori);
             }
         });
@@ -2645,7 +2645,7 @@
                 $('label[for="NamaPersonilPencegahan_DDL"]').prop('hidden', false)
                 $('label[for="TxtSuperiorPencegahan"]').prop('hidden', false)
                 $('label[for="TxtEmailPencegahan"]').prop('hidden', false)
-                $('#TxtSuperiorPencegahan').val("");
+                //$('#TxtSuperiorPencegahan').val("");
                 getPICKajianResiko(kategori);
             }
         });
@@ -3210,7 +3210,7 @@
                     return;
                 } else {
                     //console.log(key + ": " + value);
-                    if (value == "" || value == null) {
+                    if ((value == "" || value == null) && key !='PIC') {
                         //console.log(dto.Model);
                         if (count <= limit) {
 

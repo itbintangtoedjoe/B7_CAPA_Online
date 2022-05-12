@@ -1471,42 +1471,7 @@
     $('#btnPilihPerbaikan').click(function (e) {
         var currentText = $(this).text();
         if (currentText == "Pilih") {
-            FindPerbaikan();
-            var idPerbaikan = $('#ddlPerbaikan').val();
-            let objPerbaikan = dataPerbaikan.filter(item => item.RecordID == idPerbaikan);
-            var isprocess = objPerbaikan[0].IS_PROCESS;
-            var Departemen = objPerbaikan[0].Departemen_Perbaikan;
-            var pelaksanaName = objPerbaikan[0].Nama_Personil;
-            var lastaccess = objPerbaikan[0].Updateby;
-
-            console.log(isprocess);
-            if (isprocess == true && lastaccess != nik) {
-                Swal.fire({
-                    title:'Error' ,
-                    text: "Sedang diakses oleh " + lastaccess + "!",
-                    icon: "error",
-                    timer: 2000,
-                    showConfirmButton: false
-                })
-                return
-            }
-
-            $(this).text("Batalkan");
-            $('#ddlPerbaikan').prop("disabled", true);
-            $('#btnActionPerbaikan').prop("disabled", false);
-            if (Departemen.indexOf('Grouping') == 0 && pelaksanaName == null) {
-
-                UpdateProccess('Perbaikan', 1, $('#ddlPerbaikan').val());
-            }
-
-            if (stataction == true)
-            {
-                $('#txtHasilPerbaikan').prop("disabled", false);
-                $('#uploadAttachmentPerbaikan').prop("disabled", false);
-                $('#btnSimpanPerbaikan').prop("disabled", false);
-                $('#UploadPerbaikan').prop("disabled", false);
-            }
-            ToggleBtnDeleteAttPerbaikan("Enable");
+            CheckProccess(this,'Perbaikan', $('#ddlPerbaikan').val());
         } else {
             $(this).text("Pilih");
             $('#ddlPerbaikan').prop("disabled", false);
@@ -1524,9 +1489,96 @@
             UpdateProccess('Perbaikan', 0, $('#ddlPerbaikan').val());
         }
     });
-    //function CheckProccess() {
+    function CheckProccess(param,tipe, tindakanid) {
+        var dictlist = {
+            tipe: tipe,
+            recordID: tindakanid,
+            kategori: 'Check Process'
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Update_Pelaksanaan",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto1),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                if (tipe == 'Perbaikan') {
+                    $('#ddlPerbaikan').prop("disabled", true);
+                    var isprocess = result[0].IS_PROCESS;
+                    var Departemen = result[0].Departemen_Perbaikan;
+                    var pelaksanaName = result[0].Nama_Personil;
+                    var lastaccess = result[0].Updateby;
+                    var lastnik = result[0].Update_By
 
-    //}
+                    console.log(isprocess);
+                    if (isprocess == true && lastnik != nik) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: "Sedang diakses oleh " + lastaccess + "!",
+                            icon: "error",
+                            timer: 2000,
+                            showConfirmButton: false
+                        })
+                        return
+                    }
+
+                    $(param).text("Batalkan");
+                    $('#btnActionPerbaikan').prop("disabled", false);
+                    if (Departemen == currentDept && pelaksanaName == null) {
+
+                        UpdateProccess('Perbaikan', 1, $('#ddlPerbaikan').val());
+                    }
+
+                    if (stataction == true) {
+                        $('#txtHasilPerbaikan').prop("disabled", false);
+                        $('#uploadAttachmentPerbaikan').prop("disabled", false);
+                        $('#btnSimpanPerbaikan').prop("disabled", false);
+                        $('#UploadPerbaikan').prop("disabled", false);
+                    }
+                    ToggleBtnDeleteAttPerbaikan("Enable");
+                }
+                else {
+                    var isprocess = result[0].IS_PROCESS;
+                    var Departemen = result[0].Departemen_Pencegahan;
+                    var pelaksanaName = result[0].Nama_Personil;
+                    var lastaccess = result[0].Updateby;
+                    var lastnik = result[0].Update_By
+                    if (isprocess == true && lastnik != nik) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: "Sedang diakses oleh " + lastaccess + "!",
+                            icon: "error",
+                            timer: 2000,
+                            showConfirmButton: false
+                        })
+                        return
+                    }
+                    if (Departemen == currentDept && pelaksanaName == null) {
+                        UpdateProccess('Pencegahan', 1, $('#ddlPencegahan').val());
+                    }
+
+                    $(param).text("Batalkan");
+                    $('#ddlPencegahan').prop("disabled", true);
+
+                    if (statactionpencegahan == true) {
+                        $('#txtHasilPencegahan').prop("disabled", false);
+                        $('#uploadAttachmentPencegahan').prop("disabled", false);
+                        $('#btnSimpanPencegahan').prop("disabled", false);
+                        $('#UploadPencegahan').prop("disabled", false);
+                    }
+                    $('#btnActionPencegahan').prop("disabled", false);
+                    ToggleBtnDeleteAttPencegahan("Enable");
+                }
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+    }
     function UpdateProccess(tipe,Process,tindakanid) {
         var dictlist = {
             Process: Process,
@@ -1545,7 +1597,6 @@
             data: JSON.stringify(dto1),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-                $('#ddlPerbaikan').attr("disabled", false);
             },
             error: function (errormessage) {
                 $('#divLoading').attr("hidden", true);
@@ -1947,36 +1998,8 @@
     $('#btnPilihPencegahan').click(function (e) {
         var currentText = $(this).text();
         if (currentText == "Pilih") {
-            var idPerbaikan = $('#ddlPencegahan').val();
-            let objPencegahan = dataPencegahan.filter(item => item.RecordID == idPerbaikan);
-            var Departemen = objPencegahan[0].Departemen_Pencegahan;
-            var isprocess = objPencegahan[0].IS_PROCESS;
-            var pelaksanaName = objPencegahan[0].Nama_Personil;
-            var lastaccess = objPencegahan[0].Updateby;
-            if (isprocess == true && lastaccess != nik) {
-                Swal.fire({
-                    title: 'Error',
-                    text: "Sedang diakses oleh " + lastaccess + "!",
-                    icon: "error",
-                    timer: 2000,
-                    showConfirmButton: false
-                })
-                return
-            }
-            $(this).text("Batalkan");
-            $('#ddlPencegahan').prop("disabled", true);
-            if (Departemen.indexOf('Grouping') == 0 && pelaksanaName == null) {
 
-                UpdateProccess('Pencegahan', 1, $('#ddlPencegahan').val());
-            }
-            if (statactionpencegahan == true) {
-                $('#txtHasilPencegahan').prop("disabled", false);
-                $('#uploadAttachmentPencegahan').prop("disabled", false);
-                $('#btnSimpanPencegahan').prop("disabled", false);
-                $('#UploadPencegahan').prop("disabled", false);
-            }
-            $('#btnActionPencegahan').prop("disabled", false);
-            ToggleBtnDeleteAttPencegahan("Enable");
+            CheckProccess(this,'Pencegahan', $('#ddlPencegahan').val());
         } else {
             $(this).text("Pilih");
             $('#ddlPencegahan').prop("disabled", false);
