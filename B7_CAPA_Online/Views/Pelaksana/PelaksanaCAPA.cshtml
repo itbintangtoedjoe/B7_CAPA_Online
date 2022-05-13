@@ -1511,8 +1511,8 @@
                     var isprocess = result[0].IS_PROCESS;
                     var Departemen = result[0].Departemen_Perbaikan;
                     var pelaksanaName = result[0].Nama_Personil;
-                    var lastaccess = result[0].Updateby;
-                    var lastnik = result[0].Update_By
+                    var lastaccess = result[0].lastaccess;
+                    var lastnik = result[0].Update_By;
 
                     console.log(isprocess);
                     if (isprocess == true && lastnik != nik) {
@@ -1523,6 +1523,7 @@
                             timer: 2000,
                             showConfirmButton: false
                         })
+                        $('#ddlPerbaikan').prop("disabled", false);
                         return
                     }
 
@@ -1545,8 +1546,8 @@
                     var isprocess = result[0].IS_PROCESS;
                     var Departemen = result[0].Departemen_Pencegahan;
                     var pelaksanaName = result[0].Nama_Personil;
-                    var lastaccess = result[0].Updateby;
-                    var lastnik = result[0].Update_By
+                    var lastaccess = result[0].lastaccess;
+                    var lastnik = result[0].Update_By;
                     if (isprocess == true && lastnik != nik) {
                         Swal.fire({
                             title: 'Error',
@@ -1556,6 +1557,7 @@
                             showConfirmButton: false
                         })
                         return
+                        $('#ddlPerbaikan').prop("disabled", false);
                     }
                     if (Departemen == currentDept && pelaksanaName == null) {
                         UpdateProccess('Pencegahan', 1, $('#ddlPencegahan').val());
