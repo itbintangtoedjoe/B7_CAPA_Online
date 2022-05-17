@@ -165,13 +165,13 @@
 
         $("#btnSubmitReject").click(function () {
             $.blockUI();
-            SubmitApprovalPV("Reject", CurrentStatsID);//Reject Approval EventClick
+            SubmitApprovalPV("Reject", 1);//Reject Approval EventClick
             $("#Reject_Page").modal("hide");
         });
 
         $("#btnSubmitCancel").click(function () {
             $.blockUI();
-            SubmitApprovalPV("Cancel", CurrentStatsID);//Reject Approval EventClick
+            SubmitApprovalPV("Cancel", 13);//Cancel Approval EventClick
             $("#Cancel_Page").modal("hide");
         });
 
