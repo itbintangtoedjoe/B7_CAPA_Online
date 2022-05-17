@@ -1682,8 +1682,8 @@
                     FindKajian();
                     ResetPage();
                     ToggleBtnDeleteAttPerbaikan("Disable");
-                    FindPerbaikan();
-                    PopulateDDLPerbaikan();
+                    setTimeout(FindPerbaikan,2000);
+                    setTimeout(PopulateDDLPerbaikan,2000);
 
                 })
                 $('#ddlPerbaikan').attr("disabled", false);
@@ -2093,8 +2093,8 @@
                     FindKajian();
                     ResetPagePencegahan();
                     ToggleBtnDeleteAttPencegahan("Disable");
-                    FindPencegahan();
-                    PopulateDDLPencegahan();
+                    setTimeout(FindPencegahan,2000);
+                    setTimeout(PopulateDDLPencegahan,2000);
                 });
 
                 $('#ddlPencegahan').attr("disabled", false);
@@ -2240,6 +2240,8 @@
                             trhtml += '<Option value = "' + result[trav].RecordID + '" > ' + 'Pencegahan - ' + result[trav].Tindakan;
                         }
                     }
+
+                    $('#Div_Treatment').attr("hidden", false);
                     checkTreatment = count;
                 }
                 else
