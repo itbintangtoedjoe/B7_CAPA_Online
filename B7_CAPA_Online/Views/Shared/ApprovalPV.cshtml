@@ -94,6 +94,7 @@
             })
             return
         }
+      
         $.ajax({
             url: '../AtasanPIC/SubmitApproval',
             type: 'post',
@@ -165,13 +166,13 @@
 
         $("#btnSubmitReject").click(function () {
             $.blockUI();
-            SubmitApprovalPV("Reject", 1);//Reject Approval EventClick
+            SubmitApprovalPV("Reject", CurrentStatsID);//Reject Approval EventClick
             $("#Reject_Page").modal("hide");
         });
 
         $("#btnSubmitCancel").click(function () {
             $.blockUI();
-            SubmitApprovalPV("Cancel", 13);//Cancel Approval EventClick
+            SubmitApprovalPV("Cancel", CurrentStatsID);//Cancel Approval EventClick
             $("#Cancel_Page").modal("hide");
         });
 
