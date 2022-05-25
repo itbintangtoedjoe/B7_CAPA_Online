@@ -277,24 +277,60 @@
     <script>
         $(document).ready(function () {
             CheckUser();
-            checkSession();
-            setInterval(checkSession, 10001);
-            setTimeout(checkSession, '@Session.Timeout' * 60 * 1000);
+            var usernameAktif = '@Request.RequestContext.HttpContext.Session["Username"]';
+            $('#UserLoginXd').text(usernameAktif);
+            //checkSession();
+            @*setInterval(checkSession, 10001);
+            setTimeout(checkSession, '@Session.Timeout' * 60 * 1000);*@ 
+            $(document).ajaxError(function(e, xhr, opts) {
+
+                fnsession(xhr);
+
+            });
         });
+
+        async function fnsession(xhr) {
+            await chcksession(xhr);
+        }
+        function chcksession(xhr) {
+             if (xhr.status == 403) {
+
+                   Swal.fire({
+                        title: 'Session Expired! Silahkan login Kembali ',
+                        icon: "warning",
+                        showConfirmButton: false,
+                        timer: 1000,
+                        }).then(() => {
+                            return window.location.href = '@Url.Action("Index", "Login")';
+                        });
+                }
+        }
         function checkSession() {
             var usernameAktif = '@Request.RequestContext.HttpContext.Session["Username"]';
             $('#UserLoginXd').text(usernameAktif);
-            if ($('#UserLoginXd').text().length == 0) {
+            $.ajax({
+                url: "../Login/checksession",
+                type: "post",
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    console.log(data);
+                    if (data == 'False') {
+                        Swal.fire({
+                        title: 'Session Expired! Silahkan login Kembali ',
+                        icon: "warning",
+                        showConfirmButton: false,
+                        timer: 1000,
+                        }).then(() => {
+                        return window.location.href = '@Url.Action("Index", "Login")';
+                        });
+                    }
+                },
+                error: function (errormessage) {
+                    $('#divLoading').attr("hidden", true);
+                }
+            });
 
-                 Swal.fire({
-                 title: 'Session Expired! Silahkan login Kembali ',
-                 icon: "warning",
-                 showConfirmButton: false,
-                 timer: 1000,
-                 }).then(() => {
-                    return window.location.href = '@Url.Action("Index", "Login")';
-                 });
-            }
 
         }
         function CheckUser(){
@@ -349,7 +385,7 @@
 
         })(jQuery);
     </script>
-
+    @RenderSection("scripts", required: false);
 </body>
 
 </html>

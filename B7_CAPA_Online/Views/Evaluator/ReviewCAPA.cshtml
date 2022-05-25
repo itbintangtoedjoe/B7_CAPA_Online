@@ -168,7 +168,7 @@
                 });
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
     }
@@ -221,7 +221,7 @@
                 $('#Tbl_RentangPencegahan').DataTable(dtAttr);
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
     }
@@ -250,7 +250,7 @@
                 })
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
     }
@@ -343,7 +343,7 @@
 
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
     }
@@ -413,7 +413,7 @@
                                 return '<img id="imgApprove" src="../Content/Images/approveHijau.png" style="width: 80px"/>';
                             }
 
-                     }],
+                        }],
                     "columnDefs": [
                         {
                             "targets": [0],
@@ -430,7 +430,7 @@
                 });
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
     }
@@ -561,7 +561,7 @@
 
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
     }
@@ -706,7 +706,7 @@
                 });
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
     }
@@ -773,7 +773,7 @@
                                     window.location.href = '../PendingTask/TaskList';
                                 },
                                 error: function (ex) {
-                                    alert(JSON.stringify(ex));
+                                     console.log(JSON.stringify(ex))
                                 }
                             });
                         },
@@ -815,7 +815,7 @@
                     Status: "Approve",
                     Reject_Reason: '-',
                     Option: option,
-                    RecordID: $('#Tbl_Rentang' + $(event).attr("id")).DataTable().row(rows).data().RecordID,
+                    RecordID: data['RecordID'],
                     Rentang: rentang,
                     Type: $(event).attr("id")
                 }
@@ -838,7 +838,7 @@
                 });
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
     }
@@ -903,12 +903,12 @@
                 //        });
                 //    },
                 //    error: function (ex) {
-                //        alert(JSON.stringify(ex));
+                //         console.log(JSON.stringify(ex))
                 //    }
                 //});
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
     }
@@ -936,7 +936,7 @@
                 getTable($(event).attr("id"));
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
     }*@
@@ -1107,7 +1107,7 @@
                         }
                     },
                     error: function (ex) {
-                        alert(JSON.stringify(ex));
+                         console.log(JSON.stringify(ex))
                     }
                 });
             } else {

@@ -91,6 +91,7 @@
                                     <th>Root Cause</th>
                                     <th>Tindakan Perbaikan</th>
                                     <th>Nama Pelaksana</th>
+                                    <th>Departemen</th>
                                     <th>Due_Date</th>
                                 </tr>
                             </thead>
@@ -121,6 +122,7 @@
                                     <th>Area Lain/Proses Lain</th>
                                     <th>Tindakan Pencegahan</th>
                                     <th>Nama Pelaksana</th>
+                                    <th>Departemen</th>
                                     <th>Due_Date</th>
                                 </tr>
                             </thead>
@@ -566,6 +568,7 @@
                         { "data": "WhyDesc" },
                         { "data": "Tindakan_Perbaikan" },
                         { "data": "Username" },
+                        { "data": "Departemen_Perbaikan" },
                         { "data": "tanggal" }
                     ],
 
@@ -573,7 +576,7 @@
                 })
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
     }
@@ -608,6 +611,7 @@
                         { "data": "AreaLain"},
                         { "data": "Tindakan_Pencegahan" },
                         { "data": "Username" },
+                        { "data": "Departemen_Pencegahan" },
                         { "data": "tanggal" }
                     ],
 
@@ -617,7 +621,7 @@
 
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
     }
@@ -706,7 +710,7 @@
                 });
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
     }

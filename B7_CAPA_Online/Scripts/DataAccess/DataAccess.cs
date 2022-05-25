@@ -25,6 +25,7 @@ namespace B7_CAPA_Online.Scripts.DataAccess
                                 {
                                     Option = Model.Option,
                                     Departemen = Model.Departemen,
+                                    Departemen_Name = Model.Departemen_Name,
                                     Plant = Model.Plant,
                                     Lokasi = Model.Lokasi,
                                     Tahun = Model.Tahun,
@@ -55,6 +56,7 @@ namespace B7_CAPA_Online.Scripts.DataAccess
                                     KategoriCAPA = Model.KategoriCAPA,
                                     Lokasi = Model.Lokasi,
                                     Departemen = DepartemenDT,
+                                    AreaName = Model.Departemen_Name,
                                     Penyimpangan = PenyimpanganDT,
                                     AreaPIC = Model.AreaPIC,
                                     Deskripsi = Model.Deskripsi,

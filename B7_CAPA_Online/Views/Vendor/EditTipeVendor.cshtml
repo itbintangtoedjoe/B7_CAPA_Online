@@ -106,7 +106,7 @@
                     $('#atasan').select2();
                 })
             }, error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
     }
@@ -128,7 +128,7 @@
                     $('#nama_vendor').val(data.VendorName);
                     $("#tipe_vendor").select2().val(data.TypeID).trigger("change");
                 }, error: function (ex) {
-                    alert(JSON.stringify(ex));
+                     console.log(JSON.stringify(ex))
                 }
             });
 

@@ -189,14 +189,7 @@ namespace B7_CAPA_Online.Controllers
             //string decrypted = EncryptionHelper.Decrypt("+NnSWnq/Lh1EfwTSxFxzRmrAwj7YTeawQeHecVIXCRI=");
             //return Json(decrypted, JsonRequestBehavior.AllowGet);
 
-            Session["LoginStatus"] = "invalid";
-            Session["NIK"] = "";
-            Session["FullName"] = "";
-            Session["Username"] = "";
-            Session["NamaUser"] = "";
-            Session["Departemen"] = "";
-            Session["Lokasi"] = "";
-            Session["SuperiorName"] = "";
+           
             return View();
         }
 
@@ -220,7 +213,14 @@ namespace B7_CAPA_Online.Controllers
             IntPtr tokenHandle = new IntPtr(0);
             string MachineName, username, password, tipeLogin = null;
             string loginStatus = "0";
-
+            Session["LoginStatus"] = "invalid";
+                Session["NIK"] = "";
+                Session["FullName"] = "";
+                Session["Username"] = "";
+                Session["NamaUser"] = "";
+                Session["Departemen"] = "";
+                Session["Lokasi"] = "";
+                Session["SuperiorName"] = "";
             username = loginData.Username;
             password = loginData.Password;
             tipeLogin = loginData.TipeLogin;
@@ -387,7 +387,7 @@ namespace B7_CAPA_Online.Controllers
         }
         public ActionResult checksession()
         {
-            if(Session["Username"] == null)
+            if(System.Web.HttpContext.Current.Session["Username"] == null )
             {
                 return Json("False");
             }
@@ -396,5 +396,7 @@ namespace B7_CAPA_Online.Controllers
                 return Json("True");
             }
         }
+
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using B7_CAPA_Online.Models;
+using B7_CAPA_Online.Scripts;
 using B7_CAPA_Online.Scripts.DataAccess;
 using B7_CAPA_Online.Scripts.SMTP;
 using Dapper;
@@ -17,6 +18,7 @@ using static B7_CAPA_Online.Models.KoordinatorModel;
 
 namespace B7_CAPA_Online.Controllers
 {
+    [CheckSession]
     public class PICController : Controller
     {
         public readonly SessionChecker checker = new SessionChecker();        

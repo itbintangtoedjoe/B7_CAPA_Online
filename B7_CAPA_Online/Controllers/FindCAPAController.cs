@@ -1,4 +1,5 @@
 ﻿using B7_CAPA_Online.Models;
+using B7_CAPA_Online.Scripts;
 using B7_CAPA_Online.Scripts.DataAccess;
 using Dapper;
 using System;
@@ -13,6 +14,7 @@ using static B7_CAPA_Online.Models.KoordinatorModel;
 
 namespace B7_CAPA_Online.Controllers
 {
+    [CheckSession]
     public class FindCAPAController : Controller
     {
         // GET: FindCAPA

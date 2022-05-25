@@ -90,11 +90,14 @@
                 text: 'Alasan ' + StatusApproval + ' tidak boleh kosong!.',
                 icon: 'warning',
                 timer: 2000,
-                showConfirmButton: false    
+                showConfirmButton: false
             })
             return
         }
-      
+        var Create_By = '@Request.RequestContext.HttpContext.Session["NIK"]';
+        if (Create_By == null) {
+            return
+        }
         $.ajax({
             url: '../AtasanPIC/SubmitApproval',
             type: 'post',
@@ -102,7 +105,7 @@
             data: JSON.stringify({
                 Model: {
                     NO_CAPA: $('#input_NoCAPA').val(),
-                    Create_By: '@Request.RequestContext.HttpContext.Session["NIK"]',
+                    Create_By: Create_By,
                     CurrentStatusID: CurrentStatsID,
                     Status: StatusApproval,
                     Reject_Reason: (StatusApproval == 'Approve') ? ('-') : ($('#txt' + StatusApproval + 'Reason').val()),
@@ -110,7 +113,7 @@
                 }
             }),
             contentType: 'application/json; charset=utf-8',
-            success: function (data) {      
+            success: function (data) {
                 if (data === "unauthorized") {
                     return window.location.replace('../Login');
                 }
@@ -123,7 +126,7 @@
                         showConfirmButton : false
                     }).then(function (result) {
                        //$.unblockUI();
-                    }); 
+                    });
                     window.location.href = '../PendingTask/TaskList';
                 }
                 else {
@@ -138,9 +141,9 @@
                 }
 
             },
-            error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
+            //error: function (ex) {
+            //    console.log(JSON.stringify(ex));
+            //}
         });
     }
 
@@ -176,11 +179,11 @@
             $("#Cancel_Page").modal("hide");
         });
 
-        $("#btnCloseCancel").click(function () {          
+        $("#btnCloseCancel").click(function () {
             ClearRejectReason();//Remove Reason Field EventClick
         });
 
-        $("#btnCloseReject").click(function () {            
+        $("#btnCloseReject").click(function () {
             ClearRejectReason();//Remove Reason Field EventClick
         });
     });

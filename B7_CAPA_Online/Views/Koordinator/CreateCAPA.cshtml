@@ -455,7 +455,7 @@
                                     <div class="col-md-6">
                                         <label class="m-t-20">Lokasi</label>
                                         <select class="form-control form-control-sm" id="Lokasi_DDL" name="Lokasi" required disabled>
-                                            <option>Option 1</option>
+                                            <option value="-">Option 1</option>
                                             <option>Option 2</option>
                                             <option>Option 3</option>
                                         </select>
@@ -693,7 +693,7 @@
                                     <div class="col-md-6">
                                         <label class="m-t-20">Lokasi</label>
                                         <select class="form-control form-control-sm" id="Lokasi_DDL" name="Lokasi">
-                                            <option>Option 1</option>
+                                            <option value="">Option 1</option>
                                             <option>Option 2</option>
                                             <option>Option 3</option>
                                         </select>
@@ -705,6 +705,7 @@
                                         <select class="form-control" id="AreaPIC_DDL" name="AreaPIC">
                                         </select>
                                         @Html.HiddenFor(m => m.AreaPIC)
+                                        @Html.HiddenFor(m => m.Departemen_Name, new { id = "Departemen_Name", value = "" })
                                     </div>
                                 </div>
                                 <div class="row form-group-sm mb-4">
@@ -833,8 +834,8 @@
 <script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>
 <script src="~/Content/Scripts/plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.min.js" defer></script>
 <script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
-
-<script>
+@section scripts {
+    <script>
 
     var formData = new FormData();
     isDetail = false;
@@ -842,6 +843,10 @@
         $('.tags').tagsinput({
             maxTags: 4
         });
+        $('#Lokasi_DDL').change(function (){
+            GetDepartements();
+        })
+
         GetDepartements();
         GetDeptNoCAPATerkait();
 
@@ -889,7 +894,7 @@
             }
         });
 
-        $('#btn_Add').click(function () {        
+        $('#btn_Add').click(function () {
             AddDepartemen();
             resetPIC();
             $('#VendorDiv').prop('hidden', true);
@@ -948,7 +953,7 @@
 
         //        },
         //        error: function (ex) {
-        //            alert(JSON.stringify(ex));
+        //            console.log(JSON.stringify(ex));
         //        }
         //    });
         //});
@@ -1513,7 +1518,7 @@
 
     function validateInput() {
         var tableContent = (document.getElementById("Table_Departemen").rows.length > 1) ? ((document.getElementById("Table_Departemen").rows.length > 1) ? (true): (false)) : (false);
-      
+
 
         var trigger = $("#Trigger_CAPA").val();
 
@@ -1610,7 +1615,7 @@
                 })
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                console.log(JSON.stringify(ex));
             }
         });
 
@@ -1632,7 +1637,7 @@
                 //$('#KategoriPenyimpangan_DDL').select2();
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                console.log(JSON.stringify(ex));
             }
         });
 
@@ -1652,7 +1657,7 @@
                 })
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                console.log(JSON.stringify(ex));
             }
         });
 
@@ -1676,7 +1681,7 @@
                 })
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                console.log(JSON.stringify(ex));
             }
         });
         return "done";
@@ -1689,9 +1694,22 @@
             $("#Table_Departemen").DataTable().destroy();
             dto = {
                 Departemen: departemen,
-                SubDeptCode: $('#Departemen_DDL').val()
+                SubDeptCode: $('#Departemen_DDL').val(),
+                Lokasi: $('#Lokasi_DDL').val()
             }
+            $.ajax({
+                url: 'DynamicController?spname=SP_SHOW_DDL',
+                type: 'post',
+                dataType: 'json',
+                data: JSON.stringify(dto),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
 
+                },
+                error: function (ex) {
+                    console.log(JSON.stringify(ex));
+                }
+            })
             $.ajax({
                 url: 'AddDepartments',
                 type: 'post',
@@ -1699,9 +1717,9 @@
                 data: JSON.stringify(dto),
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    //console.log(data);
+                    console.table(data);
                     $("#Tbl_Departemen").empty();
-                    $('#List_Departemen').prop('hidden', false);                                        
+                    $('#List_Departemen').prop('hidden', false);
                     $("#AreaPIC_DDL").empty().prop('disabled', false);
                     $("#PIC_DDL").empty().prop('disabled', false);
                     $('#AreaPIC_DDL').append('<option disabled selected hidden class="dropdown-header">*Select Area PIC*</option>');
@@ -1720,7 +1738,7 @@
                     });
                 },
                 error: function (ex) {
-                    alert(JSON.stringify(ex));
+                    console.log(JSON.stringify(ex));
                 }
             });
         } else {
@@ -1729,6 +1747,7 @@
                 type: 'warning',
                 title: 'Maaf',
                 text: 'Mohon dipilih kembali.!',
+                icon: 'warning',
                 showConfirmButton: false,
                 timer: 2000
             });
@@ -1746,11 +1765,13 @@
             dto = {
                 Option: 3,
                 Departemen: $('#AreaPIC_DDL').val(),
-                //Lokasi: Location,
+                Departemen_Name: $('#AreaPIC_DDL :selected').text(),
+                Lokasi: $('#Lokasi_DDL').val(),
                 SP: "[dbo].[SP_SHOW_DDL]"
             }
         }
         const dept = ["TK", "QC", "WH", "PR"];
+        $('#Departemen_Name').val($('#AreaPIC_DDL :selected').text())
         if (Stat < 1)  {
             resetPIC();
             $('#div_PICCAPA').prop('hidden', false);
@@ -1821,7 +1842,7 @@
 
                 },
                 error: function (ex) {
-                    alert(JSON.stringify(ex));
+                    console.log(JSON.stringify(ex));
                 }
             });
         }
@@ -1854,14 +1875,14 @@
                     var Count = data.length;
                     var checkgrouping = false;
                     $('#Table_Departemen').DataTable().clear().destroy();
-                   
+
                     $("#AreaPIC_DDL").empty().prop('disabled', false);
                     $('#AreaPIC_DDL').append($('<option disabled></option>').attr('value', '').text('*Select Area PIC*'));
                     if (Count > 0) {
                         $.each(data, function (key, entry) {
                             $('#Tbl_Departemen').append($('<tr><td>' + entry.Departemen + '</td><td ><button type="button" class="form-control-sm delete">Delete</button></td></tr>'));
                             $('#AreaPIC_DDL').append($('<option></option>').attr('value', entry.SubDeptCode).text(entry.Departemen));
-                            
+
                             getTableRow();
                             if (checkddl == true && entry.Departemen == selectedArea) {
                                 areaSDC = entry.SubDeptCode;
@@ -1873,7 +1894,7 @@
                             lengthChange: false,
                             searching: false
                         });
-                    } 
+                    }
                     if (checkddl == true) {
                         $('#AreaPIC_DDL').val(areaSDC);
                         GetPIC(1);
@@ -1887,7 +1908,7 @@
                     $('#AreaPIC_DDL').select2();
                 },
                 error: function (ex) {
-                    alert(JSON.stringify(ex));
+                    console.log(JSON.stringify(ex));
                 }
             });
         });
@@ -1899,18 +1920,19 @@
         const destructArgs = JSON.parse(args).map( obj => {
             result = Object.keys(obj).map(key => {
                 const newKey = newKeys[key] || key;
-                return keyValues = { [newKey]: obj[key] };               
-            });          
+                return keyValues = { [newKey]: obj[key] };
+            });
             arr.push(Object.assign({}, ...result));
-        });     
+        });
         return arr;
     }
 
     function AddPIC(data) {
+        console.log($('#Lokasi_DDL').val());
         var PIC = $('#PIC_DDL :selected').text();
         const dept = ["TK", "QC", "WH", "PR"];
         const renamedObj = renameKeys(data, { EmpID: "NIK", EmpName: "PIC" , OrgGroupName: "Departemen"})
-        if (PIC.length > 0 && PIC != "*Pilih*" || dept.includes($('#AreaPIC_DDL').val())) {            
+        if (PIC.length > 0 && PIC != "*Pilih*" || dept.includes($('#AreaPIC_DDL').val())) {
             if (dept.includes($('#AreaPIC_DDL').val())) {
                 dto = renamedObj;
             }
@@ -1934,7 +1956,7 @@
                     //console.log(data);
                     if ($('#AreaPIC_DDL').val() != "Others") {
                         $('#div_ListPIC').prop('hidden', false);
-                    }                  
+                    }
                     $('#Table_PIC').DataTable().destroy();
                     $("#Tbl_PIC").empty();
                     //$("#AreaPIC_DDL").empty().prop('disabled', false);
@@ -1955,7 +1977,7 @@
                     });
                 },
                 error: function (ex) {
-                    alert(JSON.stringify(ex));
+                    console.log(JSON.stringify(ex));
                 }
             });
         } else {
@@ -2010,7 +2032,7 @@
                     //$('#AreaPIC_DDL').select2();
                 },
                 error: function (ex) {
-                    alert(JSON.stringify(ex));
+                    console.log(JSON.stringify(ex));
                 }
             });
         });
@@ -2036,7 +2058,7 @@
             data.Email = row.find("td").eq(3).html();
             PICList.push(data);
             $("#myObj2").val(JSON.stringify(PICList));
-        });          
+        });
         console.log(PICList);
     }
 
@@ -2083,7 +2105,7 @@
                     $("#PIC_DDL").empty();
                 },
                 error: function (ex) {
-                    alert(JSON.stringify(ex));
+                    console.log(JSON.stringify(ex));
                 }
             });
         }
@@ -2101,7 +2123,7 @@
                 //$("#PIC_DDL").empty();
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                console.log(JSON.stringify(ex));
             }
         });
     }
@@ -2149,7 +2171,7 @@
                 //success: function (data) {
 
                 //error: function (ex) {
-                //    alert(JSON.stringify(ex));
+                //    console.log(JSON.stringify(ex));
                 //}
             });
             var data = JSON.parse(result.responseText);
@@ -2245,7 +2267,7 @@
     //            }
     //        },
     //        error: function (ex) {
-    //            alert(JSON.stringify(ex));
+    //            console.log(JSON.stringify(ex));
     //        }
     //    });
     //}
@@ -2271,7 +2293,7 @@
                 })
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                console.log(JSON.stringify(ex));
             }
         });
     }
@@ -2296,7 +2318,7 @@
                 })
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                console.log(JSON.stringify(ex));
             }
         });
     }
@@ -2305,22 +2327,23 @@
         dto = {
             Option: 3,
             Departemen: $('#AreaPIC_DDL').val(),
-            //Lokasi: Location,
+            Lokasi: $('#Lokasi_DDL').val(),
             SP: "[dbo].[SP_SHOW_DDL]"
         }
 
+        console.log($('#Lokasi_DDL').val());
         $.ajax({
             url: 'GetDepartments',
             type: 'post',
             dataType: 'json',
             data: JSON.stringify({
                 Option: 2,
-                Lokasi: $('#Lokasi_DDL').val().toString(),
+                Lokasi: $('#Lokasi_DDL').val(),
                 SP: "[dbo].[SP_SHOW_DDL]"
             }),
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                //console.log(data);
+                console.log(data);
                 resetTable(function _callback() {
                     $('#Departemen_DDL').empty();
                     $('#Departemen_DDL').append('<option disabled selected hidden class="dropdown-header">*Pilih*</option>');
@@ -2335,7 +2358,7 @@
 
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                console.log(JSON.stringify(ex));
             }
         });
     }
@@ -2352,10 +2375,11 @@
     //            console.log(data);
     //        },
     //        error: function (ex) {
-    //            alert(JSON.stringify(ex));
+    //            console.log(JSON.stringify(ex));
     //        }
     //    });
     //}
-</script>
+    </script>
+}
 
 

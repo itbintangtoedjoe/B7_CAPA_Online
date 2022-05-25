@@ -248,6 +248,7 @@
     <Compile Include="Report\WebFormCAPA.aspx.designer.cs">
       <DependentUpon>WebFormCAPA.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Scripts\CheckSession.cs" />
     <Compile Include="Scripts\DataAccess\DataAccess.cs" />
     <Compile Include="Scripts\SMTP\EmailSender.cs" />
   </ItemGroup>

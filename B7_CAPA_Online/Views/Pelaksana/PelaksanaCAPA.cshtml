@@ -640,6 +640,7 @@
     var totalvalidasiTreatment;
     var TreatmentTerisi;
     var pagestat = 'pageawal';
+    var lokasi = '@Request.RequestContext.HttpContext.Session["Lokasi"]';
     //function untuk ambil semua query string
     function getQueryStrings() {
         var vars = [], hash;
@@ -653,6 +654,13 @@
     }
 
     $(document).ready(function () {
+        if (lokasi == 'BPD') {
+            lokasi = 'CKR'
+        }
+        else if (lokasi == 'BPG') {
+            lokasi = 'PLG'
+        }
+        currentDept = currentDept + ' ' + lokasi;
         $('#TxtDepartemen').val('@Request.RequestContext.HttpContext.Session["Departemen"]');
         $('#TxtNoCAPA').val(noCAPA);
         $('#TxtRequestor').val(namaUser);
@@ -778,7 +786,7 @@
                                 window.location.href = '../PendingTask/TaskList';
                             },
                             error: function (ex) {
-                                alert(JSON.stringify(ex));
+                                 console.log(JSON.stringify(ex))
                             }
                         });
                     }
@@ -789,7 +797,7 @@
 
                 },
                 error: function (ex) {
-                    alert(JSON.stringify(ex));
+                     console.log(JSON.stringify(ex))
                 }
             });
 
@@ -875,7 +883,7 @@
                         success: function (data) {
                         },
                         error: function (ex) {
-                            alert(JSON.stringify(ex));
+                             console.log(JSON.stringify(ex))
                         }
                     });
                     window.location.href = '../PendingTask/TaskList';
@@ -1271,7 +1279,7 @@
                 });
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
     }
@@ -1404,7 +1412,7 @@
                 return obj[0];*@
 
             }, error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
     }
@@ -1429,7 +1437,7 @@
                 var result = JSON.parse(data);
                 attachmentPerbaikan = result;
             }, error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
 
@@ -1932,7 +1940,7 @@
                 $('#dueDatePencegahan').val(dueDate.format("YYYY-MM-DD"));*@
 
             }, error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
     }
@@ -1958,7 +1966,7 @@
                 attachmentPencegahan = result;
                 PopulateTableAttPencegahan();
             }, error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
 
@@ -2360,7 +2368,7 @@
 
                 PopulateTableAttTreatment();
             }, error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
     }
@@ -2402,7 +2410,7 @@
     //            KajianDDLPencegahan();
 
     //        }, error: function (ex) {
-    //            alert(JSON.stringify(ex));
+    //             console.log(JSON.stringify(ex))
     //        }
     //    });
     //}
@@ -2431,7 +2439,7 @@
     //            }
 
     //        }, error: function (ex) {
-    //            alert(JSON.stringify(ex));
+    //             console.log(JSON.stringify(ex))
     //        }
     //    });
     //}

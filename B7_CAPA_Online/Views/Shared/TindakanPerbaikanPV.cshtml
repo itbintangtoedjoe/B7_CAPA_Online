@@ -109,7 +109,7 @@
                 showChildPerbaikan(table);
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
     }
@@ -132,7 +132,7 @@
             contentType: 'application/json; charset=utf-8',
             async: false,
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                 console.log(JSON.stringify(ex))
             }
         });
         return JSON.parse(JSON.parse(d.responseText));
@@ -194,7 +194,7 @@
                             }
                         },
                         error: function (ex) {
-                            alert(JSON.stringify(ex));
+                             console.log(JSON.stringify(ex))
                         }
                     });
                 }

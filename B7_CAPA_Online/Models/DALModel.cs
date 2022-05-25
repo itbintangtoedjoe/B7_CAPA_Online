@@ -12,6 +12,8 @@ namespace B7_CAPA_Online.Models
     {
         public int Option { get; set; }
         public string Departemen { get; set; }
+
+        public string Departemen_Name { get; set; }
         public string NO_CAPA { get; set; }
         public string REG_ID { get; set; }
         public string Plant { get; set; }
