@@ -2450,11 +2450,11 @@
         return JSON.parse(result.responseText);
     }
 
-    function UpdateProccess() {
+    function UpdateProccess(option) {
         var dictlist = {
             NoCAPA: $('#input_NoCAPA').val(),
             NIK: $('#input_Requestor_NIK').val(),
-            Option: 14
+            Option: option
         }
         var dto1 = {
             Model: dictlist
@@ -2477,6 +2477,10 @@
 
     $(document).ready(function () {
         //isHide = false;
+        if (dept === 'Engineering' || dept === 'Quality Control' 
+            || dept === 'Produksi' || dept === 'Warehouse') {
+            UpdateProccess(13);
+        }
         GetAllRoot();
         checkStatusCAPA();
         KajianResikoDDL();
@@ -2487,8 +2491,9 @@
         getDDLDeptKajianResiko();
         getVendorDDL();
         //console.log(rootcauses);
+
         $(window).on('beforeunload', function () {
-            UpdateProccess();
+            UpdateProccess(14);
         });
         $('#btn_AddPerbaikan').click(function () {
             var dto = {};

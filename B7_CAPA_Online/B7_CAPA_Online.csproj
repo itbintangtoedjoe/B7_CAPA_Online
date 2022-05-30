@@ -5572,8 +5572,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="SqlServerSpatial110.dll" />
-    <Content Include="SqlServerTypes\x64\SqlServerSpatial110.dll" />
-    <Content Include="SqlServerTypes\x86\SqlServerSpatial110.dll" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -5663,6 +5661,7 @@
     <Content Include="Views\Koordinator\MonitoringEfektivitas.cshtml" />
     <Content Include="Views\Vendor\TipeVendorIndex.cshtml" />
     <Content Include="Views\Vendor\EditTipeVendor.cshtml" />
+    <Content Include="Views\Login\Session_Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

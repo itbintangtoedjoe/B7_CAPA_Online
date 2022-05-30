@@ -282,17 +282,15 @@
             //checkSession();
             @*setInterval(checkSession, 10001);
             setTimeout(checkSession, '@Session.Timeout' * 60 * 1000);*@ 
-            $(document).ajaxError(function(e, xhr, opts) {
+            //$(document).ajaxError(function(e, xhr, opts) {
 
-                fnsession(xhr);
+            //    chcksession(xhr);
 
-            });
+            //});
         });
 
-        async function fnsession(xhr) {
-            await chcksession(xhr);
-        }
-        function chcksession(xhr) {
+        
+        @*function chcksession(xhr) {
              if (xhr.status == 403) {
 
                    Swal.fire({
@@ -332,7 +330,7 @@
             });
 
 
-        }
+        }*@
         function CheckUser(){
             var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
             var dictlist = {

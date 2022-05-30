@@ -16,8 +16,13 @@ namespace B7_CAPA_Online.Scripts
             HttpContext ctx = HttpContext.Current;
             if (HttpContext.Current.Session["Username"] == null)
             {
-                filterContext.HttpContext.Response.StatusCode = 403;
+                //filterContext.HttpContext.Response.StatusCode = 403;
                 //filterContext.Result = new JsonResult { Data = "LogOut" };
+                filterContext.Result = new RedirectToRouteResult(
+                   new RouteValueDictionary {
+                                { "Controller", "Login" },
+                                { "Action", "Session_Error" }
+                               });
             }
             base.OnActionExecuting(filterContext);
         }

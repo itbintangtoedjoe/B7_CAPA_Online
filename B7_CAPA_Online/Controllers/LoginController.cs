@@ -188,10 +188,24 @@ namespace B7_CAPA_Online.Controllers
         {
             //string decrypted = EncryptionHelper.Decrypt("+NnSWnq/Lh1EfwTSxFxzRmrAwj7YTeawQeHecVIXCRI=");
             //return Json(decrypted, JsonRequestBehavior.AllowGet);
-
-           
+            if(Session.Count > 0)
+            {
+                Session["LoginStatus"] = "invalid";
+                Session["NIK"] = "";
+                Session["FullName"] = "";
+                Session["Username"] = "";
+                Session["NamaUser"] = "";
+                Session["Departemen"] = "";
+                Session["Lokasi"] = "";
+                Session["SuperiorName"] = "";
+            }
             return View();
         }
+        public ActionResult Session_Error()
+        {
+            return View();
+        }
+
 
         public string FindKaryawan(string username,string tipe, string password)
         {
@@ -213,14 +227,7 @@ namespace B7_CAPA_Online.Controllers
             IntPtr tokenHandle = new IntPtr(0);
             string MachineName, username, password, tipeLogin = null;
             string loginStatus = "0";
-            Session["LoginStatus"] = "invalid";
-                Session["NIK"] = "";
-                Session["FullName"] = "";
-                Session["Username"] = "";
-                Session["NamaUser"] = "";
-                Session["Departemen"] = "";
-                Session["Lokasi"] = "";
-                Session["SuperiorName"] = "";
+            
             username = loginData.Username;
             password = loginData.Password;
             tipeLogin = loginData.TipeLogin;

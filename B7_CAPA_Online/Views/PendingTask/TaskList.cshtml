@@ -55,8 +55,17 @@
 
 <script>
     var NIK = '@Request.RequestContext.HttpContext.Session["NIK"]';
+    var lokasi = '@Request.RequestContext.HttpContext.Session["Lokasi"]';
+    var currentCAPA;
 
     $(document).ready(function () {
+
+        if (lokasi == 'BPD') {
+            lokasi = 'CKR'
+        }
+        else if (lokasi == 'BPG') {
+            lokasi = 'PLG'
+        }
         DataPendingTask();
 
 
@@ -127,7 +136,7 @@
 
         //    } else if (taskList[20].STATUS_ID = 6) {
         //        //From CAPA
-        //        window.open("/Pelaksana/PelaksanaCAPA?NoCAPA=" + taskList[1].NO_CAPA + "&PelaksanaID=" + NIK); 
+        //        window.open("/Pelaksana/PelaksanaCAPA?NoCAPA=" + taskList[1].NO_CAPA + "&PelaksanaID=" + NIK);
         //    } else if (taskList[20].STATUS_ID = 7) {
 
         //    } else if (taskList[20].STATUS_ID = 8) {
@@ -136,14 +145,14 @@
 
         //    } else if (taskList[20].STATUS_ID = 10) {
 
-        //    }             
+        //    }
         //});
         $('#Tbl_PendingTask tbody').on('click', 'button.Select', function () {
             SelectedTask(this);
         })
     });
 
-    
+
 
     function DataPendingTask() {
         $.ajax({
@@ -208,15 +217,17 @@
         });
     }
 
-       
+
 
     function SelectedTask(param) {
         let dataRow = $('#Tbl_PendingTask').DataTable().row($(param).closest('tr')).data();
+        currentCAPA = dataRow.NO_CAPA;
         if (dataRow.STATUS_ID == 1) {
             // PIC
-            if  (dataRow.AREA_PIC === 'Engineering' || dataRow.AREA_PIC === 'Quality Control' || dataRow.AREA_PIC === 'Produksi' || dataRow.AREA_PIC === 'Warehouse' )
+            if (dataRow.AREA_PIC === 'Engineering ' + lokasi || dataRow.AREA_PIC === 'Quality Control '+ lokasi
+                || dataRow.AREA_PIC === 'Produksi ' + lokasi || dataRow.AREA_PIC === 'Warehouse ' + lokasi)
             {
-                UpdateProccess(dataRow.NO_CAPA);
+                setTimeout(UpdateProccess,3000);
             }
             else {
                 window.open("../PIC/FormCAPA?NoCAPA=" + dataRow.NO_CAPA);
@@ -246,12 +257,12 @@
         else if (dataRow.Stat == 11) {
             window.open("../Evaluator/ApprovalPerubahanEvaluator?NoCAPA=" + dataRow.NO_CAPA);
         }
-          
+
     }
 
-    function UpdateProccess(NoCAPA) {
+    function UpdateProccess() {
         var dictlist = {
-            NoCAPA: NoCAPA,
+            NoCAPA: currentCAPA,
             NIK: NIK,
             Option: 13
         }
@@ -279,7 +290,7 @@
                     })
                     return
                 }
-                
+
             },
             error: function (errormessage) {
                 $('#divLoading').attr("hidden", true);
