@@ -287,11 +287,17 @@
             //    chcksession(xhr);
 
             //});
+            $(document).ajaxError(function (a, xhr, c) {
+                console.log(xhr.status);
+                if (xhr.status === 401) {
+                    chcksession(xhr)
+                }
+            });
         });
 
         
-        @*function chcksession(xhr) {
-             if (xhr.status == 403) {
+        function chcksession(xhr) {
+             if (xhr.status == 401) {
 
                    Swal.fire({
                         title: 'Session Expired! Silahkan login Kembali ',
@@ -330,7 +336,7 @@
             });
 
 
-        }*@
+        }
         function CheckUser(){
             var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
             var dictlist = {

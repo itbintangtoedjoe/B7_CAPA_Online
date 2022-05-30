@@ -52,6 +52,7 @@
 </div>
 <script src="~/Content/Scripts/plugins/datatables/jquery.dataTables.min.js" defer></script>
 <script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>
+<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
 
 <script>
     var NIK = '@Request.RequestContext.HttpContext.Session["NIK"]';
@@ -227,6 +228,7 @@
             if (dataRow.AREA_PIC === 'Engineering ' + lokasi || dataRow.AREA_PIC === 'Quality Control '+ lokasi
                 || dataRow.AREA_PIC === 'Produksi ' + lokasi || dataRow.AREA_PIC === 'Warehouse ' + lokasi)
             {
+                $.blockUI();
                 setTimeout(UpdateProccess,3000);
             }
             else {
@@ -278,9 +280,11 @@
             success: function (data) {
                 var result = JSON.parse(data);
                 if (result[0].Stat == 'Valid') {
-                    window.open("../PIC/FormCAPA?NoCAPA=" + NoCAPA);
+                    $.unblockUI();
+                    window.open("../PIC/FormCAPA?NoCAPA=" + currentCAPA);
                 }
                 else {
+                    $.unblockUI();
                     Swal.fire({
                         title: 'Error',
                         text: "Sedang diakses oleh " + result[0].Username+ "!",
