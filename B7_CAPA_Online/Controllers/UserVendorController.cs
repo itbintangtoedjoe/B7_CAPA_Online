@@ -246,7 +246,7 @@ namespace B7_CAPA_Online.Controllers
                         msg.IsBodyHtml = true;
                         msg.To.Add(userVendor.Email);
 
-                        //mailObj.Send(msg);
+                        mailObj.Send(msg);
 
                         return Json("success");
                     }

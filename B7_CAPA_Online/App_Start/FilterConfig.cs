@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using B7_CAPA_Online.Scripts;
+using System.Web;
 using System.Web.Mvc;
 
 namespace B7_CAPA_Online
@@ -8,6 +9,7 @@ namespace B7_CAPA_Online
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new CheckSession());
         }
     }
 }

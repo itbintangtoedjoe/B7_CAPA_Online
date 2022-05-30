@@ -35,11 +35,15 @@ namespace B7_CAPA_Online.Scripts
                 else
                 {
                     //filterContext.Result = new RedirectResult("~/Login/Session_Error");
-                    filterContext.Result = new RedirectToRouteResult(
-                       new RouteValueDictionary {
-                                    { "Controller", "Login" },
-                                    { "Action", "Session_Error" }
-                                   });
+                    //filterContext.HttpContext.Response.StatusCode = 403;
+                    if (filterContext.Controller is LoginController == false)
+                    {
+                        filterContext.Result = new RedirectToRouteResult(
+                          new RouteValueDictionary {
+                                        { "Controller", "Login" },
+                                        { "Action", "Session_Error" }
+                                      });   
+                    }
                 }
                 //filterContext.Result = new RedirectToRouteResult(
                 //   new RouteValueDictionary {
