@@ -68,7 +68,7 @@
         ***********************************-->
         <div class="nav-header">
             <div class="brand-logo">
-                <a href="../HomePage/Index">
+                <a href="../PendingTask/TaskList">
                     <b class="logo-abbr"><img src="~/Content/Styles/images/logo.png" alt=""> </b>
                     <span class="logo-compact"><img src="~/Content/Styles/images/logo-compact.png" alt=""></span>
                     <span class="brand-title">
@@ -118,7 +118,7 @@
                                 <div class="dropdown-content-body my-2">
                                     <ul>
                                         <li>
-                                            <a id="spanLogout" href="@Url.Action("Index", "Login")"><i class="icon-key"></i> <span>Logout</span></a>
+                                            <a id="spanLogout" href="../Login/Index"><i class="icon-key"></i> <span>Logout</span></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -281,7 +281,7 @@
             $('#UserLoginXd').text(usernameAktif);
             //checkSession();
             @*setInterval(checkSession, 10001);
-            setTimeout(checkSession, '@Session.Timeout' * 60 * 1000);*@ 
+            setTimeout(checkSession, '@Session.Timeout' * 60 * 1000);*@
             //$(document).ajaxError(function(e, xhr, opts) {
 
             //    chcksession(xhr);
@@ -295,7 +295,7 @@
             });
         });
 
-        
+
         function chcksession(xhr) {
              if (xhr.status == 401) {
 
@@ -305,7 +305,7 @@
                         showConfirmButton: false,
                         timer: 1000,
                         }).then(() => {
-                            return window.location.href = '@Url.Action("Index", "Login")';
+                            return window.location.href = '../Login/Index';
                         });
                 }
         }
@@ -326,7 +326,7 @@
                         showConfirmButton: false,
                         timer: 1000,
                         }).then(() => {
-                        return window.location.href = '@Url.Action("Index", "Login")';
+                        return window.location.href = '../Login/Index';
                         });
                     }
                 },

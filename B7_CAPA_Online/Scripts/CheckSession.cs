@@ -34,7 +34,12 @@ namespace B7_CAPA_Online.Scripts
                 //}
                 else
                 {
-                    filterContext.Result = new RedirectResult("~/Login/Session_Error");
+                    //filterContext.Result = new RedirectResult("~/Login/Session_Error");
+                    filterContext.Result = new RedirectToRouteResult(
+                       new RouteValueDictionary {
+                                    { "Controller", "Login" },
+                                    { "Action", "Session_Error" }
+                                   });
                 }
                 //filterContext.Result = new RedirectToRouteResult(
                 //   new RouteValueDictionary {
