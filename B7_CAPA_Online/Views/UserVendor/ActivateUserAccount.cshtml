@@ -1,6 +1,6 @@
 ﻿@{
     @*Layout = "~/Views/Shared/_EmptyLayout.cshtml";*@
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Aktivasi Akun CAPA B7";
 }
 <head>
@@ -26,14 +26,14 @@
     <link href="~/Content/sweetalert.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
+    <script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>
 
     <!-- Custom Stylesheet -->
     <link href="~/Content/Styles/css/style.css" rel="stylesheet">
     <link href="~/Template/css/custom.css" rel="stylesheet">
 </head>
-
-<body style="margin:30px;">
-    <div class="margin-all-20">
+<div class="content-body">
+    <div class="container-fluid">
         <h3>Aktivasi Akun CAPA B7</h3>
 
         @using (Html.BeginForm("ActivateUserAccount", "UserVendor", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -77,7 +77,8 @@
             <p>Copyright &copy; 2021 PT Bintang Toedjoe</p>
         </div>
     </div>
-</body>
+</div>
+
 
 <script src="~/Content/jquery-3.4.1.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>

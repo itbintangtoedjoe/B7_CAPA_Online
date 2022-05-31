@@ -22,6 +22,7 @@ namespace B7_CAPA_Online.Controllers
         private readonly SqlConnection logEmailConn = new SqlConnection(ConfigurationManager.ConnectionStrings["B7CONNECT"].ToString());
         readonly DataAccess DAL = new DataAccess();
 
+        [CheckSession]
         public List<UserVendor> GetAllUserVendors()
         {
             DataSet ds = new DataSet();
@@ -83,6 +84,7 @@ namespace B7_CAPA_Online.Controllers
             }
         }
 
+        [CheckSession]
         public ActionResult Index()
         {
             List<UserVendor> allUserVendors = GetAllUserVendors();
@@ -90,10 +92,12 @@ namespace B7_CAPA_Online.Controllers
             ViewBag.AllUserVendors = activeUserVendors;
             return View();
         }
+        [CheckSession]
         public ActionResult Add_Evaluator()
         {
             return View();
         }
+        [CheckSession]
         public ActionResult CreateUserVendor()
         {
             VendorController vendorController = new VendorController();
@@ -104,12 +108,14 @@ namespace B7_CAPA_Online.Controllers
             //ViewBag.AllUserVendors = allUserVendors;
             return View();
         }
+        [CheckSession]
         public ActionResult DynamicController(DynamicModel Models, string spname)
         {
             var parameters = new DynamicParameters(Models.Model);
             return Json(DAL.VendorStoredProcedure(parameters, spname));
         }
 
+        [CheckSession]
         private string GenerateUserVendorID()
         {
             //get last id from creation date
@@ -180,7 +186,7 @@ namespace B7_CAPA_Online.Controllers
                 return View();
             }
         }
-
+        [CheckSession]
         public ActionResult SaveNewPassword(UserVendor user)
         {
             //System.Diagnostics.Debug.WriteLine(user);
@@ -202,6 +208,7 @@ namespace B7_CAPA_Online.Controllers
             }
         }
 
+        [CheckSession]
         public ActionResult SaveUserVendor(UserVendor userVendor)
         {
             string idSuperior = userVendor.SuperiorID;
@@ -278,6 +285,7 @@ namespace B7_CAPA_Online.Controllers
             }
         }
 
+        [CheckSession]
         public ActionResult FindUserVendorById(UserVendor userVendor)
         {
             List<UserVendor> allUserVendors = GetAllUserVendors();
@@ -291,6 +299,7 @@ namespace B7_CAPA_Online.Controllers
             return Json(userFound);
         }
 
+        [CheckSession]
         public ActionResult UpdateUserVendor(UserVendor userVendor)
         {
             //Session["nik_active"].ToString()
@@ -317,6 +326,7 @@ namespace B7_CAPA_Online.Controllers
             }
         }
 
+        [CheckSession]
         public ActionResult DeleteUserVendor(string userID)
         {
             try

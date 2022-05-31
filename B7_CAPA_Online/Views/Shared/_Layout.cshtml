@@ -298,15 +298,17 @@
             //});
             $(document).ajaxError(function (a, xhr, c) {
                 console.log(xhr.status);
+                var status = xhr.status
+                console.log(status);
                 if (xhr.status === 401) {
-                    chcksession(xhr)
+                    chcksession(xhr.status)
                 }
             });
         });
 
 
         function chcksession(xhr) {
-             if (xhr.status == 401) {
+             if (xhr === 401) {
 
                    Swal.fire({
                         title: 'Session Expired! Silahkan login Kembali ',
@@ -356,7 +358,7 @@
                 Model: dictlist
             }
             $.ajax({
-                url: "../Koordinator/DynamicController?spname=SP_Find_User",
+                url: "../Login/DynamicController?spname=SP_Find_User",
                 type: "post",
                 dataType: "json",
                 data: JSON.stringify(dto1),

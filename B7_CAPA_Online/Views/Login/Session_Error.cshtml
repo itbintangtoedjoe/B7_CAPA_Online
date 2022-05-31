@@ -10,21 +10,14 @@
             @*CheckUser();*@
             var usernameAktif = '@Request.RequestContext.HttpContext.Session["Username"]';
              $('#UserLoginXd').text(usernameAktif);
-             holdchcksession();
-            
+             Swal.fire({
+                 title: 'Session Expired! Silahkan login Kembali ',
+                 icon: "warning",
+                 showConfirmButton: false,
+                 timer: 1000,
+             }).then(() => {
+                 return window.location.href = '../Login/Index';
+             });
          });
-        async function holdchcksession() {
-            await chcksession();
-        }
-        function chcksession() {
-            Swal.fire({
-                title: 'Session Expired! Silahkan login Kembali ',
-                icon: "warning",
-                showConfirmButton: false,
-                timer: 1000,
-            }).then(() => {
-                return window.location.href = '../Login/Index';
-            });
-        }
 </script>
   

@@ -9,7 +9,7 @@ namespace B7_CAPA_Online
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-            filters.Add(new CheckSession());
+            //filters.Add(new CheckSession());
         }
     }
 }
