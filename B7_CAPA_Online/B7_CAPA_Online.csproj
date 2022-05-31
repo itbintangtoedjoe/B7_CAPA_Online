@@ -5662,6 +5662,7 @@
     <Content Include="Views\Vendor\TipeVendorIndex.cshtml" />
     <Content Include="Views\Vendor\EditTipeVendor.cshtml" />
     <Content Include="Views\Login\Session_Error.cshtml" />
+    <Content Include="Views\UserVendor\Add_Evaluator.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -326,10 +326,14 @@
                 $('#Lokasi').empty();
                 $('#Lokasi').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
 
-                var all = null;
-                $('#Lokasi').append(new Option("All", all));
                 for (var i = 0; i < result.length; i++) {
-                    $('#Lokasi').append(new Option(result[i].DDL_DESCRIPTION, result[i].DDL_DESCRIPTION));
+                    if (result[i].DDL_DESCRIPTION == 'ALL') {
+                        $('#Lokasi').append(new Option('All', result[i].DDL_DESCRIPTION));
+                    }
+                    else {
+                        $('#Lokasi').append(new Option(result[i].DDL_DESCRIPTION, result[i].DDL_DESCRIPTION));
+
+                    }
                 }
 
                 getStatusCAPA();

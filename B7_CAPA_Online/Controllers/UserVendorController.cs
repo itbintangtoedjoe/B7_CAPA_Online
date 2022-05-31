@@ -90,7 +90,10 @@ namespace B7_CAPA_Online.Controllers
             ViewBag.AllUserVendors = activeUserVendors;
             return View();
         }
-
+        public ActionResult Add_Evaluator()
+        {
+            return View();
+        }
         public ActionResult CreateUserVendor()
         {
             VendorController vendorController = new VendorController();

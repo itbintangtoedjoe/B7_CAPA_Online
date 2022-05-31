@@ -159,7 +159,7 @@
                         { "data": "RecordID" },
                         {
                             "data": null,
-                            "defaultContent": "<button> class='btn btn-primary Print' value='Print' style='background-color:green; '>Print</button>"
+                            "defaultContent": "<button class='btn btn-primary Print' value='Print' style='background-color:green; '>Print</button>"
                         },
                         { "data": "REG_ID" },
                         { "data": "NO_CAPA" },
@@ -217,14 +217,14 @@
 
                 
                 var all = "";
-                for (var i = 0; i < result.length; i++) {
-                    if (i == 0) {
-                        all += result[i].Org_Group_Name;
-                    }
-                    else {
-                        all += ',' + result[i].Org_Group_Name;
-                    }
-                }
+                //for (var i = 0; i < result.length; i++) {
+                //    if (i == 0) {
+                //        all += result[i].Org_Group_Name;
+                //    }
+                //    else {
+                //        all += ',' + result[i].Org_Group_Name;
+                //    }
+                //}
                 $('#Departemen').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
 
                 $('#Departemen').append(new Option("All", all));
@@ -259,18 +259,23 @@
                 var result = JSON.parse(data);
                 $('#Lokasi').empty();
                 $('#Lokasi').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
-                var all = "";
+              
+                //for (var i = 0; i < result.length; i++) {
+                //    if (i == 0) {
+                //        all += result[i].DDL_DESCRIPTION;
+                //    }
+                //    else {
+                //        all += ',' + result[i].DDL_DESCRIPTION;
+                //    }
+                //}
                 for (var i = 0; i < result.length; i++) {
-                    if (i == 0) {
-                        all += result[i].DDL_DESCRIPTION;
+                    if (result[i].DDL_DESCRIPTION == 'ALL') {
+                        $('#Lokasi').append(new Option('All', result[i].DDL_DESCRIPTION));
                     }
                     else {
-                        all += ',' + result[i].DDL_DESCRIPTION;
+                        $('#Lokasi').append(new Option(result[i].DDL_DESCRIPTION, result[i].DDL_DESCRIPTION));
+
                     }
-                }
-                $('#Lokasi').append(new Option("All", all));
-                for (var i = 0; i < result.length; i++) {
-                    $('#Lokasi').append(new Option(result[i].DDL_DESCRIPTION, result[i].DDL_DESCRIPTION));
                 }
 
             }, error: function (ex) {
@@ -285,14 +290,14 @@
         var date = new Date();
         $('#Tahun').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
         var all = "";
-        for (var i = 2021; i <= date.getFullYear(); i++) {
-            if (i == 2021) {
-                all += '' + i+'';
-            }
-            else {
-                all += ',' + '' + i + '';
-            }
-        }
+        //for (var i = 2021; i <= date.getFullYear(); i++) {
+        //    if (i == 2021) {
+        //        all += '' + i+'';
+        //    }
+        //    else {
+        //        all += ',' + '' + i + '';
+        //    }
+        //}
         $('#Tahun').append(new Option("All", all));
         for (var i = 2021; i <= date.getFullYear(); i++) {
 
@@ -306,14 +311,14 @@
         var bulan = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         $('#Bulan').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
         var all = "";
-        for (var i = 1; i <= 12; i++) {
-            if (i == 1) {
-                all += '' + i + '';
-            }
-            else {
-                all += ',' + '' + i + '';
-            }
-        }
+        //for (var i = 1; i <= 12; i++) {
+        //    if (i == 1) {
+        //        all += '' + i + '';
+        //    }
+        //    else {
+        //        all += ',' + '' + i + '';
+        //    }
+        //}
         $('#Bulan').append(new Option("All", all));
       
         for (var i = 0; i < 12; i++) {
@@ -345,14 +350,14 @@
 
                 $('#Kategori').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
                 var all = "";
-                for (var i = 0; i < result.length; i++) {
-                    if (i == 0) {
-                        all += result[i].DDL_DESCRIPTION;
-                    }
-                    else {
-                        all += ',' + result[i].DDL_DESCRIPTION;
-                    }
-                }
+                //for (var i = 0; i < result.length; i++) {
+                //    if (i == 0) {
+                //        all += result[i].DDL_DESCRIPTION;
+                //    }
+                //    else {
+                //        all += ',' + result[i].DDL_DESCRIPTION;
+                //    }
+                //}
                 $('#Kategori').append(new Option("All", all));
                 for (var i = 0; i < result.length; i++) {
                     $('#Kategori').append(new Option(result[i].DDL_DESCRIPTION, result[i].DDL_DESCRIPTION));

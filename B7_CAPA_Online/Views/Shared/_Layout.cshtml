@@ -139,7 +139,7 @@
                 <ul class="metismenu" id="menu">
                     <li class="nav-label">Dashboard</li>
                     <li id="CreateCAPA">@Html.ActionLink("Create CAPA", "CreateCAPA", "Koordinator", null, null)</li>
-                    <li id="PendingTask">@Html.ActionLink("Outstanding Approval", "TaskList", "PendingTask", null, null)</li>
+                    <li id="PendingTask">@Html.ActionLink("Outstanding", "TaskList", "PendingTask", null, null)</li>
                     @*<li>@Html.ActionLink("Pelaksana", "PelaksanaCAPA", "Pelaksana", null, null)</li>*@
                     <li id="FindCAPA">@Html.ActionLink("Find CAPA", "FindCAPA", "FindCAPA", null, null)</li>
                     <li class="nav-label" id="Vendor">VENDOR</li>
@@ -171,6 +171,15 @@
                             <li>@Html.ActionLink("Reporting", "Reporting", "ReportCAPA", null, null)</li>
                             <li id="ReportLead">@Html.ActionLink("Report Leadtime", "ReportLeadtime", "ReportCAPA", null, null)</li>
                             <li id="ReportMaster">@Html.ActionLink("Report Masterlist", "ReportMasterlist", "ReportCAPA", null, null)</li>
+                        </ul>
+                    </li>
+                    <li class="nav-label" id="Setting">Settings</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="true" id="SettingArrow">
+                            <i class="icon-list menu-icon"></i><span class="nav-text">Evaluator</span>
+                        </a>
+                        <ul aria-expanded="true">
+                            <li id="List_Evaluator">@Html.ActionLink("List Evaluator", "Add_Evaluator", "UserVendor", null, null)</li>
                         </ul>
                     </li>
                 </ul>
@@ -363,6 +372,10 @@
                         $('#UserArrow').attr("hidden", true);
                         $("#ReportLead").attr("hidden", true);
                         $("#ReportMaster").attr("hidden", true);
+                        $('#Setting').attr("hidden", true);
+                        $('#SettingArrow').attr("hidden", true);
+                        $('#List_Evaluator').attr("hidden", true);
+
                     }
                 },
                 error: function (errormessage) {
