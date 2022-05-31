@@ -15,13 +15,14 @@ namespace B7_CAPA_Online.Scripts
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             HttpContext ctx = HttpContext.Current;
-            if (HttpContext.Current.Session["Username"] == null)
+            if (HttpContext.Current.Session["Username"] == null || HttpContext.Current.Session["Username"].ToString() == "")
             {
                 //filterContext.HttpContext.Response.StatusCode = 403;
                 //filterContext.Result = new JsonResult { Data = "LogOut" };
                 if (filterContext.HttpContext.Request.IsAjaxRequest())
                 {
                     filterContext.HttpContext.Response.StatusCode = 401;
+                    //filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
                 }
                 //if (filterContext.HttpContext.Request.IsAjaxRequest())
                 //{
