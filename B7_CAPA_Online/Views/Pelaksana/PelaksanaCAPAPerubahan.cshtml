@@ -336,6 +336,13 @@
 
             }
         });
+        if (tindakan == 'Perbaikan') {
+            CheckProccess(tindakan, referenceID);
+        }
+        if (tindakan == 'Pencegahan') {
+            CheckProccess(tindakan, referenceID);
+
+        }
 ;        if (tindakan == "Perbaikan") {
             $('#Perbaikan').attr("hidden", false);
             $('#txtPelaksanaPerbaikan').val(namaUser);
@@ -1123,7 +1130,7 @@
                 showConfirmButton: false,
                 timer: 1000,
             })
-            return 
+            return
         }
         else if (dateperbaikan != "" && (date.getTime() > dateperbaikan.getTime())) {
             Swal.fire({
@@ -1133,7 +1140,7 @@
                 showConfirmButton: false,
                 timer: 1000,
             })
-            return 
+            return
         }
         else {
             $.ajax({
@@ -1445,6 +1452,73 @@
             });
 
 
+    }
+    function CheckProccess(tipe, tindakanid) {
+        var dictlist = {
+            tipe: tipe,
+            recordID: tindakanid,
+            kategori: 'Check Process'
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_Update_Pelaksanaan",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto1),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                if (tipe == 'Perbaikan') {
+                    $('#ddlPerbaikan').prop("disabled", true);
+                    var isprocess = result[0].IS_PROCESS;
+                    var Departemen = result[0].Departemen_Perbaikan;
+                    var pelaksanaName = result[0].Nama_Personil;
+                    var lastaccess = result[0].lastaccess;
+                    var lastnik = result[0].Update_By;
+
+                    console.log(isprocess);
+                    if (isprocess == true && lastnik != nik) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: "Sedang diakses oleh " + lastaccess + "!",
+                            icon: "error",
+                            timer: 2000,
+                            showConfirmButton: false
+                        })
+                        $('#ddlPerbaikan').prop("disabled", false);
+                        return window.Location.href = '../PendingTask/TaskList'
+                    }
+                    UpdateProccess('Perbaikan', 1, referenceID);
+
+                  
+                }
+                else {
+                    var isprocess = result[0].IS_PROCESS;
+                    var Departemen = result[0].Departemen_Pencegahan;
+                    var pelaksanaName = result[0].Nama_Personil;
+                    var lastaccess = result[0].lastaccess;
+                    var lastnik = result[0].Update_By;
+                    if (isprocess == true && lastnik != nik) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: "Sedang diakses oleh " + lastaccess + "!",
+                            icon: "error",
+                            timer: 2000,
+                            showConfirmButton: false
+                        })
+                        return window.Location.href = '../PendingTask/TaskList'
+                        $('#ddlPerbaikan').prop("disabled", false);
+                    }
+                    UpdateProccess('Pencegahan', 1, referenceID);
+                  
+                }
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
     }
 </script>
 

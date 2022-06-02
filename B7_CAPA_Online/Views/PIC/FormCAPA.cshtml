@@ -2466,7 +2466,22 @@
             data: JSON.stringify(dto1),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-
+                var result = JSON.parse(data);
+                if (result[0].Stat == 'Valid') {
+                    //$.unblockUI();
+                    window.open("../PIC/FormCAPA?NoCAPA=" + currentCAPA);
+                }
+                else {
+                    //$.unblockUI();
+                    Swal.fire({
+                        title: 'Error',
+                        text: "Sedang diakses oleh " + result[0].Username + "!",
+                        icon: "error",
+                        timer: 2000,
+                        showConfirmButton: false
+                    })
+                    return
+                }
 
             },
             error: function (errormessage) {
