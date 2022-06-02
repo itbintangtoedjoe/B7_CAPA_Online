@@ -691,7 +691,7 @@
             DisplayPencegahan();
 
         });
-        $(window).on('unload', function () {
+        $(window).on('beforeunload', function () {
             if ($('#btnPilihPerbaikan').text() == 'Batalkan') {
                 UpdateProccess('Perbaikan', 0, $('#ddlPerbaikan').val());
             }
@@ -701,6 +701,14 @@
             }
         });
 
+        $('#spanLogout').click(function (evt) {
+            if ($('#btnPilihPerbaikan').text() == 'Batalkan') {
+                UpdateProccess('Perbaikan', 0, $('#ddlPerbaikan').val());
+            }
+            if ($('#btnPilihPencegahan').text() == 'Batalkan') {
+                UpdateProccess('Pencegahan', 0, $('#ddlPencegahan').val());
+            }
+        });
 
         $('#ddlKajianTreatment').change(function () {
             //$('#txtPotensiKegagalanHasil').prop("disabled", false);

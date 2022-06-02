@@ -319,6 +319,15 @@
 
             }
         });
+        $('#spanLogout').click(function () {
+            if (tindakan == 'Perbaikan') {
+                UpdateProccess('Perbaikan', 0, referenceID);
+            }
+            if (tindakan == 'Pencegahan') {
+                UpdateProccess('Pencegahan', 0, referenceID);
+
+            }
+        });
         if (tindakan == 'Perbaikan') {
             CheckProccess(tindakan, referenceID);
         }
