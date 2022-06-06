@@ -97,6 +97,13 @@ namespace B7_CAPA_Online.Controllers
         {
             return View();
         }
+
+        [CheckSession]
+        public ActionResult Add_Departemen()
+        {
+            return View();
+        }
+
         [CheckSession]
         public ActionResult CreateUserVendor()
         {
