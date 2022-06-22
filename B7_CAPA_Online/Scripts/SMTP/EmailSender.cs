@@ -55,6 +55,10 @@ namespace B7_CAPA_Online.Scripts.SMTP
                 //msg.To.Add("dani.pernando@bintang7.com");                            
                 //msg.To.Add(obj[index].Email);
                 msg.To.Add("tanaelbudiman@gmail.com");
+
+                msg.CC.Add("monica.sudarsono@bintang7.com");
+
+                msg.CC.Add("melin.oktasia@bintang7.com");
                 foreach (var CC in emailCC) // looping cc 
                 {
                     //msg.Body += CC.Email;

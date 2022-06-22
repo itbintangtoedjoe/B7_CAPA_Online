@@ -487,7 +487,7 @@
                                         @Html.HiddenFor(m => m.PIC_CAPA)
                                     </div>
                                 </div>
-                                <div class="row form-group-sm" id="List_Departemen">
+                                <div class="row form-group-sm" id="List_Departemen" >
                                     <div class="col-md-6">
                                         <label class="m-t-20">List Departemen Terkait</label>
                                         <div class="table-responsive">
@@ -738,7 +738,7 @@
 
                                     </div>
                                 </div>
-                                <div class="row form-group-sm" id="List_Departemen" hidden>
+                                <div class="row form-group-sm" id="List_Departemens" hidden>
                                     <div class="col-md-6">
                                         <label class="m-t-20">List Departemen Terkait</label>
                                         <div class="table">
@@ -1691,25 +1691,25 @@
         var departemen = $('#Departemen_DDL :selected').text();
         if (departemen.length > 0 && departemen != "*Pilih*") {
             $('#div_ListPIC').prop('hidden', true);
-            $("#Table_Departemen").DataTable().destroy();
+            $("#Table_Departemen").DataTable().destroy().clear();
             dto = {
                 Departemen: departemen,
                 SubDeptCode: $('#Departemen_DDL').val(),
                 Lokasi: $('#Lokasi_DDL').val()
             }
-            $.ajax({
-                url: 'DynamicController?spname=SP_SHOW_DDL',
-                type: 'post',
-                dataType: 'json',
-                data: JSON.stringify(dto),
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
+            //$.ajax({
+            //    url: 'DynamicController?spname=SP_SHOW_DDL',
+            //    type: 'post',
+            //    dataType: 'json',
+            //    data: JSON.stringify(dto),
+            //    contentType: 'application/json; charset=utf-8',
+            //    success: function (data) {
 
-                },
-                error: function (ex) {
-                    console.log(JSON.stringify(ex));
-                }
-            })
+            //    },
+            //    error: function (ex) {
+            //        console.log(JSON.stringify(ex));
+            //    }
+            //})
             $.ajax({
                 url: 'AddDepartments',
                 type: 'post',
@@ -1719,7 +1719,7 @@
                 success: function (data) {
                     console.table(data);
                     $("#Tbl_Departemen").empty();
-                    $('#List_Departemen').prop('hidden', false);
+                    $('#List_Departemens').prop('hidden', false);
                     $("#AreaPIC_DDL").empty().prop('disabled', false);
                     $("#PIC_DDL").empty().prop('disabled', false);
                     $('#AreaPIC_DDL').append('<option disabled selected hidden class="dropdown-header">*Select Area PIC*</option>');
@@ -2100,7 +2100,7 @@
                 type: 'GET',
                 success: function (data) {
                     $("#Tbl_Departemen").empty();
-                    $('#List_Departemen').prop('hidden', true);
+                    $('#List_Departemens').prop('hidden', true);
                     $("#AreaPIC_DDL").empty();
                     $("#PIC_DDL").empty();
                 },

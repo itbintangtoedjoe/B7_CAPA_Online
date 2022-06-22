@@ -185,12 +185,13 @@
                 success: function (data) {
                     if (data == "1") {
                         Swal.fire({
-                            title: 'Kedua password harus sama!',
-                            icon: 'error',
+                            title: "Success!",
+                            text: "Password Anda berhasil diubah",
+                            icon: 'success',
                             timer: 1000,
                             showConfirmButton: false
                         }).then(() => {
-                                window.location = '@Url.Action("Index", "Login")';
+                                window.location = '../Login/Index';
                         })
                         @*swal({
                             title: 'Berhasil',

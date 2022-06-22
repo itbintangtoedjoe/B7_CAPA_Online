@@ -193,7 +193,6 @@ namespace B7_CAPA_Online.Controllers
                 return View();
             }
         }
-        [CheckSession]
         public ActionResult SaveNewPassword(UserVendor user)
         {
             //System.Diagnostics.Debug.WriteLine(user);
