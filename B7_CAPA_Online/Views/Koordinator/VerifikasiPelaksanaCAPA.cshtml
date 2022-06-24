@@ -399,7 +399,6 @@
 
             var row = table.row(tr);
             var idx = $.inArray(tr.attr('id'), detailRows);
-            console.log(tahapan);
             console.log(row.child.isShown());
             if (row.child.isShown()) {
                 row.child.hide();
@@ -622,7 +621,7 @@
                         {
                             "orderable": false,
                             "data": null,
-                            "defaultContent": '<span><a><i class="fa fa-eye" aria-hidden="true" ></i></a></span>',
+                            "defaultContent": '<span><a><i class="showChild fa fa-eye" aria-hidden="true" ></i></a></span>',
                             "className": "details text-center"
                         }
                     ],

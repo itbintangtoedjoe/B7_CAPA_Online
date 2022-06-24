@@ -37,7 +37,7 @@ namespace B7_CAPA_Online.Scripts.SMTP
                 msg.From = new MailAddress("notification@bintang7.com", "B7 Connect Mailing System");
                 var obj = ParsingJson(dic["Recipient"].ToString());
                 dic.Add("NO_CAPA", obj[0].NO_CAPA.ToString());
-                dic.Add("Hyperlink", "https://portal.bintang7.com/B7_CAPA_Online/Login");
+                dic.Add("Hyperlink", "https://portal.bintang7.com/B7_CAPA_Online/Login/Index");
                 dic.Remove("Recipient");
                 var parameters = new DynamicParameters(dic);
                 Email emailData = new Email();

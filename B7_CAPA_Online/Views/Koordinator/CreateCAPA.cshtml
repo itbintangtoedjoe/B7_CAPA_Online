@@ -320,6 +320,18 @@
                             <!--form class="needs-validation"-->
                             @using (Html.BeginForm("InsertCAPA", "Koordinator", FormMethod.Post, new { enctype = "multipart/form-data", @class = "needs-validation" }))
                             {
+                                <div class="row form-group-sm mb-2" id="Div_Status" hidden>
+                                    <div class="col-md-6">
+                                        <label class="m-t-20">Status CAPA<span style="color: red">*</span></label>
+                                        <input type="text" class="form-control" id="Status_CAPA" value="" disabled/>
+                                    </div>
+                                </div>
+                                <div class="row form-group-sm mb-2" id="Div_Alasan" hidden>
+                                    <div class="col-md-6">
+                                        <label class="m-t-20">Alasan Reject/Cancel<span style="color: red">*</span></label>
+                                        <textarea id="txt_Alasan" type="text" class="form-control" name="Deskripsi" placeholder="Deskripsi" rows="3" required readonly></textarea>
+                                    </div>
+                                </div>
                                 <div class="row form-group-sm mb-2">
                                     <div class="col-md-6">
                                         <label class="m-t-20">Trigger CAPA<span style="color: red">*</span></label>
@@ -487,7 +499,7 @@
                                         @Html.HiddenFor(m => m.PIC_CAPA)
                                     </div>
                                 </div>
-                                <div class="row form-group-sm" id="List_Departemen" >
+                                <div class="row form-group-sm" id="List_Departemen">
                                     <div class="col-md-6">
                                         <label class="m-t-20">List Departemen Terkait</label>
                                         <div class="table-responsive">
@@ -1009,8 +1021,8 @@
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
                     var table = $('#Tbl_Deviation').DataTable({
-                        "pageLength": 5,
-                        "paging": false,
+                        "pageLength": 10,
+                        "paging": true,
                         "info" : false,
                         "lengthChange": true,
                         "searching": false,
@@ -2197,6 +2209,21 @@
                 $("#Kategori_DDL").empty().append(new Option(data[0].KATEGORI_CAPA, data[0].KATEGORI_CAPA2));
                 $("#Lokasi_DDL").empty().append(new Option(data[0].LOKASI_CAPA, data[0].LOKASI_CAPA2));
                 $("#Kode_DDL").empty().append(new Option(data[0].Kode_CAPA2, data[0].Kode_CAPA));
+                if ($('#Kode_DDL').val() == "CODE012") {
+                    $('#Div_KataKunci').attr("hidden", false);
+                }
+                if (data[0].STATUS_ID == 1 || data[0].STATUS_ID == 13) {
+                    $('#Div_Status').attr("hidden", false);
+                    $('#Div_Alasan').attr("hidden", false);
+                    if (data[0].STATUS_ID == 1 ) {
+                        $('#Status_CAPA').val("REJECTED");
+
+                    }
+                    if (data[0].STATUS_ID == 13) {
+                        $('#Status_CAPA').val("CANCELLED");
+                    }
+                    $('#txt_Alasan').val(data[0].REJECT_REASON);
+                }
                 $("#TxtEmailVendor").val(data[0].EMAIL);
 
                 $('#input_Requestor').val(data[0].FullName);

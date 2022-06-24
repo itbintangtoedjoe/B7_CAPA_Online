@@ -3855,7 +3855,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
           </Tablix>
           <Rectangle Name="Rectangle18">
             <PageBreak>
-              <BreakLocation>End</BreakLocation>
+              <BreakLocation>Start</BreakLocation>
             </PageBreak>
             <KeepTogether>true</KeepTogether>
             <OmitBorderOnPageBreak>true</OmitBorderOnPageBreak>
