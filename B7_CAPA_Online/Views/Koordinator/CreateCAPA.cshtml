@@ -2212,7 +2212,7 @@
                 if ($('#Kode_DDL').val() == "CODE012") {
                     $('#Div_KataKunci').attr("hidden", false);
                 }
-                if (data[0].STATUS_ID == 1 || data[0].STATUS_ID == 13) {
+                if ((data[0].STATUS_ID == 1 || data[0].STATUS_ID == 13) &&  data[0].REJECT_REASON != '-') {
                     $('#Div_Status').attr("hidden", false);
                     $('#Div_Alasan').attr("hidden", false);
                     if (data[0].STATUS_ID == 1 ) {
