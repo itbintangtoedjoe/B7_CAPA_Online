@@ -2309,7 +2309,7 @@
     function RemoveInputField(kategori) {
         $('#TxtDeskripsi' + kategori).val("");
         $('#duedate_' + kategori.toLowerCase()).val("");
-        $('#Departemen' + kategori + '_DDL').val("-");
+        //$('#Departemen' + kategori + '_DDL').val("-");
         $('#TxtAreaLain' + kategori).val("");
         //$('input[name="Potensi"]').prop("checked", false);
         //$('#TxtSuperior' + kategori).val("");
@@ -2469,7 +2469,7 @@
                 var result = JSON.parse(data);
                 if (result[0].Stat == 'Valid') {
                     //$.unblockUI();
-                    window.open("../PIC/FormCAPA?NoCAPA=" + currentCAPA);
+                    //window.open("../PIC/FormCAPA?NoCAPA=" + $('#input_NoCAPA').val());
                 }
                 else {
                     //$.unblockUI();
@@ -2480,7 +2480,8 @@
                         timer: 2000,
                         showConfirmButton: false
                     })
-                    return
+                    window.location.href = '../PendingTask/TaskList'
+                    return 
                 }
 
             },
@@ -2571,7 +2572,7 @@
                     dto = {
                         Option: 9,
                         NO_CAPA: $('#input_NoCAPA').val(),
-                        Aspect: value.WAHType_FK,
+                        Aspect: value.Aspect,
                         WhyID: value.WhyID,
                         WhyParentID: value.WhyParentID,
                         RootCause: value.WhyDesc,
@@ -2723,9 +2724,23 @@
                 WAH: $('#WAH_DDL').val(),
                 isParent: ($("#isParent[type='checkbox']:checked").val() == "Yes") ? (1) : (0),
                 WHY_Parent: $('#WhyParent_DDL').val(),
-                WHY: $('#TxtWhy').val(),
+                WHY: $('#TxtWhy').val().trim(),
                 RecordID: $('#WhyRecordID').val(),
                 SP: "[dbo].[SP_FORM_CAPA]"
+            }
+            var dictlist = {
+                Option: 21,
+                NO_CAPA: $('#input_NoCAPA').val(),
+                Aspect: $('#Aspect_DDL').val(),
+                WAH: $('#WAH_DDL').val(),
+                isParent: ($("#isParent[type='checkbox']:checked").val() == "Yes") ? (1) : (0),
+                WHY_Parent: $('#WhyParent_DDL').val(),
+                WHY: $('#TxtWhy').val().trim(),
+                RecordID: $('#WhyRecordID').val()
+            }
+
+            var dto1 = {
+                Model : dictlist
             }
 
             $.each(dto, function (key, value) {
@@ -2748,6 +2763,7 @@
             });
 
             if (isValid) {
+               
                 $.ajax({
                     url: 'AddWhy',
                     type: 'post',
@@ -2784,6 +2800,24 @@
                         console.log(JSON.stringify(ex));
                     }
                 });
+                if ($("#isParent").is(':checked') == false) {
+                    $.ajax({
+                        url: "../Koordinator/DynamicController?spname=SP_FORM_CAPA",
+                        type: "post",
+                        dataType: "json",
+                        data: JSON.stringify(dto1),
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+
+                            KajianResikoDDL();
+                            GetTindakanPerbaikanPV();
+                            GetTindakanPencegahanPV();
+                            TableKajian();
+                        },
+                        error: function (errormessage) {
+                        }
+                    });
+                }
             } else {
                 Swal.fire({
                     title: 'Maaf',

@@ -212,17 +212,21 @@ namespace B7_CAPA_Online.Controllers
             var action = "Insert Perbaikan";
             var tipe = "Perbaikan";
             var b7path = @"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Perbaikan";
+            var locpath = "~/Content/Attachment/Perbaikan/";
+
             if (kategori.Contains("Pencegahan"))
             {
                 b7path = @"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Pencegahan";
+                locpath = "~/Content/Attachment/Pencegahan/";
                 action = "Insert Pencegahan";
                 tipe = "Pencegahan";
             }
             else if (kategori.Contains("Treatment"))
             {
                 b7path = @"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Treatment";
+                locpath = "~/Content/Attachment/Treatment/";
                 action = "Insert Treatment";
-                tipe = "Treatment";
+                tipe = "Treatment"; 
             }
 
             //insert attachment + save to b7drive
@@ -231,8 +235,10 @@ namespace B7_CAPA_Online.Controllers
                 var file = Request.Files[i];
                 var fileName = updater + '_' + file.FileName;
 
-                var path = Path.Combine(b7path, updater + '_' + fileName);
-                //string path = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
+                //var path = Path.Combine(b7path, updater + '_' + fileName);
+                //var local = Path.Combine(locpath, updater + '_' + fileName);
+                string path = Path.Combine(Server.MapPath(locpath), updater + '_' + fileName);
+                //file.SaveAs(local);
                 file.SaveAs(path);
 
                 var attDictionary = new Dictionary<string, object>{

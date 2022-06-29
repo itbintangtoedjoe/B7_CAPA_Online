@@ -1304,7 +1304,9 @@
         console.log(isprocess);
         $('#txtTindakanPerbaikan').val(objPerbaikan[0].Tindakan_Perbaikan);
         $('#dueDatePerbaikan').val(dueDate.format("YYYY-MM-DD"));
-        $('#txtHasilPerbaikan').val(objPerbaikan[0].Hasil_Perbaikan);
+        if (objPerbaikan[0].Hasil_Perbaikan != '-') {
+            $('#txtHasilPerbaikan').val(objPerbaikan[0].Hasil_Perbaikan);
+        }
         $('#txtRootCausePerbaikan').val(objPerbaikan[0].WhyDesc);
 
         GetPerbaikanAttachments();
@@ -1555,8 +1557,8 @@
                         $('#uploadAttachmentPerbaikan').prop("disabled", false);
                         $('#btnSimpanPerbaikan').prop("disabled", false);
                         $('#UploadPerbaikan').prop("disabled", false);
+                        ToggleBtnDeleteAttPerbaikan("Enable");
                     }
-                    ToggleBtnDeleteAttPerbaikan("Enable");
                 }
                 else {
                     var isprocess = result[0].IS_PROCESS;
@@ -1587,9 +1589,9 @@
                         $('#uploadAttachmentPencegahan').prop("disabled", false);
                         $('#btnSimpanPencegahan').prop("disabled", false);
                         $('#UploadPencegahan').prop("disabled", false);
+                        ToggleBtnDeleteAttPencegahan("Enable");
                     }
                     $('#btnActionPencegahan').prop("disabled", false);
-                    ToggleBtnDeleteAttPencegahan("Enable");
                 }
             },
             error: function (errormessage) {
@@ -1840,7 +1842,9 @@
         var Departemen = objPencegahan[0].Departemen_Pencegahan;
         $('#txtTindakanPencegahan').val(objPencegahan[0].Tindakan_Pencegahan);
         $('#dueDatePencegahan').val(DueDate.format("YYYY-MM-DD"));
-        $('#txtHasilPencegahan').val(objPencegahan[0].Hasil_Pencegahan);
+        if (objPencegahan[0].Hasil_Pencegahan != '-') {
+            $('#txtHasilPencegahan').val(objPencegahan[0].Hasil_Pencegahan);
+        }
         $('#txtRootCausePencegahan').val(objPencegahan[0].WhyDesc);
         GetPencegahanAttachments();
         ToggleBtnDeleteAttPencegahan("Disable");

@@ -365,8 +365,8 @@ namespace B7_CAPA_Online.Controllers
             {
                 var file = Request.Files[i];
                 var fileName = file.FileName;
-                var path = Path.Combine(b7path, fileName);
-                //string path = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
+                //var path = Path.Combine(b7path, fileName);
+                string path = Path.Combine(Server.MapPath("~/Content/DiagramCAPA/"), Path.GetFileName(file.FileName));
                 file.SaveAs(path);
 
                 var dictionary = new Dictionary<string, object>{

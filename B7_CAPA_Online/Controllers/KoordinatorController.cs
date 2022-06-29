@@ -187,10 +187,11 @@ namespace B7_CAPA_Online.Controllers
                 int fileSize = file.ContentLength;
                 string mimeType = file.ContentType;
                 System.IO.Stream fileContent = file.InputStream; 
-                string filePath = Path.Combine(@"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Koordinator\", Path.GetFileName(file.FileName));
-                file.SaveAs(filePath);
+                //string filePath = Path.Combine(@"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Koordinator\", Path.GetFileName(file.FileName));
+                string locpatch = Path.Combine(@"~/Content/Attachment/Koordinator/", Path.GetFileName(file.FileName));
+                file.SaveAs(locpatch);
                 DataRow rowstype = dt.NewRow();
-                rowstype["LAMPIRAN_TERKAIT"] = filePath;
+                rowstype["LAMPIRAN_TERKAIT"] = locpatch;
                 rowstype["FILE_NAME"] = file.FileName;
                 dt.Rows.Add(rowstype);
             }
@@ -614,7 +615,9 @@ namespace B7_CAPA_Online.Controllers
                 string mimeType = file.ContentType;
                 System.IO.Stream fileContent = file.InputStream;
                 string fileName = Path.GetFileName(file.FileName);
-                string filePath = Path.Combine(@"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Koordinator\", fileName);
+
+                string filePath = Path.Combine(@"~/Content/Attachment/Koordinator/", fileName);
+                //string filePath = Path.Combine(@"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Koordinator\", fileName);
                 //string filePath = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
                 Model.LampiranTerkait.Add(new Lampiran { LAMPIRAN_TERKAIT = filePath, FILE_NAME = Path.GetFileName(file.FileName) });
 
