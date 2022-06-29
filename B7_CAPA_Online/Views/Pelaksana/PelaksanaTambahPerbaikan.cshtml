@@ -54,7 +54,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <div class="card">
+                <div class="card" hidden>
                     <div class="card-body">
                         <label class="m-t-40">--Please Select--<span style="color: red">*</span></label>
                         <div class="radio input-group">
@@ -230,7 +230,7 @@
                             <div class="row form-group-sm">
                                 <div class="col-md-6">
                                     <label class="m-t-20">Area/Proses lain yang berpotensi</label>
-                                    <textarea type="text" class="form-control" id="txtAreaBerpotensi" readonly></textarea>
+                                    <textarea type="text" class="form-control" id="txtAreaBerpotensi" ></textarea>
                                 </div>
                             </div>
                             <div class="row form-group-sm">
@@ -341,7 +341,7 @@
         //$('#RootCause_KajianResikoDDL').prop("disabled", true);
         $('#tblHeaderTindakan').prop("hidden", true);
 
-        if (tindakan == 'Pencegahan')
+        if (tindakan == 'Pencegahan' || tindakan == 'Perbaikan')
         {
             $("input[name='TambahPerbaikan']").prop("disabled", true);
             document.getElementById("Yes").checked = true;
@@ -984,12 +984,10 @@
                                     icon: 'success',
                                     showConfirmButton: false,
                                     timer: 1000,
-                                }).then((result) => {
-                                    if (result.value) {
-                                        GetTindakanPerbaikanPV();
-                                        KajianDDLPerbaikanBaru();
-                                        retrieveData2();
-                                    }
+                                }).then(() => {
+                                    GetTindakanPerbaikanPV();
+                                    KajianDDLPerbaikanBaru();
+                                    retrieveData2();
                                 });
                             }
                         },
@@ -1649,6 +1647,7 @@
             success: function (rootcause) {
                 var countAdd = 0;
                 $('#RootCause_DDL').empty();
+
                 $('#RootCause_DDL').append(new Option("*Pilih*", ""));
                 $.each(JSON.parse(rootcause), function (key, value) {
                     $('#RootCause_DDL').append(new Option(value.WhyDesc, value.WhyDesc));
@@ -1668,7 +1667,7 @@
                         })
                     }
                         console.log(obj)
-                        $.each(obj, function (key, value) {
+                    $.each(obj, function (key, value) {
                             if (value.WhyDesc == $('#RootCause_DDL').val()) {
                                 dto = {
                                     Option: 7,
@@ -1691,7 +1690,8 @@
                                     SP: "[dbo].[SP_FORM_CAPA]"
                                 }
                             }
-                        });
+                    });
+                    //console.log(dto);
                         addTindakan(dto, kategori);
 
                 });
@@ -1776,7 +1776,7 @@
                 var duedate = moment(dataPerbaikan.Due_Date);
                 $('#txtRootCauseExisting').val(dataPerbaikan.WhyDesc);
                 $('#txtTindakanPerbaikan').val(dataPerbaikan.Tindakan_Perbaikan);
-                $('#txtAreaBerpotensi').val(dataPerbaikan.Tindakan_Perbaikan);
+                //$('#txtAreaBerpotensi').val(dataPerbaikan.Tindakan_Perbaikan);
                 $('#txtTindakanPerbaikan').prop("disabled", true);
                 $('#dueDatePerbaikan').val(duedate.format("YYYY-MM-DD"));
                 $('#RootCause_KajianResikoDDL').empty();
@@ -1865,7 +1865,7 @@
 
                 success: function (data) {
                     var status = JSON.parse(data);
-                    if (status[0].Status_Inserted != 'Tindakan Perbaikan' || status[0].Status_Inserted != 'Tindakan Pencegahan') {
+                    if ((status[0].Status_Inserted == 'Tindakan Perbaikan' || status[0].Status_Inserted == 'Tindakan Pencegahan') && status[0].Stat =='Valid') {
                         Swal.fire({
                             title: 'Success',
                             text: status[0].Status_Inserted + ' berhasil di-input.',
@@ -1884,6 +1884,15 @@
                             KajianResikoDDL();
                         });
                     }
+                    else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: status[0].Status_Inserted + ' sudah ada.',
+                            icon: "error",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        })
+                    }
                 },
                 error: function (ex) {
                     console.log(JSON.stringify(ex))
@@ -1892,7 +1901,7 @@
         } else {
             Swal.fire({
                 title: 'Maaf',
-                text: 'Input tidak boleh kosong.',
+                text: 'RootCause tidak boleh kosong.',
                 icon: 'warning',
                 showConfirmButton: false,
                 timer: 1000,
@@ -2052,6 +2061,15 @@
                 timer: 1000,
             })
         }
+        if ($('#txtAreaBerpotensi').val().trim() == '') {
+            return Swal.fire({
+                title: "Error!",
+                text: "Area/Proses Lain tidak boleh kosong !",
+                icon: "error",
+                showConfirmButton: false,
+                timer: 1000,
+            })
+        }
         if ($('#dueDatePencegahan').val() == '') {
             return Swal.fire({
                 title: "Error!",
@@ -2062,7 +2080,8 @@
             })
         }
         var dictionarylist = {
-            kategori:"Penambahan Pencegahan",
+            kategori: "Penambahan Pencegahan",
+            AreaLain: $('#txtAreaBerpotensi').val(),
             TindakanPencegahan: $('#txtTindakanPencegahan').val(),
             DueDatePencegahan: $('#dueDatePencegahan').val(),
             IsAreaLain: 1,
