@@ -873,7 +873,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>0.34396cm</Top>
             <Left>0.58216cm</Left>
             <Height>2.135cm</Height>
-            <Width>24.98054cm</Width>
+            <Width>26.31147cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1891,7 +1891,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>18.60431cm</Top>
             <Left>0.47616cm</Left>
             <Height>0.6798cm</Height>
-            <Width>25.08654cm</Width>
+            <Width>26.31368cm</Width>
             <ZIndex>30</ZIndex>
             <Style>
               <Border>
@@ -2004,7 +2004,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>45.44903cm</Top>
             <Left>0.47616cm</Left>
             <Height>0.6798cm</Height>
-            <Width>26.41747cm</Width>
+            <Width>26.31368cm</Width>
             <ZIndex>33</ZIndex>
             <Style>
               <Border>
@@ -2034,7 +2034,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>67.12112cm</Top>
             <Left>0.47616cm</Left>
             <Height>0.65082cm</Height>
-            <Width>26.41747cm</Width>
+            <Width>26.54049cm</Width>
             <ZIndex>35</ZIndex>
             <Style>
               <Border>
@@ -3971,7 +3971,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>52.79579cm</Top>
             <Left>0.47616cm</Left>
             <Height>0.61509cm</Height>
-            <Width>26.31368cm</Width>
+            <Width>26.41747cm</Width>
             <ZIndex>45</ZIndex>
             <Style>
               <Border>
@@ -4006,7 +4006,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>59.07592cm</Top>
             <Left>0.47616cm</Left>
             <Height>0.95905cm</Height>
-            <Width>25.05782cm</Width>
+            <Width>26.31368cm</Width>
             <ZIndex>46</ZIndex>
             <Style>
               <Border>
@@ -7612,7 +7612,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                       <CellContents>
                         <Image Name="Image19">
                           <Source>Embedded</Source>
-                          <Value>=iif(Fields!Status_ID.Value &gt;= 10, "Picture18", iif(Fields!Status_ID.Value &lt;10, "Picture100", ""))</Value>
+                          <Value>=iif(Fields!Status_ID.Value &gt;= 6 and Fields!Status_ID.Value &lt;= 9 , "PictureVerif",iif(Fields!Status_ID.Value &lt;6, "Picture100", ""))</Value>
                           <Sizing>FitProportional</Sizing>
                           <Style>
                             <Border>
@@ -7723,7 +7723,11 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                     <Hidden>true</Hidden>
                   </Visibility>
                 </TablixMember>
-                <TablixMember />
+                <TablixMember>
+                  <Visibility>
+                    <Hidden>true</Hidden>
+                  </Visibility>
+                </TablixMember>
                 <TablixMember />
                 <TablixMember />
               </TablixMembers>
@@ -8033,7 +8037,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                   <Width>1.07243cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.23819cm</Width>
+                  <Width>2.316cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.77147cm</Width>
@@ -8871,7 +8875,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
                         <Image Name="Image15">
                           <Source>Embedded</Source>
                           <Value>=iif(Fields!StatusTreatment.Value = 8,"Picture2",
-iif(Fields!StatusTreatment.Value &lt;&gt; 8,"Picture100",""))</Value>
+iif(Fields!StatusTreatment.Value &lt;&gt; 8 ,"Picture100",""))</Value>
                           <Sizing>FitProportional</Sizing>
                           <Style>
                             <Border>
@@ -8991,31 +8995,11 @@ iif(Fields!StatusTreatment.Value &lt;&gt; 8,"Picture100",""))</Value>
                 </TablixMember>
                 <TablixMember />
                 <TablixMember />
-                <TablixMember>
-                  <Visibility>
-                    <Hidden>=IIF(Fields!StatusTreatment.Value = 8,False, True)</Hidden>
-                  </Visibility>
-                </TablixMember>
-                <TablixMember>
-                  <Visibility>
-                    <Hidden>=IIF(Fields!StatusTreatment.Value = 8,False, True)</Hidden>
-                  </Visibility>
-                </TablixMember>
-                <TablixMember>
-                  <Visibility>
-                    <Hidden>=IIF(Fields!StatusTreatment.Value = 8,False, True)</Hidden>
-                  </Visibility>
-                </TablixMember>
-                <TablixMember>
-                  <Visibility>
-                    <Hidden>=IIF(Fields!StatusTreatment.Value = 8,False, True)</Hidden>
-                  </Visibility>
-                </TablixMember>
-                <TablixMember>
-                  <Visibility>
-                    <Hidden>=IIF(Fields!StatusTreatment.Value = 8,False, True)</Hidden>
-                  </Visibility>
-                </TablixMember>
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
                 <TablixMember>
                   <Visibility>
                     <Hidden>=IIF(Fields!StatusTreatment.Value = 8,False, True)</Hidden>
@@ -9039,7 +9023,7 @@ iif(Fields!StatusTreatment.Value &lt;&gt; 8,"Picture100",""))</Value>
             <Top>68.68504cm</Top>
             <Left>0.50214cm</Left>
             <Height>2.31126cm</Height>
-            <Width>25.4367cm</Width>
+            <Width>26.51451cm</Width>
             <ZIndex>57</ZIndex>
             <Style>
               <Border>
@@ -9081,7 +9065,7 @@ iif(Fields!StatusTreatment.Value &lt;&gt; 8,"Picture100",""))</Value>
                   <Width>1.06089cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.55088cm</Width>
+                  <Width>1.24182cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.95818cm</Width>
@@ -10038,36 +10022,12 @@ iif(Fields!StatusTreatment.Value &lt;&gt; 8,"Picture100",""))</Value>
                 </TablixMember>
                 <TablixMember />
                 <TablixMember />
-                <TablixMember>
-                  <Visibility>
-                    <Hidden>=IIF(Fields!StatusTreatment.Value = 8,False, True)</Hidden>
-                  </Visibility>
-                </TablixMember>
-                <TablixMember>
-                  <Visibility>
-                    <Hidden>=IIF(Fields!StatusTreatment.Value = 8,False, True)</Hidden>
-                  </Visibility>
-                </TablixMember>
-                <TablixMember>
-                  <Visibility>
-                    <Hidden>=IIF(Fields!StatusTreatment.Value = 8,False, True)</Hidden>
-                  </Visibility>
-                </TablixMember>
-                <TablixMember>
-                  <Visibility>
-                    <Hidden>=IIF(Fields!StatusTreatment.Value = 8,False, True)</Hidden>
-                  </Visibility>
-                </TablixMember>
-                <TablixMember>
-                  <Visibility>
-                    <Hidden>=IIF(Fields!StatusTreatment.Value = 8,False, True)</Hidden>
-                  </Visibility>
-                </TablixMember>
-                <TablixMember>
-                  <Visibility>
-                    <Hidden>=IIF(Fields!StatusTreatment.Value = 8,False, True)</Hidden>
-                  </Visibility>
-                </TablixMember>
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
                 <TablixMember />
                 <TablixMember />
               </TablixMembers>
@@ -10086,7 +10046,7 @@ iif(Fields!StatusTreatment.Value &lt;&gt; 8,"Picture100",""))</Value>
             <Top>73.08931cm</Top>
             <Left>0.47616cm</Left>
             <Height>2.19334cm</Height>
-            <Width>25.84955cm</Width>
+            <Width>26.54049cm</Width>
             <ZIndex>58</ZIndex>
             <Style>
               <Border>

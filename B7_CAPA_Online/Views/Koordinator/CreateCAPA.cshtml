@@ -847,7 +847,7 @@
 <script src="~/Content/Scripts/plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.min.js" defer></script>
 <script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
 @section scripts {
-    <script>
+    <script nonce="wCi0c_gV2k70GVVyi6cO3WgZe9HEf-qA2A">
 
     var formData = new FormData();
     isDetail = false;
@@ -2243,7 +2243,6 @@
                 $('#link_CCC').modal('hide');
                 $('#link_Deviation').modal('hide');
                 $('#link_NoCAPATerkait').modal('hide');
-
                 $.each(data[0].FILELIST, function (key, value) {
                     $('#Tbl_Lampiran').append($('<tr><td><a href="' + value + '" ><span style="color:black;">' + data[0].FILE_NAME[key] + '</span></a></td></tr>'))
                 });

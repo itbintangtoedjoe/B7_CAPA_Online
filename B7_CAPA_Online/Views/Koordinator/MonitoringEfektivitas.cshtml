@@ -54,7 +54,6 @@
                 <button id="ViewRentang" class="btn btn-primary">View Rentang</button>
             </div>
             <div class="card-body">
-                <form>
                     <!--<label for="TxtKategoriCCC" class="col-form-label">Kajian:</label>-->
                     @*<div class="row">
                             <div class="form-group col-md-2">
@@ -202,7 +201,7 @@
                     <label for="TxtKategoriCCC" class="col-form-label" hidden id="Status1" style="color:red;"><b>Kajian Masih Dalam Evaluasi!</b></label>
 
                     <label for="TxtKategoriCCC" class="col-form-label" hidden id="Status2" style="color:green;"><b>Kajian Sudah di Evaluasi!</b></label>
-                </form>
+                
             </div>
         </div>
         <div class="modal fade" id="link_CCC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -353,7 +352,7 @@
 <script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
 <script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
 
-<script>
+<script nonce="nCVIXDEVTLzM1Kztvsqujwl0-eQhBfS_4g">
     var nocapa = $('#QS_NoCAPA').val();
     var namaUser = '@Request.RequestContext.HttpContext.Session["NamaUser"]';
     var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
@@ -705,7 +704,7 @@
             DeletePenyimpangan(row);
         })
         $('#Tabel_File tbody').on('click', 'button.Lampiran', function () {
-            var row = $(this).closest("TR").index();
+            var row = $(this).closest("TR");
             DeleteLampiran(row);
         })
         $('#Tabel_CCC tbody').on('click', 'button.CCC', function () {

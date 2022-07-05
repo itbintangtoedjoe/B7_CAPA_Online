@@ -224,7 +224,7 @@
 <input type="text" id="input_NoCAPA" value="@ViewBag.NoCAPA" hidden>
 
 
-<script>
+<script nonce="TsSjY8sbDVjGwTSMU0xIKXCcsWe7qF1luA">
     var noCAPA = getQueryStrings()["NoCAPA"];
 
     var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
@@ -353,6 +353,7 @@
         $('#Tbl_PencegahanPenambahan tbody').on('click', 'button.Reject', function () {
             RejectPencegahanPenambahan(this);
         })
+
         $('#Tbl_PerbaikanPembatalan tbody').on('click', 'button.Approve', function () {
             ApprovePerbaikanPembatalan(this);
         })
@@ -369,7 +370,36 @@
             RejectPencegahanPembatalan(this);
         })
 
+        $('#Tbl_Perbaikan tbody').on('click', 'button.View', function () {
+            ViewCAPA();
+        })
+
+        $('#Tbl_Pencegahan tbody').on('click', 'button.View', function () {
+            ViewCAPA();
+        })
+
+        $('#Tbl_PerbaikanPenambahan tbody').on('click', 'button.View', function () {
+            ViewCAPA();
+        })
+
+        $('#Tbl_PencegahanPenambahan tbody').on('click', 'button.View', function () {
+            ViewCAPA();
+        })
+
+        $('#Tbl_PerbaikanPembatalan tbody').on('click', 'button.View', function () {
+            ViewCAPA();
+        })
+
+        $('#Tbl_PencegahanPembatalan tbody').on('click', 'button.View', function () {
+            ViewCAPA();
+        })
+
     });
+
+    function ViewCAPA() {
+        window.open('../Koordinator/CreateCAPA?NoCAPA=' + noCAPA);
+    }
+
 
     function GetTindakanPerbaikan() {
         var dictlist = {
@@ -412,7 +442,7 @@
                         { "data": "Stat" },
                         {
                             "data": null,
-                            "defaultContent": "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button>"
+                            "defaultContent": "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button> <button id='ApprovePerb' class='View btn btn-primary'  value='View CAPA'>View CAPA</button>"
                         },
                     ],
                     "columnDefs": [
@@ -473,8 +503,8 @@
                         { "data": "Stat" },
                         {
                             "data": null,
-                            "defaultContent": "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button>"
-                       },
+                            "defaultContent": "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button> <button id='ApprovePerb' class='View btn btn-primary'  value='View CAPA'>View CAPA</button>"
+                        },
                     ],
                     "columnDefs": [
                         {
@@ -887,7 +917,7 @@
                         { "data": "Stat" },
                         {
                             "data": null,
-                            "defaultContent": "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button>"
+                            "defaultContent": "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button> <button id='ApprovePerb' class='View btn btn-primary'  value='View CAPA'>View CAPA</button>"
                         },
                     ],
                     "columnDefs": [
@@ -946,7 +976,7 @@
                         { "data": "Stat" },
                         {
                             "data": null,
-                            "defaultContent": "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button>"
+                            "defaultContent": "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button> <button id='ApprovePerb' class='View btn btn-primary'  value='View CAPA'>View CAPA</button>"
                         },
                     ],
                     "columnDefs": [
@@ -1280,7 +1310,7 @@
                         { "data": "Stat" },
                         {
                             "data": null,
-                            "defaultContent": "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button>"
+                            "defaultContent": "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button> <button id='ApprovePerb' class='View btn btn-primary'  value='View CAPA'>View CAPA</button> "
                         },
                     ],
                     "columnDefs": [
@@ -1338,7 +1368,7 @@
                         { "data": "Stat" },
                         {
                             "data": null,
-                            "defaultContent": "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button>"
+                            "defaultContent": "<button id='ApprovePerb' class='Approve btn btn-primary'  value='Approve'style='background-color:green;'>Approve</button> <button id='DeletePerb' class='Reject btn btn-primary'  value='Reject'style='background-color:red;'>Reject</button> <button id='ApprovePerb' class='View btn btn-primary'  value='View CAPA'>View CAPA</button>"
                         },
                     ],
                     "columnDefs": [

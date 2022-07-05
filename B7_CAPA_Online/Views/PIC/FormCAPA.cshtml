@@ -350,7 +350,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Request Page</h4>
-                        <button class="btn btn-dark form-control col-sm-2" id="btn_Request">Request</button>
+                        <button class="btn btn-primary form-control col-sm-2" id="btn_Request">Request</button>
                     </div>
                 </div>
 
@@ -872,7 +872,7 @@
 <script src="https://unpkg.com/gojs@2.2.5/release/go.js" defer></script>
 <script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
 
-<script>
+<script nonce="YzB-RjQFJ06RJ3e9uFZFmt2ABkbKV2HXmA">
     var rootcauses;
     var area_lains;
     var countmanusia = 0;
@@ -2736,7 +2736,8 @@
                 isParent: ($("#isParent[type='checkbox']:checked").val() == "Yes") ? (1) : (0),
                 WHY_Parent: $('#WhyParent_DDL').val(),
                 WHY: $('#TxtWhy').val().trim(),
-                RecordID: $('#WhyRecordID').val()
+                RecordID: $('#WhyRecordID').val(),
+                User: $('#input_Requestor_NIK').val()
             }
 
             var dto1 = {

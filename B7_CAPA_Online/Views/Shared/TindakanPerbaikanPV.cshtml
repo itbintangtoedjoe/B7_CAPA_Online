@@ -31,7 +31,7 @@
 
 <script src="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.js" defer></script>
 
-<script>
+<script nonce="6MAFqHzdMGHaDhBLOZDL0iq6BlkqqWMCdA">
     var isHide = false;
     var isDetail = true;
     var queryStatus = ('@string.IsNullOrEmpty(Request.QueryString.Get("StatsID"))' == "True") ? ("") : ('@Request.QueryString.Get("StatsID")');
@@ -206,6 +206,7 @@
 
     function formatPerbaikan(d) {
         var html = '';
+        console.log(objLampiran)
         $.each(objLampiran, function (key, value) {
             if (value.ID_FK == d.RecordID) {
                 return html += '<tr>' +

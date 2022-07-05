@@ -261,7 +261,7 @@
             </div>
         </div>
         <div class="table-responsive mb-3">
-            <table class="table table-hover table-bordered  table-responsive" id="Tbl_KajianResiko" style="color:black">
+            <table class="table table-hover table-bordered  " id="Tbl_KajianResiko" style="color:black">
                 <thead>
                     <tr>
                         <th>Tindakan</th>
@@ -288,6 +288,7 @@
                         <th>PIC</th>
                         <th>Due Date</th>
                         <th>Lainnya</th>
+                        <th>Detail</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -306,13 +307,14 @@
     </div>
 </div>
 <input type="text" class="form-control form-control-sm" id="NoCAPA" val="@ViewBag.NoCAPA" style="width:100%;" hidden>
-<script>
+<script nonce="cCKeOS_-qtj1CYOZQ8xb-yyqZPTbFUq0Cg">
     var tipe;
-    var jenis = "Tambah Pencegahan Existing" ;
+    var jenis = "Tambah Pencegahan Existing";
+    var isDetail = true;
     var valid = false;
     var tindakan;
     var status;
-
+    var ObjLampiranTreat = GetLampiranTreatmentPV();
     function KajianResikoDDLPV() {
         $.ajax({
             url: '../PIC/GetDataPIC',
@@ -371,7 +373,7 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 //console.log(data);
-                $('#Tbl_KajianResiko').DataTable({
+                var table = $('#Tbl_KajianResiko').DataTable({
                     "pageLength": 5,
                     "lengthChange": true,
                     "paging": false,
@@ -413,10 +415,18 @@
                         { "data": "DueDate" },
                         { "data": "Lainnya" },
                         {
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": '<span><a><i class="fa fa-eye" aria-hidden="true"></i></a></span>',
+                            "className": "details text-center",
+                            "visible": (!isDetail) ? (true) : (false)
+                        },
+                        {
                             "data": null,
                             "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete' onclick=Delete(this)>Delete</button> ",
                             "visible": (!isHide) ? (true) : (false)
                         },
+
                     ],
                     "order": [[1, 'asc']],
                     "rowCallback": function (row, data) {
@@ -424,12 +434,97 @@
                         ColoredColumns(row, data.RiskLevel2, "riskLevel2");
                     }
                 });
+
+                showChildTreatment(table);
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
             }
         });
     }
+    function GetLampiranTreatmentPV() { // dipanggil di view parent jika seperlunya saja
+        var dictlist = {
+            NoCAPA: $('#input_NoCAPA').val(),
+            Option: 15
+        }
+
+        var dto1 = {
+            Model: dictlist
+        }
+
+        var d = $.ajax({
+            url: '../Koordinator/DynamicController?spname=SP_SHOW_Tindakan_PV',
+            type: 'post',
+            data: JSON.stringify(dto1),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            async: false,
+            error: function (ex) {
+                console.log(JSON.stringify(ex))
+            }
+        });
+        return JSON.parse(JSON.parse(d.responseText));
+    }
+
+    function formatTreatment(d) {
+        var html = '';
+        $.each(ObjLampiranTreat, function (key, value) {
+            if (value.ID_FK == d.RecordID) {
+                return html += '<tr>' +
+                    '<td>File Name :</td>' +
+                    '<td><a href="' + value.FILE_PATH + '">' + value.FILE_NAME + '</a></td>' +
+                    '</tr>';
+            }
+        });
+
+        if (html == '') {
+            html = '';
+            html = '<tr>' +
+                '<td>Tidak ada lampiran.</td>' +
+                '</tr>';
+        }
+
+        var tableChild = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+            html +
+            '</table>';
+        return tableChild;
+    }
+
+    function showChildTreatment(t) {
+        // Array to track the ids of the details displayed rows
+        var detailRows = [];
+
+        $('#Tbl_KajianResiko tbody').on('click', 'tr td a i.fa', function () {
+            var tr = $(this).closest('tr');
+            var trs = $(this).closest('tr td a i');
+            var row = t.row(tr);
+            var idx = $.inArray(tr.attr('id'), detailRows);
+
+            if (row.child.isShown()) {
+                trs.removeClass('fa-eye-slash');
+                row.child.hide();
+
+                // Remove from the 'open' array
+                detailRows.splice(idx, 1);
+            }
+            else {
+                trs.addClass('fa-eye-slash');
+                row.child(formatTreatment(row.data())).show();
+                // Add to the 'open' array
+                if (idx === -1) {
+                    detailRows.push(tr.attr('id'));
+                }
+            }
+        });
+
+        // On each draw, loop over the `detailRows` array and show any child rows
+        t.on('draw', function () {
+            $.each(detailRows, function (i, id) {
+                $('#' + id + ' td.details').trigger('click');
+            });
+        });
+    }
+
     var isHide = false;
     function ColoredColumns(row, d, className) {
         if (d == "Low") {
