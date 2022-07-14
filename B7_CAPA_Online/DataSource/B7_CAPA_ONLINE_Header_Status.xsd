@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="B7_CAPA_ONLINE_Header_Status" targetNamespace="http://tempuri.org/B7_CAPA_ONLINE_Header_Status.xsd" xmlns:mstns="http://tempuri.org/B7_CAPA_ONLINE_Header_Status.xsd" xmlns="http://tempuri.org/B7_CAPA_ONLINE_Header_Status.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="CAPAONLINE" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="CAPAONLINE (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.CAPAONLINE.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="Report_Header_StatusTableAdapter" GeneratorDataComponentClassName="Report_Header_StatusTableAdapter" Name="Report_Header_Status" UserDataComponentName="Report_Header_StatusTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="CAPAONLINE (Web.config)" DbObjectName="B7_CAPA_ONLINE.dbo.Report_Header_Status" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT Status, Alasan_Cancel FROM dbo.Report_Header_Status</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Status" DataSetColumn="Status" />
+              <Mapping SourceColumn="Alasan_Cancel" DataSetColumn="Alasan_Cancel" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="B7_CAPA_ONLINE_Header_Status" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="B7_CAPA_ONLINE_Header_Status" msprop:Generator_UserDSName="B7_CAPA_ONLINE_Header_Status">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Report_Header_Status" msprop:Generator_TableClassName="Report_Header_StatusDataTable" msprop:Generator_TableVarName="tableReport_Header_Status" msprop:Generator_TablePropName="Report_Header_Status" msprop:Generator_RowDeletingName="Report_Header_StatusRowDeleting" msprop:Generator_RowChangingName="Report_Header_StatusRowChanging" msprop:Generator_RowEvHandlerName="Report_Header_StatusRowChangeEventHandler" msprop:Generator_RowDeletedName="Report_Header_StatusRowDeleted" msprop:Generator_UserTableName="Report_Header_Status" msprop:Generator_RowChangedName="Report_Header_StatusRowChanged" msprop:Generator_RowEvArgName="Report_Header_StatusRowChangeEvent" msprop:Generator_RowClassName="Report_Header_StatusRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Status" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnStatus" msprop:Generator_ColumnPropNameInRow="Status" msprop:Generator_ColumnPropNameInTable="StatusColumn" msprop:Generator_UserColumnName="Status" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Alasan_Cancel" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnAlasan_Cancel" msprop:Generator_ColumnPropNameInRow="Alasan_Cancel" msprop:Generator_ColumnPropNameInTable="Alasan_CancelColumn" msprop:Generator_UserColumnName="Alasan_Cancel" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

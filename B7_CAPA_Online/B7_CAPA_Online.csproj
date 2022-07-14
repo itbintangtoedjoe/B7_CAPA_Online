@@ -148,6 +148,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="DataSource\B7_CAPA_ONLINE_Header_Status.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>B7_CAPA_ONLINE_Header_Status.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DataSource\B7_CAPA_ONLINEDataSetPelaksanaPencegahan.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -256,6 +261,7 @@
     <Content Include="Content\Images\approve.png" />
     <Content Include="Content\Images\approveHijau.png" />
     <Content Include="Content\Images\bg-b7.jpg" />
+    <Content Include="Content\Images\cancelled-stamp-1.png" />
     <Content Include="Content\Images\logob7-white.png" />
     <Content Include="Content\Images\logob7.png" />
     <Content Include="Content\Images\Picture100.png" />
@@ -5475,6 +5481,17 @@
     <Content Include="DataSource\B7_CAPA_ONLINEDataSetPelaksanaPencegahan.xsc">
       <DependentUpon>B7_CAPA_ONLINEDataSetPelaksanaPencegahan.xsd</DependentUpon>
     </Content>
+    <Content Include="DataSource\B7_CAPA_ONLINE_Header_Status.xsc">
+      <DependentUpon>B7_CAPA_ONLINE_Header_Status.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSource\B7_CAPA_ONLINE_Header_Status.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>B7_CAPA_ONLINE_Header_Status.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSource\B7_CAPA_ONLINE_Header_Status.xss">
+      <DependentUpon>B7_CAPA_ONLINE_Header_Status.xsd</DependentUpon>
+    </Content>
     <None Include="DataSource\B7_CAPA_ONLINEDataSetPelaksanaPencegahan.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>B7_CAPA_ONLINEDataSetPelaksanaPencegahan.Designer.cs</LastGenOutput>
@@ -5664,6 +5681,7 @@
     <Content Include="Views\Login\Session_Error.cshtml" />
     <Content Include="Views\UserVendor\Add_Evaluator.cshtml" />
     <Content Include="Views\UserVendor\Add_Departemen.cshtml" />
+    <Content Include="Views\Shared\Hasil_Monitoring_Efektivitas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

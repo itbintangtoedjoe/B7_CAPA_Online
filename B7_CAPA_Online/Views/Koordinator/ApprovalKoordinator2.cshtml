@@ -159,6 +159,7 @@
         $('#input_Requestor').val(namaUser);
         $('#input_Departemen').val('@Request.RequestContext.HttpContext.Session["Departemen"]');
         //GetEvaluator();
+        CheckStatusCAPA();
         GetDepartemen();
         GetEvalTableList();
         if (stat != 4) {
@@ -271,6 +272,30 @@
         $('#Trigger_CAPA').attr('disabled', true);
         $('#TxtFileInput').attr('disabled', true);
         $('#Submit').attr('disabled', true);
+    }
+    function CheckStatusCAPA() {
+        var dictlist = {
+            NoCAPA: $('#QS_NoCAPA').val()
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_SHOW_EVALUATOR_DDL",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto1),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                if (result[0].StatsID != 4) {
+                    disableAll();
+                }
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
     }
     //function GetEvaluator() {
     //    $.ajax({

@@ -1072,6 +1072,8 @@
                 $('#Kategori_DDL').append('<option disabled selected hidden class="dropdown-header">Pilih</option>');
                 $('#Lokasi_DDL').append('<option disabled selected hidden class="dropdown-header">Pilih</option>');
                 $('#Lokasi_CAPA').append('<option disabled selected hidden class="dropdown-header">Pilih</option>');
+                $('#KategoriCAPA_DDL').append($('<option></option>').attr('value', '').text('ALL'));
+                $('#LokasiCAPA_DDL').append($('<option></option>').attr('value', '').text('ALL'));
                 $.each(JSON.parse(data), function (key, entry) {
                     if (entry.DDL_TYPE == 'TRIGGER') {
                        $('#Trigger_CAPA').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
@@ -1080,7 +1082,7 @@
                         $('#KategoriPenyimpangan_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
                         $('#Kategori_CAPA').append($('<option></option>').attr('value', entry.DDL_DESCRIPTION).text(entry.DDL_DESCRIPTION));
                     }
-                    if (entry.DDL_TYPE == 'LOKASI') {
+                    if (entry.DDL_TYPE == 'LOKASI' && entry.DDL_CODE != 'ALL') {
                         $('#Lokasi_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
                         $('#Lokasi_CAPA').append($('<option></option>').attr('value', entry.DDL_DESCRIPTION).text(entry.DDL_DESCRIPTION));
                     }
@@ -1174,6 +1176,7 @@
             success: function (data) {
                 $('#Kode_CAPA').empty();
                 $('#Kode_CAPA').append('<option disabled selected hidden class="dropdown-header">Pilih</option>');
+                $('#Kode_CAPA').append($('<option></option>').attr('value',"").text("ALL"));
                 $.each(JSON.parse(data), function (key, entry) {
                     $('#Kode_CAPA').append($('<option></option>').attr('value', entry.Code).text(entry.Code_Desc));
                 })

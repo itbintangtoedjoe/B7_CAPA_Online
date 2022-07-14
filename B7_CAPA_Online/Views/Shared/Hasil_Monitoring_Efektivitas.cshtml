@@ -1,0 +1,245 @@
+﻿<div class="card">
+    <div class="card-body">
+        <form>
+            <div class="row">
+                <div class="form-group mb-2 col-sm-12">
+                    <label class="m-t-40">
+                        Apakah terjadi penyimpangan serupa pada rentang waktu yang telah ditetapkan?
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <label class="m-t-20" style="margin-left:15px;"> <b>Ya</b> </label>
+                <input type='radio' id="Devi_Yes" name="Devi_Radio" value="Yes" style="margin-left:15px;" disabled />
+                <label class="m-t-20" style="margin-left:15px;"> <b>Tidak</b> </label>
+                <input type='radio' id="Devi_No" name="Devi_Radio" value="no" style="margin-left:15px;" disabled />
+            </div>
+            <div class="row" id="Deviation">
+                <table class="table table-hover table-bordered zero-configuration" id="Tbl_Devi_Efektivitas" hidden>
+                    <thead>
+                        <tr>
+                            <th>No CAPA</th>
+                            <th>Type</th>
+                            <th>Lampiran</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="form-group mb-2 col-sm-12">
+                    <label class="m-t-40">
+                        Apakah ada keluhan pelanggan serupa pada rentang waktu yang telah ditetapkan?
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <label class="m-t-20" style="margin-left:15px;"> <b>Ya</b> </label>
+                <input type='radio' id="CCC_Yes" name="CCC_Radio" value="Yes" style="margin-left:15px;" disabled />
+                <label class="m-t-20" style="margin-left:15px;"> <b>Tidak</b> </label>
+                <input type='radio' id="CCC_No" name="CCC_Radio" value="No" style="margin-left:15px;" disabled />
+            </div>
+            <div class="row">
+                <table class="table table-hover table-bordered zero-configuration" id="Tbl_CCC_Efektivitas" hidden>
+                    <thead>
+                        <tr>
+                            <th>No CAPA</th>
+                            <th>Type</th>
+                            <th>Lampiran</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="form-group mb-2 col-sm-12">
+                    <label class="m-t-40">
+                        Apakah ada temuan serupa pada rentang waktu yang telah ditetapkan?
+                    </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="m-t-20" style="margin-left:15px;"> <b>Ya</b> </label>
+                <input type='radio' id="File_Yes" name="File_Radio" style="margin-left:15px;" value="Yes" disabled />
+                <label class="m-t-20" style="margin-left:15px;"> <b>Tidak</b> </label>
+                <input type='radio' id="File_No" name="File_Radio" style="margin-left:15px;" value="No" disabled />
+            </div>
+            <div class="row">
+                <table class="table table-hover table-bordered zero-configuration" id="Tbl_Lampiran_Efektivitas" hidden>
+                    <thead>
+                        <tr>
+                            <th>No CAPA</th>
+                            <th>Type</th>
+                            <th>Lampiran</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        DeviationTable();
+        CCCTable();
+        LampiranTable()
+    });
+
+    function DeviationTable() {
+        $.ajax({
+            url: '../Evaluator/GetData',
+            type: 'post',
+            data: JSON.stringify({
+                Model: {
+                    Option: 1,
+                    NO_CAPA: $('#input_NoCAPA').val(),
+                    Type: 'DEVIATION'
+                }
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#Tbl_Devi_Efektivitas").prop("hidden", true);
+                if (JSON.parse(data).length > 0) {
+                    $("#Tbl_Devi_Efektivitas").prop("hidden", false);
+                    $("#Devi_Yes").prop("checked", true);
+                    var t = $('#Tbl_Devi_Efektivitas').DataTable({
+                        "pageLength": 10,
+                        "responsive": true,
+                        "info": false,
+                        "paging": false,
+                        "lengthChange": true,
+                        "searching": false,
+                        "data": JSON.parse(data),
+                        "select": true,
+                        "bDestroy": true,
+                        "scrollCollapse": true,
+                        "columns": [
+                            { "data": "NO_CAPA_FK" },
+                            { "data": "Type" },
+                            { "data": "ValueEvaluasi" }
+                        ],
+                        "order": [[1, 'asc']]
+                    });
+                    return;
+                }
+                $("#Devi_No").prop("checked", true);
+                return;
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+    function CCCTable() {
+        $.ajax({
+            url: '../Evaluator/GetData',
+            type: 'post',
+            data: JSON.stringify({
+                Model: {
+                    Option: 1,
+                    NO_CAPA: $('#input_NoCAPA').val(),
+                    Type: 'CCC'
+                }
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#Tbl_CCC_Efektivitas").prop("hidden", true);
+                if (JSON.parse(data).length > 0) {
+                    $("#Tbl_CCC_Efektivitas").prop("hidden", false);
+                    $("#CCC_Yes").prop("checked", true);
+                    var t = $('#Tbl_CCC_Efektivitas').DataTable({
+                        "pageLength": 10,
+                        "responsive": true,
+                        "info": false,
+                        "paging": false,
+                        "lengthChange": true,
+                        "searching": false,
+                        "data": JSON.parse(data),
+                        "select": true,
+                        "bDestroy": true,
+                        "scrollCollapse": true,
+                        "columns": [
+                            { "data": "NO_CAPA_FK" },
+                            { "data": "Type" },
+                            { "data": "ValueEvaluasi" }
+                        ],
+                        "order": [[1, 'asc']]
+                    });
+                    return;
+                }
+                $("#CCC_No").prop("checked", true);
+                return;
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+    function LampiranTable() {
+        $.ajax({
+            url: '../Evaluator/GetData',
+            type: 'post',
+            data: JSON.stringify({
+                Model: {
+                    Option: 1,
+                    NO_CAPA: $('#input_NoCAPA').val(),
+                    Type: 'Lampiran Penilaian'
+                }
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#Tbl_Lampiran_Efektivitas").prop("hidden", true);
+                if (JSON.parse(data).length > 0) {
+                    $("#Tbl_Lampiran_Efektivitas").prop("hidden", false);
+                    $("#File_Yes").prop("checked", true);
+                    var t = $('#Tbl_Lampiran_Efektivitas').DataTable({
+                        "pageLength": 10,
+                        "responsive": true,
+                        "info": false,
+                        "paging": false,
+                        "lengthChange": true,
+                        "searching": false,
+                        "data": JSON.parse(data),
+                        "select": true,
+                        "bDestroy": true,
+                        "scrollCollapse": true,
+                        "columns": [
+                            { "data": "NO_CAPA_FK" },
+                            { "data": "Type" },
+                            { "data": "Nama_File" },
+                            {
+                                "data": "ValueEvaluasi",
+                                "className": "center",
+                                "render": function (url, type, full) {
+                                    return '<a href="' + url + '"><i class="fa fa-cloud-download" style="text-align: center" aria-hidden="true"></i></a>'
+                                }
+                            }
+                        ],
+                        "order": [[1, 'asc']]
+                    });
+                    return;
+                }
+                $("#File_No").prop("checked", true);
+                return;
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+</script>

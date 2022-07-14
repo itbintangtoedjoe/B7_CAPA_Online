@@ -35,6 +35,7 @@ namespace B7_CAPA_Online.Report
                 DataTable DT8 = new DataTable();
                 DataTable DT9 = new DataTable();
                 DataTable DT10 = new DataTable();
+                DataTable DT11 = new DataTable();
                 string NoCAPA = Request.QueryString.Get("NoCAPA");
 
                 ReportViewer1.LocalReport.DisplayName = "ReportCAPA_"+NoCAPA;
@@ -285,7 +286,28 @@ namespace B7_CAPA_Online.Report
                     {
                         throw ex10;
                     }
+                    try
+                    {
+                        using (SqlCommand command = new SqlCommand("SP_Report", conn))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
 
+                            command.Parameters.Add("@NoCAPA", System.Data.SqlDbType.VarChar);
+                            command.Parameters["@NoCAPA"].Value = NoCAPA;
+                            command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                            command.Parameters["@Option"].Value = "Header Status";
+
+
+                            SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                            dataAdapt.SelectCommand = command;
+
+                            dataAdapt.Fill(DT11);
+                        }
+                    }
+                    catch (Exception ex11)
+                    {
+                        throw ex11;
+                    }
                     conn.Close();
                 }
                 catch (Exception ex)
@@ -337,6 +359,10 @@ namespace B7_CAPA_Online.Report
                 ReportDataSource DataSource10 = new ReportDataSource("~/DataSource/B7_CAPA_ONLINEDataSetKajianPerubahan.Designer.cs", DT10);
                 this.ReportViewer1.LocalReport.DataSources.Add(DataSource10);
                 ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DataSetKajianPerubahan", DT10));
+
+                ReportDataSource DataSource11 = new ReportDataSource("~/DataSource/B7_CAPA_ONLINE_Header_Status.Designer.cs", DT11);
+                this.ReportViewer1.LocalReport.DataSources.Add(DataSource11);
+                ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DataSet_Header_Status", DT11));
             }
         }
     }

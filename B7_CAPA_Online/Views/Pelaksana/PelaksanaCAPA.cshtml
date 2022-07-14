@@ -58,7 +58,7 @@
                         </form>
                         <div class="row">
                             <div class="form-group mb-2 col-sm-3">
-                                <button class="btn btn-dark" id="btnViewCAPA">View CAPA</button>
+                                <button class="btn btn-primary" id="btnViewCAPA">View CAPA</button>
                             </div>
                         </div>
                     </div>
@@ -1547,7 +1547,7 @@
 
                     $(param).text("Batalkan");
                     $('#btnActionPerbaikan').prop("disabled", false);
-                    if (Departemen == currentDept && pelaksanaName == null) {
+                    if ( $('#txtPelaksanaPerbaikan').val() == '') {
 
                         UpdateProccess('Perbaikan', 1, $('#ddlPerbaikan').val());
                     }
@@ -1577,7 +1577,7 @@
                         return
                         $('#ddlPerbaikan').prop("disabled", false);
                     }
-                    if (Departemen == currentDept && pelaksanaName == null) {
+                    if ($('#txtPelaksanaPencegahan').val() == '') {
                         UpdateProccess('Pencegahan', 1, $('#ddlPencegahan').val());
                     }
 

@@ -114,6 +114,32 @@
     var isUtama = false;
     var CurrentStatsID = 5;
 
+   
+    function CheckStatusID() {
+        var dictlist = {
+            NoCAPA: $('#input_NoCAPA').val()
+        }
+        var dto1 = {
+            Model: dictlist
+        }
+        $.ajax({
+            url: "DynamicController?spname=SP_SHOW_EVALUATOR_DDL",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto1),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var result = JSON.parse(data);
+                if (result[0].StatsID != 5) {
+                    $('#btn_Submit').attr("hidden", true);
+                    $('#btn_CancelCAPA').attr("hidden", true);
+                }
+            },
+            error: function (errormessage) {
+                $('#divLoading').attr("hidden", true);
+            }
+        });
+    }
     function checkStatusCAPA() {
         var result = $.ajax({
             url: '../AtasanPIC/SubmitApproval',
@@ -953,7 +979,7 @@
             GetRentangPerbaikan();
             GetRentangPencegahan();
         }
-
+        CheckStatusID();
 
         $(document).on("click", "#Tbl_RentangPerbaikan button.approve", function () {
             var option = 7 // option in SP_APPROVAL_CAPA
