@@ -35,5 +35,7 @@ namespace B7_CAPA_Online.Models
         public string EMAIL { get; set; }
         public string Create_Date { get; set; }
         public string DEPT_PELAPOR { get; set; }
+
+        public string StringSend { get; set; }
     }
 }

@@ -417,6 +417,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Lampiran</th>
+                                                <th hidden></th>
                                             </tr>
                                         </thead>
                                         <tbody style="color: black">
@@ -859,6 +860,11 @@
         $('#Lokasi_DDL').change(function (){
             GetDepartements();
         })
+        $('#Tbl_Lampiran tbody').on('click', 'a.Lampiran', function (e){
+            var row = $(this).closest("TR");
+            var encrypt = $("TD", row).eq(1).html();
+            DownloadAttachment(encrypt);
+        });
 
         GetDepartements();
         GetDeptNoCAPATerkait();
@@ -1528,7 +1534,10 @@
         });
 
     });
-
+    function DownloadAttachment(filepath) {
+        console.log(filepath.trim());
+        window.open("https://portal.bintang7.com/CommonService/api/Download?path=" + filepath.trim() + "");
+    }
     function validateInput() {
         var tableContent = (document.getElementById("Table_Departemen").rows.length > 1) ? ((document.getElementById("Table_Departemen").rows.length > 1) ? (true): (false)) : (false);
 
@@ -1620,9 +1629,11 @@
                         $('#Kategori_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
                         $('#KategoriCAPA_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
                     }
-                    if (entry.DDL_TYPE == 'LOKASI' && entry.DDL_CODE != 'ALL') {
+                    if (entry.DDL_TYPE == 'LOKASI') {
                         $('#Lokasi_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
-                        $('#LokasiCAPA_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
+                        if (entry.DDL_CODE != 'ALL') {
+                            $('#LokasiCAPA_DDL').append($('<option></option>').attr('value', entry.DDL_CODE).text(entry.DDL_DESCRIPTION));
+                        }
                     }
                     $('#Trigger_CAPA').select2();
                     $('#Kategori_DDL').select2();
@@ -2248,13 +2259,29 @@
                 $('#link_Deviation').modal('hide');
                 $('#link_NoCAPATerkait').modal('hide');
                 $.each(data[0].FILELIST, function (key, value) {
-                    $('#Tbl_Lampiran').append($('<tr><td><a href="' + value + '" ><span style="color:black;">' + data[0].FILE_NAME[key] + '</span></a></td></tr>'))
+                    $('#Tbl_Lampiran').append($('<tr><td><a href="javascript:void(0);" class="Lampiran" ><span style="color:black;">' + data[0].FILE_NAME[key] + '</span></a></td>' +
+                                                    '<td hidden> '+value+'  </td> </tr>'))
                 });
 
                 $.each(data[0].PENYIMPANGANLIST, function (key, value) {
                     $('#Tbl_Penyimpangan').append($('<tr><td>' + value + '</td></tr>'))
                 });
 
+                //var tbl = $('#Tbl_Lampiran').DataTable({
+                //    "pageLength": 4,
+                //    "lengthChange": true,
+                //    "paging": false,
+                //    "info": false,
+                //    "searching": false,
+                //    "data": JSON.parse(data[0].FILELIST),
+                //    "select": true,
+                //    "bDestroy": true,
+                //    "scrollCollapse": true,
+                //    "columns": [
+                //        { "data": "FILE_NAME" }
+                //    ]
+                //    //"order": [[1, 'asc']]
+                //});
                 var table = $('#Table_Departemen').DataTable({
                     "pageLength": 4,
                     "lengthChange": true,

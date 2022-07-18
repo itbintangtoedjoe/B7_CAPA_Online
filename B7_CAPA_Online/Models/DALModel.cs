@@ -80,6 +80,8 @@ namespace B7_CAPA_Online.Models
     {
         public string LAMPIRAN_TERKAIT { get; set; }
         public string FILE_NAME { get; set; }
+
+        public string ENCRYPT_PATH { get; set; }
     }
 
 }

@@ -315,6 +315,7 @@
                                 <th></th>
                                 <th>Lampiran</th>
                                 <th>Action</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody style="color: black">
@@ -330,7 +331,7 @@
 
 
 <script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
-
+<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js"></script>
 
 <script nonce="H-IrJirWB4TcOrr_gDTVqX78cROtPpRn9A">
     var QSNoCAPA = getQueryStrings()["NoCAPA"];
@@ -363,12 +364,20 @@
             //    $('#Linked_CAPA').prop('hidden', false);
             //}
         });
+
+        $('#Tbl_Lampiran tbody').on('click', 'a.LampiranAttachmet', function (e) {
+            var row = $(this).closest("TR");
+            var data = $('#Tbl_Lampiran').DataTable().row(row).data();
+            var encrypt = data['ENCRYPT_PATH'];
+            DownloadAttachment(encrypt);
+        });
         $('#TxtFileInput').change(function () {
             fileCount = this.files.length;
             var teks = (fileCount != 0) ? (fileCount + " Lampiran telah dipilih.") : ("");
             $('#TxtLampiranCount').text(teks);
         })
         $('#Submit').click(function () {
+            $.blockUI();
             Submit();
         });
 
@@ -434,7 +443,7 @@
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
-                type: 'warning',
+                icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
@@ -1336,7 +1345,7 @@
                             "data": "FILE_NAME",
                             "render": function (nTd, sData, oData, iRow, iCol) {
 
-                                return '<a href = "' + oData.FILE_PATH + '" >' + oData.FILE_NAME + '</a >';
+                                return '<a href = "javascript:void(0);" class="LampiranAttachmet"" >' + oData.FILE_NAME + '</a >';
                             }
                         },
                         {
@@ -1344,11 +1353,19 @@
                             "render": function (data, type, row, meta) {
                                 return "<button class='Lampiran btn btn-primary' value='Delete'style='background-color:red;'>Delete </button>";
                             }
+                        },
+                        {
+                            "data": "ENCRYPT_PATH"
                         }
                     ],
                     "columnDefs": [
                         {
                             "targets": [0],
+                            "visible": false,
+                            "searchable": false
+                        },
+                        {
+                            "targets": [3],
                             "visible": false,
                             "searchable": false
                         },
@@ -1560,6 +1577,7 @@
                 success: function (data) {
                     var result = JSON.parse(data);
                     if (result[0].Validate == "Invalid") {
+                        $.unblockUI();
                         Swal.fire({
                             title: "Error!",
                             text: 'File sudah ada!',
@@ -1569,6 +1587,7 @@
                         })
                     }
                     else {
+                        $.unblockUI();
                         Swal.fire({
                             title: "Success!",
                             text: 'Upload Berhasil!',
@@ -1588,6 +1607,10 @@
 
     }
 
+    function DownloadAttachment(filepath) {
+        console.log(filepath);
+        window.open("https://portal.bintang7.com/CommonService/api/Download?path=" + filepath + "");
+    }
 
 
 

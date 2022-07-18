@@ -5,6 +5,7 @@ using B7_CAPA_Online.Scripts.SMTP;
 using Dapper;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +14,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Reflection;
 using System.Web;
@@ -181,18 +183,29 @@ namespace B7_CAPA_Online.Controllers
             DataTable dt = new DataTable();
             dt.Columns.Add("LAMPIRAN_TERKAIT");
             dt.Columns.Add("FILE_NAME");
+            dt.Columns.Add("ENCRYPT_PATH");
             for (int i = 0; i < Request.Files.Count; i++)
             {
                 HttpPostedFileBase file = Request.Files[i];
                 int fileSize = file.ContentLength;
                 string mimeType = file.ContentType;
                 System.IO.Stream fileContent = file.InputStream; 
-                //string filePath = Path.Combine(@"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Koordinator\", Path.GetFileName(file.FileName));
-                string locpatch = Path.Combine(@"\\b7-dc1webapps\Attachment\Koordinator\", Path.GetFileName(file.FileName));
-                file.SaveAs(locpatch);
+                string filePath = Path.Combine(@"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Koordinator", Path.GetFileName(file.FileName));
+                //string locpatch = Path.Combine(@"\\b7-dc1webapps\Attachment\Koordinator\", Path.GetFileName(file.FileName));
+
+                var encrypt = C_EncryptPath(filePath);
+
+
+                JavaScriptSerializer jss = new JavaScriptSerializer();
+
+                var data = jss.Deserialize<dynamic>(encrypt);
+                var pathencrypt = data["Data"]["EncrptedString"];
+
+                file.SaveAs(filePath);
                 DataRow rowstype = dt.NewRow();
-                rowstype["LAMPIRAN_TERKAIT"] = locpatch;
+                rowstype["LAMPIRAN_TERKAIT"] = filePath;
                 rowstype["FILE_NAME"] = file.FileName;
+                rowstype["ENCRYPT_PATH"] = pathencrypt;
                 dt.Rows.Add(rowstype);
             }
             var dictionary = new Dictionary<string, object>
@@ -616,10 +629,17 @@ namespace B7_CAPA_Online.Controllers
                 System.IO.Stream fileContent = file.InputStream;
                 string fileName = Path.GetFileName(file.FileName);
 
-                string filePath = Path.Combine(@"\\b7-dc1webapps\Attachment\Koordinator\", fileName);
-                //string filePath = Path.Combine(@"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Koordinator\", fileName);
+                //string filePath = Path.Combine(@"\\b7-dc1webapps\Attachment\Koordinator\", fileName);
+                string filePath = Path.Combine(@"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Koordinator", fileName);
+
+                JavaScriptSerializer jss = new JavaScriptSerializer();
+
+                var encrypt = C_EncryptPath(filePath);
+
+                var data = jss.Deserialize<dynamic>(encrypt);
+                var pathencrypt = data["Data"]["EncrptedString"];
                 //string filePath = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
-                Model.LampiranTerkait.Add(new Lampiran { LAMPIRAN_TERKAIT = filePath, FILE_NAME = Path.GetFileName(file.FileName) });
+                Model.LampiranTerkait.Add(new Lampiran { LAMPIRAN_TERKAIT = filePath, FILE_NAME = Path.GetFileName(file.FileName) , ENCRYPT_PATH = pathencrypt });
 
                 Model.SP = "[dbo].[SP_CAPA_ID]";       
                 if(fileName != "")
@@ -771,7 +791,28 @@ namespace B7_CAPA_Online.Controllers
         //    }
         //    return dtLampiran;
         //}
+        public string C_EncryptPath(string pathFile)
+        {
+            var client = new RestClient("https://portal.bintang7.com/CommonService/api/Encrypt");
+            var request = new RestRequest(Method.POST);
 
+            request.RequestFormat = DataFormat.Json;
+            request.AddHeader("Accept", "application/json");
+            request.AddHeader("Content-Type", "application/json; charset=utf-8");
+
+            FindCAPAModel enprops = new FindCAPAModel();
+            enprops.StringSend = pathFile;
+
+            request.AddBody(enprops);
+
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            var response = client.Post(request);
+            var content = response.Content; // Raw content as string
+            string json = content;
+            var result = JsonConvert.DeserializeObject<dynamic>(json);
+
+            return json;
+        }
         public DataTable ToDataTable<T>(IList<T> data)
         {
             PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(typeof(T));

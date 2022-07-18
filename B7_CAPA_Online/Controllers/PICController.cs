@@ -359,14 +359,14 @@ namespace B7_CAPA_Online.Controllers
         }
         public ActionResult SaveImage(string nocapa, string tipe)
         {
-            var b7path = @"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\DiagramCAPA";
+            var b7path = @"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\DiagramCAPA";
             string Return = "";
             for (int i = 0; i < Request.Files.Count; i++)
             {
                 var file = Request.Files[i];
                 var fileName = file.FileName;
-                //var path = Path.Combine(b7path, fileName);
-                string path = Path.Combine(@"\\b7-dc1webapps\DiagramCAPA\", Path.GetFileName(file.FileName));
+                var path = Path.Combine(b7path, fileName);
+                //string path = Path.Combine(@"\\b7-dc1webapps\DiagramCAPA\", Path.GetFileName(file.FileName));
                 file.SaveAs(path);
 
                 var dictionary = new Dictionary<string, object>{

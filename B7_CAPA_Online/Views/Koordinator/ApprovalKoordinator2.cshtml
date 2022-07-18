@@ -275,7 +275,8 @@
     }
     function CheckStatusCAPA() {
         var dictlist = {
-            NoCAPA: $('#QS_NoCAPA').val()
+            NoCAPA: $('#QS_NoCAPA').val(),
+            Option: 10
         }
         var dto1 = {
             Model: dictlist
@@ -289,7 +290,7 @@
             success: function (data) {
                 var result = JSON.parse(data);
                 if (result[0].StatsID != 4) {
-                    disableAll();
+                    window.location.href = '../PendingTask/TaskList'
                 }
             },
             error: function (errormessage) {

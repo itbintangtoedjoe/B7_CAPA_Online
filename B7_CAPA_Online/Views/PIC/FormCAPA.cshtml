@@ -1393,6 +1393,7 @@
                                 } else {
                                     retrieveData2();
                                 }
+                                retrieveData();
                                 KajianResikoDDL();
                                 RemoveInputField(kategori);
                                 GetTindakanPencegahanPV();
@@ -2502,6 +2503,7 @@
         KajianResikoDDL();
         GetWhyTable();
         //HideDeleteButton();
+        retrieveData();
         DeleteKajianResiko();
         UnhideKajianResikoModal();
         getDDLDeptKajianResiko();
@@ -2762,7 +2764,10 @@
                 }
                 isValid = true;
             });
+            if ($('#WAH_DDL').val() == '-') {
 
+                isValid = false;
+            }
             if (isValid) {
                
                 $.ajax({

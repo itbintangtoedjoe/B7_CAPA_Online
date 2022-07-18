@@ -5,12 +5,15 @@ using B7_CAPA_Online.Scripts.SMTP;
 using Dapper;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using static B7_CAPA_Online.Models.KoordinatorModel;
 
 namespace B7_CAPA_Online.Controllers
@@ -213,19 +216,19 @@ namespace B7_CAPA_Online.Controllers
                 var attResult = "";
                 var action = "Insert Perbaikan";
                 var tipe = "Perbaikan";
-                var b7path = @"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Perbaikan";
+                var b7path = @"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Perbaikan";
                 var locpath = @"\\b7-dc1webapps\Attachment\Perbaikan\";
 
                 if (kategori.Contains("Pencegahan"))
                 {
-                    b7path = @"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Pencegahan";
+                    b7path = @"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Pencegahan";
                     locpath = @"\\b7-dc1webapps\Attachment\Pencegahan\";
                     action = "Insert Pencegahan";
                     tipe = "Pencegahan";
                 }
                 else if (kategori.Contains("Treatment"))
                 {
-                    b7path = @"\\b7-drive.bintang7.com\Intranetportal\Intranet Attachment\QS\CAPA\Treatment";
+                    b7path = @"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Treatment";
                     locpath = @"\\b7-dc1webapps\Attachment\Treatment\";
                     action = "Insert Treatment";
                     tipe = "Treatment";
@@ -235,10 +238,18 @@ namespace B7_CAPA_Online.Controllers
                     var file = Request.Files[i];
                     var fileName = updater + '_' + file.FileName;
 
+                    JavaScriptSerializer jss = new JavaScriptSerializer();
+                    
                     //var path = Path.Combine(b7path, updater + '_' + fileName);
                     //var local = Path.Combine(locpath, updater + '_' + fileName);
-                    string path = Path.Combine(locpath, updater + '_' + fileName);
+                    string path = Path.Combine(b7path, updater + '_' + fileName);
                     //file.SaveAs(local);
+                    var encrypt = C_EncryptPath(path);
+                    var data = jss.Deserialize<dynamic>(encrypt);
+
+                    var pathencrypt = data["Data"]["EncrptedString"];
+                        
+
                     file.SaveAs(path);
 
                     var attDictionary = new Dictionary<string, object>{
@@ -248,6 +259,7 @@ namespace B7_CAPA_Online.Controllers
                     { "FKID", tindakanID },
                     { "FileName", fileName },
                     { "FilePath", path },
+                    { "EncryptPath", pathencrypt },
                 };
                     var attParameters = new DynamicParameters(attDictionary);
                     attResult = DAL.StoredProcedure(attParameters, "SP_Attachment_Pelaksanaan");
@@ -272,7 +284,28 @@ namespace B7_CAPA_Online.Controllers
             //insert attachment + save to b7drive
 
         }
+        public string C_EncryptPath(string pathFile)
+        {
+            var client = new RestClient("https://portal.bintang7.com/CommonService/api/Encrypt");
+            var request = new RestRequest(Method.POST);
 
+            request.RequestFormat = DataFormat.Json;
+            request.AddHeader("Accept", "application/json");
+            request.AddHeader("Content-Type", "application/json; charset=utf-8");
+
+            FindCAPAModel enprops = new FindCAPAModel();
+            enprops.StringSend = pathFile;
+
+            request.AddBody(enprops);
+
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            var response = client.Post(request);
+            var content = response.Content; // Raw content as string
+            string json = content;
+            var result = JsonConvert.DeserializeObject<dynamic>(json);
+
+            return json;
+        }
         public ActionResult DeleteAttachment(SPUpdatePelaksanaanParams data)
         {
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();

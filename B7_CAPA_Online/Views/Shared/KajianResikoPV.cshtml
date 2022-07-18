@@ -341,7 +341,11 @@
             }
         });
     }
-
+    //$('.TreatAttTable tbody').on('click', 'a.AttTreatment', function () {
+    //    var row = $(this).closest("TR");
+    //    var encrypt = $("TD", row).eq(1).html();
+    //    alert(encrypt)
+    //});
     function TableKajianPV() {
         $.ajax({
             url: '../PIC/GetKajianResiko',
@@ -472,7 +476,8 @@
             if (value.ID_FK == d.RecordID) {
                 return html += '<tr>' +
                     '<td>File Name :</td>' +
-                    '<td><a href="' + value.FILE_PATH + '">' + value.FILE_NAME + '</a></td>' +
+                    '<td><a href="https://portal.bintang7.com/CommonService/api/Download?path=' + value.ENCRYPT_PATH +'"  target="_blank"">' + value.FILE_NAME + '</a></td>' +
+                    '<td hidden>  '+value.FILE_PATH+'</td>' +
                     '</tr>';
             }
         });
@@ -484,7 +489,7 @@
                 '</tr>';
         }
 
-        var tableChild = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+        var tableChild = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px; ">' +
             html +
             '</table>';
         return tableChild;

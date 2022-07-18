@@ -74,9 +74,9 @@
                     </div>
                     <div class="row">
                         <label class="m-t-20" style="margin-left:15px;"> <b>Ya:</b> </label>
-                        <input type='radio' id="Devi_Yes" name="Devi_Radio" value="Yes" style="margin-left: 15px; margin-top: 5px;" />
+                        <input type='radio' id="Devi_Yes" name="Devi_Radio" value="Yes" style="margin-left: 15px; margin-bottom: 5px;" />
                         <label class="m-t-20" style="margin-left:15px;"> <b>Tidak:</b> </label>
-                        <input type='radio' id="Devi_No" name="Devi_Radio" value="no" style="margin-left: 15px; margin-top: 5px;" />
+                        <input type='radio' id="Devi_No" name="Devi_Radio" value="no" style="margin-left: 15px; margin-bottom: 5px;" />
                     </div>
 
                     <div id="Deviation" hidden>
@@ -115,9 +115,9 @@
                     </div>
                     <div class="row">
                         <label class="m-t-20" style="margin-left:15px;"> <b>Ya:</b> </label>
-                        <input type='radio' id="CCC_Yes" name="CCC_Radio" value="Yes" style="margin-left:15px; margin-top:5px;" />
+                        <input type='radio' id="CCC_Yes" name="CCC_Radio" value="Yes" style="margin-left: 15px; margin-bottom: 5px;" />
                         <label class="m-t-20" style="margin-left:15px;"> <b>Tidak:</b> </label>
-                        <input type='radio' id="CCC_No" name="CCC_Radio" value="No" style="margin-left: 15px; margin-top: 5px;" />
+                        <input type='radio' id="CCC_No" name="CCC_Radio" value="No" style="margin-left: 15px; margin-bottom: 5px;" />
                     </div>
                     <div hidden id="CCC">
                         <div class="col-md-6">
@@ -155,9 +155,9 @@
 
                     <div class="row">
                         <label class="m-t-20" style="margin-left:15px;"> <b>Ya:</b> </label>
-                        <input type='radio' id="File_Yes" name="File_Radio" style="margin-left: 15px; margin-top: 5px;" value="Yes" />
+                        <input type='radio' id="File_Yes" name="File_Radio" style="margin-left: 15px; margin-bottom: 5px;" value="Yes" />
                         <label class="m-t-20" style="margin-left:15px;"> <b>Tidak:</b> </label>
-                        <input type='radio' id="File_No" name="File_Radio" style="margin-left: 15px; margin-top: 5px;" value="No" />
+                        <input type='radio' id="File_No" name="File_Radio" style="margin-left: 15px; margin-bottom: 5px;" value="No" />
                     </div>
                     <div id="Lampiran" hidden>
                         <div class="row form-group-sm ">
@@ -182,6 +182,7 @@
                                             <th>Type</th>
                                             <th>Nama File</th>
                                             <th>Action</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -711,8 +712,19 @@
             var row = $(this).closest("TR").index();
             DeleteCCC(row);
         })
+
+        $('#Tabel_File tbody').on('click', 'a.LampiranAttachmet', function () {
+            var row = $(this).closest("TR");
+            var data = $('#Tabel_File').DataTable().row(row).data();
+            var encrypt = data['ENCRYPT_PATH'];
+            DownloadAttachment(encrypt);
+        })
     });
 
+    function DownloadAttachment(filepath) {
+        console.log(filepath);
+        window.open("https://portal.bintang7.com/CommonService/api/Download?path=" + filepath + "");
+    }
     function disableAll() {
         $('input[name="File_Radio"]').attr("disabled", true);
         $('input[name="CCC_Radio"]').attr("disabled", true);
@@ -758,18 +770,26 @@
                             "data": null,
                             "render": function (nTd, sData, oData, iRow, iCol) {
 
-                                return '<a href = "' + oData.ValueEvaluasi + '" >' + oData.Nama_File + '</a >';
+                                return '<a href = "javascript:void(0);" class="LampiranAttachmet"" >' + oData.Nama_File + '</a >';
                             }
                         },
                         {
                             "data": null,
                             "defaultContent": "<button class='Lampiran btn btn-primary' value='Delete' style='background-color:red;'>Delete </button>"
+                        },
+                        {
+                            "data": "ENCRYPT_PATH"
                         }
                     ],
 
                     "columnDefs": [
                         {
                             "targets": [0],
+                            "visible": false,
+                            "searchable": false
+                        },
+                        {
+                            "targets": [5],
                             "visible": false,
                             "searchable": false
                         }
@@ -830,6 +850,7 @@
     }
     function UploadFile() {
         var formData = new FormData();
+        $.blockUI();
         var totalFiles = document.getElementById("TxtFileInput").files.length;
         if ($('#TxtLampiranCount').text() == "Tidak ada File Yang Dipilih") {
 
@@ -876,6 +897,8 @@
                         GetLampiran();
                         $('#TxtLampiranCount').text("Tidak ada File Yang Dipilih");
                     }
+
+                    $.unblockUI();
                 },
                 error: function (errormessage) {
                     $('#divLoading').attr("hidden", true);
@@ -1377,7 +1400,7 @@
                     Model: dictlist
                 }
                 $.ajax({
-                    url: "DynamicController?spname=SP_FORM_KOOR4&",
+                    url: "DynamicController?spname=SP_FORM_KOOR4",
                     type: "post",
                     data: JSON.stringify(dto1),
                     dataType: 'json',
