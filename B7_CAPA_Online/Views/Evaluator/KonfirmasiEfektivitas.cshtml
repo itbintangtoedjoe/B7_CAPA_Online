@@ -148,6 +148,7 @@
                                             <th>Type</th>
                                             <th>Lampiran</th>
                                             <th>Action</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -207,11 +208,8 @@
 @*JQuery Library*@
 @*<script src="../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
     <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>*@
-<script src="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.js" defer></script>
-<script src="~/Content/Scripts/plugins/datatables/jquery.dataTables.min.js" defer></script>
-<script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>
-<script src="https://unpkg.com/gojs/release/go-debug.js" defer></script>
-<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
+<script src="https://unpkg.com/gojs/release/go-debug.js" defer nonce="DgnkfEcd6nshGcticWCOMggz0hA_w-_2Cw"></script>
+<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer nonce="Dx4pr80UwnbC1X-7qtc6VmwrxWVrpmiPAw"></script>
 
 <script nonce="sHAYRdGVIpdZVrMUic-UwVI78WWqyA6LHg">
     var CurrentStatsID = 9;
@@ -341,11 +339,23 @@
                             { "data": "Type" },
                             { "data": "Nama_File" },
                             {
-                                "data": "ValueEvaluasi",
+                                "data": null,
                                 "className": "center",
                                 "render": function (url, type, full) {
-                                    return '<a href="' + url + '"><i class="fa fa-cloud-download" style="text-align: center" aria-hidden="true"></i></a>'
+                                    return '<a href="javascript:void(0);" class="LampiranAtt"><i class="fa fa-cloud-download" style="text-align: center" aria-hidden="true"></i></a>'
                                 }
+                            },
+                            {
+                                "data":"ENCRYPT_PATH"
+                            },
+
+                            
+                        ],
+                        "columnDefs": [
+                            {
+                                "targets": [4],
+                                "visible": false,
+                                "searchable": false
                             }
                         ],
                         "order": [[1, 'asc']]
@@ -385,6 +395,11 @@
                 alert(JSON.stringify(ex));
             }
         });
+    }
+
+    function DownloadAttachment(filepath) {
+        console.log(filepath);
+        window.open("https://portal.bintang7.com/CommonService/api/Download?path=" + filepath + "");
     }
 
     $(document).ready(function () {
@@ -498,5 +513,13 @@
             }
 
         });
+        $('#Tbl_Lampiran tbody').on('click', 'a.LampiranAtt', function () {
+
+            var row = $(this).closest("TR");
+            var data = $('#Tbl_Lampiran').DataTable().row(row).data();
+            var encrypt = data['ENCRYPT_PATH'];
+            DownloadAttachment(encrypt);
+
+        })
     });
 </script>

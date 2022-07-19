@@ -259,6 +259,7 @@
     <Compile Include="Scripts\CheckSession.cs" />
     <Compile Include="Scripts\DataAccess\DataAccess.cs" />
     <Compile Include="Scripts\SMTP\EmailSender.cs" />
+    <Compile Include="Scripts\WebFormNonce.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\approve.png" />

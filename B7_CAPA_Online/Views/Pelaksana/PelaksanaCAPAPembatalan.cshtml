@@ -12,7 +12,7 @@
     }
 </style>
 
-<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>  
+<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer nonce="xK8lhlUv43tmq8CCBFxxQvaX_NQb8rFKgg"></script>  
 
 <div class="content-body">
     <!--Modal-->
@@ -237,7 +237,7 @@
         @Html.Partial("KajianResikoPV")
         <div class="row form-group-sm">
             <div class="col-md-6 mt-3">
-                <button class="btn mb-1 btn-primary" id="Kamus" onclick="window.open('../Content/Images/SD-QO-QS-1008 Kamus Kriteria Risiko.pdf', '_blank', 'fullscreen=yes'); return false;" style="background-color:orange;">Lihat Kamus Kriteria Resiko</button>
+                <button class="btn mb-1 btn-primary" id="Kamus"  style="background-color:orange;">Lihat Kamus Kriteria Resiko</button>
             </div>
         </div>
         <div class="row form-group-sm">
@@ -367,7 +367,9 @@
             CancelPerbaikan();
         });
 
-
+        $('#Kamus').click(function () {
+            window.open('../Content/Images/SD-QO-QS-1008 Kamus Kriteria Risiko.pdf', '_blank', 'fullscreen=yes')
+        })
         $('#CancelPencegahan').click(function () {
 
             CancelPencegahan();
@@ -765,7 +767,7 @@
                         { "data": "Lainnya" },
                         {
                             "data": null,
-                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete'  onchange=''>Delete</button> ",
+                            "defaultContent": "<button class='btn btn-danger delete' type='button' name='delete'  >Delete</button> ",
                         },
                     ],
                     "order": [[1, 'asc']],

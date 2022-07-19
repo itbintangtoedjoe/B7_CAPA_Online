@@ -12,7 +12,7 @@
     }
 </style>
 
-<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
+<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer nonce="m640czyK2gSytg4iv-GH93_ESQZ5AjOK3w"></script>
 
 <div class="content-body">
     <!--Modal-->
@@ -272,7 +272,7 @@
                     <div class="card-body">
                         <div class="row form-group-sm">
                             <div class="col-md-6 mt-3">
-                                <button class="btn mb-1 btn-primary" id="Kamus" onclick="window.open('../Content/Images/SD-QO-QS-1008 Kamus Kriteria Risiko.pdf', '_blank', 'fullscreen=yes'); return false;" style="background-color:orange;">Lihat Kamus Kriteria Resiko</button>
+                                <button class="btn mb-1 btn-primary" id="Kamus" style="background-color:orange;">Lihat Kamus Kriteria Resiko</button>
                             </div>
                         </div>
                         <div class="row form-group-sm">
@@ -356,6 +356,9 @@
             AreaLain();
         }
 
+        $('#Kamus').click(function () {
+            window.open('../Content/Images/SD-QO-QS-1008 Kamus Kriteria Risiko.pdf', '_blank', 'fullscreen=yes')
+        })
         $('#Tbl_KajianResiko tbody').on('click', 'button.delete', function () {
             DeleteKajianResiko(this);
         })

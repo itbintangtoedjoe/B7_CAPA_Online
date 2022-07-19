@@ -106,8 +106,8 @@
     </div>
 </div>
 
-<script src="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.js" defer></script>
-<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
+<script src="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.js" defer nonce="thV8e5iwdIm60h5-RsQUNROVf43X8fGMNg"></script>
+<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer nonce="A0VWvbHSTm26vd1xk4BVd3eHQKtwpSWesA"></script>
 
 <script nonce="x1dw_Iadhkn76pRnSRZQNgQakbY9Q-tYtg">
 
@@ -117,7 +117,8 @@
    
     function CheckStatusID() {
         var dictlist = {
-            NoCAPA: $('#input_NoCAPA').val()
+            NoCAPA: $('#input_NoCAPA').val(),
+            Option: 10
         }
         var dto1 = {
             Model: dictlist
@@ -130,9 +131,9 @@
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var result = JSON.parse(data);
-                if (result[0].StatsID != 5) {
+                if (result[0].STATUS_ID != 5) {
                     $('#btn_Submit').attr("hidden", true);
-                    $('#btn_CancelCAPA').attr("hidden", true);
+                    $('#btn_Cancel').attr("hidden", true);
                 }
             },
             error: function (errormessage) {

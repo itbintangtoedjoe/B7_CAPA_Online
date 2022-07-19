@@ -13,8 +13,8 @@
     }
 </style>
 
-@*<link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
-<script src="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.js" defer></script>*@
+<link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
+<script src="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.js" defer nonce="rzQS3Cs0y49l7CgHswcLHsjOOrHZ6VMlqA"></script>
 
 <div class="content-body">
     <!--Modal-->
@@ -179,7 +179,7 @@
                                     <label class="m-t-20">Upload bukti tindakan perbaikan<span style="color: red">*</span></label>
                                     <div class="input-group mb-3">
                                         <div class="custom-file" style="border: 1px solid #dee0df; padding:5px;">
-                                            <input type="file" class="custom-file-input" name="UploadAttachment" id="uploadAttachmentPerbaikan" onclick="this.value = null;" multiple />
+                                            <input type="file" class="custom-file-input" name="UploadAttachment" id="uploadAttachmentPerbaikan"  multiple />
                                         </div>
 
                                         <label id="TxtLampiranCountPerbaikan" class="custom-file-label">Tidak ada File Yang Dipilih</label>
@@ -311,7 +311,7 @@
                                 <label class="m-t-20">Upload Bukti Tindakan Pencegahan<span style="color: red">*</span></label>
                                 <div class="input-group mb-3">
                                     <div class="custom-file" style="border: 1px solid #dee0df; padding:5px;">
-                                        <input type="file" class="custom-file-input" name="UploadAttachment" id="uploadAttachmentPencegahan" onclick="this.value = null;" style="background-color:green;" multiple />
+                                        <input type="file" class="custom-file-input" name="UploadAttachment" id="uploadAttachmentPencegahan"  style="background-color:green;" multiple />
                                     </div>
                                     <label id="TxtLampiranCountPencegahan" class="custom-file-label">Tidak ada File Yang Dipilih</label>
 
@@ -484,7 +484,7 @@
                                     <label class="m-t-40">Upload Bukti Treatment Plan Kajian Resiko<span style="color: red;">*</span></label>
                                     <div class="input-group mb-3">
                                         <div class="custom-file" style="border: 1px solid #dee0df; padding:5px;">
-                                            <input type="file" class="custom-file-input" name="UploadAttachment" id="uploadAttachmentTreatment" disabled="disabled" onclick="this.value = null;" style="background-color:green;" multiple />
+                                            <input type="file" class="custom-file-input" name="UploadAttachment" id="uploadAttachmentTreatment" disabled="disabled"  style="background-color:green;" multiple />
                                         </div>
                                         <label id="TxtLampiranCountTreatment" class="custom-file-label">Tidak ada File Yang Dipilih</label>
 
@@ -616,7 +616,7 @@
     <input type="text" id="input_NoCAPA" value="@ViewBag.NoCAPA" hidden>
 </div>
 
-<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
+<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer nonce="7hbOJ9QtCc_cnR4HVjil4wB2IrXA--68rg"></script>
 
 <script nonce="HGAJWod-kW81jDcHrZbQo7T-c_qb6vXwAw">
     var noCAPA = getQueryStrings()["NoCAPA"];
@@ -1034,6 +1034,15 @@
              })
         }
     });
+    $('#uploadAttachmentPerbaikan').click(function () {
+        this.value = null;
+    })
+    $('#uploadAttachmentPenceghaan').click(function () {
+        this.value = null;
+    })
+    $('#uploadAttachmentPerbaikan').click(function () {
+        this.value = null;
+    })
     $('#uploadAttachmentPerbaikan').change(function () {
         fileCount = this.files.length;
         var teks = (fileCount != 0) ? (fileCount + " Lampiran telah dipilih.") : ("");

@@ -135,8 +135,8 @@
 
 
 </div>
-<script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>
-<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
+<script src="~/Content/Scripts/js/sweetalert2.all.min.js" nonce="SoU7FhvfAAviHFsv55xhEjEwA2pJ4P3qZg"></script>
+<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer nonce="kDhIQyaAvQ43gdeMssPEMu37vf5G5GL7Sg"></script>
 <script nonce="M6GM2jZ5MEktHYYTpO1wP7roqwdKleyzcg">
 
     var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
@@ -289,7 +289,7 @@
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var result = JSON.parse(data);
-                if (result[0].StatsID != 4) {
+                if (result[0].STATUS_ID != 4) {
                     window.location.href = '../PendingTask/TaskList'
                 }
             },

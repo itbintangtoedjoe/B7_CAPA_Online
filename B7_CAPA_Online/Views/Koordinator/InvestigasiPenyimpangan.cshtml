@@ -1,5 +1,4 @@
-﻿<script src="https://unpkg.com/gojs/release/go-debug.js" defer></script>
-
+﻿
 <style>
     @@media (min-width: 768px) {
         .modal-xl {
@@ -77,6 +76,9 @@
     </div>
 </div>
 
+<script src="https://unpkg.com/gojs/release/go-debug.js" defer nonce="00PO7crq4tgwYvfEy3eGp1NKfWFPD5hiGg"></script>
+
+
 <script nonce="SMVIct8xH431ltlU_rDq7KlCvE2ajvXaNw">
     $(document).ready(function () {
         GetRootManusia();
@@ -97,7 +99,7 @@
     function GetAnalisaKondisi() {
         $.ajax({
             type: "POST",
-            url: "../Koordinator/GetAnalisa?NoCapa=" + $('#QS_NoCAPA').val() +"",
+            url: "../Koordinator/GetAnalisa?NoCapa=" + $('#QS_NoCAPA').val() + "",
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {

@@ -13,7 +13,7 @@
     }
 </style>
 
-<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer></script>
+<script src="~/Content/Scripts/plugins/block-ui/jquery.blockUI.js" defer nonce="WeAzgvXo_xSZBLUQZEsNtjWCr5xGfgdE3A"></script>
 
 <div class="content-body">
     <!--Modal-->
@@ -264,7 +264,7 @@
             <div class="card-body">
                 <div class="row form-group-sm">
                     <div class="col-md-6 mt-3">
-                        <button class="btn mb-1 btn-primary" id="Kamus" onclick="window.open('../Content/Images/SD-QO-QS-1008 Kamus Kriteria Risiko.pdf', '_blank', 'fullscreen=yes'); return false;" style="background-color:orange;">Lihat Kamus Kriteria Resiko</button>
+                        <button class="btn mb-1 btn-primary" id="Kamus"  style="background-color:orange;">Lihat Kamus Kriteria Resiko</button>
                     </div>
                 </div>
                 <div class="row form-group-sm">
@@ -327,6 +327,10 @@
         })
         KajianResikoDDL();
         TableKajian();
+
+        $('#Kamus').click(function () {
+            window.open('../Content/Images/SD-QO-QS-1008 Kamus Kriteria Risiko.pdf', '_blank', 'fullscreen=yes')
+        })
         $(window).on('beforeunload', function () {
             if (tindakan == 'Perbaikan') {
                 UpdateProccess('Perbaikan', 0, referenceID);
