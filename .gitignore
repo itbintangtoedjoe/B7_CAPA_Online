@@ -339,3 +339,4 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 /B7_CAPA_Online/Content/DiagramCAPA
+/B7_CAPA_Online/Report/ReportCAPADummy.rdlc

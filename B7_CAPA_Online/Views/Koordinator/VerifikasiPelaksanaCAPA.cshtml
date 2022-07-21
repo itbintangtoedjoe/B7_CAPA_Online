@@ -49,12 +49,12 @@
                         <div class="form-group">
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" id="trigger_ada" class="form-check-input" name="checkboxradio" value="Ada" onclick="onlyOne(this)">Ada
+                                    <input type="checkbox" id="trigger_ada" class="form-check-input" name="checkboxradio" value="Ada" >Ada
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input"id="trigger_tidak"  name="checkboxradio" value="Tidak" onclick="onlyOne(this)" checked>Tidak Ada
+                                    <input type="checkbox" class="form-check-input"id="trigger_tidak"  name="checkboxradio" value="Tidak" checked>Tidak Ada
                                 </label>
                             </div>
                         </div>
@@ -221,6 +221,16 @@
         $('#btn_ViewBukti').click(function () {
             window.open('../Evaluator/ViewBukti?NoCAPA=' + $('#input_NoCAPA').val());
         });
+        $('#trigger_ada').click(function () {
+
+
+            onlyOne(this)
+        })
+        $('#trigger_tidak').click(function () {
+
+
+            onlyOne(this)
+        })
 
         //$('#btnApproveVerifikasi').click(function () {
         //    Approve();

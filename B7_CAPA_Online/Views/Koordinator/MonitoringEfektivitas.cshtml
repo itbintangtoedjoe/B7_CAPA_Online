@@ -165,7 +165,7 @@
                                 <label class="m-t-20">Lampiran Terkait</label>
                                 <div class="input-group mb-3">
                                     <div class="custom-file">
-                                        <input id="TxtFileInput" type="file" name="LampiranTerkait" class="custom-file-input" onclick="this.value = null"  multiple required">
+                                        <input id="TxtFileInput" type="file" name="LampiranTerkait" class="custom-file-input"   multiple required">
 
                                         <label id="TxtLampiranCount" class="custom-file-label"></label>
                                     </div>
@@ -368,6 +368,9 @@
         })
         $('#ViewRentang').click(function () {
             window.open('../Evaluator/ReviewCAPA?NoCAPA=' + nocapa+'&StatsID=8');
+        })
+        $('#TxtFileInput').click(function () {
+            this.value = null;
         })
         getDDL();
         TahunDDL();
