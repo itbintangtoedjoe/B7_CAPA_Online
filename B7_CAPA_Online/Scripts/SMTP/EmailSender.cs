@@ -134,8 +134,8 @@ namespace B7_CAPA_Online.Scripts.SMTP
             //msg.To.Add("dani.pernando@bintang7.com");                            
             msg.To.Add(obj[index].Email);
             //msg.To.Add("tanaelbudiman@gmail.com");
-            msg.CC.Add("pusakadk@gmail.com");
-            msg.CC.Add("Monica.Sudarsono@bintang7.com");
+            //msg.CC.Add("pusakadk@gmail.com");
+            //msg.CC.Add("Monica.Sudarsono@bintang7.com");
             mailObj.Send(msg);
             //return "success";
         }
