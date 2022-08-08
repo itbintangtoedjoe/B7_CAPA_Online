@@ -434,6 +434,7 @@ namespace B7_CAPA_Online.Controllers
         public ActionResult DeleteAttachment(SPUpdatePelaksanaanParams data)
         {
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+           
             var dictionary = new Dictionary<string, object>{
                 { "Action", "Delete" },
                 { "IDAttachment", data.IDAttachment },
@@ -442,20 +443,52 @@ namespace B7_CAPA_Online.Controllers
             var result = DAL.StoredProcedure(parameters, "SP_Attachment_Pelaksanaan");
             //string path;
             //hapus dari b7drive belum dibuat
+            var path = @"" + data.Updater + "";
+            try
+            {
+                System.IO.File.Delete(path);
+            }
+            catch (Exception ex)
+            {
+                var dict = new Dictionary<string, object>{
+                    { "ErrorLog", ex.Message },
+                    { "StatusID", '4' },
+                    { "NO_CAPA", "" },
+                    { "UpdateBy", "" }
+                };
+                var param = new DynamicParameters(dict);
+                result = DAL.StoredProcedure(param, "SP_ERROR_HISTORY");
 
-            //path = data.Updater;
-            //System.IO.File.Delete(path);
+                return Json(result);
+            }
             return Json(result);
         }
 
-        public ActionResult DeleteAttachmentKoor4(DynamicModel data, string spname)
+        public ActionResult DeleteAttachmentKoor4(DynamicModel Models, SPUpdatePelaksanaanParams data, string spname)
         {
-
-            var parameters = new DynamicParameters(data.Model);
+                
+            var parameters = new DynamicParameters(Models.Model);
             var result = DAL.StoredProcedure(parameters, spname);
 
             //hapus dari b7drive belum dibuat
+            var path = @"" + data.Updater + "";
+            try
+            {
+                System.IO.File.Delete(path);
+            }
+            catch (Exception ex)
+            {
+                var dict = new Dictionary<string, object>{
+                    { "ErrorLog", ex.Message },
+                    { "StatusID", 8 },
+                    { "NO_CAPA", "" },
+                    { "UpdateBy", "" }
+                };
+                var param = new DynamicParameters(dict);
+                result = DAL.StoredProcedure(param, "SP_ERROR_HISTORY");
 
+                return Json(result);
+            }
             return Json(result);
         }
 

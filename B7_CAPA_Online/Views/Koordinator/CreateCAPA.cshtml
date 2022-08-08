@@ -2250,6 +2250,8 @@
                 $.each(JSON.parse(data[0].DEPTLIST), function (key, value) {
                     $("#AreaPIC_DDL").append(new Option(value.Departemen.trim(), value.Departemen.trim()));
                 });
+
+                $("#AreaPIC_DDL").val(data[0].AREA_PIC);
                 $("#PIC_DDL").empty().append(new Option(data[0].PIC_CAPA, data[0].PIC_CAPA));
                 $("#PIC_DDL").val(data[0].PIC_CAPA).trigger("change");
 

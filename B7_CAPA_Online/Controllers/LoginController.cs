@@ -13,6 +13,9 @@ using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using static B7_CAPA_Online.Models.KoordinatorModel;
+using System.Data;
+using System.Net;
+using System.IO;
 
 namespace B7_CAPA_Online.Controllers
 {
@@ -183,22 +186,123 @@ namespace B7_CAPA_Online.Controllers
 
         private readonly SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["MASTERVENDOR"].ToString());
         readonly DataAccess DAL = new DataAccess();
-
+        private string query;
+        private int Option;
+        private string URLAttachment;
+        public string identifers;
         // GET: Login
+        public bool AutomaticToken(string autologin_token)
+        {
+            string postString = string.Format("token={0}", autologin_token);
+            // Create a request for the URL. 		
+            WebRequest request = WebRequest.Create("http://b7-dc1b7portal/B7-Portal/api/v1/applicationUser/validateToken");
+            request.Method = "POST";
+            request.ContentLength = postString.Length;
+            request.ContentType = "application/x-www-form-urlencoded";
+
+            StreamWriter requestWriter = new StreamWriter(request.GetRequestStream());
+            requestWriter.Write(postString);
+            requestWriter.Close();
+
+            // Get the response.
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            // Display the status.
+            Console.WriteLine(response.StatusDescription);
+            // Get the stream containing content returned by the server.
+            Stream dataStream = response.GetResponseStream();
+            // Open the stream using a StreamReader for easy access.
+            StreamReader reader = new StreamReader(dataStream);
+            // Read the content.
+            string responseFromServer = reader.ReadToEnd();
+
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            dynamic responseJson = js.Deserialize<dynamic>(responseFromServer);
+
+            var responseData = responseJson["data"];
+            // "username_active_directory": "DESKTOP-R46N8LD\\Adam",
+            // "username_application": "adam",
+            // "token": "e1bef5fb05b7b4f8a31f627526a5a08f",
+            // "application_name": "CAPA",
+            // "last_updated": "2021-07-01T21:53:18.627"
+
+            // Cleanup the streams and the response.
+            reader.Close();
+            dataStream.Close();
+            response.Close();
+
+            return this.checkLoginByUsername(responseData["username_application"]);
+        }
+        public bool checkLoginByUsername(string username)
+        {
+            bool isTrueLogin = true;
+            //Session["xUser"] = "dani.pernando";
+            //string LoginCAPA = objEntities.CAPA_LoginManagement(1, ModelData.UserName, ModelData.Password).FirstOrDefault();
+            //string UserRole = objEntities.CAPA_LoginManagement(3, ModelData.UserName, ModelData.Password).FirstOrDefault();
+            //var data = _db.users.Where(s => s.username.Equals(username)).ToList();
+            //if (data.Count() > 0)
+            //{
+            //    //add session
+            //    Session["username"] = data.FirstOrDefault().username;
+            //    Session["idUser"] = data.FirstOrDefault().id;
+            //    isTrueLogin = true;
+            //}
+
+            return isTrueLogin;
+        }
         public ActionResult Index()
         {
             //string decrypted = EncryptionHelper.Decrypt("+NnSWnq/Lh1EfwTSxFxzRmrAwj7YTeawQeHecVIXCRI=");
             //return Json(decrypted, JsonRequestBehavior.AllowGet);
-            if(Session.Count > 0)
+            Session.Clear();
+            string autologin_token = Request.QueryString["autologinToken"];
+            identifers = Request.QueryString["identifier"];
+            TempData["identifier"] = identifers;
+            ConnectionStringSettings mySetting = ConfigurationManager.ConnectionStrings["B7PortalDB"];
+
+            string conString = mySetting.ConnectionString;
+
+
+            DataTable dt = new DataTable();
+            DataTable dt2 = new DataTable();
+            if (autologin_token != null)
             {
-                Session["LoginStatus"] = "invalid";
-                Session["NIK"] = "";
-                Session["FullName"] = "";
-                Session["Username"] = "";
-                Session["NamaUser"] = "";
-                Session["Departemen"] = "";
-                Session["Lokasi"] = "";
-                Session["SuperiorName"] = "";
+                string query = "SELECT username_apps FROM [dbo].[application_user_token] where token='" + autologin_token + "'";
+                bool setAutologin = this.AutomaticToken(autologin_token);
+                if (setAutologin)
+                {
+                    SqlConnection conn = new SqlConnection(conString);
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    conn.Open();
+
+                    // create data adapter
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+                    // this will query your database and return the result to your datatable
+                    da.Fill(dt);
+                    conn.Close();
+                    da.Dispose();
+                    string username;
+                    if (dt.Rows[0]["username_apps"] != null)
+                    {
+                        username = dt.Rows[0]["username_apps"].ToString();
+                    }
+                    else
+                    {
+                        username = "-";
+                    }
+                    string query2 = "select Departement from tblM_Userid where UserName_PK ='" + username + "'";
+
+
+
+                    Session["username"] = dt.Rows[0]["username_apps"].ToString();
+                    Session["idUser"] = dt.Rows[0]["username_apps"].ToString();
+                    Session["Role"] = dt2.Rows[0]["Departement"].ToString();
+                    Session["LoginSuccess"] = "True";
+
+                    return RedirectToAction("TaskList","PendingTask");
+
+                }
+
             }
             return View();
         }
@@ -213,7 +317,7 @@ namespace B7_CAPA_Online.Controllers
 
         }
 
-        public string FindKaryawan(string username,string tipe, string password)
+        public string FindKaryawan(string username, string tipe, string password)
         {
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
             var dictionary = new Dictionary<string, object>{
@@ -233,7 +337,7 @@ namespace B7_CAPA_Online.Controllers
             IntPtr tokenHandle = new IntPtr(0);
             string MachineName, username, password, tipeLogin = null;
             string loginStatus = "0";
-            
+
             username = loginData.Username;
             password = loginData.Password;
             tipeLogin = loginData.TipeLogin;
@@ -241,6 +345,13 @@ namespace B7_CAPA_Online.Controllers
             //login AD
             if (tipeLogin == "Karyawan")
             {
+                string identifier;
+                if (TempData["identifier"] != null)
+                {
+                    identifier = TempData["identifier"].ToString();
+                    this.revalidateUsername(identifier, loginData.Username);
+                }
+
                 if (username != "" && password == "B7Portal")
                 {
                     loginStatus = "success";
@@ -248,12 +359,12 @@ namespace B7_CAPA_Online.Controllers
                     //get data user karyawan
                     //var dataKaryawan = FindKaryawan(username);
                     JavaScriptSerializer jss = new JavaScriptSerializer();
-                    string dataKaryawan = FindKaryawan(username,"", "");
+                    string dataKaryawan = FindKaryawan(username, "", "");
                     var arrayData = JArray.Parse(dataKaryawan);
                     dynamic objectKary = jss.Deserialize<dynamic>(dataKaryawan);
 
 
-                    if (arrayData.Count >0)
+                    if (arrayData.Count > 0)
                     {
                         Session["LoginStatus"] = "success";
                         Session["FullName"] = objectKary[0]["Username"];
@@ -263,7 +374,7 @@ namespace B7_CAPA_Online.Controllers
                         Session["Departemen"] = objectKary[0]["Dept"];
                         Session["Lokasi"] = objectKary[0]["Location"];
                         Session["SuperiorName"] = objectKary[0]["SuperiorName"];
-                        if(objectKary[0]["Email_1"] != "")
+                        if (objectKary[0]["Email_1"] != "")
                         {
 
                             Session["Email"] = objectKary[0]["Email_1"];
@@ -282,7 +393,7 @@ namespace B7_CAPA_Online.Controllers
                 else
                 {
                     try
-                    {
+                {
                         //The MachineName property gets the name of your computer.   
                         MachineName = "ONEKALBE";
                         const int LOGON32_PROVIDER_DEFAULT = 0;
@@ -317,7 +428,7 @@ namespace B7_CAPA_Online.Controllers
                             //get data user karyawan
                             //var dataKaryawan = FindKaryawan(username);
                             JavaScriptSerializer jss = new JavaScriptSerializer();
-                            string dataKaryawan = FindKaryawan(username,"", "");
+                            string dataKaryawan = FindKaryawan(username, "", "");
                             var arrayData = JArray.Parse(dataKaryawan);
                             dynamic objectKary = jss.Deserialize<dynamic>(dataKaryawan);
 
@@ -360,47 +471,47 @@ namespace B7_CAPA_Online.Controllers
                 //}
                 //else
                 //{
-                    //encrypt pw    
-                    string encryptedPassword = EncryptionHelper.Encrypt(password);
-                    JavaScriptSerializer jss = new JavaScriptSerializer();
-                    string dataKaryawan = FindKaryawan(username, "Vendor", encryptedPassword);
-                    var arrayData = JArray.Parse(dataKaryawan);
-                    dynamic objectKary = jss.Deserialize<dynamic>(dataKaryawan);
+                //encrypt pw    
+                string encryptedPassword = EncryptionHelper.Encrypt(password);
+                JavaScriptSerializer jss = new JavaScriptSerializer();
+                string dataKaryawan = FindKaryawan(username, "Vendor", encryptedPassword);
+                var arrayData = JArray.Parse(dataKaryawan);
+                dynamic objectKary = jss.Deserialize<dynamic>(dataKaryawan);
 
-                    if (arrayData.Count > 0)
-                    {
-                        loginStatus = "success";
-                        Session["LoginStatus"] = "success";
-                        Session["FullName"] = objectKary[0]["user_vendor_name"];
-                        Session["NamaUser"] = objectKary[0]["user_vendor_name"];
-                        Session["NIK"] = objectKary[0]["userID"];
-                        Session["Username"] = username;
-                        Session["Departemen"] = "Others";
-                        Session["SuperiorName"] = objectKary[0]["SuperiorName"];
-                    }
-                    else
-                    {
-                        loginStatus = "not found";
-                        Session["LoginStatus"] = "not found";
-                    }
+                if (arrayData.Count > 0)
+                {
+                    loginStatus = "success";
+                    Session["LoginStatus"] = "success";
+                    Session["FullName"] = objectKary[0]["user_vendor_name"];
+                    Session["NamaUser"] = objectKary[0]["user_vendor_name"];
+                    Session["NIK"] = objectKary[0]["userID"];
+                    Session["Username"] = username;
+                    Session["Departemen"] = "Others";
+                    Session["SuperiorName"] = objectKary[0]["SuperiorName"];
+                }
+                else
+                {
+                    loginStatus = "not found";
+                    Session["LoginStatus"] = "not found";
+                }
 
-                    //using (SqlDataReader reader = cmd.ExecuteReader())
-                    //{
-                    //    while (reader.Read())
-                    //    {
-                    //        Console.WriteLine(String.Format("{0}, {1}",
-                    //            reader[0], reader[1]));
-                    //    }
-                    //}
+                //using (SqlDataReader reader = cmd.ExecuteReader())
+                //{
+                //    while (reader.Read())
+                //    {
+                //        Console.WriteLine(String.Format("{0}, {1}",
+                //            reader[0], reader[1]));
+                //    }
+                //}
 
-                    
+
 
             }
             return Json(loginStatus);
         }
         public ActionResult checksession()
         {
-            if(System.Web.HttpContext.Current.Session["Username"] == null )
+            if (System.Web.HttpContext.Current.Session["Username"] == null)
             {
                 return Json("False");
             }
@@ -409,7 +520,44 @@ namespace B7_CAPA_Online.Controllers
                 return Json("True");
             }
         }
+        public void revalidateUsername(string identifier, string usernameApps)
+        {
+            string postString = string.Format("identifier={0}&username_application={1}", identifier, usernameApps);
+            // Create a request for the URL. 		
+            WebRequest request = WebRequest.Create("https://intranetportal.bintang7.com/B7-Portal/api/v1/applicationUser/revalidateUsername");
+            request.Method = "POST";
+            request.ContentLength = postString.Length;
+            request.ContentType = "application/x-www-form-urlencoded";
 
+            StreamWriter requestWriter = new StreamWriter(request.GetRequestStream());
+            requestWriter.Write(postString);
+            requestWriter.Close();
 
+            // Get the response.
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            // Display the status.
+            Console.WriteLine(response.StatusDescription);
+            // Get the stream containing content returned by the server.
+            Stream dataStream = response.GetResponseStream();
+            // Open the stream using a StreamReader for easy access.
+            StreamReader reader = new StreamReader(dataStream);
+            // Read the content.
+            string responseFromServer = reader.ReadToEnd();
+
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            dynamic responseJson = js.Deserialize<dynamic>(responseFromServer);
+
+            var responseData = responseJson["data"];
+            // "username_active_directory": "DESKTOP-R46N8LD\\Adam",
+            // "username_application": "adam",
+            // "token": "e1bef5fb05b7b4f8a31f627526a5a08f",
+            // "application_name": "CAPA",
+            // "last_updated": "2021-07-01T21:53:18.627"
+
+            // Cleanup the streams and the response.
+            reader.Close();
+            dataStream.Close();
+            response.Close();
+        }
     }
 }

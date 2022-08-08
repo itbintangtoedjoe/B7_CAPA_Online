@@ -133,7 +133,6 @@ namespace B7_CAPA_Online.Controllers
             var parameters = new DynamicParameters(Models.Model);
             return Json(DAL.VendorStoredProcedure(parameters, spname));
         }
-
         public List<VendorType> GetAllVendorTypes()
         {
             DataSet ds = new DataSet();
@@ -190,6 +189,13 @@ namespace B7_CAPA_Online.Controllers
             }
             catch (Exception ex)
             {
+                var dictionary = new Dictionary<string, object>();
+                dictionary.Add("UpdateBy", "") ;
+                dictionary.Add("NO_CAPA", "");
+                dictionary.Add("ErrorLog", ex.Message);
+                dictionary.Add("StatusID", 1);
+                DynamicParameters dynamicParameters = new DynamicParameters(dictionary);
+                DAL.StoredProcedure(dynamicParameters, "[dbo].[SP_ERROR_HISTORY]");
                 return Json(ex.Message);
             }
         }

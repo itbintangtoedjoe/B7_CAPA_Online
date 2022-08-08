@@ -117,7 +117,6 @@
                 $('#div_exists').attr("hidden", true);
             }
         });
-        GetVendorInfo();
     });
 
     //function untuk ambil semua query string
@@ -149,6 +148,9 @@
                 data: JSON.stringify(dto),
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
+                    $('input[name="jenis_vendor"][value="0"]').prop("checked", true);
+                    $('#div_doesnt_exist').attr("hidden", false);
+                    $('#div_exists').attr("hidden", true);
                     $('#nama_vendor').val(data.VendorName);
                     $("#tipe_vendor").select2().val(data.TypeID).trigger("change");
                 }, error: function (ex) {
@@ -171,6 +173,8 @@
                     $('#nama_vendor_exists').append($('<option></option>').attr('value', entry.SUPPLIER_NAME).text(entry.SUPPLIER_NAME));
                     $('#nama_vendor_exists').select2();
                 })
+
+                GetVendorInfo();
             }, error: function (ex) {
                 console.log(JSON.stringify(ex))
             }
@@ -278,7 +282,7 @@
                                 showConfirmButton: false,
                                 timer: 1000,
                             }).then(() => {
-                                location.reload();
+                                windows.location.reload();
                             })
                         }
                         else {

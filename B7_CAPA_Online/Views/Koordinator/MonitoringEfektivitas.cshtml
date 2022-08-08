@@ -827,10 +827,11 @@
                     Record: id
                 }
                 var dto1 = {
-                    Model: dictlist
+                    Model: dictlist,
+                    Updater: data['ValueEvaluasi']
                 }
                 $.ajax({
-                    url: "DynamicController?spname=[dbo].[SP_FORM_KOOR4]",
+                    url: "DeleteAttachmentKoor4?spname=[dbo].[SP_FORM_KOOR4]",
                     type: "post",
                     dataType: "json",
                     data: JSON.stringify(dto1),

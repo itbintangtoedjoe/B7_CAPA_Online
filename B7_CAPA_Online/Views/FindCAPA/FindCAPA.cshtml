@@ -160,6 +160,7 @@
             Departemen: $('#Departemen').val(),
             Kode: $('#Kode_CAPA').val(),
             Kategori: $('#Kategori').val(),
+            User: '@Request.RequestContext.HttpContext.Session["NIK"]'
         }
         var dto1 = {
             Model: dictlist
@@ -172,7 +173,6 @@
             async: false,
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-                console.table(JSON.parse(data));
                 console.log($('#Status').val());
                 console.log($('#Lokasi').val());
                 console.log($('#Departemen').val());
@@ -220,7 +220,7 @@
                                 }
                             }
                         }
-                        
+
 
                     ],
                     "columnDefs": [
@@ -258,7 +258,7 @@
                 var result = JSON.parse(data);
                 $('#Kode_CAPA').empty();
                 var all = null;
-               
+
                 $('#Kode_CAPA').append(new Option("All", all));
                 $('#Kode_CAPA').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
 
@@ -378,7 +378,7 @@
 
     function getTahun() {
         var date = new Date();
-     
+
         $('#Tahun').append('<option disabled selected hidden class="dropdown-header">--Please Select--</option>');
 
         var all = 0;

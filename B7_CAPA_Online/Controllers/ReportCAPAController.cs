@@ -46,7 +46,7 @@ namespace B7_CAPA_Online.Controllers
           
             return View();
         }
-        public void DownloadReport(String NoCAPA)
+        public void DownloadReport(String NoCAPA,String Tipe)
         {
             ReportViewer ReportViewer1 = new ReportViewer();
             ReportViewer1.Reset();
@@ -403,7 +403,7 @@ namespace B7_CAPA_Online.Controllers
             string mimeType = string.Empty;
             string encoding = string.Empty;
             string extension = string.Empty;
-            byte[] Bytes = ReportViewer1.LocalReport.Render(format: "PDF", null, out mimeType, out encoding, out extension, out streamIds, out warnings);
+            byte[] Bytes = ReportViewer1.LocalReport.Render(format: Tipe, null, out mimeType, out encoding, out extension, out streamIds, out warnings);
             Response.Buffer = true;
             Response.Clear();
             Response.ContentType = mimeType;

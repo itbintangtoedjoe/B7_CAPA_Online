@@ -319,8 +319,25 @@ namespace B7_CAPA_Online.Controllers
             //string path;
             //hapus dari b7drive belum dibuat
             //// Updater = path file dari ajax
-            //path = data.Updater;
-            //System.IO.File.Delete(path);
+            ///
+            var path = @""+data.Updater+"";
+            try 
+            {
+                System.IO.File.Delete(path); 
+            }
+            catch (Exception ex)
+            {
+                var dict = new Dictionary<string, object>{
+                    { "ErrorLog", ex.Message },
+                    { "StatusID", 6 },
+                    { "NO_CAPA", "" },
+                    { "UpdateBy", "" }
+                };
+                var param = new DynamicParameters(dict);
+                result = DAL.StoredProcedure(param, "SP_ERROR_HISTORY");
+
+                return Json(result);
+            }
             return Json(result);
         }
 

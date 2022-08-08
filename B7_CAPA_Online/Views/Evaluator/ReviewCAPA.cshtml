@@ -543,11 +543,11 @@
                                         else if (result[meta.row].StatusDetail === 1)
                                             return '<img id="imgReject" src="../Content/Images/rejected.png" style="width: 80px"/>';
                                         else
-                                            return "<button type='button' id='Perbaikan' class='btn btn-primary approve' style='background-color:green;width:60px; margin-bottom:5px'>Approve</button><button type='button' id='Perbaikan' class='btn btn-primary reject' style='background-color:red;width:60px; margin-bottom:5px'>Reject</button>";
+                                            return "<button type='button' id='Perbaikan' class='btn btn-primary approve' style='background-color:green;width:60px; margin-bottom:5px'>Approve</button><button type='button' id='Perbaikan' class='btn btn-primary reject' style='background-color:red;width:60px; margin-bottom:5px'>Revisi CAPA</button>";
                                     } else {
                                         if (data === false) {
                                             if (result[meta.row].Status_ID === false && result[meta.row].StatusDetail === 5 && result[meta.row].Rentang != 0) {
-                                                return "<button type='button' id='Perbaikan' class='btn btn-primary approve' style='background-color:green;width:60px; margin-bottom:5px'>Approve</button><button type='button' id='Perbaikan' class='btn btn-primary reject' style='background-color:red;width:60px;'>Reject</button>";
+                                                return "<button type='button' id='Perbaikan' class='btn btn-primary approve' style='background-color:green;width:60px; margin-bottom:5px'>Approve</button><button type='button' id='Perbaikan' class='btn btn-primary reject' style='background-color:red;width:60px;'>Revisi CAPA</button>";
                                             }
                                             else if (result[meta.row].StatusDetail === 1) {
                                                 return '<img id="imgReject" src="../Content/Images/rejected.png" style="width: 80px"/>';
@@ -694,11 +694,11 @@
                                         else if (result[meta.row].StatusDetail === 1)
                                             return '<img id="imgReject" src="../Content/Images/rejected.png" style="width: 80px"/>';
                                         else
-                                            return "<button type='button' id='Pencegahan' class='btn btn-primary approve' style='background-color:green;width:60px; margin-bottom:5px'>Approve</button><button type='button' id='Pencegahan' class='btn btn-primary reject' style='background-color:red;width:60px;'>Reject</button>";
+                                            return "<button type='button' id='Pencegahan' class='btn btn-primary approve' style='background-color:green;width:60px; margin-bottom:5px'>Approve</button><button type='button' id='Pencegahan' class='btn btn-primary reject' style='background-color:red;width:60px;'>Revisi CAPA</button>";
                                     } else {
                                         if (data === false) {
                                             if (result[meta.row].Status_ID === false && result[meta.row].StatusDetail === 5 && result[meta.row].Rentang != 0) {
-                                                return "<button type='button' id='Pencegahan' class='btn btn-primary approve' style='background-color:green;width:60px; margin-bottom:5px'>Approve</button><button type='button' id='Pencegahan' class='btn btn-primary reject' style='background-color:red;width:60px;'>Reject</button>";
+                                                return "<button type='button' id='Pencegahan' class='btn btn-primary approve' style='background-color:green;width:60px; margin-bottom:5px'>Approve</button><button type='button' id='Pencegahan' class='btn btn-primary reject' style='background-color:red;width:60px;'>Revisi CAPA</button>";
                                             }
                                             else if (result[meta.row].StatusDetail === 1) {
                                                 return '<img id="imgReject" src="../Content/Images/rejected.png" style="width: 80px"/>';
@@ -1002,7 +1002,7 @@
         $(document).on("click", "#Tbl_RentangPerbaikan button.reject", function () {
             var option = 7 // option in SP_APPROVAL_CAPA
             Swal.fire({
-                title: 'Alasan Reject',
+                title: 'Alasan Revisi',
                 input: 'textarea',
                 icon: 'warning',
                 showCancelButton: true,

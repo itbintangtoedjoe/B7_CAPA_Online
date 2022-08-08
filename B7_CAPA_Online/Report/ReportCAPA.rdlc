@@ -1782,7 +1782,6 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             </Style>
           </Textbox>
           <Textbox Name="Textbox26">
-            <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
@@ -1801,7 +1800,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>12.38443cm</Top>
             <Left>20.13991cm</Left>
             <Height>1.77393cm</Height>
-            <Width>4.17296cm</Width>
+            <Width>6.27914cm</Width>
             <ZIndex>27</ZIndex>
             <Style>
               <Border>
@@ -1849,7 +1848,6 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             </Style>
           </Textbox>
           <Textbox Name="Textbox28">
-            <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
@@ -1868,7 +1866,7 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             <Top>10.14414cm</Top>
             <Left>20.15397cm</Left>
             <Height>1.81708cm</Height>
-            <Width>4.1589cm</Width>
+            <Width>6.26508cm</Width>
             <ZIndex>29</ZIndex>
             <Style>
               <Border>
@@ -3885,9 +3883,6 @@ Corrective and  Preventive Action Request (CARPAR)</Value>
             </Style>
           </Tablix>
           <Rectangle Name="Rectangle18">
-            <PageBreak>
-              <BreakLocation>Start</BreakLocation>
-            </PageBreak>
             <KeepTogether>true</KeepTogether>
             <OmitBorderOnPageBreak>true</OmitBorderOnPageBreak>
             <Top>17.50975cm</Top>

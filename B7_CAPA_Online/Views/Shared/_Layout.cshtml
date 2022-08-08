@@ -127,7 +127,7 @@
                                 <div class="dropdown-content-body my-2">
                                     <ul>
                                         <li>
-                                            <a id="spanLogout" href="../Login/Index"><i class="icon-key"></i> <span>Logout</span></a>
+                                            <a id="spanLogout" ><i class="icon-key"></i> <span>Logout</span></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -313,6 +313,11 @@
             //    chcksession(xhr);
 
             //});
+
+            $('#spanLogout').click(function () {
+
+                window.location.href = window.location.origin + '/B7_CAPA_ONLINE/Login/Index';
+            })
             $(document).ajaxError(function (a, xhr, c) {
                 console.log(xhr.status);
                 var status = xhr.status

@@ -116,7 +116,10 @@
         });
         
         $('#Tbl_reportdatatable tbody').on('click', 'button.Print', function () {
-            Print(this)
+            Print(this,'PDF')
+        })
+        $('#Tbl_reportdatatable tbody').on('click', 'button.PrintExcel', function () {
+            Print(this, 'Excel')
         })
     })
 
@@ -160,7 +163,7 @@
                         { "data": "RecordID" },
                         {
                             "data": null,
-                            "defaultContent": "<button class='btn btn-primary Print' value='Print' style='background-color:green; '>Print</button>"
+                            "defaultContent": "<button class='btn btn-primary Print' value='Print' style='background-color:green; margin-bottom:15px; '>Print as PDF</button>  <button class='btn btn-primary PrintExcel' value='Print' style='background-color:green; '>Print as Excel</button>"
                         },
                         { "data": "REG_ID" },
                         { "data": "NO_CAPA" },
@@ -188,12 +191,12 @@
         });
     }
 
-    function Print(button) {
+    function Print(button,tipe) {
         var row = $(button).closest("TR");
 
         var data = $('#Tbl_reportdatatable').DataTable().row(row).data();
         var NoCAPA = data['NO_CAPA'];
-        window.open("../ReportCAPA/DownloadReport?NoCAPA=" + NoCAPA)
+        window.open("../ReportCAPA/DownloadReport?NoCAPA=" + NoCAPA + "&Tipe=" + tipe + "")
         //window.open("../ReportCAPA/ReportDummy?NoCAPA=" + NoCAPA)
 
     }

@@ -300,6 +300,7 @@
     var departemen = '@Request.RequestContext.HttpContext.Session["Departemen"]';
     var email ='@Request.RequestContext.HttpContext.Session["Email"]';
     var superiorName = '@Request.RequestContext.HttpContext.Session["SuperiorName"]';
+    var lokasi = '@Request.RequestContext.HttpContext.Session["Lokasi"]';
     var tindakan = getQueryStrings()["Tindakan"];
     var dataPerbaikan;
     var newDataPerbaikan;
@@ -322,6 +323,16 @@
     }
 
     $(document).ready(function () {
+
+        if (lokasi == 'BPD') {
+            lokasi = 'CKR'
+        }
+        else if (lokasi == 'BPG') {
+            lokasi = 'PLG'
+        }
+        if (departemen == 'Engineering' || departemen == 'Quality Control' || departemen == 'Warehouse' || departemen == 'Produksi') {
+            departemen = departemen + ' ' + lokasi;
+        }
         $('#TxtDepartemen').val('@Request.RequestContext.HttpContext.Session["Departemen"]');
         $('#TxtNoCAPA').val(noCAPA);
         $('#TxtRequestor').val(superiorName);
@@ -390,7 +401,7 @@
                 $('#RootCause').prop('hidden', true);
                 $('#btnPencegahan').prop('hidden', true);
                 KajianDDLPencegahan();
-               
+
                 TableKajian();
             }
         });
@@ -523,7 +534,7 @@
         });
         $('#btn_KajianResiko').click(function () {
             //recTindakan(0);
-            
+
                 var pic = "";
                 if ($('#Severity_DDL').val() == 10 || $('#TxtRiskLevel').val() == 'High' || $('#TxtRiskLevel').val() == 'Very High') {
                     pic = $('#TxtPIC').val();
@@ -743,7 +754,7 @@
                         }
                     });
                 }
-            
+
         });
 
     });
@@ -848,7 +859,7 @@
                         { "data": "WhyDesc" },
                         { "data": "AreaLain" },
                         { "data": "Tindakan_Pencegahan" },
-                        { "data": "Nama_Personil" },    
+                        { "data": "Nama_Personil" },
                         { "data": "SupApprover" },
                         { "data": "Due_Date" },
                         {
@@ -979,7 +990,7 @@
                         contentType: 'application/json; charset=utf-8',
                         success: function (data) {
                             var result = JSON.parse(data);
-                            console.log(data);  
+                            console.log(data);
                             if (result[0].Stat == 'DELETED') {
                                 Swal.fire({
                                     title: 'Success',
@@ -1232,7 +1243,7 @@
                             "visible": (!isHide) ? (true) : (false)
                         },
                     ],
-                  
+
                     "order": [[1, 'asc']],
                     "rowCallback": function (row, data) {
                         ColoredColumns(row, data.RiskLevel, "riskLevel");
@@ -1395,7 +1406,7 @@
                             else {
                                 TableKajian();
                             }
-                            
+
                         }
                     )},
                     error: function (ex) {
