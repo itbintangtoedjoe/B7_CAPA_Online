@@ -254,56 +254,56 @@ namespace B7_CAPA_Online.Controllers
             //string decrypted = EncryptionHelper.Decrypt("+NnSWnq/Lh1EfwTSxFxzRmrAwj7YTeawQeHecVIXCRI=");
             //return Json(decrypted, JsonRequestBehavior.AllowGet);
             Session.Clear();
-            string autologin_token = Request.QueryString["autologinToken"];
-            identifers = Request.QueryString["identifier"];
-            TempData["identifier"] = identifers;
-            ConnectionStringSettings mySetting = ConfigurationManager.ConnectionStrings["B7PortalDB"];
+            //string autologin_token = Request.QueryString["autologinToken"];
+            //identifers = Request.QueryString["identifier"];
+            //TempData["identifier"] = identifers;
+            //ConnectionStringSettings mySetting = ConfigurationManager.ConnectionStrings["B7PortalDB"];
 
-            string conString = mySetting.ConnectionString;
-
-
-            DataTable dt = new DataTable();
-            DataTable dt2 = new DataTable();
-            if (autologin_token != null)
-            {
-                string query = "SELECT username_apps FROM [dbo].[application_user_token] where token='" + autologin_token + "'";
-                bool setAutologin = this.AutomaticToken(autologin_token);
-                if (setAutologin)
-                {
-                    SqlConnection conn = new SqlConnection(conString);
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    conn.Open();
-
-                    // create data adapter
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-
-                    // this will query your database and return the result to your datatable
-                    da.Fill(dt);
-                    conn.Close();
-                    da.Dispose();
-                    string username;
-                    if (dt.Rows[0]["username_apps"] != null)
-                    {
-                        username = dt.Rows[0]["username_apps"].ToString();
-                    }
-                    else
-                    {
-                        username = "-";
-                    }
-                    string query2 = "select Departement from tblM_Userid where UserName_PK ='" + username + "'";
+            //string conString = mySetting.ConnectionString;
 
 
+            //DataTable dt = new DataTable();
+            //DataTable dt2 = new DataTable();
+            //if (autologin_token != null)
+            //{
+            //    string query = "SELECT username_apps FROM [dbo].[application_user_token] where token='" + autologin_token + "'";
+            //    bool setAutologin = this.AutomaticToken(autologin_token);
+            //    if (setAutologin)
+            //    {
+            //        SqlConnection conn = new SqlConnection(conString);
+            //        SqlCommand cmd = new SqlCommand(query, conn);
+            //        conn.Open();
 
-                    Session["username"] = dt.Rows[0]["username_apps"].ToString();
-                    Session["idUser"] = dt.Rows[0]["username_apps"].ToString();
-                    Session["Role"] = dt2.Rows[0]["Departement"].ToString();
-                    Session["LoginSuccess"] = "True";
+            //        // create data adapter
+            //        SqlDataAdapter da = new SqlDataAdapter(cmd);
 
-                    return RedirectToAction("TaskList","PendingTask");
+            //        // this will query your database and return the result to your datatable
+            //        da.Fill(dt);
+            //        conn.Close();
+            //        da.Dispose();
+            //        string username;
+            //        if (dt.Rows[0]["username_apps"] != null)
+            //        {
+            //            username = dt.Rows[0]["username_apps"].ToString();
+            //        }
+            //        else
+            //        {
+            //            username = "-";
+            //        }
+            //        string query2 = "select Departement from tblM_Userid where UserName_PK ='" + username + "'";
 
-                }
 
-            }
+
+            //        Session["username"] = dt.Rows[0]["username_apps"].ToString();
+            //        Session["idUser"] = dt.Rows[0]["username_apps"].ToString();
+            //        Session["Role"] = dt2.Rows[0]["Departement"].ToString();
+            //        Session["LoginSuccess"] = "True";
+
+            //        return RedirectToAction("TaskList","PendingTask");
+
+            //    }
+
+            //}
             return View();
         }
         public ActionResult Session_Error()
@@ -346,11 +346,11 @@ namespace B7_CAPA_Online.Controllers
             if (tipeLogin == "Karyawan")
             {
                 string identifier;
-                if (TempData["identifier"] != null)
-                {
-                    identifier = TempData["identifier"].ToString();
-                    this.revalidateUsername(identifier, loginData.Username);
-                }
+                //if (TempData["identifier"] != null)
+                //{
+                //    identifier = TempData["identifier"].ToString();
+                //    this.revalidateUsername(identifier, loginData.Username);
+                //}
 
                 if (username != "" && password == "B7Portal")
                 {
@@ -520,44 +520,44 @@ namespace B7_CAPA_Online.Controllers
                 return Json("True");
             }
         }
-        public void revalidateUsername(string identifier, string usernameApps)
-        {
-            string postString = string.Format("identifier={0}&username_application={1}", identifier, usernameApps);
-            // Create a request for the URL. 		
-            WebRequest request = WebRequest.Create("https://intranetportal.bintang7.com/B7-Portal/api/v1/applicationUser/revalidateUsername");
-            request.Method = "POST";
-            request.ContentLength = postString.Length;
-            request.ContentType = "application/x-www-form-urlencoded";
+        //public void revalidateUsername(string identifier, string usernameApps)
+        //{
+        //    string postString = string.Format("identifier={0}&username_application={1}", identifier, usernameApps);
+        //    // Create a request for the URL. 		
+        //    WebRequest request = WebRequest.Create("https://intranetportal.bintang7.com/B7-Portal/api/v1/applicationUser/revalidateUsername");
+        //    request.Method = "POST";
+        //    request.ContentLength = postString.Length;
+        //    request.ContentType = "application/x-www-form-urlencoded";
 
-            StreamWriter requestWriter = new StreamWriter(request.GetRequestStream());
-            requestWriter.Write(postString);
-            requestWriter.Close();
+        //    StreamWriter requestWriter = new StreamWriter(request.GetRequestStream());
+        //    requestWriter.Write(postString);
+        //    requestWriter.Close();
 
-            // Get the response.
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            // Display the status.
-            Console.WriteLine(response.StatusDescription);
-            // Get the stream containing content returned by the server.
-            Stream dataStream = response.GetResponseStream();
-            // Open the stream using a StreamReader for easy access.
-            StreamReader reader = new StreamReader(dataStream);
-            // Read the content.
-            string responseFromServer = reader.ReadToEnd();
+        //    // Get the response.
+        //    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        //    // Display the status.
+        //    Console.WriteLine(response.StatusDescription);
+        //    // Get the stream containing content returned by the server.
+        //    Stream dataStream = response.GetResponseStream();
+        //    // Open the stream using a StreamReader for easy access.
+        //    StreamReader reader = new StreamReader(dataStream);
+        //    // Read the content.
+        //    string responseFromServer = reader.ReadToEnd();
 
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            dynamic responseJson = js.Deserialize<dynamic>(responseFromServer);
+        //    JavaScriptSerializer js = new JavaScriptSerializer();
+        //    dynamic responseJson = js.Deserialize<dynamic>(responseFromServer);
 
-            var responseData = responseJson["data"];
-            // "username_active_directory": "DESKTOP-R46N8LD\\Adam",
-            // "username_application": "adam",
-            // "token": "e1bef5fb05b7b4f8a31f627526a5a08f",
-            // "application_name": "CAPA",
-            // "last_updated": "2021-07-01T21:53:18.627"
+        //    var responseData = responseJson["data"];
+        //    // "username_active_directory": "DESKTOP-R46N8LD\\Adam",
+        //    // "username_application": "adam",
+        //    // "token": "e1bef5fb05b7b4f8a31f627526a5a08f",
+        //    // "application_name": "CAPA",
+        //    // "last_updated": "2021-07-01T21:53:18.627"
 
-            // Cleanup the streams and the response.
-            reader.Close();
-            dataStream.Close();
-            response.Close();
-        }
+        //    // Cleanup the streams and the response.
+        //    reader.Close();
+        //    dataStream.Close();
+        //    response.Close();
+        //}
     }
 }
