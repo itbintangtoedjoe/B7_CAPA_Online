@@ -16,11 +16,14 @@ using static B7_CAPA_Online.Models.KoordinatorModel;
 using System.Data;
 using System.Net;
 using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace B7_CAPA_Online.Controllers
 {
     public class LoginController : Controller
     {
+
         //[DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = false)]
         //public static extern bool LogonUser(string lpszUsername, string lpszDomain, string lpszPassword, int dwLogonType, int dwLogonProvider, ref IntPtr phToken);
         //[DllImport("kernel32.dll")]
@@ -186,9 +189,15 @@ namespace B7_CAPA_Online.Controllers
 
         private readonly SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["MASTERVENDOR"].ToString());
         readonly DataAccess DAL = new DataAccess();
+#pragma warning disable CS0169 // The field 'LoginController.query' is never used
         private string query;
+#pragma warning restore CS0169 // The field 'LoginController.query' is never used
+#pragma warning disable CS0169 // The field 'LoginController.Option' is never used
         private int Option;
+#pragma warning restore CS0169 // The field 'LoginController.Option' is never used
+#pragma warning disable CS0169 // The field 'LoginController.URLAttachment' is never used
         private string URLAttachment;
+#pragma warning restore CS0169 // The field 'LoginController.URLAttachment' is never used
         public string identifers;
 
         public bool checkLoginByUsername(string username)
@@ -432,7 +441,7 @@ namespace B7_CAPA_Online.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult LoginExec(LoginData loginData)
+        public async Task<ActionResult> LoginExec(LoginData loginData)
         {
             IntPtr tokenHandle = new IntPtr(0);
             string MachineName, username, password, tipeLogin = null;
@@ -445,7 +454,9 @@ namespace B7_CAPA_Online.Controllers
             //login AD
             if (tipeLogin == "Karyawan")
             {
+#pragma warning disable CS0168 // The variable 'identifier' is declared but never used
                 string identifier;
+#pragma warning restore CS0168 // The variable 'identifier' is declared but never used
                 //if (TempData["identifier"] != null)
                 //{
                 //    identifier = TempData["identifier"].ToString();
@@ -455,6 +466,47 @@ namespace B7_CAPA_Online.Controllers
                 if (username != "" && password == "B7Portal")
                 {
                     loginStatus = "success";
+                    using (var client = new HttpClient())
+                    {
+                        client.DefaultRequestHeaders.Clear();
+                        try
+                        {
+                            HttpResponseMessage Res = await client.PostAsJsonAsync("https://localhost:7026/Login", new
+                            {
+                                Username = username,
+                                Password = password,
+                            });
+
+                            // Cek return dari Api Login, login berhasil jika return == "Success"
+                            if (Res.IsSuccessStatusCode)
+                            {
+                                dynamic response = await Res.Content.ReadAsAsync<JObject>();
+                                string responseMessage = response.message.ToString();
+
+                                if (responseMessage.ToLower() == "success")
+                                {
+                                    loginStatus = "success";
+                                }
+                                else if (responseMessage.ToLower() == "user not found")
+                                {
+                                    loginStatus = "not found";
+                                }
+                                else
+                                {
+                                    loginStatus = "invalid";
+                                }
+                            }
+                            else
+                            {
+                                loginStatus = "invalid";
+                            }
+                        }
+                        catch (Exception)
+                        {
+
+                            loginStatus = "invalid";
+                        }
+                    }
 
                     //get data user karyawan
                     //var dataKaryawan = FindKaryawan(username);

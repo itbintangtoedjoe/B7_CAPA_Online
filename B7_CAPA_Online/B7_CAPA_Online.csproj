@@ -3370,6 +3370,10 @@
     <Content Include="Content\Scripts\plugins\datatables.net-bs4\css\dataTables.bootstrap4.min.css" />
     <Content Include="Content\Scripts\plugins\datatables.net-bs4\js\dataTables.bootstrap4.min.js" />
     <Content Include="Content\Scripts\plugins\datatables.net\jquery.dataTables.min.js" />
+    <Content Include="Content\Scripts\plugins\datatables\2.1.0\buttons.dataTables.min.css" />
+    <Content Include="Content\Scripts\plugins\datatables\2.1.0\buttons.html5.min.js" />
+    <Content Include="Content\Scripts\plugins\datatables\2.1.0\buttons.print.min.js" />
+    <Content Include="Content\Scripts\plugins\datatables\2.1.0\dataTables.buttons.min.js" />
     <Content Include="Content\Scripts\plugins\datatables\css\jquery.dataTables.min.css" />
     <Content Include="Content\Scripts\plugins\datatables\images\favicon.ico" />
     <Content Include="Content\Scripts\plugins\datatables\images\sort_asc.png" />
@@ -3635,6 +3639,11 @@
     <Content Include="Content\Scripts\plugins\icons_hidpi.png" />
     <Content Include="Content\Scripts\plugins\imagesloaded\imagesloaded.js" />
     <Content Include="Content\Scripts\plugins\imagesloaded\imagesloaded.pkgd.min.js" />
+    <Content Include="Content\Scripts\plugins\images\sort_asc.png" />
+    <Content Include="Content\Scripts\plugins\images\sort_asc_disabled.png" />
+    <Content Include="Content\Scripts\plugins\images\sort_both.png" />
+    <Content Include="Content\Scripts\plugins\images\sort_desc.png" />
+    <Content Include="Content\Scripts\plugins\images\sort_desc_disabled.png" />
     <Content Include="Content\Scripts\plugins\innoto-switchery\dist\switchery.min.css" />
     <Content Include="Content\Scripts\plugins\innoto-switchery\dist\switchery.min.js" />
     <Content Include="Content\Scripts\plugins\jasny-bootstrap\dist\css\jasny-bootstrap.min.css" />
@@ -3684,11 +3693,13 @@
     <Content Include="Content\Scripts\plugins\jsgrid\css\jsgrid-theme.min.css" />
     <Content Include="Content\Scripts\plugins\jsgrid\css\jsgrid.min.css" />
     <Content Include="Content\Scripts\plugins\jsgrid\js\jsgrid.min.js" />
+    <Content Include="Content\Scripts\plugins\jszip\jszip.min.js" />
     <Content Include="Content\Scripts\plugins\justgage\justgage.js" />
     <Content Include="Content\Scripts\plugins\magnific-popup\css\magnific-popup.css" />
     <Content Include="Content\Scripts\plugins\magnific-popup\js\jquery.magnific-popup.min.js" />
     <Content Include="Content\Scripts\plugins\metismenu\css\metisMenu.min.css" />
     <Content Include="Content\Scripts\plugins\metismenu\js\metisMenu.min.js" />
+    <Content Include="Content\Scripts\plugins\moment\2.29.1\moment.min.js" />
     <Content Include="Content\Scripts\plugins\moment\moment.js" />
     <Content Include="Content\Scripts\plugins\moment\moment.min.js" />
     <Content Include="Content\Scripts\plugins\morris\morris.min.js" />
@@ -3709,6 +3720,7 @@
     <Content Include="Content\Scripts\plugins\owl.carousel\dist\css\owl.theme.default.min.css" />
     <Content Include="Content\Scripts\plugins\owl.carousel\dist\js\owl.carousel.min.js" />
     <Content Include="Content\Scripts\plugins\pastefromword\filter\default.js" />
+    <Content Include="Content\Scripts\plugins\pdfmake\vfs_fonts.js" />
     <Content Include="Content\Scripts\plugins\peity\jquery.peity.min.js" />
     <Content Include="Content\Scripts\plugins\pg-calendar\css\pignose.calendar.min.css" />
     <Content Include="Content\Scripts\plugins\pg-calendar\fonts\icon_navs.svg" />
@@ -4489,6 +4501,7 @@
     <Content Include="Content\Scripts\plugins\summernote\summernote.css" />
     <Content Include="Content\Scripts\plugins\sweetalert2\dist\sweetalert2.min.css" />
     <Content Include="Content\Scripts\plugins\sweetalert2\dist\sweetalert2.min.js" />
+    <Content Include="Content\Scripts\plugins\sweetalert\2.1.2\sweetalert.min.js" />
     <Content Include="Content\Scripts\plugins\sweetalert\css\sweetalert.css" />
     <Content Include="Content\Scripts\plugins\sweetalert\js\sweetalert.init.js" />
     <Content Include="Content\Scripts\plugins\sweetalert\js\sweetalert.min.js" />
@@ -4755,6 +4768,7 @@
     <Content Include="Content\Scripts\plugins\xml\plugin.js" />
     <Content Include="Content\Styles\css\bootstrap.min.css" />
     <Content Include="Content\Styles\css\capa-style.css" />
+    <Content Include="Content\Styles\css\DataTables-1.10.25\images\sort_asc.png" />
     <Content Include="Content\Styles\css\datatables.min.css" />
     <Content Include="Content\Styles\css\font_googleapis.css" />
     <Content Include="Content\Styles\css\icons.css" />
@@ -5584,6 +5598,7 @@
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>B7_CAPA_ONLINEDataSetEvaluator1.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -5711,6 +5726,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Report\ReportCAPA.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

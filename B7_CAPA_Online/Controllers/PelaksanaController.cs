@@ -215,9 +215,13 @@ namespace B7_CAPA_Online.Controllers
                 //var result = DAL.StoredProcedure(parameters, "SP_Update_Pelaksanaan");
                 var attResult = "";
                 var action = "Insert Perbaikan";
+#pragma warning disable CS0219 // The variable 'tipe' is assigned but its value is never used
                 var tipe = "Perbaikan";
+#pragma warning restore CS0219 // The variable 'tipe' is assigned but its value is never used
                 var b7path = @"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Perbaikan";
+#pragma warning disable CS0219 // The variable 'locpath' is assigned but its value is never used
                 var locpath = @"\\b7-dc1webapps\Attachment\Perbaikan\";
+#pragma warning restore CS0219 // The variable 'locpath' is assigned but its value is never used
 
                 if (kategori.Contains("Pencegahan"))
                 {

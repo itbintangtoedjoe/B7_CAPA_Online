@@ -34,8 +34,9 @@
     @*datatables*@
     <link href="~/Content/Styles/css/datatables.min.css" rel="stylesheet" />
     <!-- JS -->
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer" nonce="lcI82gr33zgq6rd5aqKhcMXmCEQLzXvN9w"></script>*@
+    <script src="~/Content/Scripts/plugins/moment/2.29.1/moment.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" nonce="lcI82gr33zgq6rd5aqKhcMXmCEQLzXvN9w"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer" nonce="lcI82gr33zgq6rd5aqKhcMXmCEQLzXvN9w"></script>
     <script src="~/Content/Scripts/plugins/datatables/jquery.dataTables.min.js" defer nonce="ddKo7P4HyMSL68Htx_3ib1VIygbRk3Aopw"></script>
     <script src="~/Content/Scripts/plugins/jquery/jquery.min.js" nonce="98DH0md1KEUXRsj8rpVA3AXUO12FYSLHgQ"></script>
 
@@ -43,12 +44,23 @@
 
     <link href="~/Content/Scripts/plugins/auto-complete/jquery-ui.min.css" rel="stylesheet" />
 
-    <link href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css" />
-    <script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js" defer nonce="blcNeNjWqcOg9-LwGGmU0Ykxo2_1iEr4qA"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" defer nonce="hB5VZsRHNn_xAR9OpuznIYmfrtCB2i22Aw"></script>
-    <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js" defer nonce="I_hc04VnBL8m8j-y6n_s7riYJG_KoxAUxg"></script>
-    <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.print.min.js" defer nonce="mc7CrRPXLIF_6kn0dKz9fddhyeBuQTnfcA"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" defer nonce="6ZlJ3obndrmygSGlU7e-Yq-El7R7T05bNA"></script>
+    @*<link href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css" />*@
+    <link href="~/Content/Scripts/plugins/datatables/2.1.0/buttons.dataTables.min.css" rel="stylesheet" />
+
+    @*<script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js" defer nonce="blcNeNjWqcOg9-LwGGmU0Ykxo2_1iEr4qA"></script>*@
+    <script src="~/Content/Scripts/plugins/datatables/2.1.0/dataTables.buttons.min.js" defer nonce="blcNeNjWqcOg9-LwGGmU0Ykxo2_1iEr4qA"></script>
+
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" defer nonce="hB5VZsRHNn_xAR9OpuznIYmfrtCB2i22Aw"></script>*@
+    <script src="~/Content/Scripts/plugins/jszip/jszip.min.js" defer nonce="hB5VZsRHNn_xAR9OpuznIYmfrtCB2i22Aw"></script>
+
+    @*<script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js" defer nonce="I_hc04VnBL8m8j-y6n_s7riYJG_KoxAUxg"></script>*@
+    <script src="~/Content/Scripts/plugins/datatables/2.1.0/buttons.html5.min.js" defer nonce="I_hc04VnBL8m8j-y6n_s7riYJG_KoxAUxg"></script>
+
+    @*<script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.print.min.js" defer nonce="mc7CrRPXLIF_6kn0dKz9fddhyeBuQTnfcA"></script>*@
+    <script src="~/Content/Scripts/plugins/datatables/2.1.0/buttons.print.min.js" defer nonce="mc7CrRPXLIF_6kn0dKz9fddhyeBuQTnfcA"></script>
+
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" defer nonce="6ZlJ3obndrmygSGlU7e-Yq-El7R7T05bNA"></script>*@
+    <script src="~/Content/Scripts/plugins/pdfmake/vfs_fonts.js" defer nonce="6ZlJ3obndrmygSGlU7e-Yq-El7R7T05bNA"></script>
 </head>
 
 <body>
@@ -105,7 +117,7 @@
 
                         </div>
 
-                       
+
                     </div>
 
                 </div>
@@ -127,7 +139,7 @@
                                 <div class="dropdown-content-body my-2">
                                     <ul>
                                         <li>
-                                            <a id="spanLogout" ><i class="icon-key"></i> <span>Logout</span></a>
+                                            <a id="spanLogout"><i class="icon-key"></i> <span>Logout</span></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -257,7 +269,10 @@
     <script src="~/Content/Scripts/js/gleek.js" nonce="EMh89L5c7DVCu7bWEIQ3z1CAlBPdaeXPTQ"></script>
     <script src="~/Content/Scripts/js/styleSwitcher.js" nonce="0SjfkPlBww5ynr2NZW8LVN77NMUQcpPfiA"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" nonce="3o2uBXVe3BKNczzSoluaU8kjJWA7GvGe8g"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" nonce="3o2uBXVe3BKNczzSoluaU8kjJWA7GvGe8g"></script>*@
+    <script src="~/Content/Scripts/plugins/sweetalert/2.1.2/sweetalert.min.js" nonce="3o2uBXVe3BKNczzSoluaU8kjJWA7GvGe8g"></script>
+    <script src="~/Content/Scripts/plugins/moment/moment.js" nonce="rOruzf_UG1QvBUuCXzIO46PZmJjjc0pjYQ"></script>
+
     @*<script src="~/Content/Scripts/plugins/sweetalert/js/sweetalert.init.js"></script>*@
     @*<script src="~/Content/Scripts/js/sweetalert2.all.min.js"></script>*@
 
@@ -282,7 +297,7 @@
 
     <!-- Date range Plugin JavaScript -->
     <script src="~/Content/Scripts/plugins/timepicker/bootstrap-timepicker.min.js" nonce="LphqlVEE36kPX5E4KBLXLWJ5ASkHOSPwbQ"></script>
-    <script src="~/Content/Scripts/plugins/bootstrap-daterangepicker/daterangepicker.js"  nonce="Zx9Mw8lHYQb1id3NbzWOLUeLyHzPI-QrKA"></script>
+    <script src="~/Content/Scripts/plugins/bootstrap-daterangepicker/daterangepicker.js" nonce="Zx9Mw8lHYQb1id3NbzWOLUeLyHzPI-QrKA"></script>
 
     <script src="~/Content/Scripts/js/plugins-init/form-pickers-init.js" nonce="CsBMXL2uNDQuYbSHoHkBOP3Sj0fnZmbQMA"></script>
 

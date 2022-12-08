@@ -121,7 +121,9 @@ namespace B7_CAPA_Online.Controllers
         }
         public ActionResult AddKondisi(AnalisaKondisiModel Model)
         {
+#pragma warning disable CS0168 // The variable 'row' is declared but never used
             Dictionary<string, object> row;
+#pragma warning restore CS0168 // The variable 'row' is declared but never used
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
             List<AnalisaKondisiModel> newList = new List<AnalisaKondisiModel>();
             newList.Add(Model);
