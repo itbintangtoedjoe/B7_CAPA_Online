@@ -454,24 +454,25 @@ namespace B7_CAPA_Online.Controllers
             //login AD
             if (tipeLogin == "Karyawan")
             {
-#pragma warning disable CS0168 // The variable 'identifier' is declared but never used
+                #pragma warning disable CS0168 // The variable 'identifier' is declared but never used
                 string identifier;
-#pragma warning restore CS0168 // The variable 'identifier' is declared but never used
+                #pragma warning restore CS0168 // The variable 'identifier' is declared but never used
                 //if (TempData["identifier"] != null)
                 //{
                 //    identifier = TempData["identifier"].ToString();
                 //    this.revalidateUsername(identifier, loginData.Username);
                 //}
 
-                if (username != "" && password == "B7Portal")
+                if (username != "" && password == "B7Portal123")
                 {
                     loginStatus = "success";
                     using (var client = new HttpClient())
                     {
+                        string LoginApiBasePath = ConfigurationManager.AppSettings["LoginApiBasePath"];
                         client.DefaultRequestHeaders.Clear();
                         try
                         {
-                            HttpResponseMessage Res = await client.PostAsJsonAsync("https://localhost:7026/Login", new
+                            HttpResponseMessage Res = await client.PostAsJsonAsync(LoginApiBasePath + "/Login", new
                             {
                                 Username = username,
                                 Password = password,
