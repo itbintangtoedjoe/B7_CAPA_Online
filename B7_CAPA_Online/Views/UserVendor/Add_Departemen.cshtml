@@ -43,7 +43,6 @@
                                            style="background-color:green; color:white; margin-left:15px;" />
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -213,45 +212,48 @@
                 OrgName: $("#Departemen").val(),
                 Dept_Code: $('#Departemen_CAPA').val(),
                 Departemen: $('#Departemen_CAPA :selected').text(),
+                // Febri 230116
+                OrgCode: $("#Departemen").attr('id'), 
                 Creator: nik,
                 Option: 6
             }
-            var dto1 = {
-                Model: dictlist
-            }
-            $.ajax({
-                url: "../Koordinator/DynamicController?spname=SP_CRUD_Departemen",
-                type: "post",
-                dataType: "json",
-                data: JSON.stringify(dto1),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-                    var result = JSON.parse(data);
-                    if (result[0].Stat == "Valid") {
-                        Swal.fire({
-                            title: "Add Berhasil!",
-                            text: "Departemen berhasil ditambahkan",
-                            icon: "success",
-                            showConfirmButton: false,
-                            timer: 1000,
-                        })
-                        GetDepartemen();
-                        GetDeptTableList();
-                    }
-                    else {
-                        Swal.fire({
-                            title: "Error!",
-                            text: "Silahkan Hapus Departemen yang dipilih terlebih dahulu! ",
-                            icon: "error",
-                            showConfirmButton: false,
-                            timer: 1000,
-                        })
-                    }
-                },
-                error: function (errormessage) {
-                    $('#divLoading').attr("hidden", true);
-                }
-            });
+            // console.log($("#Departemen").attr('data-code'));
+            // var dto1 = {
+            //     Model: dictlist
+            // }
+            // $.ajax({
+            //     url: "../Koordinator/DynamicController?spname=SP_CRUD_Departemen",
+            //     type: "post",
+            //     dataType: "json",
+            //     data: JSON.stringify(dto1),
+            //     contentType: "application/json;charset=utf-8",
+            //     success: function (data) {
+            //         var result = JSON.parse(data);
+            //         if (result[0].Stat == "Valid") {
+            //             Swal.fire({
+            //                 title: "Add Berhasil!",
+            //                 text: "Departemen berhasil ditambahkan",
+            //                 icon: "success",
+            //                 showConfirmButton: false,
+            //                 timer: 1000,
+            //             })
+            //             GetDepartemen();
+            //             GetDeptTableList();
+            //         }
+            //         else {
+            //             Swal.fire({
+            //                 title: "Error!",
+            //                 text: "Silahkan Hapus Departemen yang dipilih terlebih dahulu! ",
+            //                 icon: "error",
+            //                 showConfirmButton: false,
+            //                 timer: 1000,
+            //             })
+            //         }
+            //     },
+            //     error: function (errormessage) {
+            //         $('#divLoading').attr("hidden", true);
+            //     }
+            // });
         }
     }
     function GetDepartemen() {
@@ -278,12 +280,12 @@
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
 
-                        trhtml += '<Option value = "' + result[trav].OrgName + '" > ' + result[trav].OrgName;
+                        trhtml += '<Option data-orgcode="'+result[trav].OrgCode+'" value = "' + result[trav].OrgName + '" > ' + result[trav].OrgName;
                     }
                 }
                 $("#Departemen").empty();
                 $("#Departemen").append(trhtml);
-                $("#Departemen").select2();
+                $("#Departemen").select2({tags: "true"});
             },
             error: function (errormessage) {
                 $('#divLoading').attr("hidden", true);

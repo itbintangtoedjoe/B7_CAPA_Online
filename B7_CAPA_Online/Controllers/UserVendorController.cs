@@ -15,7 +15,7 @@ using static B7_CAPA_Online.Models.KoordinatorModel;
 
 namespace B7_CAPA_Online.Controllers
 {
-   
+
     public class UserVendorController : Controller
     {
         private readonly SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["MASTERVENDOR"].ToString());
@@ -127,7 +127,7 @@ namespace B7_CAPA_Online.Controllers
         {
             //get last id from creation date
             DateTime today = DateTime.Now;
-            string todayFormat = today.Year.ToString() + today.Month.ToString().PadLeft(2,'0') + today.Day.ToString().PadLeft(2, '0');
+            string todayFormat = today.Year.ToString() + today.Month.ToString().PadLeft(2, '0') + today.Day.ToString().PadLeft(2, '0');
             SqlCommand cmd = new SqlCommand("sp_generate_user_vendor_id", conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@date", todayFormat);
@@ -150,7 +150,7 @@ namespace B7_CAPA_Online.Controllers
         {
             DataSet ds = new DataSet();
             Email dataEmail = new Email();
-            userID = "neI-v642qlw-Fr4vD241" + userID+ "9lIm";
+            userID = "neI-v642qlw-Fr4vD241" + userID + "9lIm";
             //char ke 20 sebanyak 11 char
             try
             {
@@ -179,7 +179,7 @@ namespace B7_CAPA_Online.Controllers
         public ActionResult ActivateUserAccount(string userID)
         {
             //fniweth2398ri2fnwfowf123456789
-            string realID = userID.Substring(20,11);
+            string realID = userID.Substring(20, 11);
             List<UserVendor> allUsers = GetAllUserVendors();
             UserVendor userFound = allUsers.Find(u => u.UserID == realID);
             if (userFound == null)
@@ -218,7 +218,7 @@ namespace B7_CAPA_Online.Controllers
         public ActionResult SaveUserVendor(UserVendor userVendor)
         {
             string idSuperior = userVendor.SuperiorID;
-            if (idSuperior == null||idSuperior=="")
+            if (idSuperior == null || idSuperior == "")
             {
                 idSuperior = "-";
             }
@@ -242,27 +242,31 @@ namespace B7_CAPA_Online.Controllers
                 conn.Close();
 
                 //kirim email aktivasi
-                if(result =="Valid")
+                if (result == "Valid")
                 {
                     try
                     {
-                        Email emailData = GetEmailBody(newID);
-                        var sub = emailData.EmailSubject;
-                        var body = emailData.EmailBody;
-                        //string bodie = body.Replace(System.Environment.NewLine, string.Empty);
-                        SmtpClient mailObj = new SmtpClient("mail.kalbe.co.id");
-                        var msg = new MailMessage();
-                        //mess.From = senderEmail;
-                        //msg.From = new MailAddress("it.bintang7@gmail.com", "CAPA B7 Mailing System");
-                        msg.From = new MailAddress("notification@bintang7.com", "B7 Connect Mailing System");
-                        msg.Body = body;
-                        msg.Subject = sub;
-                        //mess.Bcc.Add(senderEmail);
-                        msg.Priority = MailPriority.High;
-                        msg.IsBodyHtml = true;
-                        msg.To.Add(userVendor.Email);
+                        if (ConfigurationManager.AppSettings["SendMail"].ToString() == "true")
+                        {
 
-                        mailObj.Send(msg);
+                            Email emailData = GetEmailBody(newID);
+                            var sub = emailData.EmailSubject;
+                            var body = emailData.EmailBody;
+                            //string bodie = body.Replace(System.Environment.NewLine, string.Empty);
+                            SmtpClient mailObj = new SmtpClient("mail.kalbe.co.id");
+                            var msg = new MailMessage();
+                            //mess.From = senderEmail;
+                            //msg.From = new MailAddress("it.bintang7@gmail.com", "CAPA B7 Mailing System");
+                            msg.From = new MailAddress("notification@bintang7.com", "B7 Connect Mailing System");
+                            msg.Body = body;
+                            msg.Subject = sub;
+                            //mess.Bcc.Add(senderEmail);
+                            msg.Priority = MailPriority.High;
+                            msg.IsBodyHtml = true;
+                            msg.To.Add(userVendor.Email);
+
+                            mailObj.Send(msg);
+                        }
 
                         return Json("success");
                     }

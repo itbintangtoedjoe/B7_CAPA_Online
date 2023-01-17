@@ -9,13 +9,14 @@ using Newtonsoft.Json;
 using System.Net.Mail;
 using Newtonsoft.Json.Linq;
 using System.Collections;
+using System.Configuration;
 
 namespace B7_CAPA_Online.Scripts.SMTP
 {
     public class EmailSender
     {
         DataAccess.DataAccess DAL = new DataAccess.DataAccess();
-        public string SendEmail(Dictionary<string, object> dic,int index)
+        public string SendEmail(Dictionary<string, object> dic, int index)
         {
             try
             {
@@ -32,45 +33,50 @@ namespace B7_CAPA_Online.Scripts.SMTP
                 //    {"PIC", Model.PIC_ID},                
                 //};
 
-                var msg = new MailMessage();
-                //msg.From = new MailAddress("it.bintang7@gmail.com", "CAPA B7 Mailing System");
-                msg.From = new MailAddress("notification@bintang7.com", "B7 Connect Mailing System");
-                var obj = ParsingJson(dic["Recipient"].ToString());
-                dic.Add("NO_CAPA", obj[0].NO_CAPA.ToString());
-                dic.Add("Hyperlink", "https://portal.bintang7.com/B7_CAPA_Online/Login/Index");
-                dic.Remove("Recipient");
-                var parameters = new DynamicParameters(dic);
-                Email emailData = new Email();
-                string eData = DAL.StoredProcedure(parameters, "[dbo].[SP_EMAIL_SENDER]");
-                var emailCC = GetCCEmail(dic);
-                dynamic emailList = JsonConvert.DeserializeObject<List<Email>>(eData);
-                emailData.EmailSubject = emailList[0].EmailSubject;
-                emailData.EmailBody = emailList[0].EmailBody;
-                SmtpClient mailObj = new SmtpClient("mail.kalbe.co.id");
-
-                msg.Body = emailData.EmailBody;
-                msg.Subject = emailData.EmailSubject;
-                msg.Priority = MailPriority.High;
-                msg.IsBodyHtml = true;
-                //msg.To.Add("dani.pernando@bintang7.com");                            
-                msg.To.Add(obj[index].Email);
-                //msg.CC.Add("tanaelbudiman@gmail.com");
-
-                //msg.CC.Add("monica.sudarsono@bintang7.com");
-
-                //msg.CC.Add("melin.oktasia@bintang7.com");
-                foreach (var CC in emailCC) // looping cc 
+                // Kirim Email jika config SendMail pada webconfig == true
+                if (ConfigurationManager.AppSettings["SendMail"].ToString() == "true")
                 {
-                    //msg.Body += CC.Email;
-                    msg.CC.Add(CC.Email);
-                }
-                //msg.CC.Add("pusakadk@gmail.com");
-                mailObj.Send(msg);
+                    var msg = new MailMessage();
+                    //msg.From = new MailAddress("it.bintang7@gmail.com", "CAPA B7 Mailing System");
+                    msg.From = new MailAddress("notification@bintang7.com", "B7 Connect Mailing System");
+                    var obj = ParsingJson(dic["Recipient"].ToString());
+                    dic.Add("NO_CAPA", obj[0].NO_CAPA.ToString());
+                    dic.Add("Hyperlink", "https://portal.bintang7.com/B7_CAPA_Online/Login/Index");
+                    dic.Remove("Recipient");
+                    var parameters = new DynamicParameters(dic);
+                    Email emailData = new Email();
+                    string eData = DAL.StoredProcedure(parameters, "[dbo].[SP_EMAIL_SENDER]");
+                    var emailCC = GetCCEmail(dic);
+                    dynamic emailList = JsonConvert.DeserializeObject<List<Email>>(eData);
+                    emailData.EmailSubject = emailList[0].EmailSubject;
+                    emailData.EmailBody = emailList[0].EmailBody;
+                    SmtpClient mailObj = new SmtpClient("mail.kalbe.co.id");
 
-                if(int.Parse(dic["StatusCAPA"].ToString()) == 14)// Kirim email ke koordinator ketika closed initiate new CAPA 
-                {
-                   NewCAPAEmail(dic, obj, index);
+                    msg.Body = emailData.EmailBody;
+                    msg.Subject = emailData.EmailSubject;
+                    msg.Priority = MailPriority.High;
+                    msg.IsBodyHtml = true;
+                    //msg.To.Add("dani.pernando@bintang7.com");                            
+                    msg.To.Add(obj[index].Email);
+                    //msg.CC.Add("tanaelbudiman@gmail.com");
+
+                    //msg.CC.Add("monica.sudarsono@bintang7.com");
+
+                    //msg.CC.Add("melin.oktasia@bintang7.com");
+                    foreach (var CC in emailCC) // looping cc 
+                    {
+                        //msg.Body += CC.Email;
+                        msg.CC.Add(CC.Email);
+                    }
+                    //msg.CC.Add("pusakadk@gmail.com");
+                    mailObj.Send(msg);
+
+                    if (int.Parse(dic["StatusCAPA"].ToString()) == 14)// Kirim email ke koordinator ketika closed initiate new CAPA 
+                    {
+                        NewCAPAEmail(dic, obj, index);
+                    }
                 }
+
                 return "success";
             }
             catch (Exception ex)
@@ -97,11 +103,11 @@ namespace B7_CAPA_Online.Scripts.SMTP
             return list;
         }
 
-        public List<Recipients> GetCCEmail(Dictionary<string,object> dictionary)
+        public List<Recipients> GetCCEmail(Dictionary<string, object> dictionary)
         {
             var dic = new Dictionary<string, object>
             {
-                {"NO_CAPA", dictionary["NO_CAPA"]}                
+                {"NO_CAPA", dictionary["NO_CAPA"]}
             };
             var list = new List<Recipients>();
             var param = new DynamicParameters(dic);
@@ -109,12 +115,12 @@ namespace B7_CAPA_Online.Scripts.SMTP
             var objects = JsonConvert.DeserializeObject(data);
             foreach (var item in ((JArray)objects))
             {
-                list.Add(new Recipients {Email = item.Value<string>("Email") });
+                list.Add(new Recipients { Email = item.Value<string>("Email") });
             }
             return list;
         }
 
-        public void NewCAPAEmail(Dictionary<string,object> dic, List<Recipients> obj, int index)
+        public void NewCAPAEmail(Dictionary<string, object> dic, List<Recipients> obj, int index)
         {
             var msg = new MailMessage();
             dic["Kategori"] = "CAPABaru";
