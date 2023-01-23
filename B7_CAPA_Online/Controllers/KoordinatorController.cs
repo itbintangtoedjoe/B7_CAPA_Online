@@ -189,7 +189,7 @@ namespace B7_CAPA_Online.Controllers
                 HttpPostedFileBase file = Request.Files[i];
                 int fileSize = file.ContentLength;
                 string mimeType = file.ContentType;
-                System.IO.Stream fileContent = file.InputStream; 
+                System.IO.Stream fileContent = file.InputStream;
                 string filePath = Path.Combine(@"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Koordinator", Path.GetFileName(file.FileName));
                 //string locpatch = Path.Combine(@"\\b7-dc1webapps\Attachment\Koordinator\", Path.GetFileName(file.FileName));
 
@@ -389,8 +389,8 @@ namespace B7_CAPA_Online.Controllers
             {
                 Dictionary<string, object> row;
                 List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
-               // List<ListPICModel> newList = new List<ListPICModel>();
-               // newList.Add(Model);
+                // List<ListPICModel> newList = new List<ListPICModel>();
+                // newList.Add(Model);
                 var list = new ListPIC();
                 var result = list.ToDataTable<ListPICModel>(Model);
                 foreach (DataRow dr in result.Rows)
@@ -434,7 +434,7 @@ namespace B7_CAPA_Online.Controllers
         public ActionResult DeleteAttachment(SPUpdatePelaksanaanParams data)
         {
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
-           
+
             var dictionary = new Dictionary<string, object>{
                 { "Action", "Delete" },
                 { "IDAttachment", data.IDAttachment },
@@ -466,7 +466,7 @@ namespace B7_CAPA_Online.Controllers
 
         public ActionResult DeleteAttachmentKoor4(DynamicModel Models, SPUpdatePelaksanaanParams data, string spname)
         {
-                
+
             var parameters = new DynamicParameters(Models.Model);
             var result = DAL.StoredProcedure(parameters, spname);
 
@@ -512,13 +512,13 @@ namespace B7_CAPA_Online.Controllers
                     List<string> newList = new List<string>();
                     if (val != null)
                     {
-                        string[] value = val.ToString().Split(',');                      
+                        string[] value = val.ToString().Split(',');
                         foreach (string temp in value)
                         {
                             newList.Add(temp.Trim());
                             arrListDept.Add(new ListDepartemenModel { Departemen = temp.Trim() });
                         }
-                    }                    
+                    }
                     switch (Count)
                     {
                         case 0:
@@ -662,8 +662,16 @@ namespace B7_CAPA_Online.Controllers
                 System.IO.Stream fileContent = file.InputStream;
                 string fileName = Path.GetFileName(file.FileName);
 
+                string filePath = "";
+                if (ConfigurationManager.AppSettings["UploadPath"].ToString() == "true")
+                {
+                    filePath = Path.Combine(@"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Koordinator", fileName);
+                }
+                else
+                {
+                    filePath = "";
+                }
                 //string filePath = Path.Combine(@"\\b7-dc1webapps\Attachment\Koordinator\", fileName);
-                string filePath = Path.Combine(@"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Koordinator", fileName);
 
                 JavaScriptSerializer jss = new JavaScriptSerializer();
 
@@ -672,13 +680,13 @@ namespace B7_CAPA_Online.Controllers
                 var data = jss.Deserialize<dynamic>(encrypt);
                 var pathencrypt = data["Data"]["EncrptedString"];
                 //string filePath = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
-                Model.LampiranTerkait.Add(new Lampiran { LAMPIRAN_TERKAIT = filePath, FILE_NAME = Path.GetFileName(file.FileName) , ENCRYPT_PATH = pathencrypt });
+                Model.LampiranTerkait.Add(new Lampiran { LAMPIRAN_TERKAIT = filePath, FILE_NAME = Path.GetFileName(file.FileName), ENCRYPT_PATH = pathencrypt });
 
-                Model.SP = "[dbo].[SP_CAPA_ID]";       
-                if(fileName != "")
+                Model.SP = "[dbo].[SP_CAPA_ID]";
+                if (fileName != "" && ConfigurationManager.AppSettings["UploadPath"].ToString() == "true")
                 {
                     file.SaveAs(filePath);
-                }                
+                }
             }
 
             string jsonObj = string.Join(",", Model.DepartemenCollection.ToArray());
@@ -690,7 +698,7 @@ namespace B7_CAPA_Online.Controllers
             string picObj = string.Join(",", Model.PICCollection.ToArray());
             dynamic picList = JsonConvert.DeserializeObject<List<ListPICModel>>(picObj);
 
-            var Departemen_DT = ToDataTable<Dept>(deptList);                      
+            var Departemen_DT = ToDataTable<Dept>(deptList);
             var Penyimpangan_DT = new DataTable();
             if (penyimpanganList != null)
             {
@@ -701,7 +709,7 @@ namespace B7_CAPA_Online.Controllers
                 Penyimpangan_DT.Columns.Add("PENYIMPANGAN_ID", typeof(string));
                 DataRow row = Penyimpangan_DT.NewRow();
                 row["PENYIMPANGAN_ID"] = "-";
-                Penyimpangan_DT.Rows.Add(row);                
+                Penyimpangan_DT.Rows.Add(row);
             }
             var PIC_DT = ToDataTable<ListPICModel>(picList);
             var Path_DT = ToDataTable<Lampiran>(Model.LampiranTerkait);
@@ -1030,7 +1038,7 @@ namespace B7_CAPA_Online.Controllers
             var spname = "SP_VERIFIKASI_PELAKSANA_CAPA";
             var parameters = new DynamicParameters(dictionary);
             return Json(DAL.StoredProcedure(parameters, spname));
-        }       
+        }
         #endregion
     }
 }

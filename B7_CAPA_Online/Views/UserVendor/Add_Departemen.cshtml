@@ -27,9 +27,9 @@
                             <div class="form-group-row align-items-center">
                                 <div class="row">
                                     <label for="TxtKategoriCCC" class="col-form-label">Departemen HRIS:</label>
-                                    <div class="form-group col-md-4" >
+                                    <div class="form-group col-md-4">
                                         <div class="input-group">
-                                            <select class="form-control select2" id="Departemen" required >
+                                            <select class="form-control select2" id="Departemen" required>
                                                 <option value=""></option>
                                                 <option value=""></option>
                                             </select>
@@ -108,11 +108,14 @@
                     var row = $(this).closest("TR");
                     var data = $('#Tbl_ListDept').DataTable().row(row).data();
                     var Orgname = data['OrgName'];
+                    var OrgCode = data['OrgCode']; // Penambahan OrgCode
                     var dictlist = {
                         Option: 7,
                         OrgName: Orgname,
-                        Creator: nik
+                        Creator: nik,
+                        OrgCode: OrgCode
                     }
+                    console.log(data)
                     var dto1 = {
                         Model: dictlist
                     }
@@ -213,47 +216,47 @@
                 Dept_Code: $('#Departemen_CAPA').val(),
                 Departemen: $('#Departemen_CAPA :selected').text(),
                 // Febri 230116
-                OrgCode: $("#Departemen").attr('id'), 
+                OrgCode: $('#Departemen').select2('data')[0].element.dataset.orgcode,
                 Creator: nik,
                 Option: 6
             }
             // console.log($("#Departemen").attr('data-code'));
-            // var dto1 = {
-            //     Model: dictlist
-            // }
-            // $.ajax({
-            //     url: "../Koordinator/DynamicController?spname=SP_CRUD_Departemen",
-            //     type: "post",
-            //     dataType: "json",
-            //     data: JSON.stringify(dto1),
-            //     contentType: "application/json;charset=utf-8",
-            //     success: function (data) {
-            //         var result = JSON.parse(data);
-            //         if (result[0].Stat == "Valid") {
-            //             Swal.fire({
-            //                 title: "Add Berhasil!",
-            //                 text: "Departemen berhasil ditambahkan",
-            //                 icon: "success",
-            //                 showConfirmButton: false,
-            //                 timer: 1000,
-            //             })
-            //             GetDepartemen();
-            //             GetDeptTableList();
-            //         }
-            //         else {
-            //             Swal.fire({
-            //                 title: "Error!",
-            //                 text: "Silahkan Hapus Departemen yang dipilih terlebih dahulu! ",
-            //                 icon: "error",
-            //                 showConfirmButton: false,
-            //                 timer: 1000,
-            //             })
-            //         }
-            //     },
-            //     error: function (errormessage) {
-            //         $('#divLoading').attr("hidden", true);
-            //     }
-            // });
+             var dto1 = {
+                 Model: dictlist
+             }
+             $.ajax({
+                 url: "../Koordinator/DynamicController?spname=SP_CRUD_Departemen",
+                 type: "post",
+                 dataType: "json",
+                 data: JSON.stringify(dto1),
+                 contentType: "application/json;charset=utf-8",
+                 success: function (data) {
+                     var result = JSON.parse(data);
+                     if (result[0].Stat == "Valid") {
+                         Swal.fire({
+                             title: "Add Berhasil!",
+                             text: "Departemen berhasil ditambahkan",
+                             icon: "success",
+                             showConfirmButton: false,
+                             timer: 1000,
+                         })
+                         GetDepartemen();
+                         GetDeptTableList();
+                     }
+                     else {
+                         Swal.fire({
+                             title: "Error!",
+                             text: "Silahkan Hapus Departemen yang dipilih terlebih dahulu! ",
+                             icon: "error",
+                             showConfirmButton: false,
+                             timer: 1000,
+                         })
+                     }
+                 },
+                 error: function (errormessage) {
+                     $('#divLoading').attr("hidden", true);
+                 }
+             });
         }
     }
     function GetDepartemen() {
@@ -323,7 +326,7 @@
                             "data": 'IsActive',
                             "render": function (data, type, row, meta) {
                                 if (row["IsActive"] === true) {
-                                    return "<button class='Delete btn btn-primary'   style='background-color:red;'>Delete</button>"
+                                    return "<button orgCode='" + row["OrgCode"]+"' class='Delete btn btn-primary'   style='background-color:red;'>Delete</button>"
                                 }
 
                             }
