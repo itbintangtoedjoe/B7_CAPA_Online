@@ -675,14 +675,19 @@ namespace B7_CAPA_Online.Controllers
 
                 JavaScriptSerializer jss = new JavaScriptSerializer();
 
-                var encrypt = C_EncryptPath(filePath);
+                string pathencrypt = "";
+                if (ConfigurationManager.AppSettings["UploadPath"].ToString() == "true")
+                {
+                    var encrypt = C_EncryptPath(filePath);
+                    var data = jss.Deserialize<dynamic>(encrypt);
+                    pathencrypt = data["Data"]["EncrptedString"]; 
+                }
 
-                var data = jss.Deserialize<dynamic>(encrypt);
-                var pathencrypt = data["Data"]["EncrptedString"];
                 //string filePath = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
                 Model.LampiranTerkait.Add(new Lampiran { LAMPIRAN_TERKAIT = filePath, FILE_NAME = Path.GetFileName(file.FileName), ENCRYPT_PATH = pathencrypt });
 
                 Model.SP = "[dbo].[SP_CAPA_ID]";
+
                 if (fileName != "" && ConfigurationManager.AppSettings["UploadPath"].ToString() == "true")
                 {
                     file.SaveAs(filePath);
