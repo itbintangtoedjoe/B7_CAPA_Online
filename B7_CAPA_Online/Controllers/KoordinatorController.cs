@@ -657,31 +657,36 @@ namespace B7_CAPA_Online.Controllers
             for (int i = 0; i < fileCount; i++)
             {
                 HttpPostedFileBase file = Request.Files[i];
-
                 int fileSize = file.ContentLength;
                 string mimeType = file.ContentType;
                 System.IO.Stream fileContent = file.InputStream;
                 string fileName = Path.GetFileName(file.FileName);
-                if (fileName != "")
+
+                string filePath = "";
+                if (ConfigurationManager.AppSettings["UploadPath"].ToString() == "true")
                 {
-                    //string filePath = Path.Combine(@"\\b7-dc1webapps\Attachment\Koordinator\", fileName);
-                    string filePath = Path.Combine(@"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Koordinator", fileName);
-
-                    JavaScriptSerializer jss = new JavaScriptSerializer();
-
-                    var encrypt = C_EncryptPath(filePath);
-
-                    var data = jss.Deserialize<dynamic>(encrypt);
-                    var pathencrypt = data["Data"]["EncrptedString"];
-                    //string filePath = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
-                    Model.LampiranTerkait.Add(new Lampiran { LAMPIRAN_TERKAIT = filePath, FILE_NAME = Path.GetFileName(file.FileName), ENCRYPT_PATH = pathencrypt });
-
-                    Model.SP = "[dbo].[SP_CAPA_ID]";
-
-                    file.SaveAs(filePath);
+                    filePath = Path.Combine(@"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Koordinator", fileName);
                 }
+                else
+                {
+                    filePath = "";
+                }
+                //string filePath = Path.Combine(@"\\b7-dc1webapps\Attachment\Koordinator\", fileName);
+
+                JavaScriptSerializer jss = new JavaScriptSerializer();
+
+                var encrypt = C_EncryptPath(filePath);
+
+                var data = jss.Deserialize<dynamic>(encrypt);
+                var pathencrypt = data["Data"]["EncrptedString"];
+                //string filePath = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));
+                Model.LampiranTerkait.Add(new Lampiran { LAMPIRAN_TERKAIT = filePath, FILE_NAME = Path.GetFileName(file.FileName), ENCRYPT_PATH = pathencrypt });
 
                 Model.SP = "[dbo].[SP_CAPA_ID]";
+                if (fileName != "" && ConfigurationManager.AppSettings["UploadPath"].ToString() == "true")
+                {
+                    file.SaveAs(filePath);
+                }
             }
 
             string jsonObj = string.Join(",", Model.DepartemenCollection.ToArray());
