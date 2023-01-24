@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -222,20 +223,22 @@ namespace B7_CAPA_Online.Controllers
 #pragma warning disable CS0219 // The variable 'locpath' is assigned but its value is never used
                 var locpath = @"\\b7-dc1webapps\Attachment\Perbaikan\";
 #pragma warning restore CS0219 // The variable 'locpath' is assigned but its value is never used
-
-                if (kategori.Contains("Pencegahan"))
+                if (ConfigurationManager.AppSettings["UploadPath"].ToString() == "true")
                 {
-                    b7path = @"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Pencegahan";
-                    locpath = @"\\b7-dc1webapps\Attachment\Pencegahan\";
-                    action = "Insert Pencegahan";
-                    tipe = "Pencegahan";
-                }
-                else if (kategori.Contains("Treatment"))
-                {
-                    b7path = @"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Treatment";
-                    locpath = @"\\b7-dc1webapps\Attachment\Treatment\";
-                    action = "Insert Treatment";
-                    tipe = "Treatment";
+                    if (kategori.Contains("Pencegahan"))
+                    {
+                        b7path = @"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Pencegahan";
+                        locpath = @"\\b7-dc1webapps\Attachment\Pencegahan\";
+                        action = "Insert Pencegahan";
+                        tipe = "Pencegahan";
+                    }
+                    else if (kategori.Contains("Treatment"))
+                    {
+                        b7path = @"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Treatment";
+                        locpath = @"\\b7-dc1webapps\Attachment\Treatment\";
+                        action = "Insert Treatment";
+                        tipe = "Treatment";
+                    }
                 }
                 for (int i = 0; i < Request.Files.Count; i++)
                 {
@@ -248,13 +251,17 @@ namespace B7_CAPA_Online.Controllers
                     //var local = Path.Combine(locpath, updater + '_' + fileName);
                     string path = Path.Combine(b7path, updater + '_' + fileName);
                     //file.SaveAs(local);
-                    var encrypt = C_EncryptPath(path);
-                    var data = jss.Deserialize<dynamic>(encrypt);
+                    var pathencrypt = "";
+                    if (ConfigurationManager.AppSettings["UploadPath"].ToString() == "true")
+                    {
+                        var encrypt = C_EncryptPath(path);
+                        var data = jss.Deserialize<dynamic>(encrypt);
 
-                    var pathencrypt = data["Data"]["EncrptedString"];
-                        
+                        pathencrypt = data["Data"]["EncrptedString"];
 
-                    file.SaveAs(path);
+
+                        file.SaveAs(path);
+                    }
 
                     var attDictionary = new Dictionary<string, object>{
                     { "Action", action },

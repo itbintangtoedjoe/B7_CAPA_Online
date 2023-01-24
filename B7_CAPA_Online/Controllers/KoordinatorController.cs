@@ -190,17 +190,27 @@ namespace B7_CAPA_Online.Controllers
                 int fileSize = file.ContentLength;
                 string mimeType = file.ContentType;
                 System.IO.Stream fileContent = file.InputStream;
-                string filePath = Path.Combine(@"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Koordinator", Path.GetFileName(file.FileName));
                 //string locpatch = Path.Combine(@"\\b7-dc1webapps\Attachment\Koordinator\", Path.GetFileName(file.FileName));
-
-                var encrypt = C_EncryptPath(filePath);
-
+                string filePath = "";
+                if (ConfigurationManager.AppSettings["UploadPath"].ToString() == "true")
+                {
+                    filePath = Path.Combine(@"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Koordinator", file.FileName);
+                }
+                else
+                {
+                    filePath = "";
+                }
+                //string filePath = Path.Combine(@"\\b7-dc1webapps\Attachment\Koordinator\", fileName);
 
                 JavaScriptSerializer jss = new JavaScriptSerializer();
 
-                var data = jss.Deserialize<dynamic>(encrypt);
-                var pathencrypt = data["Data"]["EncrptedString"];
-
+                string pathencrypt = "";
+                if (ConfigurationManager.AppSettings["UploadPath"].ToString() == "true")
+                {
+                    var encrypt = C_EncryptPath(filePath);
+                    var data = jss.Deserialize<dynamic>(encrypt);
+                    pathencrypt = data["Data"]["EncrptedString"]; 
+                }
                 file.SaveAs(filePath);
                 DataRow rowstype = dt.NewRow();
                 rowstype["LAMPIRAN_TERKAIT"] = filePath;
