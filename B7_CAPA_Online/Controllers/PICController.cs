@@ -376,6 +376,12 @@ namespace B7_CAPA_Online.Controllers
                     path = Path.Combine(b7path, fileName);
                     file.SaveAs(path);
                 }
+                else
+                {
+                    b7path = @"..\File Upload Intranet\CAPA_Online\DiagramCAPA";
+                    path = Path.Combine(b7path, fileName);
+                    file.SaveAs(path);
+                }
                 //string path = Path.Combine(@"\\b7-dc1webapps\DiagramCAPA\", Path.GetFileName(file.FileName));
 
                 var dictionary = new Dictionary<string, object>{

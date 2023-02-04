@@ -218,8 +218,18 @@ namespace B7_CAPA_Online.Controllers
                 var action = "Insert Perbaikan";
 #pragma warning disable CS0219 // The variable 'tipe' is assigned but its value is never used
                 var tipe = "Perbaikan";
+                var b7path = "";
 #pragma warning restore CS0219 // The variable 'tipe' is assigned but its value is never used
-                var b7path = @"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Perbaikan";
+                //var b7path = @"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Perbaikan";
+                if (ConfigurationManager.AppSettings["UploadPath"].ToString() == "true")
+                {
+
+                     b7path = @"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Perbaikan";
+                }
+                else
+                {
+                     b7path = @"..\File Upload Intranet\CAPA_Online\Perbaikan";
+                }
 #pragma warning disable CS0219 // The variable 'locpath' is assigned but its value is never used
                 var locpath = @"\\b7-dc1webapps\Attachment\Perbaikan\";
 #pragma warning restore CS0219 // The variable 'locpath' is assigned but its value is never used
@@ -232,7 +242,7 @@ namespace B7_CAPA_Online.Controllers
                         action = "Insert Pencegahan";
                         tipe = "Pencegahan";
                     }
-                    else if (kategori.Contains("Treatment"))
+                    if (kategori.Contains("Treatment"))
                     {
                         b7path = @"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Treatment";
                         locpath = @"\\b7-dc1webapps\Attachment\Treatment\";
@@ -240,6 +250,24 @@ namespace B7_CAPA_Online.Controllers
                         tipe = "Treatment";
                     }
                 }
+                else
+                {
+                    if (kategori.Contains("Pencegahan"))
+                    {
+                        b7path = @"..\File Upload Intranet\CAPA_Online\Pencegahan";
+                        locpath = @"\\b7-dc1webapps\Attachment\Pencegahan\";
+                        action = "Insert Pencegahan";
+                        tipe = "Pencegahan";
+                    }
+                    if (kategori.Contains("Treatment"))
+                    {
+                        b7path = @"..\File Upload Intranet\CAPA_Online\Treatment";
+                        locpath = @"\\b7-dc1webapps\Attachment\Treatment\";
+                        action = "Insert Treatment";
+                        tipe = "Treatment";
+                    }
+                }
+
                 for (int i = 0; i < Request.Files.Count; i++)
                 {
                     var file = Request.Files[i];
@@ -259,6 +287,11 @@ namespace B7_CAPA_Online.Controllers
 
                         pathencrypt = data["Data"]["EncrptedString"];
 
+
+                        file.SaveAs(path);
+                    }
+                    else
+                    {
 
                         file.SaveAs(path);
                     }

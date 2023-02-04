@@ -198,7 +198,7 @@ namespace B7_CAPA_Online.Controllers
                 }
                 else
                 {
-                    filePath = "";
+                    filePath = @"..\File Upload Intranet\CAPA_Online\Koordinator";
                 }
                 //string filePath = Path.Combine(@"\\b7-dc1webapps\Attachment\Koordinator\", fileName);
 
@@ -677,9 +677,9 @@ namespace B7_CAPA_Online.Controllers
                 {
                     filePath = Path.Combine(@"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Koordinator", fileName);
                 }
-                else
+               else
                 {
-                    filePath = "";
+                    filePath = @"..\File Upload Intranet\CAPA_Online\Koordinator";
                 }
                 //string filePath = Path.Combine(@"\\b7-dc1webapps\Attachment\Koordinator\", fileName);
 

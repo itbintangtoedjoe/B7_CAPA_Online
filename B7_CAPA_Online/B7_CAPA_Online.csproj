@@ -5713,6 +5713,11 @@
     <Folder Include="Content\Attachment\Treatment\" />
     <Folder Include="Content\DiagramCAPA\" />
     <Folder Include="Content\Files\" />
+    <Folder Include="File Upload Intranet\CAPA_Online\DiagramCAPA\" />
+    <Folder Include="File Upload Intranet\CAPA_Online\Koordinator\" />
+    <Folder Include="File Upload Intranet\CAPA_Online\Pencegahan\" />
+    <Folder Include="File Upload Intranet\CAPA_Online\Perbaikan\" />
+    <Folder Include="File Upload Intranet\CAPA_Online\Treatment\" />
     <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
