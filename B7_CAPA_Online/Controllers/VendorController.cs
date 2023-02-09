@@ -62,7 +62,6 @@ namespace B7_CAPA_Online.Controllers
                 conn.Close();
             }
         }
-
         public ActionResult FindVendorById(Vendor vendor)
         {
             List<Vendor> allVendors = GetAllVendors();
@@ -75,7 +74,6 @@ namespace B7_CAPA_Online.Controllers
             }
             return Json(vendorFound);
         }
-
         public ActionResult Index()
         {
             List<Vendor> allVendors = GetAllVendors();
@@ -83,14 +81,12 @@ namespace B7_CAPA_Online.Controllers
             ViewBag.AllVendors = activeVendors;
             return View();
         }
-
         public ActionResult TipeVendorIndex()
         {
             List<VendorType> allVendorTypes = GetAllVendorTypes();
             ViewBag.AllVendorTypes = allVendorTypes;
             return View();
         }
-
         public ActionResult EditTipeVendor(int tipeVendorID)
         {
             List<VendorType> allVendorTypes = GetAllVendorTypes();
@@ -98,7 +94,6 @@ namespace B7_CAPA_Online.Controllers
             ViewBag.ActiveVendorType = type;
             return View();
         }
-
         public ActionResult UpdateTipeVendor(VendorType vendorType)
         {
             try
@@ -118,7 +113,6 @@ namespace B7_CAPA_Online.Controllers
                 return Json(ex.Message);
             }
         }
-
         public ActionResult GetListManagerUp()
         {
             var dictionary = new Dictionary<string, object>{
@@ -175,7 +169,6 @@ namespace B7_CAPA_Online.Controllers
                 conn.Close();
             }
         }
-
         public ActionResult GetOracleVendors()
         {
             try
@@ -199,7 +192,6 @@ namespace B7_CAPA_Online.Controllers
                 return Json(ex.Message);
             }
         }
-
         public ActionResult CreateVendor()
         {
             List<VendorType> allVendorTypes = GetAllVendorTypes();
@@ -216,7 +208,7 @@ namespace B7_CAPA_Online.Controllers
             //{
             //    return RedirectToAction("Login", "Authentication");
             //}
-        }
+        }   
         public ActionResult SaveVendor(Vendor vendor)
         {
             //Session["nik_active"].ToString()
@@ -242,7 +234,6 @@ namespace B7_CAPA_Online.Controllers
                 return Json(e.Message);
             }
         }
-
         public ActionResult UpdateVendor(Vendor vendor)
         {
             //Session["nik_active"].ToString()
@@ -266,7 +257,6 @@ namespace B7_CAPA_Online.Controllers
                 return Json(e.Message);
             }
         }
-
         public ActionResult DeleteVendor(string vendorID)
         {
             try

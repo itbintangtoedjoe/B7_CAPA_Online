@@ -22,7 +22,7 @@ namespace B7_CAPA_Online.Controllers
     [CheckSession]
     public class PICController : Controller
     {
-        public readonly SessionChecker checker = new SessionChecker();        
+        public readonly SessionChecker checker = new SessionChecker();
         public static DataTable DT = new DataTable();
         // GET: PIC               
         DataAccess DAL = new DataAccess();
@@ -34,7 +34,7 @@ namespace B7_CAPA_Online.Controllers
         }
         public ActionResult FormCAPA(string NoCAPA)
         {
-            if(!checker.Checker())
+            if (!checker.Checker())
             {
                 return Redirect("../Login");
             }
@@ -291,9 +291,9 @@ namespace B7_CAPA_Online.Controllers
         }
         public ActionResult SubmitToAtasanPIC(DynamicModel Param)
         {
-            if(!checker.Checker())
+            if (!checker.Checker())
             {
-                return Json(JsonConvert.SerializeObject(new { IS_VALID = false, result = "Redirect", url = "../Login"}));
+                return Json(JsonConvert.SerializeObject(new { IS_VALID = false, result = "Redirect", url = "../Login" }));
             }
 
             DynamicParameters parameters = new DynamicParameters(Param.Model);
@@ -371,24 +371,24 @@ namespace B7_CAPA_Online.Controllers
                 var path = "";
                 if (ConfigurationManager.AppSettings["UploadPath"].ToString() == "true")
                 {
-                    b7path = @"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\DiagramCAPA";
+                    b7path = @"" + ConfigurationManager.AppSettings["UploadPathLocation"].ToString() + "DiagramCAPA";
 
                     path = Path.Combine(b7path, fileName);
                     file.SaveAs(path);
                 }
                 else
                 {
-                    b7path = @"..\File Upload Intranet\CAPA_Online\DiagramCAPA";
+                    b7path = @"" + ConfigurationManager.AppSettings["LocalUploadPathLocation"].ToString() + "DiagramCAPA";
                     path = Path.Combine(b7path, fileName);
                     file.SaveAs(path);
                 }
                 //string path = Path.Combine(@"\\b7-dc1webapps\DiagramCAPA\", Path.GetFileName(file.FileName));
 
                 var dictionary = new Dictionary<string, object>{
-                { "Action", "Add Diagram" },
-                { "NomorCAPA",nocapa},
-                {"FilePath",path},
-                { "Tipe", tipe }
+                    { "Action", "Add Diagram" },
+                    { "NomorCAPA",nocapa},
+                    {"FilePath",path},
+                    { "Tipe", tipe }
                  };
                 DynamicParameters parameters = new DynamicParameters(dictionary);
                 Return = DAL.StoredProcedure(parameters, "[dbo].[SP_Attachment_Pelaksanaan]");

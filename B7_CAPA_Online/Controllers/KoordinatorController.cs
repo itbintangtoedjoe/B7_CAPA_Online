@@ -194,11 +194,11 @@ namespace B7_CAPA_Online.Controllers
                 string filePath = "";
                 if (ConfigurationManager.AppSettings["UploadPath"].ToString() == "true")
                 {
-                    filePath = Path.Combine(@"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Koordinator", file.FileName);
+                    filePath = Path.Combine(@"" + ConfigurationManager.AppSettings["UploadPath"].ToString() + "Koordinator", file.FileName);
                 }
                 else
                 {
-                    filePath = @"..\File Upload Intranet\CAPA_Online\Koordinator";
+                    filePath = @""+ConfigurationManager.AppSettings["LocalUploadPathLocation"].ToString()+"Koordinator";
                 }
                 //string filePath = Path.Combine(@"\\b7-dc1webapps\Attachment\Koordinator\", fileName);
 
@@ -209,7 +209,7 @@ namespace B7_CAPA_Online.Controllers
                 {
                     var encrypt = C_EncryptPath(filePath);
                     var data = jss.Deserialize<dynamic>(encrypt);
-                    pathencrypt = data["Data"]["EncrptedString"]; 
+                    pathencrypt = data["Data"]["EncrptedString"];
                 }
                 file.SaveAs(filePath);
                 DataRow rowstype = dt.NewRow();
@@ -675,11 +675,11 @@ namespace B7_CAPA_Online.Controllers
                 string filePath = "";
                 if (ConfigurationManager.AppSettings["UploadPath"].ToString() == "true")
                 {
-                    filePath = Path.Combine(@"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Koordinator", fileName);
+                    filePath = Path.Combine(@"" + ConfigurationManager.AppSettings["UploadPathLocation"].ToString() + "Koordinator", fileName);
                 }
-               else
+                else
                 {
-                    filePath = @"..\File Upload Intranet\CAPA_Online\Koordinator";
+                    filePath = @""+ConfigurationManager.AppSettings["LocalUploadPathLocation"].ToString()+"Koordinator";
                 }
                 //string filePath = Path.Combine(@"\\b7-dc1webapps\Attachment\Koordinator\", fileName);
 
@@ -690,7 +690,7 @@ namespace B7_CAPA_Online.Controllers
                 {
                     var encrypt = C_EncryptPath(filePath);
                     var data = jss.Deserialize<dynamic>(encrypt);
-                    pathencrypt = data["Data"]["EncrptedString"]; 
+                    pathencrypt = data["Data"]["EncrptedString"];
                 }
 
                 //string filePath = Path.Combine(Server.MapPath("~/Content/Files/"), Path.GetFileName(file.FileName));

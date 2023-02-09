@@ -224,28 +224,28 @@ namespace B7_CAPA_Online.Controllers
                 if (ConfigurationManager.AppSettings["UploadPath"].ToString() == "true")
                 {
 
-                     b7path = @"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Perbaikan";
+                    b7path = @"" + ConfigurationManager.AppSettings["UploadPathLocation"].ToString() + "Perbaikan";
                 }
                 else
                 {
-                     b7path = @"..\File Upload Intranet\CAPA_Online\Perbaikan";
+                    b7path = @""+ConfigurationManager.AppSettings["LocalUploadPathLocation"].ToString()+"Perbaikan";
                 }
 #pragma warning disable CS0219 // The variable 'locpath' is assigned but its value is never used
-                var locpath = @"\\b7-dc1webapps\Attachment\Perbaikan\";
+                //var locpath = @"\\b7-dc1webapps\Attachment\Perbaikan\";
 #pragma warning restore CS0219 // The variable 'locpath' is assigned but its value is never used
                 if (ConfigurationManager.AppSettings["UploadPath"].ToString() == "true")
                 {
                     if (kategori.Contains("Pencegahan"))
                     {
-                        b7path = @"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Pencegahan";
-                        locpath = @"\\b7-dc1webapps\Attachment\Pencegahan\";
+                        b7path = @"" + ConfigurationManager.AppSettings["UploadPathLocation"].ToString() + "Pencegahan";
+                        //locpath = @"\\b7-dc1webapps\Attachment\Pencegahan\";
                         action = "Insert Pencegahan";
                         tipe = "Pencegahan";
                     }
                     if (kategori.Contains("Treatment"))
                     {
-                        b7path = @"\\b7-drive.bintang7.com\File Upload Intranet\CAPA_Online\Treatment";
-                        locpath = @"\\b7-dc1webapps\Attachment\Treatment\";
+                        b7path = @"" + ConfigurationManager.AppSettings["UploadPathLocation"].ToString() + "Treatment";
+                        //locpath = @"\\b7-dc1webapps\Attachment\Treatment\";
                         action = "Insert Treatment";
                         tipe = "Treatment";
                     }
@@ -254,15 +254,15 @@ namespace B7_CAPA_Online.Controllers
                 {
                     if (kategori.Contains("Pencegahan"))
                     {
-                        b7path = @"..\File Upload Intranet\CAPA_Online\Pencegahan";
-                        locpath = @"\\b7-dc1webapps\Attachment\Pencegahan\";
+                        b7path = @""+ConfigurationManager.AppSettings["LocalUploadPathLocation"].ToString()+"Pencegahan";
+                        //locpath = @"\\b7-dc1webapps\Attachment\Pencegahan\";
                         action = "Insert Pencegahan";
                         tipe = "Pencegahan";
                     }
                     if (kategori.Contains("Treatment"))
                     {
-                        b7path = @"..\File Upload Intranet\CAPA_Online\Treatment";
-                        locpath = @"\\b7-dc1webapps\Attachment\Treatment\";
+                        b7path = @""+ConfigurationManager.AppSettings["LocalUploadPathLocation"].ToString()+"Treatment";
+                        //locpath = @"\\b7-dc1webapps\Attachment\Treatment\";
                         action = "Insert Treatment";
                         tipe = "Treatment";
                     }
@@ -274,7 +274,7 @@ namespace B7_CAPA_Online.Controllers
                     var fileName = updater + '_' + file.FileName;
 
                     JavaScriptSerializer jss = new JavaScriptSerializer();
-                    
+
                     //var path = Path.Combine(b7path, updater + '_' + fileName);
                     //var local = Path.Combine(locpath, updater + '_' + fileName);
                     string path = Path.Combine(b7path, updater + '_' + fileName);
@@ -364,10 +364,10 @@ namespace B7_CAPA_Online.Controllers
             //hapus dari b7drive belum dibuat
             //// Updater = path file dari ajax
             ///
-            var path = @""+data.Updater+"";
-            try 
+            var path = @"" + data.Updater + "";
+            try
             {
-                System.IO.File.Delete(path); 
+                System.IO.File.Delete(path);
             }
             catch (Exception ex)
             {

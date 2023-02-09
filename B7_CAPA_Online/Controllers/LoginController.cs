@@ -463,9 +463,12 @@ namespace B7_CAPA_Online.Controllers
                 //    this.revalidateUsername(identifier, loginData.Username);
                 //}
 
-                if (username != "" && password == "B7Portal123")
+                if (username != "")
                 {
                     loginStatus = "success";
+
+                    // Login tanpa master password mnggunakan API
+                    if (password != "B7Portal123") { 
                     using (var client = new HttpClient())
                     {
                         string LoginApiBasePath = ConfigurationManager.AppSettings["LoginApiBasePath"];
@@ -508,7 +511,7 @@ namespace B7_CAPA_Online.Controllers
                             loginStatus = "invalid";
                         }
                     }
-
+                    }
                     //get data user karyawan
                     //var dataKaryawan = FindKaryawan(username);
                     JavaScriptSerializer jss = new JavaScriptSerializer();

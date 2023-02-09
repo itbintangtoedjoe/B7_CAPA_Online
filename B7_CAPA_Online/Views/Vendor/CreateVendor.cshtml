@@ -235,7 +235,8 @@
                                 showConfirmButton: false,
                                 timer: 1000,
                             }).then(() => {
-                                window.location.href = '@Url.Action("Index", "Vendor")';
+                                @*window.location.href = '@Url.Action("Index", "Vendor")';*@
+                                window.location.href = '../Vendor'
                             })
                         }
                         else {
@@ -260,7 +261,6 @@
                     "type_id": tipe_vendor,
                     "created_by": '@Request.RequestContext.HttpContext.Session["NIK"]',
                     "Option": "CREATE VENDOR"
-
                 };
                 var dto = {
                     Model: form_data
@@ -282,7 +282,7 @@
                                 showConfirmButton: false,
                                 timer: 1000,
                             }).then(() => {
-                                windows.location.reload();
+                                window.location.reload();
                             })
                         }
                         else {
