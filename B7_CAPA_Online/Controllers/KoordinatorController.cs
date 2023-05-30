@@ -198,7 +198,7 @@ namespace B7_CAPA_Online.Controllers
                 }
                 else
                 {
-                    filePath = @"..\File Upload Intranet\CAPA_Online\Koordinator";
+                    filePath = Path.Combine(Server.MapPath(@"../File Upload Intranet/CAPA_Online/Koordinator/"), file.FileName);
                 }
                 //string filePath = Path.Combine(@"\\b7-dc1webapps\Attachment\Koordinator\", fileName);
 
@@ -213,7 +213,7 @@ namespace B7_CAPA_Online.Controllers
                 }
                 file.SaveAs(filePath);
                 DataRow rowstype = dt.NewRow();
-                rowstype["LAMPIRAN_TERKAIT"] = filePath;
+                rowstype["LAMPIRAN_TERKAIT"] = Path.Combine(@"../File Upload Intranet/CAPA_Online/Koordinator/", file.FileName);
                 rowstype["FILE_NAME"] = file.FileName;
                 rowstype["ENCRYPT_PATH"] = pathencrypt;
                 dt.Rows.Add(rowstype);
@@ -679,7 +679,7 @@ namespace B7_CAPA_Online.Controllers
                 }
                else
                 {
-                    filePath = @"..\File Upload Intranet\CAPA_Online\Koordinator";
+                    filePath = Path.Combine(@"..\File Upload Intranet\CAPA_Online\Koordinator",fileName);
                 }
                 //string filePath = Path.Combine(@"\\b7-dc1webapps\Attachment\Koordinator\", fileName);
 

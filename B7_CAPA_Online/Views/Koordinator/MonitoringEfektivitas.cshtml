@@ -719,14 +719,16 @@
         $('#Tabel_File tbody').on('click', 'a.LampiranAttachmet', function () {
             var row = $(this).closest("TR");
             var data = $('#Tabel_File').DataTable().row(row).data();
-            var encrypt = data['ENCRYPT_PATH'];
+            /*var encrypt = data['ENCRYPT_PATH'];*/
+            var encrypt = data['FILE_PATH'];
             DownloadAttachment(encrypt);
         })
     });
 
     function DownloadAttachment(filepath) {
         console.log(filepath);
-        window.open("https://portal.bintang7.com/CommonService/api/Download?path=" + filepath + "");
+        /*window.open("https://portal.bintang7.com/CommonService/api/Download?path=" + filepath + "");*/
+        window.open("" + filepath + "");
     }
     function disableAll() {
         $('input[name="File_Radio"]').attr("disabled", true);

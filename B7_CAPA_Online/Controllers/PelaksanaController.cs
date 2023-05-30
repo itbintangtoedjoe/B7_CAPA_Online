@@ -228,11 +228,9 @@ namespace B7_CAPA_Online.Controllers
                 }
                 else
                 {
-                     b7path = @"..\File Upload Intranet\CAPA_Online\Perbaikan";
+                     b7path = @"../File Upload Intranet/CAPA_Onlin/Perbaikan/";
                 }
-#pragma warning disable CS0219 // The variable 'locpath' is assigned but its value is never used
                 var locpath = @"\\b7-dc1webapps\Attachment\Perbaikan\";
-#pragma warning restore CS0219 // The variable 'locpath' is assigned but its value is never used
                 if (ConfigurationManager.AppSettings["UploadPath"].ToString() == "true")
                 {
                     if (kategori.Contains("Pencegahan"))
@@ -254,14 +252,14 @@ namespace B7_CAPA_Online.Controllers
                 {
                     if (kategori.Contains("Pencegahan"))
                     {
-                        b7path = @"..\File Upload Intranet\CAPA_Online\Pencegahan";
+                        b7path = @"../File Upload Intranet/CAPA_Online/Pencegahan/";
                         locpath = @"\\b7-dc1webapps\Attachment\Pencegahan\";
                         action = "Insert Pencegahan";
                         tipe = "Pencegahan";
                     }
                     if (kategori.Contains("Treatment"))
                     {
-                        b7path = @"..\File Upload Intranet\CAPA_Online\Treatment";
+                        b7path = @"../File Upload Intranet/CAPA_Online/Treatment/";
                         locpath = @"\\b7-dc1webapps\Attachment\Treatment\";
                         action = "Insert Treatment";
                         tipe = "Treatment";
@@ -277,14 +275,14 @@ namespace B7_CAPA_Online.Controllers
                     
                     //var path = Path.Combine(b7path, updater + '_' + fileName);
                     //var local = Path.Combine(locpath, updater + '_' + fileName);
-                    string path = Path.Combine(b7path, updater + '_' + fileName);
+                    string path = Path.Combine(Server.MapPath(b7path), fileName);
                     //file.SaveAs(local);
                     var pathencrypt = "";
                     if (ConfigurationManager.AppSettings["UploadPath"].ToString() == "true")
                     {
                         var encrypt = C_EncryptPath(path);
                         var data = jss.Deserialize<dynamic>(encrypt);
-
+                            
                         pathencrypt = data["Data"]["EncrptedString"];
 
 
@@ -302,9 +300,9 @@ namespace B7_CAPA_Online.Controllers
                     { "NIK", updater },
                     { "FKID", tindakanID },
                     { "FileName", fileName },
-                    { "FilePath", path },
+                    { "FilePath", b7path + fileName },
                     { "EncryptPath", pathencrypt },
-                };
+                 };
                     var attParameters = new DynamicParameters(attDictionary);
                     attResult = DAL.StoredProcedure(attParameters, "SP_Attachment_Pelaksanaan");
 

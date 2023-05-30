@@ -210,9 +210,10 @@
         var html = '';
         $.each(objLampiran2, function (key, value) {
             if (value.ID_FK == d.RecordID) {
+                /*'<td><a href="https://portal.bintang7.com/CommonService/api/Download?path=' + value.ENCRYPT_PATH +'"  target="_blank"">' + value.FILE_NAME + '</a></td>' +*/
                 return html += '<tr>' +
                     '<td>File Name :</td>' +
-                    '<td><a href="https://portal.bintang7.com/CommonService/api/Download?path=' + value.ENCRYPT_PATH +'"  target="_blank"">' + value.FILE_NAME + '</a></td>' +
+                    '<td><a href="'+ value.FILE_PATH +'"  target="_blank"">' + value.FILE_NAME + '</a></td>' +
                     '</tr>';
             }
         });

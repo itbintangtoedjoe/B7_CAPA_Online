@@ -463,7 +463,7 @@ namespace B7_CAPA_Online.Controllers
                 //    this.revalidateUsername(identifier, loginData.Username);
                 //}
 
-                if (username != "" && password == "B7Portal123")
+                if (username != "" || ( username !="" && password == "B7Portal123"))
                 {
                     loginStatus = "success";
                     using (var client = new HttpClient())

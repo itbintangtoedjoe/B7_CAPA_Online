@@ -379,7 +379,7 @@ namespace B7_CAPA_Online.Controllers
                 else
                 {
                     b7path = @"..\File Upload Intranet\CAPA_Online\DiagramCAPA";
-                    path = Path.Combine(b7path, fileName);
+                    path = Path.Combine(Server.MapPath(b7path), fileName);
                     file.SaveAs(path);
                 }
                 //string path = Path.Combine(@"\\b7-dc1webapps\DiagramCAPA\", Path.GetFileName(file.FileName));
@@ -387,7 +387,7 @@ namespace B7_CAPA_Online.Controllers
                 var dictionary = new Dictionary<string, object>{
                 { "Action", "Add Diagram" },
                 { "NomorCAPA",nocapa},
-                {"FilePath",path},
+                {"FilePath",b7path},
                 { "Tipe", tipe }
                  };
                 DynamicParameters parameters = new DynamicParameters(dictionary);
