@@ -736,24 +736,27 @@
 
         $('#tblAttachmentPerbaikan tbody').on('click', 'a.AttachmentPerbaikan', function (e) {
             var row = $(this).closest("TR").index();
-            var filepath = attachmentPerbaikan[row].ENCRYPT_PATH;
-            DownloadAttachment(filepath)
+            /*var filepath = attachmentPencegahan[row].ENCRYPT_PATH;*/
+            var filepath = attachmentPencegahan[row].FILE_PATH;
+            DownloadAttachment(filepath)    
         });
         $('#tblAttachmentPencegahan tbody').on('click', 'a.AttachmentPencegahan', function (e) {
             var row = $(this).closest("TR").index();
-            var filepath = attachmentPencegahan[row].ENCRYPT_PATH;
+            /*var filepath = attachmentPencegahan[row].ENCRYPT_PATH;*/
+            var filepath = attachmentPencegahan[row].FILE_PATH;
             DownloadAttachment(filepath)
         });
         $('#tblAttachmentTreatment tbody').on('click', 'a.AttachmentTreatment', function (e) {
             var row = $(this).closest("TR").index();
-            var filepath = attachmentKajian[row].ENCRYPT_PATH;
+            /*var filepath = attachmentPencegahan[row].ENCRYPT_PATH;*/
+            var filepath = attachmentPencegahan[row].FILE_PATH;
             DownloadAttachment(filepath);
         })
     });
 
     function DownloadAttachment(filepath) {
         console.log(filepath);
-        window.open("https://portal.bintang7.com/CommonService/api/Download?path=" + filepath + "");
+        window.open("" + filepath + "");
     }
 
 

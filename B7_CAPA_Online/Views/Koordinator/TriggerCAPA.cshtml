@@ -370,7 +370,8 @@
         $('#Tbl_Lampiran tbody').on('click', 'a.LampiranAttachmet', function (e) {
             var row = $(this).closest("TR");
             var data = $('#Tbl_Lampiran').DataTable().row(row).data();
-            var encrypt = data['ENCRYPT_PATH'];
+            /*var encrypt = data['ENCRYPT_PATH'];*/
+            var encrypt = data['FILE_PATH'];
             DownloadAttachment(encrypt);
         });
         $('#TxtFileInput').change(function () {
@@ -1611,7 +1612,8 @@
 
     function DownloadAttachment(filepath) {
         console.log(filepath);
-        window.open("https://portal.bintang7.com/CommonService/api/Download?path=" + filepath + "");
+        /*window.open("https://portal.bintang7.com/CommonService/api/Download?path=" + filepath + "");*/
+        window.open("" + filepath + "");
     }
 
 
